@@ -2,6 +2,7 @@
 
 package org.grails.plugin
 
+import grails.plugin.springcache.annotations.*
 import org.grails.wiki.WikiPage
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.grails.wiki.BaseWikiController
@@ -23,6 +24,8 @@ class PluginController extends BaseWikiController {
         redirect(controller:'plugin', action:home, params:params)
     }
 
+
+	@Cacheable("pluginCache")
     def home = {
         params.max = 5
         params.offset = params.offset ?: 0
@@ -89,7 +92,8 @@ class PluginController extends BaseWikiController {
 		render view:"home", model:[originAction:"all",
 								  pluginList:Plugin.list(max:10, offset: params.offset?.toInteger(), cache:true, sort:"name")]
 	}
-	
+
+	@Cacheable("pluginCache")	
     def show = {
         def plugin = byName(params)
         if (!plugin) {
@@ -105,6 +109,7 @@ class PluginController extends BaseWikiController {
         render view:'showPlugin', model:[plugin:plugin, userRating: userRating]
     }
 
+	@CacheFlush("pluginCache")
     def editPlugin = {
         def plugin = Plugin.get(params.id)
         if(plugin) {
@@ -129,6 +134,7 @@ class PluginController extends BaseWikiController {
         }
     }
 
+	@CacheFlush("pluginCache")
     def createPlugin = {
         // just in case this was an ad hoc creation where the user logged in during the creation...
         if (params.name) params.name = params.name - '?action=login'

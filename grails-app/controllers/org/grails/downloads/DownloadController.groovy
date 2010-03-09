@@ -3,6 +3,7 @@ package org.grails.downloads
 
 import net.sf.ehcache.Element
 import net.sf.ehcache.Ehcache
+import grails.plugin.springcache.annotations.*
 
 class DownloadController {
     
@@ -10,6 +11,7 @@ class DownloadController {
 
     Ehcache downloadCache
 
+	@Cacheable("downloadCache")
     def latest = {
 
         def stableDownload = getCachedOr("Grails") {
@@ -54,6 +56,7 @@ class DownloadController {
         return obj
     }
 
+	@Cacheable("downloadCache")
     def archive = {
         def downloads = Download.findAllBySoftwareName(params.id, [order:'desc', sort:'releaseDate', cache:true])
 
@@ -88,6 +91,8 @@ class DownloadController {
         def downloadFile = DownloadFile.get(params.id)
         [downloadFile:downloadFile]
     }
+
+	@CacheFlush("downloadCache")
     def addFile = { AddFileCommand cmd ->
         def download = Download.get(params.id)
         if(request.method == 'POST') {
@@ -109,6 +114,7 @@ class DownloadController {
 
     }
 
+	@CacheFlush("downloadCache")
     def deleteMirror = {
         def mirror = Mirror.get(params.id)
         if(mirror) {
@@ -120,6 +126,7 @@ class DownloadController {
         }
     }
 
+	@CacheFlush("downloadCache")
     def addMirror = {
         def downloadFile = DownloadFile.get(params.id)
 
@@ -182,6 +189,7 @@ class DownloadController {
         }
     }
 
+	@CacheFlush("downloadCache")
     def update = {
         def download = Download.get( params.id )
         if(download) {
@@ -205,6 +213,7 @@ class DownloadController {
         return ['download':download]
     }
 
+	@CacheFlush("downloadCache")
     def save = {
         def download = new Download(params)
         if(!download.hasErrors() && download.save()) {

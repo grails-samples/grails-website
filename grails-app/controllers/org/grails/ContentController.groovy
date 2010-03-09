@@ -1,6 +1,6 @@
 package org.grails
 
-
+import grails.plugin.springcache.annotations.*
 import javax.servlet.ServletContext
 import org.springframework.web.multipart.MultipartFile
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
@@ -93,6 +93,8 @@ class ContentController extends BaseWikiController {
         }
     }
 
+
+	@Cacheable("contentCache")
     def index = {
         def pageName = params.id
 
@@ -204,6 +206,7 @@ class ContentController extends BaseWikiController {
         [pageName:params.id?.decodeURL()]
     }
 
+	@CacheFlush(["contentCache","pluginCache"])
     def saveWikiPage = {
       if(request.method == 'POST') {
           if(!params.id) {
@@ -274,6 +277,7 @@ class ContentController extends BaseWikiController {
 
     }
 
+	@CacheFlush(["contentCache","pluginCache"])
     def rollbackWikiVersion = {
         if(request.method == 'POST') {
             def page = WikiPage.findByTitle(params.id.decodeURL())
