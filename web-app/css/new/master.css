@@ -48,9 +48,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 #springSourceBar #searchbar {
 	float:right;
-	position:relative;
+	position:absolute;
 	width:210px;
-	left:190px;
+	right:0;
 	top:59px;
     background: url(../../images/new/searchbar.png) no-repeat top;		
 }

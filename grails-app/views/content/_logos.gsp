@@ -4,7 +4,7 @@
 	</div>
 
 	<div id="springSourceLogo">
-		<a href="http://www.springsource.com/"><img src="${resource(dir:'images/new', file:'springsource-logo.jpg')}" border="0"></a>			
+		<a href="http://www.springsource.com/"><img src="${resource(dir:'images/new', file:'springsource.png')}" border="0"></a>			
 	</div>
 	<div id="searchbar">
 		<g:form method="GET" url="[controller:'content', action:'search']" name="searchForm">
