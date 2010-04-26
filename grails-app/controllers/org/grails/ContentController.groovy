@@ -397,6 +397,7 @@ class ContentController extends BaseWikiController {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
         def newsItems = BlogEntry.list(max:3, cache:true, order:"desc", sort:"dateCreated")
+
         // make it easy to get the month and day
         newsItems.each {
             it.metaClass.getMonth = { ->
@@ -411,9 +412,7 @@ class ContentController extends BaseWikiController {
                 model:[
                     newestPlugins:newestPlugins, 
                     newsItems:newsItems,
-                    latestScreencastId: latestScreencastId,
-					newsComments:newsItems?.collect { it.comments },
-					newsTags:newsItems?.collect { it.tags }
+                    latestScreencastId: latestScreencastId
                 ]
         )
     }

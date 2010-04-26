@@ -118,7 +118,7 @@
                                     <g:link controller="blog"  action="showEntry" params="[author:newsItem.author, title: newsItem.title]">
                                         <div class="detail">
                                             <h4><wiki:shorten length="50" text="${newsItem.title}" /></h4>
-                                            <div class="author">by ${newsItem.author} | ${newsItem.tags.join(', ')}</div>
+                                            <div class="author">by ${newsItem.author} </div>
                                             <div class="comments">${newsItem.comments.size()} comments</div>
                                         </div>
                                         <div class="calendar">

@@ -54,6 +54,7 @@ environments {
 }
 
 springcache {
+	disabled = true
     defaults {
         // set default cache properties that will apply to all caches that do not override them
         eternal = false
