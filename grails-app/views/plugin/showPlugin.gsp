@@ -88,7 +88,7 @@
     <jsec:isLoggedIn>
         <gui:dialog id='addTagDialog'
             title='Add Tags'
-            form='true' url="${ '\''+createLink(controller:'plugin', action:'addTag', params:[id:plugin.id])+'\'' }"
+            form='true' url="${createLink(controller:'plugin', action:'addTag', params:[id:plugin.id])}"
             triggers="[show:[id:'addTagTrigger',on:'click']]"
             update='pluginTags'
         >
