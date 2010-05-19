@@ -12,28 +12,41 @@ grails.project.dependency.resolution = {
     repositories {        
         grailsPlugins()
         grailsHome()
-		grailsCentral()
-
-        // uncomment the below to enable remote dependency resolution
-        // from public Maven repositories
-        //mavenLocal()
-        //mavenCentral()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
+        grailsCentral()
         mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
+    }
+    plugins {
+        runtime ":autobase:0.8.5",
+                ":avatar:0.3",
+                ":bubbling:2.1.2",
+                ":commentable:0.7.4",
+                ":feeds:1.5",
+                ":grails-ui:1.2-SNAPSHOT",
+                ":hibernate:1.3.1",
+                ":jsecurity:0.3",
+                ":mail:0.5",
+                ":quartz:0.4.1-SNAPSHOT",
+                ":rateable:0.6.2",
+                ":richui:0.6",
+                ":screencasts:0.4",
+                ":searchable:0.5.5",
+                ":simple-blog:0.1.3",
+                ":springcache:1.2",
+                ":taggable:0.6.1",
+                ":yui:2.7.0.1"
+
+        build   ":db-util:0.4",
+                ":tomcat:1.3.1"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-		compile("org.codehaus.groovy:groovy-all:1.6.4") {
-			excludes 'jline'
-		}
-        // uncomment to enable ehcache
-        runtime ("net.sf.ehcache:ehcache:1.6.1") {
-            excludes 'jms', 'commons-logging', 'servlet-api'
+        compile "org.codehaus.groovy:groovy-all:1.6.4", {
+            excludes 'jline'
         }
         
-        // runtime 'mysql:mysql-connector-java:5.1.5'
+        runtime "net.sf.ehcache:ehcache:1.6.1", {
+            excludes 'jms', 'commons-logging', 'servlet-api'
+        }
     }
 
 }
