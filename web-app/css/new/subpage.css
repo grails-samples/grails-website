@@ -165,8 +165,9 @@ textarea {
 	font-size:1.0em;	
 	border-bottom:1px solid #48802C;
 }
+
 #viewLinks {
-	padding-bottom:20px;
+	padding-bottom:10px;
 }
 
 #contentWindow h1 {

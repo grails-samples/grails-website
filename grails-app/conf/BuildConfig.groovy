@@ -43,7 +43,7 @@ grails.project.dependency.resolution = {
         compile "org.codehaus.groovy:groovy-all:1.6.4", {
             excludes 'jline'
         }
-        
+
         runtime "net.sf.ehcache:ehcache:1.6.1", {
             excludes 'jms', 'commons-logging', 'servlet-api'
         }

@@ -15,7 +15,7 @@ class WikiPage extends Content {
     }
 	
 	static hasMany = [versions:Version]
-
+    static transients = ["latestVersion"]
     static searchable = [only: ['body', 'title']]
 
 	static constraints = {
@@ -25,6 +25,14 @@ class WikiPage extends Content {
 
     def onAddComment = { comment ->
         cacheService?.flushWikiCache()
+    }
+
+    def getLatestVersion() {
+        Version.withCriteria(uniqueResult: true) {
+            eq("current", this)
+            order "number", "desc"
+            maxResults 1
+        }
     }
 
     String toString() {

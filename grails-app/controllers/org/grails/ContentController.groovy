@@ -110,18 +110,25 @@ class ContentController extends BaseWikiController {
                 if (request.xhr) {
                     // update the wikiTab, not the whole contentPane
                     def wikiPage = wikiPageService.getCachedOrReal(pageName)
-                    return render(template:"wikiShow", model:[content:wikiPage, update:"${pageName.split('-')[0]}Tab"])
+                    def latestVersion = wikiPage.latestVersion
+                    return render(template:"wikiShow", model:[
+                            content:wikiPage,
+                            update:"${pageName.split('-')[0]}Tab",
+                            latest:latestVersion])
                 }
                 redirect(controller:'plugin', action:'show', params:[name:plugin.name])
             }
             else {
                 def wikiPage = wikiPageService.getCachedOrReal(pageName)
                 if(wikiPage) {
+                    // This property involves a query, so we fetch it here rather
+                    // than in the view.
+                    def latestVersion = wikiPage.latestVersion
                     if(request.xhr) {
-                        render(template:"wikiShow", model:[content:wikiPage, update:params.update])
+                        render(template:"wikiShow", model:[content:wikiPage, update:params.update, latest:latestVersion])
                     } else {
 						// disable comments
-						render(view:"contentPage", model:[content:wikiPage])
+						render(view:"contentPage", model:[content:wikiPage, latest:latestVersion])
                     }
                 }
                 else {
@@ -258,7 +265,11 @@ class ContentController extends BaseWikiController {
 							assert v.save()
 
                             evictFromCache(params.id)
-                            render(template:"wikiShow", model:[content:page, message:"wiki.page.updated", update: params.update])
+                            render(template:"wikiShow", model:[
+                                    content:page,
+                                    message:"wiki.page.updated",
+                                    update: params.update,
+                                    latest:v])
                         }
                     }
                 }

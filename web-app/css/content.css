@@ -11,6 +11,7 @@
     margin: 0;
     white-space: nowrap;
     list-style-type: none;
+    width: 60%;
 }
 
 .wikiActionMenu li {
@@ -29,6 +30,13 @@
 .wikiActionMenu li a:hover {
     /*background: #08c;*/
     /*color: #fff;*/
+}
+
+#wikiLastUpdated {
+    font-size: 90%;
+    font-style: italic;
+    padding-left: 15px;
+    padding-bottom: 0.5em;
 }
 
 .wikiLinks {

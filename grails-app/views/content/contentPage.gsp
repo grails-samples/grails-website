@@ -17,6 +17,7 @@
 </head>
 <body>
     <div id="contentPane">
+        <div id="wikiLastUpdated">Last updated by ${latest?.author?.login} <prettytime:display date="${content.lastUpdated}"/></div>
         <g:render template="viewActions" model="[content:content]" />
         <div id="editPane" style="margin-top:10px;">
             <wiki:text key="${content?.title}">
