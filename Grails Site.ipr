@@ -66,11 +66,7 @@
       </facet-type>
       <facet-type id="web">
         <modules>
-          <module name="Grails Site">
-            <files>
-              <file url="file://$PROJECT_DIR$/target/resources/web.xml" />
-            </files>
-          </module>
+          <module name="Grails Site" />
         </modules>
       </facet-type>
     </autodetection-disabled>
@@ -223,6 +219,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/src/Grails Site.iml" filepath="$PROJECT_DIR$/src/Grails Site.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/Grails Site-grailsPlugins.iml" filepath="$PROJECT_DIR$/src/Grails Site-grailsPlugins.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
