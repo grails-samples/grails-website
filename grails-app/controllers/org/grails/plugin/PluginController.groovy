@@ -1,5 +1,3 @@
-
-
 package org.grails.plugin
 
 import grails.plugin.springcache.annotations.*
@@ -21,7 +19,7 @@ class PluginController extends BaseWikiController {
     def commentService
 
     def index = {
-        redirect(controller:'plugin', action:home, params:params)
+        redirect(controller:'plugin', action:'home', params:params)
     }
 
 

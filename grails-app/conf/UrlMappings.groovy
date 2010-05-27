@@ -6,9 +6,9 @@ class UrlMappings {
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
-        
-        "/Plugins"(controller: "plugin", action: "index")
-        "/plugins"(controller: "plugin", action: "index")
+
+        "/Plugins"(controller: "plugin")
+        "/plugins"(controller: "plugin", action: "home")
         "/plugin/$name"(controller: "plugin", action:"show")
         "/plugin/home"(controller: "plugin", action:"home")
         "/plugin/search"(controller: "plugin", action:"search")
@@ -22,7 +22,6 @@ class UrlMappings {
         "/plugin/postComment/$id"(controller: "plugin", action:"postComment")
         "/plugin/latest"(controller: "plugin", action: "latest")
 		"/plugin/category/$category"(controller:"plugin", action:"home")
-
         "/plugin/showComment/$id"(controller: 'plugin', action:'showComment')
 
         "/content/postComment/$id"(controller: "content", action:"postComment")

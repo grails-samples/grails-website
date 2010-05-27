@@ -6,7 +6,6 @@
     <li><g:link controller="content" id="Testimonials">Case Studies</g:link></li>
     <li><g:link controller="content" id="Community">Community</g:link></li>
     <li><g:link controller="content" id="Download">Downloads</g:link></li>
+    <li><g:link controller="plugin" action="home">Plugins</g:link> </li>
     <li><g:link controller="content" id="Documentation">Documentation</g:link></li>
-	<li>
-	</li>
 </ul><!-- mainMenuBar -->
