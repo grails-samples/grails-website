@@ -10,23 +10,23 @@ target(main:"the default target") {
 	def password = argsMap.pass
 	def url = argsMap.url
 	
-        if (url) {
-            if (username == null || password == null) {
-                println "When you use the --url argument, you must also specify --username and --password."
-                exit(1)
-            }
-
-            // mock out the production JNDI settings
-            def builder = new SimpleNamingContextBuilder();
-            def ds = new BasicDataSource()
-            ds.username = username
-            ds.password = password
-            ds.url = url
-            ds.driverClassName = "com.mysql.jdbc.Driver"
-	
-            builder.bind("java:comp/env/jdbc/grailsSiteDS", ds)
-            builder.activate()
+    if (url) {
+        if (username == null || password == null) {
+            println "When you use the --url argument, you must also specify --username and --password."
+            exit(1)
         }
+
+        // mock out the production JNDI settings
+        def builder = new SimpleNamingContextBuilder();
+        def ds = new BasicDataSource()
+        ds.username = username
+        ds.password = password
+        ds.url = url
+        ds.driverClassName = "com.mysql.jdbc.Driver"
+
+        builder.bind("java:comp/env/jdbc/grailsSiteDS", ds)
+        builder.activate()
+    }
 	
 	try {
             bootstrap()
