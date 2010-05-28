@@ -9,6 +9,7 @@ class UrlMappings {
 
         "/Plugins"(controller: "plugin")
         "/plugins"(controller: "plugin", action: "home")
+        "/plugins/forum"(controller: "plugin", action: "forum")
         "/plugin/$name"(controller: "plugin", action:"show")
         "/plugin/home"(controller: "plugin", action:"home")
         "/plugin/search"(controller: "plugin", action:"search")

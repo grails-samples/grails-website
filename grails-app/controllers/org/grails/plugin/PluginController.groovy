@@ -86,6 +86,8 @@ class PluginController extends BaseWikiController {
         
     }
 
+    def forum = {}
+
 	def all = {
 		render view:"home", model:[originAction:"all",
 								  pluginList:Plugin.list(max:10, offset: params.offset?.toInteger(), cache:true, sort:"name")]
