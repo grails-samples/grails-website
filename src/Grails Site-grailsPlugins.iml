@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../plugins/pretty-time-0.3">
+      <sourceFolder url="file://$MODULE_DIR$/../plugins/pretty-time-0.3/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../plugins/pretty-time-0.3/grails-app/taglib" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="grails-1.3.1" level="application" />
+    <orderEntry type="module-library" exported="">
+      <library name="Grails User Library">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../plugins/pretty-time-0.3/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../plugins/pretty-time-0.3/lib" recursive="false" />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+
