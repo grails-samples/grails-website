@@ -12,8 +12,10 @@
   <meta name="layout" content="pluginLayout">
 </head>
 <body>
-  <div style="background-color: transparent; margin-left: auto; margin-right: auto; width: 900px">
+  <div id="forumTop">&nbsp;</div>
+  <div id="forumWrapper">
     <a id="nabblelink" href="http://grails-plugins.847840.n3.nabble.com/">Grails Plugins</a>
     <script type="text/javascript" src="http://n3.nabble.com/embed/f847840"></script>
   </div>
+  <div id="forumBottom">&nbsp;</div>
 </body>

@@ -338,3 +338,26 @@ body {
 	color:#48802C;
 	padding:100px;
 }
+
+#forumTop {
+    background: url(../../images/new/plugins/forum_top.png) no-repeat center top;
+    position: relative;
+    top: 50px;
+    width: 1008px;
+}
+
+#forumWrapper {
+    background: url(../../images/new/plugins/forum_mdl.png) repeat-y center top;
+    overflow: hidden;
+    position: relative;
+    top: 50px;
+    width: 1008px;
+}
+
+#forumBottom {
+    background: url(../../images/new/plugins/forum_btm.png) no-repeat center bottom;
+    position: relative;
+    top: 50px;
+    width: 1008px;
+}
+
