@@ -32,7 +32,7 @@
 	                    <li><a href="http://github.com/grails/grails/tree/master">Source code</a></li>	
 	                    <li><g:link controller="content" id="Plugins">Plugins</g:link></li>
 	                    <li><g:link controller="content" id="Mailing lists">Mailing Lists</g:link></li>
-						<li><a href="http://www.nabble.com/grails---user-f11861.html">Nabble Forums</a></li>
+						<li><a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble Forums</a></li>
 	                </ul>
 	                </li>
 	    <!--			<li><a href="">Weblog</a></li>-->
