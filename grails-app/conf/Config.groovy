@@ -1,10 +1,7 @@
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
+grails.config.locations = [ "file:/var/lib/grails/site-config.properties" ]
 
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
@@ -35,6 +32,11 @@ grails.views.default.codec="none" // none, html, base64
 grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 grails.app.context = "/"
+
+// Load GSPs from external location so that they can easily be updated. The
+// actual location of the views is specified in the site-config.properties
+// file - see the beginning of this file for its location.
+grails.gsp.enable.reload = true
 
 // enabled native2ascii conversion of i18n properties files
 grails.enable.native2ascii = true
