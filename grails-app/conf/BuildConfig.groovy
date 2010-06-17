@@ -4,10 +4,7 @@ grails.project.plugins.dir = "plugins"
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
-    inherits( "global" ) {
-        // uncomment to disable oscache
-        excludes 'groovy-all'
-    }
+    inherits( "global" )
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {        
         grailsPlugins()
@@ -25,9 +22,6 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-		compile("org.codehaus.groovy:groovy-all:1.6.4") {
-			excludes 'jline'
-		}
         // uncomment to enable ehcache
         runtime ("net.sf.ehcache:ehcache:1.6.1") {
             excludes 'jms', 'commons-logging', 'servlet-api'
