@@ -211,7 +211,7 @@ class PluginController extends BaseWikiController {
 
         withFormat {
             html {
-                redirect(uri:"")
+                redirect(action: "home")
             }
             rss {
                 render(feedType:"rss",feedOutput)
