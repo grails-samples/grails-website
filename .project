@@ -78,19 +78,19 @@
 			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/commentable-0.7.4/src/groovy</location>
 		</link>
 		<link>
-			<name>feeds-1.4-grails-app-i18n</name>
+			<name>feeds-1.5-grails-app-i18n</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/feeds-1.4/grails-app/i18n</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/feeds-1.5/grails-app/i18n</location>
 		</link>
 		<link>
-			<name>feeds-1.4-grails-app-taglib</name>
+			<name>feeds-1.5-grails-app-taglib</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/feeds-1.4/grails-app/taglib</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/feeds-1.5/grails-app/taglib</location>
 		</link>
 		<link>
-			<name>feeds-1.4-src-groovy</name>
+			<name>feeds-1.5-src-groovy</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/feeds-1.4/src/groovy</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/feeds-1.5/src/groovy</location>
 		</link>
 		<link>
 			<name>grails-ui-1.2-SNAPSHOT-grails-app-conf</name>
