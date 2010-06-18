@@ -9,6 +9,8 @@
 	<classpathentry kind="src" path="grails-app/taglib"/>
 	<classpathentry kind="src" path="test/integration"/>
 	<classpathentry kind="src" path="test/unit"/>
+	<classpathentry kind="src" path="grails-app/jobs"/>
+	<classpathentry kind="src" path="grails-app/realms"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.springsource.sts.grails.core.CLASSPATH_CONTAINER"/>
 	<classpathentry kind="src" path="autobase-0.8.5-grails-app-i18n">
