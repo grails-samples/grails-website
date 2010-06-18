@@ -4,7 +4,7 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder
 
 environments {
     production {
-    	def target = ServletContextHolder.servletContext.getInitParameter("deployTarget")
+    	def target = ServletContextHolder.servletContext?.getInitParameter("deployTarget")
         grails.config.locations = [ "file:/var/lib/grails/site-config${target ? '-' + target : ''}.properties" ]
     }
 }
