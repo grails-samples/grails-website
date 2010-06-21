@@ -1,17 +1,16 @@
 package org.grails.auth
 
-import org.jsecurity.authc.AccountException
-import org.jsecurity.authc.IncorrectCredentialsException
-import org.jsecurity.authc.UnknownAccountException
-import org.jsecurity.authc.SimpleAccount
+import org.apache.shiro.authc.AccountException
+import org.apache.shiro.authc.IncorrectCredentialsException
+import org.apache.shiro.authc.UnknownAccountException
+import org.apache.shiro.authc.SimpleAccount
 
 import org.grails.auth.User
-import org.jsecurity.authc.credential.CredentialsMatcher
 
 class WikiRealm {
-    static authTokenClass = org.jsecurity.authc.UsernamePasswordToken
+    static authTokenClass = org.apache.shiro.authc.UsernamePasswordToken
 
-    CredentialsMatcher credentialMatcher
+    def credentialMatcher
 
     def authenticate(authToken) {
         log.info "Attempting to authenticate ${authToken.username} in DB realm..."
@@ -39,7 +38,7 @@ class WikiRealm {
             throw new IncorrectCredentialsException("Invalid password for user '${username}'")
         }
 
-        return username
+        return account
     }
 
     def hasRole(principal, roleName) {

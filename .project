@@ -113,34 +113,9 @@
 			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/grails-ui-1.2-SNAPSHOT/src/groovy</location>
 		</link>
 		<link>
-			<name>jsecurity-0.3-grails-app-conf</name>
+			<name>jetty-1.2-SNAPSHOT-src-groovy</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/jsecurity-0.3/grails-app/conf</location>
-		</link>
-		<link>
-			<name>jsecurity-0.3-grails-app-controllers</name>
-			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/jsecurity-0.3/grails-app/controllers</location>
-		</link>
-		<link>
-			<name>jsecurity-0.3-grails-app-i18n</name>
-			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/jsecurity-0.3/grails-app/i18n</location>
-		</link>
-		<link>
-			<name>jsecurity-0.3-grails-app-taglib</name>
-			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/jsecurity-0.3/grails-app/taglib</location>
-		</link>
-		<link>
-			<name>jsecurity-0.3-src-groovy</name>
-			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/jsecurity-0.3/src/groovy</location>
-		</link>
-		<link>
-			<name>jsecurity-0.3-src-java</name>
-			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/jsecurity-0.3/src/java</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/jetty-1.2-SNAPSHOT/src/groovy</location>
 		</link>
 		<link>
 			<name>mail-0.5-grails-app-services</name>
@@ -258,39 +233,59 @@
 			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/screencasts-0.4/grails-app/views</location>
 		</link>
 		<link>
-			<name>searchable-0.5.5-grails-app-conf</name>
+			<name>searchable-0.5.4-grails-app-conf</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5/grails-app/conf</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.4/grails-app/conf</location>
 		</link>
 		<link>
-			<name>searchable-0.5.5-grails-app-controllers</name>
+			<name>searchable-0.5.4-grails-app-controllers</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5/grails-app/controllers</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.4/grails-app/controllers</location>
 		</link>
 		<link>
-			<name>searchable-0.5.5-grails-app-i18n</name>
+			<name>searchable-0.5.4-grails-app-services</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5/grails-app/i18n</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.4/grails-app/services</location>
 		</link>
 		<link>
-			<name>searchable-0.5.5-grails-app-services</name>
+			<name>searchable-0.5.4-grails-app-views</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5/grails-app/services</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.4/grails-app/views</location>
 		</link>
 		<link>
-			<name>searchable-0.5.5-grails-app-views</name>
+			<name>searchable-0.5.4-src-groovy</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5/grails-app/views</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.4/src/groovy</location>
 		</link>
 		<link>
-			<name>searchable-0.5.5-src-groovy</name>
+			<name>searchable-0.5.4-src-java</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5/src/groovy</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.4/src/java</location>
 		</link>
 		<link>
-			<name>searchable-0.5.5-src-java</name>
+			<name>shiro-1.1-SNAPSHOT-grails-app-conf</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5/src/java</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1-SNAPSHOT/grails-app/conf</location>
+		</link>
+		<link>
+			<name>shiro-1.1-SNAPSHOT-grails-app-i18n</name>
+			<type>2</type>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1-SNAPSHOT/grails-app/i18n</location>
+		</link>
+		<link>
+			<name>shiro-1.1-SNAPSHOT-grails-app-taglib</name>
+			<type>2</type>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1-SNAPSHOT/grails-app/taglib</location>
+		</link>
+		<link>
+			<name>shiro-1.1-SNAPSHOT-src-groovy</name>
+			<type>2</type>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1-SNAPSHOT/src/groovy</location>
+		</link>
+		<link>
+			<name>shiro-1.1-SNAPSHOT-src-java</name>
+			<type>2</type>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1-SNAPSHOT/src/java</location>
 		</link>
 		<link>
 			<name>simple-blog-0.1.3-grails-app-conf</name>
