@@ -25,7 +25,7 @@
                 <li><g:link controller="pluginAdmin" action="list">Plugins</g:link></li>
                 <plugin:isAvailable name="jobs">
                 	<li><g:link controller="jobAdmin" action="list">Jobs</g:link></li>
-				</plugin:isAvailable>
+                </plugin:isAvailable>
             </ul>
 
         </div>
