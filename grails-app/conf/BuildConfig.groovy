@@ -14,20 +14,12 @@ grails.project.dependency.resolution = {
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         //mavenLocal()
-        //mavenCentral()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
+        mavenCentral()
         mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         // uncomment to enable ehcache
-        runtime ("net.sf.ehcache:ehcache-core:1.7.1") {
-            excludes 'jms', 'commons-logging', 'servlet-api'
-        }
-        
-        // runtime 'mysql:mysql-connector-java:5.1.5'
     }
 
 }
