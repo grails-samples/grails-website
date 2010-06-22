@@ -23,7 +23,7 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         // uncomment to enable ehcache
-        runtime ("net.sf.ehcache:ehcache:1.6.1") {
+        runtime ("net.sf.ehcache:ehcache:1.7.1") {
             excludes 'jms', 'commons-logging', 'servlet-api'
         }
         
