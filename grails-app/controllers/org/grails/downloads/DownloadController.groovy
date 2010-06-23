@@ -68,10 +68,18 @@ class DownloadController {
 
         def mirror = params.mirror? Mirror.get(params.mirror) : null
         if(mirror) {
-            // This used to do a download count, but ran into problems with
-            // optimistic locking exceptions. Also, we'll probably move
-            // downloads to SpringSource's S3 account for which we will get
-            // download statistics.
+
+			def download = Download.createCriteria().get {
+				files {
+					mirrors {
+						eq 'id', mirror.id
+					}					
+				}
+				lock true
+			}
+            download.count++
+            download.save(flush:true)
+
             redirect(url:mirror.url)
         }
         else {

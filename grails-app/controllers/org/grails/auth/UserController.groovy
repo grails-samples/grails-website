@@ -137,7 +137,7 @@ class UserController {
 
             // If a controller redirected to this page, redirect back
             // to it. Otherwise redirect to the root URI.
-            def targetUri = params.remove(params.originalURI) ?: "/"
+            def targetUri = params.originalURI ?: "/"
             
             // Handle requests saved by Shiro filters.
             def savedRequest = WebUtils.getSavedRequest(request)

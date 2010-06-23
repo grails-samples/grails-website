@@ -12,16 +12,12 @@ hibernate {
 }
 // environment specific settings
 environments {
-    development {
-        dataSource {
-//            loggingSql = true
-            dbCreate = "update"
-            url = "jdbc:hsqldb:file:devDb;shutdown=true"
-            driverClassName = "org.hsqldb.jdbcDriver"
-            username = "sa"
-            password = ""
-        }
-    }
+	development {
+		dataSource {
+			logSql=true			
+			dbCreate = "update" // one of 'create', 'create-drop','update'
+		}
+	}
 	test {
 		dataSource {
 			dbCreate = "create-drop"
