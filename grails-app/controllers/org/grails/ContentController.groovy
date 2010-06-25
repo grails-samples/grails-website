@@ -192,9 +192,13 @@ class ContentController extends BaseWikiController {
             render(template:"/shared/remoteError", [code:"page.id.missing"])
         }
         else {
-            def page = WikiPage.findByTitle(params.id.decodeURL())
+            // WikiPage.findAllByTitle should only return record, but at this time
+            // (2010-06-24) it seems to be returning more on the grails.org server.
+            // This is to help determine whether that's what is in fact happening.
+            def pages = WikiPage.findAllByTitle(params.id.decodeURL(), [sort: "version", order: "desc"])
+            if (pages?.size() > 1) log.warn "[editWikiPage] WikiPage.findAllByTitle() returned more than one record!"
 
-            render(template:"wikiEdit",model:[wikiPage:page, update: params.update, editFormName: params.editFormName])
+            render(template:"wikiEdit",model:[wikiPage:pages[0], update: params.update, editFormName: params.editFormName])
         }
     }
 
@@ -211,9 +215,9 @@ class ContentController extends BaseWikiController {
                 render(template:"/shared/remoteError", model:[code:"page.id.missing"])
             }
             else {
-                WikiPage page = WikiPage.findByTitle(params.id.decodeURL())
-                if(!page) {
-                    page = new WikiPage(params)
+                def pages = WikiPage.findAllByTitle(params.id.decodeURL(), [sort: "version", order: "desc"])
+                if(!pages) {
+                    def page = new WikiPage(params)
                     if (page.locked == null) page.locked = false
                     page.save()
                     if(page.hasErrors()) {
@@ -231,6 +235,12 @@ class ContentController extends BaseWikiController {
                     }
                 }
                 else {
+                    // WikiPage.findAllByTitle should only return record, but at this time
+                    // (2010-06-24) it seems to be returning more on the grails.org server.
+                    // This is to help determine whether that's what is in fact happening.
+                    if (pages?.size() > 1) log.warn "[saveWikiPage] WikiPage.findAllByTitle() returned more than one record!"
+                    def page = pages[0]
+
                     if(page.version != params.version.toLong()) {
                         render(template:"wikiEdit",model:[wikiPage:page, error:"page.optimistic.locking.failure"])
                     }
