@@ -12,11 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.grails.auth;
+package org.grails.auth
 
 import grails.test.ControllerUnitTestCase
+import org.apache.shiro.authc.AuthenticationException
 import org.grails.meta.UserInfo
-import org.jsecurity.authc.AuthenticationException
 
 
 /**

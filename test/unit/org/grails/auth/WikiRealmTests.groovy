@@ -1,8 +1,8 @@
 package org.grails.auth
 
-import org.jsecurity.authc.*
 import org.apache.commons.logging.LogFactory
-import org.jsecurity.authc.credential.CredentialsMatcher
+import org.apache.shiro.authc.*
+import org.apache.shiro.authc.credential.CredentialsMatcher
 
 /**
 * @author Graeme Rocher
@@ -26,7 +26,7 @@ class WikiRealmTests extends GroovyTestCase {
             realm.authenticate username:"Fred"
         }
 
-        realm.credentialMatcher = [doCredentialsMatch:{ org.jsecurity.authc.AuthenticationToken authenticationToken, org.jsecurity.authc.Account account-> false }] as CredentialsMatcher
+        realm.credentialMatcher = [doCredentialsMatch:{ AuthenticationToken authenticationToken, Account account-> false }] as CredentialsMatcher
 
         User.metaClass.static.findByLogin = { String s -> 
 			new User(login:"Fred") }
@@ -35,7 +35,7 @@ class WikiRealmTests extends GroovyTestCase {
             realm.authenticate( new UsernamePasswordToken("Fred", "Frog" ) )
         }
 
-        realm.credentialMatcher = [doCredentialsMatch:{ org.jsecurity.authc.AuthenticationToken authenticationToken, org.jsecurity.authc.Account account-> true }] as CredentialsMatcher
+        realm.credentialMatcher = [doCredentialsMatch:{ AuthenticationToken authenticationToken, Account account-> true }] as CredentialsMatcher
 
         assertEquals "Fred", realm.authenticate(new UsernamePasswordToken("Fred", "Frog" ))
     }
