@@ -100,16 +100,12 @@ blog.author.evaluator= {
 
 // log4j configuration
 log4j = {
-    off 'org.codehaus.groovy.grails.web.servlet'
-
-    error  'org.codehaus.groovy.grails.web.pages', //  GSP
-	       'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-	       'org.codehaus.groovy.grails.commons', // core / classloading
-	       'org.codehaus.groovy.grails.plugins', // plugins
-	       'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-	       'org.springframework',
-	       'org.hibernate'
-	
-	//trace 'org.hibernate.SQL', 'org.hibernate.type'
-    warn   'org.mortbay.log'
+    warn   'org.codehaus.groovy.grails.web.servlet',
+           'org.codehaus.groovy.grails.web.pages', //  GSP
+	   'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+	   'org.codehaus.groovy.grails.commons', // core / classloading
+	   'org.codehaus.groovy.grails.plugins', // plugins
+	   'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+	   'org.springframework',
+	   'org.hibernate'
 }
