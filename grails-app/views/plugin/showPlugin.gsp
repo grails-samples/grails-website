@@ -15,14 +15,14 @@
 			<h1 id="pluginBoxTitle">${plugin?.title}</h1>
 
 			<div class="ratingBox">
-			    <jsec:isLoggedIn>
+			    <shiro:isLoggedIn>
 					<rateable:ratings bean="${plugin}"/>						
-			    </jsec:isLoggedIn>
-			    <jsec:isNotLoggedIn>
+			    </shiro:isLoggedIn>
+			    <shiro:isNotLoggedIn>
 					<div id="ratingDisplay">
 						<rateable:ratings bean="${plugin}" active="false" href="${createLink(controller:'user', action:'login', params:[originalURI:request.forwardURI])}"/>																							
 					</div>
-			    </jsec:isNotLoggedIn>
+			    </shiro:isNotLoggedIn>
 			</div>
 
 
@@ -85,7 +85,7 @@
     %{--
         Logged in users will be able to add tags
     --}%
-    <jsec:isLoggedIn>
+    <shiro:isLoggedIn>
         <gui:dialog id='addTagDialog'
             title='Add Tags'
             form='true' url="${createLink(controller:'plugin', action:'addTag', params:[id:plugin.id])}"
@@ -115,9 +115,9 @@
                 });
             });
         </script>
-    </jsec:isLoggedIn>
+    </shiro:isLoggedIn>
     %{-- Unauthenticated users get defered to the login screen --}%
-    <jsec:isNotLoggedIn>
+    <shiro:isNotLoggedIn>
         <script>
             YAHOO.util.Event.onDOMReady(function() {
                 // on show, put the dialog in the right place
@@ -132,7 +132,7 @@
                 });
             });
         </script>
-    </jsec:isNotLoggedIn>
+    </shiro:isNotLoggedIn>
 
 	<div id="pluginContent" align="center">
 	    <cache:text key="pluginTabs_${plugin.id}">

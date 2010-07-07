@@ -1,11 +1,13 @@
 package org.grails.auth
 
-import org.grails.auth.User
-import org.jsecurity.authc.UsernamePasswordToken
-import org.jsecurity.authc.AuthenticationException
 import org.apache.commons.codec.digest.DigestUtils
-import org.grails.meta.UserInfo
+import org.apache.shiro.SecurityUtils
+import org.apache.shiro.authc.UsernamePasswordToken
+import org.apache.shiro.authc.AuthenticationException
+import org.apache.shiro.web.util.WebUtils
 
+import org.grails.auth.User
+import org.grails.meta.UserInfo
 
 /**
 * @author Graeme Rocher
@@ -17,7 +19,6 @@ class UserController {
 
     def scaffold = User
 
-    def jsecSecurityManager
     def mailService
 
 	String randomPass() {
@@ -95,7 +96,7 @@ class UserController {
                         userInfo.save()
                         
                         def authToken = new UsernamePasswordToken(user.login, params.password)
-                        this.jsecSecurityManager.login(authToken)
+                        SecurityUtils.subject.login(authToken)
 
                         if(params.originalURI) {
 
@@ -121,26 +122,37 @@ class UserController {
     }
 
     def logout = {
-        org.jsecurity.SecurityUtils.getSubject().logout()
+        SecurityUtils.subject.logout()
         redirect(uri:"/")
     }
 
     def login = {
         if(request.method == 'POST') {
             def authToken = new UsernamePasswordToken(params.login, params.password)
+
+            // Support for "remember me"
+            if (params.rememberMe) {
+                authToken.rememberMe = true
+            }
+
+            // If a controller redirected to this page, redirect back
+            // to it. Otherwise redirect to the root URI.
+            def targetUri = params.originalURI ?: "/"
+            
+            // Handle requests saved by Shiro filters.
+            def savedRequest = WebUtils.getSavedRequest(request)
+            if (savedRequest) {
+                targetUri = savedRequest.requestURI - request.contextPath
+                if (savedRequest.queryString) targetUri = targetUri + '?' + savedRequest.queryString
+            }
+        
             try {
-                this.jsecSecurityManager.login(authToken)
-                if(params.originalURI) {
-                    // get rid of the login stuff before passing along params
-                    params.remove 'login'
-                    params.remove 'password'
-                    params.remove 'Submit'
-                    def uri = params.remove('originalURI')
-                    redirect(url:"${uri}${params.toQueryString()}")
-                } else {
-                    redirect(uri:"/")
-                }
+                SecurityUtils.subject.login(authToken)
+
+                log.info "Redirecting to '${targetUri}'."
+                redirect(uri: targetUri)
             } catch (AuthenticationException ex){
+                log.info "Authentication failure for user '${params.username}'."
                 if(request.xhr) {
                     params.remove 'password'
                     render(template:"loginForm", model:[originalURI:params.remove('originalURI'),

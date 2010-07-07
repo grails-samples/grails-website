@@ -11,7 +11,6 @@ class DownloadController {
 
     Ehcache downloadCache
 
-	@Cacheable("downloadCache")
     def latest = {
 
         def stableDownload = getCachedOr("Grails") {
@@ -56,7 +55,6 @@ class DownloadController {
         return obj
     }
 
-	@Cacheable("downloadCache")
     def archive = {
         def downloads = Download.findAllBySoftwareName(params.id, [order:'desc', sort:'releaseDate', cache:true])
 
@@ -68,18 +66,10 @@ class DownloadController {
 
         def mirror = params.mirror? Mirror.get(params.mirror) : null
         if(mirror) {
-
-			def download = Download.createCriteria().get {
-				files {
-					mirrors {
-						eq 'id', mirror.id
-					}					
-				}
-				lock true
-			}
-            download.count++
-            download.save(flush:true)
-
+            // This used to do a download count, but ran into problems with
+            // optimistic locking exceptions. Also, we'll probably move
+            // downloads to SpringSource's S3 account for which we will get
+            // download statistics
             redirect(url:mirror.url)
         }
         else {
@@ -92,7 +82,6 @@ class DownloadController {
         [downloadFile:downloadFile]
     }
 
-	@CacheFlush("downloadCache")
     def addFile = { AddFileCommand cmd ->
         def download = Download.get(params.id)
         if(request.method == 'POST') {
@@ -114,7 +103,6 @@ class DownloadController {
 
     }
 
-	@CacheFlush("downloadCache")
     def deleteMirror = {
         def mirror = Mirror.get(params.id)
         if(mirror) {
@@ -126,7 +114,6 @@ class DownloadController {
         }
     }
 
-	@CacheFlush("downloadCache")
     def addMirror = {
         def downloadFile = DownloadFile.get(params.id)
 
@@ -189,7 +176,6 @@ class DownloadController {
         }
     }
 
-	@CacheFlush("downloadCache")
     def update = {
         def download = Download.get( params.id )
         if(download) {
@@ -213,7 +199,6 @@ class DownloadController {
         return ['download':download]
     }
 
-	@CacheFlush("downloadCache")
     def save = {
         def download = new Download(params)
         if(!download.hasErrors() && download.save()) {

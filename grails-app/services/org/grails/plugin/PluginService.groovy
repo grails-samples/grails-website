@@ -155,13 +155,16 @@ class PluginService {
         if (!plugin.save()) {
             log.warn "Local plugin '$plugin.name' was not updated properly... errors follow:"
             plugin.errors.allErrors.each { log.warn it }
-        } else {
-            def v = plugin.description.createVersion()
-            v.author = User.findByLogin('admin')
-            if(!v.save(flush:true)) {
-                log.warn "Can't save version ${v.title} (${v.number})"
-                v.errors.allErrors.each { log.warn it }
-            }
+        // I don't know why new versions need to be created here, but it's causing
+        // problems because each new Version has the same number as the current
+        // wiki page version. PAL
+//        } else {
+//            def v = plugin.description.createVersion()
+//            v.author = User.findByLogin('admin')
+//            if(!v.save(flush:true)) {
+//                log.warn "Can't save version ${v.title} (${v.number})"
+//                v.errors.allErrors.each { log.warn it }
+//            }
         }
         
         log.info "Local plugin '$plugin.name' was updated with master version."

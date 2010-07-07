@@ -23,7 +23,6 @@ class PluginController extends BaseWikiController {
     }
 
 
-	@Cacheable("pluginCache")
     def home = {
         params.max = 5
         params.offset = params.offset ?: 0
@@ -93,7 +92,6 @@ class PluginController extends BaseWikiController {
 								  pluginList:Plugin.list(max:10, offset: params.offset?.toInteger(), cache:true, sort:"name")]
 	}
 
-	@Cacheable("pluginCache")	
     def show = {
         def plugin = byName(params)
         if (!plugin) {
@@ -109,7 +107,6 @@ class PluginController extends BaseWikiController {
         render view:'showPlugin', model:[plugin:plugin, userRating: userRating]
     }
 
-	@CacheFlush("pluginCache")
     def editPlugin = {
         def plugin = Plugin.get(params.id)
         if(plugin) {
@@ -134,7 +131,6 @@ class PluginController extends BaseWikiController {
         }
     }
 
-	@CacheFlush("pluginCache")
     def createPlugin = {
         // just in case this was an ad hoc creation where the user logged in during the creation...
         if (params.name) params.name = params.name - '?action=login'
@@ -211,7 +207,7 @@ class PluginController extends BaseWikiController {
 
         withFormat {
             html {
-                redirect(uri:"")
+                redirect(action: "home")
             }
             rss {
                 render(feedType:"rss",feedOutput)

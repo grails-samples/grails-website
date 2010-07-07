@@ -1,6 +1,6 @@
 package org.grails.auth
 
-import org.jsecurity.SecurityUtils
+import org.apache.shiro.SecurityUtils
 
 /**
 * @author Graeme Rocher
@@ -109,20 +109,24 @@ class JSecurityAuthFilters {
 
             adminArea(uri:"/admin/**") {
                 before = {
+                    if (controllerName == "error") return true
+
                     accessControl {
                         role("Administrator")
                     }
                 }
             }
 
-            userInRequest(controller:"*", action:"*") {
-				before = {
-					def subject = SecurityUtils.getSubject() 
-					if(subject && subject?.principal) {
-						request.user = User.findByLogin(subject.principal, [cache:true])						
-					}
-				}
-			}
-	}
+        userInRequest(controller:"*", action:"*") {
+            before = {
+                if (controllerName == "error") return true
+
+                def subject = SecurityUtils.getSubject() 
+                if(subject && subject?.principal) {
+                    request.user = User.findByLogin(subject.principal, [cache:true])						
+                }
+            }
+        }
+    }
 
 }

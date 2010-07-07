@@ -5,6 +5,8 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta content="homepage" name="layout" />
+    <feed:meta kind="rss" version="2.0" controller="blog" action="feed" params="[format:'rss']"/>
+    <feed:meta kind="atom" version="1.0" controller="blog" action="feed" params="[format:'atom']"/>
 </head>
 <body>
 	test

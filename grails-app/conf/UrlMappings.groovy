@@ -65,9 +65,9 @@ class UrlMappings {
         "/$id?"(controller: "content", action: "index")
 
         "/admin/$controller/$action?/$id?"()
-        "/admin"(view: "/admin/index")
+        "/admin"(controller: "admin", action: "index")
 
 
-        "500"(view: '/error')
+        "500"(controller: 'error', action: "serverError")
     }
 }

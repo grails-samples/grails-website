@@ -12,15 +12,15 @@
                 params="[number:v, update:updateElement]">
             Version ${v}</g:remoteLink> (Updated by <strong>${authors[i].login}</strong>)
 
-        <jsec:authenticated>
+        <shiro:authenticated>
             <g:if test="${v != wikiPage.version}">
-                <jsec:hasRole name="Administrator">
+                <shiro:hasRole name="Administrator">
                     <g:remoteLink update="versions"
                             controller="content"
                             action="rollbackWikiVersion"
                             id="${wikiPage?.title}"
                             params="[number:v]">Rollback to here</g:remoteLink>
-                </jsec:hasRole>
+                </shiro:hasRole>
             </g:if>
             <g:else>Latest Version</g:else>
             |
@@ -36,7 +36,7 @@
             <g:else>
                 First Version
             </g:else>
-        </jsec:authenticated>
+        </shiro:authenticated>
 
         <g:set var="previous" value="${v}" />
 </g:each>

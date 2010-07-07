@@ -1,7 +1,11 @@
 *.iws
+*Db.properties
+*Db.script
+.settings
 stacktrace.log
 target
 plugins
 web-app/js/yui-cms
 web-app/js/yui
 web-app/plugins
+/web-app/WEB-INF/classes

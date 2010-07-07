@@ -4,10 +4,10 @@
     <g:remoteLink update="${updateElement}" controller="content" id="${content?.title}" params="[xhr:true]"><img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" /></g:remoteLink>
     <g:remoteLink update="${updateElement}" controller="content" id="${content?.title}" params="[xhr:true]">View Page</g:remoteLink>
 
-    <jsec:authenticated>
+    <shiro:authenticated>
         <g:remoteLink update="editPane" controller="content" action="markupWikiPage" id="${content?.title}" ><img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" /></g:remoteLink>
         <g:remoteLink update="editPane" controller="content" action="markupWikiPage" id="${content?.title}" >View Markup</g:remoteLink>
-    </jsec:authenticated>
+    </shiro:authenticated>
 
 </div>
 

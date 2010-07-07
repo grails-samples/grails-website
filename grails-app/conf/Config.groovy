@@ -1,10 +1,13 @@
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
+environments {
+    production {
+    	def target = ServletContextHolder.servletContext?.getInitParameter("deployTarget")
+        grails.config.locations = [ "file:/var/lib/grails/site-config${target ? '-' + target : ''}.properties" ]
+    }
+}
 
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
@@ -35,6 +38,11 @@ grails.views.default.codec="none" // none, html, base64
 grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 grails.app.context = "/"
+
+// Load GSPs from external location so that they can easily be updated. The
+// actual location of the views is specified in the site-config.properties
+// file - see the beginning of this file for its location.
+grails.gsp.enable.reload = true
 
 // enabled native2ascii conversion of i18n properties files
 grails.enable.native2ascii = true
@@ -92,16 +100,12 @@ blog.author.evaluator= {
 
 // log4j configuration
 log4j = {
-
-    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
-	       'org.codehaus.groovy.grails.web.pages', //  GSP
-	       'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-	       'org.codehaus.groovy.grails.commons', // core / classloading
-	       'org.codehaus.groovy.grails.plugins', // plugins
-	       'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-	       'org.springframework',
-	       'org.hibernate'
-	
-	//trace 'org.hibernate.SQL', 'org.hibernate.type'
-    warn   'org.mortbay.log'
+    warn   'org.codehaus.groovy.grails.web.servlet',
+           'org.codehaus.groovy.grails.web.pages', //  GSP
+	   'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+	   'org.codehaus.groovy.grails.commons', // core / classloading
+	   'org.codehaus.groovy.grails.plugins', // plugins
+	   'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+	   'org.springframework',
+	   'org.hibernate'
 }

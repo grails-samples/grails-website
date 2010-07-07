@@ -142,6 +142,18 @@ class ContentControllerTests extends grails.test.ControllerUnitTestCase {
         assertEquals 7, renderParams.model?.content.number
     }
 
+    void testShowWikiVersionWithInvalidNumber() {
+        def title = "Installation"
+        mockDomain(WikiPage, [ new WikiPage(title: title) ])
+
+        controller.params["id"] = title
+        controller.params["number"] = "invalid"
+
+        shouldFail(NumberFormatException) {
+            controller.showWikiVersion()
+        }
+    }
+
     void testShowWikiVersionNotFound() {
         ContentController.metaClass.getParams = {-> [id: "Introduction", number: 7] }
         def page
