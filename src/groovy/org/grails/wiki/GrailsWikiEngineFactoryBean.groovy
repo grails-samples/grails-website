@@ -6,26 +6,22 @@ import org.grails.cache.CacheService
 import org.springframework.beans.factory.InitializingBean
 
 
-class GrailsWikiEngineFactoryBean implements FactoryBean, InitializingBean {
+class GrailsWikiEngineFactoryBean implements FactoryBean {
 
-    def context = new BaseInitialRenderContext();
-
-    CacheService cacheService
+    def context
     String contextPath
+    CacheService cacheService
 
-    private engine
+    public Object getObject() {
+        context.set(GrailsWikiEngine.CONTEXT_PATH, contextPath)
+        context.set(GrailsWikiEngine.CACHE, cacheService)
 
-    public Object getObject() { engine }
+        def engine = new GrailsWikiEngine(context)
+        context.setRenderEngine engine
+        return engine
+    }
 
     Class getObjectType() { GrailsWikiEngine }
 
-    boolean isSingleton() { true }
-
-    public void afterPropertiesSet() {
-        context.set(GrailsWikiEngine.CONTEXT_PATH, contextPath)
-        context.set(GrailsWikiEngine.CACHE, cacheService)
-        engine = new GrailsWikiEngine(context)
-        context.setRenderEngine engine
-
-    }
+    boolean isSingleton() { false }
 }
