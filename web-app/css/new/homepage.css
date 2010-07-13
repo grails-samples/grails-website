@@ -377,6 +377,14 @@ body {
     padding: 72px 0px 0px 100px;
 }
 
+
+.advert {
+    overflow: hidden;
+    width: 250px;
+    height: 230px;
+    margin: 8px 10px;
+}
+
 #latestNews h2, #screencasts h2 {
     font-weight: bold;
     color: #363636;
