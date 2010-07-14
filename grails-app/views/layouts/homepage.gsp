@@ -141,7 +141,7 @@
                     <div class="castBox">
                         <div class="advert">
                             <a href="http://www.springone2gx.com/conference/chicago/2010/10/register">
-                                <img width="250" height="240" src="${resource(dir: 'images', file: 'SpringOne2GX_125x120.png')}"/>
+                                <img width="250" height="240" src="${resource(dir: 'images', file: 'SpringOne2GX_250x240.png')}"/>
                             </a>
                         </div>
                     </div>
