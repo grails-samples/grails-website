@@ -1,13 +1,6 @@
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-
-environments {
-    production {
-    	def target = ServletContextHolder.servletContext?.getInitParameter("deployTarget")
-        grails.config.locations = [ "file:/var/lib/grails/site-config${target ? '-' + target : ''}.properties" ]
-    }
-}
+grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appName}-config.groovy" ]
 
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
@@ -104,8 +97,9 @@ log4j = {
            'org.codehaus.groovy.grails.web.pages', //  GSP
 	   'org.codehaus.groovy.grails.web.sitemesh', //  layouts
 	   'org.codehaus.groovy.grails.commons', // core / classloading
-	   'org.codehaus.groovy.grails.plugins', // plugins
 	   'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
 	   'org.springframework',
 	   'org.hibernate'
+
+    debug 'org.codehaus.groovy.grails.plugins'
 }
