@@ -137,18 +137,25 @@
                 </div><!-- latestNews -->
             
                 <div id="screencasts">
+                    <h2>Conference</h2>
+                    <div class="castBox">
+                        <div class="advert">
+                            <a href="http://www.springone2gx.com/conference/chicago/2010/10/register">
+                                <img width="250" height="240" src="${resource(dir: 'images', file: 'SpringOne2GX_250x240.png')}"/>
+                            </a>
+                        </div>
+                    </div>
+                    <%--
                     <h2>Recent Screencasts</h2>
                     <div class="castBox">
                         <div class="castScreen">
 							<a href="https://www.cloudfoundry.com/screencasts.html#grails">
 								<img src="/images/new/play_icon.png"/>
 							</a>
-                            <%--<g:link controller="screencast" action="show" id="${latestScreencastId}">
-                                
-                            </g:link> --%>
                         </div><!-- castScreen -->
                         <h4><g:link controller="screencast" action="list">View All</g:link></h4>
                     </div><!-- castBox -->
+                    --%>
                 </div><!-- screencasts -->
             </div><!-- newsScreencastWrapper -->
             
