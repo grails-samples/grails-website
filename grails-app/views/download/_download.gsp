@@ -4,7 +4,6 @@
 
 <h3>Current ${download.key} release: ${binDownload?.softwareVersion}</h3> 
 <ul>
-    <li><a href="http://jira.codehaus.org/browse/GRAILS?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change Log</a></li>
     <li><a href="${binDownload?.releaseNotes}">Release Notes</a></li>
 </ul>
 
