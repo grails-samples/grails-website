@@ -19,7 +19,7 @@ grails.project.dependency.resolution = {
                 ":commentable:0.7.4",
                 ":feeds:1.5",
                 ":grails-ui:1.2-SNAPSHOT",
-                ":hibernate:1.3.3",
+                ":hibernate:1.3.4",
                 ":mail:0.5",
                 ":pretty-time:0.3",
                 ":quartz:0.4.1-SNAPSHOT",
@@ -34,7 +34,7 @@ grails.project.dependency.resolution = {
                 ":yui:2.7.0.1"
 
         build   ":db-util:0.4",
-                ":tomcat:1.3.3"
+                ":tomcat:1.3.4"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
