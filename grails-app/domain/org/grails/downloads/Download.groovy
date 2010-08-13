@@ -7,17 +7,17 @@ class Download implements Serializable{
     String softwareName
     String softwareVersion
     int count
-	Boolean betaRelease = false
+    Boolean betaRelease = false
 
     List files
     static hasMany = [files:DownloadFile]   
 
-    static trainsients = ['releaseNotes']
+    static transients = ['releaseNotes']
 
     def getReleaseNotes() {
         def config = ConfigurationHolder.getConfig()
         def server = config.grails.serverURL
-        return "$server/$softwareVersion+Release+Notes"
+        return "/${softwareVersion}+Release+Notes"
     }
 
     static constraints = {

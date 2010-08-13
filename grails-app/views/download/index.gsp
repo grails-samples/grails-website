@@ -34,12 +34,12 @@
 </head>
 <body>
     <div id="contentPane">
-		<g:render template="download" model="[downloadObj:stableDownload, docDownload:docDownload, title:'Current Stable Release']"></g:render>
-
+		<g:render template="download" collection="${stableDownloads}" var="download"/>
+<%--
 		<g:if test="${betaDownload}">
-			<g:render template="download" model="[downloadObj:betaDownload, docDownload:betaDoc, title:'Current Development Release']"></g:render>
+			<g:render template="download" model="[download:betaDownload]"/>
 		</g:if>
- 
+--%> 
 
 
 

@@ -1,13 +1,16 @@
-<h3>${title}: ${downloadObj?.softwareVersion}</h3> 
+<g:set var="downloadObj" value="${download.value}"/>
+<g:set var="binDownload" value="${downloadObj ? downloadObj[0] : null}"/>
+<g:set var="docDownload" value="${downloadObj ? downloadObj[1] : null}"/>
+
+<h3>Current ${download.key} release: ${binDownload?.softwareVersion}</h3> 
 <ul>
-    <li><a href="http://jira.codehaus.org/browse/GRAILS?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change Log</a></li>
-    <li><a href="${downloadObj?.releaseNotes}">Release Notes</a></li>
+    <li><a href="${binDownload?.releaseNotes}">Release Notes</a></li>
 </ul>
 
-<cache:text id="${'downloadPage_'+downloadObj?.softwareVersion}">
+<cache:text id="${'downloadPage_'+binDownload?.softwareVersion}">
     <table class="download-table">
         <tr><th>Distribution</th><th>Mirror</th></tr>
-        <g:each var="file" in="${downloadObj?.files}">
+        <g:each var="file" in="${binDownload?.files}">
             <g:form controller="download" action="downloadFile">
                 <tr>
                     <td><strong>${file.title}</strong></td>
