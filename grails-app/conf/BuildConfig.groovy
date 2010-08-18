@@ -34,14 +34,18 @@ grails.project.dependency.resolution = {
                 ":taggable:0.6.2",
                 ":yui:2.7.0.1"
         
-        test    ":fixtures:1.0.1"
+        test    ":fixtures:1.0.1",
+                ":geb:0.4",
+                ":spock:0.5-groovy-1.7-SNAPSHOT"
 
         build   ":db-util:0.4",
                 ":tomcat:1.3.4"
     }
 
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
+        test    "org.seleniumhq.selenium:selenium-htmlunit-driver:latest.integration", {
+            excludes "xml-apis", "commons-logging"
+        }
     }
 
 }

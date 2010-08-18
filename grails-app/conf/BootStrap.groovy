@@ -1,4 +1,5 @@
-import grails.util.GrailsUtil
+
+import grails.util.Environment
 import javax.servlet.http.HttpServletRequest
 
 import org.apache.commons.codec.digest.DigestUtils
@@ -7,6 +8,7 @@ import org.grails.auth.Role
 import org.grails.auth.User
 
 class BootStrap {
+    def fixtureLoader
 
     def init = { servletContext ->
 
@@ -16,7 +18,7 @@ class BootStrap {
 
         def admin = User.findByLogin("admin")
         if (!admin) {
-            def password = System.getProperty("initial.admin.password")
+            def password = Environment.current == Environment.TEST ? "changeit" : System.getProperty("initial.admin.password")
             if (!password) {
                 throw new Exception("""
 During the first run you must specify a password to use for the admin account. For example:
@@ -37,6 +39,10 @@ grails -Dinitial.admin.password=changeit run-app""")
                  .addToRoles(name:Role.EDITOR)
                  .addToRoles(name:Role.OBSERVER)
                  .save(flush:true)
+        }
+
+        if (Environment.current == Environment.TEST) {
+            fixtureLoader.load("main")
         }
     }
 
