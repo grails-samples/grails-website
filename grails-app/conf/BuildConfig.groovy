@@ -14,7 +14,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":autobase:0.8.5",
+        runtime ":autobase:0.9.2",
                 ":avatar:0.3",
                 ":bubbling:2.1.2",
                 ":commentable:0.7.5",
