@@ -88,7 +88,7 @@ public class UserControllerTests extends ControllerUnitTestCase {
         def params = [originalURI:"/foo/bar", login:"Fred", password:"one", password2:"one"]
 
         mockDomain(Role, [
-                new Role(name: Role.ADMINSITRATOR),
+                new Role(name: Role.ADMINISTRATOR),
                 new Role(name: Role.EDITOR),
                 new Role(name: Role.OBSERVER) ])
         mockDomain(User)
@@ -110,7 +110,7 @@ public class UserControllerTests extends ControllerUnitTestCase {
         def params = [originalURI:"/foo/bar", login:"dilbert", password:"one", password2:"one", email: "dilbert@nowhere.org"]
 
         mockDomain(Role, [
-                new Role(name: Role.ADMINSITRATOR),
+                new Role(name: Role.ADMINISTRATOR),
                 new Role(name: Role.EDITOR),
                 new Role(name: Role.OBSERVER) ])
         mockDomain(User)
@@ -132,7 +132,7 @@ public class UserControllerTests extends ControllerUnitTestCase {
         def params = [ login:"dilbert", password:"one", password2:"one", email: "dilbert@nowhere.org"]
 
         mockDomain(Role, [
-                new Role(name: Role.ADMINSITRATOR),
+                new Role(name: Role.ADMINISTRATOR),
                 new Role(name: Role.EDITOR),
                 new Role(name: Role.OBSERVER) ])
         mockDomain(User)

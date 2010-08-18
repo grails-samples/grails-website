@@ -28,14 +28,14 @@ grails -Dinitial.admin.password=changeit run-app""")
             else {
                 def user = new User(login:"admin", email:"info@g2one.com",password:DigestUtils.shaHex(password))
                 assert user.email
-                assert user.addToRoles(name:Role.ADMINSITRATOR)
+                assert user.addToRoles(name:Role.ADMINISTRATOR)
                            .addToRoles(name:Role.EDITOR)
                            .addToRoles(name:Role.OBSERVER)
                            .save(flush:true)
             }
         }
         else if (!admin.roles) {
-            admin.addToRoles(name:Role.ADMINSITRATOR)
+            admin.addToRoles(name:Role.ADMINISTRATOR)
                  .addToRoles(name:Role.EDITOR)
                  .addToRoles(name:Role.OBSERVER)
                  .save(flush:true)

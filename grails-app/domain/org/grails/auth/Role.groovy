@@ -7,7 +7,7 @@ package org.grails.auth
  */
 class Role {
 
-    static final ADMINSITRATOR = "Administrator"
+    static final ADMINISTRATOR = "Administrator"
     static final EDITOR = "Editor"
     static final OBSERVER = "Observer"
     
