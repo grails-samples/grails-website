@@ -2,6 +2,7 @@
 *Db.properties
 *Db.script
 .settings
+eclipse
 stacktrace.log
 target
 /plugins
