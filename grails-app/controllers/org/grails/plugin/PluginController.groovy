@@ -22,63 +22,62 @@ class PluginController extends BaseWikiController {
         redirect(controller:'plugin', action:'home', params:params)
     }
 
-
     def home = {
         params.max = 5
         params.offset = params.offset ?: 0
         params.sort = params.sort ?: 'name'
         params.order = params.order ?: 'asc'
-		params.cache = true
+        params.cache = true
         def category = params.remove('category') ?: 'featured'
         
         log.debug "plugin home: $params"
         
         def currentPlugins
-		def totalPlugins = 0
-		def viewType = "normal"
-		def defaults = {
+        def totalPlugins = 0
+        def viewType = "normal"
+        def defaults = {
             currentPlugins = Plugin.list(params)
-			totalPlugins = Plugin.createCriteria().get {
-				projections { count 'id' }
-				cache true
-			}
-		}
+            totalPlugins = Plugin.createCriteria().get {
+                projections { count 'id' }
+                cache true
+            }
+        }
         switch (category) {
             case 'all':
-				def allPlugins = Plugin.executeQuery("select p.name, p.title from Plugin p order by p.name", [cache:true])
-				currentPlugins = allPlugins.groupBy { it[0] ? it[0][0].toUpperCase() : 'A' }
-				totalPlugins = allPlugins.size()
-				viewType = "all"
+                def allPlugins = Plugin.executeQuery("select p.name, p.title from Plugin p order by p.name", [cache:true])
+                currentPlugins = allPlugins.groupBy { it[0] ? it[0][0].toUpperCase() : 'A' }
+                totalPlugins = allPlugins.size()
+                viewType = "all"
                 break;
-			case 'popular':
-	            currentPlugins = Plugin.listOrderByAverageRating([cache:true, offset:params.offset, max:5])
-				totalPlugins = Plugin.countRated()	
-	            break;				
-			break
-			case 'newest':
-				params.sort = 'dateCreated'
-				params.order = 'desc'
-				defaults()
-				break			
-			break
-			case 'supported':
-	            currentPlugins = Plugin.findAllByOfficial(true, params)
-				totalPlugins = Plugin.countByOfficial(true)
-	            break;			
-			break
+            case 'popular':
+                currentPlugins = Plugin.listOrderByAverageRating([cache:true, offset:params.offset, max:5])
+                totalPlugins = Plugin.countRated()    
+                break;                
+            break
+            case 'newest':
+                params.sort = 'dateCreated'
+                params.order = 'desc'
+                defaults()
+                break            
+            break
+            case 'supported':
+                currentPlugins = Plugin.findAllByOfficial(true, params)
+                totalPlugins = Plugin.countByOfficial(true)
+                break;            
+            break
             case 'featured':
                 currentPlugins = Plugin.findAllByFeatured(true, params)
-				totalPlugins = Plugin.countByFeatured(true)
+                totalPlugins = Plugin.countByFeatured(true)
                 break;
             case 'recentlyUpdated':
                 params.sort = 'lastReleased'
-				params.order = 'desc'
-				defaults()
+                params.order = 'desc'
+                defaults()
                 break;
             default:
-				defaults()
-				
-			break
+                defaults()
+                
+            break
         }
         
         [currentPlugins:currentPlugins, category:category,totalPlugins:totalPlugins, viewType:viewType]
@@ -87,10 +86,11 @@ class PluginController extends BaseWikiController {
 
     def forum = {}
 
-	def all = {
-		render view:"home", model:[originAction:"all",
-								  pluginList:Plugin.list(max:10, offset: params.offset?.toInteger(), cache:true, sort:"name")]
-	}
+    def all = {
+        render view:"home", model:[
+                originAction:"all",
+                pluginList:Plugin.list(max:10, offset: params.offset?.toInteger(), cache:true, sort:"name") ]
+    }
 
     def show = {
         def plugin = byName(params)
@@ -172,16 +172,16 @@ class PluginController extends BaseWikiController {
     }
 
     def search = {
-		if(params.q) {
+        if(params.q) {
             def searchResult = Plugin.search(params.q, reload: true, offset: params.offset, escape:true)
             searchResult.results = searchResult.results.findAll{it}.unique { it.title }
-			flash.message = "Found $searchResult.total results!"
-			flash.next()
-			render(view:"searchResults", model:[searchResult:searchResult])
-		}
-		else {
-			redirect(action:'home')
-		}
+            flash.message = "Found $searchResult.total results!"
+            flash.next()
+            render(view:"searchResults", model:[searchResult:searchResult])
+        }
+        else {
+            redirect(action:'home')
+        }
    }
 
     def latest = {
@@ -260,14 +260,14 @@ class PluginController extends BaseWikiController {
     }
 
     private def byName(params) {
-		Plugin.createCriteria().get {
-			eq 'name', params.name
-			join 'description'
-			join 'installation'			
-			join 'faq'						
-			join 'screenshots'		
-			maxResults 1	
-			cache true
-		}
+        Plugin.createCriteria().get {
+            eq 'name', params.name
+            join 'description'
+            join 'installation'            
+            join 'faq'                        
+            join 'screenshots'        
+            maxResults 1    
+            cache true
+        }
     }
 }
