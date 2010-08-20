@@ -26,6 +26,10 @@ class PluginService {
         }
     }
     
+    def listAllPlugins(Map args = [max: 200]) {
+        Plugin.list(args)
+    }
+    
     def runMasterUpdate() {
         translateMasterPlugins(generateMasterPlugins())
     }

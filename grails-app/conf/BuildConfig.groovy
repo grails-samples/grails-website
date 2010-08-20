@@ -34,7 +34,8 @@ grails.project.dependency.resolution = {
                 ":taggable:0.6.2",
                 ":yui:2.7.0.1"
         
-        test    ":fixtures:1.0.1",
+        test    ":build-test-data:1.1.1",
+                ":fixtures:1.0.1",
                 ":geb:0.4",
                 ":spock:0.5-groovy-1.7-SNAPSHOT"
 
