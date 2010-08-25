@@ -8,8 +8,6 @@ import org.grails.auth.Role
 import org.grails.auth.User
 
 class BootStrap {
-    def fixtureLoader
-
     def init = { servletContext ->
 
         HttpServletRequest.metaClass.isXhr = {->
@@ -39,10 +37,6 @@ grails -Dinitial.admin.password=changeit run-app""")
                  .addToRoles(name:Role.EDITOR)
                  .addToRoles(name:Role.OBSERVER)
                  .save(flush:true)
-        }
-
-        if (Environment.current == Environment.TEST) {
-            fixtureLoader.load("main")
         }
     }
 

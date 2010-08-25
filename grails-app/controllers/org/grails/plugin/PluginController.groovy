@@ -23,65 +23,66 @@ class PluginController extends BaseWikiController {
     }
 
     def home = {
-        params.max = 5
-        params.offset = params.offset ?: 0
-        params.sort = params.sort ?: 'name'
-        params.order = params.order ?: 'asc'
-        params.cache = true
-        def category = params.remove('category') ?: 'featured'
+        def queryParams = [:]
+        queryParams.offset = params.offset ?: 0
+        queryParams.sort = params.sort ?: 'name'
+        queryParams.order = params.order ?: 'asc'
+
+        // We only want to display 5 plugins at a time in the web interface,
+        // but JSON and XML data shouldn't be limited in that way.
+        if (request.format == 'html') queryParams.max = 5
+
+        // If no category is specified, default to 'featured' for the
+        // web interface, and 'all' for JSON and XML requests.
+        def category = params.remove('category') ?: (request.format == 'html' ? 'featured' : 'all')
         
         log.debug "plugin home: $params"
         
-        def currentPlugins
+        def currentPlugins = []
         def totalPlugins = 0
-        def viewType = "normal"
-        def defaults = {
-            currentPlugins = Plugin.list(params)
-            totalPlugins = Plugin.createCriteria().get {
-                projections { count 'id' }
-                cache true
+
+        try {
+            (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
+        }
+        catch (MissingMethodException ex) {
+            println ex.message
+            response.sendError 404
+            return
+        }
+
+        withFormat {
+            html {
+                [currentPlugins:currentPlugins, category:category,totalPlugins:totalPlugins]
+            }
+            json {
+                render(contentType:"text/json") {
+                    plugins = currentPlugins?.collect { p ->
+                        return { name = p.name; title = p.title }
+                    } ?: []
+                }
+            }
+            xml {
+                render(contentType:"application/xml") {
+                    plugins {
+                         for (p in currentPlugins) {
+                            plugin(name: p.name) {
+                                title p.title
+                            }
+                         }
+                    }
+                }
             }
         }
-        switch (category) {
-            case 'all':
-                def allPlugins = Plugin.executeQuery("select p.name, p.title from Plugin p order by p.name", [cache:true])
-                currentPlugins = allPlugins.groupBy { it[0] ? it[0][0].toUpperCase() : 'A' }
-                totalPlugins = allPlugins.size()
-                viewType = "all"
-                break;
-            case 'popular':
-                currentPlugins = Plugin.listOrderByAverageRating([cache:true, offset:params.offset, max:5])
-                totalPlugins = Plugin.countRated()    
-                break;                
-            break
-            case 'newest':
-                params.sort = 'dateCreated'
-                params.order = 'desc'
-                defaults()
-                break            
-            break
-            case 'supported':
-                currentPlugins = Plugin.findAllByOfficial(true, params)
-                totalPlugins = Plugin.countByOfficial(true)
-                break;            
-            break
-            case 'featured':
-                currentPlugins = Plugin.findAllByFeatured(true, params)
-                totalPlugins = Plugin.countByFeatured(true)
-                break;
-            case 'recentlyUpdated':
-                params.sort = 'lastReleased'
-                params.order = 'desc'
-                defaults()
-                break;
-            default:
-                defaults()
-                
-            break
-        }
-        
-        [currentPlugins:currentPlugins, category:category,totalPlugins:totalPlugins, viewType:viewType]
-        
+    }
+
+    def browseByName = {
+        params.sort = "name"
+        params.order = "asc"
+
+        def (currentPlugins, totalPlugins) = pluginService.listAllPluginsWithTotal(params)
+        currentPlugins = currentPlugins.groupBy { it.name ? it.name[0].toUpperCase() : 'A' }
+
+        return [currentPlugins: currentPlugins, totalPlugins: totalPlugins]
     }
 
     def forum = {}

@@ -26,8 +26,36 @@ class PluginService {
         }
     }
     
-    def listAllPlugins(Map args = [max: 200]) {
-        Plugin.list(args)
+    def listAllPluginsWithTotal(Map args = [max: 200]) {
+        return [ Plugin.list(args), Plugin.count() ]
+    }
+
+    def listFeaturedPluginsWithTotal(Map args = [max: 200]) {
+        return [ Plugin.findAllByFeatured(true, args), Plugin.countByFeatured(true) ]
+    }
+
+    def listNewestPluginsWithTotal(Map args = [max: 200]) {
+        args << [cache: true, sort: "dateCreated", order: "desc" ] 
+        return [ Plugin.list(args), Plugin.count() ]
+    }
+
+    def listPopularPluginsWithTotal(Map args = [max: 200]) {
+        // The Rateable plugin's query only accepts pagination arguments.
+        def params = [:]
+        if (args["max"] != null) params["max"] = args["max"]
+        if (args["offset"] != null) params["offset"] = args["offset"]
+        return [
+                Plugin.listOrderByAverageRating(cache:true, *:params),
+                Plugin.countRated() ]
+    }
+
+    def listRecentlyUpdatedPluginsWithTotal(Map args = [max: 200]) {
+        args << [cache: true, sort: "lastReleased", order: "desc" ] 
+        return [ Plugin.list(args), Plugin.count() ]
+    }
+
+    def listSupportedPluginsWithTotal(Map args = [max: 200]) {
+        return [ Plugin.findAllByOfficial(true, args), Plugin.countByOfficial(true) ]
     }
     
     def runMasterUpdate() {

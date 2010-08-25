@@ -1,3 +1,5 @@
+import grails.util.Environment;
+
 class UrlMappings {
     static mappings = {
         "/Download"(controller: "download", action: "latest")
@@ -22,14 +24,15 @@ class UrlMappings {
         "/plugin/showTag"(controller: 'plugin', action:'showTag')
         "/plugin/postComment/$id"(controller: "plugin", action:"postComment")
         "/plugin/latest"(controller: "plugin", action: "latest")
-		"/plugin/category/$category"(controller:"plugin", action:"home")
+        "/plugin/category/all"(controller:"plugin", action:"browseByName")
+        "/plugin/category/$category"(controller:"plugin", action:"home")
         "/plugin/showComment/$id"(controller: 'plugin', action:'showComment')
 
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
         "/blog/delete/$id"(controller: 'blogEntry', action:'delete')
-		"/blog"(controller:"blog", action:"list")
-		"/Grails+Screencasts"(controller:"screencast", action:"list")		
+        "/blog"(controller:"blog", action:"list")
+        "/Grails+Screencasts"(controller:"screencast", action:"list")		
 
         "/rateable/rate/$id"(controller: "rateable", action:"rate")
         "/tag/autoCompleteNames"(controller:'tag', action:'autoCompleteNames')
@@ -52,21 +55,24 @@ class UrlMappings {
         "/diff/$id/$number/$diff"(controller: "content", action: "diffWikiVersion")
         "/previous/$id/$number"(controller: "content", action: "previousWikiVersion")
 		
-		"/screencasts"(controller:"screencast", action:"list") 
-		"/screencast/save"(controller:"screencast", action:"save") 
-		"/screencast/search"(controller:"screencast", action:"search") 		
-		"/screencast/update"(controller:"screencast", action:"update") 				
-		"/screencast/edit/$id"(controller:"screencast", action:"edit") 				
-		"/screencast/feed"(controller:"screencast", action:"feed") 						
-		"/screencast/add"(controller:"screencast", action:"create")
-		"/screencast/show/$id"(controller:"screencast", action:"show")		
-		"/comment/add"(controller:"commentable", action:"add")
+        "/screencasts"(controller:"screencast", action:"list") 
+        "/screencast/save"(controller:"screencast", action:"save") 
+        "/screencast/search"(controller:"screencast", action:"search") 		
+        "/screencast/update"(controller:"screencast", action:"update") 				
+        "/screencast/edit/$id"(controller:"screencast", action:"edit") 				
+        "/screencast/feed"(controller:"screencast", action:"feed") 						
+        "/screencast/add"(controller:"screencast", action:"create")
+        "/screencast/show/$id"(controller:"screencast", action:"show")		
+        "/comment/add"(controller:"commentable", action:"add")
 
         "/$id?"(controller: "content", action: "index")
 
         "/admin/$controller/$action?/$id?"()
         "/admin"(controller: "admin", action: "index")
 
+        if (Environment.current == Environment.TEST) {
+            "/test/fixtures/$action"(controller: "fixtures")
+        }
 
         "500"(controller: 'error', action: "serverError")
     }

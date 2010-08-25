@@ -10,6 +10,7 @@
 	<classpathentry kind="src" path="test/unit"/>
 	<classpathentry kind="src" path="grails-app/jobs"/>
 	<classpathentry kind="src" path="grails-app/realms"/>
+	<classpathentry kind="src" path="test/functional"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.springsource.sts.grails.core.CLASSPATH_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/ant/ant-junit/1.7.1/ant-junit-1.7.1.jar"/>
