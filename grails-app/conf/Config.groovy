@@ -32,11 +32,6 @@ grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 grails.app.context = "/"
 
-// Load GSPs from external location so that they can easily be updated. The
-// actual location of the views is specified in the site-config.properties
-// file - see the beginning of this file for its location.
-grails.gsp.enable.reload = true
-
 // enabled native2ascii conversion of i18n properties files
 grails.enable.native2ascii = true
 
