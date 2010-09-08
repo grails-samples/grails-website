@@ -187,7 +187,7 @@
                     <div class="right">
             			<h3>Community</h3>
 						<p>
-Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails/tree/master">source code</a> from Github, report issues on the Grails  <a href="http://jira.codehaus.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="http://grails.org/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the latest news on the <g:link controller="blog" action="home">Grails blog</g:link>.							
+Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails/tree/master">source code</a> from Github, report issues on the Grails  <a href="http://jira.codehaus.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="http://grails.org/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the latest news on the <g:link controller="blog" action="list">Grails blog</g:link>.							
 <br></br><br></br>
 
 The whole Grails site is written in Grails <g:meta name="app.grails.version" /> and is an open wiki,  the <a href="http://github.com/grails/grails/tree/6590710d84f1167031be8399c5cc8ce0b0982ba3/grails-samples/grails.org">source code</a> for which is available from Github.
