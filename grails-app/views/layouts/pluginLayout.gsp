@@ -4,7 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <g:javascript src="common/application.js"/>
-	<g:render template="/content/analytics" />
     
     <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'master.css')}" type="text/css" />
     <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'plugins.css')}" type="text/css" />
@@ -40,5 +39,8 @@
 </div><!-- contentWrapper -->
 
 	<g:render template="/content/footer" />
+
+    <%-- Google Analytics --%>
+    <g:render template="/content/analytics" />
 </body>
 </html>
