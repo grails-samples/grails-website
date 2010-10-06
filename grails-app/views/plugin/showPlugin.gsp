@@ -1,5 +1,11 @@
 <%@ page import="org.grails.plugin.Plugin" %>
-<g:applyLayout name="pluginDetails">
+<g:setProvider library="yui"/>
+
+<html>
+<head>
+    <meta name="layout" content="pluginDetails">
+</head>
+<body>
 	<div id="pluginDetailsBox" align="center">
 		
 		<div id="pluginDetailsContainer">
@@ -146,6 +152,5 @@
 	        </gui:tabView>
 		</cache:text>		
 	</div>
-
-
-</g:applyLayout>
+</body>
+</html>

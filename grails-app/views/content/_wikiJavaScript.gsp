@@ -11,38 +11,22 @@
     function showDiff() {
 
 
-        var text1 = $("text1").innerHTML
-        var text2 = $("text2").innerHTML
+        var text1 = myYUI.get("text1").innerHTML
+        var text2 = myYUI.get("text2").innerHTML
 
         var d = dmp.diff_main(text1, text2);
         dmp.diff_cleanupSemantic(d);
         var ds = dmp.diff_prettyHtml(d);
 
-        $('diffOutputDiv').innerHTML = ds;
+        myYUI.get('diffOutputDiv').innerHTML = ds;
 
-        Effect.Appear('diffOutputDiv')
-    }
-
-    function getAjaxOptions(after, editFormName) {
-        if (after == null) {
-            after = function() {
-            }
-        }
-        if (editFormName == null) {
-            editFormName = 'wikiEditForm'
-        }
-        return {asynchronous:true,
-            evalScripts:true,
-            parameters:Form.serialize($(editFormName)),
-            method:"POST",
-            onComplete:after
-        }
+        myYUI.appear('diffOutputDiv')
     }
 
     function hidePreview() {
-        Effect.Fade('previewContainer')
+        myYUI.fade('previewContainer')
     }
     function showPreview() {
-        Effect.Appear('previewContainer')
+        myYUI.appear('previewContainer')
     }
 </script>

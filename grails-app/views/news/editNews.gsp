@@ -3,7 +3,6 @@
 <head>
     <title>Edit News</title>
     <meta content="subpage" name="layout" />
-    <g:javascript library="scriptaculous" />
 </head>
 <body>
     <div id="editPane">

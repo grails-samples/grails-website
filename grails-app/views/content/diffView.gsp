@@ -2,8 +2,6 @@
 <head>
     <title>${content?.title}</title>
     <meta content="subpage" name="layout" />
-    <g:javascript library="scriptaculous" />
-    <g:javascript library="diff_match_patch" />
 
     <script type="text/javascript">
         var dmp = new diff_match_patch();
@@ -11,16 +9,16 @@
         function showDiff() {
 
 
-            var text1 = $("text1").innerHTML
-            var text2 = $("text2").innerHTML
+            var text1 = myYUI.get("text1").innerHTML
+            var text2 = myYUI.get("text2").innerHTML
 
             var d = dmp.diff_main(text1, text2);
             dmp.diff_cleanupSemantic(d);
             var ds = dmp.diff_prettyHtml(d);
 
-            $('diffOutputDiv').innerHTML = ds;
+            myYUI.get('diffOutputDiv').innerHTML = ds;
 
-            Effect.Appear('diffOutputDiv')
+            myYUI.appear('diffOutputDiv')
         }
 
     </script>

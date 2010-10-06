@@ -1,4 +1,3 @@
-
 <g:render template="/common/messages" model="${pageScope.getVariables() + [bean:user]}" />
 
 

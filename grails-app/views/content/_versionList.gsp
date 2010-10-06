@@ -1,3 +1,5 @@
+<g:setProvider library="yui"/>
+
 <g:set var="updateElement" value="${update ?: 'contentPane'}" />
 <g:if test="${message}">
     <div id="message" class="message">${message}</div>
@@ -47,7 +49,7 @@
     
 </div>
 <script type="text/javascript">
-    if($('message')!=null) {
-        Effect.Fade('message', {delay:3})
+    if(myYUI.get('message')!=null) {
+        myYUI.fade('message', {delay:3})
     }
 </script>

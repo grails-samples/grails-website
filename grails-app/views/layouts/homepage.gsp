@@ -3,8 +3,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <g:javascript src="common/application.js"/>
-    
     <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'master.css')}" type="text/css" />
     <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'homepage.css')}" type="text/css" />
 	<!--[if IE]>

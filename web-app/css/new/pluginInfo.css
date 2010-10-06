@@ -1,10 +1,4 @@
-#contentWrapper {
-    background: url(../../images/new/plugins/background_stretch.jpg) repeat-x top;
-	margin:0px;
-	width:100%;
-}
 #contentCenter {
-    background: url(../../images/new/plugins/background.jpg) no-repeat left top;
 	min-height:800px;
 }
 
@@ -35,7 +29,6 @@ body {
 }
 #pluginBox {
 	background:url(../../images/new/plugins/fullpagePlugin_top.png) no-repeat center top;	
-	height:308px;
 	padding-left:30;
 	margin-top:0px;
 	position:relative;

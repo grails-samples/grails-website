@@ -1,0 +1,89 @@
+.top {
+	height:20px;
+}
+.bottom {
+	background: url(../../images/new/plugins/fullpagePlugin_btm.png) no-repeat center bottom;
+	height: 10px;
+}
+.nav {
+	background: url(../../images/new/plugins/fullpagePlugin_top.png) no-repeat center top;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin-bottom:0px;
+}
+.menuButton {
+	font-size: 10px;
+	padding: 0px 5px;
+}
+.menuButton a:link, .menuButton a:visited, .menuButton a:hover {
+	color: #333;
+	font-weight: bold;
+	padding: 4px 6px;
+	text-decoration: none;
+}
+.menuButton a.home {
+	background: url(http://grails.org/images/skin/house.png) no-repeat 0% 50%;
+	color: #333;
+	padding-left: 25px;
+}
+.body {
+	background: url(../../images/new/plugins/fullpagePlugin_mid.png) repeat-y center top;	
+}
+.body h1 {
+	margin: 0;
+	padding: 10px;
+}
+.body a {
+	text-decoration: none;
+}
+.list table  {
+	border: 1px solid #CCC;
+	border-collapse: collapse;
+	width: 980px;
+}
+.list th, .list td {
+	border-left: 1px solid #DDD;
+}
+td, th {
+	font: normal normal normal 11px/normal verdana, arial, helvetica, sans-serif;
+	line-height: 12px;
+	padding: 5px 6px;
+	text-align: left;
+	vertical-align: top;
+}
+th {
+	background: white url(http://grails.org/images/skin/shadow.jpg);
+	color: #666;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 17px;
+	padding: 2px 6px;
+}
+th a:link, th a:visited, th a:hover {
+	color: #333;
+	display: block;
+	font-size: 10px;
+	text-decoration: none;
+	width: 100%;
+}
+.paginateButtons {
+	border: 0px;
+	border-top: 0px;
+	color: #666;
+	font-size: 10px;
+	overflow: hidden;
+	padding: 10px 3px;
+}
+.paginateButtons span {
+	padding: 2px 3px;
+}
+.paginateButtons a {
+	background: white;
+	border-color: #CCC #AAA #AAA #CCC;
+	border: 1px solid;
+	color: #666;
+	margin: 0px 3px;
+	padding: 2px 6px;
+}
+
+

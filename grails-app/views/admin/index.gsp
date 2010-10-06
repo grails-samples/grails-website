@@ -4,7 +4,6 @@
   <head>
       <title>Grails.org Admin Area</title>
       <meta content="subpage" name="layout" />
-      <g:javascript library="scriptaculous" />
   </head>
   <body>
         <h1>Admin Area</h1>

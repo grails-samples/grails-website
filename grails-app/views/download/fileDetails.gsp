@@ -1,4 +1,3 @@
-
 <%@ page import="org.grails.downloads.Download" %>
 <html>
     <head>

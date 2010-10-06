@@ -5,23 +5,13 @@ p {
 	margin-top:10px;
 	margin-bottom:10px;
 }
-#contentWrapper {
-    background: url(../../images/new/plugins/background_stretch.jpg) repeat-x top;
-	margin:0px;
-	width:100%;
-
-}
-#contentInnerWrapper {
-    background: url(../../images/new/plugins/background.jpg) no-repeat left top;
-
-}
 
 #contentTitle {
 	position:absolute;
 	left:30%;
 	top:70px;
 	color:#094B00;
-    background: url(/images/new/content/title_bg.png) no-repeat left top;	
+	background: url(/images/new/content/title_bg.png) no-repeat left top;	
 	margin-top:27px;
 	height:55px;
 	text-align:left;

@@ -2,7 +2,6 @@
 <head>
     <title>Download Archive</title>
     <meta content="subpage" name="layout" />
-    <g:javascript library="scriptaculous" />
     <style type="text/css">
 
         .download-table  {

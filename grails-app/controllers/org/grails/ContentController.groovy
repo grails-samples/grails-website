@@ -256,7 +256,7 @@ class ContentController extends BaseWikiController {
                     if (pages?.size() > 1) log.warn "[saveWikiPage] WikiPage.findAllByTitle() returned more than one record!"
                     def page = pages[0]
 
-                    if(page.version != params.version.toLong()) {
+                    if(page.version != params.long('version')) {
                         render(template:"wikiEdit",model:[wikiPage:page, error:"page.optimistic.locking.failure"])
                     }
                     else {
@@ -309,12 +309,30 @@ class ContentController extends BaseWikiController {
             def page = WikiPage.findByTitle(params.id.decodeURL())
             if(page) {
                 def version = Version.findByCurrentAndNumber(page, params.number.toLong())
+                def allVersions = Version.withCriteria {
+                    projections {
+                        distinct 'number', 'version'
+                        property 'author'
+                    }
+                    eq 'current', page
+                    order 'number', 'asc'
+                    cache true
+                }
+
                 if(!version) {
-                   render(template:"versionList", model:[wikiPage: page,versions:Version.findAllByCurrent(page), message:"wiki.version.not.found"])
+                    render(template:"versionList", model:[
+                            wikiPage: page,
+                            versions: allVersions.collect { it[0] },
+                            authors: allVersions.collect { it[1] },
+                            message:"wiki.version.not.found"])
                 }
                 else {
                     if(page.body == version.body) {
-                        render(template:"versionList", model:[wikiPage: page,versions:Version.findAllByCurrent(page), message:"Contents are identical, no need for rollback."])     
+                        render(template:"versionList", model:[
+                                wikiPage: page,
+                                versions: allVersions.collect { it[0] },
+                                authors: allVersions.collect { it[1] },
+                                message:"Contents are identical, no need for rollback."])     
                     }
                     else {
 
@@ -327,12 +345,16 @@ class ContentController extends BaseWikiController {
                         assert v.save()
                         evictFromCache params.id
 
-                        render(template:"versionList", model:[wikiPage: page, versions:Version.findAllByCurrent(page).sort { it.number }, message:"Page rolled back, a new version ${v.number} was created"])
+                        render(template:"versionList", model:[
+                                wikiPage: page,
+                                versions: allVersions.collect { it[0] },
+                                authors: allVersions.collect { it[1] },
+                                message:"Page rolled back, a new version ${v.number} was created"])
                     }
                 }
             }
             else {
-                render(template:"versionList", model:[wikiPage: page,versions:Version.findAllByCurrent(page), message:"wiki.page.not.found"])
+                response.sendError(404)
             }
         }
         else {

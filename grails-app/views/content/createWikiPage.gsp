@@ -3,7 +3,6 @@
 <head>
     <title>Create Page</title>
     <meta content="subpage" name="layout" />
-    <g:javascript library="scriptaculous" />
 </head>
 <body>
     <g:render template='wikiCreate' var="pageName" bean="${pageName}"/>

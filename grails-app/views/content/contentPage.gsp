@@ -1,10 +1,8 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<g:setProvider library="yui"/>
+
 <head>
     <title>${content?.title}</title>
     <meta content="subpage" name="layout" />
-    <link rel="stylesheet" href="${resource(dir:'css',file:'content.css')}" />
-    <g:javascript library="diff_match_patch" />
-    <g:javascript library="scriptaculous" />
     <g:render template="wikiJavaScript"/>
 	<style type="text/css" media="screen">
 		body {

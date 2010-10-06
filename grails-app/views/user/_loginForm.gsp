@@ -1,3 +1,5 @@
+<g:setProvider library="yui" />
+
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
 
 <g:render template="/common/messages" model="${pageScope.getVariables() + [bean:wikiPage]}" />
@@ -48,4 +50,3 @@
      </div>
 </div>
 
-%{--<g:render template="/common/messages_effects" model="${pageScope.getVariables()}" />--}%

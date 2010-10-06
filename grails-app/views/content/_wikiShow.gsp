@@ -1,3 +1,5 @@
+<g:setProvider library="yui"/>
+
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
 
 <div id="wikiLastUpdated">Last updated by ${latest?.author?.login} <prettytime:display date="${content.lastUpdated}"/></div>
@@ -9,7 +11,7 @@
 </wiki:text>
 
 <g:javascript>
-   if($('message')!=null) {
-        Effect.Fade('message', {delay:3});
+   if(myYUI.get('message')!=null) {
+        myYUI.fade('message', {delay:3});
    }
 </g:javascript>

@@ -1,62 +1,48 @@
-<%@ page import="org.grails.plugin.Plugin" %>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<g:applyLayout name="pluginInfoLayout">
 <head>
-    <rateable:resources />
-    <gui:resources components="['tabView','dialog','autoComplete']" javascript='animation'/>
+    <title><g:layoutTitle default="Plugin - ${plugin.title}" /></title>
+
+    <content tag="pageCss">
+        <rateable:resources />
+        <gui:resources components="['tabView','dialog','autoComplete']" javascript='animation'/>
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'tabview.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'content.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'plugins.css')}" />
+    </content>
+
+    <g:javascript src="common/yui-effects.js" />
     <g:javascript library="diff_match_patch" />
-    <g:javascript library="scriptaculous" />
-	
-    <link rel="stylesheet" href="${resource(dir:'css',file:'tabview.css')}" />
 
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'content.css')}" />
-    <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'plugins.css')}" />
-    <!-- <link rel="stylesheet" type="text/css" href="${resource(dir:'css/new',file:'comments.css')}" /> -->
+    <g:layoutHead />
 
-    <title>Grails Plugin - ${plugin.title}</title>
-    <meta content="pluginInfoLayout" name="layout"/>
     <g:render template="../content/wikiJavaScript"/>    
 
-	<style type="text/css" media="screen">
-		.yui-navset-bottom .yui-nav li a em {
-			display:inline;
-		}
-		.yui-navset .yui-nav li a em, .yui-navset-top .yui-nav li a em, .yui-navset-bottom .yui-nav li a em {
-			display:inline;
-		}		
-		
-	</style>
+    <style type="text/css" media="screen">
+.yui-navset-bottom .yui-nav li a em {
+    display:inline;
+}
+.yui-navset .yui-nav li a em, .yui-navset-top .yui-nav li a em, .yui-navset-bottom .yui-nav li a em {
+    display:inline;
+}
+    </style>
 </head>
 <body>
 
-<div id="contentPane">
+    <div id="contentPane">
 
 	<div id="pluginBigBox">
-		<g:render template="/user/profileBox" />		
-		<div id="pluginBgTop"></div>
-		<div id="pluginBox">
-			<div id="pluginDetailWrapper">
+            <g:render template="/user/profileBox" />		
+            <div id="pluginBgTop"></div>
+            <div id="pluginBox">
+                <div id="pluginDetailWrapper">
 
-			
-				<g:layoutBody />
-				<div class="pluginBoxBottom">
+                    <g:layoutBody />
 
-				</div>
-				
-				<div id="btmSectionGraphicsWrapper">
-				    <div id="mountainLeft"></div>
-				    <div id="knight"></div>
-				    <div id="mountainRight"></div>
-				    <div id="castle"></div>
-				</div><!-- btmSectionGraphicsWrapper-->
-				<g:render template="/content/footer"></g:render>
-		        <g:render template="../content/previewPane"/>
-
-
-				
-		    </div>	
-
-		</div>		
+                    <div class="pluginBoxBottom"></div>
+                    <g:render template="../content/previewPane"/>
+                </div>	
+            </div>		
 	</div>
-</div>
+    </div>
 </body>
-</html>
+</g:applyLayout>

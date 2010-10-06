@@ -19,8 +19,8 @@
             ${message}
         </div>
         <script type="text/javascript">
-        if($("message")!=null) {
-        Effect.Fade("message",
+        if(myYUI.get("message")!=null) {
+        myYUI.fade("message",
             {   delay:7,
                 afterFinish:function() {
                                  var dialog = window.parent.$('${pageId}Dialog')

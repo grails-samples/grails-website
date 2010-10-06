@@ -2,8 +2,11 @@
 <html>
   <head>
       <title>Upload dialog</title>
-      <g:javascript library="scriptaculous" />
       <link rel="stylesheet" href="${createLinkTo(dir:'css', file:'master.css')}" type="text/css" media="screen" title="Master screen stylesheet" charset="utf-8" />
+
+      <g:javascript library="yui" />
+      <yui:javascript dir="animation" file="animation-min.js" /> 
+      <g:javascript src="common/yui-effects.js" />
 
       <style type="text/css">
         body {

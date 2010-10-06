@@ -4,7 +4,7 @@
     <g:set var="href" value="${update ? 'javascript:void(0)' : '#'}"/>
     <ul class="wikiActionMenu">
         <li>
-            <a href="${href}" class="actionIcon" onclick="Effect.Appear('uploadDialog')">
+            <a href="${href}" class="actionIcon" onclick="myYUI.appear('uploadDialog')">
                 <img src="${createLinkTo(dir: 'images/', 'icon-upload.png')}" width="15" height="15" alt="Icon Image Upload" class="inlineIcon" border="0"/>
                 <span>Upload Image</span>
             </a>
@@ -12,30 +12,26 @@
         </li>
         <li>
             <a href="${href}" class="actionIcon"
-                    onclick="new Ajax.Updater('previewPane', '${createLink(controller:'content',action:'previewWikiPage',id:content?.title)}', getAjaxOptions(function() {
-                        showPreview()
-                    }, '${editFormName}'));
-                    return false">
+               onclick="YAHOO.util.Connect.setForm('${editFormName}');YAHOO.util.Connect.asyncRequest('POST', '/preview/${content?.title}', {success: function(o){YAHOO.util.Dom.get('previewPane').innerHTML = o.responseText;showPreview();}, failure: function(o){}});return false;" class="actionIcon">
                 <img src="${createLinkTo(dir: 'images/', 'icon-preview.png')}" width="18" height="15" alt="Icon Edit" class="inlineIcon" border="0"/>
                 <span>Preview</span>
             </a>
         </li>
         <li>
             <a href="${href}" class="actionIcon"
-                    onclick="new Ajax.Updater('${updateElement}', '${createLink(controller:'content',action:'saveWikiPage',id:content?.title, params:[update:updateElement])}', getAjaxOptions(function() { showCommentPost() }, '${editFormName}'));
-                    return false">
+               onclick="YAHOO.util.Connect.setForm('${editFormName}');YAHOO.util.Connect.asyncRequest('POST', '/save/${content?.title}', {success: function(o){showCommentPost();YAHOO.util.Dom.get('${updateElement}').innerHTML = o.responseText; fadeMessages()}, failure: function(o){}});return false;" class="actionIcon">
                 <img src="${createLinkTo(dir: 'images/', 'icon-save.png')}" width="15" height="15" alt="Icon Save" class="inlineIcon" border="0"/>
                 <span>Save</span>
             </a>
         </li>
         <li>
-            <g:remoteLink class="actionIcon" update="${updateElement}" controller="content" id="${content?.title}" params="[xhr:true,update:updateElement]" onLoaded="showCommentPost()">
+            <g:remoteLink class="actionIcon" update="${updateElement}" controller="content" id="${content?.title}" params="[update: updateElement]" onLoaded="showCommentPost()">
                 <img src="${createLinkTo(dir: 'images/', 'icon-cancel.png')}" width="15" height="15" alt="Icon Cancel" class="inlineIcon" border="0"/>
                 <span>Cancel</span>
             </g:remoteLink>
         </li>
         <li>
-            <g:remoteLink class="actionIcon" action="infoWikiPage" id="${content?.title}" params="[update:updateElement]" update="${updateElement}" onLoaded="showCommentPost()">
+            <g:remoteLink class="actionIcon" action="infoWikiPage" id="${content?.title}" update="${updateElement}" params="[update: updateElement]" onLoaded="showCommentPost()">
                 <img border="0" src="${createLinkTo(dir: 'images/', 'icon-info.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0"/>
                 <span>View Info</span>
             </g:remoteLink>

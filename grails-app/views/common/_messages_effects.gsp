@@ -1,9 +1,10 @@
 <script type="text/javascript">
-    if($("errors")!=null) {
-        Effect.Fade("errors", {delay:5})
+function fadeMessages() {
+    if(myYUI.get("errors")!=null) {
+        myYUI.fade("errors", 5);
     }
-    if($("message")!=null) {
-        Effect.Fade("message", {delay:10, toggle:false})
+    if(myYUI.get("message")!=null) {
+        myYUI.fade("message", 10);
     }
-
+}
 </script>

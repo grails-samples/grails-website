@@ -15,7 +15,7 @@
     </g:form>
 </div>
 <script type="text/javascript">
-    if($("errors")!=null) {
-        Effect.Fade("errors", {delay:3})
+    if(myYUI.get("errors")!=null) {
+        myYUI.fade("errors", {delay:3})
     }
 </script>
