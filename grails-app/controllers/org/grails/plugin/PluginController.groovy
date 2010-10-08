@@ -1,5 +1,6 @@
 package org.grails.plugin
 
+import grails.converters.JSON
 import grails.plugin.springcache.annotations.*
 import org.grails.wiki.WikiPage
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
@@ -106,6 +107,51 @@ class PluginController extends BaseWikiController {
 
         // TODO: figure out why plugin.ratings.size() is always 1
         render view:'showPlugin', model:[plugin:plugin, userRating: userRating]
+    }
+
+    /**
+     * Plugin 'ping'. Should only be accessible from a PUT. It extracts
+     * the location of the plugin's deployment repository from the request
+     * and queues up a job to update the plugin's details in the database
+     * from the POM and plugin descriptor stored in the repository.
+     */
+    def update = {
+        // Start by getting the named plugin if it exists.
+        def plugin = Plugin.findByName(params.name)
+
+        // Check the payload. There should be a 'url' parameter containing
+        // the location of the repository to which the plugin was deployed.
+        // If the parameter doesn't exist or it's not a URL, we return a 400.
+        def data = JSON.parse(request)
+        if (!data.url) {
+            render contentType: "application/json", status: 400, {
+                message = "No repository URI provided"
+            }
+            return
+        }
+
+        try {
+            def uri = new URI(data.url)
+
+            if (!uri.absolute) {
+                    render contentType: "application/json", status: 400, {
+                        message = "Relative repository URI not supported: ${uri}"
+                    }
+                return
+            }
+
+            publishEvent(new PluginUpdateEvent(this, data.name, data.version, data.group, uri))
+
+            render contentType: "application/json", {
+                message = "OK"
+            }
+        }
+        catch (URISyntaxException ex) {
+            render contentType: "application/json", status: 400, {
+                message = "Invalid repository URI: ${data.url}"
+            }
+            return
+        }
     }
 
     def editPlugin = {

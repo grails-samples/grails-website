@@ -52,31 +52,31 @@ environments {
 }
 
 springcache {
-	disabled = true
+    disabled = true
     defaults {
         // set default cache properties that will apply to all caches that do not override them
         eternal = false
         diskPersistent = false
-		overflowToDisk = false
+        overflowToDisk = false
     }
     caches {
         contentCache {
             // set any properties unique to this cache
             timeToLive = 300
-        	diskPersistent = false
-			overflowToDisk = false
+            diskPersistent = false
+            overflowToDisk = false
         }
         pluginCache {
             // set any properties unique to this cache
             timeToLive = 300
-        	diskPersistent = false
-			overflowToDisk = false
+            diskPersistent = false
+            overflowToDisk = false
         }
         downloadCache {
             // set any properties unique to this cache
             timeToLive = 300
-        	diskPersistent = false
-			overflowToDisk = false
+            diskPersistent = false
+            overflowToDisk = false
         }
     }
 }

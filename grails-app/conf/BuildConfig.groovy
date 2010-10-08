@@ -10,8 +10,10 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
+        mavenCentral()
         mavenRepo "http://repository.codehaus.org"
-		mavenCentral()
+        mavenRepo "http://maven.springframework.org/milestone"
+        mavenRepo "http://snapshots.repository.codehaus.org"
     }
 
     plugins {
@@ -32,15 +34,16 @@ grails.project.dependency.resolution = {
                 ":shiro:1.1-SNAPSHOT",
                 ":simple-blog:0.1.5",
                 ":springcache:1.2",
+                ":spring-events:1.0",
                 ":taggable:0.6.2",
                 ":yui:2.7.0.1"
         
-        test  ( ":build-test-data:1.1.1",
+        test    ":build-test-data:1.1.1",
                 ":fixtures:1.0.1",
-                ":geb:0.4",
-                ":spock:0.5-groovy-1.7-SNAPSHOT" ) {
-			excludes 'xml-apis'
-		}
+                ":geb:0.5-SNAPSHOT",
+                ":spock:0.5-groovy-1.7-SNAPSHOT", {
+            excludes 'xml-apis'
+        }
 
         build   ":db-util:0.4",
                 ":tomcat:1.3.5"
