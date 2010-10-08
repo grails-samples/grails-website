@@ -75,6 +75,20 @@ class UrlMappings {
 
         if (Environment.current == Environment.TEST) {
             "/test/fixtures/$action"(controller: "fixtures")
+
+            // URL for plugin descriptors
+            "/test/plugins/$name/$file"(controller: "fixtures", action: "pluginData") {
+                constraints {
+                    file(matches: /.+-plugin.xml/)
+                }
+            }
+
+            // URL for plugin POMs
+            "/test/plugins/$name/$file"(controller: "fixtures", action: "pomData") {
+                constraints {
+                    file(matches: /.+\.pom/)
+                }
+            }
         }
 
         "500"(controller: 'error', action: "serverError")
