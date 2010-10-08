@@ -5,7 +5,7 @@
     <rateable:resources />
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'ratings.css')}"/>
 
-    <title>Grails Plugins</title>
+    <title>Plugins Portal</title>
     <meta content="pluginLayout" name="layout"/>
 </head>
 <body>
