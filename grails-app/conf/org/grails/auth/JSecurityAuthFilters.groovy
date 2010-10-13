@@ -66,22 +66,22 @@ class JSecurityAuthFilters {
                 accessControl {
                     role("Editor") || role("Administrator")
                 }
-            }                
+            }
         }
         comments(controller:"commentable", action:"add") {
             before = {
-                accessControl()
+                accessControl { true }
             }
         }
         comments(controller:"screencast", action:"(edit|create|save|update)") {
             before = {
-                accessControl()
+                accessControl { true }
             }
         }
         blogPosting(controller:"blog", action:"(createEntry|editEntry)") {
             before = {
-                accessControl()
-            }                
+                accessControl { true }
+            }
         }
         blogDeletion(controller:"blog", action:"delete") {
             before = {
@@ -121,9 +121,9 @@ class JSecurityAuthFilters {
             before = {
                 if (controllerName == "error") return true
 
-                def subject = SecurityUtils.getSubject() 
+                def subject = SecurityUtils.getSubject()
                 if(subject && subject?.principal) {
-                    request.user = User.findByLogin(subject.principal, [cache:true])                        
+                    request.user = User.findByLogin(subject.principal, [cache:true])
                 }
             }
         }
