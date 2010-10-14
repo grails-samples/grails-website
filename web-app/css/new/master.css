@@ -8,10 +8,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #contentWrapper {
-	background: url(../../images/new/plugins/background_stretch.jpg) repeat-x top;
-	margin:0px;
-	width:100%;
-
+	background: url(../../images/new/top_bar.png) repeat-x scroll center top;
+	width: 100%;
 }
 #contentInnerWrapper {
 	background: url(../../images/new/plugins/background.jpg) no-repeat left top;
