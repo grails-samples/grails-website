@@ -4,7 +4,7 @@
 <%@ page import="org.codehaus.groovy.grails.plugins.searchable.lucene.LuceneUtils" %>
 <html>
 <head>
-    <meta content="pluginLayout" name="layout"/>
+    <meta content="pluginNav" name="layout"/>
     <title>Plugin Search Results</title>
     <script type="text/javascript">
         var focusQueryInput = function() {
@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'search.css')}"/>
 </head>
 <body onload="focusQueryInput();">
-<g:applyLayout name="pluginNav">
 <div id="main">
     <g:set var="haveQuery" value="${params.q?.trim()}"/>
     <g:set var="haveResults" value="${searchResult?.results}"/>
@@ -57,6 +56,5 @@
         </div>
     </g:if>
 </div>
-</g:applyLayout>
 </body>
 </html>
