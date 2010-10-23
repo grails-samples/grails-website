@@ -1,16 +1,49 @@
 import static groovyx.net.http.ContentType.*
+import static groovyx.net.http.Method.*
 
 import groovyx.net.http.HTTPBuilder
-import spock.lang.Shared
 import spock.lang.Specification
 
+/**
+ * Functional tests for the plugin portal's REST-like interface. It basically
+ * tests all the URLs that don't return or redirect to HTML pages. We use
+ * HttpBuilder for this because Geb is page/HTML oriented.
+ */
 class PluginPortalRestSpec extends Specification {
-    @Shared http = new HTTPBuilder("http://localhost:8080")
+    def http = new HTTPBuilder("http://localhost:8080")
     
     def setupSpec() {
-        http.post path: "/test/fixtures/load", query: [file: "plugins"], body: "", { resp ->
-            println "Status: ${resp.statusLine.statusCode}"
+        def http = new HTTPBuilder("http://localhost:8080")
+        http.post path: "/test/fixtures/load", query: [file: "plugins"], body: ""
+    }
+
+    def cleanupSpec() {
+        def http = new HTTPBuilder("http://localhost:8080")
+        http.post path: "/test/fixtures/unload", body: ""
+    }
+
+    def "Test updating plugin info via a 'ping'"() {
+        given:
+        http.handler.success = { it.statusLine.statusCode }
+        http.handler.failure = { it.statusLine.statusCode }
+        
+        when: "a 'ping' is sent telling the portal to update a plugin's info"
+        def status = http.request(PUT, JSON) { req ->
+           uri.path = url
+           uri.query = [format: "json"]
+           body = requestBody
         }
+
+        then: "the appropriate status code is returned"
+        status == expectedStatus
+
+        where:
+        url                 | expectedStatus | requestBody
+        "/plugin/shiro"     | 200            | [url: "http://localhost:8080/test/shiro" ]
+        "/plugin/notKnown"  | 404            | [url: "http://localhost:8080/test/shiro" ]
+        "/plugin/shiro"     | 400            | [test: "http://localhost:8080/test/shiro" ]
+        "/plugin/shiro"     | 400            | [url: "this is not a URL" ]
+        "/plugin/shiro"     | 400            | [url: "/relative/path/uri" ]
     }
 
     def "Test plugin list in JSON"() {
