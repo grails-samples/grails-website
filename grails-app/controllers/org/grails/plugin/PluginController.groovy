@@ -46,7 +46,7 @@ class PluginController extends BaseWikiController {
             (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
         }
         catch (MissingMethodException ex) {
-            println ex.message
+            log.error "Unable to list plugins for category '${category}': ${ex.message}"
             response.sendError 404
             return
         }
