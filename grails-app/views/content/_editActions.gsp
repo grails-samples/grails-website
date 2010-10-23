@@ -31,7 +31,7 @@
             </g:remoteLink>
         </li>
         <li>
-            <g:remoteLink class="actionIcon" action="infoWikiPage" id="${content?.title}" update="${updateElement}" params="[update: updateElement]" onLoaded="showCommentPost()">
+            <g:remoteLink class="actionIcon" action="infoWikiPage" id="${content?.title}" update="${updateElement}" params="[update: updateElement]" method="GET" onLoaded="showCommentPost()">
                 <img border="0" src="${createLinkTo(dir: 'images/', 'icon-info.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0"/>
                 <span>View Info</span>
             </g:remoteLink>

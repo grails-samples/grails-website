@@ -15,19 +15,19 @@ class JSecurityAuthFilters {
      * page.
      */
     def onNotAuthenticated(subject, d) {
+        def targetUri = d.request.forwardURI 
+        if (d.request.queryString) {
+            targetUri = "${targetUri}?${d.request.queryString}"
+        }
+
         if (d.request.xhr) {
-            d.render(template:"/user/loginForm", model:[originalURI:d.request.forwardURI,
+            d.render(template:"/user/loginForm", model:[originalURI:targetUri,
                                                         formData:d.params,
                                                         async:true,
                                                         update:d.params.update,
                                                         message:"auth.not.logged.in"])
         } else {
             // Redirect to login page.
-            def targetUri = d.request.forwardURI 
-            if (d.request.queryString) {
-                targetUri = "${targetUri}?${d.request.queryString}"
-            }
-
             d.redirect(
                     controller: 'user',
                     action: 'login',
