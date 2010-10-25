@@ -30,7 +30,7 @@ grails.project.dependency.resolution = {
                 ":screencasts:0.4",
                 ":searchable:0.5.5.1",
                 ":shiro:1.1-SNAPSHOT",
-                ":simple-blog:0.1.3",
+                ":simple-blog:0.1.5",
                 ":springcache:1.2",
                 ":taggable:0.6.2",
                 ":yui:2.7.0.1"
