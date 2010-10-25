@@ -62,3 +62,5 @@ grails.project.dependency.resolution = {
     }
 
 }
+
+grails.tomcat.jvmArgs = [ '-Xmx512m', '-XX:MaxPermSize=256m' ]
