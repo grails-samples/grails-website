@@ -82,7 +82,7 @@ springcache {
 format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"
 blog.page.layout="subpage"
-blog.author.evaluator= {
+grails.blog.author.evaluator= {
 	request.user
 }
 
