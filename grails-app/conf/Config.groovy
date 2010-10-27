@@ -51,6 +51,7 @@ environments {
     }
 }
 
+/*
 security.shiro.filter.config = """\
 [main]
 myAuth = org.grails.auth.RestBasicAuthFilter
@@ -59,6 +60,7 @@ myAuth.applicationName = grails.org
 [urls]
 /plugin/** = myAuth[POST;PUT;DELETE]
 """
+*/
 
 springcache {
     disabled = true
