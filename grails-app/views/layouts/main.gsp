@@ -6,7 +6,7 @@
     <title>Grails - <g:layoutTitle default="The search is over."></g:layoutTitle></title>
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <meta name="robots" content="NOODP">	
+    <wiki:robots/>
     <meta name="Description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">	
 
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />

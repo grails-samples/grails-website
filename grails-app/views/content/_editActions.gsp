@@ -1,15 +1,25 @@
+<%@page import="org.grails.auth.Role" %>
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
 <div id="editLinks" class="wikiLinks">
 
     <g:set var="href" value="${update ? 'javascript:void(0)' : '#'}"/>
     <ul class="wikiActionMenu">
-        <li>
-            <a href="${href}" class="actionIcon" onclick="myYUI.appear('uploadDialog')">
-                <img src="${createLinkTo(dir: 'images/', 'icon-upload.png')}" width="15" height="15" alt="Icon Image Upload" class="inlineIcon" border="0"/>
-                <span>Upload Image</span>
-            </a>
-
-        </li>
+        <shiro:hasRole name="${Role.ADMINISTRATOR}">
+            <li>
+                <a href="${href}" class="actionIcon" onclick="myYUI.appear('deprecateDialog')">
+                    <img src="${createLinkTo(dir: 'images/', 'icon-upload.png')}" width="15" height="15" alt="Icon Image Upload" class="inlineIcon" border="0"/>
+                    <span>Deprecate</span>
+                </a>
+            </li>
+        </shiro:hasRole>
+        <shiro:lacksRole name="${Role.ADMINISTRATOR}">
+            <li>
+                <a href="${href}" class="actionIcon" onclick="myYUI.appear('uploadDialog')">
+                    <img src="${createLinkTo(dir: 'images/', 'icon-upload.png')}" width="15" height="15" alt="Icon Image Upload" class="inlineIcon" border="0"/>
+                    <span>Upload Image</span>
+                </a>
+            </li>
+        </shiro:lacksRole>
         <li>
             <a href="${href}" class="actionIcon"
                onclick="YAHOO.util.Connect.setForm('${editFormName}');YAHOO.util.Connect.asyncRequest('POST', '/preview/${content?.title}', {success: function(o){YAHOO.util.Dom.get('previewPane').innerHTML = o.responseText;showPreview();}, failure: function(o){}});return false;" class="actionIcon">

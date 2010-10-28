@@ -17,4 +17,8 @@ class WikiPageService {
          return wikiPage
     }
 
+    def pageChanged(id) {
+        id = id.decodeURL()
+        cacheService.removeContent(id)
+    }
 }

@@ -6,8 +6,11 @@ import org.grails.content.Version
 class WikiPage extends Content {
 
     transient cacheService
+
+    boolean deprecated
+    String deprecatedUri
     
-	Version createVersion() {
+    Version createVersion() {
         def verObject = new Version(number:version, current:this)
         verObject.title = title
         verObject.body = body
@@ -21,6 +24,7 @@ class WikiPage extends Content {
 	static constraints = {
 		title(blank:false, matches:/[^\/\\]+/)
 		body(blank:true)
+	 	deprecatedUri(nullable: true, blank: true)
 	}
 
     def onAddComment = { comment ->

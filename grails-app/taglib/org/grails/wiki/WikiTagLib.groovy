@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext
 * Created: Feb 19, 2008
 */
 class WikiTagLib implements ApplicationContextAware  {
+    static final String ROBOTS_ATTRIBUTE = "org.grails.wiki.ROBOTS_CONTENT"
 
     static namespace = 'wiki'
 
@@ -75,6 +76,25 @@ class WikiTagLib implements ApplicationContextAware  {
             }
             out << text
         }
+    }
+
+    /**
+     * Designed for use in layouts.
+     */
+    def robots = { attrs ->
+        def content = request[ROBOTS_ATTRIBUTE] ?: attrs.content
+
+        out << "<meta name=\"robots\" content=\"${content ?: 'NOODP'}\">"
+    }
+
+    def deprecated = { attrs ->
+        out << "<blockquote class=\"warning\">This page is deprecated"
+        if (attrs.uri) {
+            out << " and has been <a href=\"${attrs.uri.encodeAsHTML()}\">replaced</a>"
+        }
+        out << "</blockquote>"
+
+        request[ROBOTS_ATTRIBUTE] = "noindex, nofollow"
     }
 
     def editViewButton = { attrs, body ->

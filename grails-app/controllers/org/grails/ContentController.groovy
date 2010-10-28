@@ -440,6 +440,27 @@ class ContentController extends BaseWikiController {
             render(view:"/common/uploadDialog", model:[category:params.id])
         }
     }
+
+    def deprecate = {
+        def page = WikiPage.findByTitle(params.id?.decodeURL())
+        if (!page) {
+            response.sendError 404
+            return
+        }
+
+        WikiPage.withTransaction {
+            page.deprecated = true
+            page.deprecatedUri = params.uri
+            if (page.save()) {
+                wikiPageService.pageChanged(params.id)
+            }
+        }
+
+        // This is a bit hacky, but hopefully a short-term solution. I'm
+        // not convinced by the use of iframes for the upload and deprecate
+        // dialogs.
+        redirect action: "index", id: params.id
+    }
     
     def renderHomepage = {
         // Homepage needs latest plugins
