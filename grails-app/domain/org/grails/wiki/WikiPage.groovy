@@ -17,15 +17,15 @@ class WikiPage extends Content {
         return verObject
     }
 	
-	static hasMany = [versions:Version]
+    static hasMany = [versions:Version]
     static transients = ["latestVersion"]
     static searchable = [only: ['body', 'title']]
 
-	static constraints = {
-		title(blank:false, matches:/[^\/\\]+/)
-		body(blank:true)
-	 	deprecatedUri(nullable: true, blank: true)
-	}
+    static constraints = {
+        title(blank:false, matches:/[^\/\\]+/)
+        body(blank:true)
+        deprecatedUri(nullable: true, blank: true)
+    }
 
     def onAddComment = { comment ->
         cacheService?.flushWikiCache()
