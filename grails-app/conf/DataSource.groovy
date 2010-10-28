@@ -14,7 +14,6 @@ hibernate {
 environments {
 	development {
 		dataSource {
-			logSql=true			
 			dbCreate = "update" // one of 'create', 'create-drop','update'
 		}
 	}
@@ -29,7 +28,6 @@ environments {
 	}
 	production {
 		dataSource {
-			dbCreate = "update"
 			jndiName = 'java:comp/env/jdbc/grailsSiteDS'
 		}
 	}
