@@ -360,34 +360,34 @@
 			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/searchable-0.5.5.1/src/java</location>
 		</link>
 		<link>
-			<name>shiro-1.1-grails-app-conf</name>
+			<name>shiro-1.1.1-grails-app-conf</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1/grails-app/conf</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1.1/grails-app/conf</location>
 		</link>
 		<link>
-			<name>shiro-1.1-grails-app-i18n</name>
+			<name>shiro-1.1.1-grails-app-i18n</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1/grails-app/i18n</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1.1/grails-app/i18n</location>
 		</link>
 		<link>
-			<name>shiro-1.1-grails-app-services</name>
+			<name>shiro-1.1.1-grails-app-services</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1/grails-app/services</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1.1/grails-app/services</location>
 		</link>
 		<link>
-			<name>shiro-1.1-grails-app-taglib</name>
+			<name>shiro-1.1.1-grails-app-taglib</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1/grails-app/taglib</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1.1/grails-app/taglib</location>
 		</link>
 		<link>
-			<name>shiro-1.1-src-groovy</name>
+			<name>shiro-1.1.1-src-groovy</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1/src/groovy</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1.1/src/groovy</location>
 		</link>
 		<link>
-			<name>shiro-1.1-src-java</name>
+			<name>shiro-1.1.1-src-java</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1/src/java</location>
+			<location>/Users/pledbrook/dev/tools/git/grails-samples/grails.org/plugins/shiro-1.1.1/src/java</location>
 		</link>
 		<link>
 			<name>simple-blog-0.1.5-grails-app-conf</name>
