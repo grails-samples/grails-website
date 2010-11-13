@@ -1,26 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
 <head>
-    <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'master.css')}" type="text/css" />
-    <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'homepage.css')}" type="text/css" />
-	<!--[if IE]>
-    <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'ie.css')}"/>
-	<![endif]-->
-
-	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-
-
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<meta name="robots" content="NOODP">	
-	<meta name="Description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">	
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="NOODP">	
+    <meta name="Description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">	
 	
-	<title>Grails - The search is over.</title>
-
-	<g:layoutHead />
-
+    <title>Grails - The search is over.</title>
+    
+    <r:use modules="homepage"/>
+    <r:resourceLink uri="/images/favicon.ico"/>
+    <r:layoutResources/>
+    
+    <g:layoutHead />
 </head>
 <body>
     
@@ -69,16 +64,12 @@
                             <h3>
 								<g:if test="${grailsDownload}">
 									<download:link software="Grails" version="${grailsDownload?.softwareVersion}" file="Binary Zip">
-										<img src="${resource(dir:'images/new',file:'download_button.png')}" 
-											 border="0"
-											alt="Download Grails" />
+										<r:img uri="/images/new/download_button.png" border="0" alt="Download Grails" />
 									</download:link>								
 								</g:if>
 								<g:else>
 									<g:link controller="content" id="Download">
-									  <img src="${resource(dir:'images/new',file:'download_button.png')}" 
-									       border="0"
-										   alt="Download Grails" />								
+									  <r:img uri="/images/new/download_button.png" border="0" alt="Download Grails" />
 									</g:link>
 								</g:else>
 							</h3>
@@ -89,7 +80,7 @@
                         <div id="plugins">
                             <h3>
 								<g:link controller="plugin">
-									<img src="${resource(dir:'images/new',file:'plugins_button.png')}" alt="Grails Plugins" border="0" />
+									<r:img uri="/images/new/plugins_button.png" alt="Grails Plugins" border="0" />
 								</g:link>
 								
 								
@@ -138,7 +129,7 @@
                     <div class="castBox">
                         <div class="advert">
                             <a href="http://www.springone2gx.com/conference/chicago/2010/10/register">
-                                <img width="250" height="240" src="${resource(dir: 'images', file: 'SpringOne2GX_250x240.png')}"/>
+                                <r:img width="250" height="240" uri="/images/SpringOne2GX_250x240.png"/>
                             </a>
                         </div>
                     </div>
@@ -147,7 +138,7 @@
                     <div class="castBox">
                         <div class="castScreen">
 							<a href="https://www.cloudfoundry.com/screencasts.html#grails">
-								<img src="/images/new/play_icon.png"/>
+								<r:img uri="/images/new/play_icon.png"/>
 							</a>
                         </div><!-- castScreen -->
                         <h4><g:link controller="screencast" action="list">View All</g:link></h4>
@@ -200,7 +191,7 @@ Visit the Grails <g:link controller="content" id="Community">community pages</g:
 <div id="footer">
     <div align="center">
         <div class="innerFooter">
-			<a href="http://contegix.com"><img src="${resource(dir:'images',file:'contegix_logo.jpg')}" alt="Hosted by Contegix" border="0"/></a>
+			<a href="http://contegix.com"><r:img uri="/images/contegix_logo.jpg" alt="Hosted by Contegix" border="0"/></a>
             <a href="http://twitter.com/grailsframework"><div class="twitter"></div></a>
             <p>&copy; Copyright 2009 SpringSource.<br/>All Rights Reserved.</p>
         </div><!-- innerFooter -->
@@ -209,5 +200,7 @@ Visit the Grails <g:link controller="content" id="Community">community pages</g:
 
     <%-- Google Analytics --%>
     <g:render template="/content/analytics" />
+    
+    <r:layoutResources/>
 </body>
 </html>

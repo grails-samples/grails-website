@@ -1,11 +1,11 @@
 <g:applyLayout name="main">
 <head>
     <title><g:layoutTitle default="Plugins Portal" /></title>
+    <r:use modules="plugins"/>
     
     <content tag="pageCss">
-        <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'plugins.css')}" type="text/css" />
+        
     </content>
-
     <g:layoutHead />
 </head>
 <body>

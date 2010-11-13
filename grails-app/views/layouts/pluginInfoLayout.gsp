@@ -1,9 +1,9 @@
 <g:applyLayout name="main">
 <head>
     <title><g:layoutTitle /></title>
+    <r:use modules="pluginInfo"/>
 
     <content tag="pageCss">
-        <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'pluginInfo.css')}" type="text/css" />
         <g:pageProperty name="page.pageCss" />
     </content>
 

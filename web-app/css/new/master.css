@@ -8,7 +8,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #contentWrapper {
-	background: url(../../images/new/top_bar.png) repeat-x scroll center top;
+	background: url(../../images/sprites/master-repeat.png) repeat-x scroll center top;
+	background-position: 712px -537px;
 	width: 100%;
 }
 #contentInnerWrapper {
@@ -42,6 +43,11 @@ h1, h2, h3, h4, h5, h6 {
 	top:110px;
 	text-align:center;
 }
+.ie6 #statusbox {
+        position:absolute;
+        right:120px;
+        width:260px;
+}
 #message {
 	margin-bottom:10px;
 }
@@ -55,7 +61,8 @@ h1, h2, h3, h4, h5, h6 {
 	width:210px;
 	right:0;
 	top:59px;
-    background: url(../../images/new/searchbar.png) no-repeat top;		
+    background-image: url(../../images/sprites/master-variable-width.png);
+    background-position: -18px -10px;
 }
  #searchbar input {
 	margin-top:5px;
@@ -93,7 +100,8 @@ h1, h2, h3, h4, h5, h6 {
 	position:relative;
 	top:30px;
 	width:706px;
-    background: url(../../images/new/content/mainbox_top.png) no-repeat top;		
+    background: url(../../images/sprites/subpage-variable-width.png) no-repeat top;
+    background-position: -10px -228px;
 }
 #contentDecoration {
 	float:right;
@@ -103,12 +111,13 @@ h1, h2, h3, h4, h5, h6 {
 	margin-right:70px;
 	z-index:99;
 	top:30px;
-    background: url(../../images/new/content/decrtn_1.png) no-repeat top;		
-	
+    background: url(../../images/sprites/subpage-variable-width.png) no-repeat top;		
+    background-position: -10px -269px;
 }
 #contentBody {
 	width:660px;
-    background: url(../../images/new/content/mainbox_midstretch.png) repeat-y top;		
+    background: url(../../images/sprites/subpage-repeat.png) repeat-y top;
+    background-position: -258px 0px;
 	position:relative;
 	top:30px;
 	min-height:450px;
@@ -117,17 +126,30 @@ h1, h2, h3, h4, h5, h6 {
 	padding-right:20px;
 	padding-left:30px;
 }
+.ie6 #contentBody {
+        position:relative;
+        top:-14px;
+}
+.ie6 #contentBody ul {
+        margin-left:30px;
+}
 #contentFooter {
 	height:21px;
 	position:relative;
 	top:30px;
 	width:706px;
-    background: url(../../images/new/content/mainbox_btm.png) no-repeat top;		
-	
+    background: url(../../images/sprites/subpage-variable-width.png) no-repeat top;		
+    background-position: -10px -333px;
+}
+.ie6 #contentFooter {
+        position:relative;
+        top:-14px;
+        left:10px;      
 }
 
 .mainMenuBarWrapper {
-    background: url(../../images/new/topnav_menubar.png) repeat scroll top;
+    background: url(../../images/sprites/master-repeat.png) repeat scroll top;
+    background-position: 712px -496px;
     width: 100%;
 }
 #mainMenuBar {
@@ -144,7 +166,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mainMenuBar li {
-    background: url(../../images/new/topnav_menbar_divider.png) no-repeat top left;
+    background-image: url(../../images/sprites/master-variable-width.png);
+    background-position: -10px -399px;
     display: inline;
     padding: 0px 4px 0px 10px;
     margin-top: 3px;
@@ -162,40 +185,46 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mountainLeft {
-    background: url(../../images/new/mountains_decoration.png) top right no-repeat;
+    background-image: url(../../images/sprites/master-variable-width.png);
+    background-position: -318px -62px;
     height: 99px;
     width: 234px;
 }
 
 #knight {
-    background: url(../../images/new/knight_decoration.png) top left no-repeat;
+    background-image: url(../../images/sprites/master-variable-width.png);
+    background-position: -10px -181px;
     height: 49px;
     width: 30px;
     left: 2px;
 }
 
 #mountainRight {
-    background: url(../../images/new/mountains_decoration.png) top left no-repeat;
+    background-image: url(../../images/sprites/master-variable-width.png);
+    background-position: -10px -62px;
     height: 99px;
     width: 164px;
     right: 0px;
 }
 
 #castle {
-    background: url(../../images/new/castle_decoration.png) top left no-repeat;
+    background-image: url(../../images/sprites/master-variable-width.png);
+    background-position: -10px -250px;
     height: 31px;
     width: 87px;
     right: 203px;
 }
 
 #btmSectionBackgroundStretch {
-    background: url(../../images/new/bottom_section_stretch.png) top left repeat-x;
+    background-image: url(../../images/sprites/master-repeat.png);
+    background-position: 0px -10px;
 }
 
 #footer {
     width: 100%;
     height: 80px;
-    background: url(../../images/new/footer_stretch.png) repeat-x top;
+    background-image: url(../../images/sprites/master-repeat.png);
+    background-position: 712px -416px;
     font-size: 10pt;
 }
 #footer img {
@@ -216,7 +245,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #footer .twitter {
-    background: url(../../images/new/twitter_icon.png) no-repeat left top;
+    background-image: url(../../images/sprites/master-variable-width.png);
+    background-position: -10px -301px;
     width: 69px;
     height: 78px;
     position: absolute;
@@ -225,7 +255,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #footer .springSource {
-    background: url(../../images/new/springsource-logo.png) no-repeat right top;
+    background: url(../../images/new/springsource-logo.jpg) no-repeat right top;
     width: 158px;
     height: 54px;
     position: absolute;
@@ -301,14 +331,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 .warning {
 	border:1px solid red;
-    background: white url("/images/icon-warn.png") 13px 12px no-repeat;
+    background: white url("../../images/icon-warn.png") 13px 12px no-repeat;
     padding: 10px 10px 10px 39px;
     margin:10px 10px;
 }
 
 .note {
 	border:1px solid #48802c;
-    background: white url("/images/icon-info.png") 13px 12px no-repeat;
+    background: white url("../../images/icon-info.png") 13px 12px no-repeat;
     padding: 10px 10px 10px 39px;
     margin:10px 10px;
 }

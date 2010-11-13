@@ -1,10 +1,10 @@
 <div id="springSourceBar">
 	<div id="grailsLogo">
-		<a href="/"><img src="${resource(dir:'images/new', file:'grailslogo_topNav.png')}" border="0"></a>			
+		<a href="/"><r:img uri="/images/new/grailslogo_topNav.png" border="0"/></a>			
 	</div>
 
 	<div id="springSourceLogo">
-		<a href="http://www.springsource.com/"><img src="${resource(dir:'images/new', file:'springsource.png')}" border="0"></a>			
+		<a href="http://www.springsource.com/"><r:img uri="/images/new/springsource.png" border="0"/></a>			
 	</div>
 	<div id="searchbar">
 		<g:form method="GET" url="[controller:'content', action:'search']" name="searchForm">

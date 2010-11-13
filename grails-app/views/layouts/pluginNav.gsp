@@ -3,7 +3,7 @@
 <div id="contentArea">
 	
 	<div id="pluginsLogo">
-		<a href="http://grails.org"><img src="${resource(dir:'images/new/plugins', file:'plugins_topnav2.png')}" border="0"></a>			
+		<a href="http://grails.org"><r:img uri="/images/new/plugins/plugins_topnav2.png" border="0"/></a>			
 	</div>	
 	
     <div id="pluginMenu">
@@ -47,11 +47,5 @@
     </div>
 </div><!-- contentArea -->
 
-<div id="btmSectionGraphicsWrapper">
-    <div id="mountainLeft"></div>
-    <div id="knight"></div>
-    <div id="mountainRight"></div>
-    <div id="castle"></div>
-</div><!-- btmSectionGraphicsWrapper-->
 </body>
 </g:applyLayout>

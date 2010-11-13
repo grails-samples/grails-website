@@ -11,7 +11,8 @@ p {
 	left:30%;
 	top:70px;
 	color:#094B00;
-	background: url(/images/new/content/title_bg.png) no-repeat left top;	
+	background: url(../../images/sprites/subpage-variable-width.png) no-repeat left top;
+	background-position: -10px -10px;	
 	margin-top:27px;
 	height:55px;
 	text-align:left;
@@ -89,14 +90,27 @@ body {
 }
 
 #search {
-    background: url(../../images/new/content/leftnav_top.png) no-repeat top;	
+    background: url(../../images/sprites/subpage-variable-width.png) no-repeat top;
+    background-position: 0px -163px;
 	height:10px;
 }
 #nav {
-    background: url(../../images/new/content/leftnav_midstretch.png) repeat-y top;	
+    background: url(../../images/sprites/subpage-repeat.png) repeat-y top;
+    background-position: 0px 0px;
 }
+.ie6 #nav {
+    padding-bottom:30px;
+}
+.ie6 #nav #start, .ie6 #nav #reference, .ie6 #nav #community {
+    margin-left:40px;
+}
+.ie6 #nav #start ul, .ie6 #nav #reference ul, .ie6 #nav #community ul {
+    list-style-image:none;
+}
+
 #navFooter {
-    background: url(../../images/new/content/leftnav_btm.png) no-repeat top;	
+    background: url(../../images/sprites/subpage-variable-width.png) no-repeat top;
+    background-position: 0px -196px;	
 	height:20px;
 	
 }
@@ -197,7 +211,7 @@ textarea {
 .blogControls .show  {
 	text-align:right;
 	padding-left:20px;
-	background: url(../images/icon-cancel.png)  left no-repeat;
+	background: url(../../images/icon-cancel.png)  left no-repeat;
 	
 }
 .screencastControls .list, .blogControls .list  {
@@ -397,8 +411,17 @@ width:850px;
 margin-left:15%;	
 margin-bottom:30px;	
 }
-#editLinks a,#viewLinks a{
+#editLinks a,#viewLinks a {
 	color: black; border: inherit; text-decoration: none;	
+}
+.ie6 #editLinks, .ie6 #viewLinks {
+        position:relative;
+        left:-40px;
+}
+.ie6 #editLinks a, .ie6 #viewLinks a {
+        color:black;
+        padding:30px;
+        padding-right:0px;
 }
 #navAds {
 	padding-top:20px;

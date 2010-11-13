@@ -62,6 +62,40 @@ myAuth.applicationName = grails.org
 """
 */
 
+// Static resources
+grails.resources.modules = {
+    master {
+        resource url: 'css/new/master.css'
+    }
+    homepage {
+        dependsOn 'master'
+        resource 'css/new/homepage.css'
+    }
+    plugins {
+        dependsOn 'master'
+        resource url: 'css/new/plugins.css'
+    }
+    pluginInfo {
+        dependsOn 'master'
+        resource url: 'css/new/pluginInfo.css'
+    }
+    pluginDetails {
+        dependsOn 'pluginInfo'
+        ['tabview', 'content', 'plugins'].each { sheet ->
+            resource url: "css/${sheet}.css".toString()
+        }
+        resource url: 'js/common/yui-effects.js'
+        resource url: 'js/diff_match_patch.js'
+    }
+    subpage {
+        dependsOn 'master'
+        resource url: 'css/new/subpage.css'
+        resource url: 'css/content.css'
+        resource url: 'js/common/yui-effects.js'
+        resource url: 'js/diff_match_patch.js'
+    }
+}
+
 springcache {
     disabled = true
     defaults {
@@ -101,6 +135,8 @@ grails.blog.author.evaluator= {
 
 // log4j configuration
 log4j = {
+    off    'grails.app.service.org.grails.plugin.resource'
+    
     warn   'org.codehaus.groovy.grails.web.servlet',
            'org.codehaus.groovy.grails.web.pages', //  GSP
 	   'org.codehaus.groovy.grails.web.sitemesh', //  layouts

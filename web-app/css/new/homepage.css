@@ -15,7 +15,8 @@ body {
     height: 86px;
     top: 468px;
     left: 140px;
-    background: url(../../images/new/bar_decoration.png) no-repeat top left
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -10px;
 }
 
 #grailsAttributes {
@@ -26,7 +27,8 @@ body {
 	color:#094B00;;
 }
 #grailsAttributes div {
-    background: url(../../images/new/top_box.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -116px;
     position: relative;
     width: 263px;
     height: 122px;
@@ -60,7 +62,8 @@ body {
 }
 
 #grailsAttributes div.left h2 {
-    background: url(../../images/new/rapid_icon.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -1187px;
 }
 
 #grailsAttributes div.center {
@@ -68,7 +71,8 @@ body {
     top: -142px;
 }
 #grailsAttributes div.center h2 {
-    background: url(../../images/new/dynamic_icon.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -1247px;
 }
 
 #grailsAttributes div.right {
@@ -76,7 +80,8 @@ body {
     top: -264px;
 }
 #grailsAttributes div.right h2 {
-    background: url(../../images/new/robust_icon.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -1307px;
 }
 
 .eventDownloadWrapper {
@@ -143,7 +148,8 @@ body {
 }
 
 #globeGraphic {
-    background: url(../../images/new/globe.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -258px;
     width: 83px;
     height: 79px;
     position: absolute;
@@ -152,7 +158,8 @@ body {
 }
 
 #downloadBox {
-    background: url(../../images/new/DownloadPlugin_box.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -357px;
     width: 585px;
     height: 207px;
     overflow: hidden;
@@ -220,6 +227,9 @@ body {
     color: #48802C;
 	text-decoration:none;
 }
+.ie6 #download h4 a, .ie6 #download h4 a, .ie6 #plugins h4 a {
+        font-size:10pt;
+}
 #download h4, #plugins h4 {
     text-transform: uppercase;
 	position:absolute;
@@ -245,7 +255,8 @@ body {
 }
 
 #newsBox {
-    background: url(../../images/new/news_box.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -584px;
     width: 582px;
     height: 240px;
     overflow: hidden;
@@ -278,6 +289,10 @@ body {
     height: 60px;
 }
 
+.ie6 #newsBox li {
+    height:55px;
+}
+
 #newsBox .detail {
     background: url(../../images/new/news_text_back.png);
     float: right;
@@ -306,7 +321,8 @@ body {
 }
 
 #newsBox .calendar {
-    background: url(../../images/new/calendar_box.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -844px;
     width: 56px;
     height: 58px;
     margin-left: 4px;
@@ -331,15 +347,24 @@ body {
     padding-top: 26px;
 }
 
+.ie6 #newsBox .calendar .day {
+    margin-bottom:30px;
+}
+
 #newsBox .actions {
     color: #96937D;
     clear: both;
-    background: transparent url(../../images/new/rss_icon.png) no-repeat scroll right top;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: 200px -1367px;
     height: 20px;
     text-transform: uppercase;
     padding: 8px 26px 0px 0px;
     margin: 0px 19px;
     float:right;
+}
+
+.ie6 #newsBox .actions {
+        padding-bottom:20px;
 }
 
 #screencasts {
@@ -349,7 +374,8 @@ body {
 }
 
 .castBox {
-    background: url(../../images/new/screencast_box.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -922px;
     width: 269px;
     height: 245px;
     overflow: hidden;
@@ -436,7 +462,8 @@ body {
     top: -42px;
 }
 #grailsOptions div.left h3 {
-    background: url(../../images/new/training_icon.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -1405px;
 }
 
 #grailsOptions div.center {
@@ -444,7 +471,8 @@ body {
     top: -350px;
 }
 #grailsOptions div.center h3 {
-    background: url(../../images/new/support_icon.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -1457px;
 }
 
 #grailsOptions div.right {
@@ -452,5 +480,6 @@ body {
     top: -658px;
 }
 #grailsOptions div.right h3 {
-    background: url(../../images/new/services_icon.png) no-repeat top left;
+    background-image: url(../../images/sprites/homepage-variable-width.png);
+    background-position: -10px -1509px;
 }

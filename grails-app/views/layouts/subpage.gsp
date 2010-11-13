@@ -1,14 +1,9 @@
 <g:applyLayout name="main">
 <head>
     <title><g:layoutTitle/></title>
-    <content tag="pageCss">
-        <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'subpage.css')}" type="text/css" />
-        <link rel="stylesheet" href="${resource(dir:'css',file:'content.css')}" />
-    </content>
+    <r:use modules="subpage"/>
     <g:javascript library="yui" />
     <yui:javascript dir="animation" file="animation-min.js" /> 
-    <g:javascript src="common/yui-effects.js" />
-    <g:javascript library="diff_match_patch" />
     <g:layoutHead />
 
     <g:render template="/common/messages_effects" model="${pageScope.getVariables()}"/>

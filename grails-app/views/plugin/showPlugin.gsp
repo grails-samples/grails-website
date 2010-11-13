@@ -15,7 +15,7 @@
 			</gui:dialog>
 
 			<div id="downloadBox">
-				<a href="${plugin.downloadUrl}"><img src="${resource(dir:'images/new/plugins/Buttons', file:'downloadBox_btn.png')}" alt="Download" border="0"></a>
+				<a href="${plugin.downloadUrl}"><r:img uri="/images/new/plugins/Buttons/downloadBox_btn.png" alt="Download" border="0"/></a>
 			</div>
 
 			<h1 id="pluginBoxTitle">${plugin?.title}</h1>
@@ -52,7 +52,7 @@
 		                    <span id='pluginTags'>
 		                        <g:render template='tags' var='plugin' bean="${plugin}"/>
 		                    </span>
-		                    <span id='addTagTrigger'><img src="${createLinkTo(dir: 'images/famfamfam', file: 'add.png')}"/></span>
+		                    <span id='addTagTrigger'><r:img uri="/images/famfamfam/add.png"/></span>
 		                </td>
 		            </tr>
 		        </table>
@@ -60,20 +60,20 @@
 		    <div class="links">
 		        <a href="${plugin.fisheye}">
 					<div class="fisheye">
-						<img src="${resource(dir:'images/new/plugins/icons', file:'fisheye.png')}" border="0" /> 
+						<r:img uri="/images/new/plugins/icons/fisheye.png" border="0" /> 
 						Fisheye
 					</div>
 				</a>
 		        <a href="${plugin.documentationUrl}">
 					<div class="docs">
-						<img src="${resource(dir:'images/new/plugins/icons', file:'doc.png')}" border="0" /> 
+						<r:img uri="/images/new/plugins/icons/doc.png" border="0" /> 
 						Docs
 					</div>
 
 		        </a>
 		        <g:link controller="plugin" action="editPlugin" id="${plugin.id}">
 					<div class="edit">
-						<img src="${resource(dir:'images/new/plugins/icons/16x16_icons', file:'edit.png')}" border="0" /> 
+						<r:img uri="/images/new/plugins/icons/16x16_icons/edit.png" border="0" /> 
 						Edit Plugin
 					</div>
 				</g:link>

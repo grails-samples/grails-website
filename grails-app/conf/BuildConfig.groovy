@@ -20,6 +20,8 @@ grails.project.dependency.resolution = {
         runtime ":autobase:0.9.2",
                 ":avatar:0.3",
                 ":bubbling:2.1.2",
+                ":cache-headers:1.1.2",
+                ":cached-resources:1.0-alpha6",
                 ":commentable:0.7.5",
                 ":feeds:1.5",
                 ":grails-ui:1.2-SNAPSHOT",
@@ -28,15 +30,17 @@ grails.project.dependency.resolution = {
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
                 ":rateable:0.6.2",
+                ":resources:1.0-alpha13",
                 ":richui:0.6",
                 ":screencasts:0.4",
                 ":searchable:0.5.5.1",
                 ":shiro:1.1.1",
                 ":simple-blog:0.1.5",
-//                ":springcache:1.2",
+                ":springcache:1.2",
                 ":spring-events:1.0",
                 ":taggable:0.6.2",
-                ":yui:2.7.0.1"
+                ":yui:2.7.0.1",
+                ":zipped-resources:1.0-alpha5"
         
         test    ":build-test-data:1.1.1",
                 ":fixtures:1.0.1",

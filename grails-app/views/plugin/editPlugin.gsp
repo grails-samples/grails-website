@@ -121,9 +121,6 @@
 						<div class="pluginBoxBottom">
 
 						</div>
-
-						<g:render template="/content/footer"></g:render>
-						
 						
 					</div>
 					

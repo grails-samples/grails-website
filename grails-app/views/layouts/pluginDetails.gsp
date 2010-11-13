@@ -5,13 +5,8 @@
     <content tag="pageCss">
         <rateable:resources />
         <gui:resources components="['tabView','dialog','autoComplete']" javascript='animation'/>
-        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'tabview.css')}" />
-        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'content.css')}" />
-        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'plugins.css')}" />
     </content>
-
-    <g:javascript src="common/yui-effects.js" />
-    <g:javascript library="diff_match_patch" />
+    <r:use modules="pluginDetails"/>
 
     <g:layoutHead />
 

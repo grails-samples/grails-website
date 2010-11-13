@@ -22,13 +22,13 @@
     <div class="links">
         <a href="${plugin.fisheye}">
 			<div class="fisheye">
-				<img src="${resource(dir:'images/new/plugins/icons', file:'fisheye.png')}" border="0" /> 
+				<r:img uri="/images/new/plugins/icons/fisheye.png" border="0" /> 
 				Fisheye
 			</div>	
 		</a>
         <a href="${plugin.documentationUrl}">
 			<div class="docs">
-				<img src="${resource(dir:'images/new/plugins/icons', file:'doc.png')}" border="0" /> 
+				<r:img uri="/images/new/plugins/icons/doc.png" border="0" /> 
 				Docs
 			</div>
     	
@@ -38,7 +38,7 @@
     <div class="bottom">
 		<div class="moreInfo">
             <g:link action="show" params="${[name:plugin.name]}">
-				<img alt="More Info" src="${resource(dir:'images/new/plugins/Buttons', file:'more_info_btn.png')}" border="0" /> 
+				<r:img alt="More Info" uri="/images/new/plugins/Buttons/more_info_btn.png" border="0" /> 
 			</g:link>
 		
 		</div>

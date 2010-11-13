@@ -1,7 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class=""> <!--<![endif]-->
 <head>
     <title>Grails - <g:layoutTitle default="The search is over."></g:layoutTitle></title>
 
@@ -9,14 +11,12 @@
     <wiki:robots/>
     <meta name="Description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">	
 
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-
-    <link rel="stylesheet" href="${resource(dir: 'css/new', file: 'master.css')}" type="text/css" />
+    <r:use modules="master"/>
+    <r:resourceLink uri="/images/favicon.ico"/>
+    <r:layoutResources/>
+    
     <%-- Page-specific CSS goes in here --%>
     <g:pageProperty name="page.pageCss" />
-    <!--[if IE]><link rel="stylesheet" href="${resource(dir: 'css/new', file: 'ie.css')}"/><![endif]-->
-
     <g:layoutHead />
 </head>
 <body>
@@ -47,5 +47,7 @@
 
     <%-- Google Analytics --%>
     <g:render template="/content/analytics" />
+    
+    <r:layoutResources/>
 </body>
 </html>
