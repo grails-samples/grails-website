@@ -97,47 +97,40 @@ class ContentController extends BaseWikiController {
     def index = {
         def pageName = params.id
 
-        if(pageName) {
-            if(pageName == 'Home') {
-                renderHomepage()
+        // treat plugin pages differently
+        if (pageName.matches(/(${Plugin.WIKIS.join('|')})-[0-9]*/)) {
+            // name will look like this: description-34
+            // last half is plugin id
+            def plugin = Plugin.get(pageName.split('-')[1])
+            if (request.xhr) {
+                // update the wikiTab, not the whole contentPane
+                def wikiPage = wikiPageService.getCachedOrReal(pageName)
+                def latestVersion = wikiPage.latestVersion
+                return render(template:"wikiShow", model:[
+                        content:wikiPage,
+                        update:"${pageName.split('-')[0]}Tab",
+                        latest:latestVersion])
             }
-            // treat plugin pages differently
-            else if (pageName.matches(/(${Plugin.WIKIS.join('|')})-[0-9]*/)) {
-                // name will look like this: description-34
-                // last half is plugin id
-                def plugin = Plugin.get(pageName.split('-')[1])
-                if (request.xhr) {
-                    // update the wikiTab, not the whole contentPane
-                    def wikiPage = wikiPageService.getCachedOrReal(pageName)
-                    def latestVersion = wikiPage.latestVersion
-                    return render(template:"wikiShow", model:[
-                            content:wikiPage,
-                            update:"${pageName.split('-')[0]}Tab",
-                            latest:latestVersion])
+            redirect(controller:'plugin', action:'show', params:[name:plugin.name])
+        }
+        else {
+            def wikiPage = wikiPageService.getCachedOrReal(pageName)
+            if(wikiPage) {
+                // This property involves a query, so we fetch it here rather
+                // than in the view.
+                def latestVersion = wikiPage.latestVersion
+                if(request.xhr) {
+                    render(template:"wikiShow", model:[content:wikiPage, update:params.update, latest:latestVersion])
+                } else {
+                    // disable comments
+                    render(view:"contentPage", model:[content:wikiPage, latest:latestVersion])
                 }
-                redirect(controller:'plugin', action:'show', params:[name:plugin.name])
             }
             else {
-                def wikiPage = wikiPageService.getCachedOrReal(pageName)
-                if(wikiPage) {
-                    // This property involves a query, so we fetch it here rather
-                    // than in the view.
-                    def latestVersion = wikiPage.latestVersion
-                    if(request.xhr) {
-                        render(template:"wikiShow", model:[content:wikiPage, update:params.update, latest:latestVersion])
-                    } else {
-						// disable comments
-						render(view:"contentPage", model:[content:wikiPage, latest:latestVersion])
-                    }
-                }
-                else {
-                    response.sendError 404
-                }
+                response.sendError 404
             }
-		} else {
-			renderHomepage()
-		}
-	}
+        }
+    }
 
     def postComment = {
         def content = Content.get(params.id)
@@ -462,7 +455,7 @@ class ContentController extends BaseWikiController {
         redirect action: "index", id: params.id
     }
     
-    def renderHomepage = {
+    def homePage = {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
         def newsItems = BlogEntry.list(max:3, cache:true, order:"desc", sort:"dateCreated")
@@ -477,12 +470,8 @@ class ContentController extends BaseWikiController {
             }
         }
         def latestScreencastId = screencastService.latestScreencastId
-        render(view:"homePage", 
-                model:[
-                    newestPlugins:newestPlugins, 
-                    newsItems:newsItems,
-                    latestScreencastId: latestScreencastId
-                ]
-        )
+        return [ newestPlugins: newestPlugins, 
+                 newsItems: newsItems,
+                 latestScreencastId: latestScreencastId ]
     }
 }

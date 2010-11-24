@@ -2,6 +2,9 @@ import grails.util.Environment;
 
 class UrlMappings {
     static mappings = {
+        "/Home?"(controller: "content", action: "homePage")
+        "/$id"(controller: "content", action: "index")
+
         "/Download"(controller: "download", action: "latest")
         "/download/file"(controller: "download", action: "downloadFile")
         "/download/archive/$id"(controller: "download", action: "archive")
@@ -68,8 +71,6 @@ class UrlMappings {
         "/screencast/add"(controller:"screencast", action:"create")
         "/screencast/show/$id"(controller:"screencast", action:"show")		
         "/comment/add"(controller:"commentable", action:"add")
-
-        "/$id?"(controller: "content", action: "index")
 
         "/admin/$controller/$action?/$id?"()
         "/admin"(controller: "admin", action: "index")
