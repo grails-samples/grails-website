@@ -2,11 +2,18 @@ package org.grails.plugin
 
 import grails.converters.JSON
 import grails.plugin.springcache.annotations.*
+import javax.servlet.http.HttpServletResponse
+
 import org.grails.wiki.WikiPage
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
+import org.codehaus.groovy.grails.web.servlet.HttpHeaders
 import org.grails.wiki.BaseWikiController
+import org.grails.tags.TagNotFoundException
 import org.grails.taggable.*
 import org.grails.comments.*
+import org.springframework.web.context.request.RequestContextHolder
+
 import net.sf.ehcache.Element
 
 class PluginController extends BaseWikiController {
@@ -18,6 +25,7 @@ class PluginController extends BaseWikiController {
     def wikiPageService
     def pluginService
     def commentService
+    def grailsUrlMappingsHolder
 
     def index = {
         redirect(controller:'plugin', action:'home', params:params)
@@ -93,6 +101,11 @@ class PluginController extends BaseWikiController {
                 originAction:"all",
                 pluginList:Plugin.list(max:10, offset: params.offset?.toInteger(), cache:true, sort:"name") ]
     }
+
+    def list = {
+        permRedirect "browseByName", params
+    }
+    
 
     def show = {
         def plugin = byName(params)
@@ -289,7 +302,17 @@ class PluginController extends BaseWikiController {
     }
 
     def showTag = {
-        redirect(action:'list', fragment:"${params.selectedTag} tags")
+        permRedirect "browseByTag", params
+    }
+
+    def browseByTag = {
+        try {
+            def (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tagName, max: params.max ?: 20)
+            return [currentPlugins: plugins, totalPlugins: pluginCount, tagName:params.tagName]
+        }
+        catch (TagNotFoundException ex) {
+            render view: "tagNotFound", model: [tagName: ex.tagName ?: '', msgCode: ex.code]
+        }
     }
 
     def showComment = {
@@ -316,5 +339,13 @@ class PluginController extends BaseWikiController {
             maxResults 1    
             cache true
         }
+    }
+
+    private void permRedirect(String action, urlParams) {
+        def urlMapping = grailsUrlMappingsHolder.getReverseMapping("plugin", action, urlParams)
+        response.setHeader HttpHeaders.LOCATION, urlMapping.createURL("plugin", action, urlParams, request.characterEncoding, null)
+        response.status = HttpServletResponse.SC_MOVED_PERMANENTLY
+        request[RedirectDynamicMethod.GRAILS_REDIRECT_ISSUED] = true
+        RequestContextHolder.currentRequestAttributes().renderView = false
     }
 }

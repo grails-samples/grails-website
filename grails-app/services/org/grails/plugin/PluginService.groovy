@@ -1,9 +1,12 @@
 package org.grails.plugin
 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.grails.wiki.WikiPage
 import org.grails.auth.User
 import org.grails.content.Version
+import org.grails.tags.TagNotFoundException
+import org.grails.taggable.Tag
+import org.grails.taggable.TagLink
+import org.grails.wiki.WikiPage
 
 class PluginService {
 
@@ -56,6 +59,44 @@ class PluginService {
 
     def listSupportedPluginsWithTotal(Map args = [max: 200]) {
         return [ Plugin.findAllByOfficial(true, args), Plugin.countByOfficial(true) ]
+    }
+
+    def listPluginsByTagWithTotal(Map args = [max: 200], String tagName) {
+        // Start by grabbing the tag with the given name. There's unlikely to
+        // be frequent changes to the 'tags' table, so caching the query makes
+        // sense.
+        def tag = Tag.findByName(tagName, [cache: true])
+
+        // Make sure that there is a tag with this name. If there isn't we have
+        // to notify the caller via an exception.
+        if (!tag) throw new TagNotFoundException(tagName)
+
+        // Now find all the plugins with this tag.
+        def result = []
+        def links = TagLink.findAllByTagAndType(tag, 'plugin', args += [cache: true])
+        if (links) {
+            result << Plugin.withCriteria {
+                inList 'id', links*.tagRef
+                cache true
+
+                if (args.offset) firstResult args.offset
+                if (args.max) maxResults args.max
+            }
+
+            result << Plugin.withCriteria {
+                inList 'id', links*.tagRef
+                cache true
+
+                projections {
+                    rowCount()
+                }
+            }
+        }
+        else {
+            result << [] << 0
+        }
+
+        return result
     }
     
     def runMasterUpdate() {

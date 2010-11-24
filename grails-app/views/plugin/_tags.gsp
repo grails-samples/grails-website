@@ -1,6 +1,6 @@
 
 <g:each var='tag' in="${plugin.tags.sort()}">
-    <span class="tag"><g:link action="list" fragment="${(tag + ' tags').encodeAsURL()}">${tag}</g:link>
+    <span class="tag"><g:link action="browseByTag" params="[tagName: tag]">${tag}</g:link>
     <g:if test="${!disabled}">
         %{-- If logged in, we're going to attach the normal ajax click listener --}%
         <shiro:isLoggedIn>

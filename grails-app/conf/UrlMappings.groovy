@@ -30,6 +30,7 @@ class UrlMappings {
         "/plugin/category/all"(controller:"plugin", action:"browseByName")
         "/plugin/category/$category"(controller:"plugin", action:"home")
         "/plugin/showComment/$id"(controller: 'plugin', action:'showComment')
+        "/plugins/tag/$tagName?"(controller: 'plugin', action: 'browseByTag')
 
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
