@@ -57,7 +57,7 @@ grails.project.dependency.resolution = {
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
         }
-        test    "org.seleniumhq.selenium:selenium-htmlunit-driver:latest.integration", {
+        test    "org.seleniumhq.selenium:selenium-htmlunit-driver:2.0a7", {
             excludes "htmlunit", "xml-apis"
         }
         test    "net.sourceforge.htmlunit:htmlunit:2.8", {
