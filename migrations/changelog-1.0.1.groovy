@@ -13,6 +13,6 @@ changeSet(id:'WikiPageDeprecation', author:'pledbrook') {
     // value of false, not null.
     update(tableName: "content") {
         column name: "deprecated", valueBoolean: false
-        where "class = 'org.grails.wiki.WikiPage'"
+        where "number is null"
     }
 }
