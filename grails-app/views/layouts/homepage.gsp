@@ -74,7 +74,8 @@
                                     <download:link software="Grails" version="${grailsDownload?.softwareVersion}" file="Binary Zip">
                                         <img src="${resource(dir:'images/new',file:'download_button.png')}" 
                                              border="0"
-                                             alt="Download Grails" />
+                                             title="Download Grails ${grailsDownload?.softwareVersion}"
+                                             alt="Download Grails ${grailsDownload?.softwareVersion}" />
                                     </download:link>								
                                 </g:if>
                                 <g:else>
