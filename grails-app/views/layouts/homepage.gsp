@@ -68,35 +68,32 @@
                 <div id="downloadBox">
                     <div class="downloadPluginWrapper">
                         <div id="download">
-					        <download:latest var="grailsDownload" software="Grails" />
+                            <download:latest var="grailsDownload" software="Grails" />
                             <h3>
-								<g:if test="${grailsDownload}">
-									<download:link software="Grails" version="${grailsDownload?.softwareVersion}" file="Binary Zip">
-										<img src="${resource(dir:'images/new',file:'download_button.png')}" 
-											 border="0"
-											alt="Download Grails" />
-									</download:link>								
-								</g:if>
-								<g:else>
-									<g:link controller="content" id="Download">
-									  <img src="${resource(dir:'images/new',file:'download_button.png')}" 
-									       border="0"
-										   alt="Download Grails" />								
-									</g:link>
-								</g:else>
-							</h3>
-							<p>
-                            	Download the latest Grails&#8482 ${grailsDownload?.softwareVersion} binary release to experience a new level of productivity on the Java&#8482 platform.</p>
+                                <g:if test="${grailsDownload}">
+                                    <download:link software="Grails" version="${grailsDownload?.softwareVersion}" file="Binary Zip">
+                                        <img src="${resource(dir:'images/new',file:'download_button.png')}" 
+                                             border="0"
+                                             alt="Download Grails" />
+                                    </download:link>								
+                                </g:if>
+                                <g:else>
+                                    <g:link controller="content" id="Download">
+                                        <img src="${resource(dir:'images/new',file:'download_button.png')}" 
+                                             border="0"
+                                             alt="Download Grails" />								
+                                    </g:link>
+                                </g:else>
+                            </h3>
+                            <p>Download the latest Grails&#8482 ${grailsDownload?.softwareVersion} binary release to experience a new level of productivity on the Java&#8482 platform.</p>
                             <h4><g:link controller="content" id="Download">More Downloads</g:link></h4>
                         </div><!-- download -->
                         <div id="plugins">
                             <h3>
-								<g:link controller="plugin">
-									<img src="${resource(dir:'images/new',file:'plugins_button.png')}" alt="Grails Plugins" border="0" />
-								</g:link>
-								
-								
-							</h3>
+                                <g:link controller="plugin">
+                                    <img src="${resource(dir:'images/new',file:'plugins_button.png')}" alt="Grails Plugins" border="0" />
+                                </g:link>
+                            </h3>
                             <ul>
                                 <g:each var="plugin" in="${newestPlugins}">
                                     <li><g:link controller="plugin" action="show" params="[name:plugin.name]"><wiki:shorten text="${plugin.title}" /></g:link></li>
@@ -149,9 +146,9 @@
                     <h2>Recent Screencasts</h2>
                     <div class="castBox">
                         <div class="castScreen">
-							<a href="https://www.cloudfoundry.com/screencasts.html#grails">
-								<img src="/images/new/play_icon.png"/>
-							</a>
+                            <a href="https://www.cloudfoundry.com/screencasts.html#grails">
+                                <img src="/images/new/play_icon.png"/>
+                            </a>
                         </div><!-- castScreen -->
                         <h4><g:link controller="screencast" action="list">View All</g:link></h4>
                     </div><!-- castBox -->
@@ -185,14 +182,14 @@
 	<br><br><a href="http://www.springsource.com/groovy-grails-consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of SpringSource’s Grails technology experts.</p>
                     </div><!-- center column -->
                     <div class="right">
-            			<h3>Community</h3>
-						<p>
+                        <h3>Community</h3>
+                        <p>
 Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails  <a href="http://jira.codehaus.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="http://grails.org/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the latest news on the <g:link controller="blog" action="list">Grails blog</g:link>.							
 <br></br><br></br>
 
 The whole Grails site is written in Grails <g:meta name="app.grails.version" /> and is an open wiki,  the <a href="http://github.com/grails/grails-samples/tree/master/grails.org">source code</a> for which is available from Github.
 Visit the Grails <g:link controller="content" id="Community">community pages</g:link> for more ways to participate. 
-						</p>
+                        </p>
                     </div><!-- right column -->
                 </div><!-- grailsOptions -->
             </div><!-- center -->
