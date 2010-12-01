@@ -55,12 +55,8 @@
         </p>
 
         <ul class="star">
-            <li>Click on the latest build link relevant to your JDK</li>
-            <li>Click on the Completed Builds tab</li>
-            <li>Click on the latest successful build link (green, not red)</li>
-            <li>Click on the Artifacts tab</li>
-            <li>Click on the Distributions link</li>
-            <li>Download a relevant snapshot form the list provided</li>
+            <li>Click on the link for the version you want: grails_core_1.y.x</li>
+            <li>Under 'Last Successful Artifacts', click on the Grails distribution link: grails-1.y.z.BUILD-SNAPSHOT.zip</li>
         </ul>
 
         <br />
