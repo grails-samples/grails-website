@@ -84,7 +84,7 @@
                         <div id="plugins">
                             <h3>
                                 <g:link controller="plugin">
-                                    <r:img src="/images/new/plugins_button.png" alt="Grails Plugins" border="0" />
+                                    <r:img uri="/images/new/plugins_button.png" alt="Grails Plugins" border="0" />
                                 </g:link>
                             </h3>
                             <ul>
@@ -140,7 +140,7 @@
                     <div class="castBox">
                         <div class="castScreen">
                             <a href="https://www.cloudfoundry.com/screencasts.html#grails">
-                                <r:img src="/images/new/play_icon.png"/>
+                                <r:img uri="/images/new/play_icon.png"/>
                             </a>
                         </div><!-- castScreen -->
                         <h4><g:link controller="screencast" action="list">View All</g:link></h4>
