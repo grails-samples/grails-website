@@ -52,7 +52,14 @@ class PluginController extends BaseWikiController {
 
         try {
             if (params.q) {
-                (currentPlugins, totalPlugins) = pluginService.searchWithTotal(params.q, params)
+                // Build the arguments for the search, starting with the query
+                // string. We add the category if it's defined. Finally we add
+                // the search options.
+                def args = [params.q]
+                if (category) args << category
+                args << queryParams
+
+                (currentPlugins, totalPlugins) = pluginService.searchWithTotal(*args)
             }
             else {
                 (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)

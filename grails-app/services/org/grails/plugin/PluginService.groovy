@@ -281,26 +281,131 @@ class PluginService {
         pluginXml.@grailsVersion.toString()
     }
 
+    /**
+     * Text-based search using the given Lucene-compatible query string.
+     * Returns a list of Plugin instances, although they may not be fully
+     * hydrated, i.e. any non-searchable properties will not be populated.
+     * @param query The Lucene-compatible query string.
+     * @param options A map of search modifiers, such as 'sort', 'offset'
+     * and 'max'.
+     */
     protected final search(String query, Map options) {
         return searchWithResults(query, options).results
     }
 
+    /**
+     * Text-based search using the given Lucene-compatible query string.
+     * Returns a list of Plugin instances, although they may not be fully
+     * hydrated, i.e. any non-searchable properties will not be populated.
+     * @param query The Lucene-compatible query string.
+     * @param category The category of plugin to constrain the search to:
+     * 'featured', 'newest', 'recentlyUpdated', 'supported'. Note that
+     * 'popular' is not currently supported by text-based search.
+     * @param options A map of search modifiers, such as 'sort', 'offset'
+     * and 'max'.
+     */
+    protected final search(String query, String category, Map options) {
+        query = categoryToSearchConstraint(category) + " " + query
+        options << optionsForCategory(category)
+
+        return searchWithResults(query, options).results
+    }
+
+    /**
+     * Same as {@link #search(String, Map)} except it supports the options
+     * as named arguments.
+     */
     protected final search(Map options, String query) {
         return searchWithResults(query, options).results
     }
 
+    /**
+     * Text-based search using the given Lucene-compatible query string.
+     * Returns a tuple containing the list of Plugin instances matching
+     * the query and the total number of results. The plugins objects
+     * may not be fully hydrated, i.e. any non-searchable properties will
+     * not be populated.
+     * @param query The Lucene-compatible query string.
+     * @param options A map of search modifiers, such as 'sort', 'offset'
+     * and 'max'.
+     */
     protected final searchWithTotal(String query, Map options) {
         def results = searchWithResults(query, options)
         return [results.results, results.total]
     }
 
+    /**
+     * Text-based search using the given Lucene-compatible query string.
+     * Returns a tuple containing the list of Plugin instances matching
+     * the query and the total number of results. The plugins objects
+     * may not be fully hydrated, i.e. any non-searchable properties will
+     * not be populated.
+     * @param query The Lucene-compatible query string.
+     * @param category The category of plugin to constrain the search to:
+     * 'featured', 'newest', 'recentlyUpdated', 'supported'. Note that
+     * 'popular' is not currently supported by text-based search.
+     * @param options A map of search modifiers, such as 'sort', 'offset'
+     * and 'max'.
+     */
+    protected final searchWithTotal(String query, String category, Map options) {
+        query = categoryToSearchConstraint(category) + " " + query
+        options << optionsForCategory(category)
+
+        def results = searchWithResults(query, options)
+        return [results.results, results.total]
+    }
+
+    /**
+     * Same as {@link #searchWithTotal(String, Map)} except it supports the
+     * options as named arguments.
+     */
     protected final searchWithTotal(Map options, String query) {
         def results = searchWithResults(query, options)
         return [results.results, results.total]
     }
 
-    private final searchWithResults(String query, Map options = [:]) {
+    /**
+     * Executes a Searchable search and returns the results object.
+     */
+    private searchWithResults(String query, Map options = [:]) {
         return Plugin.search(query, options)
+    }
+
+    /**
+     * Returns a map of search options based on the given category. These
+     * search options can be used to override those provided in a normal
+     * search. If the category has no requirements on the search options,
+     * this method returns an empty map.
+     */
+    private Map optionsForCategory(String category) {
+        switch(category.toLowerCase()) {
+        case "newest":
+            return [sort: "dateCreated", order: "desc"] 
+
+        case "recentlyUpdate":
+            return [sort: "lastReleased", order: "desc"] 
+
+        default:
+            return ""
+        }
+    }
+
+    /**
+     * Given a category, this method returns a query fragment that can be
+     * attached to an existing Lucence-compatible query string to constrain
+     * the results to plugins within that category.
+     */
+    private String categoryToSearchConstraint(String category) {
+        switch(category.toLowerCase()) {
+        case "featured":
+            return "+featured:true"
+
+        case "supported":
+            return "+official:true"
+
+        default:
+            return ""
+        }
     }
 }
 

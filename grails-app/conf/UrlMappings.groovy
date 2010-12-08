@@ -30,10 +30,11 @@ class UrlMappings {
         "/plugin/showTag"(controller: 'plugin', action:'showTag')
         "/plugin/postComment/$id"(controller: "plugin", action:"postComment")
         "/plugin/latest"(controller: "plugin", action: "latest")
-        "/plugin/category/all"(controller:"plugin", action:"browseByName")
-        "/plugin/category/$category"(controller:"plugin", action:"home")
-        "/plugin/showComment/$id"(controller: 'plugin', action:'showComment')
-        "/plugins/tag/$tagName?"(controller: 'plugin', action: 'browseByTag')
+        "/plugin/category/all"(controller: "plugin", action: "browseByName")
+        "/plugin/category/$category"(controller: "plugin", action: "home")
+        "/plugin/showComment/$id"(controller: "plugin", action: "showComment")
+        "/plugins/category/$category"(controller: "plugin", action: "home")
+        "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
 
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
