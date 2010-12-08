@@ -237,6 +237,14 @@ body {
 	margin-left:20px;	
 }
 
+#downloadVersion {
+    position: absolute;
+    color: #48802C;
+    font-size: 20px;
+    left: 128px;
+    top: 28px;
+}
+
 .newsScreencastWrapper {
     width: 910px;
     position: relative;

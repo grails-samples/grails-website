@@ -78,6 +78,7 @@
                                     </g:link>
                                 </g:else>
                             </h3>
+                            <p id="downloadVersion">${grailsDownload?.softwareVersion}</p>
                             <p>Download the latest Grails&#8482 ${grailsDownload?.softwareVersion} binary release to experience a new level of productivity on the Java&#8482 platform.</p>
                             <h4><g:link controller="content" id="Download">More Downloads</g:link></h4>
                         </div><!-- download -->
