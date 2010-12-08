@@ -281,6 +281,27 @@ class PluginService {
         pluginXml.@grailsVersion.toString()
     }
 
+    protected final search(String query, Map options) {
+        return searchWithResults(query, options).results
+    }
+
+    protected final search(Map options, String query) {
+        return searchWithResults(query, options).results
+    }
+
+    protected final searchWithTotal(String query, Map options) {
+        def results = searchWithResults(query, options)
+        return [results.results, results.total]
+    }
+
+    protected final searchWithTotal(Map options, String query) {
+        def results = searchWithResults(query, options)
+        return [results.results, results.total]
+    }
+
+    private final searchWithResults(String query, Map options = [:]) {
+        return Plugin.search(query, options)
+    }
 }
 
 class PluginVersion implements Comparable {

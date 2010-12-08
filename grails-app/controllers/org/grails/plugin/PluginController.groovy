@@ -51,7 +51,12 @@ class PluginController extends BaseWikiController {
         def totalPlugins = 0
 
         try {
-            (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
+            if (params.q) {
+                (currentPlugins, totalPlugins) = pluginService.searchWithTotal(params.q, params)
+            }
+            else {
+                (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
+            }
         }
         catch (MissingMethodException ex) {
             log.error "Unable to list plugins for category '${category}': ${ex.message}"
@@ -240,7 +245,7 @@ class PluginController extends BaseWikiController {
 
     def search = {
         if(params.q) {
-            def searchResult = Plugin.search(params.q, reload: true, offset: params.offset, escape:true)
+            def searchResult = Plugin.search(params.q, reload: true, offset: params.offset)
             searchResult.results = searchResult.results.findAll{it}.unique { it.title }
             flash.message = "Found $searchResult.total results!"
             flash.next()
