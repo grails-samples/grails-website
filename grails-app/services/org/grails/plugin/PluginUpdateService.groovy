@@ -13,6 +13,13 @@ import org.springframework.transaction.annotation.Transactional
 class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     static transactional = false
 
+    /**
+     * <p>Triggered whenever something publishes a plugin update event to the Spring
+     * application context.</p>
+     *
+     * <p>Note: The @Transactional annotation is used due to a bug in the Spring
+     * Events plugin - http://jira.codehaus.org/browse/GRAILSPLUGINS-2552 </p>
+     */
     @Transactional
     void onApplicationEvent(PluginUpdateEvent event) {
         log.info "Updating information for plugin ${event.name}, version ${event.version}"
@@ -41,7 +48,9 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // with that too.
         def plugin = fetchOrCreatePluginInstance(event.name)
         def isNewVersion = plugin.currentRelease != event.version
-        plugin.currentRelease = event.version
+        if (!event.snapshot) {
+            plugin.currentRelease = event.version
+        }
 
         // We may be looking at either a Maven or a Subversion repository,
         // both of which have different directory structures. Here we test

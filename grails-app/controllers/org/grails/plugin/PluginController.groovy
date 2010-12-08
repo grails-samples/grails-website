@@ -153,7 +153,8 @@ class PluginController extends BaseWikiController {
                 return
             }
 
-            publishEvent(new PluginUpdateEvent(this, data.name, data.version, data.group, uri))
+            // Default to it not being a snapshot release if 'isSnapshot' is not provided.
+            publishEvent(new PluginUpdateEvent(this, data.name, data.version, data.group, data.isSnapshot ?: false, uri))
 
             render contentType: "application/json", {
                 message = "OK"
@@ -162,6 +163,12 @@ class PluginController extends BaseWikiController {
         catch (URISyntaxException ex) {
             render contentType: "application/json", status: 400, {
                 message = "Invalid repository URI: ${data.url}"
+            }
+            return
+        }
+        catch (Exception ex) {
+            render contentType: "application/json", status: 500, {
+                message = "Internal server error: ${ex.message}"
             }
             return
         }
