@@ -179,6 +179,7 @@ class PluginController extends BaseWikiController {
             return
         }
         catch (Exception ex) {
+            log.error "Plugin update failed", ex
             render contentType: "application/json", status: 500, {
                 message = "Internal server error: ${ex.message}"
             }
