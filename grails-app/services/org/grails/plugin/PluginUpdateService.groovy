@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional
 class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     static transactional = false
 
+    def twitterService
+
     /**
      * <p>Triggered whenever something publishes a plugin update event to the Spring
      * application context.</p>
@@ -111,6 +113,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // Assuming the instance saved OK, we can tweet the release if it's
         // a new version.
         if (isNewVersion) tweetRelease(plugin)
+        else log.info "Not a new plugin release - won't tweet"
     }
 
     /**
@@ -134,5 +137,6 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
      */
     void tweetRelease(plugin) {
         log.info "Tweeting the plugin release"
+        twitterService.updateStatus "${plugin.title} ${plugin.currentRelease} released"
     }
 }
