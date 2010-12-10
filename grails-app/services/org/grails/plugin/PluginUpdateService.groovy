@@ -83,12 +83,13 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         }
         
         // Update the Plugin instance with the information from the POM.
-//        plugin.groupId = xml.groupId.text()      TODO Add the groupId property to Plugin domain class
+        plugin.groupId = xml.groupId.text()
         plugin.title = xml.name.text()
-//        plugin.summary = xml.description.text()  TODO Add the summary property to Plugin domain class
+        plugin.summary = xml.description.text()
         plugin.documentationUrl = xml.url.text()
         plugin.author = xml.developers.developer[0].name.text()
         plugin.authorEmail = xml.developers.developer[0].email.text()
+        plugin.scmUrl = xml.scm.url.text()
 
         // Now do the same with the XML plugin descriptor.
         def descUrl = new URL(baseUrl, "${plugin.name}-${plugin.currentRelease}-plugin.xml")
@@ -103,7 +104,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
                 Updated plugin info:
                   name         = ${plugin.name}
                   version      = ${plugin.currentRelease}
-                  groupId      = {plugin.groupId}
+                  groupId      = ${plugin.groupId}
                   title        = ${plugin.title}
                   docs URL     = ${plugin.documentationUrl}
                   author name  = ${plugin.author}

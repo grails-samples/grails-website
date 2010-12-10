@@ -19,6 +19,8 @@ class Plugin implements Taggable, Commentable, Rateable {
     
     String name
     String title
+    String groupId
+    String summary
     WikiPage description
     WikiPage installation
     WikiPage faq
@@ -28,6 +30,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     String currentRelease
     String documentationUrl
     String downloadUrl
+    String scmUrl
     String grailsVersion        // version it was developed against
     Boolean official = false    // specifies SpringSource support
     Boolean featured = false
@@ -39,7 +42,7 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     static searchable = {
         only = [
-            'name', 'title', 'author', 'authorEmail',
+            'name', 'title', 'summary', 'author', 'authorEmail',
             'installation','description','faq','screenshots'
         ]
         description component: true
@@ -52,11 +55,14 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     static constraints = {
         name unique: true
+        groupId nullable: false
+        summary nullable: true
         description nullable: true
         installation nullable: true
         faq nullable: true
         screenshots nullable: true
         author nullable: true
+        scmUrl nullable: true
         grailsVersion nullable:true, blank:true, maxLength:16
         lastReleased nullable:true
         currentRelease matches: VERSION_PATTERN
@@ -64,6 +70,7 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     static mapping = {
         cache 'nonstrict-read-write'
+        summary sqlType: 'text'
     }
 
     

@@ -63,10 +63,10 @@
 		        </table>
 		    </div>
 		    <div class="links">
-		        <a href="${plugin.fisheye}">
+		        <a href="${plugin.scmUrl ?: plugin.fisheye}">
 					<div class="fisheye">
 						<r:img uri="/images/new/plugins/icons/fisheye.png" border="0" /> 
-						Fisheye
+						Source
 					</div>
 				</a>
 		        <a href="${plugin.documentationUrl}">
