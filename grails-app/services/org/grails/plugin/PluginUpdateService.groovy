@@ -13,7 +13,11 @@ import org.springframework.transaction.annotation.Transactional
 class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     static transactional = false
 
+    protected int twitterLimit = 140
+
+    def shortenService
     def twitterService
+    def grailsApplication
 
     /**
      * <p>Triggered whenever something publishes a plugin update event to the Spring
@@ -133,10 +137,43 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
     /**
      * Sends a tweet to @grailsplugins with details of the new release.
-     * @param plugin A plugin instance with 'name' and 'version' properties.
+     * @param plugin A plugin instance with 'name', 'title' and 'currentRelease'
+     * properties.
      */
     void tweetRelease(plugin) {
+        def msg = "${plugin.title} ${plugin.currentRelease} released: "
+        def url = baseUrl + "plugin/${plugin.name}"
+
+        // Check that the message with standard URL does not exceed the
+        // Twitter length limit.
+        if (exceedsTwitterLimit(msg, url)) url = shortenUrl(url)
+
+        // If the message length is still over the Twitter length, we must summarize
+        // the message.
+        if (exceedsTwitterLimit(msg, url)) msg = summarize(msg, twitterLimit - url.size())
+
         log.info "Tweeting the plugin release"
-        twitterService.updateStatus "${plugin.title} ${plugin.currentRelease} released"
+        twitterService.updateStatus(msg + url)
+    }
+
+    private getBaseUrl() {
+        return normalize(grailsApplication.config?.grails?.serverURL)
+    }
+
+    private normalize(url) {
+        return url.endsWith('/') ? url : url + '/'
+    }
+
+    private shortenUrl(url) {
+        return shortenService.shortenUrl(url)
+    }
+
+    private exceedsTwitterLimit(Object[] strs) {
+        return strs*.size().sum() > twitterLimit
+    }
+
+    private summarize(str, limit) {
+        def chopPoint = limit.intdiv(2) - 2
+        return str[0..<chopPoint] + "..." + str[(-chopPoint)..-1]
     }
 }
