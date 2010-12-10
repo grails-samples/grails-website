@@ -1,5 +1,6 @@
 package org.grails.plugin
 /*
+ * TODO: This should be replaced either by a partial template or something like BeanFields. (PAL)
  * author: Matthew Taylor
  */
 class PluginTagLib {
