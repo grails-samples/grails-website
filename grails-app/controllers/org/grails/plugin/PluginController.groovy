@@ -4,14 +4,16 @@ import grails.converters.JSON
 import grails.plugin.springcache.annotations.*
 import javax.servlet.http.HttpServletResponse
 
-import org.grails.wiki.WikiPage
+import org.apache.shiro.SecurityUtils
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders
-import org.grails.wiki.BaseWikiController
-import org.grails.tags.TagNotFoundException
-import org.grails.taggable.*
+import org.grails.auth.Role
 import org.grails.comments.*
+import org.grails.taggable.*
+import org.grails.tags.TagNotFoundException
+import org.grails.wiki.BaseWikiController
+import org.grails.wiki.WikiPage
 import org.springframework.web.context.request.RequestContextHolder
 
 import net.sf.ehcache.Element
@@ -191,16 +193,19 @@ class PluginController extends BaseWikiController {
         def plugin = Plugin.get(params.id)
         if(plugin) {
             if(request.method == 'POST') {
-                // update plugin
-                plugin.properties = params
+                // Update the plugin's properties, but exclude 'zombie'
+                // because only an administrator can set that.
+                bindData plugin, params, [ "zombie" ]
                 if (!plugin.validate()) {
                     return render(view:'editPlugin', model: [plugin:plugin])
                 }
                 if (!plugin.isNewerThan(params.currentRelease)) {
                     plugin.lastReleased = new Date();
                 }
-                // update plugin
-                plugin.properties = params
+                // Update 'zombie' if we have an administrator.
+                if (SecurityUtils.subject.hasRole(Role.ADMINISTRATOR)) {
+                    plugin.zombie = params.zombie ?: false
+                }
                 plugin.save(flush:true)
                 redirect(action:'show', params:[name:plugin.name])
             } else {
