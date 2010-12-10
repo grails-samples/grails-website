@@ -31,6 +31,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     String grailsVersion        // version it was developed against
     Boolean official = false    // specifies SpringSource support
     Boolean featured = false
+    boolean zombie = false
     Number avgRating
     Date dateCreated
     Date lastUpdated

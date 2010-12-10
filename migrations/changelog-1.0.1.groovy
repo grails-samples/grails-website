@@ -16,3 +16,17 @@ changeSet(id:'WikiPageDeprecation', author:'pledbrook') {
         where "number is null"
     }
 }
+
+changeSet(id:'ZombiePluginSupport', author:'pledbrook') {
+    addColumn(tableName: "plugin") {
+        column name: "zombie", type: "boolean", {
+            constraints nullable: true
+        }
+    }
+
+    // All existing Wiki pages should have a default 'deprecated'
+    // value of false, not null.
+    update(tableName: "plugin") {
+        column name: "zombie", valueBoolean: false
+    }
+}

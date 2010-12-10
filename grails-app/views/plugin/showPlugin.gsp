@@ -7,8 +7,13 @@
 </head>
 <body>
 	<div id="pluginDetailsBox" align="center">
-		
 		<div id="pluginDetailsContainer">
+			<g:if test="${plugin.zombie}">
+			<div id="pluginZombie">
+				<h1><g:message code="plugin.zombie"/></h1>
+			<!%-- TODO Add 'Revive' link --%>
+			</div>
+			</g:if>
 			
 			<gui:dialog id='loginDialog' title="Login required" modal="true">
 			    <div id='loginFormDiv'></div>

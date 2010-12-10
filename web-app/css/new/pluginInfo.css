@@ -36,6 +36,17 @@ body {
 	top:-20px;
 	text-align:left;
 }
+#pluginZombie {
+	position: relative;
+}
+#pluginZombie h1 {
+	position: absolute;
+	font-size: 36pt;
+	color: rgba(100, 100, 100, 0.7);
+	left: 250px;
+	top: 60px;
+	z-index: 10;
+}
 #pluginDetailsContainer {
 	text-align:left;
 	width:1008px;	
@@ -104,6 +115,12 @@ body {
 	padding-right:20px;
 }
 #pluginBox .links  a { color: black; border: inherit; text-decoration: none;}
+
+ul.actionBar li {
+	display: inline-block;
+	list-style-type: none;
+	padding: 0 10px;
+}
 
 .yui-nav li .tabLeft {
 	background: url(../../images/new/plugins/tab_down_leftcrnr.png) no-repeat center top;	

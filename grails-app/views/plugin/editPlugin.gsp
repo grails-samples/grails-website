@@ -1,3 +1,4 @@
+<%@page import="org.grails.auth.Role" %>
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -103,11 +104,18 @@
 							                        description="Where someone would click to get your plugin">
 							                    <input type="text" id="downloadUrl" name="downloadUrl" value="${fieldValue(bean: plugin, field: 'downloadUrl')}"/>
 							                </plugin:input>
-
+											<shiro:hasRole name="${ Role.ADMINISTRATOR }">
+											<plugin:input name="Abandoned?" description="Has the plugin been abandoned?">
+												<g:checkBox name="zombie" value="${plugin?.zombie}"/>
+											</plugin:input>
+											</shiro:hasRole>
 							                </tbody>
 							            </table>
 							        </div>
-							        <g:submitButton name="save" value="Save"/>
+									<ul class="actionBar">
+										<li><g:submitButton name="save" value="Save"/></li>
+										<li><g:link controller="plugin" action="show" params="[name: plugin.name]">Cancel</g:link></li>
+									</ul>
 							        %{--<div class="buttons">--}%
 							            %{--<span class="button"><g:actionSubmit class="save" value="Update"/></span>--}%
 							            %{--<span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete"/></span>--}%
