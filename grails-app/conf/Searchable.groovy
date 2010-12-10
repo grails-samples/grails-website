@@ -119,7 +119,7 @@ searchable {
      *
      * If false, you must manage the index manually using index/unindex/reindex
      */
-    mirrorChanges = true
+    mirrorChanges = false
 
     /**
      * Should the database be indexed at startup (using Compass:GPS)?
@@ -132,7 +132,7 @@ searchable {
      * If you use BootStrap.groovy to insert your data then you should use "true",
      * which means do a non-forking, otherwise "fork" is recommended
      */
-    bulkIndexOnStartup = "fork"
+    bulkIndexOnStartup = "true"
 
     /**
      * Should index locks be removed (if present) at startup?

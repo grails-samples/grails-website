@@ -8,8 +8,9 @@ import org.grails.auth.Role
 import org.grails.auth.User
 
 class BootStrap {
-    def init = { servletContext ->
+    def searchableService
 
+    def init = { servletContext ->
         HttpServletRequest.metaClass.isXhr = {->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')                
         }
@@ -38,6 +39,10 @@ grails -Dinitial.admin.password=changeit run-app""")
                  .addToRoles(name:Role.OBSERVER)
                  .save(flush:true)
         }
+
+        // We manually start the mirroring process to ensure that it comes after
+        // Autobase performs its migrations.
+        searchableService.startMirroring()
     }
 
     def destroy = {
