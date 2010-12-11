@@ -49,6 +49,8 @@ class Plugin implements Taggable, Commentable, Rateable {
         installation component: true
         faq component: true
         screenshots component: true
+        currentRelease index: "no", store: "yes"
+        grailsVersion index: "no", store: "yes"
     }
 
     static transients = ['avgRating', 'fisheye']
