@@ -9,13 +9,6 @@
     <meta content="pluginNav" name="layout"/>
 </head>
 <body>
-    <div id="currentPlugins">
-        <g:each var="plugin" in="${currentPlugins}">
-            <tmpl:pluginPreview plugin="${plugin}" />
-        </g:each>
-    </div>
-    <div id="paginationPlugins">
-        <g:paginate total="${totalPlugins}" params="[category:category]" next="&gt;" prev="&lt;"></g:paginate>
-    </div>
+    <tmpl:pluginList plugins="${currentPlugins}" total="${totalPlugins}" pageParams="[category: category]" />
 </body>
 </html>

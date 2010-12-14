@@ -63,25 +63,11 @@
 		        </table>
 		    </div>
 		    <div class="links">
-		        <a href="${plugin.scmUrl ?: plugin.fisheye}">
-					<div class="fisheye">
-						<r:img uri="/images/new/plugins/icons/fisheye.png" border="0" /> 
-						Source
-					</div>
-				</a>
-		        <a href="${plugin.documentationUrl}">
-					<div class="docs">
-						<r:img uri="/images/new/plugins/icons/doc.png" border="0" /> 
-						Docs
-					</div>
-
-		        </a>
+		        <tmpl:pluginLinks plugin="${plugin}" />
 		        <g:link controller="plugin" action="editPlugin" id="${plugin.id}">
-					<div class="edit">
-						<r:img uri="/images/new/plugins/icons/16x16_icons/edit.png" border="0" /> 
-						Edit Plugin
-					</div>
-				</g:link>
+                            <r:img uri="/images/new/plugins/icons/16x16_icons/edit.png" border="0" /> 
+                            Edit Plugin
+                        </g:link>
 		    </div>
 			
 		</div>

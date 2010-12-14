@@ -20,21 +20,9 @@
 	</div>
 
     <div class="links">
-        <a href="${plugin.fisheye}">
-			<div class="fisheye">
-				<r:img uri="/images/new/plugins/icons/fisheye.png" border="0" /> 
-				Fisheye
-			</div>	
-		</a>
-        <a href="${plugin.documentationUrl}">
-			<div class="docs">
-				<r:img uri="/images/new/plugins/icons/doc.png" border="0" /> 
-				Docs
-			</div>
-    	
-        </a>
-
+        <tmpl:pluginLinks plugin="${plugin}" />
     </div>
+
     <div class="bottom">
 		<div class="moreInfo">
             <g:link action="show" params="${[name:plugin.name]}">

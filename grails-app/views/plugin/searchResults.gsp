@@ -38,22 +38,7 @@
 
 
     <g:if test="${haveResults}">
-        <div id="results" class="results">
-            <g:each var="result" in="${searchResult.results}" status="index">
-				<tmpl:pluginPreview plugin="${result}" />
-            </g:each>
-        </div>
-
-        <div>
-            <div class="paging">
-                <g:if test="${haveResults}">
-                    Page:
-                    <g:set var="totalPages" value="${Math.ceil(searchResult.total / searchResult.max)}"/>
-                    <g:if test="${totalPages == 1}"><span class="currentStep">1</span></g:if>
-                    <g:else><g:paginate controller="plugin" action="search" params="[q: params.q]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>
-                </g:if>
-            </div>
-        </div>
+        <tmpl:pluginList plugins="${searchResult.results}" total="${searchResult.total}" pageParams="[q: params.q]" />
     </g:if>
 </div>
 </body>
