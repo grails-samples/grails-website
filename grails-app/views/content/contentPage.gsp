@@ -4,13 +4,6 @@
     <title>${content?.title}</title>
     <meta content="subpage" name="layout" />
     <g:render template="wikiJavaScript"/>
-	<style type="text/css" media="screen">
-		body {
-		    font-family: Lucida Grande, Lucida, sans-serif;
-		    font-size: 12pt;
-		}
-		
-	</style>
 </head>
 <body>
     <div id="contentPane">
