@@ -73,24 +73,13 @@ class PluginService {
 
         // Now find all the plugins with this tag.
         def result = []
-        def links = TagLink.findAllByTagAndType(tag, 'plugin', args += [cache: true])
+        def links = TagLink.findAllByTagAndType(tag, 'plugin', args)
         if (links) {
             result << Plugin.withCriteria {
                 inList 'id', links*.tagRef
-                cache true
-
-                if (args.offset) firstResult args.offset
-                if (args.max) maxResults args.max
             }
 
-            result << Plugin.withCriteria {
-                inList 'id', links*.tagRef
-                cache true
-
-                projections {
-                    rowCount()
-                }
-            }
+            result << TagLink.countByTagAndType(tag, 'plugin')
         }
         else {
             result << [] << 0

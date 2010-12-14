@@ -8,14 +8,8 @@
 </head>
 <body>
     <h2>Plugins with tag '${tagName}'</h2>
-    <div id="currentPlugins">
-        <g:each var="plugin" in="${currentPlugins}">
-            <tmpl:pluginPreview plugin="${plugin}" />
-        </g:each>
-    </div>
-    <div id="paginationPlugins">
-        <g:paginate total="${totalPlugins}" params="[tagName:tagName]" next="&gt;" prev="&lt;"></g:paginate>
-    </div>
+    Showing <strong>${offset + 1}</strong> - <strong>${offset + max}</strong> of <strong>${totalPlugins}</strong>
+    <tmpl:pluginList plugins="${currentPlugins}" total="${totalPlugins}" pageParams="[tagName: tagName]" />
 </body>
 </html>
 
