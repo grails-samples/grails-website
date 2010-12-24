@@ -103,7 +103,7 @@ class PluginService {
 
             log.info "Found ${plugins.plugin.size()} master plugins."
 
-            plugins.plugin.inject([]) { pluginsList, pxml ->
+            return plugins.plugin.inject([]) { pluginsList, pxml ->
                 if (!pxml.release.size()) return pluginsList
                 def latestRelease = pxml.@'latest-release'
                 def latestReleaseNode = pxml.release.find { releaseNode ->
@@ -112,7 +112,7 @@ class PluginService {
                 def p = new Plugin()
                 p.with {
                     name = pxml.@name
-                    grailsVersion = (latestReleaseNode.documentation.toString().startsWith('http://grails.org') ? getGrailsVersion(p) : '')
+                    grailsVersion = getGrailsVersion(p)
                     title = latestReleaseNode.title.toString() ?: pxml.@name
                     description = new WikiPage(body:latestReleaseNode.description.toString() ?: '')
                     author = latestReleaseNode.author
@@ -123,10 +123,13 @@ class PluginService {
                 }
 
                 pluginsList << p
-            }            
-        }catch(e) {
-            log.error "Error parsing master plugin list: ${e.message}",e
+            }
         }
+        catch(e) {
+            log.error "Error parsing master plugin list: ${e.message}",e
+            return []
+        }
+
     }
 
     private def replaceOldDocsWithNewIfNecessary(oldDocs, name) {
@@ -196,6 +199,9 @@ class PluginService {
     }
 
     def updatePlugin(plugin, master) {
+        // Don't update the plugin if the version hasn't changed.
+        if (plugin.currentRelease == master.currentRelease) return
+
         log.info "Updating plugin \"$plugin.name\"..."
 
         // these attributes are overriden by local plugin domain changes
@@ -264,10 +270,18 @@ class PluginService {
     def getGrailsVersion(plugin) {
         def xmlLoc = "${ConfigurationHolder.config?.plugins?.location}/grails-${plugin.name}/tags/LATEST_RELEASE/plugin.xml"
         def xmlUrl = new URL(xmlLoc)
-        def xmlText = xmlUrl.text
 
-        def pluginXml = new XmlSlurper().parseText(xmlText)
-        pluginXml.@grailsVersion.toString()
+        itry {
+            def xmlText = xmlUrl.text
+
+            def pluginXml = new XmlSlurper().parseText(xmlText)
+            return pluginXml.@grailsVersion.toString()
+        }
+        catch (FileNotFoundException ex) {
+            // If the file doesn't exist, then the plugin was published using
+            // the portal 'ping'.
+            return ''
+        }
     }
 
     /**
