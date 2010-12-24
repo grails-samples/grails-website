@@ -271,7 +271,7 @@ class PluginService {
         def xmlLoc = "${ConfigurationHolder.config?.plugins?.location}/grails-${plugin.name}/tags/LATEST_RELEASE/plugin.xml"
         def xmlUrl = new URL(xmlLoc)
 
-        itry {
+        try {
             def xmlText = xmlUrl.text
 
             def pluginXml = new XmlSlurper().parseText(xmlText)
