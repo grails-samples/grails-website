@@ -45,7 +45,7 @@
                 </div><!-- center column -->
                 <div class="right">
         			<h2>Robust</h2>
-                    <p>Powered by <a href="http://springframework.org">Spring</a>, Grails out performs the competition. Dynamic, agile web development without compromises.</p>
+                    <p>Powered by <a href="http://springframework.org">Spring</a>, Grails outperforms the competition. Dynamic, agile web development without compromises.</p>
                 </div><!-- right column -->
             </div><!-- grailsAttributes -->
             
