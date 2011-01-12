@@ -358,6 +358,8 @@ textarea {
 .screencastForm label {
 	display:block;
 	font-size:1.2em;
+	margin-top: 1em;
+	margin-bottom: 0.5em;
 }
 .screencastForm input {
 	display:block;
@@ -367,6 +369,7 @@ textarea {
 	display:block;
 	width:400px;
 	height:100px;
+	margin:0;
 }
 .screencast .screencastDescription{
 	margin-top:5px;
