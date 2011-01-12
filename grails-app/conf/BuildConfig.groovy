@@ -25,7 +25,8 @@ grails.project.dependency.resolution = {
                 ":commentable:0.7.5",
                 ":feeds:1.5",
                 ":grails-ui:1.2-SNAPSHOT",
-                ":hibernate:1.3.5",
+                ":hibernate:1.3.6",
+                ":jquery:1.4.4.1",
                 ":mail:0.5",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
@@ -50,7 +51,7 @@ grails.project.dependency.resolution = {
         }
 
         build   ":db-util:0.4",
-                ":tomcat:1.3.5"
+                ":tomcat:1.3.6"
     }
 
     dependencies {
