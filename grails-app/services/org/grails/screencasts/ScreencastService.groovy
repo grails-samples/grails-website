@@ -5,12 +5,13 @@ class ScreencastService {
     boolean transactional = true
 
     def getLatestScreencastId() {
-        Screencast.withCriteria {
+        def ids = Screencast.withCriteria {
             order 'dateCreated', 'desc'
             maxResults 1
             projections {
                 property 'id'
             }
-        }[0]
+        }
+        return ids[0]
     }
 }
