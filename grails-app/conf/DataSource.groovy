@@ -15,6 +15,10 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop','update'
+            url = "jdbc:hsqldb:file:devDb;shutdown=true"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "sa"
+            password = ""
         }
     }
     test {
