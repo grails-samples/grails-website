@@ -14,12 +14,25 @@
     <r:use modules="master"/>
     <r:resourceLink uri="/images/favicon.ico"/>
     <r:layoutResources/>
+
+    <r:script>
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+	if (classes.length == 1 && classes[0] == "") {
+		classes = ["js"];
+	}
+	else {
+		classes.push("js");
+	}
+    document.body.className = classes.join(" ");
+}
+    </r:script>
     
     <%-- Page-specific CSS goes in here --%>
     <g:pageProperty name="page.pageCss" />
     <g:layoutHead />
 </head>
-<body>
+<body onload="addJsClass();">
     
     <div align="center">
         <g:render template="/content/logos" />
