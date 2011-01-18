@@ -1,4 +1,9 @@
 <g:applyLayout name="pluginLayout">
+<head>
+    <content tag="pageCss">
+        <g:pageProperty name="page.pageCss"/>
+    </content>
+</head>
 <body>
 <div id="contentArea">
 	

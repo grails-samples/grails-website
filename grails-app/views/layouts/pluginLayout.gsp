@@ -4,6 +4,7 @@
     <r:use modules="plugins"/>
     
     <content tag="pageCss">
+        <g:pageProperty name="page.pageCss"/>
         
     </content>
     <g:layoutHead />
