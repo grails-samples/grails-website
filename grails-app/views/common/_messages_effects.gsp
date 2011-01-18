@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<r:script type="text/javascript">
 function fadeMessages() {
     if(myYUI.get("errors")!=null) {
         myYUI.fade("errors", 5);
@@ -7,4 +7,4 @@ function fadeMessages() {
         myYUI.fade("message", 10);
     }
 }
-</script>
+</r:script>
