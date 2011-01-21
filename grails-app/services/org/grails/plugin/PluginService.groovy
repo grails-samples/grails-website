@@ -175,11 +175,12 @@ class PluginService {
                         }
                         // give an initial release date of now
                         master.lastReleased = new Date()
-						if(!master.groupId) {
-							master.groupId = "org.grails.plugins"
-						}
-                       // so we need to save the master first to get its id
+                        if (!master.groupId) {
+                                master.groupId = "org.grails.plugins"
+                        }
 
+                        // so we need to save the master first to get its id
+                        //
                         // save new master plugin
                         if (!master.save()) {
                             log.error "Could not save master plugin: $master.name ($master.title), version $master.currentRelease"
