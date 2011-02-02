@@ -12,7 +12,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 class Plugin implements Taggable, Commentable, Rateable {
 
     static final def WIKIS = ['installation','description','faq','screenshots']
-    static final def VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.-\w]*)?$/
+    static final def VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
 
     transient cacheService
     transient pluginService
@@ -72,7 +72,7 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     static mapping = {
         cache 'nonstrict-read-write'
-        summary sqlType: 'text'
+        summary type: 'text'
     }
 
     
