@@ -171,4 +171,5 @@ class UserController {
         }
     }
 
+    def unauthorized = {}
 }
