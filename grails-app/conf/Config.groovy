@@ -71,6 +71,9 @@ grails.resources.modules = {
         dependsOn 'master'
         resource 'css/new/homepage.css'
     }
+    content {
+        resource url: 'css/content.css'
+    }
     plugins {
         dependsOn 'master'
         resource url: 'css/new/plugins.css'
@@ -79,20 +82,19 @@ grails.resources.modules = {
         dependsOn 'master'
         resource url: 'css/new/pluginInfo.css'
     }
-    pluginDetails {
-        dependsOn 'pluginInfo'
-        ['tabview', 'content', 'plugins'].each { sheet ->
-            resource url: "css/${sheet}.css".toString()
-        }
+    common {
         resource url: 'js/common/yui-effects.js'
         resource url: 'js/diff_match_patch.js'
     }
+    pluginDetails {
+        dependsOn 'pluginInfo', 'content', 'common'
+        ['tabview', 'plugins'].each { sheet ->
+            resource url: "css/${sheet}.css".toString()
+        }
+    }
     subpage {
-        dependsOn 'master'
+        dependsOn 'master','content', 'common'
         resource url: 'css/new/subpage.css'
-        resource url: 'css/content.css'
-        resource url: 'js/common/yui-effects.js'
-        resource url: 'js/diff_match_patch.js'
     }
 }
 
