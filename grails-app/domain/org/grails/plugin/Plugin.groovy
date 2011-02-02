@@ -19,7 +19,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     
     String name
     String title
-    String groupId
+    String groupId = "org.grails.plugins"
     String summary
     WikiPage description
     WikiPage installation
@@ -74,7 +74,6 @@ class Plugin implements Taggable, Commentable, Rateable {
         cache 'nonstrict-read-write'
         summary type: 'text'
     }
-
     
     def getFisheye() {
         downloadUrl ? "${ConfigurationHolder.config.plugins.fisheye}/grails-${name}" : ''

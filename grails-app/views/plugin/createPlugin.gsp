@@ -38,6 +38,12 @@
                 </plugin:input>
 
                 <plugin:input
+                        name="Group ID"
+                        description="This is the Maven group ID for the plugin.">
+                    <input type="text" name="groupId" value="${fieldValue(bean: plugin, field: 'groupId')}"/>
+                </plugin:input>
+
+                <plugin:input
                         name="Author"
                         description="Plugin author's name(s)">
                     <input type="text" id="author" name="author" value="${fieldValue(bean: plugin, field: 'author')}"/>
