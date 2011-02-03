@@ -248,6 +248,14 @@ ul.actionBar li {
 	background-color:#E8E8E8;
 	padding:3px;
 }
+#pluginTags span a.iconLink {
+	border: none;
+	background-color: transparent;
+        padding: 0.2em;
+}
+#pluginTags span a.iconLink img {
+	margin-bottom: -0.3em;
+}
 #ratingDisplay {
 	z-index:999;
 }

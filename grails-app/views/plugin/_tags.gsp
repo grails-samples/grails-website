@@ -2,15 +2,16 @@
 <g:each var='tag' in="${plugin.tags.sort()}">
     <span class="tag"><g:link action="browseByTag" params="[tagName: tag]">${tag}</g:link>
     <g:if test="${!disabled}">
+        <g:set var="imgTag"><img id="remove_${tag}_tag_from_${plugin.id}" src="${resource(dir: 'images/famfamfam', file: 'delete.png')}"/></g:set>
+
         %{-- If logged in, we're going to attach the normal ajax click listener --}%
         <shiro:isLoggedIn>
-            <g:set var='clickHandler'>
-                onclick="new Ajax.Updater('pluginTags','${createLink(controller:'plugin',action:'removeTag',id:plugin.id,params:[tagName:tag])}',{asynchronous:true,evalScripts:true,method:'POST'});"
-            </g:set>
+            <g:remoteLink class="iconLink" update="pluginTags" controller="plugin" action="removeTag" id="${plugin.id}" params="[tagName: tag]">
+                ${imgTag}</g:remoteLink>
         </shiro:isLoggedIn>
-        <img ${clickHandler} id="remove_${tag}_tag_from_${plugin.id}" src="${createLinkTo(dir: 'images/famfamfam', file: 'delete.png')}"/>
         %{-- If not logged in, we'll add a custom listener that will defer to login form --}%
         <shiro:isNotLoggedIn>
+            ${imgTag}
             <script>
                 YAHOO.util.Event.onDOMReady(function() {
                     // on show, put the dialog in the right place
