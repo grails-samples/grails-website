@@ -2,12 +2,12 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<meta name="layout" content="subpage">
-		<title>Password Reminder</title>
+		<title>Reset Password</title>
 		
 	</head>
 	
 	<body id="passwordreminder">
-		<p>Enter the username you registered with and your password will be emailed to you:</p>
+		<p>Enter the username you registered with. A new password will be generated and emailed to you.</p>
 		<g:if test="${flash.message}">
 			<div class="error">
 				${flash.message}				
