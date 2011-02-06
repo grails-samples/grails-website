@@ -128,6 +128,7 @@
                 </div><!-- latestNews -->
             
                 <div id="screencasts">
+                    <%--
                     <h2>Conference</h2>
                     <div class="castBox">
                         <div class="advert">
@@ -136,17 +137,16 @@
                             </a>
                         </div>
                     </div>
-                    <%--
-                    <h2>Recent Screencasts</h2>
+                    --%>
+                    <h2>What is grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
-                            <a href="https://www.cloudfoundry.com/screencasts.html#grails">
-                                <r:img uri="/images/new/play_icon.png"/>
-                            </a>
+                           <g:link controller="screencast" action="show" id="15">
+                                <r:img width="240" height="190" uri="/images/grails-taster-badge.png"/>
+                            </g:link>
                         </div><!-- castScreen -->
-                        <h4><g:link controller="screencast" action="list">View All</g:link></h4>
+                        <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
                     </div><!-- castBox -->
-                    --%>
                 </div><!-- screencasts -->
             </div><!-- newsScreencastWrapper -->
             

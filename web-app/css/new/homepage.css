@@ -391,7 +391,7 @@ body {
 
 .castBox h4 {
     text-transform: uppercase;
-    margin: 13px 20px 0px 0px;
+    margin: 0px 13px 0px 0px;
     text-align: right;
     font-size: 9pt;
 }
@@ -404,13 +404,12 @@ body {
 }
 
 .castScreen {
-    background: url(../../images/CF-videoStart-090823.gif) no-repeat top left;
-    width: 140px;
-    height: 114px;
-    margin: 14px 0px 0px 14px;
-    padding: 72px 0px 0px 100px;
+/*    background: url(../../images/CF-videoStart-090823.gif) no-repeat top left; */
+/*    width: 140px; */
+/*    height: 190px; */
+    margin: 14px;
+    margin-bottom: 10px;
 }
-
 
 .advert {
     overflow: hidden;
