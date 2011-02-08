@@ -63,21 +63,23 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // both of which have different directory structures. Here we test
         // which type of repository we have.
         def mavenUrl = new URL(baseUrl, "${event.group.replace('.', '/')}/${event.name}/${event.version}/")
+        def downloadFilename = "${event.name}-${event.version}.zip"
         try {
             log.debug "Trying Maven URL: ${mavenUrl}"
             mavenUrl.text
             baseUrl = mavenUrl
         }
         catch (FileNotFoundException ex) {
-            // 404 on the Maven URL.
+            // 404 on the Maven URL, so use a Subversion repository URL instead.
             baseUrl = new URL(baseUrl, "grails-${event.name}/tags/RELEASE_${event.version?.replace('.', '_')}/")
+            downloadFilename = "grails-" + downloadFilename
         }
 
         log.debug "Fetching plugin information from ${baseUrl}"
 
         // Pull in the POM and parse it.
         def parser = new XmlSlurper()
-        def pomUrl = new URL(baseUrl, "${plugin.name}-${event.version}.pom")
+        def pomUrl = new URL(baseUrl, "${event.name}-${event.version}.pom")
         def xml = null
         pomUrl.withReader { reader ->
             xml = parser.parse(reader)
@@ -93,12 +95,16 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         plugin.scmUrl = xml.scm.url.text()
 
         // Now do the same with the XML plugin descriptor.
-        def descUrl = new URL(baseUrl, "${plugin.name}-${event.version}-plugin.xml")
+        def descUrl = new URL(baseUrl, "${event.name}-${event.version}-plugin.xml")
         descUrl.withReader { reader ->
             xml = parser.parse(reader)
         }
 
         plugin.grailsVersion = xml.@grailsVersion.text()
+
+        // Set the download URL for the plugin to the appropriate binary in the
+        // repository, whether it be a Maven or Subversion one.
+        plugin.downloadUrl = baseUrl.toURI().resolve(downloadFilename)
 
         if (log.debugEnabled) {
             log.debug """\
