@@ -109,7 +109,7 @@ h1, h2, h3, h4, h5, h6 {
 	width:82px;
 	position:relative;
 	margin-right:70px;
-	z-index:99;
+	z-index:10;
 	top:30px;
     background: url(../../images/sprites/subpage-variable-width.png) no-repeat top;		
     background-position: -10px -269px;

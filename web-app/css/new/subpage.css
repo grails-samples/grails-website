@@ -420,6 +420,14 @@ width:850px;
 margin-left:15%;	
 margin-bottom:30px;	
 }
+#editLinks {
+    /*
+     These are a bit of a hack to get the 'wiki syntax' link on wiki
+     edit pages working. Previously, you couldn't click on the link.
+    */
+    position: relative;
+    z-index: 20;
+}
 #editLinks a,#viewLinks a {
 	color: black; border: inherit; text-decoration: none;	
 }
