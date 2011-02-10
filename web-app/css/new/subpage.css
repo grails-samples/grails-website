@@ -244,6 +244,9 @@ textarea {
 #contentBody #searchBox {
 	margin-bottom:30px;
 }
+#contentBody #searchBox div {
+	margin: 10px 0;
+}
 .screencasts .screencast h2 a {
 	color: #48802C; border: inherit; text-decoration: none;	
 }

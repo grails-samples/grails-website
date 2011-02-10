@@ -344,3 +344,45 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+/*
+ * The following tag clouds styles shouldn't really need the #contentCenter
+ * prefix, but without it they are overpowered by a '#contentBody li' style.
+ */
+#contentCenter ol.tagCloud {
+    list-style-type: none;
+}
+
+#contentCenter ol.tagCloud li {
+    display: inline-block;
+    padding: 3px;
+}
+
+#contentCenter ol.tagCloud li a {
+    text-decoration: none;
+}
+
+.ie6 #contentCenter ol.tagCloud li {
+    zoom: 1;
+    display: inline;
+}    
+
+#contentCenter ol.tagCloud li.smallest {
+    font-size: 80%;
+}
+
+#contentCenter ol.tagCloud li.small {
+    font-size: 90%;
+}
+
+#contentCenter ol.tagCloud li.medium {
+    font-size: 100%;
+}
+
+#contentCenter ol.tagCloud li.large {
+    font-size: 120%;
+}
+
+#contentCenter ol.tagCloud li.largest {
+    font-size: 150%;
+}
+
