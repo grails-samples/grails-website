@@ -50,13 +50,28 @@
             </div><!-- grailsAttributes -->
             
             <div class="eventDownloadWrapper">
-                <div id="events">
-                    <h3>Training Events</h3>
-		 			<wiki:text page="Training Events" />
-                </div><!-- events -->
-                
-                <div id="globeGraphic"></div>
-            
+                <div id="screencasts">
+                    <%--
+                    <h2>Conference</h2>
+                    <div class="castBox">
+                        <div class="advert">
+                            <a href="http://www.springone2gx.com/conference/chicago/2010/10/register">
+                                <r:img width="250" height="240" uri="/images/SpringOne2GX_250x240.png"/>
+                            </a>
+                        </div>
+                    </div>
+                    --%>
+                    <h2>What is grails?</h2>
+                    <div class="castBox">
+                        <div class="castScreen">
+                           <g:link controller="screencast" action="show" id="15">
+                                <r:img width="240" height="190" uri="/images/grails-taster-badge.png"/>
+                            </g:link>
+                        </div><!-- castScreen -->
+                        <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
+                    </div><!-- castBox -->
+                </div><!-- screencasts -->
+
                 <div id="downloadBox">
                     <div class="downloadPluginWrapper">
                         <div id="download">
@@ -127,27 +142,12 @@
                     </div><!-- newsBox -->
                 </div><!-- latestNews -->
             
-                <div id="screencasts">
-                    <%--
-                    <h2>Conference</h2>
-                    <div class="castBox">
-                        <div class="advert">
-                            <a href="http://www.springone2gx.com/conference/chicago/2010/10/register">
-                                <r:img width="250" height="240" uri="/images/SpringOne2GX_250x240.png"/>
-                            </a>
-                        </div>
-                    </div>
-                    --%>
-                    <h2>What is grails?</h2>
-                    <div class="castBox">
-                        <div class="castScreen">
-                           <g:link controller="screencast" action="show" id="15">
-                                <r:img width="240" height="190" uri="/images/grails-taster-badge.png"/>
-                            </g:link>
-                        </div><!-- castScreen -->
-                        <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
-                    </div><!-- castBox -->
-                </div><!-- screencasts -->
+                <div id="events">
+                    <h3>Training Events</h3>
+                    <wiki:text page="Training Events" />
+                </div><!-- events -->
+                
+                <div id="globeGraphic"></div>
             </div><!-- newsScreencastWrapper -->
             
         </div><!-- contentArea -->
