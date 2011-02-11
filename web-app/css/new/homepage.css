@@ -411,6 +411,12 @@ body {
     margin-bottom: 10px;
 }
 
+.playOverlay {
+    position: absolute;
+    top: 105px;
+    left: 110px;
+}
+
 .advert {
     overflow: hidden;
     width: 250px;

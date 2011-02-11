@@ -64,10 +64,15 @@
                     <h2>What is grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
-                           <g:link controller="screencast" action="show" id="15">
+                            <g:link controller="screencast" action="show" id="15">
                                 <r:img width="240" height="190" uri="/images/grails-taster-badge.png"/>
                             </g:link>
                         </div><!-- castScreen -->
+                        <div class="playOverlay">
+                            <g:link controller="screencast" action="show" id="15">
+                                <r:img width="50" height="51" uri="/images/play.png"/>
+                            </g:link>
+                        </div>
                         <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
                     </div><!-- castBox -->
                 </div><!-- screencasts -->
