@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Plugin tags</h2>
-    <site:tagCloud tags="${tags}"/>
+    <tags:tagCloud tags="${tags}" action="browseByTag" idProperty="tagName"/>
 </body>
 </html>
 
