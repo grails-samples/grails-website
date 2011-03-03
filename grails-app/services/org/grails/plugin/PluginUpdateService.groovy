@@ -124,7 +124,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         // Assuming the instance saved OK, we can tweet the release if it's
         // a new version.
-        if (isNewVersion) tweetRelease(plugin)
+        if (isNewVersion && !event.snapshot) tweetRelease(plugin)
         else log.info "Not a new plugin release - won't tweet"
     }
 
@@ -167,8 +167,8 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
      * @param plugin A plugin instance with 'name', 'title' and 'currentRelease'
      * properties.
      */
-    void tweetRelease(plugin) {
-        def msg = "${plugin.title} ${plugin.currentRelease} released: "
+    void tweetRelease(plugin, version = null) {
+        def msg = "${plugin.title} ${version ?: plugin.currentRelease} released: "
         def url = baseUrl + "plugin/${plugin.name}"
 
         // Check that the message with standard URL does not exceed the
