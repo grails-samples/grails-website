@@ -95,7 +95,7 @@
 
 							                <plugin:input
 							                        name="Documentation URL"
-							                        description="Where on the web is are your docs?  If this is it, then leave blank.">
+							                        description="Where on the web are your docs? If this is it, then leave blank.">
 							                    <input type="text" id="documentationUrl" name="documentationUrl" value="${fieldValue(bean: plugin, field: 'documentationUrl')}"/>
 							                </plugin:input>
 
@@ -104,6 +104,9 @@
 							                        description="Where someone would click to get your plugin">
 							                    <input type="text" id="downloadUrl" name="downloadUrl" value="${fieldValue(bean: plugin, field: 'downloadUrl')}"/>
 							                </plugin:input>
+															<plugin:input name="Source URL" description="Where is the source code for your plugin? Links to browseable code preferred.">
+															    <input type="text" id="scmUrl" name="scmUrl" value="${fieldValue(bean: plugin, field: 'scmUrl')}"/>
+															</plugin:input>
 											<shiro:hasRole name="${ Role.ADMINISTRATOR }">
 											<plugin:input name="Abandoned?" description="Has the plugin been abandoned?">
 												<g:checkBox name="zombie" value="${plugin?.zombie}"/>
