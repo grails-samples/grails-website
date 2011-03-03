@@ -360,8 +360,7 @@ class PluginService {
         query = categoryToSearchConstraint(category) + " " + query
         options << optionsForCategory(category)
 
-        def results = searchWithResults(query, options)
-        return [results.results, results.total]
+        return searchWithTotal(query, options)
     }
 
     /**
@@ -369,8 +368,15 @@ class PluginService {
      * options as named arguments.
      */
     protected final searchWithTotal(Map options, String query) {
-        def results = searchWithResults(query, options)
-        return [results.results, results.total]
+        return searchWithTotal(query, options)
+    }
+
+    /**
+     * Same as {@link #searchWithTotal(String, String, Map)} except it supports the
+     * options as named arguments.
+     */
+    protected final searchWithTotal(Map options, String query, String category) {
+        return searchWithTotal(query, category, options)
     }
 
     /**
@@ -395,7 +401,7 @@ class PluginService {
             return [sort: "lastReleased", order: "desc"] 
 
         default:
-            return ""
+            return [:]
         }
     }
 
