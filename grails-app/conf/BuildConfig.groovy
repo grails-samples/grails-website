@@ -14,6 +14,7 @@ grails.project.dependency.resolution = {
         mavenRepo "http://repository.codehaus.org"
         mavenRepo "http://maven.springframework.org/milestone"
         mavenRepo "http://snapshots.repository.codehaus.org"
+        mavenRepo "http://localhost:8081/artifactory/plugins-releases-local"
     }
 
     plugins {
@@ -26,7 +27,7 @@ grails.project.dependency.resolution = {
                 ":feeds:1.5",
                 ":grails-ui:1.2-SNAPSHOT",
                 ":greenmail:1.2.2",
-                ":hibernate:1.3.7",
+                ":hibernate:1.4.0.BUILD-SNAPSHOT",
                 ":jquery:1.4.4.1",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
@@ -34,9 +35,7 @@ grails.project.dependency.resolution = {
                 ":rateable:0.6.2",
                 ":resources:1.0-RC2",
                 ":richui:0.6",
-                ":screencasts:0.5.2",
                 ":searchable:0.6-SNAPSHOT",
-                ":shiro:1.1.1",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.1",
@@ -46,17 +45,17 @@ grails.project.dependency.resolution = {
         
         test    ":build-test-data:1.1.1",
                 ":fixtures:1.0.1",
-                ":geb:0.5-SNAPSHOT",
-                ":spock:0.5-groovy-1.7-SNAPSHOT", {
+                ":geb:0.5-SNAPSHOT", {
             excludes 'xml-apis'
         }
 
         build   ":db-util:0.4",
-                ":tomcat:1.3.7"
+                ":tomcat:1.4.0.BUILD-SNAPSHOT"
     }
 
     dependencies {
-        compile "org.twitter4j:twitter4j-core:2.1.8"
+        compile "org.twitter4j:twitter4j-core:2.1.8", "org.springframework:spring-context-support:3.0.3.RELEASE"
+        runtime "org.grails.plugins:shiro:1.1.3", "org.grails.plugins:screencasts:0.5.1"
 
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
