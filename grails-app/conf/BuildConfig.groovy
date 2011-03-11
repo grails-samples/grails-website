@@ -33,11 +33,11 @@ grails.project.dependency.resolution = {
                 ":rateable:0.6.2",
                 ":resources:1.0-RC2-SNAPSHOT",
                 ":richui:0.6",
-                ":screencasts:0.5.1",
+                ":screencasts:0.5.2",
                 ":searchable:0.5.5.1",
                 ":shiro:1.1.1",
                 ":simple-blog:0.1.5",
-                ":springcache:1.2",
+                ":springcache:1.3.1",
                 ":spring-events:1.0",
                 ":taggable:0.6.3",
                 ":yui:2.7.0.1",
@@ -55,7 +55,8 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        compile "org.twitter4j:twitter4j-core:2.1.8"
+        compile "org.twitter4j:twitter4j-core:2.1.8",
+                "org.grails:grails-gdoc-engine:1.0-SNAPSHOT"
 
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
