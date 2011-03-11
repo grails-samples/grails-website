@@ -31,6 +31,8 @@ class MailerJob {
 	            context.setRenderEngine engine
 	            def emails = UserInfo.executeQuery("select ui.user.email from UserInfo as ui where ui.emailSubscribed = ?", [true] )
 	            while (content) {
+                        log.info "Mailing changes about '${content.title}'"
+
 	                def plugin = pluginService.resolvePossiblePlugin(content)
 	                def text = new StringBuffer()
 	                def titleUrlEscaped = content.title.encodeAsURL()
