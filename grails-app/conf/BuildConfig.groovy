@@ -55,8 +55,7 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        compile "org.twitter4j:twitter4j-core:2.1.8",
-                "org.grails:grails-gdoc-engine:1.0-SNAPSHOT"
+        compile "org.twitter4j:twitter4j-core:2.1.8"
 
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
