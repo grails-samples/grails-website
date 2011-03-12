@@ -42,7 +42,10 @@ class PluginController extends BaseWikiController {
 
         // We only want to display 5 plugins at a time in the web interface,
         // but JSON and XML data shouldn't be limited in that way.
-        if (request.format == 'html') queryParams.max = 5
+        if (request.format == 'html') {
+            queryParams.max = PORTAL_MAX_RESULTS
+            params.max = PORTAL_MAX_RESULTS
+        }
 
         // If no category is specified, default to 'featured' for the
         // web interface, and 'all' for JSON and XML requests.
