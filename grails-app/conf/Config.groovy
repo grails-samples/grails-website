@@ -41,7 +41,7 @@ grails.json.legacy.builder=false
 environments {
     production {
         grails.serverURL = "http://www.grails.org"
-		grails.screencasts.upload.directory = "/var/www/domains/grails.org/www/htdocs/dist/screencasts"
+        grails.screencasts.upload.directory = "/var/www/domains/grails.org/www/htdocs/dist/screencasts"
     }
     test {
         grails.serverURL = "http://www.grails.org"
@@ -132,19 +132,19 @@ format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"
 blog.page.layout="subpage"
 grails.blog.author.evaluator= {
-	request.user
+    request.user
 }
 
 // log4j configuration
 log4j = {
-    off    'grails.app.service.org.grails.plugin.resource'
+    off     'grails.app.service.org.grails.plugin.resource'
     
-    warn   'org.codehaus.groovy.grails.web.servlet',
-           'org.codehaus.groovy.grails.web.pages', //  GSP
-	   'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-	   'org.codehaus.groovy.grails.commons', // core / classloading
-           'org.codehaus.groovy.grails.plugins', // plugins
-	   'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-	   'org.springframework',
-	   'org.hibernate'
+    warn    'org.codehaus.groovy.grails.web.servlet',
+            'org.codehaus.groovy.grails.web.pages', //  GSP
+            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+            'org.codehaus.groovy.grails.commons', // core / classloading
+            'org.codehaus.groovy.grails.plugins', // plugins
+            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+            'org.springframework',
+            'org.hibernate'
 }

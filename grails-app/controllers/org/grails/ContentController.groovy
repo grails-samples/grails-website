@@ -24,24 +24,24 @@ class ContentController extends BaseWikiController {
 
     ContentAlertStack contentToMessage
 
-	def search = {
-		if(params.q) {
-			def searchResult = WikiPage.search(params.q, offset: params.offset, escape:true)
+    def search = {
+        if(params.q) {
+            def searchResult = WikiPage.search(params.q, offset: params.offset, escape:true)
             def filtered = searchResult.results.unique { it.title }.collect {
                 pluginService.resolvePossiblePlugin(it)
             }.findAll {it} // gets rid of nulls
-			searchResult.results = filtered
-			searchResult.total = filtered.size()
-			flash.message = "Found $searchResult.total results!"
-			flash.next()
-			render(view:"/searchable/index", model:[searchResult:searchResult])
-		}
-		else {
-			render(view:"homePage")
-		}
-	}
+            searchResult.results = filtered
+            searchResult.total = filtered.size()
+            flash.message = "Found $searchResult.total results!"
+            flash.next()
+            render(view:"/searchable/index", model:[searchResult:searchResult])
+        }
+        else {
+            render(view:"homePage")
+        }
+    }
 
-	def latest = {
+    def latest = {
 
          def engine = createWikiEngine()
 
@@ -142,32 +142,32 @@ class ContentController extends BaseWikiController {
         }
     }
 
-	def infoWikiPage = {
+    def infoWikiPage = {
         def page = WikiPage.findByTitle(params.id.decodeURL(), [cache:true])
 
         if(page) {
 
             def pageVersions = Version.withCriteria {
-				projections {
-					distinct 'number', 'version'
-					property 'author'
-				}
-				eq 'current', page
-				order 'number', 'asc'
-				cache true
-			}
-			def first = pageVersions ? Version.findByNumberAndCurrent(pageVersions[0][0], page, [cache:true]) : null
-			def last  = pageVersions ? Version.findByNumberAndCurrent(pageVersions[-1][0], page, [cache:true]) : null
+                projections {
+                    distinct 'number', 'version'
+                    property 'author'
+                }
+                eq 'current', page
+                order 'number', 'asc'
+                cache true
+            }
+            def first = pageVersions ? Version.findByNumberAndCurrent(pageVersions[0][0], page, [cache:true]) : null
+            def last  = pageVersions ? Version.findByNumberAndCurrent(pageVersions[-1][0], page, [cache:true]) : null
 
             render(template:'wikiInfo',model:[first:first, last:last,wikiPage:page, 
-											 versions:pageVersions.collect { it[0]}, 
- 											 authors:pageVersions.collect { it[1]}, 
-											 update:params.update])
+                                              versions:pageVersions.collect { it[0]}, 
+                                              authors:pageVersions.collect { it[1]}, 
+                                              update:params.update])
         }
 
     }
 
-	def editWikiPage = {
+    def editWikiPage = {
         if(!params.id) {
             render(template:"/shared/remoteError", model: [code:"page.id.missing"])
         }
@@ -237,7 +237,7 @@ class ContentController extends BaseWikiController {
 
                             Version v = page.createVersion()
                             v.author = request.user                            
-							assert v.save()
+                            assert v.save()
 
                             evictFromCache(params.id)
                             render(template:"wikiShow", model:[
