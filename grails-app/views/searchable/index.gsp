@@ -1,7 +1,5 @@
 <%@ page import="org.grails.plugin.Plugin" %>
 <%@ page import="org.springframework.util.ClassUtils" %>
-<%@ page import="org.codehaus.groovy.grails.plugins.searchable.SearchableUtils" %>
-<%@ page import="org.codehaus.groovy.grails.plugins.searchable.lucene.LuceneUtils" %>
 <html>
 <head>
     <meta content="subpage" name="layout"/>
@@ -52,15 +50,18 @@
                             --}%
                             <g:if test="${result instanceof Plugin}">
                                 <g:link controller="plugin" action="show" params="${[name:result.name]}">${className}</g:link>
+                                <g:set var="desc" value="${result.description.body}"/>
                             </g:if>
                             <g:else>
                                 <g:link controller="content" id="${result.title}">${className}</g:link>
+                                <g:set var="desc" value="${result.body}"/>
                             </g:else>
                         </div>
 
-                        <g:set var="desc"><g:if test="${result.body?.size() > 220}"><wiki:text>${result.body[0..220]}</wiki:text>...</g:if>
-                            <g:else><wiki:text id="${result.title}">${result.body ?: ''}</wiki:text></g:else></g:set>
-                        <div class="desc">${desc}</div>
+                        <div class="desc">
+                            <g:if test="${desc?.size() > 220}"><wiki:text>${desc[0..220]}</wiki:text>...</g:if>
+                            <g:else><wiki:text id="${result.title}">${desc ?: ''}</wiki:text></g:else>
+                        </div>
 
                     </div>
                 </g:each>

@@ -138,6 +138,19 @@ searchable {
      * Should index locks be removed (if present) at startup?
      */
     releaseLocksOnStartup = true
+
+    domain {
+	comment = {
+            root false
+            only = ["body"] 
+            body name: "comment" 
+        }
+        tag = {
+            root false
+            name name: "tag"
+        }
+        screencast = [only: ["title", "description"]]
+    }
 }
 
 // per-environment settings

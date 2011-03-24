@@ -1,7 +1,5 @@
 <%@ page import="org.grails.plugin.Plugin" %>
 <%@ page import="org.springframework.util.ClassUtils" %>
-<%@ page import="org.codehaus.groovy.grails.plugins.searchable.SearchableUtils" %>
-<%@ page import="org.codehaus.groovy.grails.plugins.searchable.lucene.LuceneUtils" %>
 <html>
 <head>
     <meta content="pluginNav" name="layout"/>

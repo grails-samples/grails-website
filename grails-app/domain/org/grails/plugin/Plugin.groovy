@@ -1,7 +1,8 @@
 package org.grails.plugin
 
-import org.grails.wiki.WikiPage
+import org.grails.taggable.Tag
 import org.grails.taggable.Taggable
+import org.grails.taggable.TagLink
 import org.grails.comments.Commentable
 import org.grails.rateable.Rateable
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
@@ -16,15 +17,16 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     transient cacheService
     transient pluginService
-    
+    transient taggableService
+
     String name
     String title
     String groupId = "org.grails.plugins"
     String summary
-    WikiPage description
-    WikiPage installation
-    WikiPage faq
-    WikiPage screenshots
+    PluginTab description
+    PluginTab installation
+    PluginTab faq
+    PluginTab screenshots
     String author
     String authorEmail
     String currentRelease
@@ -32,6 +34,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     String downloadUrl
     String scmUrl
     String grailsVersion        // version it was developed against
+
     Boolean official = false    // specifies SpringSource support
     Boolean featured = false
     boolean zombie = false
@@ -43,7 +46,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     static searchable = {
         only = [
             'name', 'title', 'summary', 'author', 'authorEmail',
-            'installation','description','faq','screenshots'
+            'installation','description','faq','screenshots', 'tags'
         ]
         description component: true
         installation component: true
@@ -54,9 +57,10 @@ class Plugin implements Taggable, Commentable, Rateable {
         documentationUrl index: "no", store: "yes"
         downloadUrl index: "no", store: "yes"
         scmUrl index: "no", store: "yes"
+        tags component: true
     }
 
-    static transients = ['avgRating', 'fisheye']
+    static transients = ['avgRating', 'fisheye', 'tags']
 
     static constraints = {
         name unique: true
@@ -80,6 +84,10 @@ class Plugin implements Taggable, Commentable, Rateable {
     
     def getFisheye() {
         downloadUrl ? "${ConfigurationHolder.config.plugins.fisheye}/grails-${name}" : ''
+    }
+
+    Collection<Tag> getTags() {
+        TagLink.findAllByTagRefAndTypeInList(id, taggableService.domainClassFamilies[this.class.name], [cache:true]).tag
     }
 
     def onAddComment = { comment ->

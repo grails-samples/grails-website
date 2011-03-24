@@ -1,7 +1,6 @@
 package org.grails.plugin
 
 import groovyx.net.http.HTTPBuilder
-import org.grails.wiki.WikiPage
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.transaction.annotation.Transactional
@@ -152,7 +151,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
                 // Saves don't cascade from the plugin to the wiki pages, so
                 // we have to save them before saving the plugin.
-                def wikiPage = new WikiPage(title:"plugin-${plugin.name}-${wiki}", body:body)
+                def wikiPage = new PluginTab(title:"plugin-${plugin.name}-${wiki}", body:body)
                 wikiPage.save()
 
                 plugin."$wiki" = wikiPage

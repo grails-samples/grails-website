@@ -9,6 +9,9 @@ class Content implements Serializable, Commentable {
     Date dateCreated
     Date lastUpdated
 
+    static hasMany = [versions:Version]
+    static transients = ["latestVersion"]
+
     static mapping = {
         body type:"text"
         cache 'nonstrict-read-write'
@@ -18,5 +21,20 @@ class Content implements Serializable, Commentable {
         title(blank:false)
         body(blank:true)
         locked(nullable:true)
+    }
+
+    def getLatestVersion() {
+        Version.withCriteria(uniqueResult: true) {
+            eq("current", this)
+            order "number", "desc"
+            maxResults 1
+        }
+    }
+    
+    Version createVersion() {
+        def verObject = new Version(number:version, current:this)
+        verObject.title = title
+        verObject.body = body
+        return verObject
     }
 }

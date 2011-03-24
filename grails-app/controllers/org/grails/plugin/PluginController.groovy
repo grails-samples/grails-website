@@ -13,7 +13,6 @@ import org.grails.comments.*
 import org.grails.taggable.*
 import org.grails.tags.TagNotFoundException
 import org.grails.wiki.BaseWikiController
-import org.grails.wiki.WikiPage
 import org.springframework.web.context.request.RequestContextHolder
 
 import net.sf.ehcache.Element
@@ -231,7 +230,7 @@ class PluginController extends BaseWikiController {
                 if (wiki == 'installation') {
                     body = "{code}grails install-plugin ${plugin.name}{code}"
                 }
-                def wikiPage = new WikiPage(title:"${wiki}-${plugin.id}", body:body)
+                def wikiPage = new PluginTab(title:"${wiki}-${plugin.id}", body:body)
                 wikiPage.save()
                 plugin."$wiki" = wikiPage
             }
@@ -320,6 +319,7 @@ class PluginController extends BaseWikiController {
         params.newTag.trim().split(',').each { newTag ->
             plugin.addTag(newTag.trim())
         }
+        Plugin.reindex(plugin)
         render(template:'tags', var:'plugin', bean:plugin)
     }
 
@@ -327,6 +327,7 @@ class PluginController extends BaseWikiController {
         def plugin = Plugin.get(params.id)
         plugin.removeTag(params.tagName)
         plugin.save()
+        Plugin.reindex(plugin)
         render(template:'tags', var:'plugin', bean:plugin)
     }
 
@@ -363,7 +364,7 @@ class PluginController extends BaseWikiController {
     }
 
     private def pluginWiki(name, plugin, params) {
-        plugin."$name" = new WikiPage(title:name, body:params."$name")
+        plugin."$name" = new PluginTab(title:name, body:params."$name")
     }
 
     private def byTitle(params) {

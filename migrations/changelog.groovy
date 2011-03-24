@@ -5,5 +5,6 @@ databaseChangeLog(logicalFilePath:'site-autobase') {
     if (Environment.current == Environment.PRODUCTION) {
         include('./migrations/Rhyolight/PluginPortalCommentsMigration.groovy')
         include('./migrations/changelog-1.0.1.groovy')
+        include('./migrations/changelog-1.0.5.groovy')
     }
 }

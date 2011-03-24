@@ -6,7 +6,6 @@ import org.grails.content.Version
 import org.grails.tags.TagNotFoundException
 import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
-import org.grails.wiki.WikiPage
 
 class PluginService {
 
@@ -114,7 +113,7 @@ class PluginService {
                     name = pxml.@name
                     grailsVersion = getGrailsVersion(p)
                     title = latestReleaseNode.title.toString() ?: pxml.@name
-                    description = new WikiPage(body:latestReleaseNode.description.toString() ?: '')
+                    description = new PluginTab(body:latestReleaseNode.description.toString() ?: '')
                     author = latestReleaseNode.author
                     authorEmail = latestReleaseNode.authorEmail
                     documentationUrl = replaceOldDocsWithNewIfNecessary(latestReleaseNode.documentation, name)
@@ -170,7 +169,7 @@ class PluginService {
                         }
                         //inject dummy wikis for users to fill in
                         (Plugin.WIKIS - 'description').each { wiki ->
-                            master."$wiki" = new WikiPage(title:"$wiki-${master.id}", body:'')
+                            master."$wiki" = new PluginTab(title:"$wiki-${master.id}", body:'')
                             assert master."$wiki".save()
                         }
                         // give an initial release date of now
@@ -253,12 +252,12 @@ class PluginService {
     def resolvePossiblePlugin(wiki) {
         // WikiPages that are actually components of a Plugin should be treated as a Plugin
         if (wiki.title.matches(/(${Plugin.WIKIS.join('|')})-[0-9]*/)) {
-            // we're returning the actual parent Plugin object instead of the WikiPage, but we'll make the body
-            // of the WikiPage available on this Plugin object so the view can render it as if it were a real
-            // WikiPage by calling on the 'body' attributed
+            // we're returning the actual parent Plugin object instead of the PluginTab, but we'll make the body
+            // of the PluginTab available on this Plugin object so the view can render it as if it were a real
+            // PluginTab by calling on the 'body' attributed
             def plugin = Plugin.read(wiki.title.split('-')[1].toLong())
             if (!plugin) {
-                log.warn "There should be a plugin with id ${wiki.title.split('-')[1]} to match WikiPage ${wiki.title}, but there is not."
+                log.warn "There should be a plugin with id ${wiki.title.split('-')[1]} to match PluginTab ${wiki.title}, but there is not."
                 return null
             }
             plugin.metaClass.getBody = { -> wiki.body }

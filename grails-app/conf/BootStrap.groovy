@@ -42,7 +42,9 @@ grails -Dinitial.admin.password=changeit run-app""")
 
         // We manually start the mirroring process to ensure that it comes after
         // Autobase performs its migrations.
+        println "Performing bulk index"
         searchableService.reindex()
+        println "Starting mirror service"
         searchableService.startMirroring()
     }
 

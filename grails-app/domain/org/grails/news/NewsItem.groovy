@@ -16,7 +16,6 @@ class NewsItem extends Content {
         body(size:1..300)
     }
 
-
     static mapping = {
         cache true
     }

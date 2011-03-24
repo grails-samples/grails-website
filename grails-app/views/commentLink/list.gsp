@@ -1,4 +1,3 @@
-
 <%@ page import="org.grails.comments.CommentLink" %>
 <html>
     <head>
@@ -12,7 +11,7 @@
         </div>
         <div class="body">
             <h1>Comments</h1>
-            <p>Click on a comment ID below to edit or delete.</p
+            <p>Click on a comment ID below to edit or delete.</p>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>

@@ -1,4 +1,7 @@
 package org.grails.wiki
+
+import org.grails.content.Content
+
 /*
  * author: Matthew Taylor
  */
@@ -11,7 +14,7 @@ class WikiPageService {
 
          def wikiPage = cacheService.getContent(id)
             if(!wikiPage) {
-                wikiPage = WikiPage.findByTitle(id, [cache:true])
+                wikiPage = Content.findByTitle(id, [cache:true])
                 if(wikiPage) cacheService.putContent(id, wikiPage)
             }
          return wikiPage

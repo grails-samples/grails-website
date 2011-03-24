@@ -16,6 +16,7 @@ import org.grails.blog.BlogEntry
 
 class ContentController extends BaseWikiController {
 
+    def searchableService
     def screencastService
     def pluginService
     def dateService
@@ -26,12 +27,8 @@ class ContentController extends BaseWikiController {
 
     def search = {
         if(params.q) {
-            def searchResult = WikiPage.search(params.q, offset: params.offset, escape:true)
-            def filtered = searchResult.results.unique { it.title }.collect {
-                pluginService.resolvePossiblePlugin(it)
-            }.findAll {it} // gets rid of nulls
-            searchResult.results = filtered
-            searchResult.total = filtered.size()
+            def q = "+(${params.q}) -deprecated:true".toString()
+            def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape:false)
             flash.message = "Found $searchResult.total results!"
             flash.next()
             render(view:"/searchable/index", model:[searchResult:searchResult])
