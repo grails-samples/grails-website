@@ -29,7 +29,7 @@
 	                    </plugin:isAvailable>
 	                    <li><g:link controller="content" id="Testimonials">Testimonials</g:link></li>
 	                    <li><g:link controller="content" id="Contribute">Contribute</g:link></li>
-	                    <li><a href="http://jira.codehaus.org/browse/GRAILS">Issue Tracker</a></li>
+	                    <li><a href="http://jira.grails.org/browse/GRAILS">Issue Tracker</a></li>
 	                    <li><a href="http://github.com/grails/grails-core/">Source code</a></li>	
 	                    <li><g:link controller="content" id="Plugins">Plugins</g:link></li>
 	                    <li><g:link controller="content" id="Mailing lists">Mailing Lists</g:link></li>

@@ -38,7 +38,7 @@
                 <li><g:link controller="plugin" action="forum">Forum</g:link></li>
                 <li><a href="/Creating+Plugins">Creating a plugin</a></li>
                 <li><a href="http://svn.grails-plugins.codehaus.org/">Plugins Fisheye</a></li>
-                <li><a href="http://jira.codehaus.org/browse/GRAILSPLUGINS">JIRA Issue Tracker</a></li>
+                <li><a href="http://jira.grails.org/browse/GRAILSPLUGINS">JIRA Issue Tracker</a></li>
                 <li><a href="/Mailing+lists">Mailing List Help</a></li>
             </ul>
         </div>
