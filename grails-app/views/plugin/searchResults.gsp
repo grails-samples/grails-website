@@ -9,10 +9,9 @@
             document.getElementById("q").focus();
         }
     </script>
-    <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'content.css')}"/>
-    <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'plugins.css')}"/>
-    <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'ratings.css')}"/>
-    <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'search.css')}"/>
+    <content tag="pageCss">
+        <rateable:resources />
+    </content>
 </head>
 <body onload="focusQueryInput();">
 <div id="main">
