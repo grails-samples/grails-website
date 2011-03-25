@@ -209,7 +209,13 @@ class PluginController extends BaseWikiController {
                 if (SecurityUtils.subject.hasRole(Role.ADMINISTRATOR)) {
                     plugin.zombie = params.zombie ?: false
                 }
-                plugin.save(flush:true)
+                
+                // A bit of a hack, but this save must be carried out inside a
+                // transaction because Searchable ends up invoking a transactional
+                // service, which causes issues if the save is not in a txn itself.
+                Plugin.withTransaction {
+                    plugin.save(flush:true)
+                }
                 redirect(action:'show', params:[name:plugin.name])
             } else {
                 return render(view:'editPlugin', model: [plugin:plugin])

@@ -90,7 +90,15 @@ class Plugin implements Taggable, Commentable, Rateable {
     }
 
     Collection<Tag> getTags() {
-        TagLink.findAllByTagRefAndTypeInList(id, taggableService.domainClassFamilies[this.class.name], [cache:true]).tag
+        if (!id) {
+            return []
+        }
+        else {
+            return TagLink.findAllByTagRefAndTypeInList(
+                    id,
+                    taggableService.domainClassFamilies[this.class.name],
+                    [cache:true]).tag
+        }
     }
 
     def onAddComment = { comment ->

@@ -19,6 +19,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     def twitterService
     def mailService
     def grailsApplication
+    def searchableService
 
     /**
      * <p>Triggered whenever something publishes a plugin update event to the Spring
@@ -121,7 +122,10 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         }
 
         // Now we can update the plugin instance in the database.
+        searchableService.stopMirroring()
         plugin.save(failOnError: true)
+        plugin.index()
+        searchableService.startMirroring()
 
         // Assuming the instance saved OK, we can tweet the release if it's
         // a new version.
