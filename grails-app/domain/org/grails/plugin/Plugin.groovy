@@ -33,6 +33,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     String documentationUrl
     String downloadUrl
     String scmUrl
+    String issuesUrl
     String grailsVersion        // version it was developed against
 
     Boolean official = false    // specifies SpringSource support
@@ -57,6 +58,7 @@ class Plugin implements Taggable, Commentable, Rateable {
         documentationUrl index: "no", store: "yes"
         downloadUrl index: "no", store: "yes"
         scmUrl index: "no", store: "yes"
+        issuesUrl index: "no", store: "yes"
         tags component: true
     }
 
@@ -71,7 +73,8 @@ class Plugin implements Taggable, Commentable, Rateable {
         faq nullable: true
         screenshots nullable: true
         author nullable: true
-        scmUrl nullable: true
+        scmUrl nullable: true, blank: true
+        issuesUrl nullable: true, blank: true
         grailsVersion nullable:true, blank:true, maxLength:16
         lastReleased nullable:true
         currentRelease matches: VERSION_PATTERN

@@ -93,6 +93,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         plugin.author = xml.developers.developer[0].name.text()
         plugin.authorEmail = xml.developers.developer[0].email.text()
         plugin.scmUrl = xml.scm.url.text()
+        plugin.issuesUrl = xml.issueManagement.url.text()
 
         // Now do the same with the XML plugin descriptor.
         def descUrl = new URL(baseUrl, "${event.name}-${event.version}-plugin.xml")

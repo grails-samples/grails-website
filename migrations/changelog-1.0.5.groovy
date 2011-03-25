@@ -39,3 +39,11 @@ changeSet(id: "UpdateDescriminatorForPluginTabs", author: "pledbrook") {
         where "title like 'plugin-%-screenshots' and class = 'org.grails.wiki.WikiPage'"
     }
 }
+
+changeSet(id: "IssuesUrlForPlugins", author: "pledbrook") {
+    addColumn(tableName: "plugin") {
+        column name: "issues_url", type: "varchar(255)", {
+            constraints nullable: true
+        }
+    }
+}

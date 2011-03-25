@@ -107,6 +107,9 @@
 															<plugin:input name="Source URL" description="Where is the source code for your plugin? Links to browseable code preferred.">
 															    <input type="text" id="scmUrl" name="scmUrl" value="${fieldValue(bean: plugin, field: 'scmUrl')}"/>
 															</plugin:input>
+											<plugin:input name="Issues URL" description="Where is the issue tracker for your plugin?">
+											    <input type="text" id="issuesUrl" name="issuesUrl" value="${fieldValue(bean: plugin, field: 'issuesUrl')}"/>
+											</plugin:input>
 											<shiro:hasRole name="${ Role.ADMINISTRATOR }">
 											<plugin:input name="Abandoned?" description="Has the plugin been abandoned?">
 												<g:checkBox name="zombie" value="${plugin?.zombie}"/>
