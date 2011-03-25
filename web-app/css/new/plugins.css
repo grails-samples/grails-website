@@ -245,16 +245,19 @@ body {
 	margin-left:530px;
 }
 
-.currentPlugin .links {
+.currentPlugin ul.links {
+	list-style-type: none;
 	padding-left:20px;
-	padding-bottom:20px;
+	padding-bottom:2em;
 	font-size:0.9em;
     background: url(../../images/sprites/plugins-repeat.png) repeat-y left top;
     background-position: -338px 0px;
-	margin:0px;
+	margin:0;
+	width: 100%;
 }
-.currentPlugin .links div {
-	display:inline;
+.currentPlugin ul.links li {
+	float: left;
+	margin-right: 1.5em;
 }
 .currentPlugin .links  a { color: black; border: inherit; text-decoration: none;}
 .currentPlugin .bottom .comments  a { color: black; border: inherit; text-decoration: none;detail}

@@ -62,13 +62,14 @@
 		            </tr>
 		        </table>
 		    </div>
-		    <div class="links">
+		    <ul class="links">
 		        <tmpl:pluginLinks plugin="${plugin}" />
-		        <g:link controller="plugin" action="editPlugin" id="${plugin.id}">
-                            <r:img uri="/images/new/plugins/icons/16x16_icons/edit.png" border="0" /> 
-                            Edit Plugin
-                        </g:link>
-		    </div>
+		        <li>
+		            <g:link controller="plugin" action="editPlugin" id="${plugin.id}">
+                        <r:img uri="/images/new/plugins/icons/16x16_icons/edit.png" border="0" />&nbsp;Edit Plugin
+                    </g:link>
+                </li>
+		    </ul>
 			
 		</div>
 		

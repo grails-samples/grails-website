@@ -19,9 +19,9 @@
 
 	</div>
 
-    <div class="links">
+    <ul class="links">
         <tmpl:pluginLinks plugin="${plugin}" />
-    </div>
+    </ul>
 
     <div class="bottom">
 		<div class="moreInfo">

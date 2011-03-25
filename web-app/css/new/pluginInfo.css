@@ -71,6 +71,9 @@ body {
 	padding-left:50px;
 	padding-bottom:15px;
 }
+.dialog input {
+	width: 60%;
+}
 .pluginBoxBottom {
 	background: url(../../images/new/plugins/fullpagePlugin_btm.png) no-repeat center top;		
 	height:55px;
@@ -104,11 +107,17 @@ body {
 	margin-right:15px;
 }
 #pluginBox .links {
+	list-style-type: none;
 	padding-top:20px;
 	padding-left:30px;
 	padding-bottom:13px;
 	font-size:0.9em;
 	margin:0px;
+	width:100%;
+}
+#pluginBox ul.links li {
+	float: left;
+	margin-right: 1.5em;
 }
 #pluginBox .links div {
 	display:inline;
