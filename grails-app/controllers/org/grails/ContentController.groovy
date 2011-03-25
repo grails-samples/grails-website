@@ -72,7 +72,7 @@ class ContentController extends BaseWikiController {
     }
 
     def previewWikiPage = {
-        def page = WikiPage.findByTitle(params.id?.decodeURL())
+        def page = Content.findByTitle(params.id?.decodeURL())
         if(page) {
             def engine = createWikiEngine()
             page.discard()
@@ -108,7 +108,7 @@ class ContentController extends BaseWikiController {
     }
 
     def showWikiVersion = {
-        def page = WikiPage.findByTitle(params.id.decodeURL())
+        def page = Content.findByTitle(params.id.decodeURL())
         def version
         if(page) {
             try {
@@ -132,7 +132,7 @@ class ContentController extends BaseWikiController {
     }
 
     def markupWikiPage = {
-        def page = WikiPage.findByTitle(params.id.decodeURL())
+        def page = Content.findByTitle(params.id.decodeURL())
 
         if(page) {
             render(template:"wikiFields", model:[wikiPage:page])
@@ -140,7 +140,7 @@ class ContentController extends BaseWikiController {
     }
 
     def infoWikiPage = {
-        def page = WikiPage.findByTitle(params.id.decodeURL(), [cache:true])
+        def page = Content.findByTitle(params.id.decodeURL(), [cache:true])
 
         if(page) {
 
@@ -172,8 +172,8 @@ class ContentController extends BaseWikiController {
             // WikiPage.findAllByTitle should only return record, but at this time
             // (2010-06-24) it seems to be returning more on the grails.org server.
             // This is to help determine whether that's what is in fact happening.
-            def pages = WikiPage.findAllByTitle(params.id.decodeURL(), [sort: "version", order: "desc"])
-            if (pages?.size() > 1) log.warn "[editWikiPage] WikiPage.findAllByTitle() returned more than one record!"
+            def pages = Content.findAllByTitle(params.id.decodeURL(), [sort: "version", order: "desc"])
+            if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
 
             render(template:"wikiEdit",model:[wikiPage:pages[0], update: params.update, editFormName: params.editFormName])
         }
@@ -320,7 +320,7 @@ class ContentController extends BaseWikiController {
 
     def diffWikiVersion = {
 
-        def page = WikiPage.findByTitle(params.id.decodeURL())
+        def page = Content.findByTitle(params.id.decodeURL())
         if(page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
@@ -340,7 +340,7 @@ class ContentController extends BaseWikiController {
     }
 
     def previousWikiVersion = {
-        def page = WikiPage.findByTitle(params.id.decodeURL())
+        def page = Content.findByTitle(params.id.decodeURL())
         if(page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
