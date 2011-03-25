@@ -17,6 +17,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
     def shortenService
     def twitterService
+    def mailService
     def grailsApplication
 
     /**
@@ -123,7 +124,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         // Assuming the instance saved OK, we can tweet the release if it's
         // a new version.
-        if (isNewVersion && !event.snapshot) tweetRelease(plugin)
+        if (isNewVersion && !event.snapshot) announceRelease(plugin)
         else log.info "Not a new plugin release - won't tweet"
     }
 
@@ -160,15 +161,20 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         return plugin
     }
-
+    
+    void announceRelease(plugin, version = null) {
+        def pluginUrl = baseUrl + "plugin/${plugin.name}"
+        announceOnPluginForum(plugin, version, pluginUrl)
+        tweetRelease(plugin, version, pluginUrl)
+    }
+    
     /**
      * Sends a tweet to @grailsplugins with details of the new release.
      * @param plugin A plugin instance with 'name', 'title' and 'currentRelease'
      * properties.
      */
-    void tweetRelease(plugin, version = null) {
+    void tweetRelease(plugin, version, url) {
         def msg = "${plugin.title} ${version ?: plugin.currentRelease} released: "
-        def url = baseUrl + "plugin/${plugin.name}"
 
         // Check that the message with standard URL does not exceed the
         // Twitter length limit.
@@ -180,6 +186,19 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         log.info "Tweeting the plugin release"
         twitterService.updateStatus(msg + url)
+    }
+    
+    void announceOnPluginForum(plugin, version, url) {
+        def mailConfig = grailsApplication.config.plugins.forum.mail
+        def toAddress = mailConfig.to
+        def fromAddress = mailConfig.from
+        
+        mailService.sendMail {
+            to toAddress
+            from fromAddress
+            subject "${plugin.title} ${version ?: plugin.currentRelease} released"
+            html view: "/mail/pluginRelease", model: [plugin: plugin]
+        }
     }
 
     private getBaseUrl() {

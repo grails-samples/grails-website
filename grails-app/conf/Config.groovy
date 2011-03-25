@@ -12,6 +12,11 @@ plugins.pluginslist = "http://plugins.grails.org/.plugin-meta/plugins-list.xml"
 plugins.fisheye = "http://fisheye.codehaus.org/browse/grails-plugins"
 plugins.location = "http://plugins.grails.org"
 
+plugins.forum.mail.to = "plugins-announce@nowhere.net"
+plugins.forum.mail.from = "test@grails.org"
+
+grails.mail.port = 3025
+
 grails.mime.file.extensions = false // enables the parsing of file extensions from URLs into the request format
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       xml: ['text/xml', 'application/xml'],
