@@ -201,7 +201,7 @@ Visit the Grails <g:link controller="content" id="Community">community pages</g:
         <div class="innerFooter">
 			<a href="http://contegix.com"><r:img uri="/images/contegix_logo.jpg" alt="Hosted by Contegix" border="0"/></a>
             <a href="http://twitter.com/grailsframework"><div class="twitter"></div></a>
-            <p>&copy; Copyright 2009 SpringSource.<br/>All Rights Reserved.</p>
+            <p>&copy; Copyright 2009-2011 SpringSource.<br/>All Rights Reserved.</p>
         </div><!-- innerFooter -->
     </div><!-- center -->
 </div><!-- footer -->
