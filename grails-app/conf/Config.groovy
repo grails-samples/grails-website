@@ -46,7 +46,6 @@ grails.json.legacy.builder=false
 environments {
     production {
         grails.serverURL = "http://www.grails.org"
-        grails.screencasts.upload.directory = "/var/www/domains/grails.org/www/htdocs/dist/screencasts"
     }
     test {
         grails.serverURL = "http://www.grails.org"
