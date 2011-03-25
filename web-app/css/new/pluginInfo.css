@@ -74,11 +74,19 @@ body {
 .dialog input {
 	width: 60%;
 }
+.dialog textarea {
+	width: 60%;
+	height: 6em;
+}
 .pluginBoxBottom {
 	background: url(../../images/new/plugins/fullpagePlugin_btm.png) no-repeat center top;		
 	height:55px;
 }
-
+#pluginDetailsContainer > p {
+	margin-left: 30px;
+	margin-right: 180px;
+}
+	
 #pluginBoxTitle {
 	padding-left:30px;
 	padding-top:20px;
@@ -86,15 +94,31 @@ body {
 	font-size:1.5em;
 }
 #pluginBox .ratingBox {
+	height: 20px;
 	margin-top:10px;	
 	margin-left:30px;
-	padding-bottom:10px;
+	margin-bottom:10px;
 }
-#pluginBox table {
+#pluginBox .ratingBox .star_rating {
+	float: left
+	width: 120px;
+}
+#pluginBox .ratingBox .rating {
+	float: left;
+	clear: none;
+	width: 100px;
+}
+#pluginBox .pluginDetail {
 
 	margin-left:30px;
 	font-size:0.9em;	
 	width:900px;
+}
+#pluginBox .pluginDetail table {
+	border-spacing: 0;
+}
+#pluginBox .pluginDetail th {
+	width:16em;
 }
 #pluginBox table tr th {
 	text-transform: uppercase;

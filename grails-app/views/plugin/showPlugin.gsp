@@ -36,6 +36,7 @@
 			    </shiro:isNotLoggedIn>
 			</div>
 
+			<p>${plugin?.summary}</p>
 
 		    <div class="pluginDetail">
 		        <table>
