@@ -49,9 +49,36 @@ environments {
     }
     test {
         grails.serverURL = "http://www.grails.org"
+        searchable.compassConnection = "ram://test-index"
     }
     development {
         grails.serverURL = "http://localhost:8080"
+    }
+}
+
+searchable {
+    compassConnection = null
+    compassSettings = [:]
+    defaultExcludedProperties = ["password"]
+    defaultFormats = [:]
+    defaultMethodOptions = [
+        search: [reload: false, escape: false, offset: 0, max: 10, defaultOperator: "and"],
+        suggestQuery: [userFriendly: true]
+    ]
+    mirrorChanges = false
+    bulkIndexOnStartup = false
+
+    domain {
+        comment = {
+            root false
+            only = ["body"]
+            body name: "comment"
+        }
+        tag = {
+            root false
+            name name: "tag"
+        }
+        screencast = [only: ["title", "description"]]
     }
 }
 
