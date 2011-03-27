@@ -86,6 +86,10 @@ body {
 	margin-left: 30px;
 	margin-right: 180px;
 }
+.ie6 #pluginDetailsContainer p p {
+	margin-left: 0;
+	margin-right: 0;
+}
 	
 #pluginBoxTitle {
 	padding-left:30px;
