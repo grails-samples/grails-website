@@ -29,13 +29,12 @@
     <strong>Last Updated:</strong> ${wikiPage?.lastUpdated} by <strong>${last.author.login}</strong>
 </p>
 
-
-	<h3>Versions:</h3>
-	<div id="versions">
-		<cache:text id="${'versionList'+wikiPage?.id}">		
-	    	<g:render template="versionList" model="[versions:versions,authors:authors, wikiPage:wikiPage, update:updateElement]" />
-		</cache:text>
-	</div>
-	</g:if>
-	<g:else>No Versions</g:else>
+<h3>Versions:</h3>
+<div id="versions">
+    <cache:text id="${'versionList'+wikiPage?.id}">		
+        <g:render template="versionList" model="[versions:versions,authors:authors, wikiPage:wikiPage, update:updateElement]" />
+    </cache:text>
+</div>
+</g:if>
+<g:else>No Versions</g:else>
 

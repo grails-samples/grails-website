@@ -12,7 +12,7 @@ import org.grails.content.Version
 import org.grails.content.notifications.ContentAlertStack
 import org.grails.wiki.BaseWikiController
 import org.grails.plugin.Plugin
-import org.grails.plugin.PluginTab;
+import org.grails.plugin.PluginTab
 import org.grails.content.Content
 import org.grails.plugin.PluginController
 import org.grails.screencasts.Screencast

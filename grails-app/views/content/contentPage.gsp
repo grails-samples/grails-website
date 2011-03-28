@@ -20,7 +20,5 @@
     </div>
 
     <g:render template="previewPane"/>
-
-
 </body>
 </html>

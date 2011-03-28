@@ -10,7 +10,7 @@ class CacheTagLib {
 
     def text = { attrs, body ->
         def id  = attrs.id
-        if(!id) out << body()
+        if (!id) out << body()
         else {
             def content = textCache?.get(id)?.value
             if(content) out << content

@@ -31,5 +31,4 @@ modules = {
         dependsOn 'master','content', 'common'
         resource url: 'css/new/subpage.css'
     }
-    
 }
