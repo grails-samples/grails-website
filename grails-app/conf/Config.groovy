@@ -9,7 +9,7 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 wiki.supported.upload.types = ['image/png','image/jpg','image/jpeg','image/gif']
 // location of plugins-list.xml
 plugins.pluginslist = "http://plugins.grails.org/.plugin-meta/plugins-list.xml"
-plugins.fisheye = "http://fisheye.codehaus.org/browse/grails-plugins"
+plugins.fisheye = "http://svn.codehaus.org/grails-plugins"
 plugins.location = "http://plugins.grails.org"
 
 plugins.forum.mail.to = "plugins-announce@nowhere.net"
