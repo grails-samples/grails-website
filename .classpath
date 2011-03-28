@@ -499,7 +499,12 @@
 			<attribute name="com.springsource.sts.grails.core.SOURCE_FOLDER" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path=".link_to_grails_plugins/spring-events-1.0/src/groovy">
+	<classpathentry kind="src" path=".link_to_grails_plugins/spring-events-1.1/src/java">
+		<attributes>
+			<attribute name="com.springsource.sts.grails.core.SOURCE_FOLDER" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path=".link_to_grails_plugins/spring-events-1.1/src/groovy">
 		<attributes>
 			<attribute name="com.springsource.sts.grails.core.SOURCE_FOLDER" value="true"/>
 		</attributes>

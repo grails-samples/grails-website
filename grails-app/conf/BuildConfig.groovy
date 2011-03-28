@@ -39,7 +39,7 @@ grails.project.dependency.resolution = {
                 ":shiro:1.1.1",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
-                ":spring-events:1.0",
+                ":spring-events:1.1",
                 ":taggable:0.6.3",
                 ":yui:2.7.0.1",
                 ":zipped-resources:1.0-RC1"
