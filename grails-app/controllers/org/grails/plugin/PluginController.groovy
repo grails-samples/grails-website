@@ -2,6 +2,8 @@ package org.grails.plugin
 
 import grails.converters.JSON
 import grails.plugin.springcache.annotations.*
+
+import javax.persistence.OptimisticLockException
 import javax.servlet.http.HttpServletResponse
 
 import org.apache.shiro.SecurityUtils
@@ -230,31 +232,15 @@ class PluginController extends BaseWikiController {
         if (params.name) params.name = params.name - '?action=login'
         def plugin = new Plugin(params)
         if(request.method == 'POST') {
-            plugin.save(flush:true)
-            Plugin.WIKIS.each { wiki ->
-                def body = ''
-                if (wiki == 'installation') {
-                    body = "{code}grails install-plugin ${plugin.name}{code}"
-                }
-                def wikiPage = new PluginTab(title:"${wiki}-${plugin.id}", body:body)
-                wikiPage.save()
-                plugin."$wiki" = wikiPage
-            }
-
-            // if there is no provided doc url, we'll assume that this page is the doc
-            if (!plugin.documentationUrl) {
-                plugin.documentationUrl = "${ConfigurationHolder.config.grails.serverURL}/plugin/${plugin.name}"
-            }
-
-            plugin.author = request.user
-            plugin.lastReleased = new Date()
-            if(plugin.save()) {
+            pluginService.initNewPlugin(plugin, request.user)
+            
+            if (pluginService.savePlugin(plugin)) {
                 redirect(action:'show', params: [name:plugin.name])
             } else {
-                return render(view:'createPlugin', model:[plugin:plugin])
+                render(view:'createPlugin', model:[plugin:plugin])
             }
         } else {
-            return render(view:'createPlugin', model:[plugin:plugin])
+            render(view:'createPlugin', model:[plugin:plugin])
         }
     }
 
@@ -313,6 +299,45 @@ class PluginController extends BaseWikiController {
 
     }
 
+    def saveTab = {
+        if (!params.id) {
+            render template: "/shared/remoteError", model: [code: "page.id.missing"]
+        }
+        else {
+            try {
+                PluginTab pluginTab = wikiPageService.createOrUpdatePluginTab(
+                        params.id.decodeURL(),
+                        params.body,
+                        request.user,
+                        params.long('version'))
+
+                if (pluginTab.hasErrors()) {
+                    render(template: "/content/wikiEdit", model: [
+                            wikiPage: pluginTab,
+                            update: params.update,
+                            editFormName: params.editFormName,
+                            saveUri: g.createLink(action: "saveTab", id: pluginTab.title)])
+                }
+                else {
+                    render(template: "/content/wikiShow", model: [
+                            content: pluginTab,
+                            message: "wiki.page.updated",
+                            update: params.update,
+                            latest: pluginTab.latestVersion])
+                }
+            }
+            catch (OptimisticLockException ex) {
+                def pluginTab = new PluginTab(title: params.id.decodeURL(), body: params.body)
+                render(template: "/content/wikiEdit", model: [
+                        wikiPage: pluginTab,
+                        update: params.update,
+                        editFormName: params.editFormName,
+                        saveUri: g.createLink(action: "saveTab", id: pluginTab.title),
+                        error: "page.optimistic.locking.failure"])
+            }
+        }
+    }
+
     def postComment = {
         def plugin = Plugin.get(params.id)
         plugin.addComment(request.user, params.comment)
@@ -367,10 +392,6 @@ class PluginController extends BaseWikiController {
         def link = CommentLink.findByCommentAndType(Comment.get(params.id), 'plugin', [cache:true])
         def plugin = Plugin.get(link.commentRef)
         redirect(action:'show', params:[name:plugin.name], fragment:"comment_${params.id}")
-    }
-
-    private def pluginWiki(name, plugin, params) {
-        plugin."$name" = new PluginTab(title:name, body:params."$name")
     }
 
     private def byTitle(params) {

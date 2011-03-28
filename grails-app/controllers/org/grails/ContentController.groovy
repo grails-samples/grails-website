@@ -1,20 +1,25 @@
 package org.grails
 
 import grails.plugin.springcache.annotations.*
+
+import javax.persistence.OptimisticLockException
 import javax.servlet.ServletContext
 import org.springframework.web.multipart.MultipartFile
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
 import org.grails.wiki.WikiPage
 import org.grails.content.Version
 import org.grails.content.notifications.ContentAlertStack
 import org.grails.wiki.BaseWikiController
 import org.grails.plugin.Plugin
+import org.grails.plugin.PluginTab;
 import org.grails.content.Content
 import org.grails.plugin.PluginController
 import org.grails.screencasts.Screencast
 import org.grails.blog.BlogEntry
 
 class ContentController extends BaseWikiController {
+    static allowedMethods = [saveWikiPage: "POST", rollbackWikiVersion: "POST"]
 
     def searchableService
     def screencastService
@@ -22,8 +27,6 @@ class ContentController extends BaseWikiController {
     def dateService
     def textCache
     def wikiPageService
-
-    ContentAlertStack contentToMessage
 
     def search = {
         if(params.q) {
@@ -72,8 +75,11 @@ class ContentController extends BaseWikiController {
     }
 
     def previewWikiPage = {
-        def page = Content.findByTitle(params.id?.decodeURL())
+        def page = Content.findAllByTitle(params.id?.decodeURL()).find { !it.instanceOf(Version) }
         if(page) {
+            // This is required for the 'page.properties = ...' call to work. 
+            page = GrailsHibernateUtil.unwrapIfProxy(page)
+            
             def engine = createWikiEngine()
             page.discard()
             page.properties = params
@@ -82,9 +88,8 @@ class ContentController extends BaseWikiController {
         }
     }
 
-
     def index = {
-        def wikiPage = wikiPageService.getCachedOrReal(params.id)
+        def wikiPage = wikiPageService.getCachedOrReal(params.id.decodeURL())
         if (wikiPage) {
             // This property involves a query, so we fetch it here rather
             // than in the view.
@@ -108,9 +113,9 @@ class ContentController extends BaseWikiController {
     }
 
     def showWikiVersion = {
-        def page = Content.findByTitle(params.id.decodeURL())
+        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
         def version
-        if(page) {
+        if (page) {
             try {
                 version = Version.findByCurrentAndNumber(page, params.number.toLong())
             }
@@ -122,7 +127,7 @@ class ContentController extends BaseWikiController {
             }
         }
 
-        if(version) {
+        if (version) {
             render(view:"showVersion", model:[content:version, update:params.update])                    
         }
         else {
@@ -132,7 +137,7 @@ class ContentController extends BaseWikiController {
     }
 
     def markupWikiPage = {
-        def page = Content.findByTitle(params.id.decodeURL())
+        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
 
         if(page) {
             render(template:"wikiFields", model:[wikiPage:page])
@@ -140,7 +145,7 @@ class ContentController extends BaseWikiController {
     }
 
     def infoWikiPage = {
-        def page = Content.findByTitle(params.id.decodeURL(), [cache:true])
+        def page = Content.findAllByTitle(params.id.decodeURL(), [cache:true]).find { !it.instanceOf(Version) }
 
         if(page) {
 
@@ -169,13 +174,20 @@ class ContentController extends BaseWikiController {
             render(template:"/shared/remoteError", model: [code:"page.id.missing"])
         }
         else {
-            // WikiPage.findAllByTitle should only return record, but at this time
+            // WikiPage.findAllByTitle should only return one record, but at this time
             // (2010-06-24) it seems to be returning more on the grails.org server.
             // This is to help determine whether that's what is in fact happening.
             def pages = Content.findAllByTitle(params.id.decodeURL(), [sort: "version", order: "desc"])
             if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
+            def page = pages.find { !it.instanceOf(Version) }
 
-            render(template:"wikiEdit",model:[wikiPage:pages[0], update: params.update, editFormName: params.editFormName])
+            render(template:"wikiEdit",model:[
+                    wikiPage:page,
+                    update: params.update,
+                    editFormName: params.editFormName,
+                    saveUri: page.instanceOf(PluginTab) ?
+                            g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
+                            g.createLink(action: "saveWikiPage", id: page.title)])
         }
     }
 
@@ -187,140 +199,115 @@ class ContentController extends BaseWikiController {
     }
 
     def saveWikiPage = {
-      if(request.method == 'POST') {
-          if(!params.id) {
-                render(template:"/shared/remoteError", model:[code:"page.id.missing"])
-            }
-            else {
-                def page = WikiPage.findByTitle(params.id.decodeURL(), [sort: "version", order: "desc"])
-                if(!page) {
-                    page = new WikiPage(params)
-                    if (page.locked == null) page.locked = false
-                    page.save()
-                    if(page.hasErrors()) {
-                        render(view:"createWikiPage", model:[pageName:params.id, wikiPage:page])
-                    }
-                    else {
-                        Thread.start {
-                            contentToMessage?.pushOnStack page
-                        }
-                        Version v = page.createVersion()
-                        v.author = request.user
-                        assert v.save()
+        if (!params.id) {
+            render(template:"/shared/remoteError", model:[code:"page.id.missing"])
+        }
+        else {
+            try {
+                def wikiPage = wikiPageService.createOrUpdateWikiPage(
+                        params.id.decodeURL(),
+                        params.body,
+                        request.user,
+                        params.long('version'))
 
-                        redirect(uri:"/${page.title.encodeAsURL()}")
-                    }
+                if (wikiPage.hasErrors()) {
+                    render(template: "wikiEdit", model: [
+                            wikiPage: new WikiPage(title: params.id.decodeURL(), body: params.body)])
                 }
                 else {
-                    if(page.version != params.long('version')) {
-                        render(template:"wikiEdit",model:[wikiPage:page, error:"page.optimistic.locking.failure"])
+                    if (wikiPage.latestVersion.number == 0) {
+                        // It's a new page.
+                        redirect(uri:"/${wikiPage.title.encodeAsURL()}")
                     }
                     else {
-
-                        page.body = params.body
-                        page.lock()
-                        page.version = page.version+1
-                        page.save(flush:true)
-                        // refresh the textCache
-                        textCache.flush()
-
-                        if(page.hasErrors()) {
-                            render(template:"wikiEdit",model:[wikiPage:page])
-                        }
-                        else {
-                            Thread.start {
-                                contentToMessage?.pushOnStack page
-                            }
-
-                            Version v = page.createVersion()
-                            v.author = request.user                            
-                            assert v.save()
-
-                            evictFromCache(params.id)
-                            render(template:"wikiShow", model:[
-                                    content:page,
-                                    message:"wiki.page.updated",
-                                    update: params.update,
-                                    latest:v])
-                        }
+                        render(template: "wikiShow", model: [
+                                content: wikiPage,
+                                message: "wiki.page.updated",
+                                update: params.update,
+                                latest: wikiPage.latestVersion])
                     }
                 }
             }
-          
-      }
-      else {
-          response.sendError(403)
-      }
+            catch (OptimisticLockException ex) {
+                render(template: "wikiEdit", model: [
+                        wikiPage: new WikiPage(title: params.id.decodeURL(), body: params.body),
+                        error: "page.optimistic.locking.failure"])
+            }
+        }
     }
 
-    private evictFromCache(id) {
-        id = id.decodeURL()
-        cacheService.removeWikiText(id)
-        cacheService.removeContent(id)
-
+    private evictFromCache(id, title) {
+        title = title.decodeURL()
+        cacheService.removeWikiText(title)
+        cacheService.removeContent(title)
+        
+        if (id) {
+            textCache.remove 'versionList' + id
+        }
     }
 
     def rollbackWikiVersion = {
-        if(request.method == 'POST') {
-            def page = WikiPage.findByTitle(params.id.decodeURL())
-            if(page) {
-                def version = Version.findByCurrentAndNumber(page, params.number.toLong())
-                def allVersions = Version.withCriteria {
-                    projections {
-                        distinct 'number', 'version'
-                        property 'author'
-                    }
-                    eq 'current', page
-                    order 'number', 'asc'
-                    cache true
+        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
+        if(page) {
+            def version = Version.findByCurrentAndNumber(page, params.number.toLong())
+            def allVersions = Version.withCriteria {
+                projections {
+                    distinct 'number', 'version'
+                    property 'author'
                 }
+                eq 'current', page
+                order 'number', 'asc'
+                cache true
+            }
 
-                if(!version) {
+            if(!version) {
+                render(template:"versionList", model:[
+                        wikiPage: page,
+                        versions: allVersions.collect { it[0] },
+                        authors: allVersions.collect { it[1] },
+                        message:"wiki.version.not.found",
+                        update: params.update])
+            }
+            else {
+                if(page.body == version.body) {
                     render(template:"versionList", model:[
                             wikiPage: page,
                             versions: allVersions.collect { it[0] },
                             authors: allVersions.collect { it[1] },
-                            message:"wiki.version.not.found"])
+                            message:"Contents are identical, no need for rollback.",
+                            update: params.update])
                 }
                 else {
-                    if(page.body == version.body) {
-                        render(template:"versionList", model:[
-                                wikiPage: page,
-                                versions: allVersions.collect { it[0] },
-                                authors: allVersions.collect { it[1] },
-                                message:"Contents are identical, no need for rollback."])     
-                    }
-                    else {
 
-                        page.lock()
-                        page.version = page.version+1
-                        page.body = version.body
-                        assert page.save(flush:true)
-                        Version v = page.createVersion()
-                        v.author = request.user                        
-                        assert v.save()
-                        evictFromCache params.id
+                    page.lock()
+                    page.version = page.version+1
+                    page.body = version.body
+                    page.save(flush: true, failOnError: true)
+                    Version v = page.createVersion()
+                    v.author = request.user                        
+                    v.save(failOnError: true)
+                    evictFromCache page.id, page.title
+                    
+                    // Add the new version to the version list, otherwise it won't appear!
+                    allVersions << [v.number, v.author]
 
-                        render(template:"versionList", model:[
-                                wikiPage: page,
-                                versions: allVersions.collect { it[0] },
-                                authors: allVersions.collect { it[1] },
-                                message:"Page rolled back, a new version ${v.number} was created"])
-                    }
+                    render(template:"versionList", model:[
+                            wikiPage: page,
+                            versions: allVersions.collect { it[0] },
+                            authors: allVersions.collect { it[1] },
+                            message:"Page rolled back, a new version ${v.number} was created",
+                            update: params.update])
                 }
-            }
-            else {
-                response.sendError(404)
             }
         }
         else {
-            response.sendError(403)
+            response.sendError(404)
         }
     }
 
     def diffWikiVersion = {
 
-        def page = Content.findByTitle(params.id.decodeURL())
+        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
         if(page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
@@ -340,7 +327,7 @@ class ContentController extends BaseWikiController {
     }
 
     def previousWikiVersion = {
-        def page = Content.findByTitle(params.id.decodeURL())
+        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
         if(page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)

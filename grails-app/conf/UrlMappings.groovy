@@ -25,6 +25,7 @@ class UrlMappings {
         "/plugin/create"(controller: "plugin", action:"createPlugin")
         "/plugin/delete/$name"(controller: "plugin", action:"deletePlugin")
         "/plugin/edit/$id"(controller: "plugin", action:"editPlugin")
+        "/plugin/saveTab/$id"(controller: "plugin", action: "saveTab")
         "/plugin/addTag/$id"(controller: "plugin", action:"addTag")
         "/plugin/removeTag/$id"(controller: "plugin", action:"removeTag")
         "/plugin/showTag"(controller: 'plugin', action:'showTag')

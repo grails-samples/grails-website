@@ -12,7 +12,7 @@ class WikiPage extends Content {
     static searchable = [only: ['body', 'title', 'deprecated']]
 
     static constraints = {
-        title(blank:false, matches:/[^\/\\]+/, unique: true)
+        title(blank:false, matches:/[^\/\\]+/)
         body(blank:true)
         deprecatedUri(nullable: true, blank: true)
     }

@@ -21,18 +21,6 @@ class PluginServiceUnitTests extends grails.test.GrailsUnitTestCase {
         }
     }
 
-    void testResolvePossiblePlugin() {
-        def desc = new WikiPage(title:'description-23')
-        def plugin = new Plugin(id:23, description:desc)
-
-        mockDomain(Plugin, [plugin])
-
-        def result = service.resolvePossiblePlugin(new WikiPage(title:'stuff'))
-        assertTrue "WikiPage should have resolved to a WikiPage", result instanceof WikiPage
-        result = service.resolvePossiblePlugin(desc)
-        assertSame "Plugin WikiPage should have resolved to a Plugin", plugin, result
-    }
-
     void testCompareVersions() {
         assertEquals "1.0.3 should be == 1.0.3", 0, service.compareVersions('1.0.3', '1.0.3')
         assertEquals "1.0.3 should be > 1.0.2", 1, service.compareVersions('1.0.3', '1.0.2')

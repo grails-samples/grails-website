@@ -38,7 +38,6 @@ beans = {
 		maxElementsInMemory = 100		
 		overflowToDisk=false		
 	}
-    contentToMessage(ContentAlertStack)
     wikiContext(BaseInitialRenderContext)
     wikiEngine(GrailsWikiEngineFactoryBean) {
         cacheService = ref('cacheService')

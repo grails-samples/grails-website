@@ -1,6 +1,7 @@
 package org.grails.plugin
 
 import groovyx.net.http.HTTPBuilder
+import org.grails.auth.User
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.transaction.annotation.Transactional
@@ -19,14 +20,16 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     def twitterService
     def mailService
     def grailsApplication
+    def pluginService
     def searchableService
+    def wikiPageService
 
     /**
      * <p>Triggered whenever something publishes a plugin update event to the Spring
      * application context.</p>
      *
      * <p>Note: The @Transactional annotation is used due to a bug in the Spring
-     * Events plugin - http://jira.codehaus.org/browse/GRAILSPLUGINS-2552 </p>
+     * Events plugin - http://jira.grails.org/browse/GPSPRINGEVENTS-2 </p>
      */
     @Transactional
     void onApplicationEvent(PluginUpdateEvent event) {
@@ -121,11 +124,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
                 """.stripIndent()
         }
 
-        // Now we can update the plugin instance in the database.
-        searchableService.stopMirroring()
-        plugin.save(failOnError: true)
-        plugin.index()
-        searchableService.startMirroring()
+        pluginService.savePlugin(plugin, true)
 
         // Assuming the instance saved OK, we can tweet the release if it's
         // a new version.
@@ -148,20 +147,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         if (!plugin) {
             plugin = new Plugin(name: pluginName, currentRelease: version, downloadUrl: "not provided")
 
-            // Add the wiki pages for this new plugin.
-            Plugin.WIKIS.each { wiki ->
-                def body = ''
-                if (wiki == 'installation') {
-                    body = "{code}grails install-plugin ${plugin.name}{code}"
-                }
-
-                // Saves don't cascade from the plugin to the wiki pages, so
-                // we have to save them before saving the plugin.
-                def wikiPage = new PluginTab(title:"plugin-${plugin.name}-${wiki}", body:body)
-                wikiPage.save()
-
-                plugin."$wiki" = wikiPage
-            }
+            pluginService.initNewPlugin(plugin, User.findByLogin("admin"))
         }
 
         return plugin

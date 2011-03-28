@@ -21,7 +21,7 @@
                             controller="content"
                             action="rollbackWikiVersion"
                             id="${wikiPage?.title}"
-                            params="[number:v]">Rollback to here</g:remoteLink>
+                            params="[number:v, update:updateElement]">Rollback to here</g:remoteLink>
                 </shiro:hasRole>
             </g:if>
             <g:else>Latest Version</g:else>
@@ -32,7 +32,7 @@
                         action="diffWikiVersion"
                         id="${wikiPage?.title}"
                         options="[method:'POST']"
-                        params="[number:v,diff:previous]"
+                        params="[number:v,diff:previous,update:updateElement]"
                         onComplete="showDiff();">Diff with previous</g:remoteLink></li>
             </g:if>
             <g:else>

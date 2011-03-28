@@ -1,16 +1,19 @@
 <%@page import="org.grails.auth.Role" %>
+<%@page import="org.grails.wiki.WikiPage"%>
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
 <div id="editLinks" class="wikiLinks">
 
     <g:set var="href" value="${update ? 'javascript:void(0)' : '#'}"/>
     <ul class="wikiActionMenu">
         <shiro:hasRole name="${Role.ADMINISTRATOR}">
-            <li>
-                <a href="${href}" class="actionIcon" onclick="myYUI.appear('deprecateDialog')">
-                    <r:img uri="/images/icon-upload.png" width="15" height="15" alt="Icon Image Upload" class="inlineIcon" border="0"/>
-                    <span>Deprecate</span>
-                </a>
-            </li>
+        	<g:if test="${content instanceof org.grails.wiki.WikiPage}">
+	            <li>
+	                <a href="${href}" class="actionIcon" onclick="myYUI.appear('deprecateDialog')">
+	                    <r:img uri="/images/icon-upload.png" width="15" height="15" alt="Icon Image Upload" class="inlineIcon" border="0"/>
+	                    <span>Deprecate</span>
+	                </a>
+	            </li>
+            </g:if>
         </shiro:hasRole>
         <shiro:lacksRole name="${Role.ADMINISTRATOR}">
             <li>
@@ -29,7 +32,7 @@
         </li>
         <li>
             <a href="${href}" class="actionIcon"
-               onclick="YAHOO.util.Connect.setForm('${editFormName}');YAHOO.util.Connect.asyncRequest('POST', '/save/${content?.title}', {success: function(o){showCommentPost();YAHOO.util.Dom.get('${updateElement}').innerHTML = o.responseText; fadeMessages()}, failure: function(o){}}, 'update=${updateElement}');return false;" class="actionIcon">
+               onclick="YAHOO.util.Connect.setForm('${editFormName}');YAHOO.util.Connect.asyncRequest('POST', '${saveUri}', {success: function(o){showCommentPost();YAHOO.util.Dom.get('${updateElement}').innerHTML = o.responseText; fadeMessages()}, failure: function(o){}}, 'update=${updateElement}');return false;" class="actionIcon">
                 <r:img uri="/images/icon-save.png" width="15" height="15" alt="Icon Save" class="inlineIcon" border="0"/>
                 <span>Save</span>
             </a>

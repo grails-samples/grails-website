@@ -1,27 +1,29 @@
-import org.grails.content.notifications.ContentAlertStack
 import org.grails.meta.UserInfo
 import org.grails.content.Content
 import org.radeox.engine.context.BaseInitialRenderContext
 import org.grails.wiki.GrailsWikiEngine
+import org.grails.wiki.WikiPageUpdateEvent
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import javax.servlet.ServletContext
 import org.grails.content.Version
 import org.grails.plugin.Plugin
+import org.grails.plugin.PluginTab
 import org.codehaus.groovy.grails.plugins.*
 
 class MailerJob {
     def startDelay = 60000
     def timeout =    60000     // execute job every minute
 
-    ContentAlertStack contentToMessage
     def mailService
     def pluginService
     def cacheService
+    def wikiPageService
 
     def execute() {
 		try {
-	        Content content = contentToMessage?.popOffStack()
-	        if (content) {
+            def wikiPageUpdates = wikiPageService.wikiPageUpdates
+	        WikiPageUpdateEvent pageUpdate = wikiPageUpdates.poll()
+	        if (pageUpdate) {
 	            ServletContext servletContext = ServletContextHolder.servletContext
 	            def context = new BaseInitialRenderContext();
 	            context.set(GrailsWikiEngine.CONTEXT_PATH, servletContext.contextPath)
@@ -29,19 +31,34 @@ class MailerJob {
 	            def engine = new GrailsWikiEngine(context)
 
 	            context.setRenderEngine engine
-	            def emails = UserInfo.executeQuery("select ui.user.email from UserInfo as ui where ui.emailSubscribed = ?", [true] )
-	            while (content) {
-                        log.info "Mailing changes about '${content.title}'"
+	            def emails = UserInfo.executeQuery(
+                            "select ui.user.email from UserInfo as ui where ui.emailSubscribed = ?",
+                            [true])
+                
+                def classLoader = getClass().classLoader
+	            while (pageUpdate) {
+                        log.info "Mailing changes about '${pageUpdate.title}'"
 
-	                def plugin = pluginService.resolvePossiblePlugin(content)
+                        def pageClass = classLoader.loadClass(pageUpdate.className)
+                        def content = pageClass.findByTitle(pageUpdate.title)
+                        
 	                def text = new StringBuffer()
-	                def titleUrlEscaped = content.title.encodeAsURL()
+	                def titleUrlEscaped = pageUpdate.title.encodeAsURL()
 	                def url = "http://grails.org/${titleUrlEscaped}"
-	                def myTitle = content.title
+	                def myTitle = pageUpdate.title
 	                // make some alterations to the email if this wiki is a part of a plugin
-	                if (plugin instanceof Plugin) {
+	                if (content.instanceOf(PluginTab)) {
+                        def plugin = content.plugin
 	                    url = "http://grails.org/plugin/${plugin.name}"
-	                    def wikiType = content.title.split('-')[0]
+                        def titleParts = content.title.split('-')
+                        
+                        // The plugin tab type is encoded in the page title in different
+                        // ways depending on when the page was created. The old style is
+                        // '$wikiType-nnn, whereas the new style is 'plugin-$pluginName-$wikiType'.
+                        def wikiType
+                        if (titleParts[1] ==~ /\d+/) wikiType = titleParts[0]
+                        else wikiType = titleParts[-1]
+                        
 	                    myTitle = "${plugin.title} (${wikiType[0].toUpperCase() + wikiType[1..-1]} tab)"
 	                }
 
@@ -68,7 +85,7 @@ class MailerJob {
 		                    }
 		                }						
 					}
-	                content = contentToMessage?.popOffStack()
+	                pageUpdate = wikiPageUpdates.poll()
 					Content.withSession { session -> session.clear() }
 	            }
 	        }		

@@ -1,6 +1,5 @@
 package org.grails.plugin
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.grails.auth.User
 import org.grails.content.Version
 import org.grails.tags.TagNotFoundException
@@ -10,8 +9,11 @@ import org.grails.taggable.TagLink
 class PluginService {
 
     static int DEFAULT_MAX = 5
-
-    boolean transactional = true
+    static transactional = true
+    
+    def grailsApplication
+    def searchableService
+    def wikiPageService
     
     def popularPlugins(minRatings, max = DEFAULT_MAX) {
         def ratingsComparator = new PluginComparator()
@@ -87,13 +89,67 @@ class PluginService {
         return result
     }
     
+    String createTabTitle(String pluginName, String tabName) {
+        return "plugin-${pluginName}-${tabName}"
+    }
+    
+    String extractTabName(String title) {
+        def titleParts = title.split('-')
+        
+        // The plugin tab type is encoded in the page title in different
+        // ways depending on when the page was created. The old style is
+        // '$wikiType-nnn, whereas the new style is 'plugin-$pluginName-$wikiType'.
+        if (titleParts[1] ==~ /\d+/) return titleParts[0]
+        else return titleParts[-1]
+    }
+    
+    def initNewPlugin(Plugin plugin, User user) {
+        // Add the wiki pages for this new plugin.
+        Plugin.WIKIS.each { wiki ->
+            def body = ''
+            if (wiki == 'installation') {
+                body = "{code}grails install-plugin ${plugin.name}{code}"
+            }
+
+            // Saves don't cascade from the plugin to the wiki pages, so
+            // we have to save them before saving the plugin.
+            def tabContent = wikiPageService.createOrUpdatePluginTab(
+                    createTabTitle(plugin.name, wiki),
+                    body,
+                    user)
+            tabContent.save()
+            plugin."$wiki" = tabContent
+            
+            // If there is no provided doc url, we'll assume that this page is the doc.
+            if (!plugin.documentationUrl) {
+                plugin.documentationUrl = "${grailsApplication.config.grails.serverURL}/plugin/${plugin.name}"
+            }
+        }
+    }
+    
+    def savePlugin(Plugin plugin, boolean failOnError = false) {
+        searchableService.stopMirroring()
+        
+        def newPlugin = !plugin.id
+        def savedPlugin = plugin.save(failOnError: failOnError)
+        
+        if (savedPlugin) {
+            if (newPlugin) savedPlugin.index()
+            else plugin.reindex()
+        }
+        
+        searchableService.startMirroring()
+        
+        return savedPlugin
+    }
+    
     def runMasterUpdate() {
         translateMasterPlugins(generateMasterPlugins())
     }
     
     def generateMasterPlugins() {
         try {
-            def pluginLoc = ConfigurationHolder.config?.plugins?.pluginslist
+            def pluginLoc = grailsApplication.config?.plugins?.pluginslist
             def listFile = new URL(pluginLoc)
             def listText = listFile.text
             // remove the first line of <?xml blah/>
@@ -249,23 +305,6 @@ class PluginService {
         }
     }
 
-    def resolvePossiblePlugin(wiki) {
-        // WikiPages that are actually components of a Plugin should be treated as a Plugin
-        if (wiki.title.matches(/(${Plugin.WIKIS.join('|')})-[0-9]*/)) {
-            // we're returning the actual parent Plugin object instead of the PluginTab, but we'll make the body
-            // of the PluginTab available on this Plugin object so the view can render it as if it were a real
-            // PluginTab by calling on the 'body' attributed
-            def plugin = Plugin.read(wiki.title.split('-')[1].toLong())
-            if (!plugin) {
-                log.warn "There should be a plugin with id ${wiki.title.split('-')[1]} to match PluginTab ${wiki.title}, but there is not."
-                return null
-            }
-            plugin.metaClass.getBody = { -> wiki.body }
-            return plugin
-        }
-        wiki
-    }
-
     def compareVersions(v1, v2) {
         def v1Num = new PluginVersion(version:v1)
         def v2Num = new PluginVersion(version:v2)
@@ -273,7 +312,7 @@ class PluginService {
     }
 
     def getGrailsVersion(plugin) {
-        def xmlLoc = "${ConfigurationHolder.config?.plugins?.location}/grails-${plugin.name}/tags/LATEST_RELEASE/plugin.xml"
+        def xmlLoc = "${grailsApplication.config?.plugins?.location}/grails-${plugin.name}/tags/LATEST_RELEASE/plugin.xml"
         def xmlUrl = new URL(xmlLoc)
 
         try {
