@@ -113,7 +113,6 @@ class WikiPageService {
         cacheService.removeContent(title)
         
         if (id) {
-            println "Clearing text cache for 'versionList${id}'"
             textCache.remove 'versionList' + id
         }
     }
