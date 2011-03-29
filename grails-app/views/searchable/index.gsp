@@ -50,7 +50,7 @@
                             --}%
                             <g:if test="${result instanceof Plugin}">
                                 <g:link controller="plugin" action="show" params="${[name:result.name]}">${className}</g:link>
-                                <g:set var="desc" value="${result.description.body}"/>
+                                <g:set var="desc" value="${result.summary ?: 'No description'}"/>
                             </g:if>
                             <g:else>
                                 <g:link controller="content" id="${result.title}">${className}</g:link>
