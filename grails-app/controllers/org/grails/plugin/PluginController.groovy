@@ -212,12 +212,7 @@ class PluginController extends BaseWikiController {
                     plugin.zombie = params.zombie ?: false
                 }
                 
-                // A bit of a hack, but this save must be carried out inside a
-                // transaction because Searchable ends up invoking a transactional
-                // service, which causes issues if the save is not in a txn itself.
-                Plugin.withTransaction {
-                    plugin.save(flush:true)
-                }
+                pluginService.savePlugin(plugin)
                 redirect(action:'show', params:[name:plugin.name])
             } else {
                 return render(view:'editPlugin', model: [plugin:plugin])

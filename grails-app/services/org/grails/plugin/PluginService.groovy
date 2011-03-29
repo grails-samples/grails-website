@@ -128,19 +128,22 @@ class PluginService {
     }
     
     def savePlugin(Plugin plugin, boolean failOnError = false) {
-        searchableService.stopMirroring()
-        
-        def newPlugin = !plugin.id
-        def savedPlugin = plugin.save(failOnError: failOnError)
-        
-        if (savedPlugin) {
-            if (newPlugin) savedPlugin.index()
-            else plugin.reindex()
+        try {
+            searchableService.stopMirroring()
+            
+            def newPlugin = !plugin.id
+            def savedPlugin = plugin.save(failOnError: failOnError)
+            
+            if (savedPlugin) {
+                if (newPlugin) savedPlugin.index()
+                else plugin.reindex()
+            }
+            
+            return savedPlugin
         }
-        
-        searchableService.startMirroring()
-        
-        return savedPlugin
+        finally {
+            searchableService.startMirroring()
+        }
     }
     
     def runMasterUpdate() {

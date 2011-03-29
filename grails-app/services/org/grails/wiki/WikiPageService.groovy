@@ -15,6 +15,7 @@ import org.grails.plugin.PluginTab
 class WikiPageService {
 
     def cacheService
+    def searchableService
     def textCache
     def wikiPageUpdates = new ConcurrentLinkedQueue<WikiPageUpdateEvent>()
     
@@ -44,13 +45,26 @@ class WikiPageService {
     }
     
     PluginTab createOrUpdatePluginTab(String title, String body, User user, Long version = null) {
-        def page = PluginTab.findByTitle(title)
-        if (page) {
-            updateContent(page, body, user, version)
+        try {
+            searchableService.stopMirroring()
+            
+            def page = PluginTab.findByTitle(title)
+            if (page) {
+                updateContent(page, body, user, version)
+            }
+            else {
+                page = new PluginTab(title: title, body: body)
+                createContent(page, user)
+            }
+
+            // Mirroring does not automatically reindex the associated plugin
+            // because there is no proper back reference.
+            page.plugin.reindex()
+            
+            return page
         }
-        else {
-            page = new PluginTab(title: title, body: body)
-            createContent(page, user)
+        finally {
+            searchableService.startMirroring()
         }
     }
     
