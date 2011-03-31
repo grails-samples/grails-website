@@ -9,6 +9,7 @@ import org.grails.content.Version
 import org.grails.plugin.Plugin
 
 class BootStrap {
+    def fixtureLoader
     def searchableService
 
     def init = { servletContext ->
@@ -18,7 +19,7 @@ class BootStrap {
         
         def admin = User.findByLogin("admin")
         if (!admin) {
-            def password = Environment.current == Environment.TEST ? "changeit" : System.getProperty("initial.admin.password")
+            def password = Environment.current != Environment.PRODUCTION ? "changeit" : System.getProperty("initial.admin.password")
             if (!password) {
                 throw new Exception("""
 During the first run you must specify a password to use for the admin account. For example:
@@ -42,6 +43,14 @@ grails -Dinitial.admin.password=changeit run-app""")
         }
         
         updatePluginTabs admin
+        
+        // Load dev data to make it easier to work on the application.
+        if (Environment.current == Environment.DEVELOPMENT && User.count() < 2) {
+            fixtureLoader.with {
+                load("users").load("plugins").load("tags", "ratings")
+                load("wiki")
+            }
+        }
         
         // We manually start the mirroring process to ensure that it comes after
         // Autobase performs its migrations.
