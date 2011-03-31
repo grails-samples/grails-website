@@ -10,6 +10,7 @@ import org.apache.shiro.SecurityUtils
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders
+import org.compass.core.engine.SearchEngineQueryParseException
 import org.grails.auth.Role
 import org.grails.comments.*
 import org.grails.taggable.*
@@ -248,11 +249,16 @@ class PluginController extends BaseWikiController {
 
     def search = {
         if(params.q) {
-            def searchResult = Plugin.search(params.q, offset: params.offset)
-            searchResult.results = searchResult.results.findAll{it}.unique { it.title }
-            flash.message = "Found $searchResult.total results!"
-            flash.next()
-            render(view:"searchResults", model:[searchResult:searchResult])
+            try {
+                def searchResult = Plugin.search(params.q, offset: params.offset)
+                searchResult.results = searchResult.results.findAll{it}.unique { it.title }
+                flash.message = "Found $searchResult.total results!"
+                flash.next()
+                render view: "searchResults", model: [searchResult: searchResult]
+            }
+            catch (SearchEngineQueryParseException ex) {
+                render view: "searchResults", model: [parseException: true]
+            }
         }
         else {
             redirect(action:'home')

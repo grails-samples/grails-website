@@ -4,19 +4,20 @@ import grails.plugin.springcache.annotations.*
 
 import javax.persistence.OptimisticLockException
 import javax.servlet.ServletContext
-import org.springframework.web.multipart.MultipartFile
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
-import org.grails.wiki.WikiPage
+import org.compass.core.engine.SearchEngineQueryParseException
+import org.grails.blog.BlogEntry
+import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.notifications.ContentAlertStack
 import org.grails.wiki.BaseWikiController
+import org.grails.wiki.WikiPage
 import org.grails.plugin.Plugin
-import org.grails.plugin.PluginTab
-import org.grails.content.Content
 import org.grails.plugin.PluginController
+import org.grails.plugin.PluginTab
 import org.grails.screencasts.Screencast
-import org.grails.blog.BlogEntry
+import org.springframework.web.multipart.MultipartFile
 
 class ContentController extends BaseWikiController {
     static allowedMethods = [saveWikiPage: "POST", rollbackWikiVersion: "POST"]
@@ -31,10 +32,15 @@ class ContentController extends BaseWikiController {
     def search = {
         if(params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
-            def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape:false)
-            flash.message = "Found $searchResult.total results!"
-            flash.next()
-            render(view:"/searchable/index", model:[searchResult:searchResult])
+            try {
+                def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape:false)
+                flash.message = "Found $searchResult.total results!"
+                flash.next()
+                render view:"/searchable/index", model: [searchResult: searchResult]
+            }
+            catch (SearchEngineQueryParseException ex) {
+                render view: "/searchable/index", model: [parseException: true]
+            }
         }
         else {
             render(view:"homePage")
