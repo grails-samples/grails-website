@@ -1,4 +1,5 @@
 <%@ page import="org.grails.plugin.Plugin" %>
+<%@ page import="org.grails.screencasts.Screencast"%>
 <%@ page import="org.springframework.util.ClassUtils" %>
 <html>
 <head>
@@ -40,20 +41,24 @@
                 <g:each var="result" in="${searchResult.results}" status="index">
                     <div class="result">
 
-                        <g:set var="className" value="${result.title}"/>
+                        <g:set var="className" value="${result.title?.encodeAsHTML()}"/>
 
                         <div class="name">
 
                             %{--
-                                The result may be either a WikiPage or Plugin object.  If it is a Plugin, we'll want to
+                                The result may be either a WikiPage, Plugin, or Screencast object.  If it is a Plugin, we'll want to
                                 link it properly to the Plugin domain.  Otherwise it gets treated like a normal WikiPage
                             --}%
                             <g:if test="${result instanceof Plugin}">
-                                <g:link controller="plugin" action="show" params="${[name:result.name]}">${className}</g:link>
+                                <g:link controller="plugin" action="show" params="${[name:result.name]}">Plugin > ${className}</g:link>
                                 <g:set var="desc" value="${result.summary ?: 'No description'}"/>
                             </g:if>
+                            <g:elseif test="${result instanceof Screencast}">
+                                <g:link controller="screencast" action="show" id="${result.id}">Screencast > ${className}</g:link>
+                                <g:set var="desc" value="${result.description ?: 'No description'}"/>
+                            </g:elseif>
                             <g:else>
-                                <g:link controller="content" id="${result.title}">${className}</g:link>
+                                <g:link controller="content" id="${result.title}">Wiki page > ${className}</g:link>
                                 <g:set var="desc" value="${result.body}"/>
                             </g:else>
                         </div>
