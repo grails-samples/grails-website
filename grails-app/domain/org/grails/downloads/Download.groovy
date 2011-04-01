@@ -1,8 +1,8 @@
 package org.grails.downloads
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-
 class Download implements Serializable{
+    def grailsApplication
+    
     Date releaseDate = new Date()                    
     String softwareName
     String softwareVersion
@@ -15,8 +15,6 @@ class Download implements Serializable{
     static transients = ['releaseNotes']
 
     def getReleaseNotes() {
-        def config = ConfigurationHolder.getConfig()
-        def server = config.grails.serverURL
         return "/${softwareVersion}+Release+Notes"
     }
 

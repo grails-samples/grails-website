@@ -5,7 +5,6 @@ import org.grails.taggable.Taggable
 import org.grails.taggable.TagLink
 import org.grails.comments.Commentable
 import org.grails.rateable.Rateable
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 /*
  * author: Matthew Taylor
@@ -16,6 +15,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     static final def VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
 
     transient cacheService
+    transient grailsApplication
     transient pluginService
     transient taggableService
 
@@ -86,7 +86,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     }
     
     def getFisheye() {
-        downloadUrl ? "${ConfigurationHolder.config.plugins.fisheye}/grails-${name}" : ''
+        downloadUrl ? "${grailsApplication.config.plugins.fisheye}/grails-${name}" : ''
     }
 
     Collection<Tag> getTags() {
