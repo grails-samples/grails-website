@@ -12,6 +12,10 @@ class Role {
     static final OBSERVER = "Observer"
     
     String name
+    
+    static constraints = {
+        name blank: false, unique: true
+    }
 
     String toString() {
         name
