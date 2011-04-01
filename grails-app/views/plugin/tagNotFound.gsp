@@ -1,5 +1,5 @@
 <head>
-    <title>Plugins tagged with '${tagName}'</title>
+    <title>Plugins tagged with '${tagName?.encodeAsHTML()}'</title>
     <meta content="pluginNav" name="layout"/>
 </head>
 <body>

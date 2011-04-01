@@ -23,7 +23,7 @@
 				<a href="${plugin.downloadUrl}"><r:img uri="/images/new/plugins/Buttons/downloadBox_btn.png" alt="Download" border="0"/></a>
 			</div>
 
-			<h1 id="pluginBoxTitle">${plugin?.title}</h1>
+			<h1 id="pluginBoxTitle">${plugin?.title?.encodeAsHTML()}</h1>
 
 			<div class="ratingBox">
 			    <shiro:isLoggedIn>
@@ -36,21 +36,21 @@
 			    </shiro:isNotLoggedIn>
 			</div>
 
-			<p>${plugin?.summary}</p>
+			<p>${plugin?.summary?.encodeAsHTML()}</p>
 
 		    <div class="pluginDetail">
 		        <table>
 		            <tr>
-		                <th>Author(s):</th>
-		                <td>${plugin.author}</td>
+		                <th>Author(s)</th>
+		                <td>${plugin.author?.encodeAsHTML()}</td>
 		            </tr>
 		            <tr>
-		                <th>Current Release:</th>
-		                <td>${plugin.currentRelease}</td>
+		                <th>Current Release</th>
+		                <td>${plugin.currentRelease?.encodeAsHTML()}</td>
 		            </tr>
 		            <tr>
-		                <th>Grails Version:</th>
-		                <td>${plugin.grailsVersion ?: '?'}</td>
+		                <th>Grails Version</th>
+		                <td>${plugin.grailsVersion?.encodeAsHTML() ?: '?'}</td>
 		            </tr>
 		            <tr>
 		                <th>Tags</th>

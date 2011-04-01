@@ -22,7 +22,7 @@
                         <ul>
                             <g:each var="plugin" in="${entry.value}">
                                 <g:if test="${plugin.name}">
-                                    <li><g:link action="show" params="${[name:plugin.name]}">${plugin.name}</g:link> - <wiki:shorten text="${plugin.title}" length="50" /></li>
+                                    <li><g:link action="show" params="${[name:plugin.name]}">${plugin.name?.encodeAsHTML()}</g:link> - <wiki:shorten text="${plugin.title}" length="50" /></li>
                                 </g:if>									
                             </g:each>						
                         </ul>

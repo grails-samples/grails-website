@@ -1,8 +1,8 @@
 
 <g:each var='tag' in="${plugin.tags.sort()}">
-    <span class="tag"><g:link action="browseByTag" params="[tagName: tag]">${tag}</g:link>
+    <span class="tag"><g:link action="browseByTag" params="[tagName: tag]">${tag?.encodeAsHTML()}</g:link>
     <g:if test="${!disabled}">
-        <g:set var="imgTag"><img id="remove_${tag}_tag_from_${plugin.id}" src="${resource(dir: 'images/famfamfam', file: 'delete.png')}"/></g:set>
+        <g:set var="imgTag"><img id="remove_${tag?.encodeAsHTML()}_tag_from_${plugin.id}" src="${resource(dir: 'images/famfamfam', file: 'delete.png')}"/></g:set>
 
         %{-- If logged in, we're going to attach the normal ajax click listener --}%
         <shiro:isLoggedIn>
@@ -15,7 +15,7 @@
             <script>
                 YAHOO.util.Event.onDOMReady(function() {
                     // on show, put the dialog in the right place
-                    YAHOO.util.Event.on("remove_${tag}_tag_from_${plugin.id}", 'click', function() {
+                    YAHOO.util.Event.on("remove_${tag?.encodeAsJavaScript()}_tag_from_${plugin.id}", 'click', function() {
                         window.location = "${createLink(controller:'user', action:'login', params:[originalURI:request.forwardURI])}";
                     });
                 });

@@ -3,18 +3,18 @@
 		<div class="ratings">
 			<rateable:ratings id="rating${plugin.id}" bean="${plugin}" active="false"/>
 		</div>						
-    	<h4><g:link action="show" params="${[name:plugin.name]}">${plugin.title}</g:link></h4>						
+    	<h4><g:link action="show" params="${[name:plugin.name]}">${plugin.title?.encodeAsHTML()}</g:link></h4>						
         <g:if test="${plugin.official}">
             <div class="supported">supported by SpringSource</div>
         </g:if>
         <div class="detail">
-            <div><span class="label">Tags:</span> ${plugin.tags.join(', ')}</div>								
+            <div><span class="label">Tags:</span> ${plugin.tags.join(', ')?.encodeAsHTML()}</div>								
 			<!-- <g:if test="${plugin.tags}"> -->
 
 			<!-- </g:if> -->
 
-            <div><span class="label">Grails Version:</span> ${plugin.grailsVersion}</div>
-            <div><span class="label">Current Release:</span> ${plugin.currentRelease}</div>
+            <div><span class="label">Grails Version:</span> ${plugin.grailsVersion?.encodeAsHTML()}</div>
+            <div><span class="label">Current Release:</span> ${plugin.currentRelease?.encodeAsHTML()}</div>
         </div>
 
 	</div>

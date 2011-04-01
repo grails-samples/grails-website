@@ -65,7 +65,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     static transients = ['avgRating', 'fisheye', 'tags']
 
     static constraints = {
-        name unique: true
+        name unique: true, matches: /[\w-]+/
         groupId nullable: false
         summary nullable: true
         description nullable: true

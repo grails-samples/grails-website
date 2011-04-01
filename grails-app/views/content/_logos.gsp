@@ -11,7 +11,7 @@
 		    <input
 		 		onblur="this.style.color = '#CDE5C4';" 
 				onfocus="this.style.color = '#48802C';this.value='';"
-				type="text" accessKey="s" name="q" value="${params.q ?: ''}"/>		
+				type="text" accessKey="s" name="q" value="${params.q?.encodeAsHTML() ?: ''}"/>		
 		</g:form>		
 	</div>
 </div>
