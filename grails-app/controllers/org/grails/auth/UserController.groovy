@@ -72,6 +72,13 @@ class UserController {
             renderParams.view = "register"
 
         if(request.method == 'POST') {
+            if (!params.login) {
+                log.warn "'login' not provided during registration - probably a spam bot."
+                renderParams.model.message= "You must provide a login!"
+                render(renderParams)
+                return
+            }
+
             def user = User.findByLogin(params.login)
             if(user) {
 
