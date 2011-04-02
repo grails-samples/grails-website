@@ -18,13 +18,22 @@ class DownloadController {
         def versions = grailsApplication.config.download.versions ?: ['1.3', '1.2']
 
         def stableDownloads = versions.inject([:]) { map, version ->
+            def m = version =~ /(\d+\.\d+)\s?(beta)?/
+            def verNumber = m[0][1]
+            def isBeta = m[0][2] as boolean
+
             def binaryDownload = getCachedOr("Grails ${version}") {
                 def downloads = Download.withCriteria {
-                    eq('softwareName', 'Grails')
-                    like('softwareVersion', "${version}%")
-                    or {
-                        eq('betaRelease', false)
-                        isNull 'betaRelease'
+                    eq 'softwareName', 'Grails'
+                    like 'softwareVersion', "${verNumber}%"
+                    if (isBeta) {
+                        eq 'betaRelease', true
+                    }
+                    else {
+                        or {
+                            eq 'betaRelease', false
+                            isNull 'betaRelease'
+                        }
                     }
                     fetchMode 'files', FetchMode.SELECT
                     order 'releaseDate', 'desc'
