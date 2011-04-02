@@ -124,6 +124,13 @@ springcache {
     }
 }
 
+// Dummy Twitter settings.
+twitter4j.oauth.consumerKey="dummy"
+twitter4j.oauth.consumerSecret="notVerySecret"
+twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
+twitter4j.oauth.accessSecret="test"
+
+
 format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"
 blog.page.layout="subpage"
