@@ -49,6 +49,7 @@ grails -Dinitial.admin.password=changeit run-app""")
             fixtureLoader.with {
                 load("users").load("plugins").load("tags", "ratings")
                 load("wiki")
+                load("downloads")
             }
         }
         

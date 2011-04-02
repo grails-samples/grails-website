@@ -3,7 +3,7 @@ package org.grails.downloads
 class DownloadFile implements Serializable{
     String title
     List mirrors
-    Download download
+    static belongsTo = [download: Download]
     static hasMany = [mirrors:Mirror]
     static fetchMode = [mirrors:'eager']
 
