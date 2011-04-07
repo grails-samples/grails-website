@@ -188,7 +188,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
             to toAddress
             from fromAddress
             subject "${plugin.title} ${version ?: plugin.currentRelease} released"
-            html view: "/mail/pluginRelease", model: [plugin: plugin]
+            html view: "/mail/pluginRelease", model: [plugin: plugin, version: version, url: url]
         }
     }
 
