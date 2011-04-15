@@ -87,17 +87,43 @@ class PluginController extends BaseWikiController {
             }
             json {
                 render(contentType:"text/json") {
-                    plugins = currentPlugins?.collect { p ->
-                        return { name = p.name; title = p.title }
+                    plugins = currentPlugins?.collect { Plugin p ->
+                        return {
+                            name = p.name
+                            version = p.currentRelease
+                            title = p.title
+                            author = p.author
+                            authorEmail = p.authorEmail
+                            description = p.summary
+                            grailsVersion = p.grailsVersion
+                            documentation = p.documentationUrl
+                            file = p.downloadUrl
+                            rating = p.avgRating
+                            
+                            if (p.issuesUrl) issues = p.issuesUrl
+                            if (p.scmUrl) scm = p.scmUrl
+                        }
                     } ?: []
                 }
             }
             xml {
                 render(contentType:"application/xml") {
                     plugins {
-                         for (p in currentPlugins) {
-                            plugin(name: p.name) {
-                                title p.title
+                         for (Plugin p in currentPlugins) {
+                            plugin(name: p.name, 'latest-release': p.currentRelease) {
+                                release(version: p.currentRelease) {
+                                    title p.title
+                                    author p.author
+                                    authorEmail p.authorEmail
+                                    description p.summary
+                                    grailsVersion p.grailsVersion
+                                    documentation p.documentationUrl
+                                    file p.downloadUrl
+                                    rating p.avgRating
+                                    
+                                    if (p.issuesUrl) issues p.issuesUrl
+                                    if (p.scmUrl) scm p.scmUrl
+                                }
                             }
                          }
                     }
