@@ -5,6 +5,9 @@ modules = {
     homepage {
         dependsOn 'master'
         resource 'css/new/homepage.css'
+        resource 'js/prototype/prototype.js'
+        resource 'js/prototype/scriptaculous.js'
+        resource 'js/prototype/effects.js'
     }
     content {
         resource url: 'css/content.css'

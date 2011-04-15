@@ -16,6 +16,22 @@
     <r:layoutResources/>
     
     <g:layoutHead />
+    
+    <r:script>
+// Set the ads up for cycling every 4s
+var ads = $$('div.advert');
+ads.slice(1).invoke('hide');
+
+new PeriodicalExecuter(function(pe) {
+    var firstHiddenAd = ads.find(function(el) { return !el.visible(); });
+    if (!firstHiddenAd) {
+        ads.slice(1).invoke('fade');
+    }
+    else {
+        firstHiddenAd.appear();
+    }
+}, 5);
+    </r:script>
 </head>
 <body>
     
@@ -51,16 +67,25 @@
             
             <div class="eventDownloadWrapper">
                 <div id="screencasts">
-                    <%--
                     <h2>Conference</h2>
                     <div class="castBox">
                         <div class="advert">
-                            <a href="http://www.springone2gx.com/conference/chicago/2010/10/register">
-                                <r:img width="250" height="240" uri="/images/SpringOne2GX_250x240.png"/>
+                            <a href="http://www.eu2011.gr8conf.org/register">
+                                <r:img width="250" height="230" uri="/images/gr8conf-2011-240.png"/>
+                            </a>
+                        </div>
+                        <div class="advert">
+                            <a href="http://www.springsource.com/events/s2gforum-5-26-2011-amsterdam">
+                                <r:img width="250" height="230" uri="/images/s2gforum-amsterdam-2011-240.png"/>
+                            </a>
+                        </div>
+                        <div class="advert">
+                            <a href="http://www.springsource.com/events/s2gforum-5-31-2011-london">
+                                <r:img width="250" height="230" uri="/images/s2gforum-london-2011-240.png"/>
                             </a>
                         </div>
                     </div>
-                    --%>
+                    <%--
                     <h2>What is grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
@@ -75,6 +100,7 @@
                         </div>
                         <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
                     </div><!-- castBox -->
+                    --%>
                 </div><!-- screencasts -->
 
                 <div id="downloadBox">

@@ -387,6 +387,7 @@ body {
     width: 269px;
     height: 245px;
     overflow: hidden;
+    position: relative;
 }
 
 .castBox h4 {
@@ -422,6 +423,7 @@ body {
     width: 250px;
     height: 230px;
     margin: 8px 10px;
+    position: absolute;
 }
 
 #latestNews h2, #screencasts h2 {

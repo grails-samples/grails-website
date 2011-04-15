@@ -32,7 +32,7 @@ grails.project.dependency.resolution = {
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
                 ":rateable:0.6.2",
-                ":resources:1.0-RC2-SNAPSHOT",
+                ":resources:1.0-RC2",
                 ":richui:0.6",
                 ":screencasts:0.5.2",
                 ":searchable:0.6-SNAPSHOT",
