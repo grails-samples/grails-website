@@ -4,8 +4,12 @@ import grails.plugin.springcache.annotations.*
 
 import javax.persistence.OptimisticLockException
 import javax.servlet.ServletContext
+import javax.servlet.http.HttpServletResponse
+
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
+import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
+import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
 import org.compass.core.engine.SearchEngineQueryParseException
 import org.grails.blog.BlogEntry
 import org.grails.content.Content
@@ -17,6 +21,7 @@ import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController
 import org.grails.plugin.PluginTab
 import org.grails.screencasts.Screencast
+import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.multipart.MultipartFile
 
 class ContentController extends BaseWikiController {
@@ -28,6 +33,7 @@ class ContentController extends BaseWikiController {
     def dateService
     def textCache
     def wikiPageService
+    def grailsUrlMappingsHolder
 
     def search = {
         if(params.q) {
@@ -96,7 +102,13 @@ class ContentController extends BaseWikiController {
 
     def index = {
         def wikiPage = wikiPageService.getCachedOrReal(params.id.decodeURL())
-        if (wikiPage) {
+        if (wikiPage?.instanceOf(PluginTab)) {
+            // A bit of hackery: plugin tabs should not be accessed via this handler,
+            // but sometimes they are. So, permanently redirect to the tab's plugin
+            // portal page.
+            permRedirect "plugin", "show", [name: wikiPage.plugin.name]
+        }
+        else if (wikiPage) {
             // This property involves a query, so we fetch it here rather
             // than in the view.
             def latestVersion = wikiPage.latestVersion
@@ -429,5 +441,13 @@ class ContentController extends BaseWikiController {
         return [ newestPlugins: newestPlugins, 
                  newsItems: newsItems,
                  latestScreencastId: latestScreencastId ]
+    }
+
+    private void permRedirect(String controller, String action, urlParams) {
+        def urlMapping = grailsUrlMappingsHolder.getReverseMapping(controller, action, urlParams)
+        response.setHeader HttpHeaders.LOCATION, urlMapping.createURL(controller, action, urlParams, request.characterEncoding, null)
+        response.status = HttpServletResponse.SC_MOVED_PERMANENTLY
+        request[RedirectDynamicMethod.GRAILS_REDIRECT_ISSUED] = true
+        RequestContextHolder.currentRequestAttributes().renderView = false
     }
 }
