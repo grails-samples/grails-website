@@ -112,7 +112,7 @@ class JSecurityAuthFilters {
             }
         }
 
-        pluginActivities(controller:"(tag|plugin|rateable)", action:"(postComment|autoCompleteNames|rate)") {
+        pluginActivities(controller:"(tag|plugin|rateable)", action:"(update|postComment|autoCompleteNames|rate)") {
             before = {
                 accessControl {
                     role("Editor") || role("Administrator")

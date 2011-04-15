@@ -26,6 +26,8 @@ class PluginController extends BaseWikiController {
     static int PORTAL_MAX_RESULTS = 5
     static int PORTAL_MIN_RATINGS = 1
     
+    static allowedMethods = [update: "PUT"]
+    
     def taggableService
     def wikiPageService
     def pluginService

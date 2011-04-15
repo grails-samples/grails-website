@@ -58,8 +58,9 @@ class WikiPageService {
             }
 
             // Mirroring does not automatically reindex the associated plugin
-            // because there is no proper back reference.
-            page.plugin.reindex()
+            // because there is no proper back reference. Also, the plugin may
+            // not have been saved yet, hence why we do a null-safe call.
+            page.plugin?.reindex()
             
             return page
         }

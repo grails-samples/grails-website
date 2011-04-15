@@ -68,7 +68,7 @@ public class RestBasicAuthFilter extends BasicHttpAuthenticationFilter {
      * if you had the configuration:
      * &lt;pre>
      *    [urls]
-     *    /basic/** = authcBasic[POST,PUT,DELETE]
+     *    /basic/** = authcBasic[POST;PUT;DELETE]
      * &lt;pre>
      * then a GET request would not required authentication but a POST would.
      * @param request The current HTTP servlet request.

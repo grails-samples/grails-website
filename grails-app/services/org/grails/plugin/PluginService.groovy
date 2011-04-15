@@ -117,7 +117,7 @@ class PluginService {
                     createTabTitle(plugin.name, wiki),
                     body,
                     user)
-            tabContent.save()
+            tabContent.save(failOnError: true)
             plugin."$wiki" = tabContent
             
             // If there is no provided doc url, we'll assume that this page is the doc.
