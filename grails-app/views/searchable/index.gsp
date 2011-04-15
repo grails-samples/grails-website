@@ -64,8 +64,7 @@
                         </div>
 
                         <div class="desc">
-                            <g:if test="${desc?.size() > 220}"><wiki:text>${desc[0..220]}</wiki:text>...</g:if>
-                            <g:else><wiki:text id="${result.title}">${desc ?: ''}</wiki:text></g:else>
+                            <text:summarize encodeAs="HTML" ><text:htmlToText><wiki:text>${desc}</wiki:text></text:htmlToText> </text:summarize>
                         </div>
 
                     </div>
