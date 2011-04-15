@@ -44,6 +44,16 @@
 
         <p>Past releases can be found at the <g:link controller="download" action="archive" id="Grails">Archive</g:link>.</p>
         <br />
+        
+        <h3>Grails on Ubuntu</h3>
+        <p>Get Grails via Ubuntu's package manager by simply following these steps:</p>
+        <script src="https://gist.github.com/901884.js"> </script>
+        <p>What could be easier? The package work for both i386 and amd64 flavours of Lucid, Maverick, and Natty. In
+        addition, it works with both the <tt>openjdk-6-jdk</tt> and <tt>sun-java6-jdk</tt> JDK packages. Note that
+        you do not need to set either the <tt>JAVA_HOME</tt> or <tt>GRAILS_HOME</tt> environment variables when using
+        this package.</p>
+        <p>One final thing: you can keep up to date with the development of the package via its
+        <a href="https://launchpad.net/~groovy-dev/+archive/grails">Launchpad page</a>.</p>
 
         <h3>Grails Development Builds</h3>
         <p>
