@@ -15,7 +15,7 @@ class CacheTagLib {
             def content = textCache?.get(id)?.value
             if(content) out << content
             else {
-                content = body()
+                content = body().toString()
                 textCache?.put(new Element(id, content))
                 out << content
             }
