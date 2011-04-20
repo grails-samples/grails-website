@@ -22,62 +22,45 @@ class DownloadController {
             def verNumber = m[0][1]
             def isBeta = m[0][2] as boolean
 
-            def binaryDownload = getCachedOr("Grails ${version}") {
-                def downloads = Download.withCriteria {
-                    eq 'softwareName', 'Grails'
-                    like 'softwareVersion', "${verNumber}%"
-                    if (isBeta) {
-                        eq 'betaRelease', true
-                    }
-                    else {
-                        or {
-                            eq 'betaRelease', false
-                            isNull 'betaRelease'
-                        }
-                    }
-                    fetchMode 'files', FetchMode.SELECT
-                    order 'releaseDate', 'desc'
-                    maxResults 1
+            def downloads = Download.withCriteria {
+                eq 'softwareName', 'Grails'
+                like 'softwareVersion', "${verNumber}%"
+                if (isBeta) {
+                    eq 'betaRelease', true
                 }
-                downloads ? downloads[0] : null
+                else {
+                    or {
+                        eq 'betaRelease', false
+                        isNull 'betaRelease'
+                    }
+                }
+                fetchMode 'files', FetchMode.SELECT
+                order 'releaseDate', 'desc'
+                maxResults 1
             }
+            def binaryDownload = downloads ? downloads[0] : null
 
-            def docDownload = !binaryDownload ? null : getCachedOr("Grails Documentation ${version}") {
-                return Download.findBySoftwareNameAndSoftwareVersion(
-                        'Grails Documentation',
-                        binaryDownload.softwareVersion,
-                        [fetch: [files: 'select']])
-            }
+            def docDownload = !binaryDownload ? null : Download.findBySoftwareNameAndSoftwareVersion(
+                    'Grails Documentation',
+                    binaryDownload.softwareVersion,
+                    [fetch: [files: 'select']])
 
             map[version] = [ binaryDownload, docDownload ]
             return map
         }
 
-        def betaDownload = getCachedOr("GrailsBeta") {
-            def downloads = Download.findAllBySoftwareNameAndBetaRelease(
-                    'Grails',
-                    true,
-                    [max:1, order:'desc', sort:'releaseDate', cache:true, fetch: [files: 'select']])
-            downloads ? downloads[0] : null
-        }
+        def downloads = Download.findAllBySoftwareNameAndBetaRelease(
+                'Grails',
+                true,
+                [max:1, order:'desc', sort:'releaseDate', cache:true, fetch: [files: 'select']])
+        def betaDownload = downloads ? downloads[0] : null
 
-        def betaDoc = !betaDownload ? null : getCachedOr("GrailsBeta Documentation") {
-            return Download.findBySoftwareNameAndSoftwareVersion(
-                    'Grails Documentation',
-                    betaDownload.softwareVersion,
-                    [fetch: [files: 'select']])
-        } 
+        def betaDoc = !betaDownload ? null : Download.findBySoftwareNameAndSoftwareVersion(
+                'Grails Documentation',
+                betaDownload.softwareVersion,
+                [fetch: [files: 'select']])
 
         render(view:'index', model:[stableDownloads:stableDownloads, betaDownload:[(betaDownload.softwareVersion): [betaDownload, betaDoc]]])
-    }
-
-    def getCachedOr(String name, callable) {
-        def obj = downloadCache?.get(name)?.value 
-        if(!obj) {
-            obj = callable.call()
-            downloadCache?.put new Element(name, obj)
-        }
-        return obj
     }
 
     def archive = {
