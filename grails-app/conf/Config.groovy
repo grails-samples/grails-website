@@ -89,7 +89,7 @@ myAuth = org.grails.auth.RestBasicAuthFilter
 myAuth.applicationName = grails.org
 
 [urls]
-/plugin/** = myAuth[POST;PUT;DELETE]
+/plugin/** = myAuth[PUT]
 """
 
 springcache {
