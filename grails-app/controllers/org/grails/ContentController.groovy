@@ -103,10 +103,18 @@ class ContentController extends BaseWikiController {
     def index = {
         def wikiPage = wikiPageService.getCachedOrReal(params.id.decodeURL())
         if (wikiPage?.instanceOf(PluginTab)) {
-            // A bit of hackery: plugin tabs should not be accessed via this handler,
-            // but sometimes they are. So, permanently redirect to the tab's plugin
-            // portal page.
-            permRedirect "plugin", "show", [name: wikiPage.plugin.name]
+            def plugin = wikiPage.plugin
+            if (!plugin) {
+                // Prevents web crawlers with stale data from causing an exception and
+                // flooding the logs.
+                response.sendError 404
+            }
+            else {
+                // A bit of hackery: plugin tabs should not be accessed via this handler,
+                // but sometimes they are. So, permanently redirect to the tab's plugin
+                // portal page.
+                permRedirect "plugin", "show", [name: wikiPage.plugin.name]
+            }
         }
         else if (wikiPage) {
             // This property involves a query, so we fetch it here rather
