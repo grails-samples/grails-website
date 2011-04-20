@@ -18,9 +18,13 @@
     <g:layoutHead />
     
     <r:script>
+var startIndex = Math.floor(Math.random() * 3)
 // Set the ads up for cycling every 4s
 var ads = $$('div.advert');
-ads.slice(1).invoke('hide');
+
+if (startIndex < 2) {
+    ads.slice(startIndex + 1).invoke('hide');
+}
 
 new PeriodicalExecuter(function(pe) {
     var firstHiddenAd = ads.find(function(el) { return !el.visible(); });
@@ -30,7 +34,7 @@ new PeriodicalExecuter(function(pe) {
     else {
         firstHiddenAd.appear();
     }
-}, 5);
+}, 4);
     </r:script>
 </head>
 <body>
