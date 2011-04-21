@@ -21,7 +21,7 @@ grails.project.dependency.resolution = {
         runtime ":autobase:0.9.2",
                 ":avatar:0.3",
                 ":bubbling:2.1.2",
-                ":cache-headers:1.1.3",
+                ":cache-headers:1.1.5",
                 ":cached-resources:1.0-alpha6",
                 ":commentable:0.7.5",
                 ":feeds:1.5",
@@ -35,7 +35,9 @@ grails.project.dependency.resolution = {
                 ":rateable:0.6.2",
                 ":resources:1.0-RC2",
                 ":richui:0.6",
+                ":screencasts:0.5.2",
                 ":searchable:0.6-SNAPSHOT",
+                ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.1",
@@ -55,7 +57,7 @@ grails.project.dependency.resolution = {
 
     dependencies {
         compile "org.twitter4j:twitter4j-core:2.1.8", "org.springframework:spring-context-support:3.0.3.RELEASE"
-        runtime "org.grails.plugins:shiro:1.1.3", "org.grails.plugins:screencasts:0.5.1"
+//        runtime "org.grails.plugins:shiro:1.1.3", "org.grails.plugins:screencasts:0.5.1"
 
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
