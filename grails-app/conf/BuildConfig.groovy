@@ -46,7 +46,7 @@ grails.project.dependency.resolution = {
                 ":zipped-resources:1.0-RC1"
         
         test    ":build-test-data:1.1.1",
-                ":fixtures:1.0.1",
+//                ":fixtures:1.0.1",
                 ":geb:0.5-SNAPSHOT", {
             excludes 'xml-apis'
         }
