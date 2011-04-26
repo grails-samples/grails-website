@@ -17,7 +17,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":autobase:0.9.2",
+        runtime ":autobase:0.11.0",
                 ":avatar:0.3",
                 ":bubbling:2.1.2",
                 ":cache-headers:1.1.3",
