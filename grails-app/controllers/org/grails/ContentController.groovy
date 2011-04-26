@@ -152,6 +152,10 @@ class ContentController extends BaseWikiController {
                 throw ex
             }
         }
+        else {
+            response.sendError 404
+            return
+        }
 
         if (version) {
             render(view:"showVersion", model:[content:version, update:params.update])                    
