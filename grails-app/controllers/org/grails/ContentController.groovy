@@ -47,6 +47,9 @@ class ContentController extends BaseWikiController {
             catch (SearchEngineQueryParseException ex) {
                 render view: "/searchable/index", model: [parseException: true]
             }
+            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
+                render view: "/searchable/index", model: [clauseException: true]
+            }
         }
         else {
             render(view:"homePage")
