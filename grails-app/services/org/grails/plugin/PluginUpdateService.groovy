@@ -33,7 +33,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
      */
     @Transactional
     void onApplicationEvent(PluginUpdateEvent event) {
-        log.info "Updating information for plugin ${event.name}, version ${event.version}"
+        log.info "Updating information for plugin ${event.name}, version ${event.version}${event.snapshot ? ' (snapshot)' : ''}"
 
         // Check that the given repository URL is valid.
         def baseUrl
@@ -58,7 +58,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // existing one. Since we already have the version, we can deal
         // with that too.
         def plugin = fetchOrCreatePluginInstance(event.name, event.version)
-        def isNewVersion = plugin.currentRelease != event.version
+        def isNewVersion = !plugin.id || plugin.currentRelease != event.version
         if (!event.snapshot) {
             plugin.currentRelease = event.version
         }
@@ -145,6 +145,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     Plugin fetchOrCreatePluginInstance(String pluginName, String version) {
         def plugin = Plugin.findByName(pluginName)
         if (!plugin) {
+            log.debug "Creating new plugin instance for $pluginName $version"
             plugin = new Plugin(name: pluginName, currentRelease: version, downloadUrl: "not provided")
 
             pluginService.initNewPlugin(plugin, User.findByLogin("admin"))
