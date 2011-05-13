@@ -149,10 +149,10 @@ class ContentController extends BaseWikiController {
                 version = Version.findByCurrentAndNumber(page, params.number.toLong())
             }
             catch (NumberFormatException ex) {
-                log.error ex.message
+                log.error "Not a valid version number: ${params.number}"
                 log.error "Requested URL: ${request.forwardURI}, referred by: ${request.getHeader('Referer')}"
-
-                throw ex
+                response.sendError 404
+                return
             }
         }
         else {
