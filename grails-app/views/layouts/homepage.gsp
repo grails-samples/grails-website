@@ -74,11 +74,6 @@ new PeriodicalExecuter(function(pe) {
                     <h2>Conference</h2>
                     <div class="castBox">
                         <div class="advert">
-                            <a href="http://www.eu2011.gr8conf.org/register">
-                                <r:img width="250" height="230" uri="/images/gr8conf-2011-240.png"/>
-                            </a>
-                        </div>
-                        <div class="advert">
                             <a href="http://www.springsource.com/events/s2gforum-5-26-2011-amsterdam">
                                 <r:img width="250" height="230" uri="/images/s2gforum-amsterdam-2011-240.png"/>
                             </a>
