@@ -45,20 +45,20 @@ grails -Dinitial.admin.password=changeit run-app""")
         updatePluginTabs admin
         
         // Load dev data to make it easier to work on the application.
-        if (Environment.current == Environment.DEVELOPMENT && User.count() < 2) {
+/*        if (Environment.current == Environment.DEVELOPMENT && User.count() < 2) {
             fixtureLoader.with {
                 load("users").load("plugins").load("tags", "ratings")
                 load("wiki")
                 load("downloads")
             }
-        }
+        }*/
         
         // We manually start the mirroring process to ensure that it comes after
         // Autobase performs its migrations.
         println "Performing bulk index"
-        searchableService.reindex()
+//        searchableService.reindex()
         println "Starting mirror service"
-        searchableService.startMirroring()
+  //      searchableService.startMirroring()
     }
 
     def destroy = {
