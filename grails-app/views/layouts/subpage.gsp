@@ -1,8 +1,7 @@
 <g:applyLayout name="main">
 <head>
     <title><g:layoutTitle/></title>
-    <r:use modules="subpage"/>
-    <g:javascript library="yui" />
+    <r:require modules="subpage"/>
     <yui:javascript dir="animation" file="animation-min.js" /> 
     <g:layoutHead />
 
