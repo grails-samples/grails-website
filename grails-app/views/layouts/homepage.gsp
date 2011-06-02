@@ -71,6 +71,7 @@ new PeriodicalExecuter(function(pe) {
             
             <div class="eventDownloadWrapper">
                 <div id="screencasts">
+                    <%--
                     <h2>Conference</h2>
                     <div class="castBox">
                         <div class="advert">
@@ -84,7 +85,7 @@ new PeriodicalExecuter(function(pe) {
                             </a>
                         </div>
                     </div>
-                    <%--
+                    --%>
                     <h2>What is grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
@@ -99,7 +100,6 @@ new PeriodicalExecuter(function(pe) {
                         </div>
                         <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
                     </div><!-- castBox -->
-                    --%>
                 </div><!-- screencasts -->
 
                 <div id="downloadBox">
