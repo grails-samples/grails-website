@@ -287,6 +287,9 @@ class PluginController extends BaseWikiController {
             catch (SearchEngineQueryParseException ex) {
                 render view: "searchResults", model: [parseException: true]
             }
+            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
+                render view: "searchResults", model: [clauseException: true]
+            }
         }
         else {
             redirect(action:'home')

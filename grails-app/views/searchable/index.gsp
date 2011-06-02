@@ -33,6 +33,9 @@
         <g:if test="${parseException}">
             <p>Your query - <strong>${query}</strong> - is not valid.</p>
         </g:if>
+        <g:elseif test="${clauseException}">
+            <p>Your query - <strong>${query}</strong> - cannot be handled, sorry. Be more restrictive with your wildcards, like '*'.</p>
+        </g:elseif>
         <g:elseif test="${haveQuery && !haveResults}">
             <p>Nothing matched your query - <strong>${query}</strong></p>
         </g:elseif>

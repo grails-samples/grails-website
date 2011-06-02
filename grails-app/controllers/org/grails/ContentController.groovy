@@ -47,6 +47,9 @@ class ContentController extends BaseWikiController {
             catch (SearchEngineQueryParseException ex) {
                 render view: "/searchable/index", model: [parseException: true]
             }
+            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
+                render view: "/searchable/index", model: [clauseException: true]
+            }
         }
         else {
             render(view:"homePage")
@@ -146,10 +149,10 @@ class ContentController extends BaseWikiController {
                 version = Version.findByCurrentAndNumber(page, params.number.toLong())
             }
             catch (NumberFormatException ex) {
-                log.error ex.message
+                log.error "Not a valid version number: ${params.number}"
                 log.error "Requested URL: ${request.forwardURI}, referred by: ${request.getHeader('Referer')}"
-
-                throw ex
+                response.sendError 404
+                return
             }
         }
         else {
