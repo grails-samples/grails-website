@@ -10,6 +10,7 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
+        mavenLocal()
         mavenCentral()
         mavenRepo "http://repository.codehaus.org"
         mavenRepo "http://maven.springframework.org/milestone"
@@ -34,7 +35,7 @@ grails.project.dependency.resolution = {
                 ":resources:1.0",
                 ":richui:0.6",
                 ":screencasts:0.5.2",
-                ":searchable:0.6-SNAPSHOT",
+                ":searchable:0.6",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
@@ -43,13 +44,13 @@ grails.project.dependency.resolution = {
                 ":zipped-resources:1.0"
         
         test    ":build-test-data:1.1.1",
-//                ":fixtures:1.0.1",
-                ":geb:0.5-SNAPSHOT", {
+                ":fixtures:1.0.7",
+                ":geb:0.5-SNAPSHOT",
+                ":spock:0.6-groovy-1.8-SNAPSHOT", {
             excludes 'xml-apis'
         }
 
-        build   ":db-util:0.4",
-                ":tomcat:1.4.0.BUILD-SNAPSHOT"
+        build   ":tomcat:1.4.0.BUILD-SNAPSHOT"
     }
 
     dependencies {
