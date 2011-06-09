@@ -15,7 +15,7 @@ grails.project.dependency.resolution = {
         mavenRepo "http://repository.codehaus.org"
         mavenRepo "http://maven.springframework.org/milestone"
         mavenRepo "http://snapshots.repository.codehaus.org"
-        mavenRepo "http://localhost:8081/artifactory/plugins-releases-local"
+       // mavenRepo "http://localhost:8081/artifactory/plugins-releases-local"
     }
 
     plugins {
