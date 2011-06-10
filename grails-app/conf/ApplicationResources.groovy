@@ -31,7 +31,10 @@ modules = {
         }
     }
     subpage {
-        dependsOn 'master','content', 'common', 'yui-core'
+        dependsOn 'master','content', 'yui-core', 'yui-connection', 'yui-animation', 'common'
         resource url: 'css/new/subpage.css'
+    }
+    upload {
+        dependsOn 'yui-animation', 'common'
     }
 }

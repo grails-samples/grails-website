@@ -2,7 +2,6 @@
 <head>
     <title><g:layoutTitle/></title>
     <r:require modules="subpage"/>
-    <yui:javascript dir="animation" file="animation-min.js" /> 
     <g:layoutHead />
 
     <g:render template="/common/messages_effects" model="${pageScope.getVariables()}"/>
