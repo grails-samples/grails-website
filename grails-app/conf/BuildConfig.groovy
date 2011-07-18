@@ -19,11 +19,11 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":autobase:0.11.0",
-                ":avatar:0.3",
+        runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":commentable:0.7.5",
+                ":database-migration:0.2.1",
                 ":feeds:1.5",
                 ":grails-ui:1.2",
                 ":greenmail:1.2.2",
