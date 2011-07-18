@@ -17,11 +17,11 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        runtime ":autobase:0.11.0",
-                ":avatar:0.3",
+        runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":commentable:0.7.5",
+                ":database-migration:0.2.1",
                 ":feeds:1.5",
                 ":grails-ui:1.2",
                 ":greenmail:1.2.2",
@@ -33,7 +33,7 @@ grails.project.dependency.resolution = {
                 ":resources:1.0",
                 ":richui:0.6",
                 ":screencasts:0.5.2",
-                ":searchable:0.6-SNAPSHOT",
+                ":searchable:0.6",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
@@ -48,8 +48,7 @@ grails.project.dependency.resolution = {
             excludes 'xml-apis'
         }
 
-        build   ":db-util:0.4",
-                ":tomcat:1.3.7"
+        build   ":tomcat:1.3.7"
     }
 
     dependencies {

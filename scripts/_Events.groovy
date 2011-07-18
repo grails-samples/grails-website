@@ -41,6 +41,8 @@ def libExcludePatterns = [
 ]
 
 eventCreateWarStart = { warName, stagingDir ->
+    return
+
     // Remove classes.
     ant.delete {
         fileset(dir: new File(stagingDir, "WEB-INF/classes").canonicalPath) {

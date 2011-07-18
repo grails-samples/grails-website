@@ -1,64 +1,66 @@
-changeSet(id:'PluginPortalComments', author:'Rhyolight') {
-    preConditions(onFail:"MARK_RAN") {
-        tableExists(schemaName:'grails', tableName:'blog_entry_comment')
-        columnExists(schemaName:'grails', tableName:'comment', columnName:'email')
-        columnExists(schemaName:'grails', tableName:'comment', columnName:'poster')
-    }
-    dropTable(tableName:'blog_entry_comment')
-    dropColumn(tableName:'comment', columnName:'email')
-    dropColumn(tableName:'comment', columnName:'poster')
-}
+databaseChangeLog = {
+    delegate.databaseChangeLog logicalFilePath: "site-autobase"
 
-changeSet(id:'IncreaseCommentBodySize', author:'Rhyolight') {
-    modifyColumn(tableName:'comment') {
-        column(name:'body', type:'TEXT')
+    changeSet(id:'PluginPortalComments', author:'Rhyolight') {
+        preConditions(onFail:"MARK_RAN") {
+            tableExists(schemaName:'grails', tableName:'blog_entry_comment')
+            columnExists(schemaName:'grails', tableName:'comment', columnName:'email')
+            columnExists(schemaName:'grails', tableName:'comment', columnName:'poster')
+        }
+        dropTable(tableName:'blog_entry_comment')
+        dropColumn(tableName:'comment', columnName:'email')
+        dropColumn(tableName:'comment', columnName:'poster')
     }
-}
 
-changeSet(id:'IntegrateTaggablePlugin', author:'Rhyolight') {
-    preConditions(onFail:"MARK_RAN") {
-        tableExists(schemaName:'grails', tableName:'plugin_tags')
-        tableExists(schemaName:'grails', tableName:'tag')
+    changeSet(id:'IncreaseCommentBodySize', author:'Rhyolight') {
+        modifyDataType tableName: 'comment', columnName: 'body', newDataType: 'TEXT'
     }
-    dropTable(tableName:'plugin_tags')
-    dropTable(tableName:'tag')
-}
 
-changeSet(id:'IntegrateCommentablePlugin', author:'Rhyolight') {
-    preConditions(onFail:"MARK_RAN") {
-        tableExists(schemaName:'grails', tableName:'content_comment')
-        tableExists(schemaName:'grails', tableName:'plugin_comment')
-        columnExists(schemaName:'grails', tableName:'comment', columnName:'user_id')
+    changeSet(id:'IntegrateTaggablePlugin', author:'Rhyolight') {
+        preConditions(onFail:"MARK_RAN") {
+            tableExists(schemaName:'grails', tableName:'plugin_tags')
+            tableExists(schemaName:'grails', tableName:'tag')
+        }
+        dropTable(tableName:'plugin_tags')
+        dropTable(tableName:'tag')
     }
-    dropTable(tableName:'content_comment')
-    dropTable(tableName:'plugin_comment')
-    dropColumn(tableName:'comment', columnName:'user_id')
-}
 
-changeSet(id:'UpdateTaggableTagLink', author:'Rhyolight') {
-    preConditions(onFail:"MARK_RAN") {
-        columnExists(schemaName:'grails', tableName:'tag_links', columnName:'tag_class')
+    changeSet(id:'IntegrateCommentablePlugin', author:'Rhyolight') {
+        preConditions(onFail:"MARK_RAN") {
+            tableExists(schemaName:'grails', tableName:'content_comment')
+            tableExists(schemaName:'grails', tableName:'plugin_comment')
+            columnExists(schemaName:'grails', tableName:'comment', columnName:'user_id')
+        }
+        dropTable(tableName:'content_comment')
+        dropTable(tableName:'plugin_comment')
+        dropColumn(tableName:'comment', columnName:'user_id')
     }
-    dropColumn(tableName:'tag_links', columnName:'tag_class')
-}
 
-changeSet(id:'IntegrateRateablePlugin', author:'Rhyolight') {
-    preConditions(onFail:"MARK_RAN") {
-        tableExists(schemaName:'grails', tableName:'rating')
+    changeSet(id:'UpdateTaggableTagLink', author:'Rhyolight') {
+        preConditions(onFail:"MARK_RAN") {
+            columnExists(schemaName:'grails', tableName:'tag_links', columnName:'tag_class')
+        }
+        dropColumn(tableName:'tag_links', columnName:'tag_class')
     }
-    dropTable(tableName:'rating')
-}
 
-changeSet(id:'EnsuringCommentPosterIsGone', author:'Rhyolight') {
-    preConditions(onFail:'MARK_RAN') {
-        columnExists(schemaName:'grails', tableName:'comment', columnName:'poster')
+    changeSet(id:'IntegrateRateablePlugin', author:'Rhyolight') {
+        preConditions(onFail:"MARK_RAN") {
+            tableExists(schemaName:'grails', tableName:'rating')
+        }
+        dropTable(tableName:'rating')
     }
-    dropColumn(tableName:'comment', columnName:'poster')
-}
 
-changeSet(id:'EnsuringCommentEmailIsGone', author:'Rhyolight') {
-    preConditions(onFail:'MARK_RAN') {
-        columnExists(schemaName:'grails', tableName:'comment', columnName:'email')
+    changeSet(id:'EnsuringCommentPosterIsGone', author:'Rhyolight') {
+        preConditions(onFail:'MARK_RAN') {
+            columnExists(schemaName:'grails', tableName:'comment', columnName:'poster')
+        }
+        dropColumn(tableName:'comment', columnName:'poster')
     }
-    dropColumn(tableName:'comment', columnName:'email')
+
+    changeSet(id:'EnsuringCommentEmailIsGone', author:'Rhyolight') {
+        preConditions(onFail:'MARK_RAN') {
+            columnExists(schemaName:'grails', tableName:'comment', columnName:'email')
+        }
+        dropColumn(tableName:'comment', columnName:'email')
+    }
 }

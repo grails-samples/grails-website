@@ -136,6 +136,10 @@ grails.blog.author.evaluator= {
     request.user
 }
 
+grails.plugin.databasemigration.changelogLocation = "migrations"
+grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
+
 // log4j configuration
 log4j = {
     off     'grails.app.service.org.grails.plugin.resource'
