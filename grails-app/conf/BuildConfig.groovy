@@ -12,10 +12,6 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenLocal()
         mavenCentral()
-        mavenRepo "http://repository.codehaus.org"
-        mavenRepo "http://maven.springframework.org/milestone"
-        mavenRepo "http://snapshots.repository.codehaus.org"
-       // mavenRepo "http://localhost:8081/artifactory/plugins-releases-local"
     }
 
     plugins {
@@ -45,7 +41,7 @@ grails.project.dependency.resolution = {
         
         test    ":build-test-data:1.1.1",
                 ":fixtures:1.0.7",
-                ":geb:0.5-SNAPSHOT",
+                ":geb:0.6.0",
                 "org.spockframework:spock:0.6-groovy-1.8-SNAPSHOT", {
             excludes 'xml-apis'
         }
