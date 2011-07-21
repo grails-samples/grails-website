@@ -43,7 +43,7 @@ grails.project.dependency.resolution = {
         
         test    ":build-test-data:1.1.1",
                 ":fixtures:1.0.7",
-                ":geb:0.5-SNAPSHOT",
+                ":geb:0.6.0",
                 ":spock:0.5-groovy-1.7-SNAPSHOT", {
             excludes 'xml-apis'
         }
