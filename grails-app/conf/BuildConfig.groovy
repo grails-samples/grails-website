@@ -32,13 +32,13 @@ grails.project.dependency.resolution = {
                 ":rateable:0.7.0",
                 ":resources:1.0",
                 ":richui:0.6",
-                ":screencasts:0.5.2",
-                ":searchable:0.6",
+                ":screencasts:0.5.3",
+                ":searchable:0.6.1",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.1",
-                ":taggable:0.6.3",
+                ":taggable:0.6.4",
                 ":zipped-resources:1.0"
         
         test    ":build-test-data:1.1.1",
