@@ -44,7 +44,7 @@
             <h2>Latest stable releases</h2>
             <g:render template="download" collection="${stableDownloads}" var="download"/>
             <g:if test="${betaDownloads}">
-                <h2>Latest beta release</h2>
+                <h2>Latest milestone release</h2>
                 <g:render template="download" collection="${betaDownloads}" var="download"/>
             </g:if>
     <%--
