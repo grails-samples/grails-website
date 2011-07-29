@@ -66,7 +66,8 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     static constraints = {
         name unique: true, matches: /[\w-]+/
-        groupId nullable: false
+        title blank: false
+        groupId nullable: false, blank: false
         summary nullable: true
         description nullable: true
         installation nullable: true
@@ -77,7 +78,7 @@ class Plugin implements Taggable, Commentable, Rateable {
         issuesUrl nullable: true, blank: true
         grailsVersion nullable:true, blank:true, maxLength:16
         lastReleased nullable:true
-        currentRelease matches: VERSION_PATTERN
+        currentRelease blank: false, matches: VERSION_PATTERN
     }
 
     static mapping = {
