@@ -15,7 +15,7 @@ class DownloadController {
     def latest = {
         // Find out which versions we should display. This should be a
         // list like ['2.0', '1.3', '1.2'].
-        def versions = grailsApplication.config.download.versions ?: ['1.3', '1.2']
+        def versions = versionOrder*.baseVersion ?: ['1.3', '1.2']
 
         def downloads = versions.inject([:]) { map, version ->
             def m = version =~ /(\d+\.\d+)\s?(beta|milestone)?/
@@ -208,6 +208,36 @@ class DownloadController {
         else {
             render(view:'create',model:[download:download])
         }
+    }
+
+    def adminShowVersionOrder = {
+        render template: "showDisplayedVersions", model: [versions: versionOrder]
+    }
+
+    def adminEditVersionOrder = {
+        render template: "editDisplayedVersions", model: [versions: versionOrder]
+    }
+
+    def adminUpdateVersionOrder = {
+        def hasError = false
+        def versions = params.versions?.split(/\s*,\s*/)
+
+        VersionOrder.withTransaction { status ->
+            VersionOrder.executeUpdate("delete from VersionOrder")
+            versions.eachWithIndex { v, i ->
+                hasError |= !new VersionOrder(baseVersion: v, orderIndex: i + 1).save()
+            }
+
+            if (hasError) {
+                status.setRollbackOnly()
+            }
+        }
+
+        render template: "showDisplayedVersions", model: [versions: versionOrder, hasError: hasError]
+    }
+
+    private List getVersionOrder() {
+        return VersionOrder.list(sort: "orderIndex", order: "asc")
     }
 }
 class AddFileCommand {

@@ -34,6 +34,13 @@
 <body>
     <div id="contentPane">
         <div class="downloads">
+            <shiro:hasRole name="Administrator">
+            <p>As an administrator, you can change which versions of Grails appear on this page and in which order. Note that you should only specify at most one beta/milestone release and that should take the form 'm.n beta' or 'm.n milestone'.</p>
+            <p>You'll have to refresh the page to see your changes.</p>
+            <p id="versionDisplayOrder">
+                <g:include controller="download" action="adminShowVersionOrder"/>
+            </p>
+            </shiro:hasRole>
             <h2>Latest stable releases</h2>
             <g:render template="download" collection="${stableDownloads}" var="download"/>
             <g:if test="${betaDownloads}">
