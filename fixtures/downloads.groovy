@@ -46,4 +46,8 @@ fixture {
                 [ title: "Documentation", mirrors: [
                     new Mirror(name: "Codehaus", url: new URL("http://dist.codehaus.org/grails/grails-docs-1.2.5.zip")),
                     new Mirror(name: "Amazon S3", url: new URL("http://s3.amazon.com/somebucket/grails-docs-1.2.5.zip")) ]]])
+
+    firstVersion(VersionOrder, baseVersion: "1.4 milestone", orderIndex: 1)
+    secondVersion(VersionOrder, baseVersion: "1.3", orderIndex: 2)
+    thirdVersion(VersionOrder, baseVersion: "1.2", orderIndex: 3)
 }

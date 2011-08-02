@@ -201,6 +201,10 @@ textarea {
 	margin-bottom:3px;
 }
 
+#contentPane .downloads h2 {
+	color: #48802C;
+}
+
 .screencastControls a {
 	color: black; border: inherit; text-decoration: none;		
 }

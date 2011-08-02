@@ -15,9 +15,9 @@ class DownloadController {
     def latest = {
         // Find out which versions we should display. This should be a
         // list like ['2.0', '1.3', '1.2'].
-        def versions = grailsApplication.config.download.versions ?: ['1.3', '1.2']
+        def versions = versionOrder*.baseVersion ?: ['1.3', '1.2']
 
-        def stableDownloads = versions.inject([:]) { map, version ->
+        def downloads = versions.inject([:]) { map, version ->
             def m = version =~ /(\d+\.\d+)\s?(beta|milestone)?/
             def verNumber = m[0][1]
             def isBeta = m[0][2] as boolean
@@ -49,18 +49,10 @@ class DownloadController {
             return map
         }
 
-        def downloads = Download.findAllBySoftwareNameAndBetaRelease(
-                'Grails',
-                true,
-                [max:1, order:'desc', sort:'releaseDate', cache:true, fetch: [files: 'select']])
-        def betaDownload = downloads ? downloads[0] : null
+        // Split the downloads into stable and non-stable.
+        downloads = downloads.groupBy { key, value -> value[0].betaRelease ? 'beta' : 'stable' }
 
-        def betaDoc = !betaDownload ? null : Download.findBySoftwareNameAndSoftwareVersion(
-                'Grails Documentation',
-                betaDownload.softwareVersion,
-                [fetch: [files: 'select']])
-
-        render(view:'index', model:[stableDownloads:stableDownloads, betaDownload:[(betaDownload.softwareVersion): [betaDownload, betaDoc]]])
+        render(view: 'index', model: [stableDownloads: downloads['stable'], betaDownloads: downloads['beta']])
     }
 
     def archive = {
@@ -216,6 +208,36 @@ class DownloadController {
         else {
             render(view:'create',model:[download:download])
         }
+    }
+
+    def adminShowVersionOrder = {
+        render template: "showDisplayedVersions", model: [versions: versionOrder]
+    }
+
+    def adminEditVersionOrder = {
+        render template: "editDisplayedVersions", model: [versions: versionOrder]
+    }
+
+    def adminUpdateVersionOrder = {
+        def hasError = false
+        def versions = params.versions?.split(/\s*,\s*/)
+
+        VersionOrder.withTransaction { status ->
+            VersionOrder.executeUpdate("delete from VersionOrder")
+            versions.eachWithIndex { v, i ->
+                hasError |= !new VersionOrder(baseVersion: v, orderIndex: i + 1).save()
+            }
+
+            if (hasError) {
+                status.setRollbackOnly()
+            }
+        }
+
+        render template: "showDisplayedVersions", model: [versions: versionOrder, hasError: hasError]
+    }
+
+    private List getVersionOrder() {
+        return VersionOrder.list(sort: "orderIndex", order: "asc")
     }
 }
 class AddFileCommand {
