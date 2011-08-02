@@ -15,28 +15,30 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
+        compile ":commentable:0.7.5",
+                ":rateable:0.7.0",
+                ":taggable:0.6.4"
+
         runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
-                ":commentable:0.7.5",
+                
                 ":database-migration:0.2.1",
                 ":feeds:1.5",
                 ":grails-ui:1.2",
                 ":greenmail:1.2.2",
-                ":hibernate:2.0.0.BUILD-SNAPSHOT",
+                ":hibernate:2.0.0.M1",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":rateable:0.7.0",
                 ":resources:1.0",
                 ":richui:0.6",
                 ":screencasts:0.5.3",
-                ":searchable:0.6.1",
+                ":searchable:0.6.2",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.1",
-                ":taggable:0.6.4",
                 ":zipped-resources:1.0"
         
         test    ":build-test-data:1.1.1",
@@ -46,7 +48,7 @@ grails.project.dependency.resolution = {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:2.0.0.BUILD-SNAPSHOT"
+        build   ":tomcat:2.0.0.M1"
     }
 
     dependencies {
