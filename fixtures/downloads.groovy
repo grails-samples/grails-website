@@ -8,7 +8,7 @@ fixture {
             releaseDate: new Date(111,3, 30),
             files: [
                 [ title: "Binary Zip", mirrors: [
-                    new Mirror(name: "grails.org", url: "http://grails.org/dist/grails-1.4.0.M1.zip"),
+                    new Mirror(name: "grails.org", url: new URL("http://grails.org/dist/grails-1.4.0.M1.zip")),
                     new Mirror(name: "Amazon S3", url: new URL("http://s3.amazon.com/somebucket/grails-1.4.0.M1.zip")) ]],
                 [ title: "Documentation", mirrors: [
                     new Mirror(name: "grails.org", url: new URL("http://grails.org/dist/grails-docs-1.4.0.M1.zip")) ]]])

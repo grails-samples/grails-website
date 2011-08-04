@@ -40,10 +40,17 @@ grails.project.dependency.resolution = {
                 ":springcache:1.3.1",
                 ":spring-events:1.1",
                 ":zipped-resources:1.0"
+
+        if (Environment.current == Environment.DEVELOPMENT) {
+            compile ":build-test-data:1.1.1",
+                    ":fixtures:1.1-SNAPSHOT"
+        }
+        else {
+            test    ":build-test-data:1.1.1",
+                    ":fixtures:1.1-SNAPSHOT"
+        }
         
-        test    ":build-test-data:1.1.1",
-                ":fixtures:1.0.7",
-                ":geb:0.6.0",
+        test    ":geb:0.6.0",
                 "org.spockframework:spock:0.6-groovy-1.8-SNAPSHOT", {
             excludes 'xml-apis'
         }
