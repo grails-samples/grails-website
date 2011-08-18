@@ -21,7 +21,7 @@ grails.project.dependency.resolution = {
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":commentable:0.7.5",
-                ":database-migration:0.2.1",
+                ":database-migration:1.0",
                 ":feeds:1.5",
                 ":grails-ui:1.2",
                 ":greenmail:1.2.2",
