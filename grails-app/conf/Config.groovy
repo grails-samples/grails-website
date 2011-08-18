@@ -54,7 +54,9 @@ environments {
 
 searchable {
     compassConnection = null
-    compassSettings = [:]
+    compassSettings = [
+            'compass.engine.analyzer.default.type': "Snowball",
+            'compass.engine.analyzer.default.name': "English"]
     defaultExcludedProperties = ["password"]
     defaultFormats = [:]
     defaultMethodOptions = [
