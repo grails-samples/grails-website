@@ -40,6 +40,7 @@ def libExcludePatterns = [
     '*-sources.jar'
 ]
 
+/*
 eventCreateWarStart = { warName, stagingDir ->
     return
 
@@ -70,3 +71,4 @@ eventCreateWarStart = { warName, stagingDir ->
         }
     }
 }
+*/
