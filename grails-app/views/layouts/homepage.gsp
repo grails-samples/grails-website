@@ -22,6 +22,7 @@ var startIndex = Math.floor(Math.random() * 3)
 // Set the ads up for cycling every 4s
 var ads = $$('div.advert');
 
+/*
 if (startIndex < 2) {
     ads.slice(startIndex + 1).invoke('hide');
 }
@@ -35,7 +36,26 @@ new PeriodicalExecuter(function(pe) {
         firstHiddenAd.appear();
     }
 }, 4);
+*/
     </r:script>
+    <style>
+#events {
+    left: 635px;
+    top: 2px;
+    background: none;
+    width: 270px;
+    height: 270px;
+}
+
+#events h2 {
+    font-weight: bold;
+    color: #363636;
+    font-size: 10pt;
+    margin: 0px 0px 0px 8px;
+    padding: 0px;
+}
+
+    </style>
 </head>
 <body>
     
@@ -71,21 +91,6 @@ new PeriodicalExecuter(function(pe) {
             
             <div class="eventDownloadWrapper">
                 <div id="screencasts">
-                    <%--
-                    <h2>Conference</h2>
-                    <div class="castBox">
-                        <div class="advert">
-                            <a href="http://www.springsource.com/events/s2gforum-5-26-2011-amsterdam">
-                                <r:img width="250" height="230" uri="/images/s2gforum-amsterdam-2011-240.png"/>
-                            </a>
-                        </div>
-                        <div class="advert">
-                            <a href="http://www.springsource.com/events/s2gforum-5-31-2011-london">
-                                <r:img width="250" height="230" uri="/images/s2gforum-london-2011-240.png"/>
-                            </a>
-                        </div>
-                    </div>
-                    --%>
                     <h2>What is grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
@@ -173,11 +178,30 @@ new PeriodicalExecuter(function(pe) {
                 </div><!-- latestNews -->
             
                 <div id="events">
+                    <h2>Conferences</h2>
+                    <div class="castBox">
+                        <div class="advert">
+                            <a href="http://www.springone2gx.com/conference/chicago/2011/10/register">
+                                <r:img width="250" height="230" uri="/images/SpringOne2GX_Banner_250x240.png"/>
+                            </a>
+                        </div>
+			<%--
+                        <div class="advert">
+                            <a href="http://www.springsource.com/events/s2gforum-5-31-2011-london">
+                                <r:img width="250" height="230" uri="/images/s2gforum-london-2011-240.png"/>
+                            </a>
+                        </div>
+			--%>
+                    </div>
+                    <%--
                     <h3>Training Events</h3>
                     <wiki:text page="Training Events" />
+                    --%>
                 </div><!-- events -->
                 
+		<%--
                 <div id="globeGraphic"></div>
+		--%>
             </div><!-- newsScreencastWrapper -->
             
         </div><!-- contentArea -->
