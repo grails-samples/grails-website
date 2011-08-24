@@ -3,8 +3,11 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.plugins.dir = "plugins"
 
 grails.project.dependency.resolution = {
-    inherits "global"
-    log      "warn"
+    inherits "global", {
+        excludes "xml-apis", "commons-digester"
+    }
+
+    log "debug"
 
     repositories {        
         grailsPlugins()
