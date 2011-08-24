@@ -454,3 +454,7 @@ margin-bottom:30px;
 	 width:700px;
      left:50px;
 }
+
+li.deprecated {
+    text-decoration: line-through;
+}

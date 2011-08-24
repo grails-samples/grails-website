@@ -120,11 +120,17 @@ class ContentController extends BaseWikiController {
             }
         }
         else if (wikiPage) {
+            // Permanent redirect for deprecated pages that have an alternative URL.
+            if (wikiPage.deprecated && wikiPage.deprecatedUri) {
+                permRedirect wikiPage.deprecatedUri
+                return
+            }
+
             // This property involves a query, so we fetch it here rather
             // than in the view.
             def latestVersion = wikiPage.latestVersion
             if (request.xhr) {
-                 render template:"wikiShow", model:[content:wikiPage, update:params.update, latest:latestVersion]
+                render template:"wikiShow", model:[content:wikiPage, update:params.update, latest:latestVersion]
             } else {
                 // disable comments
                 render view:"contentPage", model:[content:wikiPage, latest:latestVersion]
@@ -461,6 +467,19 @@ class ContentController extends BaseWikiController {
     private void permRedirect(String controller, String action, urlParams) {
         def urlMapping = grailsUrlMappingsHolder.getReverseMapping(controller, action, urlParams)
         response.setHeader HttpHeaders.LOCATION, urlMapping.createURL(controller, action, urlParams, request.characterEncoding, null)
+        response.status = HttpServletResponse.SC_MOVED_PERMANENTLY
+        request[RedirectDynamicMethod.GRAILS_REDIRECT_ISSUED] = true
+        RequestContextHolder.currentRequestAttributes().renderView = false
+    }
+
+    private void permRedirect(String uri) {
+        // Remove any URL fragment identifier (URI seems excessively strict over
+        // what's not allowed in it).
+        def hashIndex = uri.indexOf('#')
+        def absoluteUrl = hashIndex >= 0 ? new URI(uri[0..<hashIndex]) : new URI(uri)
+        if (!absoluteUrl.absolute) absoluteUrl = g.createLink(uri: uri, absolute: true)
+
+        response.setHeader HttpHeaders.LOCATION, absoluteUrl.toString()
         response.status = HttpServletResponse.SC_MOVED_PERMANENTLY
         request[RedirectDynamicMethod.GRAILS_REDIRECT_ISSUED] = true
         RequestContextHolder.currentRequestAttributes().renderView = false

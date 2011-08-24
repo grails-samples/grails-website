@@ -44,22 +44,19 @@ grails.json.legacy.builder=false
 
 // set per-environment serverURL stem for creating absolute links
 environments {
-    production {
-        grails.serverURL = "http://www.grails.org"
-    }
     test {
-        grails.serverURL = "http://www.grails.org"
         searchable.compassConnection = "ram://test-index"
     }
     development {
-        grails.serverURL = "http://localhost:8080"
         download.versions = ["1.4 beta", "1.3", "1.2"]
     }
 }
 
 searchable {
     compassConnection = null
-    compassSettings = [:]
+    compassSettings = [
+            'compass.engine.analyzer.default.type': "Snowball",
+            'compass.engine.analyzer.default.name': "English"]
     defaultExcludedProperties = ["password"]
     defaultFormats = [:]
     defaultMethodOptions = [

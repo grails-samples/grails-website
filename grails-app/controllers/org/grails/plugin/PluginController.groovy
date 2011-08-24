@@ -69,6 +69,11 @@ class PluginController extends BaseWikiController {
                 if (category) args << category
                 args << queryParams
 
+                // Remove any sort arguments, since they can only work with untokenized
+                // search fields.
+                queryParams.remove("sort")
+                queryParams.remove("order")
+
                 (currentPlugins, totalPlugins) = pluginService.searchWithTotal(*args)
             }
             else {

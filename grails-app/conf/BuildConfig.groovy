@@ -22,8 +22,7 @@ grails.project.dependency.resolution = {
         runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
-                
-                ":database-migration:0.2.1",
+                ":database-migration:1.0",
                 ":feeds:1.5",
                 ":grails-ui:1.2",
                 ":greenmail:1.2.2",
@@ -34,7 +33,7 @@ grails.project.dependency.resolution = {
                 ":resources:1.0",
                 ":richui:0.6",
                 ":screencasts:0.5.3",
-                ":searchable:0.6.2",
+                ":searchable:0.6.3",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",

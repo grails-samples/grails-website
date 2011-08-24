@@ -47,7 +47,8 @@ class Plugin implements Taggable, Commentable, Rateable {
     static searchable = {
         only = [
             'name', 'title', 'summary', 'author', 'authorEmail',
-            'installation','description','faq','screenshots', 'tags'
+            'installation','description','faq','screenshots', 'tags',
+            'featured', 'official'
         ]
         description component: true
         installation component: true
