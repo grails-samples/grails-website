@@ -7,7 +7,7 @@ grails.project.dependency.resolution = {
         excludes "xml-apis", "commons-digester"
     }
 
-    log "debug"
+    log "warn"
 
     repositories {        
         grailsPlugins()
@@ -29,7 +29,7 @@ grails.project.dependency.resolution = {
                 ":feeds:1.5",
                 ":grails-ui:1.2",
                 ":greenmail:1.2.2",
-                ":hibernate:2.0.0.M1",
+                ":hibernate:$grailsVersion",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
@@ -53,11 +53,11 @@ grails.project.dependency.resolution = {
         }
         
         test    ":geb:0.6.0",
-                "org.spockframework:spock:0.6-groovy-1.8-SNAPSHOT", {
+                ":spock:0.6-SNAPSHOT", {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:2.0.0.M1"
+        build   ":tomcat:$grailsVersion"
     }
 
     dependencies {
