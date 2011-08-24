@@ -5,6 +5,7 @@
 </head>
 <body>
     <h2>All Wiki Pages (${totalWikiPages} Total)</h2>
+    <p>Pages with a strikethrough have been deprecated.</p>
     <div id="wikiPages">
         <g:each var="entry" in="${wikiPages}">
             <div class="pageGroup">
@@ -13,7 +14,14 @@
                 <ul>
                     <g:each var="wikiPage" in="${entry.value}">
                         <g:if test="${wikiPage.title}">
-                            <li><g:link controller="wikiPage" action="show" id="${wikiPage.id}">${wikiPage.title?.encodeAsHTML()}</g:link>
+                            <g:if test="${wikiPage.deprecated}">
+                            <li class="deprecated">
+                            </g:if>
+                            <g:else>
+                            <li>
+                            </g:else>
+                            <g:link controller="wikiPage" action="show" id="${wikiPage.id}">${wikiPage.title?.encodeAsHTML()}</g:link>
+                            </li>
                         </g:if>									
                     </g:each>						
                 </ul>

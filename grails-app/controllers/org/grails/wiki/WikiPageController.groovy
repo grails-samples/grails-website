@@ -108,6 +108,6 @@ class WikiPageController {
         params.order = "asc"
 
         return [wikiPages: WikiPage.list(params).groupBy { it.title ? it.title[0] : '' },
-                totalWikiPage: WikiPage.count()]
+                totalWikiPages: WikiPage.count()]
     }
 }
