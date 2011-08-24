@@ -4,7 +4,7 @@ grails.project.plugins.dir = "plugins"
 
 grails.project.dependency.resolution = {
     inherits "global", {
-        excludes "xml-apis", "commons-digester"
+        excludes "xml-apis", "commons-digester", "ehcache"
     }
 
     log "warn"
