@@ -39,7 +39,7 @@
                                     <label for="name">Mirror Name:</label>
                                 </td>
                                 <td valign="top">
-                                    <g:textField name="name" value="${url}" />
+                                    <g:textField name="name" value="${name}" />
                                 </td>
                             </tr>
 

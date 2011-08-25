@@ -70,7 +70,7 @@ class DownloadController {
             // optimistic locking exceptions. Also, we'll probably move
             // downloads to SpringSource's S3 account for which we will get
             // download statistics
-            redirect(url:mirror.url)
+            redirect(url: mirror.urlString)
         }
         else {
             response.sendError 404
@@ -93,10 +93,11 @@ class DownloadController {
             }
             else {
                 def downloadFile = new DownloadFile(params)
-                downloadFile.addToMirrors(url:cmd.url, name:cmd.name)
+                downloadFile.addToMirrors(urlString: cmd.url, name:cmd.name)
                 download.addToFiles(downloadFile)
                 download.save()
                 redirect(action:'show', id:download.id)
+                return
             }
         }
         return [download:download]
@@ -119,7 +120,7 @@ class DownloadController {
 
         if(downloadFile) {
             def mirror = new Mirror(params)
-            if(mirror.url) {
+            if(mirror.urlString) {
                 downloadFile.addToMirrors(mirror)
                 downloadFile.save(flush:true)
                 render(template:'mirrorList', model:[downloadFile:downloadFile])   
@@ -241,6 +242,6 @@ class DownloadController {
     }
 }
 class AddFileCommand {
-    URL url
+    String url
     String name
 }
