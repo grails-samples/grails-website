@@ -458,3 +458,17 @@ margin-bottom:30px;
 li.deprecated {
     text-decoration: line-through;
 }
+
+table.wiki-table {
+    border: 1px solid black;
+}
+
+table.wiki-table th {
+    background-color: #DDD;
+    border-bottom: 1px solid black;
+    color: #48802C;
+}
+
+table.wiki-table th, table.wiki-table td {
+    padding: 0.4em 0.7em;
+}
