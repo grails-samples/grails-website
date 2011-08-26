@@ -7,7 +7,7 @@ grails.project.dependency.resolution = {
         excludes "xml-apis", "commons-digester"
     }
 
-    log "debug"
+    log "warn"
 
     repositories {        
         grailsPlugins()
