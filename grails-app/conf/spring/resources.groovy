@@ -42,7 +42,7 @@ beans = {
     wikiEngine(GrailsWikiEngineFactoryBean) {
         cacheService = ref('cacheService')
         def config = ConfigurationHolder.getConfig()
-        contextPath = config.grails.serverURL
+        contextPath = config.grails.serverURL ?: ""
         context = wikiContext
     }
 }
