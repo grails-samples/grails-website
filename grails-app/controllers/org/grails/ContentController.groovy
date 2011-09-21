@@ -90,7 +90,7 @@ class ContentController extends BaseWikiController {
     }
 
     def previewWikiPage = {
-        def page = Content.findAllByTitle(params.id?.decodeURL()).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             // This is required for the 'page.properties = ...' call to work. 
             page = GrailsHibernateUtil.unwrapIfProxy(page)
@@ -104,7 +104,7 @@ class ContentController extends BaseWikiController {
     }
 
     def index = {
-        def wikiPage = wikiPageService.getCachedOrReal(params.id.decodeURL())
+        def wikiPage = wikiPageService.getCachedOrReal(params.id)
         if (wikiPage?.instanceOf(PluginTab)) {
             def plugin = wikiPage.plugin
             if (!plugin) {
@@ -148,7 +148,7 @@ class ContentController extends BaseWikiController {
     }
 
     def showWikiVersion = {
-        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         def version
         if (page) {
             try {
@@ -176,7 +176,7 @@ class ContentController extends BaseWikiController {
     }
 
     def markupWikiPage = {
-        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
 
         if(page) {
             render(template:"wikiFields", model:[wikiPage:page])
@@ -184,7 +184,7 @@ class ContentController extends BaseWikiController {
     }
 
     def infoWikiPage = {
-        def page = Content.findAllByTitle(params.id.decodeURL(), [cache:true]).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id, [cache:true]).find { !it.instanceOf(Version) }
 
         if(page) {
 
@@ -216,7 +216,7 @@ class ContentController extends BaseWikiController {
             // WikiPage.findAllByTitle should only return one record, but at this time
             // (2010-06-24) it seems to be returning more on the grails.org server.
             // This is to help determine whether that's what is in fact happening.
-            def pages = Content.findAllByTitle(params.id.decodeURL(), [sort: "version", order: "desc"])
+            def pages = Content.findAllByTitle(params.id, [sort: "version", order: "desc"])
             if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
             def page = pages.find { !it.instanceOf(Version) }
 
@@ -232,9 +232,9 @@ class ContentController extends BaseWikiController {
 
     def createWikiPage = {
         if (params.xhr) {
-            return render(template:'wikiCreate', var:'pageName', bean:params.id?.decodeURL())
+            return render(template:'wikiCreate', var:'pageName', bean:params.id)
         }
-        [pageName:params.id?.decodeURL()]
+        [pageName:params.id]
     }
 
     def saveWikiPage = {
@@ -244,14 +244,14 @@ class ContentController extends BaseWikiController {
         else {
             try {
                 def wikiPage = wikiPageService.createOrUpdateWikiPage(
-                        params.id.decodeURL(),
+                        params.id,
                         params.body,
                         request.user,
                         params.long('version'))
 
                 if (wikiPage.hasErrors()) {
                     render(template: "wikiEdit", model: [
-                            wikiPage: new WikiPage(title: params.id.decodeURL(), body: params.body)])
+                            wikiPage: new WikiPage(title: params.id, body: params.body)])
                 }
                 else {
                     if (wikiPage.latestVersion.number == 0) {
@@ -269,14 +269,13 @@ class ContentController extends BaseWikiController {
             }
             catch (OptimisticLockException ex) {
                 render(template: "wikiEdit", model: [
-                        wikiPage: new WikiPage(title: params.id.decodeURL(), body: params.body),
+                        wikiPage: new WikiPage(title: params.id, body: params.body),
                         error: "page.optimistic.locking.failure"])
             }
         }
     }
 
     private evictFromCache(id, title) {
-        title = title.decodeURL()
         cacheService.removeWikiText(title)
         cacheService.removeContent(title)
         
@@ -286,7 +285,7 @@ class ContentController extends BaseWikiController {
     }
 
     def rollbackWikiVersion = {
-        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             def version = Version.findByCurrentAndNumber(page, params.number.toLong())
             def allVersions = Version.withCriteria {
@@ -346,7 +345,7 @@ class ContentController extends BaseWikiController {
 
     def diffWikiVersion = {
 
-        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
@@ -366,7 +365,7 @@ class ContentController extends BaseWikiController {
     }
 
     def previousWikiVersion = {
-        def page = Content.findAllByTitle(params.id.decodeURL()).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
@@ -424,7 +423,7 @@ class ContentController extends BaseWikiController {
     }
 
     def deprecate = {
-        def page = WikiPage.findByTitle(params.id?.decodeURL())
+        def page = WikiPage.findByTitle(params.id)
         if (!page) {
             response.sendError 404
             return

@@ -2,11 +2,12 @@ package org.grails.downloads
 
 class Mirror implements Serializable{
     String name
-    URL url
+    String urlString
+
     static belongsTo = [ file: DownloadFile ]
 
     static constraints = {
-        url nullable:false
+        urlString blank: false
         name blank:false
     }
 }

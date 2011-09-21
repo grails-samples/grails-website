@@ -6,6 +6,7 @@ import org.grails.*
 import org.grails.auth.Role
 import org.grails.auth.User
 import org.grails.content.Version
+import org.grails.downloads.Mirror
 import org.grails.plugin.Plugin
 
 class BootStrap {
@@ -43,6 +44,7 @@ grails -Dinitial.admin.password=changeit run-app""")
         }
         
         updatePluginTabs admin
+        fixMirrors()
         
         // Load dev data to make it easier to work on the application.
         if (Environment.current == Environment.DEVELOPMENT && User.count() < 2) {
@@ -123,6 +125,22 @@ grails -Dinitial.admin.password=changeit run-app""")
                 }
                 
                 p.save()
+            }
+        }
+    }
+
+    /**
+     * Converts the Mirror "url" property (of type URL) to a string in the
+     * 'urlString' property.
+     */
+    private fixMirrors() {
+        Mirror.withTransaction {
+            for (m in Mirror.list()) {
+                if (!m.urlString) {
+                    m.urlString = m.url.toURI().toString()
+                    m.url = null
+                    m.save()
+                }
             }
         }
     }
