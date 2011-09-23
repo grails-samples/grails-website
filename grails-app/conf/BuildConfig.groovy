@@ -10,11 +10,13 @@ grails.project.dependency.resolution = {
     log "warn"
 
     repositories {        
+        inheritsRepositories = false
         grailsPlugins()
         grailsHome()
         grailsCentral()
         mavenLocal()
         mavenCentral()
+        mavenRepo "http://m2repo.spockframework.org/snapshots"
     }
 
     plugins {
@@ -62,7 +64,6 @@ grails.project.dependency.resolution = {
 
     dependencies {
         compile "org.twitter4j:twitter4j-core:2.1.8", "org.springframework:spring-context-support:3.0.3.RELEASE"
-//        runtime "org.grails.plugins:shiro:1.1.3", "org.grails.plugins:screencasts:0.5.1"
 
         test "org.codehaus.geb:geb-spock:0.6.0",
              "org.gmock:gmock:0.8.1"
