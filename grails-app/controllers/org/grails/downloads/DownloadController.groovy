@@ -146,7 +146,49 @@ class DownloadController {
     }
 
     // the delete, save and update actions only accept POST requests
-    static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+    static allowedMethods = [
+            delete:'POST',
+            save:'POST',
+            update:'POST',
+            apiList: 'GET',
+            apiShow: 'GET']
+
+    def apiList() {
+        // Default sorting.
+        if (!params.sort && !params.order) {
+            params.sort = "softwareVersion"
+            params.order = "desc"
+        }
+
+        def downloads = Download.list(params)
+        withFormat {
+            json {
+                renderDownloadsAsJson downloads
+            }
+            xml {
+                renderDownloadsAsXml downloads
+            }
+        }
+    }
+
+    def apiShow() {
+        def download = Download.findBySoftwareVersion(params.version)
+        if (!download) {
+            response.sendError 404
+        }
+        else {
+            withFormat {
+                json {
+                    render([download: downloadDataAsMap(download)] as JSON)
+                }
+                xml {
+                    render contentType: "application/xml", {
+                        buildDownloadData delegate, download
+                    }
+                }
+            }
+        }
+    }
 
     def list = {
         if (!params.max) params.max = 10
@@ -250,6 +292,54 @@ class DownloadController {
 
     private List getVersionOrder() {
         return VersionOrder.list(sort: "orderIndex", order: "asc")
+    }
+
+    protected void renderDownloadsAsXml(downloads) {
+        render contentType: "application/xml", {
+            delegate.downloads {
+                for (d in downloads) {
+                    buildDownloadData delegate, d
+                }
+            }
+        }
+    }
+
+    protected void buildDownloadData(delegate, d) {
+        delegate.download name: d.softwareName,
+                          version: d.softwareVersion,
+                          beta: d.betaRelease,
+                          releaseNotes: g.createLink(uri: d.releaseNotes, absolute: true), {
+            files {
+                for (f in d.files) {
+                    file(title: f.title) {
+                        mirrors {
+                            for (m in f.mirrors) {
+                                mirror name: m.name, url: m.urlString
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected void renderDownloadsAsJson(downloads) {
+        def data = [:]
+        data.downloads = downloads.collect { d ->
+            downloadDataAsMap(d)
+        }
+        render data as JSON
+    }
+
+    protected downloadDataAsMap(d) {
+        return [
+                name: d.softwareName,
+                version: d.softwareVersion,
+                beta: d.betaRelease,
+                releaseNotes: g.createLink(uri: d.releaseNotes, absolute: true),
+                files: d.files.collect { f ->
+                    [title: f.title, mirrors: f.mirrors.collect { m -> [name: m.name, url: m.urlString] }]
+                }]
     }
 }
 class AddFileCommand {
