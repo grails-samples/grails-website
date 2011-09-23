@@ -1,5 +1,7 @@
 package org.grails.downloads
 
+import grails.converters.JSON
+import grails.converters.XML
 import grails.plugin.springcache.annotations.*
 import net.sf.ehcache.Element
 import net.sf.ehcache.Ehcache
@@ -9,8 +11,7 @@ class DownloadController {
     def grailsApplication
     def downloadCache
     
-    def index = { redirect(action:list,params:params) }
-
+    def index = { redirect action: "list", params: params }
 
     def latest = {
         // Find out which versions we should display. This should be a
@@ -65,12 +66,22 @@ class DownloadController {
     def downloadFile = {
 
         def mirror = params.mirror? Mirror.get(params.mirror) : null
-        if(mirror) {
+        if (mirror) {
             // This used to do a download count, but ran into problems with
             // optimistic locking exceptions. Also, we'll probably move
             // downloads to SpringSource's S3 account for which we will get
             // download statistics
             redirect(url: mirror.urlString)
+        }
+        else {
+            response.sendError 404
+        }
+    }
+
+    def showUrl() {
+        def mirror = params.mirror? Mirror.get(params.mirror) : null
+        if (mirror) {
+            render mirror.urlString
         }
         else {
             response.sendError 404
@@ -138,7 +149,7 @@ class DownloadController {
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
     def list = {
-        if(!params.max) params.max = 10
+        if (!params.max) params.max = 10
         [ downloadList: Download.list( params ) ]
     }
 

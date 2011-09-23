@@ -11,30 +11,44 @@
     <table class="download-table">
         <tr><th>Distribution</th><th>Mirror</th></tr>
         <g:each var="file" in="${binDownload?.files}">
-            <g:form controller="download" action="downloadFile">
-                <tr>
-                    <td><strong>${file.title}</strong></td>
-                    <td>
+            <tr>
+                <td><strong>${file.title}</strong></td>
+                <td>
+                    <g:form controller="download" action="downloadFile">
+                        <div style="display: inline-block;">
                         <g:select optionKey="id" optionValue="name" name="mirror" from="${file.mirrors}" />
-
-                    </td>
-                    <td width="70" class="downloadCell"> <g:submitButton name="Download" value="Download" /></td>
-                </tr>
-            </g:form>
+                        </div>
+                        <div style="display: inline-block; float: right;">
+                        <g:submitButton name="Download" value="Download" />
+                        </div>
+                    </g:form>
+                </td>
+                <td style="width: 5em">
+                    <a class="ajaxLink" href="#">Show URL</a> 
+                </td>
+            </tr>
+            <tr><td colspan="3"><span style="display: none;"></span></td></tr>
         </g:each>
 
         <g:set var="docFile" value="${docDownload?.files?.iterator()?.next()}"></g:set>
         <g:if test="${docFile}">
-            <g:form controller="download" action="downloadFile">
-                <tr>
-                    <td><strong>Documentation</strong></td>
-                    <td>
+            <tr>
+                <td><strong>Documentation</strong></td>
+                <td>
+                    <g:form controller="download" action="downloadFile">
+                        <div style="display: inline-block;">
                         <g:select optionKey="id" optionValue="name" name="mirror" from="${docFile.mirrors}" />
-
+                        </div>
+                        <div style="display: inline-block; float: right;">
+                        <g:submitButton name="Download" value="Download" />
+                        </div>
+                    </g:form>
+                </td>
+                    <td style="width: 5em">
+                        <a class="ajaxLink" href="#">Show URL</a> 
                     </td>
-                    <td width="70" class="downloadCell"> <g:submitButton name="Download" value="Download" /></td>
-                </tr>
-            </g:form>
+            </tr>
+            <tr style="display: none;"><td colspan="3"></td></tr>
         </g:if>
     </table>
 

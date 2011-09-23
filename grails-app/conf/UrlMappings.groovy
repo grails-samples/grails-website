@@ -5,9 +5,14 @@ class UrlMappings {
         "/Home?"(controller: "content", action: "homePage")
         "/$id"(controller: "content", action: "index")
 
+        "/api/v1.0/downloads"(controller: "download", action: "apiList")
+        "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
+
         "/Download"(controller: "download", action: "latest")
         "/download/file"(controller: "download", action: "downloadFile")
+        "/download/url"(controller: "download", action: "showUrl")
         "/download/archive/$id"(controller: "download", action: "archive")
+        "/downloads"(controller: "download", action: "list")
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 

@@ -1,14 +1,15 @@
 var myYUI = {}
 myYUI.get = YAHOO.util.Dom.get
 
-myYUI.fade = function(elementId, delay) {
+myYUI.fade = function(elementId, delay, fadeTime) {
     delay = typeof(delay) != 'undefined' ? delay : 0
+    fadeTime = typeof(fadeTime) != 'undefined' ? fadeTime : 1
 
     this.A = function() {
         var anim = new YAHOO.util.Anim(
             elementId,
             { opacity: {from: 1, to: 0 } },
-            1
+            fadeTime
         )
         anim.onComplete.subscribe(function() {YAHOO.util.Dom.setStyle(elementId, "display", "none");});
         anim.animate();
@@ -16,8 +17,9 @@ myYUI.fade = function(elementId, delay) {
     setTimeout("myYUI.A()", delay * 1000);
 }
 
-myYUI.appear = function(elementId, delay) {
+myYUI.appear = function(elementId, delay, fadeTime) {
     delay = typeof(delay) != 'undefined' ? delay : 0
+    fadeTime = typeof(fadeTime) != 'undefined' ? fadeTime : 1
 
     this.A = function() {
         YAHOO.util.Dom.setStyle(elementId, "opacity", 0);
@@ -26,9 +28,8 @@ myYUI.appear = function(elementId, delay) {
         new YAHOO.util.Anim(
             elementId,
             { opacity: {from: 0, to: 1 } },
-            1
+            fadeTime
         ).animate();
     }
     setTimeout("myYUI.A()", delay * 1000);
 }
-
