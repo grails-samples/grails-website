@@ -109,7 +109,7 @@ class PluginController extends BaseWikiController {
     }
 
     def list = {
-        permRedirect "browseByName", params
+        redirect action: "browseByName", params: params, permanent: true
     }
     
 
@@ -392,7 +392,7 @@ class PluginController extends BaseWikiController {
     }
 
     def showTag = {
-        permRedirect "browseByTag", params
+        redirect action: "browseByTag", params: params, permanent: true
     }
 
     def browseByTag = {
@@ -534,13 +534,5 @@ class PluginController extends BaseWikiController {
             maxResults 1    
             cache true
         }
-    }
-
-    private void permRedirect(String action, urlParams) {
-        def urlMapping = grailsUrlMappingsHolder.getReverseMapping("plugin", action, urlParams)
-        response.setHeader HttpHeaders.LOCATION, urlMapping.createURL("plugin", action, urlParams, request.characterEncoding, null)
-        response.status = HttpServletResponse.SC_MOVED_PERMANENTLY
-        request[RedirectDynamicMethod.GRAILS_REDIRECT_ISSUED] = true
-        RequestContextHolder.currentRequestAttributes().renderView = false
     }
 }

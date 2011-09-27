@@ -116,13 +116,13 @@ class ContentController extends BaseWikiController {
                 // A bit of hackery: plugin tabs should not be accessed via this handler,
                 // but sometimes they are. So, permanently redirect to the tab's plugin
                 // portal page.
-                permRedirect "plugin", "show", [name: wikiPage.plugin.name]
+                redirect controller: "plugin", action: "show", params: [name: wikiPage.plugin.name], permanent: true
             }
         }
         else if (wikiPage) {
             // Permanent redirect for deprecated pages that have an alternative URL.
             if (wikiPage.deprecated && wikiPage.deprecatedUri) {
-                permRedirect wikiPage.deprecatedUri
+                redirect uri: wikiPage.deprecatedUri, permanent: true
                 return
             }
 
@@ -461,26 +461,5 @@ class ContentController extends BaseWikiController {
         return [ newestPlugins: newestPlugins, 
                  newsItems: newsItems,
                  latestScreencastId: latestScreencastId ]
-    }
-
-    private void permRedirect(String controller, String action, urlParams) {
-        def urlMapping = grailsUrlMappingsHolder.getReverseMapping(controller, action, urlParams)
-        response.setHeader HttpHeaders.LOCATION, urlMapping.createURL(controller, action, urlParams, request.characterEncoding, null)
-        response.status = HttpServletResponse.SC_MOVED_PERMANENTLY
-        request[RedirectDynamicMethod.GRAILS_REDIRECT_ISSUED] = true
-        RequestContextHolder.currentRequestAttributes().renderView = false
-    }
-
-    private void permRedirect(String uri) {
-        // Remove any URL fragment identifier (URI seems excessively strict over
-        // what's not allowed in it).
-        def hashIndex = uri.indexOf('#')
-        def absoluteUrl = hashIndex >= 0 ? new URI(uri[0..<hashIndex]) : new URI(uri)
-        if (!absoluteUrl.absolute) absoluteUrl = g.createLink(uri: uri, absolute: true)
-
-        response.setHeader HttpHeaders.LOCATION, absoluteUrl.toString()
-        response.status = HttpServletResponse.SC_MOVED_PERMANENTLY
-        request[RedirectDynamicMethod.GRAILS_REDIRECT_ISSUED] = true
-        RequestContextHolder.currentRequestAttributes().renderView = false
     }
 }
