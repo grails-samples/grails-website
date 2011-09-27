@@ -3,6 +3,7 @@
       <gui:resources components='expandablePanel'/>
 	  <title>Grails.org Error</title>
       <meta content="subpage" name="layout" />
+          <g:external dir="css" file="errors.css"/>
 	  <style type="text/css">
 	body {
 	    font-family: Lucida Grande, Lucida, sans-serif;
@@ -36,22 +37,7 @@
 
   <div class='yui-skin-sam'>
       <gui:expandablePanel title="Error Details" bounce="false">
-          <div class="message">
-              <strong>Message:</strong> ${exception.message?.encodeAsHTML()} <br />
-              <strong>Caused by:</strong> ${exception.cause?.message?.encodeAsHTML()} <br />
-              <strong>Class:</strong> ${exception.className} <br />
-              <strong>At Line:</strong> [${exception.lineNumber}] <br />
-              <strong>Code Snippet:</strong><br />
-              <div class="snippet">
-                  <g:each var="cs" in="${exception.codeSnippet}">
-                      ${cs?.encodeAsHTML()}<br />
-                  </g:each>
-              </div>
-          </div>
-          <h2>Stack Trace</h2>
-          <div class="stack">
-              <pre><g:each in="${exception.stackTraceLines}">${it.encodeAsHTML()}<br/></g:each></pre>
-          </div>
+          <g:renderException exception="${exception}" />
       </gui:expandablePanel>
   </div>
   </body>
