@@ -1,6 +1,7 @@
 package org.grails.plugin
 
 import grails.converters.JSON
+import grails.converters.XML
 import grails.plugin.springcache.annotations.*
 
 import javax.persistence.OptimisticLockException
@@ -18,15 +19,16 @@ import org.grails.tags.TagNotFoundException
 import org.grails.wiki.BaseWikiController
 import org.springframework.web.context.request.RequestContextHolder
 
-import net.sf.ehcache.Element
-
 class PluginController extends BaseWikiController {
 
     static String HOME_WIKI = 'PluginHome'
     static int PORTAL_MAX_RESULTS = 5
     static int PORTAL_MIN_RATINGS = 1
     
-    static allowedMethods = [update: "PUT"]
+    static allowedMethods = [
+            apiList:   'GET',
+            apiShow:   'GET',
+            apiUpdate: 'PUT']
     
     def taggableService
     def wikiPageService
@@ -39,79 +41,29 @@ class PluginController extends BaseWikiController {
     }
 
     def home = {
-        def queryParams = [:]
-        queryParams.offset = params.offset ?: 0
-        queryParams.sort = params.sort ?: 'name'
-        queryParams.order = params.order ?: 'asc'
-
         // We only want to display 5 plugins at a time in the web interface,
         // but JSON and XML data shouldn't be limited in that way.
+        def max = 0
         if (request.format == 'html') {
-            queryParams.max = PORTAL_MAX_RESULTS
-            params.max = PORTAL_MAX_RESULTS
+            max = PORTAL_MAX_RESULTS
         }
 
         // If no category is specified, default to 'featured' for the
         // web interface, and 'all' for JSON and XML requests.
-        def category = params.remove('category') ?: (request.format == 'html' ? 'featured' : 'all')
-        
-        log.debug "plugin home: $params"
-        
-        def currentPlugins = []
-        def totalPlugins = 0
-
-        try {
-            if (params.q) {
-                // Build the arguments for the search, starting with the query
-                // string. We add the category if it's defined. Finally we add
-                // the search options.
-                def args = [params.q]
-                if (category) args << category
-                args << queryParams
-
-                // Remove any sort arguments, since they can only work with untokenized
-                // search fields.
-                queryParams.remove("sort")
-                queryParams.remove("order")
-
-                (currentPlugins, totalPlugins) = pluginService.searchWithTotal(*args)
-            }
-            else {
-                (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
-            }
-        }
-        catch (MissingMethodException ex) {
-            log.error "Unable to list plugins for category '${category}': ${ex.message}"
-            response.sendError 404
-            return
-        }
+        def pluginData = listPlugins(max, (request.format == 'html' ? 'featured' : 'all'))
 
         withFormat {
             html {
-                [currentPlugins:currentPlugins, category:category,totalPlugins:totalPlugins]
+                return pluginData
             }
             json {
-                render(contentType:"text/json") {
-                    plugins = currentPlugins?.collect { Plugin p ->
-                        return {
-                            name = p.name
-                            version = p.currentRelease
-                            title = p.title
-                            author = p.author
-                            authorEmail = p.authorEmail
-                            description = p.summary
-                            grailsVersion = p.grailsVersion
-                            documentation = p.documentationUrl
-                            file = p.downloadUrl
-                            rating = p.avgRating
-                            
-                            if (p.issuesUrl) issues = p.issuesUrl
-                            if (p.scmUrl) scm = p.scmUrl
-                        }
-                    } ?: []
-                }
+                pluginData = currentPlugins ? currentPlugins.collect { p -> transformPlugin(p) } : []
+                render transformPlugins(pluginData.currentPlugins, pluginData.category) as JSON
             }
             xml {
+                pluginData = currentPlugins ? currentPlugins.collect { p -> transformPlugin(p) } : []
+                render transformPlugins(pluginData.currentPlugins, pluginData.category) as XML
+                /*
                 render(contentType:"application/xml") {
                     plugins {
                          for (Plugin p in currentPlugins) {
@@ -133,6 +85,7 @@ class PluginController extends BaseWikiController {
                          }
                     }
                 }
+                */
             }
         }
     }
@@ -176,12 +129,51 @@ class PluginController extends BaseWikiController {
     }
 
     /**
+     * Display all plugins or subset of using preferred content type. Only
+     * JSON or XML supported at this point.
+     */
+    def apiList() {
+        def pluginData = listPlugins(0, 'all')
+        def pluginList = transformPlugins(pluginData.currentPlugins, pluginData.category)
+
+        withFormat {
+            json {
+                render pluginList as JSON
+            }
+            xml {
+                renderMapAsXml pluginList, "root"
+            }
+        }
+    }
+
+    /**
+     * Display the details of one plugin in either JSON or XML form.
+     */
+    def apiShow() {
+        def plugin = byName(params)
+        if (!plugin) {
+            response.sendError 404
+            return
+        }
+
+        withFormat {
+            json {
+                render transformPlugin(plugin) as JSON
+            }
+            xml {
+                render transformPlugin(plugin) as XML
+            }
+        }
+    }
+
+    /**
      * Plugin 'ping'. Should only be accessible from a PUT. It extracts
      * the location of the plugin's deployment repository from the request
      * and queues up a job to update the plugin's details in the database
      * from the POM and plugin descriptor stored in the repository.
      */
-    def update = {
+    def apiUpdate() {
+
         // Start by getting the named plugin if it exists.
         def plugin = Plugin.findByName(params.name)
 
@@ -200,9 +192,9 @@ class PluginController extends BaseWikiController {
             def uri = new URI(data.url)
 
             if (!uri.absolute) {
-                    render contentType: "application/json", status: 400, {
-                        message = "Relative repository URI not supported: ${uri}"
-                    }
+                render contentType: "application/json", status: 400, {
+                    message = "Relative repository URI not supported: ${uri}"
+                }
                 return
             }
 
@@ -431,11 +423,108 @@ class PluginController extends BaseWikiController {
         redirect(action:'show', params:[name:plugin.name], fragment:"comment_${params.id}")
     }
 
-    private def byTitle(params) {
+    protected listPlugins(defaultMax, defaultCategory) {
+        def queryParams = [:]
+        queryParams.offset = params.offset ?: 0
+        queryParams.sort = params.sort ?: 'name'
+        queryParams.order = params.order ?: 'asc'
+
+        // If a default maximum is provided, use that. params.max is ignored
+        // completely by this method.
+        if (defaultMax) {
+            queryParams.max = defaultMax
+            params.max = defaultMax
+        }
+        
+        log.debug "[listPlugins] Parameters: $params"
+
+        def category = params.remove('category') ?: defaultCategory
+        def currentPlugins = []
+        def totalPlugins = 0
+
+        try {
+            if (params.q) {
+                // Build the arguments for the search, starting with the query
+                // string. We add the category if it's defined. Finally we add
+                // the search options.
+                def args = [params.q]
+                if (category) args << category
+                args << queryParams
+
+                // Remove any sort arguments, since they can only work with untokenized
+                // search fields.
+                queryParams.remove("sort")
+                queryParams.remove("order")
+
+                (currentPlugins, totalPlugins) = pluginService.searchWithTotal(*args)
+            }
+            else {
+                (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
+            }
+            return [currentPlugins: currentPlugins, category: category,totalPlugins: totalPlugins]
+        }
+        catch (MissingMethodException ex) {
+            log.error "Unable to list plugins for category '${category}': ${ex.message}"
+            response.sendError 404
+            return [:]
+        }
+    }
+
+    protected transformPlugins(plugins, category = null) {
+        def map = [ pluginList: plugins ? plugins.collect { p -> transformPlugin(p) } : [] ]
+        if (category) map.category = category
+        return map 
+    }
+
+    protected transformPlugin(plugin) {
+        def pluginMap = [
+                name: plugin.name,
+                version: plugin.currentRelease,
+                title: plugin.title,
+                author: plugin.author,
+                authorEmail: plugin.authorEmail,
+                description: plugin.summary,
+                grailsVersion: plugin.grailsVersion,
+                documentation: plugin.documentationUrl,
+                file: plugin.downloadUrl,
+                rating: plugin.avgRating ]
+            
+        if (plugin.issuesUrl) pluginMap.issues = plugin.issuesUrl
+        if (plugin.scmUrl) pluginMap.scm = plugin.scmUrl
+
+        return pluginMap
+    }
+
+    protected renderMapAsXml(map, root = "root") {
+        render contentType: "application/xml", {
+            "${root}" {
+                mapAsXml delegate, map
+            }
+        }
+    }
+
+    protected mapAsXml(builder, map) {
+        for (entry in map) {
+            if (entry.value instanceof Collection) {
+                builder."${entry.key}" {
+                    for (m in entry.value) {
+                        "${entry.key - 'List'}" {
+                            mapAsXml builder, m
+                        }
+                    }
+                }
+            }
+            else {
+                builder."${entry.key}"(entry.value, test: "test")
+            }
+        }
+    }
+
+    protected byTitle(params) {
         Plugin.findByTitle(params.title.replaceAll('\\+', ' '), [cache:true])
     }
 
-    private def byName(params) {
+    protected byName(params) {
         Plugin.createCriteria().get {
             eq 'name', params.name
             join 'description'

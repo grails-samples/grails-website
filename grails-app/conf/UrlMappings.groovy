@@ -8,6 +8,12 @@ class UrlMappings {
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
 
+        "/api/v1.0/plugins/$category?"(controller: "plugin", action: "apiList")
+        "/api/v1.0/plugin/$name"(controller: "plugin") {
+            action = [GET: "apiShow", PUT: "apiUpdate"]
+            parseRequest = true
+        }
+
         "/Download"(controller: "download", action: "latest")
         "/download/file"(controller: "download", action: "downloadFile")
         "/download/url"(controller: "download", action: "showUrl")
@@ -21,7 +27,7 @@ class UrlMappings {
         "/plugins"(controller: "plugin", action: "home")
         "/plugins/forum"(controller: "plugin", action: "forum")
         "/plugin/$name"(controller: "plugin") {
-            action = [ GET: "show", PUT: "update" ]
+            action = [ GET: "show", PUT: "apiUpdate" ]
             parseRequest = true
         }
         "/plugin/home"(controller: "plugin", action:"home")
