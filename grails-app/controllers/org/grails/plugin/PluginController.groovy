@@ -44,48 +44,23 @@ class PluginController extends BaseWikiController {
         // We only want to display 5 plugins at a time in the web interface,
         // but JSON and XML data shouldn't be limited in that way.
         def max = 0
-        if (request.format == 'html') {
+        if (response.format == 'html') {
             max = PORTAL_MAX_RESULTS
         }
 
         // If no category is specified, default to 'featured' for the
         // web interface, and 'all' for JSON and XML requests.
-        def pluginData = listPlugins(max, (request.format == 'html' ? 'featured' : 'all'))
+        def pluginData = listPlugins(max, (response.format == 'html' ? 'featured' : 'all'))
 
         withFormat {
             html {
                 return pluginData
             }
             json {
-                pluginData = currentPlugins ? currentPlugins.collect { p -> transformPlugin(p) } : []
                 render transformPlugins(pluginData.currentPlugins, pluginData.category) as JSON
             }
             xml {
-                pluginData = currentPlugins ? currentPlugins.collect { p -> transformPlugin(p) } : []
-                render transformPlugins(pluginData.currentPlugins, pluginData.category) as XML
-                /*
-                render(contentType:"application/xml") {
-                    plugins {
-                         for (Plugin p in currentPlugins) {
-                            plugin(name: p.name, 'latest-release': p.currentRelease) {
-                                release(version: p.currentRelease) {
-                                    title p.title
-                                    author p.author
-                                    authorEmail p.authorEmail
-                                    description p.summary
-                                    grailsVersion p.grailsVersion
-                                    documentation p.documentationUrl
-                                    file p.downloadUrl
-                                    rating p.avgRating
-                                    
-                                    if (p.issuesUrl) issues p.issuesUrl
-                                    if (p.scmUrl) scm p.scmUrl
-                                }
-                            }
-                         }
-                    }
-                }
-                */
+                renderMapAsXml transformPlugins(pluginData.currentPlugins, pluginData.category), "plugins"
             }
         }
     }
@@ -111,7 +86,6 @@ class PluginController extends BaseWikiController {
     def list = {
         redirect action: "browseByName", params: params, permanent: true
     }
-    
 
     def show = {
         def plugin = byName(params)
@@ -141,7 +115,7 @@ class PluginController extends BaseWikiController {
                 render pluginList as JSON
             }
             xml {
-                renderMapAsXml pluginList, "root"
+                renderMapAsXml pluginList, "plugins"
             }
         }
     }
@@ -156,12 +130,13 @@ class PluginController extends BaseWikiController {
             return
         }
 
+        plugin = transformPlugin(plugin)
         withFormat {
             json {
-                render transformPlugin(plugin) as JSON
+                render plugin as JSON
             }
             xml {
-                render transformPlugin(plugin) as XML
+                renderMapAsXml plugin, "plugin"
             }
         }
     }
