@@ -10,7 +10,7 @@ grails.project.dependency.resolution = {
     log "warn"
 
     repositories {        
-        inheritsRepositories = false
+        inherit false
         grailsPlugins()
         grailsHome()
         grailsCentral()
