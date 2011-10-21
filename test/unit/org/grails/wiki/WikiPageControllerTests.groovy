@@ -1,13 +1,13 @@
 package org.grails.wiki
 
 
-
+import org.grails.content.Version
 import org.junit.*
 import grails.test.mixin.*
 import javax.servlet.http.HttpServletResponse
 
 @TestFor(WikiPageController)
-@Mock(WikiPage)
+@Mock([WikiPage, Version])
 class WikiPageControllerTests {
 
     void testIndex() {
@@ -42,7 +42,8 @@ class WikiPageControllerTests {
 
         response.reset()
 
-        // TODO: Populate valid properties
+        params.title = "Test Page"
+        params.body = "Boom!"
 
         controller.save()
 
@@ -59,8 +60,8 @@ class WikiPageControllerTests {
 
 
         def wikiPage = new WikiPage()
-
-        // TODO: populate domain properties
+        wikiPage.title = "Dummy"
+        wikiPage.body = "Stuff"
 
         assert wikiPage.save() != null
 
@@ -79,8 +80,8 @@ class WikiPageControllerTests {
 
 
         def wikiPage = new WikiPage()
-
-        // TODO: populate valid domain properties
+        wikiPage.title = "Dummy"
+        wikiPage.body = "Stuff"
 
         assert wikiPage.save() != null
 
@@ -107,13 +108,14 @@ class WikiPageControllerTests {
 
 
         def wikiPage = new WikiPage()
-
-        // TODO: populate valid domain properties
+        wikiPage.title = "Dummy"
+        wikiPage.body = "Stuff"
 
         assert wikiPage.save() != null
 
         // test invalid parameters in update
         params.id = wikiPage.id
+        params.title = ""
 
         controller.update()
 
@@ -121,8 +123,8 @@ class WikiPageControllerTests {
         assert model.wikiPageInstance != null
 
         wikiPage.clearErrors()
+        params.title = "Documentation"
 
-        // TODO: populate valid domain form parameter
         controller.update()
 
         assert response.redirectedUrl == "/wikiPage/show/$wikiPage.id"
@@ -137,13 +139,14 @@ class WikiPageControllerTests {
         request.method = 'POST'
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/wikiPage/list'
+        assert response.redirectedUrl == '/wikiPage/all'
 
         response.reset()
 
         def wikiPage = new WikiPage()
+        wikiPage.title = "Dummy"
+        wikiPage.body = "Stuff"
 
-        // TODO: populate valid domain properties
         assert wikiPage.save() != null
         assert WikiPage.count() == 1
 
@@ -153,6 +156,6 @@ class WikiPageControllerTests {
 
         assert WikiPage.count() == 0
         assert WikiPage.get(wikiPage.id) == null
-        assert response.redirectedUrl == '/wikiPage/list'
+        assert response.redirectedUrl == '/wikiPage/all'
     }
 }

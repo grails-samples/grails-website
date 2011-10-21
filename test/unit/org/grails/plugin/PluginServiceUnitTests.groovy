@@ -5,20 +5,15 @@ import org.grails.wiki.WikiPage
 import org.grails.content.Version
 import org.grails.auth.User
 
-class PluginServiceUnitTests extends grails.test.GrailsUnitTestCase {
+@TestFor(PluginService)
+@Mock(User)
+class PluginServiceUnitTests {
     PluginService service
 
     void setUp() {
-        super.setUp()
-        mockDomain(User, [new User(login:'admin')])
+        new User(login:'admin').save(validate: false)
+
         service = new PluginService()
-        service.metaClass.getLog = { ->
-            [
-                info: { String s -> println s},
-                error: { String s -> println s},
-                warn: { String s -> println s}
-            ]
-        }
     }
 
     void testCompareVersions() {
@@ -39,11 +34,13 @@ class PluginServiceUnitTests extends grails.test.GrailsUnitTestCase {
 
     void testGenerateMasterPlugins() {
         def urlConstructor
-        URL.metaClass.constructor = { path ->
-            [text:org.grails.plugin.xml.PluginsListXmlMock.PLUGINS_LIST]
+        def mockURL = mockFor(URL)
+        URL.metaClass.constructor = { String path ->
+            [getText: {-> org.grails.plugin.xml.PluginsListXmlMock.PLUGINS_LIST }]
         }
 
-        service.metaClass.getGrailsVersion = { p -> 'mockGrailsVersion' }
+        def mockMethods = mockFor(PluginService)
+        mockMethods.demand.getGrailsVersion { p -> 'mockGrailsVersion' }
 
         def plugins = service.generateMasterPlugins()
         
@@ -70,6 +67,8 @@ class PluginServiceUnitTests extends grails.test.GrailsUnitTestCase {
         assertEquals 'mockGrailsVersion', avatar.grailsVersion
         // ensure the docs got translated to the new site framework
         assertEquals 'http://grails.org/plugin/avatar', avatar.documentationUrl
+
+        mockMethods.verify()
     }
     
     void testTranslateMasterPlugins_AddsPluginsThatDontExist() {

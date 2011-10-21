@@ -18,8 +18,9 @@ import grails.test.GrailsUnitTestCase
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.web.util.WebUtils
-import org.gmock.WithGMock
 import org.grails.meta.UserInfo
+
+import javax.servlet.http.HttpServletRequest
 
 
 /**
@@ -30,7 +31,6 @@ import org.grails.meta.UserInfo
  */
 @TestFor(UserController)
 @Mock([User, UserInfo, Role])
-@WithGMock
 class UserControllerTests {
 
     void testRegisterGET() {
@@ -96,8 +96,8 @@ class UserControllerTests {
     }
 
     void testRegisterAndRedirectToOriginalPage() {
-        def secUtil = mock(SecurityUtils)
-        secUtil.static.subject.returns( [login: { authToken -> true }] )
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: {authToken -> true}] }
 
         params.originalURI = "/foo/bar"
         params.login = "dilbert"
@@ -111,16 +111,16 @@ class UserControllerTests {
 
         request.method = "POST"
 
-        play {
-            controller.register()
+        controller.register()
 
-            assert response.redirectedUrl == params.originalURI
-        }
+        assert response.redirectedUrl == params.originalURI
+
+        secUtil.verify()
     }
 
     void testRedirectWithoutOriginalPage() {
-        def secUtil = mock(SecurityUtils)
-        secUtil.static.subject.returns( [login: { authToken -> true }] )
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: {authToken -> true}] }
 
         params.login = "dilbert"
         params.password = "one"
@@ -133,11 +133,11 @@ class UserControllerTests {
 
         request.method = "POST"
 
-        play {
-            controller.register()
+        controller.register()
 
-            assert response.redirectedUrl == "/"
-        }
+        assert response.redirectedUrl == "/"
+
+        secUtil.verify()
     }
 
     void testLoginWithGET() {
@@ -148,13 +148,13 @@ class UserControllerTests {
     }
 
     void testLoginFailureWithAjaxRequest() {
-        def secUtil = mock(SecurityUtils)
-        secUtil.static.subject.returns( [login: { authToken ->
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken ->
             throw new AuthenticationException("incorrect password")
-        }] )
+        }] }
 
-        def webUtil = mock(WebUtils)
-        webUtil.static.getSavedRequest(request).returns(null)
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
         views['/user/_loginForm.gsp'] = 'login form ${message} ${originalURI} ${async}'
 
@@ -165,21 +165,22 @@ class UserControllerTests {
         request.method = "POST"
         request.makeAjaxRequest()
 
-        play {
-            controller.login()
+        controller.login()
 
-            assert response.text == "login form auth.invalid.login /foo/bar true"
-        }
+        assert response.text == "login form auth.invalid.login /foo/bar true"
+
+        secUtil.verify()
+        webUtil.verify()
     }
 
     void testLoginFailureWithRegularRequest() {
-        def secUtil = mock(SecurityUtils)
-        secUtil.static.subject.returns( [login: { authToken ->
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken ->
             throw new AuthenticationException("incorrect password")
-        }] )
+        }] }
 
-        def webUtil = mock(WebUtils)
-        webUtil.static.getSavedRequest(request).returns(null)
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
         params.originalURI = "/foo/bar"
         params.username = "fred"
@@ -187,50 +188,53 @@ class UserControllerTests {
 
         request.method = "POST"
 
-        play {
-            controller.login()
+        controller.login()
 
-            def redirectUri = new URI(response.redirectedUrl)
-            assert redirectUri.path == "/user/login"
-            assert redirectUri.query == "username=fred&originalURI=${params.originalURI}"
-        }
+        def redirectUri = new URI(response.redirectedUrl)
+        assert redirectUri.path == "/user/login"
+        assert redirectUri.query == "username=fred&originalURI=${params.originalURI}"
+
+        secUtil.verify()
+        webUtil.verify()
     }
 
     void testLoginSuccessWithOriginalPage() {
-        def secUtil = mock(SecurityUtils)
-        secUtil.static.subject.returns( [login: { authToken -> true }] )
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken -> true }] }
 
-        def webUtil = mock(WebUtils)
-        webUtil.static.getSavedRequest(request).returns(null)
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
         params.originalURI = "/foo/bar?queryString"
         params.username ="fred"
         params.password = "letmein"
         request.method = "POST"
 
-        play {
-            controller.login()
+        controller.login()
 
-            assert response.redirectedUrl == "/foo/bar?queryString"
-        }
+        assert response.redirectedUrl == "/foo/bar?queryString"
+
+        secUtil.verify()
+        webUtil.verify()
     }
 
     void testLoginSuccessWithoutOriginalPage() {
-        def secUtil = mock(SecurityUtils)
-        secUtil.static.subject.returns( [login: { authToken -> true }] )
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken -> true }] }
 
-        def webUtil = mock(WebUtils)
-        webUtil.static.getSavedRequest(request).returns(null)
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
         params.username = "fred"
         params.password = "letmein"
 
         request.method = "POST"
 
-        play {
-            controller.login()
+        controller.login()
 
-            assert response.redirectedUrl == "/"
-        }
+        assert response.redirectedUrl == "/"
+
+        secUtil.verify()
+        webUtil.verify()
     }
 }
