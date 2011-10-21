@@ -22,27 +22,27 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":commentable:0.7.5",
                 ":rateable:0.7.0",
-                ":taggable:0.6.4"
+                ":taggable:1.0"
 
         runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
                 ":feeds:1.5",
-                ":grails-ui:1.2",
+                ":grails-ui:1.2.1",
                 ":greenmail:1.2.2",
                 ":hibernate:$grailsVersion",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":resources:1.0",
+                ":resources:1.1.1",
                 ":richui:0.6",
-                ":screencasts:0.5.3",
+                ":screencasts:0.5.4",
                 ":searchable:0.6.3",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
-                ":spring-events:1.1",
+                ":spring-events:1.2-SNAPSHOT",
                 ":zipped-resources:1.0"
 
         if (Environment.current == Environment.DEVELOPMENT) {
