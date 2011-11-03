@@ -49,7 +49,19 @@ class JSecurityAuthFilters {
     }    
 
     static filters = {
-       // Ensure that all controllers and actions require an authenticated user,
+        def requiresPermissions = [:]
+        withPermissions(controller: "*", action: "*") {
+            before = {
+                if (actionName in requiresPermissions[controllerName]) {
+                    accessControl()
+                }
+                else {
+                    return true
+                }
+            }
+        }
+
+        // Ensure that all controllers and actions require an authenticated user,
         
         // Creating, modifying, or deleting a book requires the "Administrator"
         // role.

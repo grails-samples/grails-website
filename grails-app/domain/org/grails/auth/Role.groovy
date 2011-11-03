@@ -12,6 +12,8 @@ class Role {
     static final OBSERVER = "Observer"
     
     String name
+
+    static hasMany = [permissions: String]
     
     static constraints = {
         name blank: false, unique: true

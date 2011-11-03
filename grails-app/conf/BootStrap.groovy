@@ -17,6 +17,8 @@ class BootStrap {
         HttpServletRequest.metaClass.isXhr = {->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')                
         }
+
+        def (adminRole, editorRole, observerRole) = setUpRoles()
         
         def admin = User.findByLogin("admin")
         if (!admin) {
@@ -30,21 +32,18 @@ grails -Dinitial.admin.password=changeit run-app""")
             else {
                 admin = new User(login:"admin", email:"info@g2one.com",password:DigestUtils.shaHex(password))
                 assert admin.email
-                assert admin.addToRoles(name:Role.ADMINISTRATOR)
-                           .addToRoles(name:Role.EDITOR)
-                           .addToRoles(name:Role.OBSERVER)
-                           .save(flush:true)
+                assert admin.addToRoles(adminRole)
+                           .addToRoles(editorRole)
+                           .addToRoles(observerRole)
+                           .save(flush:true, failOnError: true)
             }
         }
         else if (!admin.roles) {
-            admin.addToRoles(name:Role.ADMINISTRATOR)
-                 .addToRoles(name:Role.EDITOR)
-                 .addToRoles(name:Role.OBSERVER)
-                 .save(flush:true)
+            admin.addToRoles(adminRole)
+                 .addToRoles(editorRole)
+                 .addToRoles(observerRole)
+                 .save(flush:true, failOnError: true)
         }
-        
-        updatePluginTabs admin
-        fixMirrors()
         
         // Load dev data to make it easier to work on the application.
         if (Environment.current == Environment.DEVELOPMENT && User.count() < 2) {
@@ -58,90 +57,36 @@ grails -Dinitial.admin.password=changeit run-app""")
         
         // We manually start the mirroring process to ensure that it comes after
         // Autobase performs its migrations.
-        println "Performing bulk index"
-        searchableService.reindex()
+        if (Environment.current != Environment.DEVELOPMENT || System.getProperty("reindex")) {
+            println "Performing bulk index"
+            searchableService.reindex()
+        }
         println "Starting mirror service"
         searchableService.startMirroring()
     }
 
     def destroy = {
     }
-    
-    private updatePluginTabs(adminUser) {
-        // Clean up some excess records.
-        Plugin.withTransaction {
-            for (Plugin p in Plugin.list()) {
-                if (!p.installation.versions?.size()) {
-                    def current = Version.findByTitle(p.installation.title)?.current
-                    if (current == null) {
-                        println "Creating version for installation tab of plugin '${p.name}'"
-                        
-                        def v = p.installation.createVersion()
-                        v.author = adminUser
-                        v.save(failOnError: true)
-                    }
-                    else {
-                        p.installation = current
-                    }
-                }
-                if (!p.description.versions?.size()) {
-                    def current = Version.findByTitle(p.description.title)?.current
-                    if (current == null) {
-                        println "Creating version for description tab of plugin '${p.name}'"
-                        
-                        def v = p.description.createVersion()
-                        v.author = adminUser
-                        v.save(failOnError: true)
-                    }
-                    else {
-                        p.description = current
-                    }
-                }
-                if (!p.faq.versions?.size()) {
-                    def current = Version.findByTitle(p.faq.title)?.current
-                    if (current == null) {
-                        println "Creating version for faq tab of plugin '${p.name}'"
-                        
-                        def v = p.faq.createVersion()
-                        v.author = adminUser
-                        v.save(failOnError: true)
-                    }
-                    else {
-                        p.faq = current
-                    }
-                }
-                if (!p.screenshots.versions?.size()) {
-                    def current = Version.findByTitle(p.screenshots.title)?.current
-                    if (current == null) {
-                        println "Creating version for screenshots tab of plugin '${p.name}'"
-                        
-                        def v = p.screenshots.createVersion()
-                        v.author = adminUser
-                        v.save(failOnError: true)
-                    }
-                    else {
-                        p.screenshots = current
-                    }
-                }
-                
-                p.save()
-            }
-        }
+
+    private setUpRoles() {
+        // Admin role first. Adminstrator can access all parts of the application.
+        def admin = Role.findByName(Role.ADMINISTRATOR) ?: new Role(name: Role.ADMINISTRATOR).save(failOnError: true)
+        safelyAddPermission admin, "*"
+
+        // Editor can edit pages, add screencasts, etc.
+        def editor = Role.findByName(Role.EDITOR) ?: new Role(name: Role.EDITOR).save(failOnError: true)
+        safelyAddPermission editor, "webSite:create,edit,save,update"
+        safelyAddPermission editor, "likeDislike:like,dislike"
+
+        // Observer: can't do anything that an anonymous user can't do.
+        def observer = Role.findByName(Role.OBSERVER) ?: new Role(name: Role.OBSERVER).save(failOnError: true)
+
+        return [admin, editor, observer]
     }
 
-    /**
-     * Converts the Mirror "url" property (of type URL) to a string in the
-     * 'urlString' property.
-     */
-    private fixMirrors() {
-        Mirror.withTransaction {
-            for (m in Mirror.list()) {
-                if (!m.urlString) {
-                    m.urlString = m.url.toURI().toString()
-                    m.url = null
-                    m.save()
-                }
-            }
+    private safelyAddPermission(entity, String permission) {
+        if (!entity.permissions?.contains(permission)) {
+            entity.addToPermissions permission
         }
     }
 }
