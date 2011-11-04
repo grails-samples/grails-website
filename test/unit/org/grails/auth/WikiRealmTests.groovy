@@ -10,34 +10,34 @@ import org.apache.shiro.authc.credential.CredentialsMatcher
 *
 * Created: Feb 28, 2008
 */
-class WikiRealmTests extends GroovyTestCase {
+@Mock([User, Role])
+class WikiRealmTests {
 
     void testAuthenticate() {
-        WikiRealm.metaClass.getLog = {-> LogFactory.getLog(WikiRealm) }
         def realm = new WikiRealm()
 
         shouldFail(AccountException) {
             realm.authenticate( [:] )
         }
 
-        User.metaClass.static.findByLogin = { String s -> }
-
         shouldFail(UnknownAccountException) {
-            realm.authenticate username:"Fred"
+            realm.authenticate username:"Freddy"
         }
+    }
 
+    void testAuthenticateBadPassword() {
+        def realm = new WikiRealm()
         realm.credentialMatcher = [doCredentialsMatch:{ AuthenticationToken authenticationToken, Account account-> false }] as CredentialsMatcher
 
-        User.metaClass.static.findByLogin = { String s -> 
-			new User(login:"Fred") }
+        new User(login: "Freddy", password: "sdfds", email: "fred@nowhere.net").save()
 
         shouldFail(IncorrectCredentialsException) {
-            realm.authenticate( new UsernamePasswordToken("Fred", "Frog" ) )
+            realm.authenticate( new UsernamePasswordToken("Freddy", "Frog" ) )
         }
 
         realm.credentialMatcher = [doCredentialsMatch:{ AuthenticationToken authenticationToken, Account account-> true }] as CredentialsMatcher
 
-        assertEquals "Fred", realm.authenticate(new UsernamePasswordToken("Fred", "Frog" ))
+        assert realm.authenticate(new UsernamePasswordToken("Freddy", "Frog" )).principals.oneByType(String) == "Freddy"
     }
 
     void testHasRole() {
@@ -46,16 +46,16 @@ class WikiRealmTests extends GroovyTestCase {
         WikiRealm.metaClass.getLog = {-> LogFactory.getLog(WikiRealm) }
         def realm = new WikiRealm()
 
-        assertFalse realm.hasRole("Fred", "Administrator")
+        assertFalse realm.hasRole("Freddy", "Administrator")
 
         User.metaClass.getRoles={-> [] }
-        User.metaClass.static.findByLogin = { String s -> new User(login:"Fred") }
+        User.metaClass.static.findByLogin = { String s -> new User(login:"Freddy") }
 
-        assertFalse realm.hasRole("Fred", "Administrator")
+        assertFalse realm.hasRole("Freddy", "Administrator")
 
         User.metaClass.getRoles={-> [[name:"Administrator"]] }
 
-        assertTrue realm.hasRole("Fred", "Administrator")
+        assertTrue realm.hasRole("Freddy", "Administrator")
 
     }
 
@@ -65,21 +65,19 @@ class WikiRealmTests extends GroovyTestCase {
 
         User.metaClass.static.createCriteria = {-> [list:{Closure c -> [] }] }
 
-        assertFalse realm.hasAllRoles( [name:"Fred"], ["Administrator", "Editor"])
+        assertFalse realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
 
         User.metaClass.static.createCriteria = {-> [list:{Closure c -> ["Editor"] }] }
 
-        assertFalse realm.hasAllRoles( [name:"Fred"], ["Administrator", "Editor"])
+        assertFalse realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
 
         User.metaClass.static.createCriteria = {-> [list:{Closure c -> ["Editor", "Administrator"] }] }
 
-        assertTrue realm.hasAllRoles( [name:"Fred"], ["Administrator", "Editor"])
+        assertTrue realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
     }
 
 
     void testIsPermitted() {
         // permissions not implemented, placeholder
-        def realm = new WikiRealm()
-        assertTrue realm.isPermitted(null,null)
     }
 }
