@@ -24,7 +24,7 @@ class JSecurityAuthFilters {
             d.render(template:"/user/loginForm", model:[originalURI:targetUri,
                                                         formData:d.params,
                                                         async:true,
-                                                        update:d.params.update,
+                                                        update:d.params._ul,
                                                         message:"auth.not.logged.in"])
         } else {
             // Redirect to login page.
@@ -49,7 +49,8 @@ class JSecurityAuthFilters {
     }    
 
     static filters = {
-        def requiresPermissions = [:]
+        def requiresPermissions = [
+                pluginTab: ["editWikiPage"] ]
         withPermissions(controller: "*", action: "*") {
             before = {
                 if (actionName in requiresPermissions[controllerName]) {

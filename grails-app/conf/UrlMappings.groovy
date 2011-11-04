@@ -49,6 +49,10 @@ class UrlMappings {
         "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
         "/plugins/tags"(controller: "plugin", action: "browseTags")
 
+        name pluginTab: "/plugin/$id/$action/$_ul" {
+            controller = "pluginTab"
+        }
+
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
         "/blog/delete/$id"(controller: 'blogEntry', action:'delete')

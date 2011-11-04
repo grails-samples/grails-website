@@ -130,7 +130,7 @@ class ContentController extends BaseWikiController {
             // than in the view.
             def latestVersion = wikiPage.latestVersion
             if (request.xhr) {
-                render template:"wikiShow", model:[content:wikiPage, update:params.update, latest:latestVersion]
+                render template:"wikiShow", model:[content:wikiPage, update:params._ul, latest:latestVersion]
             } else {
                 // disable comments
                 render view:"contentPage", model:[content:wikiPage, latest:latestVersion]
@@ -167,7 +167,7 @@ class ContentController extends BaseWikiController {
         }
 
         if (version) {
-            render(view:"showVersion", model:[content:version, update:params.update])                    
+            render(view:"showVersion", model:[content:version, update:params._ul])                    
         }
         else {
             render(view:"contentPage", model:[content:page])
@@ -203,7 +203,7 @@ class ContentController extends BaseWikiController {
             render(template:'wikiInfo',model:[first:first, last:last,wikiPage:page, 
                                               versions:pageVersions.collect { it[0]}, 
                                               authors:pageVersions.collect { it[1]}, 
-                                              update:params.update])
+                                              update:params._ul])
         }
 
     }
@@ -222,8 +222,8 @@ class ContentController extends BaseWikiController {
 
             render(template:"wikiEdit",model:[
                     wikiPage:page,
-                    update: params.update,
-                    editFormName: params.editFormName,
+                    update: params._ul,
+//                    editFormName: params.editFormName,
                     saveUri: page.instanceOf(PluginTab) ?
                             g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
                             g.createLink(action: "saveWikiPage", id: page.title)])
@@ -262,7 +262,7 @@ class ContentController extends BaseWikiController {
                         render(template: "wikiShow", model: [
                                 content: wikiPage,
                                 message: "wiki.page.updated",
-                                update: params.update,
+                                update: params._ul,
                                 latest: wikiPage.latestVersion])
                     }
                 }
@@ -304,7 +304,7 @@ class ContentController extends BaseWikiController {
                         versions: allVersions.collect { it[0] },
                         authors: allVersions.collect { it[1] },
                         message:"wiki.version.not.found",
-                        update: params.update])
+                        update: params._ul])
             }
             else {
                 if(page.body == version.body) {
@@ -313,7 +313,7 @@ class ContentController extends BaseWikiController {
                             versions: allVersions.collect { it[0] },
                             authors: allVersions.collect { it[1] },
                             message:"Contents are identical, no need for rollback.",
-                            update: params.update])
+                            update: params._ul])
                 }
                 else {
 
@@ -334,7 +334,7 @@ class ContentController extends BaseWikiController {
                             versions: allVersions.collect { it[0] },
                             authors: allVersions.collect { it[1] },
                             message:"Page rolled back, a new version ${v.number} was created",
-                            update: params.update])
+                            update: params._ul])
                 }
             }
         }
