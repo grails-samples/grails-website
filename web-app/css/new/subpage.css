@@ -205,39 +205,47 @@ textarea {
 	color: #48802C;
 }
 
-.screencastControls a {
+.screencastControls, .blogControls, .artifactControls {
+	margin-bottom:20px;
+}
+.screencastControls a, .artifactControls {
 	color: black; border: inherit; text-decoration: none;		
 }
-.screencastControls div, .blogControls div {
-	display:inline;
+.screencastControls div, .blogControls div, .artifactControls div {
+	display:inline-block;
 	padding-right:20px;
 }
-.screencastControls, .blogControls {
-	margin-bottom:20px;
+.artifactControls #searchBox {
+	display: block;
+	margin-top: 1.5em;
+	padding-right:20px;
+	width: 50%;
+}
+.artifactControls #searchBox input[name=q] {
+	width: 50%;
 }
 .blogControls .show  {
 	text-align:right;
 	padding-left:20px;
 	background: url(../../images/icon-cancel.png)  left no-repeat;
-	
 }
-.screencastControls .list, .blogControls .list  {
+.screencastControls .list, .blogControls .list, .artifactControls .list {
 	text-align:right;
 	padding-left:20px;
 	background: url(../../images/famfamfam/application_view_list.png)  left no-repeat;
 }
-.screencastControls .edit, .screencastControls .create, .blogControls .create, .blogControls .edit{
+.screencastControls .edit, .screencastControls .create, .blogControls .create, .blogControls .edit, .artifactControls .edit, .artifactControls .create {
 	text-align:right;
 	padding-left:20px;
 	background: url(../../images/icon-edit.png)  left no-repeat;
 }
-.screencastControls .feed, .blogControls .feed {
+.screencastControls .feed, .blogControls .feed, .artifactControls .feed {
 	text-align:right;
 	padding-left:20px;
 	background: url(../../images/famfamfam/feed.png)  left no-repeat;
 }
 
-.screencastForm {
+.screencastForm, .artifactForm {
 	padding:15px;
 	background-color:#F7F8F2;
 	border:2px solid white;
@@ -344,7 +352,7 @@ textarea {
 	margin-top:10px;
 	color:grey;
 }
-.screencastComments textarea,, .blogEntryDisplay .entryComments textarea {
+.screencastComments textarea, .blogEntryDisplay .entryComments textarea {
 	width:400px;
 	height:200px;
 	margin-bottom:10px;
@@ -362,43 +370,46 @@ textarea {
 }
 
 
-.screencastForm label {
+.screencastForm label, .artifactForm label {
 	display:block;
 	font-size:1.2em;
 	margin-top: 1em;
 	margin-bottom: 0.5em;
 }
-.screencastForm input {
+.screencastForm input, .artifactForm input {
 	display:block;
 	margin-bottom:10px;
 }
-.screencastForm textarea {
+.screencastForm input[type=text], .artifactForm input[type=text] {
+	width: 400px;
+}
+.screencastForm textarea, .artifactForm textarea {
 	display:block;
 	width:400px;
 	height:100px;
 	margin:0;
 }
-.screencast .screencastDescription{
+.screencast .screencastDescription, .artifact .artifactDescription {
 	margin-top:5px;
 	margin-bottom:5px;	
 	font-size:1.1em;
 	padding:15px;	
 }
-.screencast .screencastTags{
+.screencast .screencastTags, .artifact .artifactTags{
 	font-size:1.2em;
 	margin-bottom:10px;
 	color:grey;
 }
-.screencast .screencastDownloads {
+.screencast .screencastDownloads, .artifact .artifactDownloads {
 	padding:10px;	
 	font-weight:bold;
 	font-size:1.2em;
 }
-.screencast .screencastInfo {
+.screencast .screencastInfo, .artifact .artifactInfo {
 	color:grey;
 	text-align:center;
 }
-.screencast .screencastTitle {
+.screencast .screencastTitle, .artifact .artifactTitle {
 	font-size:1.4em;
 	text-align:center;
 	
@@ -471,4 +482,8 @@ table.wiki-table th {
 
 table.wiki-table th, table.wiki-table td {
     padding: 0.4em 0.7em;
+}
+
+.hint {
+    font-size: 80%;
 }

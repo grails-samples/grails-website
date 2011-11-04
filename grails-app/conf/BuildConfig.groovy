@@ -1,3 +1,5 @@
+grails.plugin.location.websites = "${basedir}/sections/grails-sites"
+
 grails.project.work.dir = "target"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.plugins.dir = "plugins"
@@ -20,7 +22,8 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        compile ":commentable:0.7.5",
+        compile ":burning-image:0.5.0",
+                ":commentable:0.7.5",
                 ":taggable:1.0"
 
         compile ":rateable:0.7.0", {

@@ -50,7 +50,9 @@ class JSecurityAuthFilters {
 
     static filters = {
         def requiresPermissions = [
-                pluginTab: ["editWikiPage"] ]
+                pluginTab: ["editWikiPage"],
+                webSite: ["create", "edit", "save", "update"] as Set,
+                likeDislike: ["like", "dislike"] as Set ]
         withPermissions(controller: "*", action: "*") {
             before = {
                 if (actionName in requiresPermissions[controllerName]) {

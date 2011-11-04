@@ -92,6 +92,22 @@ class UrlMappings {
         "/screencast/show/$id"(controller:"screencast", action:"show")		
         "/comment/add"(controller:"commentable", action:"add")
 
+        if (Environment.current != Environment.PRODUCTION) {
+            "/websites"(controller: "webSite", action: "list")
+            "/websites/add"(controller: "webSite", action: "create")
+            "/websites/save"(controller: "webSite", action: "save")
+            "/websites/search"(controller:"webSite", action:"search") 		
+            "/websites/tags"(controller:"webSite", action:"browseTags") 
+            "/websites/feed"(controller:"webSite", action:"feed") 						
+            "/website/edit/$id"(controller: "webSite", action: "edit")
+            "/website/update/$id"(controller: "webSite", action: "update")
+
+            "/social/like"(controller: "likeDislike", action: "like")
+            "/social/dislike"(controller: "likeDislike", action: "dislike")
+
+            "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
+        }
+
         "/admin/$controller/$action?/$id?"()
         "/admin"(controller: "admin", action: "index")
 

@@ -30,9 +30,15 @@ modules = {
             resource url: "css/${sheet}.css".toString()
         }
     }
-    subpage {
-        dependsOn 'master','content', 'yui-core', 'yui-connection', 'yui-animation', 'common'
+    subpagecss {
         resource url: 'css/new/subpage.css'
+    }
+    subpage {
+        dependsOn 'master','content', 'subpagecss', 'yui-core', 'yui-connection', 'yui-animation', 'common'
+    }
+    section {
+        dependsOn 'master', 'content', 'subpagecss', 'jquery'
+        resource url: 'css/new/section.css'
     }
     upload {
         dependsOn 'yui-animation', 'common'

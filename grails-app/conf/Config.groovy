@@ -1,3 +1,5 @@
+import pl.burningice.plugins.image.engines.scale.ScaleType
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appName}-config.groovy" ]
@@ -51,6 +53,24 @@ environments {
         download.versions = ["1.4 beta", "1.3", "1.2"]
     }
 }
+
+
+bi {
+    WebSite {
+        prefix = 'website-'
+        images {
+            large {
+                scale = [width: 300, height: 280, type: ScaleType.APPROXIMATE]
+            }
+        }
+        constraints {
+            nullable = true
+            maxSize = 2 * 1024 * 1024
+            contentType = ['image/gif', 'image/png', 'image/jpeg']
+        }
+    }
+}
+
 
 searchable {
     compassConnection = null

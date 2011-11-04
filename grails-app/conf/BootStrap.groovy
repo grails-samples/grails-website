@@ -71,6 +71,8 @@ grails -Dinitial.admin.password=changeit run-app""")
         // Editor can edit pages, add screencasts, etc.
         def editor = Role.findByName(Role.EDITOR) ?: new Role(name: Role.EDITOR).save(failOnError: true)
         safelyAddPermission editor, "pluginTab:editWikiPage"
+        safelyAddPermission editor, "webSite:create,edit,save,update"
+        safelyAddPermission editor, "likeDislike:like,dislike"
 
         // Observer: can't do anything that an anonymous user can't do.
         def observer = Role.findByName(Role.OBSERVER) ?: new Role(name: Role.OBSERVER).save(failOnError: true)
