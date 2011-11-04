@@ -1,5 +1,4 @@
 import grails.util.Environment
-import javax.servlet.http.HttpServletRequest
 
 import org.apache.commons.codec.digest.DigestUtils
 import org.grails.*
@@ -14,10 +13,6 @@ class BootStrap {
     def searchableService
 
     def init = { servletContext ->
-        HttpServletRequest.metaClass.isXhr = {->
-            'XMLHttpRequest' == delegate.getHeader('X-Requested-With')                
-        }
-
         def (adminRole, editorRole, observerRole) = setUpRoles()
         
         def admin = User.findByLogin("admin")
