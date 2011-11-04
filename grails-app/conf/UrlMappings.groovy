@@ -113,6 +113,11 @@ class UrlMappings {
             }
         }
 
-        "500"(controller: 'error', action: "serverError")
+        if (Environment.current == Environment.PRODUCTION) {
+            "500"(controller: "error", action: "serverError")
+        }
+        else {
+            "500"(controller: "error", action: "devError")
+        }
     }
 }

@@ -33,12 +33,10 @@
   
   <body>
     <h1>An Error has occurred</h1>
-    <p>We're sorry, but there has been a problem rendering the page you've requested.  This incident has been logged, and will be looked into soon.</p>
+    <p>We're sorry, but there has been a problem rendering the page you've requested. This incident has been logged, and will be looked into soon.</p>
 
   <div class='yui-skin-sam'>
-      <gui:expandablePanel title="Error Details" bounce="false">
-          <g:renderException exception="${exception}" />
-      </gui:expandablePanel>
+      <gui:expandablePanel title="Error Details" bounce="false">${exception.message}</gui:expandablePanel>
   </div>
   </body>
 </html>
