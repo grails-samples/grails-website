@@ -21,8 +21,11 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":commentable:0.7.5",
-                ":rateable:0.7.0",
                 ":taggable:1.0"
+
+        compile ":rateable:0.7.0", {
+            exclude "yui"
+        }
 
         runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
