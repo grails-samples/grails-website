@@ -3,7 +3,11 @@ import grails.util.Environment;
 class UrlMappings {
     static mappings = {
         "/Home?"(controller: "content", action: "homePage")
-        "/$id"(controller: "content", action: "index")
+        "/$id"(controller: "content", action: "index") {
+            constraints {
+                id notEqual: "dbconsole"
+            }
+        }
 
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
