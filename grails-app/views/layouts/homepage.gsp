@@ -38,6 +38,7 @@ new PeriodicalExecuter(function(pe) {
 }, 4);
 */
     </r:script>
+    <%--
     <style>
 #events {
     left: 635px;
@@ -56,6 +57,7 @@ new PeriodicalExecuter(function(pe) {
 }
 
     </style>
+    --%>
 </head>
 <body>
     
@@ -178,6 +180,7 @@ new PeriodicalExecuter(function(pe) {
                 </div><!-- latestNews -->
             
                 <div id="events">
+                    <%--
                     <h2>Conferences</h2>
                     <div class="castBox">
                         <div class="advert">
@@ -185,23 +188,18 @@ new PeriodicalExecuter(function(pe) {
                                 <r:img width="250" height="230" uri="/images/SpringOne2GX_Banner_250x240.png"/>
                             </a>
                         </div>
-			<%--
                         <div class="advert">
                             <a href="http://www.springsource.com/events/s2gforum-5-31-2011-london">
                                 <r:img width="250" height="230" uri="/images/s2gforum-london-2011-240.png"/>
                             </a>
                         </div>
-			--%>
                     </div>
-                    <%--
+                    --%>
                     <h3>Training Events</h3>
                     <wiki:text page="Training Events" />
-                    --%>
                 </div><!-- events -->
                 
-		<%--
                 <div id="globeGraphic"></div>
-		--%>
             </div><!-- newsScreencastWrapper -->
             
         </div><!-- contentArea -->
