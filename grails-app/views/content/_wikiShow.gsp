@@ -9,9 +9,8 @@
 <wiki:text key="${content?.title}">
     ${content?.body}
 </wiki:text>
-
-<g:javascript>
+<script type="text/javascript">
    if(myYUI.get('message')!=null) {
         myYUI.fade('message', {delay:3});
    }
-</g:javascript>
+</script>
