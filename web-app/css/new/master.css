@@ -250,6 +250,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: 23px 190px 0px 0px;
 }
 
+.innerFooter a {
+    color: blue;
+    text-decoration: none;
+}
+
 #footer .twitter {
     background-image: url(../../images/sprites/master-variable-width.png);
     background-position: -10px -301px;
