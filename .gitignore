@@ -3,6 +3,7 @@
 *Db.script
 .settings
 eclipse
+plugin.xml
 site-config.groovy
 stacktrace.log
 target
