@@ -8,12 +8,12 @@
         View Page
     </g:remoteLink>
 
-    <shiro:authenticated>
+    <shiro:isLoggedIn>
         <g:remoteLink update="editPane" action="markupWikiPage" id="${content?.title}" params="[_ul: updateElement]">
             <img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
             View Markup
         </g:remoteLink>
-    </shiro:authenticated>
+    </shiro:isLoggedIn>
 
 </div>
 

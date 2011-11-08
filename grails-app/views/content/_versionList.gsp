@@ -15,7 +15,7 @@
                 method="GET">
             Version ${v}</g:remoteLink> (Updated by <strong>${authors[i].login}</strong>)
 
-        <shiro:authenticated>
+        <shiro:isLoggedIn>
             <g:if test="${v != wikiPage.version}">
                 <shiro:hasRole name="Administrator">
                     <g:remoteLink update="versions"
@@ -41,7 +41,7 @@
             <g:else>
                 First Version
             </g:else>
-        </shiro:authenticated>
+        </shiro:isLoggedIn>
 
         <g:set var="previous" value="${v}" />
 </g:each>
