@@ -169,6 +169,4 @@ log4j = {
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework',
             'org.hibernate'
-    
-    info "org.grails.plugin"
 }
