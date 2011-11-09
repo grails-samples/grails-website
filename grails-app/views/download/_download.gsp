@@ -48,7 +48,7 @@
                         <a class="ajaxLink" href="#">Show URL</a> 
                     </td>
             </tr>
-            <tr style="display: none;"><td colspan="3"></td></tr>
+            <tr><td colspan="3"><span style="display: none;"></span></td></tr>
         </g:if>
     </table>
 
