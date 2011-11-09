@@ -24,7 +24,7 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":burning-image:0.5.0",
                 ":commentable:0.7.5",
-                ":taggable:1.0"
+                ":taggable:1.0.1"
 
         compile ":rateable:0.7.0", {
             exclude "yui"
