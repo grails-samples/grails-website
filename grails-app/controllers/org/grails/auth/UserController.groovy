@@ -163,7 +163,7 @@ class UserController {
                 if(request.xhr) {
                     params.remove 'password'
                     render(template:"loginForm", model:[originalURI:params.remove('originalURI'),
-                                                        update: params.update,
+                                                        update: params._ul,
                                                         formData:params,
                                                         async:true,
                                                         message:"auth.invalid.login"])
