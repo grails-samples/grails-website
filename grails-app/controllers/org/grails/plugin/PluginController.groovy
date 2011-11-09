@@ -268,13 +268,11 @@ class PluginController extends BaseWikiController {
         }
    }
 
-    def latest = {
+    def latest() {
 
-        def engine = createWikiEngine()
+        def feedOutput = {
 
-         def feedOutput = {
-
-            def top5 = Plugin.listOrderByLastUpdated(order:'desc', max:5, cache:true)
+            def (top5, total) = pluginService.listRecentlyUpdatedPluginsWithTotal(max: 5)
             title = "Grails New Plugins Feed"
             link = "http://grails.org/Plugins"
             description = "New and recently updated Grails Plugins"
@@ -284,20 +282,20 @@ class PluginController extends BaseWikiController {
                     link = "http://grails.org/plugin/${item.name.encodeAsURL()}"
                     author = item.author
                     publishedDate = item.lastUpdated
-                    engine.render(item.description.body, context)
+                    item.summary
                 }
             }
-         }
+        }
 
         withFormat {
             html {
-                redirect(action: "home")
+                redirect action: "home"
             }
             rss {
-                render(feedType:"rss",feedOutput)
+                render feedType: "rss", feedOutput
             }
             atom {
-                render(feedType:"atom", feedOutput)
+                render feedType: "atom", feedOutput
             }
         }
 
