@@ -1,5 +1,6 @@
 import org.grails.auth.User
 import org.grails.content.Version
+import org.grails.plugin.License
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginTab
 
@@ -7,6 +8,18 @@ fixture {
     build {
         // Plugin tab 'wiki' pages for each of the above plugins.
         def admin = User.findByLogin("admin")
+
+        apacheLicense(License,
+                name: "Apache License 2.0",
+                url: "http://www.apache.org/licenses/LICENSE-2.0.txt")
+
+        gpl2License(License,
+                name: "GNU General Public License 2",
+                url: "http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt")
+
+        gpl3License(License,
+                name: "GNU General Public License 3",
+                url: "http://www.gnu.org/licenses/gpl.txt")
         
         // First Shiro
         shiroInstallation(PluginTab, title: "plugin-shiro-installation", body: "@grails install-plugin shiro@")
@@ -46,11 +59,13 @@ fixture {
                 title: "Apache Shiro Plugin",
                 currentRelease: "1.1-SNAPSHOT",
                 author: "Peter Ledbrook",
+                organization: "KataSoft",
                 summary: "Integrates the Apache Shiro security framework into your Grails applications.",
                 installation: shiroInstallation,
                 description: shiroDescription,
                 faq: shiroFaq,
-                screenshots: shiroScreenshots)
+                screenshots: shiroScreenshots,
+                licenses: [ apacheLicense ])
         
         // Fixtures
         fixturesInstallation(PluginTab, title: "plugin-fixtures-installation", body: "@grails install-plugin fixtures@")
@@ -178,10 +193,13 @@ fixture {
                 title: "Hibernate ORM Plugin",
                 currentRelease: "1.3.4",
                 author: "SpringSource",
+                organization: "SpringSource",
+                organizationUrl: "http://www.springsource.org/",
                 installation: hibernateInstallation,
                 description: hibernateDescription,
                 faq: hibernateFaq,
-                screenshots: hibernateScreenshots)
+                screenshots: hibernateScreenshots,
+                licenses: [ apacheLicense, gpl3License ])
         
         // Tomcat
         tomcatInstallation(PluginTab, title: "plugin-tomcat-installation", body: "@grails install-plugin tomcat@")

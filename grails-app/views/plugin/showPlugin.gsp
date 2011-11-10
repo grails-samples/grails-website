@@ -52,6 +52,21 @@
 		                <th>Grails Version</th>
 		                <td>${plugin.grailsVersion?.encodeAsHTML() ?: '?'}</td>
 		            </tr>
+					<g:if test="${plugin.licenses?.size()}">
+					<tr>
+						<th>License(s)</th>
+						<td>${plugin.licenses.sort { it.name }.collect { l -> '<a href="' + l.url.encodeAsHTML() + '">' + l.name.encodeAsHTML() + '</a>' }.join(', ') }</td>
+					</tr>
+					</g:if>
+					<g:if test="${plugin.organization}">
+					<tr>
+						<th>Organization</th>
+						<td>
+						<g:if test="${plugin.organizationUrl}"><a href="${plugin.organizationUrl.encodeAsHTML()}"></g:if>
+						${plugin.organization.encodeAsHTML()}
+						<g:if test="${plugin.organizationUrl}"></a></g:if>
+					</tr>
+					</g:if>
 		            <tr>
 		                <th>Tags</th>
 		                <td class='tags'>

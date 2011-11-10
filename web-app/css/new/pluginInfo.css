@@ -36,6 +36,9 @@ body {
 	top:-20px;
 	text-align:left;
 }
+#pluginBox a {
+	text-decoration: none;
+}
 #pluginZombie {
 	position: relative;
 }
