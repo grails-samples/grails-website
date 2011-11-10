@@ -29,7 +29,6 @@ body {
 	margin-bottom:0px;
 }
 #pluginBox {
-	background:url(../../images/new/plugins/fullpagePlugin_top.png) no-repeat center top;	
 	padding-left:30;
 	margin-top:0px;
 	position:relative;
@@ -51,13 +50,18 @@ body {
 	z-index: 10;
 }
 #pluginDetailsContainer {
+	background:url(../../images/new/plugins/fullpagePlugin_top.png) no-repeat center top;	
 	text-align:left;
-	width:1008px;	
 }
 #pluginContent {
 	background: url(../../images/new/plugins/fullpagePlugin_mid.png) repeat-y center top;	
 	background-position: center;
 	margin-top:22px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	top: -26px;
+	width: 1008px;
 }
 .yui-content a {
 	color:#48802C;
@@ -68,10 +72,11 @@ body {
 }
 .yui-content {
 	text-align:left;
-	width:1008px;
+	width:908px;
 	min-height:200px;
 	padding-top:0px;
 	padding-left:50px;
+	padding-right:50px;
 	padding-bottom:15px;
 }
 .dialog input {
@@ -84,6 +89,13 @@ body {
 .pluginBoxBottom {
 	background: url(../../images/new/plugins/fullpagePlugin_btm.png) no-repeat center top;		
 	height:55px;
+	position: relative;
+	top: -26px;
+}
+#pluginDetailsBox {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1008px;	
 }
 #pluginDetailsContainer > p {
 	margin-left: 30px;
@@ -121,8 +133,9 @@ body {
 	font-size:0.9em;	
 	width:900px;
 }
-#pluginBox .pluginDetail table {
+#pluginBox .pluginDetail > table {
 	border-spacing: 0;
+	width: 70%;
 }
 #pluginBox .pluginDetail th {
 	width:16em;
@@ -138,6 +151,7 @@ body {
 	margin-right:15px;
 }
 #pluginBox .links {
+	height: 1.5em;
 	list-style-type: none;
 	padding-top:20px;
 	padding-left:30px;
@@ -155,6 +169,15 @@ body {
 	padding-right:20px;
 }
 #pluginBox .links  a { color: black; border: inherit; text-decoration: none;}
+
+#pluginBox .description {
+	background: url(../../images/new/plugins/fullpagePlugin_desc.png) repeat-y center top;
+	padding: 0.5em 30px 3em 30px;
+	margin-bottom: 2em;
+	clear: both;
+	text-align: left;
+	width: 948px;
+}
 
 ul.actionBar li {
 	display: inline-block;
@@ -206,10 +229,6 @@ ul.actionBar li {
 	top:-20px;
 	padding-left:30px;
 	text-align:left;
-	width:1008px;
-}
-#pluginDetailWrapper {
-	height:286px;
 }
 
 .yui-content h1,.yui-content h2,.yui-content h3,.yui-content h4,.yui-content h5 {

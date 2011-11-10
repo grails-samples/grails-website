@@ -6,7 +6,7 @@
     <meta name="layout" content="pluginDetails">
 </head>
 <body>
-	<div id="pluginDetailsBox" align="center">
+	<div id="pluginDetailsBox">
 		<div id="pluginDetailsContainer">
 			<g:if test="${plugin.zombie}">
 			<div id="pluginZombie">
@@ -35,9 +35,6 @@
 					</div>
 			    </shiro:isNotLoggedIn>
 			</div>
-
-			<p>${plugin?.summary?.encodeAsHTML()}</p>
-
 		    <div class="pluginDetail">
 		        <table>
 		            <tr>
@@ -86,8 +83,9 @@
                     </g:link>
                 </li>
 		    </ul>
-			
 		</div>
+
+		<div class="description"><wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text></div>
 		
 	</div>
 
@@ -148,7 +146,7 @@
         </script>
     </shiro:isNotLoggedIn>
 
-	<div id="pluginContent" align="center">
+	<div id="pluginContent">
 	    <cache:text key="pluginTabs_${plugin.id}">
 	        <gui:tabView>
 	            <g:each var="wiki" in="${Plugin.WIKIS}">

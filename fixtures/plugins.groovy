@@ -149,7 +149,17 @@ fixture {
                 title: "Build Test Data Plugin",
                 currentRelease: "1.2",
                 author: "Ted Naleid",
-                summary: "This plugin allows the user to easily create testing data through the use of a \"build\" method that is added to all Domain Classes. The build method inspects all of the constraints and creates default values for those required properties.\n\nThis testing data is much more robust as it changes with the domain classes when new properties and constraints are added. The only tests that will break are the ones directly related to the changes you're making, rather than any test using any part of that domain class.",
+                summary: """\
+This plugin allows the user to easily create testing data through the use of a "build" method that is added to all Domain Classes. The build method inspects all of the constraints and creates default values for those required properties.
+
+This testing data is much more robust as it changes with the domain classes when new properties and constraints are added. The only tests that will break are the ones directly related to the changes you're making, rather than any test using any part of that domain class.
+
+This is a test list:
+
+* One
+* Two
+* What comes next?
+""",
                 installation: btdInstallation,
                 description: btdDescription,
                 faq: btdFaq,
