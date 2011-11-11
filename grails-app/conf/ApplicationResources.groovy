@@ -21,11 +21,12 @@ modules = {
         resource url: 'css/new/pluginInfo.css'
     }
     common {
-        resource url: 'js/common/yui-effects.js'
-        resource url: 'js/diff_match_patch.js'
+		dependsOn 'yui-core'
+        resource url: 'js/common/yui-effects.js', disposition: 'head'
+        resource url: 'js/diff_match_patch.js', disposition: 'head'
     }
     pluginDetails {
-        dependsOn 'pluginInfo', 'content', 'common'
+        dependsOn 'pluginInfo', 'content', 'common', 'grailsui-tabview', 'grailsui-dialog', 'grailsui-autocomplete'
         ['tabview', 'plugins'].each { sheet ->
             resource url: "css/${sheet}.css".toString()
         }
@@ -34,7 +35,7 @@ modules = {
         resource url: 'css/new/subpage.css'
     }
     subpage {
-        dependsOn 'master','content', 'subpagecss', 'yui-core', 'yui-connection', 'yui-animation', 'common'
+        dependsOn 'master','content', 'common', 'subpagecss', 'yui-core', 'yui-connection', 'yui-animation'
     }
     section {
         dependsOn 'master', 'content', 'subpagecss', 'jquery'

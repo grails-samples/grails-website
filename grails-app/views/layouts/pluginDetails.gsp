@@ -4,7 +4,6 @@
 
     <content tag="pageCss">
         <rateable:resources />
-        <gui:resources components="['tabView','dialog','autoComplete']" javascript='animation'/>
     </content>
     <r:use modules="pluginDetails"/>
 
