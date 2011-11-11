@@ -25,6 +25,8 @@ class PluginController extends BaseWikiController {
     static int PORTAL_MAX_RESULTS = 5
     static int PORTAL_MIN_RATINGS = 1
     
+    static defaultAction = "home"
+
     static allowedMethods = [
             apiList:   'GET',
             apiShow:   'GET',
@@ -36,11 +38,7 @@ class PluginController extends BaseWikiController {
     def commentService
     def grailsUrlMappingsHolder
 
-    def index = {
-        redirect(controller:'plugin', action:'home', params:params)
-    }
-
-    def home = {
+    def home() {
         // We only want to display 5 plugins at a time in the web interface,
         // but JSON and XML data shouldn't be limited in that way.
         def max = 0
@@ -63,6 +61,10 @@ class PluginController extends BaseWikiController {
                 renderMapAsXml transformPlugins(pluginData.currentPlugins, pluginData.category), "plugins"
             }
         }
+    }
+
+    def legacyHome() {
+        redirect action: "home", permanent: true
     }
 
     def browseByName = {

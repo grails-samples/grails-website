@@ -136,7 +136,7 @@ new PeriodicalExecuter(function(pe) {
                         </div><!-- download -->
                         <div id="plugins">
                             <h3>
-                                <g:link controller="plugin">
+                                <g:link controller="plugin" action="home">
                                     <r:img uri="/images/new/plugins_button.png" alt="Grails Plugins" border="0" />
                                 </g:link>
                             </h3>
@@ -145,7 +145,7 @@ new PeriodicalExecuter(function(pe) {
                                     <li><g:link controller="plugin" action="show" params="[name:plugin.name]"><wiki:shorten text="${plugin.title}" /></g:link></li>
                                 </g:each>
                             </ul>
-                            <h4><g:link controller="plugin">View All</g:link></h4>
+                            <h4><g:link controller="plugin" action="home">View All</g:link></h4>
                         </div><!-- plugins -->
                     </div><!-- downloadPluginWrapper -->
                 </div><!-- downloadBox -->
