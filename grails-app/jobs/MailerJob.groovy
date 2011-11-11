@@ -73,7 +73,7 @@ class MailerJob {
                         text << '<div style="color:black;"><br><br>'
                         text << "Edited by <b>${version.author?.login}</b>. <a href=\"http://grails.org/previous/${titleUrlEscaped}/${version.number}\">View change</a> <br><br>"
                         text << "</div>"
-                        text << engine.render(content.body, context)
+//                        text << engine.render(content.body, context)
 
                         for (email in emails) {
                             mailService?.sendMail {
