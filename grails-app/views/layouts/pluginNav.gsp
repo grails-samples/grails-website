@@ -20,7 +20,8 @@
         <ul id="pluginSorters">
             <li class="all"><g:link action="home" params="[category:'all']">All</g:link></li>
             <li class="featured"><g:link action="home" params="[category:'featured']">Featured</g:link></li>
-            <li class="popular"><g:link action="home" params="[category:'popular']">Most Popular</g:link></li>
+            <li class="installed"><g:link action="home" params="[category:'installed']">Top Installed</g:link></li>
+            <li class="popular"><g:link action="home" params="[category:'popular']">Highest Voted</g:link></li>
             <li class="recentlyUpdated"><g:link action="home" params="[category:'recentlyUpdated']">Recently Updated</g:link></li>
             <li class="newest"><g:link action="home" params="[category:'newest']">Newest</g:link></li>
             <li class="supported"><g:link action="home" params="[category:'supported']">Supported</g:link></li>

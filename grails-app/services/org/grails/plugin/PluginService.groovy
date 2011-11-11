@@ -43,6 +43,11 @@ class PluginService {
         return [ Plugin.list(args), Plugin.count() ]
     }
 
+    def listInstalledPluginsWithTotal(Map args = [max: 200]) {
+        args << [cache: true, sort: "usage", order: "desc" ] 
+        return [ Plugin.findAllByUsageIsNotNull(args), Plugin.countByUsageIsNotNull() ]
+    }
+
     def listPopularPluginsWithTotal(Map args = [max: 200]) {
         // The Rateable plugin's query only accepts pagination arguments.
         def params = [:]
