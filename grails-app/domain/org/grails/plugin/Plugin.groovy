@@ -41,6 +41,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     Boolean official = false    // specifies SpringSource support
     Boolean featured = false
     boolean zombie = false
+    BigDecimal usage
     Number avgRating
     Date dateCreated
     Date lastUpdated
@@ -87,11 +88,13 @@ class Plugin implements Taggable, Commentable, Rateable {
         grailsVersion nullable:true, blank:true, maxLength:16
         lastReleased nullable:true
         currentRelease blank: false, matches: VERSION_PATTERN
+        usage nullable: true
     }
 
     static mapping = {
         cache 'nonstrict-read-write'
         summary type: 'text'
+        usage column: '`usage`'
     }
     
     def getFisheye() {

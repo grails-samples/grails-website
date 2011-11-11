@@ -36,6 +36,13 @@
 			    </shiro:isNotLoggedIn>
 			</div>
 		    <div class="pluginDetail">
+				<g:if test="${plugin.usage}">
+				<div class="pluginUsage">
+				    <div>Used by approximately</div>
+					<div class="value"><g:formatNumber number="${plugin.usage}" type="percent"/></div>
+					<div>of Grails users</div>
+				</div>
+				</g:if>
 		        <table>
 		            <tr>
 		                <th>Author(s)</th>

@@ -128,7 +128,7 @@ body {
 	width: 100px;
 }
 #pluginBox .pluginDetail {
-
+	clear: both;
 	margin-left:30px;
 	font-size:0.9em;	
 	width:900px;
@@ -177,6 +177,19 @@ body {
 	clear: both;
 	text-align: left;
 	width: 948px;
+}
+
+.pluginUsage {
+	float: right;
+	color: gray;
+	font-size: 1.1em;
+	width: 12em;
+	margin: 1em 0;
+	text-align: center;
+}
+
+.pluginUsage > .value {
+	font-size: 1.5em;
 }
 
 ul.actionBar li {
