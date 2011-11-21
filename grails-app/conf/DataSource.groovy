@@ -14,9 +14,9 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:file:devDb;shutdown=true"
-            driverClassName = "org.hsqldb.jdbcDriver"
+            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            url = "jdbc:h2:mem:devDb"
+            driverClassName = "org.h2.Driver"
             username = "sa"
             password = ""
         }

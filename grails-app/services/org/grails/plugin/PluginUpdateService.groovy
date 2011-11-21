@@ -96,8 +96,12 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         plugin.documentationUrl = xml.url.text()
         plugin.author = xml.developers.developer[0].name.text()
         plugin.authorEmail = xml.developers.developer[0].email.text()
+        plugin.organization = xml.organization.name.text()
+        plugin.organizationUrl = xml.organization.url.text()
         plugin.scmUrl = xml.scm.url.text()
         plugin.issuesUrl = xml.issueManagement.url.text()
+
+        addLicenses plugin, xml.licenses
 
         // Now do the same with the XML plugin descriptor.
         def descUrl = new URL(baseUrl, "${event.name}-${event.version}-plugin.xml")
@@ -190,6 +194,17 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
             from fromAddress
             subject "${plugin.title} ${version ?: plugin.currentRelease} released"
             html view: "/mail/pluginRelease", model: [plugin: plugin, version: version, url: url]
+        }
+    }
+
+    protected addLicenses(plugin, pomLicensesXml) {
+        for (license in pomLicensesXml.license) {
+            def l = License.findOrSaveWhere(name: license.name.text(), url: license.url.text()).save()
+            if (!l.hasErrors()) plugin.addToLicenses(l)
+            else {
+                log.warn "Invalid license declared for plugin '${plugin.name}': " +
+                        "${license.name.text()}(${license.url.text()})"
+            }
         }
     }
 

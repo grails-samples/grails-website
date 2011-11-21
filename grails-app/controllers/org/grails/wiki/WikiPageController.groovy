@@ -6,22 +6,22 @@ class WikiPageController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index = {
-        redirect(action: "list", params: params)
+    def index() {
+        redirect action: "list", params: params
     }
 
-    def list = {
+    def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [wikiPageInstanceList: WikiPage.list(params), wikiPageInstanceTotal: WikiPage.count()]
     }
 
-    def create = {
+    def create() {
         def wikiPageInstance = new WikiPage()
         wikiPageInstance.properties = params
         return [wikiPageInstance: wikiPageInstance]
     }
 
-    def save = {
+    def save() {
         def wikiPageInstance = new WikiPage(params)
         if (wikiPageInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), wikiPageInstance.id])}"
@@ -32,7 +32,7 @@ class WikiPageController {
         }
     }
 
-    def show = {
+    def show() {
         def wikiPageInstance = WikiPage.get(params.id)
         if (!wikiPageInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), params.id])}"
@@ -43,7 +43,7 @@ class WikiPageController {
         }
     }
 
-    def edit = {
+    def edit() {
         def wikiPageInstance = WikiPage.get(params.id)
         if (!wikiPageInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), params.id])}"
@@ -54,7 +54,7 @@ class WikiPageController {
         }
     }
 
-    def update = {
+    def update() {
         def wikiPageInstance = WikiPage.get(params.id)
         if (wikiPageInstance) {
             if (params.version) {
@@ -81,7 +81,7 @@ class WikiPageController {
         }
     }
 
-    def delete = {
+    def delete() {
         def wikiPageInstance = WikiPage.get(params.id)
         if (wikiPageInstance) {
             try {
@@ -103,7 +103,7 @@ class WikiPageController {
         }
     }
 
-    def all = {
+    def all() {
         params.sort = "title"
         params.order = "asc"
 

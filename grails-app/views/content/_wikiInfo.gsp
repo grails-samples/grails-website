@@ -5,13 +5,13 @@
 <div id="infoLinks" class="wikiLinks">
     <ul class="wikiActionMenu">
         <li>
-            <g:remoteLink class="actionIcon" controller="content" action="editWikiPage" id="${wikiPage?.title}" params="[update:updateElement]" update="${updateElement}" onLoaded="hideCommentPost()">
+            <g:remoteLink class="actionIcon" action="editWikiPage" id="${wikiPage?.title}" update="${updateElement}" params="[_ul: updateElement]" method="GET" onLoaded="hideCommentPost()">
                 <r:img border="0" uri="/images/icon-edit.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
                 <span>Edit</span>
             </g:remoteLink>
         </li>
         <li>
-            <g:remoteLink class="actionIcon" update="${updateElement}" controller="content" id="${wikiPage?.title}" params="[xhr:true, update:updateElement]" onLoaded="showCommentPost()">
+            <g:remoteLink class="actionIcon" action="index" id="${wikiPage?.title}" update="${updateElement}" params="[_ul: updateElement]" method="GET" onLoaded="showCommentPost()">
                 <r:img uri="/images/icon-info.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
                 <span>View Page</span>
             </g:remoteLink>
@@ -31,8 +31,8 @@
 
 <h3>Versions:</h3>
 <div id="versions">
-    <cache:text id="${'versionList'+wikiPage?.id}">		
-        <g:render template="versionList" model="[versions:versions,authors:authors, wikiPage:wikiPage, update:updateElement]" />
+    <cache:text id="${'versionList' + wikiPage?.id}">
+        <g:render template="/content/versionList" model="[versions: versions, authors: authors, wikiPage: wikiPage, update: updateElement]" />
     </cache:text>
 </div>
 </g:if>

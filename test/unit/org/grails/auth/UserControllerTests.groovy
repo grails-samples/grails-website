@@ -14,9 +14,13 @@
  */
 package org.grails.auth
 
-import grails.test.ControllerUnitTestCase
+import grails.test.GrailsUnitTestCase
+import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
+import org.apache.shiro.web.util.WebUtils
 import org.grails.meta.UserInfo
+
+import javax.servlet.http.HttpServletRequest
 
 
 /**
@@ -25,233 +29,212 @@ import org.grails.meta.UserInfo
  *        <p/>
  *        Created: Feb 28, 2008
  */
-public class UserControllerTests extends ControllerUnitTestCase {
+@TestFor(UserController)
+@Mock([User, UserInfo, Role])
+class UserControllerTests {
 
     void testRegisterGET() {
-        def renderParams = [:]
-        UserController.metaClass.getRequest = {-> [method:"GET"] }
-        UserController.metaClass.render = { Map args -> renderParams = args }
-        def params = [originalURI:"/foo/bar", more:"stuff"]
-        UserController.metaClass.getParams = {->  params}
+        params.originalURI = "/foo/bar"
+        params.more = "stuff"
 
-        def controller = new UserController()
         controller.register()
 
-        assertEquals "register", renderParams.view        
-        assertEquals  "/foo/bar", renderParams.model?.originalURI
-        assertEquals  params, renderParams.model?.formData
+        assert view == "/user/register"
+        assert model.originalURI == "/foo/bar"
+        assert model.formData == params
 
     }
 
     void testRegisterUserExists() {
-        def renderParams = [:]
-        def params = [originalURI:"/foo/bar", login:"Fred"]
+        def user = new User(login: "fred").save(validate: false)
+        params.originalURI = "/foo/bar"
+        params.login = user.login
+        request.method = "POST"
 
-
-        UserController.metaClass.getRequest = {-> [method:"POST"] }
-        UserController.metaClass.render = { Map args -> renderParams = args }
-        UserController.metaClass.getParams = {->  params}
-
-        User.metaClass.static.findByLogin = {String login-> new User(login:login) }
-
-        def controller = new UserController()
         controller.register()
 
-        assertEquals "register", renderParams.view
-        assertEquals "auth.user.already.exists", renderParams?.model?.message       
-        assertEquals  "/foo/bar", renderParams.model?.originalURI
-        assertEquals  params, renderParams.model?.formData
+        assert view == "/user/register"
+        assert model.message == "auth.user.already.exists"
+        assert model.originalURI == "/foo/bar"
+        assert model.formData == params 
          
     }
 
     void testRegisterWithNonMatchingPasswords() {
-       def renderParams = [:]
-        def params = [originalURI:"/foo/bar", login:"Fred", password:"one", password2:"two"]
+        params.originalURI = "/foo/bar"
+        params.login = "fred"
+        params.password = "one"
+        params.password2 = "two"
+        request.method = "POST"
 
-
-        UserController.metaClass.getRequest = {-> [method:"POST"] }
-        UserController.metaClass.render = { Map args -> renderParams = args }
-        UserController.metaClass.getParams = {->  params}
-
-        User.metaClass.static.findByLogin = {String login-> null }
-
-        def controller = new UserController()
         controller.register()
 
-        assertEquals "register", renderParams.view
-        
-        assertEquals  "/foo/bar", renderParams.model?.originalURI
-        assertEquals  params, renderParams.model?.formData
+        assert view == "/user/register"
+        assert model.originalURI == "/foo/bar"
+        assert model.formData == params
     }
 
     void testRegisterWithFormErrors() {
-        def params = [originalURI:"/foo/bar", login:"Fred", password:"one", password2:"one"]
+        new Role(name: Role.ADMINISTRATOR).save(validate: false)
+        new Role(name: Role.EDITOR).save(validate: false)
+        new Role(name: Role.OBSERVER).save(validate: false)
 
-        mockDomain(Role, [
-                new Role(name: Role.ADMINISTRATOR),
-                new Role(name: Role.EDITOR),
-                new Role(name: Role.OBSERVER) ])
-        mockDomain(User)
-        mockDomain(UserInfo)
+        params.originalURI = "/foo/bar"
+        params.login = "fred"
+        params.password = "one"
+        params.password2 = "one"
 
-        controller.request.method = "POST"
-        controller.jsecSecurityManager = [login: { authenticateCalled = true }]
-        controller.params.putAll(params)
+        request.method = "POST"
+
         controller.register()
 
-        assertEquals "register", renderArgs.view
-        assert  renderArgs?.model?.user
+        assert view == "/user/register"
+        assert model.user
         
-        assertEquals  "/foo/bar", renderArgs.model?.originalURI
-        assertEquals  params, renderArgs.model?.formData
+        assert model.originalURI == "/foo/bar"
+        assert model.formData == params
     }
 
     void testRegisterAndRedirectToOriginalPage() {
-        def params = [originalURI:"/foo/bar", login:"dilbert", password:"one", password2:"one", email: "dilbert@nowhere.org"]
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: {authToken -> true}] }
 
-        mockDomain(Role, [
-                new Role(name: Role.ADMINISTRATOR),
-                new Role(name: Role.EDITOR),
-                new Role(name: Role.OBSERVER) ])
-        mockDomain(User)
-        mockDomain(UserInfo)
+        params.originalURI = "/foo/bar"
+        params.login = "dilbert"
+        params.password = "one"
+        params.password2 = "one"
+        params.email =  "dilbert@nowhere.org"
 
-        def authenticateCalled = false
-        controller.request.method = "POST"
-        controller.jsecSecurityManager = [login: { authenticateCalled = true }]
-        controller.params.putAll(params)
+        new Role(name: Role.ADMINISTRATOR).save(validate: false)
+        new Role(name: Role.EDITOR).save(validate: false)
+        new Role(name: Role.OBSERVER).save(validate: false)
+
+        request.method = "POST"
+
         controller.register()
 
-        assert authenticateCalled
+        assert response.redirectedUrl == params.originalURI
 
-        assertEquals params.originalURI, redirectArgs.url
-        assertEquals params, redirectArgs.params
+        secUtil.verify()
     }
 
     void testRedirectWithoutOriginalPage() {
-        def params = [ login:"dilbert", password:"one", password2:"one", email: "dilbert@nowhere.org"]
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: {authToken -> true}] }
 
-        mockDomain(Role, [
-                new Role(name: Role.ADMINISTRATOR),
-                new Role(name: Role.EDITOR),
-                new Role(name: Role.OBSERVER) ])
-        mockDomain(User)
-        mockDomain(UserInfo)
+        params.login = "dilbert"
+        params.password = "one"
+        params.password2 = "one"
+        params.email = "dilbert@nowhere.org"
 
-        def authenticateCalled = false
-        controller.request.method = "POST"
-        controller.jsecSecurityManager = [login: { authenticateCalled = true }]
-        controller.params.putAll(params)
+        new Role(name: Role.ADMINISTRATOR).save(validate: false)
+        new Role(name: Role.EDITOR).save(validate: false)
+        new Role(name: Role.OBSERVER).save(validate: false)
+
+        request.method = "POST"
+
         controller.register()
 
-        assert authenticateCalled
+        assert response.redirectedUrl == "/"
 
-        assertEquals "/", redirectArgs.uri
+        secUtil.verify()
     }
 
-    /*void testLogout() {
-         def redirectParams = [:]
-         UserController.metaClass.redirect = {Map m-> redirectParams = m }
-
-         def invalidateCalled = false
-         org.jsecurity.context.support.ThreadLocalSecurityContext.metaClass.static.current ={-> [invalidate:{invalidateCalled=true}] }
-
-
-         def controller = new UserController()
-
-         controller.logout()
-
-         assert invalidateCalled
-         assertEquals "", redirectParams.uri
-    }*/
-
     void testLoginWithGET() {
-        def renderParams = [:]
-        UserController.metaClass.getRequest = {-> [method:"GET"] }
-        UserController.metaClass.render = { Map args -> renderParams = args }
-
-        def controller = new UserController()
 
         controller.login()
 
-        assertEquals "login",renderParams.view
+        assert view == "/user/login"
     }
 
     void testLoginFailureWithAjaxRequest() {
-        def renderParams = [:]
-        UserController.metaClass.getParams = {-> [originalURI:"/foo/bar", username:"fred", password:"letmein"] }
-        UserController.metaClass.getRequest = {-> [method:"POST", xhr:true] }
-        UserController.metaClass.render = { Map args -> renderParams = args }
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken ->
+            throw new AuthenticationException("incorrect password")
+        }] }
 
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
+        views['/user/_loginForm.gsp'] = 'login form ${message} ${originalURI} ${async}'
 
-        def controller = new UserController()
+        params.originalURI = "/foo/bar"
+        params.username = "fred"
+        params.password = "letmein"
 
-        controller.jsecSecurityManager = [login:{ throw new AuthenticationException("incorrect password") }]
+        request.method = "POST"
+        request.makeAjaxRequest()
 
         controller.login()
 
-        assertEquals "loginForm", renderParams.template
-        assertEquals "auth.invalid.login", renderParams?.model?.message
-        assertEquals true, renderParams?.model?.async
-        assertEquals  "/foo/bar", renderParams.model?.originalURI
-        
+        assert response.text == "login form auth.invalid.login /foo/bar true"
+
+        secUtil.verify()
+        webUtil.verify()
     }
 
     void testLoginFailureWithRegularRequest() {
-        def redirectParams = [:]
-        UserController.metaClass.redirect = {Map m-> redirectParams = m }
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken ->
+            throw new AuthenticationException("incorrect password")
+        }] }
 
-        UserController.metaClass.getParams = {-> [originalURI:"/foo/bar", username:"fred", password:"letmein"] }
-        UserController.metaClass.getRequest = {-> [method:"POST", xhr:false] }
-        UserController.metaClass.getFlash = {-> [:]}
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
+        params.originalURI = "/foo/bar"
+        params.username = "fred"
+        params.password = "letmein"
 
-        def controller = new UserController()
-
-        controller.jsecSecurityManager = [login:{ throw new AuthenticationException("incorrect password") }]
+        request.method = "POST"
 
         controller.login()
 
-        assertEquals 'login', redirectParams.action
-        assertEquals 'fred', redirectParams.params?.username
+        def redirectUri = new URI(response.redirectedUrl)
+        assert redirectUri.path == "/user/login"
+        assert redirectUri.query == "username=fred&originalURI=${params.originalURI}"
+
+        secUtil.verify()
+        webUtil.verify()
     }
 
     void testLoginSuccessWithOriginalPage() {
-        mockParams.originalURI = "/foo/bar"
-        mockParams.username ="fred"
-        mockParams.password = "letmein"
-        LinkedHashMap.metaClass.toQueryString = { -> '?queryString' }
-        mockRequest.method = "POST"
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken -> true }] }
 
-        UserController.metaClass.getFlash = {-> [:]}
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
-        def controller = new UserController()
-
-        controller.jsecSecurityManager = [login:{ true }]
+        params.originalURI = "/foo/bar?queryString"
+        params.username ="fred"
+        params.password = "letmein"
+        request.method = "POST"
 
         controller.login()
 
-        assertEquals "/foo/bar?queryString", redirectArgs.url
+        assert response.redirectedUrl == "/foo/bar?queryString"
+
+        secUtil.verify()
+        webUtil.verify()
     }
 
     void testLoginSuccessWithoutOriginalPage() {
-        def redirectParams = [:]
-        UserController.metaClass.redirect = {Map m-> redirectParams = m }
+        def secUtil = mockFor(SecurityUtils)
+        secUtil.demand.static.getSubject {-> [login: { authToken -> true }] }
 
-        def params = [username:"fred", password:"letmein"]
-        UserController.metaClass.getParams = {-> params }
-        UserController.metaClass.getRequest = {-> [method:"POST", xhr:false] }
-        UserController.metaClass.getFlash = {-> [:]}
+        def webUtil = mockFor(WebUtils)
+        webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
+        params.username = "fred"
+        params.password = "letmein"
 
-        def controller = new UserController()
-
-        controller.jsecSecurityManager = [login:{ true }]
+        request.method = "POST"
 
         controller.login()
 
+        assert response.redirectedUrl == "/"
 
-        assertEquals "/", redirectParams.uri
+        secUtil.verify()
+        webUtil.verify()
     }
 }

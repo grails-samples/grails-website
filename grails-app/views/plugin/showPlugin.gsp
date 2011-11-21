@@ -6,7 +6,7 @@
     <meta name="layout" content="pluginDetails">
 </head>
 <body>
-	<div id="pluginDetailsBox" align="center">
+	<div id="pluginDetailsBox">
 		<div id="pluginDetailsContainer">
 			<g:if test="${plugin.zombie}">
 			<div id="pluginZombie">
@@ -35,10 +35,14 @@
 					</div>
 			    </shiro:isNotLoggedIn>
 			</div>
-
-			<p>${plugin?.summary?.encodeAsHTML()}</p>
-
 		    <div class="pluginDetail">
+				<g:if test="${plugin.usage}">
+				<div class="pluginUsage">
+				    <div>Used by approximately</div>
+					<div class="value"><g:formatNumber number="${plugin.usage}" type="percent"/></div>
+					<div>of Grails users</div>
+				</div>
+				</g:if>
 		        <table>
 		            <tr>
 		                <th>Author(s)</th>
@@ -52,6 +56,21 @@
 		                <th>Grails Version</th>
 		                <td>${plugin.grailsVersion?.encodeAsHTML() ?: '?'}</td>
 		            </tr>
+					<g:if test="${plugin.licenses?.size()}">
+					<tr>
+						<th>License(s)</th>
+						<td>${plugin.licenses.sort { it.name }.collect { l -> '<a href="' + l.url.encodeAsHTML() + '">' + l.name.encodeAsHTML() + '</a>' }.join(', ') }</td>
+					</tr>
+					</g:if>
+					<g:if test="${plugin.organization}">
+					<tr>
+						<th>Organization</th>
+						<td>
+						<g:if test="${plugin.organizationUrl}"><a href="${plugin.organizationUrl.encodeAsHTML()}"></g:if>
+						${plugin.organization.encodeAsHTML()}
+						<g:if test="${plugin.organizationUrl}"></a></g:if>
+					</tr>
+					</g:if>
 		            <tr>
 		                <th>Tags</th>
 		                <td class='tags'>
@@ -71,8 +90,9 @@
                     </g:link>
                 </li>
 		    </ul>
-			
 		</div>
+
+		<div class="description"><wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text></div>
 		
 	</div>
 
@@ -133,13 +153,13 @@
         </script>
     </shiro:isNotLoggedIn>
 
-	<div id="pluginContent" align="center">
+	<div id="pluginContent">
 	    <cache:text key="pluginTabs_${plugin.id}">
 	        <gui:tabView>
 	            <g:each var="wiki" in="${Plugin.WIKIS}">
 	                <gui:tab id="${wiki}Tab" label="${wiki[0].toUpperCase() + wiki[1..-1]}" active="${wiki == 'description'}">
-	                    <g:render template="viewActions" model="${[content: plugin[wiki], update: wiki + 'Tab', editFormName: wiki + 'EditForm']}"/>
-	                    <div class='${wiki}, wikiPage'><wiki:text page="${plugin[wiki]?.title}" /></div>
+                            <g:include controller="pluginTab" action="index"
+                                       id="${plugin[wiki].title}" params="[_ul: wiki + 'Tab']"/>
 	                </gui:tab>
 	            </g:each>
 	        </gui:tabView>

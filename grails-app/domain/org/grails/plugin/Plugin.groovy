@@ -30,6 +30,8 @@ class Plugin implements Taggable, Commentable, Rateable {
     String author
     String authorEmail
     String currentRelease
+    String organization
+    String organizationUrl
     String documentationUrl
     String downloadUrl
     String scmUrl
@@ -39,16 +41,19 @@ class Plugin implements Taggable, Commentable, Rateable {
     Boolean official = false    // specifies SpringSource support
     Boolean featured = false
     boolean zombie = false
+    BigDecimal usage
     Number avgRating
     Date dateCreated
     Date lastUpdated
     Date lastReleased
 
+    static hasMany = [licenses: License]
+
     static searchable = {
         only = [
             'name', 'title', 'summary', 'author', 'authorEmail',
             'installation','description','faq','screenshots', 'tags',
-            'featured', 'official'
+            'featured', 'official', 'organization'
         ]
         description component: true
         installation component: true
@@ -56,6 +61,7 @@ class Plugin implements Taggable, Commentable, Rateable {
         screenshots component: true
         currentRelease index: "no", store: "yes"
         grailsVersion index: "no", store: "yes"
+        organizationUrl index: "no", store: "yes"
         documentationUrl index: "no", store: "yes"
         downloadUrl index: "no", store: "yes"
         scmUrl index: "no", store: "yes"
@@ -75,16 +81,20 @@ class Plugin implements Taggable, Commentable, Rateable {
         faq nullable: true
         screenshots nullable: true
         author nullable: true
+        organization nullable: true
+        organizationUrl nullable: true
         scmUrl nullable: true, blank: true
         issuesUrl nullable: true, blank: true
         grailsVersion nullable:true, blank:true, maxLength:16
         lastReleased nullable:true
         currentRelease blank: false, matches: VERSION_PATTERN
+        usage nullable: true
     }
 
     static mapping = {
         cache 'nonstrict-read-write'
         summary type: 'text'
+        usage column: '`usage`'
     }
     
     def getFisheye() {

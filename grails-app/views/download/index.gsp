@@ -27,7 +27,25 @@
             color:#48802C;
         }
 
+        .ajaxLink {
+            display: none;
+        }
 
+        .js .ajaxLink {
+            display: inline-block;
+        }
+
+        .js .download-cell {
+            width: 5em;
+        }
+
+        .js .download-cell {
+            width: 11em;
+        }
+
+        .download-cell a {
+            margin-left: 0.5em;
+        }
 
     </style>
 </head>
@@ -89,5 +107,61 @@
             <p>Grails has a number of plugins available for it that extend its capability. Check out the <g:link controller="content" id="Plugins">Plugins page</g:link> for more info on available plugins and how they can be installed.</p>
         </div>
     </div>
+
+<r:script>
+YAHOO.util.Event.onDOMReady(function() {
+    var links = YAHOO.util.Dom.getElementsByClassName('ajaxLink', 'a');
+    for (var i = 0, n = links.length; i < n; i++) {
+        YAHOO.util.Event.on(links[i], "click", function(e) {
+            YAHOO.util.Event.stopEvent(e);
+            showUrl(e.currentTarget);
+        });
+    }
+});
+
+function showUrl(link) {
+    var container = YAHOO.util.Dom.getAncestorByTagName(link, 'tr');
+    var mirrorId;
+    var options = container.getElementsByTagName('option');
+    for (var i = 0, n = options.length; i < n; i++) {
+        if (options[i].selected) {
+            mirrorId = options[i].value;
+        }
+    }
+    
+    YAHOO.util.Connect.setForm(container.getElementsByTagName('form')[0]);
+    YAHOO.util.Connect.asyncRequest(
+            'GET',
+            '${createLink(controller: 'download', action: 'showUrl')}',
+            {success: function(o) {
+                var panel = YAHOO.util.Dom.getNextSibling(container).getElementsByTagName('span')[0];
+                panel.innerHTML = o.responseText;
+                myYUI.appear(panel, 0, 0);
+
+                link.innerHTML = 'Hide URL';
+
+                YAHOO.util.Event.removeListener(link, "click");
+                YAHOO.util.Event.on(link, "click", function(e) {
+                    YAHOO.util.Event.stopEvent(e);
+                    hideUrl(e.currentTarget);
+                });
+            }, failure: function(o) {}},
+            'mirror=' + mirrorId);
+}
+
+function hideUrl(link) {
+    var container = YAHOO.util.Dom.getAncestorByTagName(link, 'tr');
+    var panel = YAHOO.util.Dom.getNextSibling(container).getElementsByTagName('span')[0];
+    myYUI.fade(panel, 0, 0);
+
+    link.innerHTML = 'Show URL';
+
+    YAHOO.util.Event.removeListener(link, "click");
+    YAHOO.util.Event.on(link, "click", function(e) {
+        YAHOO.util.Event.stopEvent(e);
+        showUrl(e.currentTarget);
+    });
+}
+</r:script>
 </body>
 </html>

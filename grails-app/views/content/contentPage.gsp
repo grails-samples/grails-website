@@ -1,4 +1,4 @@
-<g:setProvider library="yui"/>
+<g:setProvider plugin="yui" library="yui"/>
 
 <head>
     <title>${content?.title}</title>

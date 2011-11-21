@@ -1,3 +1,5 @@
+import pl.burningice.plugins.image.engines.scale.ScaleType
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appName}-config.groovy" ]
@@ -5,6 +7,8 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*"]
+grails.resources.adhoc.excludes = [ "**/*.swp" ]
 
 wiki.supported.upload.types = ['image/png','image/jpg','image/jpeg','image/gif']
 // location of plugins-list.xml
@@ -51,6 +55,24 @@ environments {
         download.versions = ["1.4 beta", "1.3", "1.2"]
     }
 }
+
+
+bi {
+    WebSite {
+        prefix = 'website-'
+        images {
+            large {
+                scale = [width: 300, height: 280, type: ScaleType.APPROXIMATE]
+            }
+        }
+        constraints {
+            nullable = true
+            maxSize = 2 * 1024 * 1024
+            contentType = ['image/gif', 'image/png', 'image/jpeg']
+        }
+    }
+}
+
 
 searchable {
     compassConnection = null
@@ -149,6 +171,4 @@ log4j = {
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework',
             'org.hibernate'
-    
-    info "org.grails.plugin"
 }

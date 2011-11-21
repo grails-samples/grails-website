@@ -3,20 +3,35 @@ import grails.util.Environment;
 class UrlMappings {
     static mappings = {
         "/Home?"(controller: "content", action: "homePage")
-        "/$id"(controller: "content", action: "index")
+        "/$id"(controller: "content", action: "index") {
+            constraints {
+                id notEqual: "dbconsole"
+            }
+        }
+
+        "/api/v1.0/downloads"(controller: "download", action: "apiList")
+        "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
+
+        "/api/v1.0/plugins/$category?"(controller: "plugin", action: "apiList")
+        "/api/v1.0/plugin/$name"(controller: "plugin") {
+            action = [GET: "apiShow", PUT: "apiUpdate"]
+            parseRequest = true
+        }
 
         "/Download"(controller: "download", action: "latest")
         "/download/file"(controller: "download", action: "downloadFile")
+        "/download/url"(controller: "download", action: "showUrl")
         "/download/archive/$id"(controller: "download", action: "archive")
+        "/downloads"(controller: "download", action: "list")
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
 
-        "/Plugins"(controller: "plugin")
+        "/Plugins"(controller: "plugin", action: "legacyHome")
         "/plugins"(controller: "plugin", action: "home")
         "/plugins/forum"(controller: "plugin", action: "forum")
         "/plugin/$name"(controller: "plugin") {
-            action = [ GET: "show", PUT: "update" ]
+            action = [ GET: "show", PUT: "apiUpdate" ]
             parseRequest = true
         }
         "/plugin/home"(controller: "plugin", action:"home")
@@ -37,6 +52,10 @@ class UrlMappings {
         "/plugins/category/$category"(controller: "plugin", action: "home")
         "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
         "/plugins/tags"(controller: "plugin", action: "browseTags")
+
+        name pluginTab: "/plugin/$id/$action/$_ul" {
+            controller = "pluginTab"
+        }
 
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
@@ -77,6 +96,22 @@ class UrlMappings {
         "/screencast/show/$id"(controller:"screencast", action:"show")		
         "/comment/add"(controller:"commentable", action:"add")
 
+        if (Environment.current != Environment.PRODUCTION) {
+            "/websites"(controller: "webSite", action: "list")
+            "/websites/add"(controller: "webSite", action: "create")
+            "/websites/save"(controller: "webSite", action: "save")
+            "/websites/search"(controller:"webSite", action:"search") 		
+            "/websites/tags"(controller:"webSite", action:"browseTags") 
+            "/websites/feed"(controller:"webSite", action:"feed") 						
+            "/website/edit/$id"(controller: "webSite", action: "edit")
+            "/website/update/$id"(controller: "webSite", action: "update")
+
+            "/social/like"(controller: "likeDislike", action: "like")
+            "/social/dislike"(controller: "likeDislike", action: "dislike")
+
+            "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
+        }
+
         "/admin/$controller/$action?/$id?"()
         "/admin"(controller: "admin", action: "index")
 
@@ -98,6 +133,11 @@ class UrlMappings {
             }
         }
 
-        "500"(controller: 'error', action: "serverError")
+        if (Environment.current == Environment.PRODUCTION) {
+            "500"(controller: "error", action: "serverError")
+        }
+        else {
+            "500"(controller: "error", action: "devError")
+        }
     }
 }

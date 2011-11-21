@@ -1,0 +1,118 @@
+
+.screencastControls, .blogControls, .artifactControls {
+	margin-bottom:20px;
+}
+.screencastControls a, .artifactControls {
+	color: black; border: inherit; text-decoration: none;		
+}
+.screencastControls div, .blogControls div, .artifactControls div {
+	display:inline-block;
+	padding-right:20px;
+}
+.artifactControls #searchBox {
+	display: block;
+	margin-top: 1.5em;
+	padding-right:20px;
+	width: 50%;
+}
+.artifactControls #searchBox input[name=q] {
+	width: 50%;
+}
+
+.screencastControls .list, .blogControls .list, .artifactControls .list {
+	text-align:right;
+	padding-left:20px;
+	background: url(../../images/famfamfam/application_view_list.png)  left no-repeat;
+}
+.screencastControls .edit, .screencastControls .create, .blogControls .create, .blogControls .edit, .artifactControls .edit, .artifactControls .create {
+	text-align:right;
+	padding-left:20px;
+	background: url(../../images/icon-edit.png)  left no-repeat;
+}
+.screencastControls .feed, .blogControls .feed, .artifactControls .feed {
+	text-align:right;
+	padding-left:20px;
+	background: url(../../images/famfamfam/feed.png)  left no-repeat;
+}
+
+.screencastForm, .artifactForm {
+	padding:15px;
+	background-color:#F7F8F2;
+	border:2px solid white;
+	padding:10px;	
+	
+}
+
+.artifact {
+    min-height: 220px;
+}
+
+.artifact h2 {
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+}
+
+.artifact .tagList {
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
+
+.webSiteThumbnail {
+    margin-top: 10px;
+    width: 300px;
+}
+
+.webSiteThumbnail.even {
+    float: right;
+    margin-left: 10px;
+}
+
+.webSiteThumbnail.odd {
+    float: left;
+    margin-right: 10px;
+}
+
+.screencastForm label, .artifactForm label {
+	display:block;
+	font-size:1.2em;
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+.screencastForm input, .artifactForm input {
+	display:block;
+	margin-bottom:10px;
+}
+.screencastForm input[type=text], .artifactForm input[type=text] {
+	width: 400px;
+}
+.screencastForm textarea, .artifactForm textarea {
+	display:block;
+	width:400px;
+	height:100px;
+	margin:0;
+}
+.screencast .screencastDescription, .artifact .artifactDescription {
+	margin-top:5px;
+	margin-bottom:5px;	
+	font-size:1.1em;
+	padding:15px;	
+}
+.screencast .screencastTags, .artifact .artifactTags{
+	font-size:1.2em;
+	margin-bottom:10px;
+	color:grey;
+}
+.screencast .screencastDownloads, .artifact .artifactDownloads {
+	padding:10px;	
+	font-weight:bold;
+	font-size:1.2em;
+}
+.screencast .screencastInfo, .artifact .artifactInfo {
+	color:grey;
+	text-align:center;
+}
+.screencast .screencastTitle, .artifact .artifactTitle {
+	font-size:1.4em;
+	text-align:center;
+	
+}

@@ -6,7 +6,7 @@ class Download implements Serializable{
     Date releaseDate = new Date()                    
     String softwareName
     String softwareVersion
-    int count
+    int downloadCount
     Boolean betaRelease = false
 
     List files
@@ -21,10 +21,10 @@ class Download implements Serializable{
     static constraints = {
         softwareName blank:false
         softwareVersion blank:false
-        count min:0
+        downloadCount min:0
     }
 
     static mapping = {
-        count column: '`count`'
+        downloadCount column: '`count`'
     }
 }

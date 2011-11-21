@@ -24,7 +24,7 @@ class JSecurityAuthFilters {
             d.render(template:"/user/loginForm", model:[originalURI:targetUri,
                                                         formData:d.params,
                                                         async:true,
-                                                        update:d.params.update,
+                                                        update:d.params._ul,
                                                         message:"auth.not.logged.in"])
         } else {
             // Redirect to login page.
@@ -49,7 +49,22 @@ class JSecurityAuthFilters {
     }    
 
     static filters = {
-       // Ensure that all controllers and actions require an authenticated user,
+        def requiresPermissions = [
+                pluginTab: ["editWikiPage"],
+                webSite: ["create", "edit", "save", "update"] as Set,
+                likeDislike: ["like", "dislike"] as Set ]
+        withPermissions(controller: "*", action: "*") {
+            before = {
+                if (actionName in requiresPermissions[controllerName]) {
+                    accessControl()
+                }
+                else {
+                    return true
+                }
+            }
+        }
+
+        // Ensure that all controllers and actions require an authenticated user,
         
         // Creating, modifying, or deleting a book requires the "Administrator"
         // role.

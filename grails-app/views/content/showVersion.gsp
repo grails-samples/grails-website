@@ -3,13 +3,17 @@
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
 
 <div id="infoLinks" style="margin-left:450px;">
-    <g:remoteLink update="${updateElement}" controller="content" id="${content?.title}" params="[xhr:true, update:updateElement]"><img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" /></g:remoteLink>
-    <g:remoteLink update="${updateElement}" controller="content" id="${content?.title}" params="[xhr:true, update:updateElement]">View Page</g:remoteLink>
+    <g:remoteLink update="${updateElement}" id="${content?.title}" params="[_ul: updateElement]">
+        <img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
+        View Page
+    </g:remoteLink>
 
-    <shiro:authenticated>
-        <g:remoteLink update="editPane" controller="content" action="markupWikiPage" id="${content?.title}" ><img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" /></g:remoteLink>
-        <g:remoteLink update="editPane" controller="content" action="markupWikiPage" id="${content?.title}" >View Markup</g:remoteLink>
-    </shiro:authenticated>
+    <shiro:isLoggedIn>
+        <g:remoteLink update="editPane" action="markupWikiPage" id="${content?.title}" params="[_ul: updateElement]">
+            <img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
+            View Markup
+        </g:remoteLink>
+    </shiro:isLoggedIn>
 
 </div>
 

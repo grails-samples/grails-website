@@ -1,62 +1,79 @@
+grails.plugin.location.websites = "${basedir}/sections/grails-sites"
+
 grails.project.work.dir = "target"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.plugins.dir = "plugins"
 
 grails.project.dependency.resolution = {
     inherits "global", {
-        excludes "xml-apis", "commons-digester"
+        excludes "xml-apis", "commons-digester", "ehcache"
     }
 
     log "warn"
 
     repositories {        
+        inherit false
         grailsPlugins()
         grailsHome()
         grailsCentral()
+        mavenLocal()
         mavenCentral()
-        mavenRepo "http://repository.codehaus.org"
-        mavenRepo "http://maven.springframework.org/milestone"
-        mavenRepo "http://snapshots.repository.codehaus.org"
+        mavenRepo "http://m2repo.spockframework.org/snapshots"
     }
 
     plugins {
+        compile ":burning-image:0.5.0",
+                ":commentable:0.7.5",
+                ":taggable:1.0.1"
+
+        compile ":rateable:0.7.0", {
+            exclude "yui"
+        }
+
         runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
-                ":commentable:0.7.5",
                 ":database-migration:1.0",
                 ":feeds:1.5",
-                ":grails-ui:1.2",
+                ":grails-ui:1.2.1",
                 ":greenmail:1.2.2",
-                ":hibernate:1.3.7",
+                ":hibernate:$grailsVersion",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":rateable:0.7.0",
-                ":resources:1.0",
+                ":resources:1.0.2",
                 ":richui:0.6",
-                ":screencasts:0.5.3",
+                ":screencasts:0.5.4",
                 ":searchable:0.6.3",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
-                ":spring-events:1.1",
-                ":taggable:0.6.4",
+                ":spring-events:1.2-SNAPSHOT",
+                ":yui:2.8.2.1",
                 ":zipped-resources:1.0"
+
+        if (Environment.current == Environment.DEVELOPMENT) {
+            compile ":build-test-data:1.1.1",
+                    ":fixtures:1.1-SNAPSHOT"
+        }
+        else {
+            test    ":build-test-data:1.1.1",
+                    ":fixtures:1.1-SNAPSHOT"
+        }
         
-        test    ":build-test-data:1.1.1",
-                ":fixtures:1.1-SNAPSHOT",
-                ":geb:0.6.0",
-                ":spock:0.5-groovy-1.7-SNAPSHOT", {
+        test    ":geb:0.6.0",
+                ":spock:0.6-SNAPSHOT", {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:1.3.7"
+        build   ":tomcat:$grailsVersion"
     }
 
     dependencies {
-        compile "org.twitter4j:twitter4j-core:2.1.8"
+        compile "org.twitter4j:twitter4j-core:2.1.8", "org.springframework:spring-context-support:3.0.3.RELEASE"
 
+        test "org.codehaus.geb:geb-spock:0.6.0",
+             "org.gmock:gmock:0.8.1"
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
         }

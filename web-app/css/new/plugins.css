@@ -99,6 +99,10 @@ body {
     background: url(../../images/sprites/plugins-variable-width.png) no-repeat top left;
     background-position: -10px -705px;
 }
+#pluginSorters .installed {
+    background: url(../../images/sprites/plugins-variable-width.png) no-repeat top left;
+    background-position: -10px -927px;
+}
 #pluginSorters .recentlyUpdated {
     background: url(../../images/sprites/plugins-variable-width.png) no-repeat top left;
     background-position: -10px -745px;

@@ -4,8 +4,8 @@
     <meta content="pluginNav" name="layout"/>
     <content tag="pageCss">
         <rateable:resources />
-	    <feed:meta kind="rss" version="2.0" controller="plugin" action="latest" params="[format:'rss']"/>
-	    <feed:meta kind="atom" version="1.0" controller="plugin" action="latest" params="[format:'atom']"/>
+        <feed:meta kind="rss" version="2.0" controller="plugin" action="latest" params="[format:'rss']"/>
+        <feed:meta kind="atom" version="1.0" controller="plugin" action="latest" params="[format:'atom']"/>
     </content>
 </head>
 <body>

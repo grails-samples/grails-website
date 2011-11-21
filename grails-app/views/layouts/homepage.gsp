@@ -38,6 +38,7 @@ new PeriodicalExecuter(function(pe) {
 }, 4);
 */
     </r:script>
+    <%--
     <style>
 #events {
     left: 635px;
@@ -56,6 +57,7 @@ new PeriodicalExecuter(function(pe) {
 }
 
     </style>
+    --%>
 </head>
 <body>
     
@@ -134,7 +136,7 @@ new PeriodicalExecuter(function(pe) {
                         </div><!-- download -->
                         <div id="plugins">
                             <h3>
-                                <g:link controller="plugin">
+                                <g:link controller="plugin" action="home">
                                     <r:img uri="/images/new/plugins_button.png" alt="Grails Plugins" border="0" />
                                 </g:link>
                             </h3>
@@ -143,7 +145,7 @@ new PeriodicalExecuter(function(pe) {
                                     <li><g:link controller="plugin" action="show" params="[name:plugin.name]"><wiki:shorten text="${plugin.title}" /></g:link></li>
                                 </g:each>
                             </ul>
-                            <h4><g:link controller="plugin">View All</g:link></h4>
+                            <h4><g:link controller="plugin" action="home">View All</g:link></h4>
                         </div><!-- plugins -->
                     </div><!-- downloadPluginWrapper -->
                 </div><!-- downloadBox -->
@@ -178,6 +180,7 @@ new PeriodicalExecuter(function(pe) {
                 </div><!-- latestNews -->
             
                 <div id="events">
+                    <%--
                     <h2>Conferences</h2>
                     <div class="castBox">
                         <div class="advert">
@@ -185,23 +188,18 @@ new PeriodicalExecuter(function(pe) {
                                 <r:img width="250" height="230" uri="/images/SpringOne2GX_Banner_250x240.png"/>
                             </a>
                         </div>
-			<%--
                         <div class="advert">
                             <a href="http://www.springsource.com/events/s2gforum-5-31-2011-london">
                                 <r:img width="250" height="230" uri="/images/s2gforum-london-2011-240.png"/>
                             </a>
                         </div>
-			--%>
                     </div>
-                    <%--
+                    --%>
                     <h3>Training Events</h3>
                     <wiki:text page="Training Events" />
-                    --%>
                 </div><!-- events -->
                 
-		<%--
                 <div id="globeGraphic"></div>
-		--%>
             </div><!-- newsScreencastWrapper -->
             
         </div><!-- contentArea -->
@@ -251,11 +249,15 @@ Visit the Grails <g:link controller="content" id="Community">community pages</g:
             <a href="http://contegix.com">
                 <r:img uri="/images/contegix_logo.jpg" alt="Contegix logo" title="Hosted by Contegix" border="0"/>
             </a>
-            <a href="http://www.jfrog.com/products.php">
+            <a href="http://www.jfrog.org/">
                 <r:img uri="/images/artifactory-logo.png" class="artifactory" alt="Artifactory logo" title="In association with JFrog"/>
             </a>
             <a href="http://twitter.com/grailsframework"><div class="twitter"></div></a>
-            <p>&copy; Copyright 2009-2011 SpringSource.<br/>All Rights Reserved.</p>
+            <p>
+            <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
+            <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&copy; Copyright 2009-2011 SpringSource.<br/>All Rights Reserved.
+            </p>
         </div><!-- innerFooter -->
     </div><!-- center -->
 </div><!-- footer -->

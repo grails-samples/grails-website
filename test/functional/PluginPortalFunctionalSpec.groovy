@@ -1,10 +1,10 @@
 import org.grails.test.pages.*
 
-import grails.plugin.geb.GebSpec
+import geb.spock.GebReportingSpec
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 
-class PluginPortalFunctionalSpec extends GebSpec {
+class PluginPortalFunctionalSpec extends GebReportingSpec {
     def setupSpec() {
         def http = new HTTPBuilder("http://localhost:8080")
         http.post path: "/test/fixtures/load", query: [file: "plugins"], body: ""

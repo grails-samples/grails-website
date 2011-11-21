@@ -5,12 +5,12 @@ import org.apache.shiro.authc.IncorrectCredentialsException
 import org.apache.shiro.authc.UnknownAccountException
 import org.apache.shiro.authc.SimpleAccount
 
-import org.grails.auth.User
-
 class WikiRealm {
     static authTokenClass = org.apache.shiro.authc.UsernamePasswordToken
 
     def credentialMatcher
+    def shiroPermissionResolver
+    def userService
 
     def authenticate(authToken) {
         log.info "Attempting to authenticate ${authToken.username} in DB realm..."
@@ -59,10 +59,24 @@ class WikiRealm {
         return r.size() == roles.size()
     }
 
-    def isPermitted(principal, requiredPermission) {
-        // no permission level authentication implemented yet
-        return true
-    }
+    boolean isPermitted(principal, requiredPermission) {
+        def permissions = userService.permissionsForUser(principal)
+        def retval = permissions?.find { permString ->
+            // Create a real permission instance from the database
+            // permission.
+            def perm = shiroPermissionResolver.resolvePermission(permString)
 
- 
+            // Now check whether this permission implies the required
+            // one.
+            if (perm.implies(requiredPermission)) {
+                // User has the permission!
+                return true
+            }
+            else {
+                return false
+            }
+        }
+
+        return retval != null
+    }
 }

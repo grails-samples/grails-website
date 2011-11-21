@@ -1,6 +1,6 @@
 package org.grails
 
 class ErrorController {
-    def serverError = {
-    }
+    def serverError() {}
+    def devError() {}
 }

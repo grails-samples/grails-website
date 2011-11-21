@@ -5,6 +5,7 @@
       <link rel="stylesheet" href="${createLinkTo(dir:'css', file:'master.css')}" type="text/css" media="screen" title="Master screen stylesheet" charset="utf-8" />
 
       <r:require modules="upload"/>
+      <r:layoutResources/>
 
       <style type="text/css">
         body {
@@ -27,5 +28,6 @@
           <img src="${createLinkTo(dir: 'images', file: 'spinner.gif')}" alt="Please wait.." /> Please wait...
       </div>
       <g:render template="/common/messages_effects" model="${pageScope.getVariables()}" />
+      <r:layoutResources/>
   </body>
 </html>
