@@ -7,6 +7,7 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*"]
 grails.resources.adhoc.excludes = [ "**/*.swp" ]
 
 wiki.supported.upload.types = ['image/png','image/jpg','image/jpeg','image/gif']
