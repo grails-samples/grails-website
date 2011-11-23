@@ -328,10 +328,18 @@ textarea {
 	font-size:13pt;
 	margin-bottom:0px;
 }
-#createEntry input {
-	margin:5px;
-	display:block;
+
+#createEntry input[type=text] {
+    width: 99%;
+    margin: 0.5em 0 1em 0;
+    padding: 0 1px;
 }
+
+#entryBody_container {
+    margin: 0.5em 0 1em 0;
+    padding: 0 1px;
+}
+
 .screencastComments .comment, .blogEntryDisplay .entryComments .comment {
 	margin-top:15px;
 	border-bottom:1px dashed #265c8f;
