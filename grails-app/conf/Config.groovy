@@ -9,6 +9,7 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 // }
 grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*"]
 grails.resources.adhoc.excludes = [ "**/*.swp" ]
+grails.resources.zip.excludes = ["/**/*.png","/**/*.gif","/**/*.jpg"]
 
 wiki.supported.upload.types = ['image/png','image/jpg','image/jpeg','image/gif']
 // location of plugins-list.xml
