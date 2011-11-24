@@ -34,6 +34,12 @@
 	                    <li><g:link controller="content" id="Plugins">Plugins</g:link></li>
 	                    <li><g:link controller="content" id="Mailing lists">Mailing Lists</g:link></li>
 						<li><a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble Forums</a></li>
+                        <li>&nbsp;</li>
+                        <li>Find us on:<br />
+                        <a href="http://twitter.com/#!/grailsframework"><img src="http://a4.twimg.com/help/1307050985_2229" style="border:0;padding-top:10px;width:32px;height:32px;"/></a>
+                        <a href="https://plus.google.com/117411438136918964913?prsrc=3" style="text-decoration:none;"><img src="https://ssl.gstatic.com/images/icons/gplus-32.png" alt="" style="border:0;padding-top:10px;width:32px;height:32px;"/></a>
+                        <a href="http://www.facebook.com/groups/5965658003/" style="text-decoration:none;"><r:img uri="/images/f_logo.png" style="border:0;padding-top:10px;width:32px;height:32px;"/></a>
+                        </li>
 	                </ul>
 	                </li>
 	    <!--			<li><a href="">Weblog</a></li>-->
