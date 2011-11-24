@@ -1,7 +1,7 @@
 <g:applyLayout name="main">
 <head>
     <title><g:layoutTitle default="Plugins Portal" /></title>
-    <r:use modules="plugins"/>
+    <r:require modules="plugins"/>
     
     <content tag="pageCss">
         <g:pageProperty name="page.pageCss"/>

@@ -4,7 +4,6 @@
   <head>
       <title>Your Profile</title>
       <meta content="subpage" name="layout" />
-      <g:javascript library="scriptaculous" />
       <style type="text/css">
         .inputForm label {
             width:200px;

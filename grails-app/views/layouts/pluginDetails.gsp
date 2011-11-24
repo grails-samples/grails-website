@@ -1,10 +1,6 @@
 <g:applyLayout name="pluginInfoLayout">
 <head>
     <title><g:layoutTitle default="Plugin - ${plugin.title}" /></title>
-
-    <content tag="pageCss">
-        <rateable:resources />
-    </content>
     <r:use modules="pluginDetails"/>
 
     <g:layoutHead />

@@ -2,8 +2,6 @@
 <head>
     <feed:meta kind="rss" version="2.0" controller="plugin" action="latest" params="[format:'rss']"/>
     <feed:meta kind="atom" version="1.0" controller="plugin" action="latest" params="[format:'atom']"/>
-    <rateable:resources />
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'ratings.css')}"/>
 
     <title>Grails Plugins</title>
     <meta content="pluginNav" name="layout"/>

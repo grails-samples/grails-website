@@ -4,7 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
         <title>File Details</title>
-        <g:javascript library="prototype" />
+        <r:require modules="jquery"/>
+        <g:setProvider library="jquery" plugin="jquery"/>
         <style type="text/css">            
             .textField {
                 position:absolute;

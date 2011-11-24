@@ -38,6 +38,7 @@ grails.project.dependency.resolution = {
                 ":grails-ui:1.2.1",
                 ":greenmail:1.2.2",
                 ":hibernate:$grailsVersion",
+                ":jquery:1.6.1.1",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
