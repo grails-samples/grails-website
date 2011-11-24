@@ -7,6 +7,7 @@
 </head>
 <body>
 	<div id="pluginDetailsBox">
+		<div id="pluginDetailsTop"></div>
 		<div id="pluginDetailsContainer">
 			<g:if test="${plugin.zombie}">
 			<div id="pluginZombie">
@@ -92,7 +93,9 @@
 		    </ul>
 		</div>
 
-		<div class="description"><wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text></div>
+		<div class="description">
+                    <wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text>
+                </div>
 		
 	</div>
 
