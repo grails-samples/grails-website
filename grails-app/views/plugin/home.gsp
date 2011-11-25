@@ -8,6 +8,7 @@
     </content>
 </head>
 <body>
+    <g:render template="/common/messages" model="[message: message]"/>
     <tmpl:pluginList plugins="${currentPlugins}" total="${totalPlugins}" pageParams="[category: category]" />
 </body>
 </html>

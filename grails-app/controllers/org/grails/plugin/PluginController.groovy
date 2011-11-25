@@ -48,10 +48,14 @@ class PluginController extends BaseWikiController {
 
         // If no category is specified, default to 'featured' for the
         // web interface, and 'all' for JSON and XML requests.
+        def fetchInstalled = params.category == "installed"
         def pluginData = listPlugins(max, (response.format == 'html' ? 'featured' : 'all'))
 
         withFormat {
             html {
+                if (fetchInstalled && !pluginData.currentPlugins) {
+                    pluginData.message = "Not enough data has been collected yet. This will start working once enough people have adopted Grails 2."
+                }
                 return pluginData
             }
             json {

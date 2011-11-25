@@ -427,3 +427,6 @@ body {
     width: 1008px;
 }
 
+#content #message {
+    margin: 3em 1.5em;
+}
