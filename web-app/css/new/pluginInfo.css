@@ -90,6 +90,9 @@
 	height:30px;
 	position: relative;
 	top: -26px;
+        width: 1008px;
+        margin-left: auto;
+        margin-right: auto;
 }
 #pluginDetailsBox {
 	margin-left: auto;
