@@ -136,9 +136,10 @@
 	font-size:0.9em;	
 	width:900px;
 }
-#pluginBox .pluginDetail > table {
+#pluginBox .pluginDetail table {
 	border-spacing: 0;
-	width: 70%;
+	text-align: left;
+	width: 100%;
 }
 #pluginBox .pluginDetail th {
 	width:16em;
