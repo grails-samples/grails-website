@@ -214,6 +214,7 @@
     background: url(../../images/sprites/plugins-variable-width.png) no-repeat left top;
     background-position: -10px -356px;
 	margin:0px;
+	position: relative;
 }
 
 .currentPlugin .header .detail {
@@ -231,7 +232,7 @@
 
 .currentPlugin .header h4 {
 	position:relative;
-	top:20px;
+	top:1em;
 	padding-left:20px;
 }
 .currentPlugin .header .supported {
@@ -240,9 +241,9 @@
 	font-size:0.7em;
 }
 .currentPlugin .header .ratings {
-	position:absolute;
-	margin-top:10px;
-	margin-left:530px;
+	position: absolute;
+	top: 1em;
+	right: 10px;
 }
 
 .currentPlugin ul.links {
