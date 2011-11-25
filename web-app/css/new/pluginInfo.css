@@ -18,11 +18,6 @@
         float:none;
         left:100px;
 }
-body {
-	margin-left:0px;
-	margin-right:0px;
-}
-
 #pluginBgTop {
 	background:url(../../images/new/plugins/plugins_topnav.png) no-repeat center bottom;	
 	height:94px;
