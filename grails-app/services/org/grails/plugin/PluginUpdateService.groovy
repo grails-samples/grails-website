@@ -130,9 +130,12 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         pluginService.savePlugin(plugin, true)
 
-        // Assuming the instance saved OK, we can tweet the release if it's
+        // Assuming the instance saved OK, we can announce the release if it's
         // a new version.
-        if (isNewVersion && !event.snapshot) announceRelease(plugin)
+        if (isNewVersion && !event.snapshot) {
+			plugin.lastReleased = new Date()
+			announceRelease(plugin)
+		}
         else log.info "Not a new plugin release - won't tweet"
     }
 
