@@ -42,24 +42,24 @@ grails.project.dependency.resolution = {
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":resources:1.0.2",
+                ":resources:1.1.2.BUILD-SNAPSHOT",
                 ":richui:0.6",
                 ":screencasts:0.5.4",
                 ":searchable:0.6.3",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
-                ":spring-events:1.2-SNAPSHOT",
+                ":spring-events:1.2",
                 ":yui:2.8.2.1",
                 ":zipped-resources:1.0"
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.1"
         }
         else {
             test    ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.1"
         }
         
         test    ":geb:0.6.0",
