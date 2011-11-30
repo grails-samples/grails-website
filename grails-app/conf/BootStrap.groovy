@@ -45,6 +45,7 @@ grails -Dinitial.admin.password=changeit run-app""")
             println "Loading fixture data"
             fixtureLoader.with {
                 load("users").load("plugins").load("tags", "ratings")
+                load("tutorials").load("tutorialTags")
                 load("wiki")
                 load("downloads")
             }
@@ -71,6 +72,7 @@ grails -Dinitial.admin.password=changeit run-app""")
         // Editor can edit pages, add screencasts, etc.
         def editor = Role.findByName(Role.EDITOR) ?: new Role(name: Role.EDITOR).save(failOnError: true)
         safelyAddPermission editor, "pluginTab:editWikiPage"
+        safelyAddPermission editor, "tutorial:create,edit,save,update"
         safelyAddPermission editor, "webSite:create,edit,save,update"
         safelyAddPermission editor, "likeDislike:like,dislike"
 

@@ -11,21 +11,26 @@ abstract class AbstractSectionController {
         _propName = GrailsNameUtils.getPropertyName(_domainClass.simpleName)
     }
 
-    def datastoreImageService
-    def grailsApplication
     def taggableService
 
-    def list = {
-        [ artifacts: domainClass.list(offset: params.offset?: 0,max:10, cache:true, sort:"dateCreated", order:"desc"),
-          total: domainClass.count() ]
+    def list() {
+        def cat = params.category ?: "all"
+        try {
+            def items = domainClass."${cat}Query".list(offset: params.offset?: 0, max: 10)
+            def count = domainClass."${cat}QueryNoSort".count()
+            return [ artifacts: items, total: count ]
+        }
+        catch (MissingMethodException ex) {
+            render text: "Unknown category: ${cat}", status: 404
+        }
     }
 
-    def feed = {
+    def feed() {
         def items = domainClass.list( offset: params.offset?: 0,max:10, cache:true, sort:"dateCreated", order:"desc" )
         def feedOutput = {
-            title = g.message(code:"${propertyName}.rss.feed.title", 'default':'${propertyName.capitalize()} List')
+            title = g.message(code:"${propertyName}.rss.feed.title", default:"${propertyName.capitalize()} List")
             link = g.createLink(absolute:true, action:'feed', params:[format:request.format])
-            description = g.message(code:"${propertyName}.rss.feed.description", 'default':'Latest ${propName.capitalize()}s')
+            description = g.message(code:"${propertyName}.rss.feed.description", default:"Latest ${propertyName.capitalize()}s")
             
             for(s in items) {
                 entry(s.title) {
@@ -48,7 +53,7 @@ abstract class AbstractSectionController {
         }
     }
 
-    def search = {
+    def search() {
 
         def result 
         if(params.tag) {

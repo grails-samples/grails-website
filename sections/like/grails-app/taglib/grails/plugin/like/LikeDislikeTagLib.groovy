@@ -49,9 +49,9 @@ class LikeDislikeTagLib {
      * @attr item REQUIRED The object that can be voted up. It must have a
      * <tt>popularity</tt> property of type <tt>Popularity</tt>.
      */
-    def voteUp = { attrs, body ->
+    def voteUp = { attrs ->
         def item = attrs.item
-        if (!item) throwTagError "Tag [vote] is missing required attribute [item]"
+        if (!item) throwTagError "Tag [voteUp] is missing required attribute [item]"
 
         // Has the user already voted?
         def itemType = attrs.item.getClass().name
@@ -59,16 +59,34 @@ class LikeDislikeTagLib {
 
         if (currentUser.principal) {
             if (currVote && currVote.vote > 0) {
-                out << "<span class=\"vote like\">+1</span>"
+                out << g.render(template: "/likeDislike/liked", model: [jsLibrary: attrs.js, item: item])
             }
             else {
                 out << g.remoteLink(
                         class: "vote like",
                         controller: "likeDislike",
                         action: "like",
-                        params: [whatId: item.id, whatType: itemType, js: attrs.js],
+                        params: [whatId: item.id, whatType: itemType, js: attrs.js, respType: "liked"],
                         update: "like-${item.id}") { "+1" }
             }
+        }
+    }
+
+    def unvote = { attrs ->
+        def item = attrs.item
+        if (!item) throwTagError "Tag [unvote] is missing required attribute [item]"
+
+        // Has the user already voted?
+        def itemType = attrs.item.getClass().name
+        def currVote = likeDislikeService.getCurrentVoteForUser(item, currentUser.principal)
+
+        if (currVote && currVote.vote > 0) {
+            out << g.remoteLink(
+                    class: "vote unlike",
+                    controller: "likeDislike",
+                    action: "unlike",
+                    params: [whatId: item.id, whatType: itemType, js: attrs.js, respType: "voteUp"],
+                    update: "like-${item.id}") { 'x' }
         }
     }
 }

@@ -1,17 +1,19 @@
-package org.grails.websites
+package org.grails.tutorials
 
 import grails.plugin.like.Popularity
+import org.grails.taggable.Tag
 import org.grails.taggable.Taggable
-import pl.burningice.plugins.image.ast.DBImageContainer
+import org.grails.taggable.TagLink
 
-@DBImageContainer(field = "preview")
-class WebSite implements Taggable {
+class Tutorial implements Taggable {
     String title
     String description
     String url
     boolean featured
     Popularity popularity = new Popularity()
     Date dateCreated
+
+    def taggableService
 
     static embedded = ["popularity"]
 
@@ -21,7 +23,12 @@ class WebSite implements Taggable {
         url url: true
     }
 
-    static searchable = [only: ["title", "description"]]
+    static transients = ["tags"]
+
+    static searchable = {
+        only = ["title", "description", "tags"]
+        tags component: true
+    }
 
     static namedQueries = {
         allQueryNoSort {
@@ -55,6 +62,18 @@ class WebSite implements Taggable {
         popularQuery {
             popularQueryNoSort()
             order "dateCreated", "desc"
+        }
+    }
+
+    Collection<Tag> getTags() {
+        if (!id) {
+            return []
+        }
+        else {
+            return TagLink.findAllByTagRefAndTypeInList(
+                    id,
+                    taggableService.domainClassFamilies[this.class.name],
+                    [cache:true]).tag
         }
     }
 }

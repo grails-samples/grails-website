@@ -7,8 +7,6 @@ class WebSiteController extends AbstractSectionController {
     static final int IMAGE_PREVIEW_MAX_SIZE = 2 * 1024 * 1024
 
     def imageUploadService
-    def grailsApplication
-    def taggableService
 
     WebSiteController() {
         super(WebSite)

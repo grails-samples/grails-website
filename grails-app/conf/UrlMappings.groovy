@@ -106,11 +106,20 @@ class UrlMappings {
             "/website/edit/$id"(controller: "webSite", action: "edit")
             "/website/update/$id"(controller: "webSite", action: "update")
 
-            "/social/like"(controller: "likeDislike", action: "like")
-            "/social/dislike"(controller: "likeDislike", action: "dislike")
-
             "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
         }
+
+        "/tutorials"(controller: "tutorial", action: "list")
+        "/tutorials/add"(controller: "tutorial", action: "create")
+        "/tutorials/save"(controller: "tutorial", action: "save")
+        "/tutorials/search"(controller:"tutorial", action:"search") 		
+        "/tutorials/tags"(controller:"tutorial", action:"browseTags") 
+        "/tutorials/feed"(controller:"tutorial", action:"feed") 						
+        "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
+        "/tutorial/update/$id"(controller: "tutorial", action: "update")
+
+        "/social/like"(controller: "likeDislike", action: "like")
+        "/social/unlike"(controller: "likeDislike", action: "unlike")
 
         "/admin/$controller/$action?/$id?"()
         "/admin"(controller: "admin", action: "index")
