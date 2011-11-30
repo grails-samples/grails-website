@@ -14,7 +14,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            dbCreate = "update" // one of 'create', 'create-drop','update'
             url = "jdbc:h2:mem:devDb"
             driverClassName = "org.h2.Driver"
             username = "sa"
