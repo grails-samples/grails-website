@@ -18,6 +18,7 @@ p {
 	text-align:left;
 	padding-top:30px;
 	padding-left:70px;
+	min-width: 12em;
 }
 #contentCenter {
 	width:1008px;
