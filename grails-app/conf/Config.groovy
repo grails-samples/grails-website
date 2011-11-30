@@ -164,6 +164,8 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 // log4j configuration
 log4j = {
     off     'grails.app.service.org.grails.plugin.resource'
+
+    error   'org.hibernate'
     
     warn    'org.codehaus.groovy.grails.web.servlet',
             'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -171,6 +173,5 @@ log4j = {
             'org.codehaus.groovy.grails.commons', // core / classloading
             'org.codehaus.groovy.grails.plugins', // plugins
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-            'org.springframework',
-            'org.hibernate'
+            'org.springframework'
 }
