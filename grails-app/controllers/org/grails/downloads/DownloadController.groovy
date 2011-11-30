@@ -46,7 +46,13 @@ class DownloadController {
                     binaryDownload.softwareVersion,
                     [fetch: [files: 'select']])
 
-            map[version] = [ binaryDownload, docDownload ]
+            if (downloads) {
+                map[version] = [ binaryDownload, docDownload ]
+            }
+            else {
+                log.error "No downloads found for: ${version}"
+            }
+
             return map
         }
 
