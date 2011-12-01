@@ -56,11 +56,11 @@ grails.project.dependency.resolution = {
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
-                    ":fixtures:1.1"
+                    ":fixtures:1.1-SNAPSHOT"
         }
         else {
             test    ":build-test-data:1.1.1",
-                    ":fixtures:1.1"
+                    ":fixtures:1.1-SNAPSHOT"
         }
         
         test    ":geb:0.6.0",
@@ -84,6 +84,10 @@ grails.project.dependency.resolution = {
         }
         test    "net.sourceforge.htmlunit:htmlunit:2.8", {
             excludes "xml-apis", "commons-logging"
+        }
+
+        if (Environment.current == Environment.DEVELOPMENT) {
+            runtime "org.grails:grails-test:$grailsVersion"
         }
     }
 

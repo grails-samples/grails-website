@@ -41,7 +41,7 @@ grails -Dinitial.admin.password=changeit run-app""")
         }
         
         // Load dev data to make it easier to work on the application.
-        if (Environment.current == Environment.DEVELOPMENT && User.count() < 2) {
+        if ((System.getProperty("load.fixtures") || Environment.current == Environment.DEVELOPMENT) && User.count() < 2) {
             println "Loading fixture data"
             fixtureLoader.with {
                 load("users").load("plugins").load("tags", "ratings")
