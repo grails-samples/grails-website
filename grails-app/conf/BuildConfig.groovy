@@ -35,6 +35,8 @@ grails.project.dependency.resolution = {
         runtime ":avatar:0.3",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
+                ":cloud-foundry:1.2",
+                ":cloud-support:1.0.6",
                 ":database-migration:1.0",
                 ":feeds:1.5",
                 ":grails-ui:1.2.2",

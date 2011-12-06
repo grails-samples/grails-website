@@ -1,7 +1,7 @@
 dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"			
-    url = "jdbc:mysql://localhost/grails"
+    url = "jdbc:mysql://localhost/grails_org"
     username = "root"
     password = ""
 }
@@ -36,6 +36,15 @@ environments {
             url = "jdbc:h2:prodDb"
             driverClassName = "org.h2.Driver"
             username = "sa"
+            password = ""
+        }
+    }
+    cloud {
+        dataSource {
+            dbCreate = "update"
+            driverClassName = "com.mysql.jdbc.Driver"			
+            url = "jdbc:mysql://localhost/grails_org"
+            username = "root"
             password = ""
         }
     }
