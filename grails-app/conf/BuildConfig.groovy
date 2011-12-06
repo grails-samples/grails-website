@@ -1,5 +1,6 @@
 grails.plugin.location.websites = "${basedir}/sections/grails-sites"
 grails.plugin.location.tutorials = "${basedir}/sections/tutorials"
+grails.plugin.location.tutorials = "${basedir}/sections/mailgun"
 
 grails.project.work.dir = "target"
 grails.project.test.reports.dir = "target/test-reports"
@@ -76,14 +77,16 @@ grails.project.dependency.resolution = {
 
         test "org.codehaus.geb:geb-spock:0.6.0",
              "org.gmock:gmock:0.8.1"
-        test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
-            excludes "commons-logging", "httpclient", "xml-apis", "groovy"
-        }
         test    "org.seleniumhq.selenium:selenium-htmlunit-driver:2.0a7", {
             excludes "htmlunit", "xml-apis"
         }
         test    "net.sourceforge.htmlunit:htmlunit:2.8", {
             excludes "xml-apis", "commons-logging"
+        }
+
+        runtime "org.apache.httpcomponents:httpclient:4.1.2"
+        runtime "org.codehaus.groovy.modules.http-builder:http-builder:0.5.1", {
+            excludes "commons-logging", "httpclient", "xml-apis", "groovy"
         }
 
         if (Environment.current == Environment.DEVELOPMENT) {

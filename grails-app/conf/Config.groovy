@@ -1,4 +1,5 @@
 import pl.burningice.plugins.image.engines.scale.ScaleType
+import grails.converters.JSON
 
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
@@ -21,6 +22,26 @@ plugins.forum.mail.to = "plugins-announce@nowhere.net"
 plugins.forum.mail.from = "test@grails.org"
 
 grails.mail.port = 3025
+
+// Mailgun config - set if the connection information is provided through the environment.
+environments {
+    cloud {
+        def mailEnv = System.getenv("GRAILSORG_MAIL_SERVICE")
+        if (mailEnv) {
+            def mailConf = JSON.parse(mailEnv)
+            grails {
+                mail {
+                    host = mailConf.url
+                    username = mailConf.username
+                    password = mailConf.password
+                }
+            }
+        }
+    }
+}
+
+// Application name for Cloud Foundry
+grails.plugin.cloudfoundry.appname = "grails-website"
 
 grails.mime.use.accept.header = true
 grails.mime.file.extensions = false // enables the parsing of file extensions from URLs into the request format
