@@ -42,7 +42,7 @@ class MailerJob {
                     def pageClass = classLoader.loadClass(pageUpdate.className)
                     def content = pageClass.findByTitle(pageUpdate.title)
                         
-                    def text = new StringBuffer()
+                    def text = new StringBuilder()
                     def titleUrlEscaped = pageUpdate.title.encodeAsURL()
                     def url = "http://grails.org/${titleUrlEscaped}"
                     def myTitle = pageUpdate.title
@@ -74,6 +74,7 @@ class MailerJob {
                         text << "Edited by <b>${version.author?.login}</b>. <a href=\"http://grails.org/previous/${titleUrlEscaped}/${version.number}\">View change</a> <br><br>"
                         text << "</div>"
 //                        text << engine.render(content.body, context)
+                        text = text.toString()
 
                         for (email in emails) {
                             mailService?.sendMail {
@@ -81,7 +82,7 @@ class MailerJob {
                                 from "wiki@grails.org"
                                 replyTo "wiki@grails.org"
                                 to email
-                                html text.toString()
+                                html text
                             }
                         }                        
                     }
