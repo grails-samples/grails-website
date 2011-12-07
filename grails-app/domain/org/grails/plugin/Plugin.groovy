@@ -4,6 +4,7 @@ import org.grails.taggable.Tag
 import org.grails.taggable.Taggable
 import org.grails.taggable.TagLink
 import org.grails.comments.Commentable
+import org.grails.meta.UserInfo
 import org.grails.rateable.Rateable
 
 /*
@@ -47,7 +48,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     Date lastUpdated
     Date lastReleased
 
-    static hasMany = [licenses: License]
+    static hasMany = [licenses: License, authors: UserInfo]
 
     static searchable = {
         only = [
@@ -81,6 +82,7 @@ class Plugin implements Taggable, Commentable, Rateable {
         faq nullable: true
         screenshots nullable: true
         author nullable: true
+        authorEmail nullable: true
         organization nullable: true
         organizationUrl nullable: true
         scmUrl nullable: true, blank: true

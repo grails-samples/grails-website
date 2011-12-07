@@ -47,7 +47,12 @@
 		        <table>
 		            <tr>
 		                <th>Author(s)</th>
-		                <td>${plugin.author?.encodeAsHTML()}</td>
+		                <td>
+		                	<g:each in="${plugin.authors}" var="author" status="i">
+								<g:if test="${i}">&#183;</g:if>
+								${author.name.encodeAsHTML()}
+							</g:each>
+		                </td>
 		            </tr>
 		            <tr>
 		                <th>Current Release</th>
