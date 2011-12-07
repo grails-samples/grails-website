@@ -9,9 +9,6 @@
             document.getElementById("q").focus();
         }
     </script>
-    <content tag="pageCss">
-        <rateable:resources />
-    </content>
 </head>
 <body onload="focusQueryInput();">
 <div id="main">

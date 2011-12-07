@@ -11,6 +11,19 @@
             
     <div id="navMenu">
         <g:render template="/user/profileBox" />				
+        <div id="sectionMenu">
+            <div class="header">
+                <g:pageProperty name="page.headerText" />
+            </div>
+            <ul>
+                <li class="all"><g:link action="list" params="[category:'all']">All</g:link></li>
+                <li class="featured"><g:link action="list" params="[category:'featured']">Featured</g:link></li>
+                <li class="popular"><g:link action="list" params="[category:'popular']">Highest Voted</g:link></li>
+                <li class="newest"><g:link action="list" params="[category:'newest']">Newest</g:link></li>
+            </ul>
+            <div class="footer">
+            </div>
+        </div>
         <g:render template="/content/nav"></g:render>
         <div id="navFooter">
         </div>
@@ -19,16 +32,19 @@
         </div>
     </div>
     <div id="contentWindow">
-            <div id="contentWindowTop">				
-            </div>
-            <div id="contentDecoration">				
-            </div>
-            <div id="contentBody">
-                <g:layoutBody/>						
-            </div>
-            <div id="contentFooter">
+        <div id="searchBar">
+            <g:render template="/plugin/searchBar"/>
+        </div>
+        <div id="contentWindowTop">
+        </div>
+        <div id="contentDecoration">				
+        </div>
+        <div id="contentBody">
+            <g:layoutBody/>						
+        </div>
+        <div id="contentFooter">
 
-            </div>
+        </div>
     </div>
 </body>
 </g:applyLayout>

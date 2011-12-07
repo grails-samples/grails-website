@@ -18,6 +18,7 @@ p {
 	text-align:left;
 	padding-top:30px;
 	padding-left:70px;
+	min-width: 12em;
 }
 #contentCenter {
 	width:1008px;
@@ -43,12 +44,6 @@ p {
 	font-weight:normal;
 	color:black;
 }
-
-body {
-	margin:0px;
-	margin-top:10px;
-}
-
 #navMenu {
 	z-index:99;
 	width:250px;
@@ -328,10 +323,18 @@ textarea {
 	font-size:13pt;
 	margin-bottom:0px;
 }
-#createEntry input {
-	margin:5px;
-	display:block;
+
+#createEntry input[type=text] {
+    width: 99%;
+    margin: 0.5em 0 1em 0;
+    padding: 0 1px;
 }
+
+#entryBody_container {
+    margin: 0.5em 0 1em 0;
+    padding: 0 1px;
+}
+
 .screencastComments .comment, .blogEntryDisplay .entryComments .comment {
 	margin-top:15px;
 	border-bottom:1px dashed #265c8f;

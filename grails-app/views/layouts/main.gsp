@@ -34,7 +34,7 @@ function addJsClass() {
 </head>
 <body onload="addJsClass();">
     
-    <div align="center">
+    <div id="header" align="center">
         <g:render template="/content/logos" />
         <div class="mainMenuBarWrapper">
             <g:render template="/content/mainMenuBar" />

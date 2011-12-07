@@ -2,7 +2,6 @@
 <html>
   <head>
       <title>Upload dialog</title>
-      <link rel="stylesheet" href="${createLinkTo(dir:'css', file:'master.css')}" type="text/css" media="screen" title="Master screen stylesheet" charset="utf-8" />
 
       <r:require modules="upload"/>
       <r:layoutResources/>
@@ -19,8 +18,8 @@
   <body>
       <div id="uploadDialogDiv" >
           <g:render template="/common/messages" model="${pageScope.getVariables()}" />
-          <g:uploadForm name="uploadForm" url="[controller:'content', action:'uploadImage', id:category]" onsubmit="\$('progressDiv').show();\$('uploadDialogDiv').hide()">
-              <g:field type="file" name="file" />
+          <g:uploadForm name="uploadForm" url="[controller:'content', action:'uploadImage', id:category]" onsubmit="myYUI.appear('progressDiv', 0, 0);myYUI.fade('uploadDialogDiv', 0, 0);">
+              <input type="file" name="file" />
               <g:submitButton name="upload" value="upload" />
           </g:uploadForm>
       </div>

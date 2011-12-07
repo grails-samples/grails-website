@@ -2,15 +2,16 @@
 <html>
   <head>
       <title>Message</title>
-      <g:javascript library="scriptaculous" />
-      <link rel="stylesheet" href="${createLinkTo(dir:'css', file:'master.css')}" type="text/css" media="screen" title="Master screen stylesheet" charset="utf-8" />
+      <r:require modules="upload"/>
       <style type="text/css">
-        body {
-            background:none;
+        #message {
+            font-size: 0.9em;
             text-align: left;
+            width: 95%;
         }
 
       </style>
+      <r:layoutResources/>
   </head>
 
   <body>
@@ -19,23 +20,37 @@
             ${message}
         </div>
         <script type="text/javascript">
-        if(myYUI.get("message")!=null) {
-        myYUI.fade("message",
-            {   delay:7,
-                afterFinish:function() {
-                                 var dialog = window.parent.$('${pageId}Dialog')
-                                 var iframe = window.parent.$('${pageId}Iframe')
-                                 if(dialog!=null) {
-                                     dialog.hide()
-                                     <g:if test="${frameSrc}">
-                                         if(iframe!=null)
-                                            iframe.src = "${frameSrc.encodeAsJavaScript()}"
-                                     </g:if>
-                                 }
-                            }
-            })
+        var elementId = "message"
+
+        function hideFrame() {
+            var dialog = window.parent.document.getElementById('${pageId}Dialog');
+            var iframe = window.parent.document.getElementById('${pageId}Iframe');
+            if (dialog != null) {
+                myYUI.fade(dialog, 0, 0);
+                 <g:if test="${frameSrc}">
+                if (iframe != null) iframe.src = "${frameSrc.encodeAsJavaScript()}";
+                </g:if>
+            }
+        }
+
+        function localFade() {
+            var anim = new YAHOO.util.Anim(
+                elementId,
+                { opacity: {from: 1, to: 0 } },
+                1
+            )
+            anim.onComplete.subscribe(function() {
+                YAHOO.util.Dom.setStyle(elementId, "display", "none");
+                hideFrame();
+            });
+            anim.animate();
+        }
+       
+        if (myYUI.get(elementId) != null) {
+            setTimeout(localFade, 2 * 1000);
         }
         </script>
     </div>
+    <r:layoutResources/>
   </body>
 </html>

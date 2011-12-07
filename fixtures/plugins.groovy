@@ -257,7 +257,8 @@ This is a test list:
                 installation: tomcatInstallation,
                 description: tomcatDescription,
                 faq: tomcatFaq,
-                screenshots: tomcatScreenshots)
+                screenshots: tomcatScreenshots,
+                usage: 0.6)
         
         // GWT
         gwtInstallation(PluginTab, title: "plugin-gwt-installation", body: "@grails install-plugin gwt@")
@@ -302,7 +303,8 @@ This is a test list:
                 installation: gwtInstallation,
                 description: gwtDescription,
                 faq: gwtFaq,
-                screenshots: gwtScreenshots)
+                screenshots: gwtScreenshots,
+                usage: 0.3)
         
         // Gemfire
         gemfireInstallation(PluginTab, title: "plugin-gemfire-installation", body: "@grails install-plugin gemfire@")

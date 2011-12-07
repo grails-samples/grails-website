@@ -9,6 +9,7 @@ class WebSite implements Taggable {
     String title
     String description
     String url
+    boolean featured
     Popularity popularity = new Popularity()
     Date dateCreated
 
@@ -21,4 +22,39 @@ class WebSite implements Taggable {
     }
 
     static searchable = [only: ["title", "description"]]
+
+    static namedQueries = {
+        allQueryNoSort {
+        }
+
+        allQuery {
+            allQueryNoSort()
+            order "title", "asc"
+        }
+
+        featuredQueryNoSort {
+            eq "featured", true
+        }
+
+        featuredQuery {
+            featuredQueryNoSort()
+            order "dateCreated", "desc"
+        }
+
+        newestQueryNoSort {
+        }
+
+        newestQuery {
+            newestQueryNoSort()
+            order "dateCreated", "desc"
+        }
+
+        popularQueryNoSort {
+        }
+
+        popularQuery {
+            popularQueryNoSort()
+            order "dateCreated", "desc"
+        }
+    }
 }

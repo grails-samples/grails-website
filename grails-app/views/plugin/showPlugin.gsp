@@ -7,6 +7,7 @@
 </head>
 <body>
 	<div id="pluginDetailsBox">
+		<div id="pluginDetailsTop"></div>
 		<div id="pluginDetailsContainer">
 			<g:if test="${plugin.zombie}">
 			<div id="pluginZombie">
@@ -55,7 +56,7 @@
 		            </tr>
 		            <tr>
 		                <th>Current Release</th>
-		                <td>${plugin.currentRelease?.encodeAsHTML()}</td>
+		                <td>${plugin.currentRelease?.encodeAsHTML()}<g:if test="${plugin.lastReleased}">&nbsp;&nbsp;&nbsp;(<prettytime:display date="${plugin.lastReleased}"/>)</g:if></td>
 		            </tr>
 		            <tr>
 		                <th>Grails Version</th>
@@ -97,7 +98,9 @@
 		    </ul>
 		</div>
 
-		<div class="description"><wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text></div>
+		<div class="description">
+                    <wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text>
+                </div>
 		
 	</div>
 

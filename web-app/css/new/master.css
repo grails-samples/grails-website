@@ -1,12 +1,18 @@
 body {
     font-family: Lucida Grande, Lucida, sans-serif;
     font-size: 11pt;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: #48802C;
 }
-
+#header, #footer {
+    font-family: Lucida Grande, Lucida, sans-serif;
+    font-size: 11pt;
+}
 #contentWrapper {
 	background: url(../../images/sprites/master-repeat.png) repeat-x scroll center top;
 	background-position: 712px -537px;

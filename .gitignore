@@ -1,6 +1,8 @@
 *.iws
 *Db.properties
 *Db.script
+*.h2.db
+*.h2.data
 .settings
 eclipse
 plugin.xml

@@ -4,10 +4,6 @@
 	width:100%;
 }
 
-body {
-	margin-left:0px;
-	margin-right:0px;
-}
 #content {
     margin: 0px 0px 0px 350px;
     padding: 100px 0 0 0;
@@ -218,6 +214,7 @@ body {
     background: url(../../images/sprites/plugins-variable-width.png) no-repeat left top;
     background-position: -10px -356px;
 	margin:0px;
+	position: relative;
 }
 
 .currentPlugin .header .detail {
@@ -235,7 +232,7 @@ body {
 
 .currentPlugin .header h4 {
 	position:relative;
-	top:20px;
+	top:1em;
 	padding-left:20px;
 }
 .currentPlugin .header .supported {
@@ -244,9 +241,9 @@ body {
 	font-size:0.7em;
 }
 .currentPlugin .header .ratings {
-	position:absolute;
-	margin-top:10px;
-	margin-left:530px;
+	position: absolute;
+	top: 1em;
+	right: 10px;
 }
 
 .currentPlugin ul.links {
@@ -427,3 +424,6 @@ body {
     width: 1008px;
 }
 
+#content #message {
+    margin: 3em 1.5em;
+}

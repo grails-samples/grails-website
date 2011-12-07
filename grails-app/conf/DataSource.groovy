@@ -14,7 +14,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            dbCreate = "update" // one of 'create', 'create-drop','update'
             url = "jdbc:h2:mem:devDb"
             driverClassName = "org.h2.Driver"
             username = "sa"
@@ -24,15 +24,19 @@ environments {
     test {
         dataSource {
             dbCreate = "create-drop"
-            url = "jdbc:hsqldb:mem:testDb"
-            driverClassName = "org.hsqldb.jdbcDriver"
+            url = "jdbc:h2:mem:testDb"
+            driverClassName = "org.h2.Driver"
             username = "sa"
             password = ""
         }
     }
     production {
         dataSource {
-            jndiName = 'java:comp/env/jdbc/grailsSiteDS'
+            dbCreate = "update"
+            url = "jdbc:h2:prodDb"
+            driverClassName = "org.h2.Driver"
+            username = "sa"
+            password = ""
         }
     }
 }

@@ -18,11 +18,6 @@
         float:none;
         left:100px;
 }
-body {
-	margin-left:0px;
-	margin-right:0px;
-}
-
 #pluginBgTop {
 	background:url(../../images/new/plugins/plugins_topnav.png) no-repeat center bottom;	
 	height:94px;
@@ -49,8 +44,12 @@ body {
 	top: 60px;
 	z-index: 10;
 }
-#pluginDetailsContainer {
+#pluginDetailsTop {
 	background:url(../../images/new/plugins/fullpagePlugin_top.png) no-repeat center top;	
+	height: 16px;
+}
+#pluginDetailsContainer {
+	background:url(../../images/new/plugins/fullpagePlugin_desc.png) repeat-y center top;	
 	text-align:left;
 }
 #pluginContent {
@@ -72,11 +71,11 @@ body {
 }
 .yui-content {
 	text-align:left;
-	width:908px;
+	width:948px;
 	min-height:200px;
 	padding-top:0px;
-	padding-left:50px;
-	padding-right:50px;
+	padding-left:30px;
+	padding-right:30px;
 	padding-bottom:15px;
 }
 .dialog input {
@@ -88,9 +87,12 @@ body {
 }
 .pluginBoxBottom {
 	background: url(../../images/new/plugins/fullpagePlugin_btm.png) no-repeat center top;		
-	height:55px;
+	height:30px;
 	position: relative;
 	top: -26px;
+        width: 1008px;
+        margin-left: auto;
+        margin-right: auto;
 }
 #pluginDetailsBox {
 	margin-left: auto;
@@ -108,7 +110,8 @@ body {
 	
 #pluginBoxTitle {
 	padding-left:30px;
-	padding-top:20px;
+	padding-top:5px;
+	margin-top: 0;
 	font-weight:normal;
 	font-size:1.5em;
 }
@@ -133,9 +136,10 @@ body {
 	font-size:0.9em;	
 	width:900px;
 }
-#pluginBox .pluginDetail > table {
+#pluginBox .pluginDetail table {
 	border-spacing: 0;
-	width: 70%;
+	text-align: left;
+	width: 100%;
 }
 #pluginBox .pluginDetail th {
 	width:16em;
@@ -147,7 +151,7 @@ body {
 }
 #downloadBox {
 	float:right;
-	margin-top:15px;
+	margin-top:0;
 	margin-right:15px;
 }
 #pluginBox .links {
@@ -177,6 +181,26 @@ body {
 	clear: both;
 	text-align: left;
 	width: 948px;
+}
+
+#pluginBox td.description {
+	background: none;
+	margin-top: 2em;
+	padding: 0;
+	text-align: left;
+}
+
+#pluginBox td.value {
+	padding-bottom: 1.5em;
+}
+
+#pluginBox td.value input[type=text] {
+	width: 80%;
+}
+
+#pluginBox td.value textarea {
+	height: 8em;
+	width: 80%;
 }
 
 .pluginUsage {

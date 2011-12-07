@@ -5,6 +5,9 @@
     <g:layoutHead />
 
     <g:render template="/common/messages_effects" model="${pageScope.getVariables()}"/>
+
+    <!-- Google+ JS -->
+    <link href="https://plus.google.com/117411438136918964913" rel="publisher" />
 </head>
 <body>
     <div id="contentTitle">

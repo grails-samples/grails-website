@@ -5,8 +5,8 @@
 
 <g:render template="/content/editActions" model="[content:wikiPage, update:updateElement, editFormName: formName]"/>
 
-<div id="uploadDialog" class="dialog" style="display:none;margin-top:10px;width:500px;">
-    <iframe id="uploadIframe" width="550" height="40" frameborder="0" scrolling="no" src="${createLink(controller: 'content', action: 'uploadImage', id: wikiPage.title)}"></iframe>
+<div id="uploadDialog" class="dialog" style="display:none;margin-top:10px;width:660px;">
+    <iframe id="uploadIframe" width="660" height="65" frameborder="0" scrolling="no" src="${createLink(controller: 'content', action: 'uploadImage', id: wikiPage.title)}"></iframe>
 </div>
 
 <div id="deprecateDialog" class="dialog" style="display:none;margin-top:10px;width:500px;">

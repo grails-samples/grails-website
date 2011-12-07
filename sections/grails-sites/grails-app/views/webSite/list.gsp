@@ -17,14 +17,6 @@
                 </g:link>
             </div>			
         </plugin:isAvailable>
-
-        <div id="searchBox">
-            <g:form url="[controller:'webSite', action:'search']" method="GET">
-                <g:textField name="q"></g:textField> <g:submitButton name="Search"></g:submitButton>
-            </g:form>
-            <div>or <g:link controller="webSite" action="browseTags">browse by tag</g:link></div>
-        </div>
-                
     </div>
     <div class="body">
         <div class="artifacts">

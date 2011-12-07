@@ -20,13 +20,16 @@ modules = {
         dependsOn 'master'
         resource url: 'css/new/pluginInfo.css'
     }
+    pluginNav {
+        dependsOn 'rateable'
+    }
     common {
-		dependsOn 'yui-core'
+        dependsOn 'yui-core'
         resource url: 'js/common/yui-effects.js', disposition: 'head'
         resource url: 'js/diff_match_patch.js', disposition: 'head'
     }
     pluginDetails {
-        dependsOn 'pluginInfo', 'content', 'common', 'grailsui-tabview', 'grailsui-dialog', 'grailsui-autocomplete'
+        dependsOn 'pluginInfo', 'content', 'common', 'rateable', 'grailsui-tabview', 'grailsui-dialog', 'grailsui-autocomplete'
         ['tabview', 'plugins'].each { sheet ->
             resource url: "css/${sheet}.css".toString()
         }
@@ -42,6 +45,6 @@ modules = {
         resource url: 'css/new/section.css'
     }
     upload {
-        dependsOn 'yui-animation', 'common'
+        dependsOn 'master', 'yui-animation', 'common'
     }
 }

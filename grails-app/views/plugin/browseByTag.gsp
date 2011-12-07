@@ -1,10 +1,6 @@
 <head>
     <title>Plugins tagged with '${tagName}'</title>
     <meta content="pluginNav" name="layout"/>
-
-    <rateable:resources />
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'ratings.css')}"/>
-
 </head>
 <body>
     <h2>Plugins with tag '${tagName}'</h2>
