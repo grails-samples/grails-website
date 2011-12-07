@@ -74,7 +74,7 @@ grails.project.dependency.resolution = {
     dependencies {
         compile "org.twitter4j:twitter4j-core:2.1.8", "org.springframework:spring-context-support:3.0.3.RELEASE"
 
-        test "org.codehaus.geb:geb-spock:0.6.0",
+        test "org.codehaus.geb:geb-core:0.6.0",
              "org.gmock:gmock:0.8.1"
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
