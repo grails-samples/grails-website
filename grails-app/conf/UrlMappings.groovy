@@ -142,6 +142,7 @@ class UrlMappings {
             }
         }
 
+        "404"(controller: "error", action: "notFound")
         if (Environment.current == Environment.PRODUCTION) {
             "500"(controller: "error", action: "serverError")
         }
