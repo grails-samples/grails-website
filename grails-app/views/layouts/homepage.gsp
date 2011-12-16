@@ -60,7 +60,7 @@ new PeriodicalExecuter(function(pe) {
     --%>
 </head>
 <body>
-    
+
 <div align="center">
 	<g:render template="/content/logos"></g:render>
     <div class="mainMenuBarWrapper">
