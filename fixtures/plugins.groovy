@@ -347,5 +347,55 @@ This is a test list:
                 description: gemfireDescription,
                 faq: gemfireFaq,
                 screenshots: gemfireScreenshots)
+
+        // Spock
+        spockInstallation(PluginTab, title: "plugin-spock-installation", body: "@grails install-plugin spock@")
+        gfiVersion(Version,
+                title: spockInstallation.title,
+                body: spockInstallation.body,
+                number: 0,
+                current: spockInstallation,
+                author: admin)
+        
+        spockDescription(PluginTab, title: "plugin-spock-description", body: "")
+        gfdVersion(Version,
+                title: spockDescription.title,
+                body: spockDescription.body,
+                number: 0,
+                current: spockDescription,
+                author: admin)
+        
+        spockFaq(PluginTab, title: "plugin-spock-faq", body: "")
+        gffVersion(Version,
+                title: spockFaq.title,
+                body: spockFaq.body,
+                number: 0,
+                current: spockFaq,
+                author: admin)
+        
+        spockScreenshots(PluginTab, title: "plugin-spock-screenshots", body: "")
+        gfsVersion(Version,
+                title: spockScreenshots.title,
+                body: spockScreenshots.body,
+                number: 0,
+                current: spockScreenshots,
+                author: admin)
+        
+        spock(Plugin,
+                name: "spock",
+				groupId: "org.spockframework.grails",
+                title: "Spock Plugin",
+                summary: "Allows you to write your tests using Spock instead of JUnit.",
+                currentRelease: "1.0",
+                grailsVersion: "1.3 > *",
+                featured: true,
+                issuesUrl: "http://jira.grails.org/browse/GPSPOCK",
+                scmUrl: "https://github.com/grails-plugins/grails-spock",
+                documentationUrl: "http://grails-plugins.github.com/grails-spock/",
+                installation: spockInstallation,
+                description: spockDescription,
+                faq: spockFaq,
+                screenshots: spockScreenshots,
+				mavenRepositories: ["http://m2repo.spockframework.org/snapshots", "http://repo.grails.org/spock"])
     }
 }

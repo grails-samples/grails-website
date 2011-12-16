@@ -51,4 +51,15 @@ databaseChangeLog = {
 			}
 		}
 	}
+
+	changeSet(author: "pledbrook (generated)", id: "1323100866836-1") {
+		createTable(tableName: "plugin_maven_repositories") {
+			column(name: "plugin_id", type: "bigint")
+
+			column(name: "maven_repositories_string", type: "varchar(255)")
+
+			column(name: "maven_repositories_idx", type: "integer")
+		}
+	}
+        
 }

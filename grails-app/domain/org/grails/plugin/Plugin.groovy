@@ -11,8 +11,9 @@ import org.grails.rateable.Rateable
  */
 class Plugin implements Taggable, Commentable, Rateable {
 
-    static final def WIKIS = ['installation','description','faq','screenshots']
-    static final def VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
+    static final DEFAULT_GROUP = "org.grails.plugins"
+    static final WIKIS = ['installation','description','faq','screenshots']
+    static final VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
 
     transient cacheService
     transient grailsApplication
@@ -21,7 +22,7 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     String name
     String title
-    String groupId = "org.grails.plugins"
+    String groupId = DEFAULT_GROUP
     String summary
     PluginTab description
     PluginTab installation
@@ -47,7 +48,9 @@ class Plugin implements Taggable, Commentable, Rateable {
     Date lastUpdated
     Date lastReleased
 
-    static hasMany = [licenses: License]
+    List mavenRepositories
+
+    static hasMany = [licenses: License, mavenRepositories: String]
 
     static searchable = {
         only = [
@@ -69,7 +72,13 @@ class Plugin implements Taggable, Commentable, Rateable {
         tags component: true
     }
 
-    static transients = ['avgRating', 'fisheye', 'tags']
+    static transients = [
+            'avgRating',
+            'fisheye',
+            'tags',
+            'dependencyDeclation',
+            'customRepositoriesDeclaration',
+            'inDefaultGroup' ]
 
     static constraints = {
         name unique: true, matches: /[\w-]+/
@@ -99,6 +108,20 @@ class Plugin implements Taggable, Commentable, Rateable {
     
     def getFisheye() {
         downloadUrl ? "${grailsApplication.config.plugins.fisheye}/grails-${name}" : ''
+    }
+    
+    String getDependencyDeclaration() {
+        return "${inDefaultGroup ? '' : groupId}:${name}:${currentRelease}"
+    }
+    
+    String getCustomRepositoriesDeclaration() {
+        if (!mavenRepositories.size()) return null
+
+        return mavenRepositories.collect { url -> "mavenRepo \"${url}\"" }.join('\n')
+    }
+
+    boolean isInDefaultGroup() {
+        return groupId == DEFAULT_GROUP
     }
 
     Collection<Tag> getTags() {

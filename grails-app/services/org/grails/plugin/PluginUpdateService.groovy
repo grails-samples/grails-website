@@ -14,6 +14,13 @@ import org.springframework.transaction.annotation.Transactional
 class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     static transactional = false
 
+    private static final DEFAULT_REPOSITORIES = [
+            "http://plugins.grails.org",
+            "http://repo.grails.org/grails/plugins/",
+            "http://repo.grails.org/grails/core/",
+            "http://svn.codehaus.org/grails/trunk/grails-plugins",
+            "http://repo1.maven.org/maven2/" ]
+
     protected int twitterLimit = 140
 
     def shortenService
@@ -110,6 +117,10 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         }
 
         plugin.grailsVersion = xml.@grailsVersion.text()
+
+        // Fetch any custom repositories that may be needed by this plugin.
+        def customRepoUrls = xml.repositories.repository.@url*.text().findAll { !(it in DEFAULT_REPOSITORIES) }
+        addCustomRepositories plugin, customRepoUrls
 
         // Set the download URL for the plugin to the appropriate binary in the
         // repository, whether it be a Maven or Subversion one.
@@ -209,6 +220,17 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
                         "${license.name.text()}(${license.url.text()})"
             }
         }
+    }
+
+    protected addCustomRepositories(plugin, repoUrls) {
+        // No need to do anything if there the custom repositories
+        // haven't changed.
+        if (repoUrls == plugin.mavenRepositories) return
+
+        // Take a relatively lazy approach: clear the list and re-add
+        // all declared URLs.
+        plugin.mavenRepositories?.clear()
+        plugin.mavenRepositories.addAll repoUrls
     }
 
     private getBaseUrl() {

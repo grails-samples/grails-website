@@ -81,6 +81,16 @@
 		                    <span id='addTagTrigger'><r:img uri="/images/famfamfam/add.png"/></span>
 		                </td>
 		            </tr>
+					<tr>
+						<th>Dependency</th>
+						<td><pre>${plugin.dependencyDeclaration.encodeAsHTML()}</pre></td>
+					</tr>
+					<g:if test="${plugin.customRepositoriesDeclaration}">
+					<tr>
+						<th>Custom repositories</th>
+						<td><pre>${plugin.customRepositoriesDeclaration.encodeAsHTML()}</pre></td>
+					</tr>
+					</g:if>
 		        </table>
 		    </div>
 		    <ul class="links">
