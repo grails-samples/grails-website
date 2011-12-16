@@ -1,6 +1,6 @@
 
 <g:each var='tag' in="${plugin.tags.sort()}">
-    <span class="tag"><g:link action="browseByTag" params="[tagName: tag]">${tag?.encodeAsHTML()}</g:link>
+    <span class="tag"><g:link action="browseByTag" params="[tagName: tag]">${tag?.encodeAsHTML()}</g:link>&nbsp;
     <g:if test="${!disabled}">
         <g:set var="imgTag"><img id="remove_${tag?.encodeAsHTML()}_tag_from_${plugin.id}" src="${resource(dir: 'images/famfamfam', file: 'delete.png')}"/></g:set>
 
