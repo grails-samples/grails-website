@@ -92,7 +92,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         def parser = new XmlSlurper()
         def pomUrl = new URL(baseUrl, "${event.name}-${event.version}.pom")
         def xml = null
-        pomUrl.withReader { reader ->
+        pomUrl.withReader("UTF-8") { reader ->
             xml = parser.parse(reader)
         }
         
@@ -112,7 +112,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         // Now do the same with the XML plugin descriptor.
         def descUrl = new URL(baseUrl, "${event.name}-${event.version}-plugin.xml")
-        descUrl.withReader { reader ->
+        descUrl.withReader("UTF-8") { reader ->
             xml = parser.parse(reader)
         }
 
