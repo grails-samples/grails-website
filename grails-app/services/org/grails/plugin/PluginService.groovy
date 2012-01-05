@@ -127,7 +127,7 @@ class PluginService {
             
             // If there is no provided doc url, we'll assume that this page is the doc.
             if (!plugin.documentationUrl) {
-                plugin.documentationUrl = "${grailsApplication.config.grails.serverURL}/plugin/${plugin.name}"
+                plugin.documentationUrl = "${grailsApplication.config.grails.serverURL ?: ''}/plugin/${plugin.name}"
             }
         }
     }
