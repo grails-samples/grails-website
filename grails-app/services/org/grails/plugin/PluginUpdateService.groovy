@@ -227,9 +227,11 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // haven't changed.
         if (repoUrls == plugin.mavenRepositories) return
 
-        // Take a relatively lazy approach: clear the list and re-add
+        // Take the simple approach: clear the list and re-add
         // all declared URLs.
-        plugin.mavenRepositories?.clear()
+        if (plugin.mavenRepositories == null) plugin.mavenRepositories = []
+
+        plugin.mavenRepositories.clear()
         plugin.mavenRepositories.addAll repoUrls
     }
 

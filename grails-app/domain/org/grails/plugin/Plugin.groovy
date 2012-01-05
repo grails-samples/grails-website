@@ -12,6 +12,7 @@ import org.grails.rateable.Rateable
 class Plugin implements Taggable, Commentable, Rateable {
 
     static final DEFAULT_GROUP = "org.grails.plugins"
+    static final DEFAULT_SCOPE = "compile"
     static final WIKIS = ['installation','description','faq','screenshots']
     static final VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
 
@@ -24,6 +25,7 @@ class Plugin implements Taggable, Commentable, Rateable {
     String title
     String groupId = DEFAULT_GROUP
     String summary
+    String defaultDependencyScope = DEFAULT_SCOPE
     PluginTab description
     PluginTab installation
     PluginTab faq

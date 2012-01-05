@@ -208,6 +208,8 @@ class PluginController extends BaseWikiController {
                 // Update the plugin's properties, but exclude 'zombie'
                 // because only an administrator can set that.
                 bindData plugin, params, [ "zombie" ]
+                setRepositoryUrlsFromString plugin, params.mavenRepositoryUrls
+
                 if (!plugin.validate()) {
                     return render(view:'editPlugin', model: [plugin:plugin])
                 }
@@ -233,6 +235,8 @@ class PluginController extends BaseWikiController {
         // just in case this was an ad hoc creation where the user logged in during the creation...
         if (params.name) params.name = params.name - '?action=login'
         def plugin = new Plugin(params)
+        setRepositoryUrlsFromString plugin, params.mavenRepositoryUrls
+
         if(request.method == 'POST') {
             pluginService.initNewPlugin(plugin, request.user)
             
@@ -349,7 +353,7 @@ class PluginController extends BaseWikiController {
     def postComment = {
         def plugin = Plugin.get(params.id)
         plugin.addComment(request.user, params.comment)
-        plugin.save(flush:true)
+        pluginService.savePlugin(plugin)
         return render(template:'/comments/comment', var:'comment', bean:plugin.comments[-1])
     }
 
@@ -358,15 +362,14 @@ class PluginController extends BaseWikiController {
         params.newTag.trim().split(',').each { newTag ->
             plugin.addTag(newTag.trim())
         }
-        Plugin.reindex(plugin)
+        pluginService.savePlugin(plugin)
         render(template:'tags', var:'plugin', bean:plugin)
     }
 
     def removeTag = {
         def plugin = Plugin.get(params.id)
         plugin.removeTag(params.tagName)
-        plugin.save()
-        Plugin.reindex(plugin)
+        pluginService.savePlugin(plugin)
         render(template:'tags', var:'plugin', bean:plugin)
     }
 
@@ -446,6 +449,21 @@ class PluginController extends BaseWikiController {
             log.error "Unable to list plugins for category '${category}': ${ex.message}"
             response.sendError 404
             return [:]
+        }
+    }
+
+    protected setRepositoryUrlsFromString(plugin, String commaSeparatedUrls) {
+        commaSeparatedUrls = commaSeparatedUrls?.trim()
+        def urls = !commaSeparatedUrls ? [] : (commaSeparatedUrls.split(/\s*,\s*/) as List)
+
+        // Take the simple approach: clear the list and re-add
+        // all declared URLs.
+        if (plugin.mavenRepositories == null) {
+            plugin.mavenRepositories = urls
+        }
+        else {
+            plugin.mavenRepositories.clear()
+            plugin.mavenRepositories.addAll urls
         }
     }
 

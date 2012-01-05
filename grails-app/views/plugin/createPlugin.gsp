@@ -71,6 +71,10 @@
                             <input type="text" id="currentRelease" name="currentRelease" value="${fieldValue(bean: plugin, field: 'currentRelease')}"/>
                         </plugin:input>
 
+                        <plugin:input name="Default Dependency Scope" description="When users declare a dependency on this plugin, which scope should they use (compile, build,...)?">
+                            <input type="text" id="defaultDependencyScope" name="defaultDependencyScope" value="${fieldValue(bean: plugin, field: 'defaultDependencyScope')}"/>
+                        </plugin:input>
+
                         <plugin:input
                                 name="Documentation URL"
                                 description="Where on the web are your docs? If this is it, then leave blank.">
@@ -87,6 +91,10 @@
                                         </plugin:input>
                         <plugin:input name="Issues URL" description="Where is the issue tracker for your plugin?">
                             <input type="text" id="issuesUrl" name="issuesUrl" value="${fieldValue(bean: plugin, field: 'issuesUrl')}"/>
+                        </plugin:input>
+
+                        <plugin:input name="Custom Repository URLs" description="Some plugins require dependencies that come from other repositories than the standard Grails and Maven ones. This is a comma-separated list of those repositories.">
+                            <input type="text" id="mavenRepositoryUrls" name="mavenRepositoryUrls" value="${plugin.mavenRepositories?.join(', ') ?: ''}"/>
                         </plugin:input>
                         </tbody>
                     </table>

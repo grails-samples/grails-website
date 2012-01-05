@@ -136,8 +136,10 @@ class PluginService {
         try {
             searchableService.stopMirroring()
             
+            if (!plugin.defaultDependencyScope) plugin.defaultDependencyScope = Plugin.DEFAULT_SCOPE
+
             def newPlugin = !plugin.id
-            def savedPlugin = plugin.save(failOnError: failOnError)
+            def savedPlugin = plugin.save(failOnError: failOnError, flush: true)
             
             if (savedPlugin) {
                 if (newPlugin) savedPlugin.index()
