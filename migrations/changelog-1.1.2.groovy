@@ -62,4 +62,12 @@ databaseChangeLog = {
         }
     }
 
+    changeSet(author: "pledbrook", id: "PluginDependencyScope") {
+        addColumn(tableName: "plugin") {
+            column(name: "default_dependency_scope", type: "varchar(255)", value: "compile") {
+                constraints(nullable: "false")
+            }
+        }
+    }
+
 }
