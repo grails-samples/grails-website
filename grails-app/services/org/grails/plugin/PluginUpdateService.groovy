@@ -173,7 +173,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     }
     
     void announceRelease(plugin, version = null) {
-        def pluginUrl = baseUrl + "plugin/${plugin.name}"
+        def pluginUrl = siteBaseUrl + "plugin/${plugin.name}"
         announceOnPluginForum(plugin, version, pluginUrl)
         tweetRelease(plugin, version, pluginUrl)
     }
@@ -235,8 +235,8 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         plugin.mavenRepositories.addAll repoUrls
     }
 
-    private getBaseUrl() {
-        return normalize(grailsApplication.config?.grails?.serverURL)
+    private getSiteBaseUrl() {
+        return normalize(grailsApplication.config?.grails?.serverURL ?: 'http://localhost:8080/')
     }
 
     private normalize(url) {
