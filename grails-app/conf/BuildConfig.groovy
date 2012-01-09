@@ -24,7 +24,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":burning-image:0.5.0",
-                ":commentable:0.7.5",
+                ":commentable:0.7.6",
                 ":taggable:1.0.1"
 
         compile ":rateable:0.7.0", {
@@ -45,7 +45,7 @@ grails.project.dependency.resolution = {
                 ":quartz:0.4.2",
                 ":resources:1.1.6",
                 ":richui:0.6",
-                ":screencasts:0.5.4",
+                ":screencasts:0.5.5",
                 ":searchable:0.6.3",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
