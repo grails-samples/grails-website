@@ -35,7 +35,7 @@ class ContentController extends BaseWikiController {
     def wikiPageService
     def grailsUrlMappingsHolder
 
-    def search = {
+    def search() {
         if(params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
             try {
@@ -56,7 +56,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def latest = {
+    def latest() {
 
          def engine = createWikiEngine()
 
@@ -89,7 +89,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def previewWikiPage = {
+    def previewWikiPage() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             // This is required for the 'page.properties = ...' call to work. 
@@ -103,7 +103,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def index = {
+    def index() {
         def wikiPage = wikiPageService.getCachedOrReal(params.id)
         if (wikiPage?.instanceOf(PluginTab)) {
             def plugin = wikiPage.plugin
@@ -141,13 +141,13 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def postComment = {
+    def postComment() {
         def content = Content.get(params.id)
         content.addComment(request.user, params.comment)
         render(template:'/comments/comment', var:'comment', bean:content.comments[-1])
     }
 
-    def showWikiVersion = {
+    def showWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         def version
         if (page) {
@@ -175,7 +175,7 @@ class ContentController extends BaseWikiController {
 
     }
 
-    def markupWikiPage = {
+    def markupWikiPage() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
 
         if(page) {
@@ -183,7 +183,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def infoWikiPage = {
+    def infoWikiPage() {
         def page = Content.findAllByTitle(params.id, [cache:true]).find { !it.instanceOf(Version) }
 
         if(page) {
@@ -208,7 +208,7 @@ class ContentController extends BaseWikiController {
 
     }
 
-    def editWikiPage = {
+    def editWikiPage() {
         if(!params.id) {
             render(template:"/shared/remoteError", model: [code:"page.id.missing"])
         }
@@ -230,14 +230,14 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def createWikiPage = {
+    def createWikiPage() {
         if (params.xhr) {
             return render(template:'wikiCreate', var:'pageName', bean:params.id)
         }
         [pageName:params.id]
     }
 
-    def saveWikiPage = {
+    def saveWikiPage() {
         if (!params.id) {
             render(template:"/shared/remoteError", model:[code:"page.id.missing"])
         }
@@ -284,7 +284,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def rollbackWikiVersion = {
+    def rollbackWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             def version = Version.findByCurrentAndNumber(page, params.number.toLong())
@@ -343,7 +343,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def diffWikiVersion = {
+    def diffWikiVersion() {
 
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
@@ -364,7 +364,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def previousWikiVersion = {
+    def previousWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             def leftVersion = params.number.toLong()
@@ -388,7 +388,7 @@ class ContentController extends BaseWikiController {
 
     }
 
-    def uploadImage = {
+    def uploadImage() {
         def config = ConfigurationHolder.getConfig()
         if(request.method == 'POST') {
             MultipartFile file = request.getFile('file')
@@ -422,7 +422,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def deprecate = {
+    def deprecate() {
         def page = WikiPage.findByTitle(params.id)
         if (!page) {
             response.sendError 404
@@ -443,7 +443,7 @@ class ContentController extends BaseWikiController {
         redirect action: "index", id: params.id
     }
     
-    def homePage = {
+    def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
         def newsItems = BlogEntry.list(max:3, cache:true, order:"desc", sort:"dateCreated")
