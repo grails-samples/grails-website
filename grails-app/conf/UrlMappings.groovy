@@ -22,7 +22,6 @@ class UrlMappings {
         "/download/file"(controller: "download", action: "downloadFile")
         "/download/url"(controller: "download", action: "showUrl")
         "/download/archive/$id"(controller: "download", action: "archive")
-        "/downloads"(controller: "download", action: "list")
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
