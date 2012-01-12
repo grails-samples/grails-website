@@ -31,16 +31,12 @@ grails.project.dependency.resolution = {
             exclude "yui"
         }
 
-        runtime ":grails-ui:1.2.2", {
-            exclude "bubbling"
-        }
-
         runtime ":avatar:0.3",
-                ":bubbling:2.1.4",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
                 ":feeds:1.5",
+                ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",
                 ":hibernate:$grailsVersion",
                 ":jquery:1.6.1.1",
