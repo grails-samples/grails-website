@@ -83,7 +83,7 @@
                     </tr>
                     <tr>
                         <th>Dependency</th>
-                        <td><pre>${plugin.dependencyDeclaration.encodeAsHTML()}</pre></td>
+                        <td><pre>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</pre></td>
                     </tr>
                     <g:if test="${plugin.customRepositoriesDeclaration}">
                     <tr>
