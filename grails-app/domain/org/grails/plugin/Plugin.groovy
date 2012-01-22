@@ -60,6 +60,7 @@ class Plugin implements Taggable, Commentable, Rateable {
             'installation','description','faq','screenshots', 'tags',
             'featured', 'official', 'organization'
         ]
+        title boost: 2.0
         description component: true
         installation component: true
         faq component: true
