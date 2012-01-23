@@ -54,6 +54,7 @@ environments {
         searchable.compassConnection = "ram://test-index"
     }
     development {
+        grails.serverURL="http://localhost:8080"
         download.versions = ["1.4 beta", "1.3", "1.2"]
     }
 }
