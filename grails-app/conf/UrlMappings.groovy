@@ -56,6 +56,7 @@ class UrlMappings {
             controller = "pluginTab"
         }
 
+        "/wikiImage/$path**"(controller: "content", action: "showImage")
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
         "/blog/delete/$id"(controller: 'blogEntry', action:'delete')

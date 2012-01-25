@@ -73,6 +73,21 @@ bi {
             contentType = ['image/gif', 'image/png', 'image/jpeg']
         }
     }
+
+    WikiImage {
+        prefix = 'wiki-'
+        images {
+            large {
+                scale = [width: 600, height: 700, type: ScaleType.APPROXIMATE]
+            }
+        }
+        constraints {
+            nullable = true
+            maxSize = 2 * 1024 * 1024
+            contentType = ['image/gif', 'image/png', 'image/jpeg']
+        }
+    }
+    
 }
 
 

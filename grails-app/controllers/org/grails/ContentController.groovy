@@ -14,6 +14,7 @@ import org.compass.core.engine.SearchEngineQueryParseException
 import org.grails.blog.BlogEntry
 import org.grails.content.Content
 import org.grails.content.Version
+import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
 import org.grails.wiki.BaseWikiController
 import org.grails.wiki.WikiPage
@@ -34,6 +35,7 @@ class ContentController extends BaseWikiController {
     def textCache
     def wikiPageService
     def grailsUrlMappingsHolder
+    def imageUploadService
 
     def search() {
         if(params.q) {
@@ -389,36 +391,71 @@ class ContentController extends BaseWikiController {
     }
 
     def uploadImage() {
-        def config = ConfigurationHolder.getConfig()
-        if(request.method == 'POST') {
-            MultipartFile file = request.getFile('file')
-            ServletContext context = getServletContext()
-            def path = context.getRealPath("/images${ params.id ? '/' + params.id.encodeAsURL() : '' }" )
-            log.info "Uploading image, file: ${file.originalFilename} (${file.contentType}) to be saved at $path"
-            if(config.wiki.supported.upload.types?.contains(file.contentType)) {
-                def newFilename = file.originalFilename.replaceAll(/\s+/, '_')
-                File targetFile = new File("$path/${newFilename}")
-                if(!targetFile.parentFile.exists()) targetFile.parentFile.mkdirs()
-                log.info "Target file: ${targetFile.absolutePath}"
+        def message = null
+        def uploadTypes = grailsApplication.config.wiki.supported.upload.types ?: []
+
+        if (request.method == 'POST') {
+            MultipartFile file = request.getFile('image')
+            log.info "Uploading image, file: ${file.originalFilename} (${file.contentType})"
+            if (uploadTypes?.contains(file.contentType)) {
+
                 try {
-                    log.info "Attempting file transfer..."
-                    file.transferTo(targetFile)
-                    log.info "Success! Rendering message back to view"
-                    render(view:"/common/iframeMessage", model:[pageId:"upload",
-                            frameSrc: g.createLink(controller:'content', action:'uploadImage', id:params.id),
-                            message: "Upload complete. Use the syntax !${params.id ? params.id.encodeAsURL() + '/' : ''}${newFilename}! to refer to your file"])
-                } catch (Exception e) {
-                    log.error(e.message, e)
-                    render(view:"/common/uploadDialog",model:[category:params.id,message:"Error uploading file!"])
+                    def newFilename = file.originalFilename.replaceAll(/\s+/, '_')
+                    def wikiImage = new WikiImage(params)
+                    wikiImage.name = getImageName(params.id, newFilename)
+                    if (wikiImage.save()) {
+                        imageUploadService.save(wikiImage)
+
+                        render view: "/common/iframeMessage", model: [
+                                pageId: "upload",
+                                frameSrc: g.createLink(controller: 'content', action: 'uploadImage', id: params.id),
+                                message: "Upload complete. Use the syntax !${wikiImage.name}! to refer to your file"]
+
+                        // Break out on successful upload.
+                        return
+                    }
+                    else {
+                        message = "Error uploading file! " +
+                                g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')
+                    }
+                }
+                catch (Exception e) {
+                    log.error e.message, e
+                    message = "Error uploading file! Info: ${e.message}"
                 }
             }
             else {
                 log.info "Bad file type, rendering error message to view"
-                render(view:"/common/uploadDialog",model:[category:params.id,message:"File type not in list of supported types: ${config.wiki.supported.upload.types?.join(',')}"])
+                message = "File type not in list of supported types: ${uploadTypes?.join(',')}"
             }
         }
+
+        render view: "/common/uploadDialog", model: [category: params.id, message: message]
+    }
+
+    /**
+     * Renders an image that was uploaded to a wiki page. It delegates to the
+     * Burning Image plugin's controller for serving up images, but it first
+     * has to work out the correct parameters to pass to that controller.
+     */
+    def showImage(String path) {
+        def wikiImage = WikiImage.findByName(path)
+        if (wikiImage) {
+            // Copied and modified from BurningImageTagLib. The WikiImage
+            // domain class has a generated property 'biImage' that contains
+            // the attached images - one for each configured size. We use
+            // the BI image to pass the required parameters to the BI
+            // controller.
+            def size = "large"
+            def image = wikiImage.biImage[size]
+            cache neverExpires: true
+            forward controller: "dbContainerImage", action: "index", params: [
+                    imageId: image.ident(),
+                    size: size,
+                    type: image.type ]
+        }
         else {
-            render(view:"/common/uploadDialog", model:[category:params.id])
+            response.sendError 404
         }
     }
 
@@ -461,5 +498,17 @@ class ContentController extends BaseWikiController {
         return [ newestPlugins: newestPlugins, 
                  newsItems: newsItems,
                  latestScreencastId: latestScreencastId ]
+    }
+
+    /**
+     * Constructs an name for a wiki page image based on the name of a wiki
+     * page (preferably the one the image is on!) and the original filename
+     * of that image.
+     */
+    protected String getImageName(String wikiPageId, String filename) {
+        def b = new StringBuilder()
+        if (wikiPageId) b << wikiPageId << '/'
+        b << filename
+        return b.toString()
     }
 }

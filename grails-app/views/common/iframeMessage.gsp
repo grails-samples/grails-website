@@ -45,10 +45,6 @@
             });
             anim.animate();
         }
-       
-        if (myYUI.get(elementId) != null) {
-            setTimeout(localFade, 2 * 1000);
-        }
         </script>
     </div>
     <r:layoutResources/>

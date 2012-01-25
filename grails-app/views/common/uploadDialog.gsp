@@ -19,7 +19,7 @@
       <div id="uploadDialogDiv" >
           <g:render template="/common/messages" model="${pageScope.getVariables()}" />
           <g:uploadForm name="uploadForm" url="[controller:'content', action:'uploadImage', id:category]" onsubmit="myYUI.appear('progressDiv', 0, 0);myYUI.fade('uploadDialogDiv', 0, 0);">
-              <input type="file" name="file" />
+              <input type="file" name="image" />
               <g:submitButton name="upload" value="upload" />
           </g:uploadForm>
       </div>
