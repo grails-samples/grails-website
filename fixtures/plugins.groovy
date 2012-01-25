@@ -59,6 +59,7 @@ fixture {
                 title: "Apache Shiro Plugin",
                 currentRelease: "1.1-SNAPSHOT",
                 author: "Peter Ledbrook",
+                authors: [peterInfo],
                 organization: "KataSoft",
                 summary: "Integrates the Apache Shiro security framework into your Grails applications.",
                 installation: shiroInstallation,
@@ -105,6 +106,7 @@ fixture {
                 title: "Fixtures Plugin",
                 currentRelease: "1.0.1",
                 author: "Grails Plugin Collective",
+                authors: [gpcInfo],
                 summary: "Declare sample data using a Spring Bean DSL like syntax and load it form anywhere in your application: tests, BootStrap, controllers, in fact anyhere. Also integrates with Build Test Data plugin.",
                 installation: fixturesInstallation,
                 description: fixturesDescription,
@@ -149,6 +151,7 @@ fixture {
                 title: "Build Test Data Plugin",
                 currentRelease: "1.2",
                 author: "Ted Naleid",
+                authors: [tedInfo],
                 summary: """\
 This plugin allows the user to easily create testing data through the use of a "build" method that is added to all Domain Classes. The build method inspects all of the constraints and creates default values for those required properties.
 
@@ -203,6 +206,7 @@ This is a test list:
                 title: "Hibernate ORM Plugin",
                 currentRelease: "1.3.4",
                 author: "SpringSource",
+                authors: [springSourceInfo],
                 organization: "SpringSource",
                 organizationUrl: "http://www.springsource.org/",
                 installation: hibernateInstallation,
@@ -249,6 +253,7 @@ This is a test list:
                 title: "Tomcat",
                 currentRelease: "1.3.4",
                 author: "SpringSource",
+                authors: [springSourceInfo],
                 installation: tomcatInstallation,
                 description: tomcatDescription,
                 faq: tomcatFaq,
@@ -294,6 +299,7 @@ This is a test list:
                 currentRelease: "0.2.3-SNAPSHOT",
                 grailsVersion: "1.1 > *",
                 author: "Peter Ledbrook",
+                authors: [peterInfo, anonymousInfo],
                 installation: gwtInstallation,
                 description: gwtDescription,
                 faq: gwtFaq,
