@@ -480,6 +480,7 @@ class PluginController extends BaseWikiController {
                 title: plugin.title,
                 author: plugin.author,
                 authorEmail: plugin.authorEmail,
+                authorList: plugin.authors.collect { [name: it.name, email: it.email] },
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,

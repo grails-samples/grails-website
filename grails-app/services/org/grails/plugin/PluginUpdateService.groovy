@@ -103,6 +103,9 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         plugin.documentationUrl = xml.url.text()
         plugin.author = xml.developers.developer[0].name.text()
         plugin.authorEmail = xml.developers.developer[0].email.text()
+        for(developer in xml.developers.developer) {
+            plugin.addToAuthors(name: developer.name.text(), email: developer.email.text())
+        }
         plugin.organization = xml.organization.name.text()
         plugin.organizationUrl = xml.organization.url.text()
         plugin.scmUrl = xml.scm.url.text()
