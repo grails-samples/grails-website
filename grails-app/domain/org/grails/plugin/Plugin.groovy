@@ -1,5 +1,6 @@
 package org.grails.plugin
 
+import org.grails.meta.UserInfo
 import org.grails.taggable.Tag
 import org.grails.taggable.Taggable
 import org.grails.taggable.TagLink
@@ -52,7 +53,7 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     List mavenRepositories
 
-    static hasMany = [licenses: License, mavenRepositories: String]
+    static hasMany = [licenses: License, mavenRepositories: String, authors: UserInfo]
 
     static searchable = {
         only = [
@@ -93,6 +94,7 @@ class Plugin implements Taggable, Commentable, Rateable {
         faq nullable: true
         screenshots nullable: true
         author nullable: true
+        authorEmail nullable: true
         organization nullable: true
         organizationUrl nullable: true
         scmUrl nullable: true, blank: true
