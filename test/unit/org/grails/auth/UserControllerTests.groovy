@@ -86,6 +86,7 @@ class UserControllerTests {
 
         request.method = "POST"
 
+        controller.userService = new UserService()
         controller.register()
 
         assert view == "/user/register"
@@ -111,6 +112,7 @@ class UserControllerTests {
 
         request.method = "POST"
 
+        controller.userService = new UserService()
         controller.register()
 
         assert response.redirectedUrl == params.originalURI
@@ -133,6 +135,7 @@ class UserControllerTests {
 
         request.method = "POST"
 
+        controller.userService = new UserService()
         controller.register()
 
         assert response.redirectedUrl == "/"

@@ -18,6 +18,9 @@
                 <span class="label"><label for="password">Confirm Password:</label></span> <g:field type="password" name="password2" value="${params.password2}" />
             </p>
             <p>
+                 <span class="label"><label for="name">Full name:</label></span> <g:textField name="name" value="${params.name}"/>
+            </p>
+            <p>
                  <span class="label"><label for="email">Email:</label></span> <g:textField name="email" value="${params.email}"/>
             </p>
            <p>
