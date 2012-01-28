@@ -18,7 +18,6 @@ class UserInfo {
     static constraints = {
         user nullable: true
         email blank: false, email: true
-        name blank: false
+        name nullable: true, blank: false
     }
-
 }

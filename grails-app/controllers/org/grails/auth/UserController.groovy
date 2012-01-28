@@ -20,6 +20,7 @@ class UserController {
     def scaffold = User
 
     def mailService
+    def userService
 
 	String randomPass() {
 		UUID uuid = UUID.randomUUID()
@@ -47,17 +48,18 @@ class UserController {
 	}
 
     def profile = {
-        def userInfo = UserInfo.findByUser(request.user)
+        def user = request.user
+        def userInfo = UserInfo.findByUser(user)
         if(request.method == 'POST') {
-            if(!userInfo) userInfo = new UserInfo(user:request.user)
+            if(params.password) {
+                user.updatePassword params.password
+            }
+
+            if(!userInfo) userInfo = new UserInfo()
             userInfo.properties = params
-            userInfo.save()
-			if(params.password) {
-				request.user.password = DigestUtils.shaHex(params.password) 
-				request.user.save()
-			}
+            userService.saveUserInfo userInfo, user
         }
-        return [user:request.user, userInfo:userInfo]
+        return [user:user, userInfo:userInfo]
 
     }
 
@@ -93,29 +95,23 @@ class UserController {
                 }
                 else {
 
-                    user = new User(login:params.login, password: (params.password ? DigestUtils.shaHex(params.password) : null), email:params.email)
-                            .addToRoles(Role.findByName(Role.EDITOR))
-                            .addToRoles(Role.findByName(Role.OBSERVER))
+                    def userInfo = new UserInfo(params)
+                    user = userService.createStandardUser(params.login, params.password, params.email)
 
-                    if(!user.hasErrors() && user.save(flush:true)) {
-                        def userInfo = new UserInfo(params)
-                        userInfo.user = user
-                        userInfo.save()
-                        
+                    if (userService.saveUserInfo(userInfo, user)) {
                         def authToken = new UsernamePasswordToken(user.login, params.password)
-                        SecurityUtils.subject.login(authToken)
+                        SecurityUtils.subject.login authToken
 
-                        if(params.originalURI) {
-
-                            redirect(url:params.originalURI, params:params)
+                        if (params.originalURI) {
+                            redirect url: params.originalURI, params: params
                         }
                         else {
-                            redirect(uri:"/")
+                            redirect uri: "/"
                         }
                     }
                     else {
                         renderParams.model.user = user
-                        render(renderParams)
+                        render renderParams
                     }
                 }
 
@@ -123,7 +119,7 @@ class UserController {
             }
         }
         else {
-            render(renderParams)
+            render renderParams
         }
 
     }

@@ -32,4 +32,36 @@ databaseChangeLog = {
         }
     }
 
+
+    changeSet(author: "pledbrook", id: "multiple-plugin-authors") {
+        createTable(tableName: "plugin_user_info") {
+            column(name: "plugin_authors_id", type: "bigint")
+
+            column(name: "user_info_id", type: "bigint")
+        }
+
+        createIndex(indexName: "FKA7111E96806B062", tableName: "plugin_user_info") {
+            column(name: "plugin_authors_id")
+        }
+
+        createIndex(indexName: "FKA7111E962D69D3D0", tableName: "plugin_user_info") {
+            column(name: "user_info_id")
+        }
+
+        addColumn(tableName: "user_info") {
+            column(name: "email", type: "varchar(255)") {
+                constraints(nullable: "false")
+            }
+        }
+
+        addColumn(tableName: "user_info") {
+            column(name: "name", type: "varchar(255)") {
+                constraints(nullable: "true")
+            }
+        }
+
+        dropNotNullConstraint(columnDataType: "bigint", columnName: "user_id", tableName: "user_info")
+        dropNotNullConstraint(columnDataType: "varchar(255)", columnName: "author_email", tableName: "plugin")
+    }
+
 }

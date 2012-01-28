@@ -1,16 +1,17 @@
 import grails.util.Environment
 
-import org.apache.commons.codec.digest.DigestUtils
 import org.grails.*
 import org.grails.auth.Role
 import org.grails.auth.User
 import org.grails.content.Version
 import org.grails.downloads.Mirror
+import org.grails.meta.UserInfo
 import org.grails.plugin.Plugin
 
 class BootStrap {
     def fixtureLoader
     def searchableService
+    def userService
 
     def init = { servletContext ->
         def (adminRole, editorRole, observerRole) = setUpRoles()
@@ -25,12 +26,13 @@ During the first run you must specify a password to use for the admin account. F
 grails -Dinitial.admin.password=changeit run-app""")
             }
             else {
-                admin = new User(login:"admin", email:"info@g2one.com",password:DigestUtils.shaHex(password))
-                assert admin.email
-                assert admin.addToRoles(adminRole)
-                           .addToRoles(editorRole)
-                           .addToRoles(observerRole)
-                           .save(flush:true, failOnError: true)
+                admin = userService.createStandardUser("admin", "info@g2one.com", password)
+                admin.addToRoles adminRole
+
+                def userInfo = new UserInfo(
+                        name: "System Administrator",
+                        email: "info@g2one.com")
+                userService.saveUserInfo(userInfo, admin)
             }
         }
         else if (!admin.roles) {

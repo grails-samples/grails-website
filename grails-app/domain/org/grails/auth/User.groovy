@@ -1,5 +1,7 @@
 package org.grails.auth
 
+import org.apache.commons.codec.digest.DigestUtils
+
 class User {
     String email
     String login
@@ -15,6 +17,19 @@ class User {
 
     static mapping = {
         cache true
+    }
+
+    def updatePassword(passwd) {
+        this.password = passwd ? DigestUtils.shaHex(passwd) : null
+        return this
+    }
+
+    def addStandardRoles() {
+        def roles = Role.findAllByNameInList([Role.EDITOR, Role.OBSERVER])
+        for (r in roles) {
+            this.addToRoles r
+        }
+        return this
     }
 
     String toString() {
