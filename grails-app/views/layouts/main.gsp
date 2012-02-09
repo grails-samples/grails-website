@@ -11,8 +11,8 @@
     <wiki:robots/>
     <meta name="Description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">	
 
-    <r:use modules="master"/>
-    <r:resourceLink uri="/images/favicon.ico"/>
+    <r:require modules="master"/>
+    <r:external uri="/images/favicon.ico"/>
     <r:layoutResources/>
 
     <r:script>

@@ -1,7 +1,7 @@
 <g:applyLayout name="pluginInfoLayout">
 <head>
     <title><g:layoutTitle default="Plugin - ${plugin.title}" /></title>
-    <r:use modules="pluginDetails"/>
+    <r:require modules="pluginDetails"/>
 
     <g:layoutHead />
 

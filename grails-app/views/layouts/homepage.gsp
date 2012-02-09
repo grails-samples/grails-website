@@ -11,8 +11,8 @@
 	
     <title>Grails - The search is over.</title>
     
-    <r:use modules="homepage"/>
-    <r:resourceLink uri="/images/favicon.ico"/>
+    <r:require modules="homepage"/>
+    <r:external uri="/images/favicon.ico"/>
     <r:layoutResources/>
     
     <g:layoutHead />
