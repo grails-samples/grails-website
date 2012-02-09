@@ -25,6 +25,7 @@ grails.project.dependency.resolution = {
     plugins {
         compile ":burning-image:0.5.0",
                 ":commentable:0.7.6",
+                ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
         compile ":rateable:0.7.1", {
@@ -68,11 +69,13 @@ grails.project.dependency.resolution = {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:$grailsVersion"
+        build   ":tomcat:2.0.0"
     }
 
     dependencies {
-        compile "org.twitter4j:twitter4j-core:2.1.8", "org.springframework:spring-context-support:3.0.3.RELEASE"
+        compile "org.twitter4j:twitter4j-core:2.1.8",
+                "org.springframework:spring-context-support:3.0.3.RELEASE",
+                "org.jadira.usertype:usertype.jodatime:1.9"
 
         test "org.codehaus.geb:geb-core:0.6.0",
              "org.gmock:gmock:0.8.1"

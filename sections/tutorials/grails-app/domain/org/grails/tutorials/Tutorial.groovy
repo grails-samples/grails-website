@@ -4,6 +4,7 @@ import grails.plugin.like.Popularity
 import org.grails.taggable.Tag
 import org.grails.taggable.Taggable
 import org.grails.taggable.TagLink
+import org.joda.time.DateTime
 
 class Tutorial implements Taggable {
     String title
@@ -11,7 +12,7 @@ class Tutorial implements Taggable {
     String url
     boolean featured
     Popularity popularity = new Popularity()
-    Date dateCreated
+    DateTime dateCreated
 
     def taggableService
 

@@ -165,12 +165,19 @@ twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
 twitter4j.oauth.accessSecret="test"
 
 
+rest.dateFormat = "yyyy-MM-dd"
 format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"
 blog.page.layout="subpage"
 grails.blog.author.evaluator= {
     request.user
 }
+
+grails.gorm.default.mapping = {
+    'user-type' type: org.jadira.usertype.dateandtime.joda.PersistentDateTime, class: org.joda.time.DateTime
+    'user-type' type: org.jadira.usertype.dateandtime.joda.PersistentLocalDate, class: org.joda.time.LocalDate
+}
+
 
 // Enable these in a site-config.groovy file.
 /*

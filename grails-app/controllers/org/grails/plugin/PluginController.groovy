@@ -1,5 +1,9 @@
 package org.grails.plugin
 
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import org.joda.time.format.ISODateTimeFormat
+
 import grails.converters.JSON
 import grails.converters.XML
 import grails.plugin.springcache.annotations.*
@@ -35,8 +39,7 @@ class PluginController extends BaseWikiController {
     def taggableService
     def wikiPageService
     def pluginService
-    def commentService
-    def grailsUrlMappingsHolder
+    def dateService
 
     def home() {
         // We only want to display 5 plugins at a time in the web interface,
@@ -483,6 +486,8 @@ class PluginController extends BaseWikiController {
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,
+                licenseList: plugin.licenses.collect { l -> [name: l.name, url: l.url] },
+                lastReleased: dateService.getRestDateTime(plugin.lastReleased),
                 file: plugin.downloadUrl,
                 rating: plugin.avgRating ]
             

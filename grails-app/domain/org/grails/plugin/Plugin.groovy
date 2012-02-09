@@ -6,6 +6,8 @@ import org.grails.taggable.TagLink
 import org.grails.comments.Commentable
 import org.grails.rateable.Rateable
 
+import org.joda.time.DateTime
+
 /*
  * author: Matthew Taylor
  */
@@ -46,9 +48,9 @@ class Plugin implements Taggable, Commentable, Rateable {
     boolean zombie = false
     BigDecimal usage
     Number avgRating
-    Date dateCreated
-    Date lastUpdated
-    Date lastReleased
+    DateTime dateCreated
+    DateTime lastUpdated
+    DateTime lastReleased
 
     List mavenRepositories
 

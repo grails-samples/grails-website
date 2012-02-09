@@ -2,6 +2,7 @@ package org.grails.websites
 
 import grails.plugin.like.Popularity
 import org.grails.taggable.Taggable
+import org.joda.time.DateTime
 import pl.burningice.plugins.image.ast.DBImageContainer
 
 @DBImageContainer(field = "preview")
@@ -11,7 +12,7 @@ class WebSite implements Taggable {
     String url
     boolean featured
     Popularity popularity = new Popularity()
-    Date dateCreated
+    DateTime dateCreated
 
     static embedded = ["popularity"]
 
