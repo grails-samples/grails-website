@@ -68,12 +68,6 @@
 									<input type="text" id="grailsVersion" name="grailsVersion" value="${fieldValue(bean: plugin, field: 'grailsVersion')}"/>
 								</plugin:input>
 
-								<plugin:input
-										name="Current Release"
-										description="Current plugin release">
-									<input type="text" id="currentRelease" name="currentRelease" value="${fieldValue(bean: plugin, field: 'currentRelease')}"/>
-								</plugin:input>
-
 								<plugin:input name="Default Dependency Scope" description="When users declare a dependency on this plugin, which scope should they use (compile, build,...)?">
 									<input type="text" id="defaultDependencyScope" name="defaultDependencyScope" value="${fieldValue(bean: plugin, field: 'defaultDependencyScope')}"/>
 								</plugin:input>
