@@ -217,9 +217,7 @@ class PluginController extends BaseWikiController {
                 if (!plugin.validate()) {
                     return render(view:'editPlugin', model: [plugin:plugin])
                 }
-                if (!plugin.isNewerThan(params.currentRelease)) {
-                    plugin.lastReleased = new Date();
-                }
+
                 // Update 'zombie' if we have an administrator.
                 if (SecurityUtils.subject.hasRole(Role.ADMINISTRATOR)) {
                     plugin.zombie = params.zombie ?: false
