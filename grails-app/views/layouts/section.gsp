@@ -37,9 +37,8 @@
         </div>
         <div id="contentWindowTop">
         </div>
-        <div id="contentDecoration">				
-        </div>
         <div id="contentBody">
+            <div id="contentDecoration"></div>
             <g:layoutBody/>						
         </div>
         <div id="contentFooter">

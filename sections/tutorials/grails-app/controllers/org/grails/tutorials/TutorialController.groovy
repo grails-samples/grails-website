@@ -13,26 +13,21 @@ class TutorialController extends AbstractSectionController {
         super(Tutorial)
     }
 
+    def index() {}
+
     def create() {
         [ tutorial: new Tutorial(params) ]
     }
 
     def save() {
         def tutorial = new Tutorial()
-
-        // Update the tutorial's properties, but exclude 'featured'
-        // because only an administrator can set that.
-        bindData tutorial, params['tutorial'], ["featured"]
-
-        // Update 'featured' if we have an administrator.
-        if (SecurityUtils.subject.isPermitted("tutorial:feature")) {
-            tutorial.featured = params.featured ?: false
-        }
+        bindParams tutorial
 
         try {
             searchableService.stopMirroring()
             if (!tutorial.hasErrors() && tutorial.save()) {
-                tutorial.parseTags(params.tags, /[,;]/)
+                processTags tutorial, params.tags
+                tutorial.save flush: true
                 redirect action: "list"
                 return
             }
@@ -62,22 +57,13 @@ class TutorialController extends AbstractSectionController {
             response.sendError 404
         }
         else { 
-            // Update the tutorial's properties, but exclude 'featured'
-            // because only an administrator can set that.
-            bindData tutorial, params['tutorial'], ["featured"]
-
-            // Update 'featured' if we have an administrator.
-            if (SecurityUtils.subject.isPermitted("tutorial:feature")) {
-                tutorial.featured = params.featured ?: false
-            }
-
+            bindParams tutorial
 
             try {
                 searchableService.stopMirroring()
                 if (!tutorial.hasErrors() && tutorial.save()) {
-                    tutorial.parseTags(params.tags, /[,;]/)
-                    tutorial.save(flush: true)
-
+                    processTags tutorial, params.tags
+                    tutorial.save flush: true
                     redirect action:"list"
                     return
                 }
@@ -87,6 +73,17 @@ class TutorialController extends AbstractSectionController {
             }
 
             render view:"edit", model:[tutorial:tutorial]
+        }
+    }
+
+    protected bindParams(tutorial) {
+        // Update the tutorial's properties, but exclude 'featured'
+        // because only an administrator can set that.
+        bindData tutorial, params['tutorial'], ["featured"]
+
+        // Update 'featured' property if the current user has permission to.
+        if (SecurityUtils.subject.isPermitted("tutorial:feature")) {
+            tutorial.featured = params.featured ?: false
         }
     }
 }

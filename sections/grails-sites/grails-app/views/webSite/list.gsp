@@ -22,7 +22,7 @@
         <div class="artifacts">
             <g:each in="${artifacts}" var="webSite" status="i">
             <div class="artifact">
-                <g:render template="/webSite/siteSummary" model="[i: i, webSite: webSite]" plugin="grailsSites"/>
+                <g:render template="/webSite/siteSummary" model="[i: i, artifact: webSite]" plugin="grailsSites"/>
             </div>
             </g:each>
             <div class="paginateButtons">

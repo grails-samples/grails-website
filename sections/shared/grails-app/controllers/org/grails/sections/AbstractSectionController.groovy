@@ -14,13 +14,15 @@ abstract class AbstractSectionController {
     def taggableService
 
     def list() {
+        def max = Math.min(params.max?.toInteger() ?: 10, 20)
         def cat = params.category ?: "all"
         try {
-            def items = domainClass."${cat}Query".list(offset: params.offset?: 0, max: 10)
+            def items = domainClass."${cat}Query".list(offset: params.offset?: 0, max: max)
             def count = domainClass."${cat}QueryNoSort".count()
             return [ artifacts: items, total: count ]
         }
         catch (MissingMethodException ex) {
+            log.warn "Unknown category '${cat}' - ${ex.message}"
             render text: "Unknown category: ${cat}", status: 404
         }
     }
@@ -83,7 +85,7 @@ abstract class AbstractSectionController {
     /**
      * Displays a cloud of all the tags attached to the artifacts.
      */
-    def browseTags = {
+    def browseTags() {
         // Get hold of all the tags for this artifact. The service method returns
         // a map of tag names to counts, i.e. how many artifacts have been tagged
         // with each tag.
@@ -93,4 +95,9 @@ abstract class AbstractSectionController {
 
     protected getDomainClass() { return _domainClass }
     protected getPropertyName() { return _propName }
+
+    protected processTags(domainInstance, tagString) {
+        def tags = tagString.split(/[,;]/)
+        domainInstance.tags = tags
+    }
 }

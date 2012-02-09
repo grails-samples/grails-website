@@ -19,9 +19,9 @@ class Tutorial implements Taggable {
     static embedded = ["popularity"]
 
     static constraints = {
-        title blank: false
+        title blank: false, maxSize: 50
         description blank: false, maxSize: 5000
-        url url: true
+        url blank: false
     }
 
     static transients = ["tags"]
@@ -58,6 +58,7 @@ class Tutorial implements Taggable {
         }
 
         popularQueryNoSort {
+            gt "popularity.netLiked", 0
         }
 
         popularQuery {

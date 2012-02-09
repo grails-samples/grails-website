@@ -1,3 +1,17 @@
+.no-top {
+    margin-top: 0;
+}
+
+#contentBody a.big-link {
+    display: inline-block;
+    padding: 8px;
+    font-size: 1.1em;
+    background-color: #EEFFCC;
+    border: solid 2px #48802C;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 #contentWindow {
     margin-left: 230px;
     padding-top: 78px;
@@ -72,11 +86,14 @@
 }
 
 #contentDecoration {
-    position: static;
+    position: absolute;
+    top: 0;
+    right: 50px;
+    margin-right: 0;
 }
 
 #contentBody {
-    position: static;
+    top: 0;
     padding-top: 0;
     min-height: 45em;
 }
@@ -186,7 +203,7 @@
 }
 
 .screencastControls, .blogControls, .artifactControls {
-	margin-bottom:20px;
+    margin-bottom: 20px;
 }
 .screencastControls a, .artifactControls {
 	color: black; border: inherit; text-decoration: none;		
@@ -195,12 +212,18 @@
 	display:inline-block;
 	padding-right:20px;
 }
+
+.artifactControls .menuButton {
+    margin-top: 10px;
+}
+
 .artifactControls #searchBox {
 	display: block;
 	margin-top: 1.5em;
 	padding-right:20px;
 	width: 50%;
 }
+
 .artifactControls #searchBox input[name=q] {
 	width: 50%;
 }
@@ -241,6 +264,19 @@
 .artifact .tagList {
     margin-bottom: 0.5em;
     margin-top: 0.5em;
+}
+
+.artifacts .webSite {
+    min-height: 230px;
+}
+
+.artifacts .webSite a {
+}
+
+.artifacts .webSite .vote {
+    display: inline-block;
+    font-size: 0.9em;
+    padding: 0.1em;
 }
 
 .webSiteThumbnail {

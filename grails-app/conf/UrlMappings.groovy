@@ -25,7 +25,6 @@ class UrlMappings {
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
-
         "/Plugins"(controller: "plugin", action: "legacyHome")
         "/plugins"(controller: "plugin", action: "home")
         "/plugins/forum"(controller: "plugin", action: "forum")
@@ -96,20 +95,19 @@ class UrlMappings {
         "/screencast/show/$id"(controller:"screencast", action:"show")
         "/comment/add"(controller:"commentable", action:"add")
 
-        if (Environment.current != Environment.PRODUCTION) {
-            "/websites"(controller: "webSite", action: "list")
-            "/websites/add"(controller: "webSite", action: "create")
-            "/websites/save"(controller: "webSite", action: "save")
-            "/websites/search"(controller:"webSite", action:"search")
-            "/websites/tags"(controller:"webSite", action:"browseTags")
-            "/websites/feed"(controller:"webSite", action:"feed")
-            "/website/edit/$id"(controller: "webSite", action: "edit")
-            "/website/update/$id"(controller: "webSite", action: "update")
+        "/websites"(controller: "webSite", action: "list")
+        "/websites/add"(controller: "webSite", action: "create")
+        "/websites/save"(controller: "webSite", action: "save")
+        "/websites/search"(controller:"webSite", action:"search")
+        "/websites/tags"(controller:"webSite", action:"browseTags")
+        "/websites/feed"(controller:"webSite", action:"feed")
+        "/website/edit/$id"(controller: "webSite", action: "edit")
+        "/website/update/$id"(controller: "webSite", action: "update")
 
-            "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
-        }
+        "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
 
-        "/tutorials"(controller: "tutorial", action: "list")
+        "/tutorials"(controller: "tutorial", action: "index")
+        "/tutorials/$category"(controller: "tutorial", action: "list")
         "/tutorials/add"(controller: "tutorial", action: "create")
         "/tutorials/save"(controller: "tutorial", action: "save")
         "/tutorials/search"(controller:"tutorial", action:"search")

@@ -1,21 +1,27 @@
 <head>
-    <title><g:message code="website.create.title" default="Create Web Site"></g:message></title>
+    <title><g:message code="webSite.create.title" default="Create Web Site"></g:message></title>
 </head>
 <body>
     <div class="artifactControls">
         <span class="menuButton"><g:link class="list" action="list">Web Site List</g:link></span>
     </div>
     <div class="body">
-        <g:renderErrors bean="${website}"></g:renderErrors>
+        <g:renderErrors bean="${webSite}"></g:renderErrors>
         <div id="artifactForm" class="artifactForm">
 
             <g:uploadForm name="uploadArtifactForm" url="[action:'save']">
-                <label for="website.title">Title:</label> 
-                <g:textField name="website.title" value="${website.title}" /> 
-                <label for="website.description">Description:</label> 
-                <g:textArea name="website.description">${website.description}</g:textArea> 
-                <label for="website.url">URL:</label> 
-                <g:textField name="website.url" value="${website.url}" /> 
+                <label for="title">Title:</label> 
+                <g:textField name="title" value="${webSite.title}" /> 
+                <label for="description">Description:</label> 
+                <g:textArea name="description">${webSite.description}</g:textArea> 
+                <label for="url">URL:</label> 
+                <g:textField name="url" value="${webSite.url}" /> 
+
+                <shiro:hasPermission permission="webSite:feature">
+                    <label for="featured">Featured:</label>
+                    <g:checkBox name="featured" value="${webSite.featured}" />
+                </shiro:hasPermission>
+
                 <label for="tags">Tags:</label> 
                 <g:textField name="tags" value="${params.tags}" /> 
                 <div class="hint">Examples: startup, nosql, high traffic</div>

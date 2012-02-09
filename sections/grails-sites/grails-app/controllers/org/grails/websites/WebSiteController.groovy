@@ -1,65 +1,112 @@
 package org.grails.websites
 
 import grails.util.GrailsNameUtils
+import org.apache.shiro.SecurityUtils
 import org.grails.sections.AbstractSectionController
 
 class WebSiteController extends AbstractSectionController {
     static final int IMAGE_PREVIEW_MAX_SIZE = 2 * 1024 * 1024
 
     def imageUploadService
+    def searchableService
 
     WebSiteController() {
         super(WebSite)
     }
 
     def create() {
-        [ website: new WebSite(params) ]
+        [ webSite: new WebSite(params) ]
     }
 
     def save() {
-        def website = new WebSite()
-        bindData website, params['website']
+        def webSite = new WebSite()
+        bindParams webSite
 
-        if (!website.hasErrors() && website.save()) {
-            imageUploadService.save(website)
-            website.parseTags(params.tags, /[,;]/)
-            redirect action: "list"
-            return
+        try {
+            searchableService.stopMirroring()
+            if (!webSite.hasErrors() && validateAndSave(webSite)) {
+                processTags webSite, params.tags
+                webSite.save flush: true
+                redirect action: "list"
+                return
+            }
+        }
+        finally {
+            searchableService.startMirroring()
         }
 
-        render view: "create", model: [ website: website ]
+        render view: "create", model: [ webSite: webSite ]
     }
 
     def edit() {
-        def website = WebSite.get(params.id)
+        def webSite = WebSite.get(params.id)
 
-        if (!website) {
+        if (!webSite) {
             response.sendError 404
         }
         else { 
-            [ website : website ] 
+            [ webSite : webSite ] 
         }
     }
 
     def update() {
-        def website = WebSite.get(params.id)
+        def webSite = WebSite.get(params.id)
 
-        if (!website) {
+        if (!webSite) {
             response.sendError 404
         }
         else { 
-            bindData website, params['website']
+            bindParams webSite
 
-            if (!website.hasErrors() && website.save()) {
-                imageUploadService.save(website)
-                website.parseTags(params.tags, /[,;]/)
-                website.save(flush: true)
-
-                redirect action:"list"
-                return
+            try {
+                searchableService.stopMirroring()
+                if (!webSite.hasErrors() && webSite.save()) {
+                    if (hasPreviewImage()) imageUploadService.save(webSite)
+                    processTags webSite, params.tags
+                    webSite.save(flush: true)
+    
+                    redirect action:"list"
+                    return
+                }
+            }
+            finally {
+                searchableService.startMirroring()
             }
 
-            render view:"edit", model:[website:website]
+            render view:"edit", model:[webSite:webSite]
         }
+    }
+
+    protected bindParams(webSite) {
+        // Update the tutorial's properties, but exclude 'featured'
+        // because only an administrator can set that.
+        bindData webSite, params, ["featured"]
+
+        // Update 'featured' property if the current user has permission to.
+        if (SecurityUtils.subject.isPermitted("webSite:feature")) {
+            webSite.featured = params.featured ?: false
+        }
+    }
+
+    protected validateAndSave(webSite) {
+        def validates = !webSite.hasErrors()
+        validates = webSite.validate() && validates
+        validates = validatePreviewImage(webSite) && validates
+        if (validates && webSite.save()) {
+            imageUploadService.save(webSite)
+        }
+        return validates
+    }
+
+    protected validatePreviewImage(domainInstance) {
+        if (!hasPreviewImage()) {
+            domainInstance.errors.rejectValue "preview", "webSite.preview.required"
+            return false
+        }
+        else return true
+    }
+
+    protected hasPreviewImage() {
+        return !request.getFile("preview").isEmpty()
     }
 }
