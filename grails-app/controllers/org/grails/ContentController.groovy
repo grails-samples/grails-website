@@ -500,6 +500,10 @@ class ContentController extends BaseWikiController {
                  latestScreencastId: latestScreencastId ]
     }
 
+    def screencastLegacy() {
+        redirect controller: "screencast", action: "list", permanent: true
+    }
+
     /**
      * Constructs an name for a wiki page image based on the name of a wiki
      * page (preferably the one the image is on!) and the original filename

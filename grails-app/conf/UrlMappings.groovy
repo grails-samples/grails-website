@@ -61,7 +61,7 @@ class UrlMappings {
 
         "/blog/delete/$id"(controller: 'blogEntry', action:'delete')
         "/blog"(controller:"blog", action:"list")
-        "/Grails+Screencasts"(controller:"screencast", action:"list")
+        "/Grails+Screencasts"(controller: "content", action: "screencastLegacy")
 
         "/rateable/rate/$id"(controller: "rateable", action:"rate")
         "/tag/autoCompleteNames"(controller:'tag', action:'autoCompleteNames')
