@@ -11,6 +11,7 @@ import grails.plugin.springcache.annotations.*
 import javax.persistence.OptimisticLockException
 import javax.servlet.http.HttpServletResponse
 
+import org.apache.commons.codec.digest.DigestUtils
 import org.apache.shiro.SecurityUtils
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
@@ -482,14 +483,15 @@ class PluginController extends BaseWikiController {
                 version: plugin.currentRelease,
                 title: plugin.title,
                 author: plugin.author,
-                authorEmail: plugin.authorEmail,
+                authorEmailMd5: DigestUtils.md5Hex(plugin.authorEmail),
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,
                 licenseList: plugin.licenses.collect { l -> [name: l.name, url: l.url] },
                 lastReleased: dateService.getRestDateTime(plugin.lastReleased),
                 file: plugin.downloadUrl,
-                rating: plugin.avgRating ]
+                rating: plugin.avgRating,
+                zombie: plugin.zombie ]
             
         if (plugin.issuesUrl) pluginMap.issues = plugin.issuesUrl
         if (plugin.scmUrl) pluginMap.scm = plugin.scmUrl
