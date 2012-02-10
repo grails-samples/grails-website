@@ -14,6 +14,10 @@ databaseChangeLog = {
                 constraints(nullable: "false")
             }
         }
+
+        createIndex(indexName: "name_idx", tableName: "wiki_image") {
+            column(name: "name")
+        }
     }
 
     changeSet(author: "pledbrook (generated)", id: "1327422140130-2") {
@@ -23,12 +27,6 @@ databaseChangeLog = {
             column(name: "image_id", type: "bigint")
 
             column(name: "bi_image_idx", type: "varchar(255)")
-        }
-    }
-
-    changeSet(author: "pledbrook (generated)", id: "1327422140130-3") {
-        createIndex(indexName: "name_idx", tableName: "wiki_image") {
-            column(name: "name")
         }
     }
 
