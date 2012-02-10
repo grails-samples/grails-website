@@ -9,10 +9,10 @@
 	                    <li><g:link controller="content" id="Installation">Installation</g:link></li>
 	                    <li><g:link controller="content" id="Quick Start">Quick Start</g:link></li>
 	                    <li><g:link controller="content" id="IDE Integration">IDE Setup</g:link></li>
-	                    <li><g:link controller="content" id="Tutorials">Tutorials</g:link></li>
+	                    <li><g:link controller="tutorial" action="index">Tutorials</g:link></li>
 	                    <plugin:isAvailable name="screencasts">
 	                    	<li><g:link controller="screencast" action="list">Screencasts</g:link></li>
-						</plugin:isAvailable>
+                            </plugin:isAvailable>
 	                </ul>
 	                </li>
 	                <li id="reference" class="header"><a href="http://grails.org/doc/latest">Reference</a>
@@ -24,6 +24,7 @@
 	                </li>
 	                <li id="community" class="header"><g:link controller="content" id="Community">Community</g:link>
 	                <ul>
+	                    <li><g:link controller="webSite" action="list">Sites using Grails</g:link></li>
 	                    <plugin:isAvailable name="jobs">
 	                        <li><g:link controller="job" action="list">Job Listings</g:link></li>    
 	                    </plugin:isAvailable>
