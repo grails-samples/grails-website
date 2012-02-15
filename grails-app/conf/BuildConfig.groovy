@@ -39,7 +39,7 @@ grails.project.dependency.resolution = {
                 ":feeds:1.5",
                 ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",
-                ":hibernate:$grailsVersion",
+                ":hibernate:2.0.1",
                 ":jquery:1.6.1.1",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
@@ -69,7 +69,7 @@ grails.project.dependency.resolution = {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:2.0.0"
+        build   ":tomcat:2.0.1"
     }
 
     dependencies {
