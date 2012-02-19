@@ -35,6 +35,7 @@
 	                    <li><g:link controller="content" id="Plugins">Plugins</g:link></li>
 	                    <li><g:link controller="content" id="Mailing lists">Mailing Lists</g:link></li>
 						<li><a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble Forums</a></li>
+						<li><a href="http://webchat.freenode.net/?channels=grails">IRC Webchat</a></li>
                         <li>&nbsp;</li>
                         <li>Find us on:<br />
                         <a href="http://twitter.com/#!/grailsframework"><img src="http://a4.twimg.com/help/1307050985_2229" style="border:0;padding-top:10px;width:32px;height:32px;"/></a>
