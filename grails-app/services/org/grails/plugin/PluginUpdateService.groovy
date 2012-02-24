@@ -2,6 +2,7 @@ package org.grails.plugin
 
 import groovyx.net.http.HTTPBuilder
 import org.grails.auth.User
+import org.joda.time.DateTime
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.transaction.annotation.Transactional
@@ -144,7 +145,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // Assuming the instance saved OK, we can announce the release if it's
         // a new version.
         if (isNewVersion && !event.snapshot) {
-            plugin.lastReleased = new Date()
+            plugin.lastReleased = new DateTime()
             announceRelease(plugin)
         }
         else log.info "Not a new plugin release - won't tweet"
