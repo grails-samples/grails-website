@@ -44,6 +44,11 @@ p {
 	font-weight:normal;
 	color:black;
 }
+#contentBody .fixed h2 {
+	font-size:1.2em;
+	font-weight:bold;
+	color:#48802C;
+}
 #navMenu {
 	z-index:99;
 	width:250px;
