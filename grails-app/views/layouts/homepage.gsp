@@ -105,7 +105,7 @@ new PeriodicalExecuter(function(pe) {
                                 <r:img width="50" height="51" uri="/images/play.png"/>
                             </a>
                         </div>
-                        <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
+                        <h4><g:link controller="content" action="gettingStarted">Find out more</g:link></h4>
                     </div><!-- castBox -->
                 </div><!-- screencasts -->
 
