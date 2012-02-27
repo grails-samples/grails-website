@@ -122,7 +122,7 @@ class UrlMappings {
 
         "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
 
-        "/tutorials"(controller: "tutorial", action: "index")
+        "/tutorials"(controller: "tutorial", action: "list") { category = "featured" }
         "/tutorials/$category"(controller: "tutorial", action: "list")
         "/tutorials/add"(controller: "tutorial", action: "create")
         "/tutorials/save"(controller: "tutorial", action: "save")
