@@ -101,6 +101,7 @@ class UrlMappings {
 
         "/screencasts"(controller:"screencast", action:"list")
         "/screencasts/tags"(controller:"screencast", action:"browseTags")
+        "/screencasts/tags/$tag"(controller:"screencast", action:"search")
         "/screencast/save"(controller:"screencast", action:"save")
         "/screencast/search"(controller:"screencast", action:"search")
         "/screencast/update"(controller:"screencast", action:"update")
