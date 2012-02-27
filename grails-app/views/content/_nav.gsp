@@ -9,7 +9,7 @@
 	                    <li><g:link controller="content" id="Installation">Installation</g:link></li>
 	                    <li><g:link controller="content" id="Quick Start">Quick Start</g:link></li>
 	                    <li><g:link controller="content" id="IDE Integration">IDE Setup</g:link></li>
-	                    <li><g:link controller="tutorial" action="index">Tutorials</g:link></li>
+	                    <li><a href="/tutorials">Tutorials</a></li>
 	                    <plugin:isAvailable name="screencasts">
 	                    	<li><g:link controller="screencast" action="list">Screencasts</g:link></li>
                             </plugin:isAvailable>
