@@ -20,7 +20,6 @@ class PluginRelease {
     }
     
     static mapping = {
-        id generator:'foreign', params:[property:'plugin']
         version false        
     }
 }

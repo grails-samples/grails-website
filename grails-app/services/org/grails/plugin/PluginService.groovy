@@ -168,7 +168,7 @@ class PluginService {
             listText = listText.replaceAll(/\<\?xml ([^\<\>]*)\>/, '')
             def plugins = new XmlSlurper().parseText(listText)
 
-            log.info "Found ${plugins.plugin.size()} master plugins."
+            log.debug "Found ${plugins.plugin.size()} master plugins."
 
             return plugins.plugin.inject([]) { pluginsList, pxml ->
                 if (!pxml.release.size()) return pluginsList
@@ -188,13 +188,13 @@ class PluginService {
                     downloadUrl = latestReleaseNode.file
                     currentRelease = latestRelease
                 }
+                
+                log.debug "Found plugin [$p.name] with current release [$p.currentRelease]"
                 Set releases = []
                 pxml.release.each { r ->
                     def pr = new PluginRelease(plugin:p)
                     def file = r.file.text()
                     if(file) {
-                        def date = new DateTime(new URL(file).openConnection().lastModified)
-                        pr.releaseDate = date
                         pr.downloadUrl = file
                         pr.releaseVersion = r.@version.text()
                         releases << pr
@@ -219,15 +219,28 @@ class PluginService {
     }
 
     def translateMasterPlugins(masters) {
+        log.debug "Updating plugins from master versions..."
         Plugin.withSession { session ->
             masters.each { master ->
                 try {
+                    
                     def plugin = Plugin.findByName(master.name)
+                    log.debug "Checking plugin [$master.name]"
                     if (!plugin) {
+                        log.debug "Plugin [$master.name] doesn't existing, creating new..."
                         // injecting a unique wiki page name for description
                         // pull off the desc so we don't try to save it
                         def descWiki = master.description
                         master.description = null
+                        
+                        // obtain release dates
+                        master.releases?.each { pr ->
+                            log.debug "Found release [$pr.downloadUrl], obtaining last modified date"
+                            def conn = new URL(pr.downloadUrl).openConnection()
+                            conn.connectTimeout = 5000
+                            def date = new DateTime(conn.lastModified)
+                            pr.releaseDate = date                            
+                        }
                         // so we need to save the master first to get its id
                         if (!master.save()) {
                             log.error "Could not save master plugin: $master.name ($master.title), version $master.currentRelease"
@@ -237,7 +250,7 @@ class PluginService {
                         // put the wiki page back with a unique title
                         descWiki.title = "description-${master.id}"
                         master.description = descWiki
-                        log.info "No existing plugin, creating new ==> ${master.name}"
+                        log.debug "No existing plugin, creating new ==> ${master.name}"
                         // before saving the master, we need to save the description wiki page
                         if (!master.description.save() && master.description.hasErrors()) {
                             master.description.errors.allErrors.each { log.error it }
@@ -272,6 +285,7 @@ class PluginService {
                         }
                     } else {
                         // update existing plugin
+                        log.debug "Plugin [$master.name] already exists, updating..."
                         updatePlugin(plugin, master)
                     }
                     
@@ -306,6 +320,21 @@ class PluginService {
         }
         plugin.currentRelease = master.currentRelease
         plugin.grailsVersion = master.grailsVersion
+        
+        master.releases?.each { release ->
+            def existing = PluginRelease.findByPlugin(plugin, release.releaseVersion)
+            if(!existing) {
+                release.plugin = plugin
+                log.debug "Found release [$release.downloadUrl], obtaining last modified date"
+                def conn = new URL(release.downloadUrl).openConnection()
+                conn.connectTimeout = 5000
+                def date = new DateTime(conn.lastModified)
+                release.releaseDate = date                            
+                
+                release.save()
+                plugin.addToReleases(release)
+            }
+        }
 
         if (!plugin.save()) {
             log.warn "Local plugin '$plugin.name' was not updated properly... errors follow:"
