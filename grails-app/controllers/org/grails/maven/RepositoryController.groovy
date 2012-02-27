@@ -1,5 +1,7 @@
 package org.grails.maven
 
+import grails.plugin.springcache.annotations.Cacheable
+
 /**
  * 
  *
@@ -22,5 +24,10 @@ class RepositoryController {
             redirect url:"http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$version/$plugin-${version}.$type"
         else
             render status:404
+    }
+    
+    
+    def list() {
+        render "plugin list"
     }
 }

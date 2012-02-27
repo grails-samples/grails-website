@@ -50,11 +50,11 @@ class Plugin implements Taggable, Commentable, Rateable {
     Number avgRating
     DateTime dateCreated
     DateTime lastUpdated
-    DateTime lastReleased
+    DateTime lastReleased = new DateTime()
 
     List mavenRepositories
 
-    static hasMany = [licenses: License, mavenRepositories: String]
+    static hasMany = [licenses: License, mavenRepositories: String, releases: PluginRelease]
 
     static searchable = {
         only = [

@@ -3,6 +3,7 @@ import org.grails.content.Version
 import org.grails.plugin.License
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginTab
+import org.joda.time.DateTime
 
 fixture {
     build {
@@ -58,6 +59,7 @@ fixture {
                 name: "shiro",
                 title: "Apache Shiro Plugin",
                 currentRelease: "1.1-SNAPSHOT",
+                lastReleased: new DateTime(),
                 author: "Peter Ledbrook",
                 organization: "KataSoft",
                 summary: "Integrates the Apache Shiro security framework into your Grails applications.",
@@ -104,6 +106,7 @@ fixture {
                 name: "fixtures",
                 title: "Fixtures Plugin",
                 currentRelease: "1.0.1",
+                lastReleased: new DateTime(),
                 author: "Grails Plugin Collective",
                 summary: "Declare sample data using a Spring Bean DSL like syntax and load it form anywhere in your application: tests, BootStrap, controllers, in fact anyhere. Also integrates with Build Test Data plugin.",
                 installation: fixturesInstallation,
@@ -148,6 +151,7 @@ fixture {
                 name: "build-test-data",
                 title: "Build Test Data Plugin",
                 currentRelease: "1.2",
+                lastReleased: new DateTime(),
                 author: "Ted Naleid",
                 summary: """\
 This plugin allows the user to easily create testing data through the use of a "build" method that is added to all Domain Classes. The build method inspects all of the constraints and creates default values for those required properties.
@@ -202,6 +206,7 @@ This is a test list:
                 name: "hibernate",
                 title: "Hibernate ORM Plugin",
                 currentRelease: "1.3.4",
+                lastReleased: new DateTime(),
                 author: "SpringSource",
                 organization: "SpringSource",
                 organizationUrl: "http://www.springsource.org/",
@@ -248,6 +253,7 @@ This is a test list:
                 name: "tomcat",
                 title: "Tomcat",
                 currentRelease: "1.3.4",
+                lastReleased: new DateTime(),
                 author: "SpringSource",
                 installation: tomcatInstallation,
                 description: tomcatDescription,
@@ -293,6 +299,7 @@ This is a test list:
                 title: "GWT Integration",
                 currentRelease: "0.2.3-SNAPSHOT",
                 grailsVersion: "1.1 > *",
+                lastReleased: new DateTime(),
                 author: "Peter Ledbrook",
                 installation: gwtInstallation,
                 description: gwtDescription,
@@ -339,6 +346,7 @@ This is a test list:
                 summary: "Implements the GORM API to map domain classes to a Gemfire data grid.",
                 currentRelease: "1.0",
                 grailsVersion: "1.3 > *",
+                lastReleased: new DateTime(),
                 featured: true,
                 issuesUrl: "http://jira.grails.org/browse/GPGEMFIRE",
                 scmUrl: "https://github.com/grails-plugins/grails-gemfire",
@@ -387,6 +395,7 @@ This is a test list:
                 title: "Spock Plugin",
                 summary: "Allows you to write your tests using Spock instead of JUnit.",
                 currentRelease: "1.0",
+                lastReleased: new DateTime(),
                 grailsVersion: "1.3 > *",
                 featured: true,
                 issuesUrl: "http://jira.grails.org/browse/GPSPOCK",

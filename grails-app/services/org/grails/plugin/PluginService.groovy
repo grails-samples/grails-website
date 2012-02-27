@@ -5,6 +5,7 @@ import org.grails.content.Version
 import org.grails.tags.TagNotFoundException
 import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
+import org.joda.time.DateTime
 
 class PluginService {
 
@@ -186,7 +187,21 @@ class PluginService {
                     downloadUrl = latestReleaseNode.file
                     currentRelease = latestRelease
                 }
+                Set releases = []
+                pxml.release.each { r ->
+                    def pr = new PluginRelease(plugin:p)
+                    def file = r.file.text()
+                    if(file) {
+                        def date = new DateTime(new URL(file).openConnection().lastModified)
+                        pr.releaseDate = date
+                        pr.downloadUrl = file
+                        pr.releaseVersion = r.@version.text()
+                        releases << pr
+                    }
 
+                }
+
+                p.releases  = releases
                 pluginsList << p
             }
         }
