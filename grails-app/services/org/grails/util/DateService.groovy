@@ -17,7 +17,7 @@ class DateService implements InitializingBean {
     }
 
     def getRestDateTime(dateTime) {
-        return restDateFormatter.print(dateTime).withZone(DateTimeZone.UTC)
+        return restDateFormatter.print(dateTime.withZone(DateTimeZone.UTC))
     }
 
     def getMonthString(date) {

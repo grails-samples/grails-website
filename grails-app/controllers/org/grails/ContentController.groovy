@@ -37,6 +37,46 @@ class ContentController extends BaseWikiController {
     def grailsUrlMappingsHolder
     def imageUploadService
 
+    def index() {
+        def wikiPage = wikiPageService.getCachedOrReal(params.id)
+        if (wikiPage?.instanceOf(PluginTab)) {
+            def plugin = wikiPage.plugin
+            if (!plugin) {
+                // Prevents web crawlers with stale data from causing an exception and
+                // flooding the logs.
+                response.sendError 404
+            }
+            else {
+                // A bit of hackery: plugin tabs should not be accessed via this handler,
+                // but sometimes they are. So, permanently redirect to the tab's plugin
+                // portal page.
+                redirect controller: "plugin", action: "show", params: [name: wikiPage.plugin.name], permanent: true
+            }
+        }
+        else if (wikiPage) {
+            // Permanent redirect for deprecated pages that have an alternative URL.
+            if (wikiPage.deprecated && wikiPage.deprecatedUri) {
+                redirect uri: wikiPage.deprecatedUri, permanent: true
+                return
+            }
+
+            // This property involves a query, so we fetch it here rather
+            // than in the view.
+            def latestVersion = wikiPage.latestVersion
+            if (request.xhr) {
+                render template:"wikiShow", model:[content:wikiPage, update:params._ul, latest:latestVersion]
+            } else {
+                // disable comments
+                render view:"contentPage", model:[content:wikiPage, latest:latestVersion]
+            }
+        }
+        else {
+            response.sendError 404
+        }
+    }
+
+    def gettingStarted() {}
+
     def search() {
         if(params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
@@ -102,44 +142,6 @@ class ContentController extends BaseWikiController {
             page.properties = params
 
             render( engine.render(page.body, context) )
-        }
-    }
-
-    def index() {
-        def wikiPage = wikiPageService.getCachedOrReal(params.id)
-        if (wikiPage?.instanceOf(PluginTab)) {
-            def plugin = wikiPage.plugin
-            if (!plugin) {
-                // Prevents web crawlers with stale data from causing an exception and
-                // flooding the logs.
-                response.sendError 404
-            }
-            else {
-                // A bit of hackery: plugin tabs should not be accessed via this handler,
-                // but sometimes they are. So, permanently redirect to the tab's plugin
-                // portal page.
-                redirect controller: "plugin", action: "show", params: [name: wikiPage.plugin.name], permanent: true
-            }
-        }
-        else if (wikiPage) {
-            // Permanent redirect for deprecated pages that have an alternative URL.
-            if (wikiPage.deprecated && wikiPage.deprecatedUri) {
-                redirect uri: wikiPage.deprecatedUri, permanent: true
-                return
-            }
-
-            // This property involves a query, so we fetch it here rather
-            // than in the view.
-            def latestVersion = wikiPage.latestVersion
-            if (request.xhr) {
-                render template:"wikiShow", model:[content:wikiPage, update:params._ul, latest:latestVersion]
-            } else {
-                // disable comments
-                render view:"contentPage", model:[content:wikiPage, latest:latestVersion]
-            }
-        }
-        else {
-            response.sendError 404
         }
     }
 

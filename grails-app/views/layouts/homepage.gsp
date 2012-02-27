@@ -96,16 +96,16 @@ new PeriodicalExecuter(function(pe) {
                     <h2>What is grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
-                            <g:link controller="screencast" action="show" id="15">
+                            <a href="http://portal.sliderocket.com/vmware/what-is-grails">
                                 <r:img width="240" height="190" uri="/images/grails-taster-badge.png"/>
-                            </g:link>
+                            </a>
                         </div><!-- castScreen -->
                         <div class="playOverlay">
-                            <g:link controller="screencast" action="show" id="15">
+                            <a href="http://portal.sliderocket.com/vmware/what-is-grails">
                                 <r:img width="50" height="51" uri="/images/play.png"/>
-                            </g:link>
+                            </a>
                         </div>
-                        <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
+                        <h4><g:link controller="content" action="gettingStarted">Find out more</g:link></h4>
                     </div><!-- castBox -->
                 </div><!-- screencasts -->
 

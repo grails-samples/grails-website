@@ -4,7 +4,7 @@
 	</div><!-- search -->	 
 	<div id="nav">
 	            <ul>
-	                <li id="start" class="header"><g:link controller="content" id="Installation">Get Started</g:link>
+	                <li id="start" class="header"><g:link controller="content" action="gettingStarted">Get Started</g:link>
 	                <ul>
 	                    <li><g:link controller="content" id="Installation">Installation</g:link></li>
 	                    <li><g:link controller="content" id="Quick Start">Quick Start</g:link></li>

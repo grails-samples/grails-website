@@ -9,6 +9,8 @@ class UrlMappings {
             }
         }
 
+        "/start"(controller: "content", action: "gettingStarted")
+
         def populateVersion = {
             version = {
                 try {
@@ -99,6 +101,7 @@ class UrlMappings {
 
         "/screencasts"(controller:"screencast", action:"list")
         "/screencasts/tags"(controller:"screencast", action:"browseTags")
+        "/screencasts/tags/$tag"(controller:"screencast", action:"search")
         "/screencast/save"(controller:"screencast", action:"save")
         "/screencast/search"(controller:"screencast", action:"search")
         "/screencast/update"(controller:"screencast", action:"update")
@@ -119,7 +122,7 @@ class UrlMappings {
 
         "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
 
-        "/tutorials"(controller: "tutorial", action: "index")
+        "/tutorials"(controller: "tutorial", action: "list") { category = "featured" }
         "/tutorials/$category"(controller: "tutorial", action: "list")
         "/tutorials/add"(controller: "tutorial", action: "create")
         "/tutorials/save"(controller: "tutorial", action: "save")

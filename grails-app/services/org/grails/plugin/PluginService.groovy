@@ -2,6 +2,7 @@ package org.grails.plugin
 
 import org.grails.auth.User
 import org.grails.content.Version
+import org.joda.time.DateTime
 import org.grails.tags.TagNotFoundException
 import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
@@ -254,7 +255,7 @@ class PluginService {
                             assert master."$wiki".save()
                         }
                         // give an initial release date of now
-                        master.lastReleased = new Date()
+                        master.lastReleased = new DateTime()
                         if (!master.groupId) {
                                 master.groupId = "org.grails.plugins"
                         }
@@ -301,7 +302,7 @@ class PluginService {
         plugin.downloadUrl = master.downloadUrl
         // if this was a release update, also update the date of release
         if (plugin.currentRelease != master.currentRelease) {
-            plugin.lastReleased = new Date();
+            plugin.lastReleased = new DateTime()
         }
         plugin.currentRelease = master.currentRelease
         plugin.grailsVersion = master.grailsVersion
