@@ -233,7 +233,8 @@ class PluginService {
                     def plugin = Plugin.findByName(master.name)
                     log.debug "Checking plugin [$master.name]"
                     if (!plugin) {
-                        log.debug "Plugin [$master.name] doesn't existing, creating new..."
+                        log.debug "Plugin [$master.name] doesn't exist, creating new one..."
+
                         // injecting a unique wiki page name for description
                         // pull off the desc so we don't try to save it
                         def descWiki = master.description
@@ -241,11 +242,7 @@ class PluginService {
                         
                         // obtain release dates
                         master.releases?.each { pr ->
-                            log.debug "Found release [$pr.downloadUrl], obtaining last modified date"
-                            def conn = new URL(pr.downloadUrl).openConnection()
-                            conn.connectTimeout = 5000
-                            def date = new DateTime(conn.lastModified)
-                            pr.releaseDate = date                            
+                            pr.releaseDate = fetchPluginReleaseDate(pr)
                         }
                         // so we need to save the master first to get its id
                         if (!master.save()) {
@@ -293,6 +290,7 @@ class PluginService {
                         // update existing plugin
                         log.debug "Plugin [$master.name] already exists, updating..."
                         updatePlugin(plugin, master)
+                        synchronizePluginReleases(plugin, master)
                     }
                     
                 }
@@ -326,21 +324,6 @@ class PluginService {
         }
         plugin.currentRelease = master.currentRelease
         plugin.grailsVersion = master.grailsVersion
-        
-        master.releases?.each { release ->
-            def existing = PluginRelease.findByPlugin(plugin, release.releaseVersion)
-            if(!existing) {
-                release.plugin = plugin
-                log.debug "Found release [$release.downloadUrl], obtaining last modified date"
-                def conn = new URL(release.downloadUrl).openConnection()
-                conn.connectTimeout = 5000
-                def date = new DateTime(conn.lastModified)
-                release.releaseDate = date                            
-                
-                release.save()
-                plugin.addToReleases(release)
-            }
-        }
 
         if (!plugin.save()) {
             log.warn "Local plugin '$plugin.name' was not updated properly... errors follow:"
@@ -387,6 +370,25 @@ class PluginService {
             // the portal 'ping'.
             return ''
         }
+    }
+
+    protected synchronizePluginReleases(plugin, master) {
+        for (release in master.releases) {
+            def existing = PluginRelease.findByPluginAndReleaseVersion(plugin, release.releaseVersion)
+            if(!existing) {
+                release.releaseDate = fetchPluginReleaseDate(release)
+                release.plugin = plugin
+                release.save()
+                plugin.addToReleases(release)
+            }
+        }
+    }
+
+    protected DateTime fetchPluginReleaseDate(pluginRelease) {
+        log.debug "Found release [$pluginRelease.downloadUrl], obtaining last modified date"
+        def conn = new URL(pluginRelease.downloadUrl).openConnection()
+        conn.connectTimeout = 5000
+        return new DateTime(conn.lastModified)
     }
 
     /**
