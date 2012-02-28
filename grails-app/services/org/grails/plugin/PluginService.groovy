@@ -7,6 +7,7 @@ import org.grails.tags.TagNotFoundException
 import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
 import org.joda.time.DateTime
+import grails.plugin.springcache.annotations.*
 
 class PluginService {
 
@@ -155,6 +156,8 @@ class PluginService {
         }
     }
     
+     
+    @CacheFlush('pluginMetaList')
     def runMasterUpdate() {
         translateMasterPlugins(generateMasterPlugins())
     }
