@@ -182,6 +182,8 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     /**
      * Sends a tweet to @grailsplugins with details of the new release.
      * @param plugin A plugin instance with 'name', 'title' and 'currentRelease'
+     * @param version The version of the plugin
+     * @param url The URL of the plugin
      * properties.
      */
     void tweetRelease(plugin, version, url) {
@@ -195,7 +197,8 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // the message.
         if (exceedsTwitterLimit(msg, url)) msg = summarize(msg, twitterLimit - url.size())
 
-        log.info "Tweeting the plugin release"
+        log.info "Tweeting the plugin release. Message: $msg"
+	
         twitterService.updateStatus(msg + url)
     }
     
