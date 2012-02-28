@@ -158,16 +158,22 @@ class PluginService {
     def runMasterUpdate() {
         translateMasterPlugins(generateMasterPlugins())
     }
+
+    /**
+     * Reads the plugin list and returns XML as a Gpath result
+     */
+    def readPluginList() {
+        def pluginLoc = grailsApplication.config?.plugins?.pluginslist
+        def listFile = new URL(pluginLoc)
+        def listText = listFile.text
+        // remove the first line of <?xml blah/>
+        listText = listText.replaceAll(/\<\?xml ([^\<\>]*)\>/, '')
+        new XmlSlurper().parseText(listText)        
+    }
     
     def generateMasterPlugins() {
         try {
-            def pluginLoc = grailsApplication.config?.plugins?.pluginslist
-            def listFile = new URL(pluginLoc)
-            def listText = listFile.text
-            // remove the first line of <?xml blah/>
-            listText = listText.replaceAll(/\<\?xml ([^\<\>]*)\>/, '')
-            def plugins = new XmlSlurper().parseText(listText)
-
+            def plugins = readPluginList()
             log.debug "Found ${plugins.plugin.size()} master plugins."
 
             return plugins.plugin.inject([]) { pluginsList, pxml ->
