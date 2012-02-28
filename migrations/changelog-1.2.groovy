@@ -30,4 +30,28 @@ databaseChangeLog = {
         }
     }
 
+    changeSet(author: "pledbrook (generated)", id: "1330418914429-1") {
+        createTable(tableName: "plugin_release") {
+            column(autoIncrement: "true", name: "id", type: "bigint") {
+                constraints(nullable: "false", primaryKey: "true", primaryKeyName: "plugin_releasPK")
+            }
+
+            column(name: "download_url", type: "varchar(255)") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "plugin_id", type: "bigint") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "release_date", type: "datetime") {
+                constraints(nullable: "false")
+            }
+
+            column(name: "release_version", type: "varchar(255)") {
+                constraints(nullable: "false")
+            }
+        }
+    }
+
 }
