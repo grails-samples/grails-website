@@ -227,7 +227,8 @@ class PluginService {
                     def plugin = Plugin.findByName(master.name)
                     log.debug "Checking plugin [$master.name]"
                     if (!plugin) {
-                        log.debug "Plugin [$master.name] doesn't existing, creating new..."
+                        log.debug "Plugin [$master.name] doesn't exist, creating new one..."
+
                         // injecting a unique wiki page name for description
                         // pull off the desc so we don't try to save it
                         def descWiki = master.description
