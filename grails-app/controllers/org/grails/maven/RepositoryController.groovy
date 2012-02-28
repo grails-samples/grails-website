@@ -43,7 +43,7 @@ class RepositoryController {
                 Plugin.withSession { session ->
                     
                     while(total > offset) {
-                        def allPlugins = Plugin.list(fetch:['releases':'eager'], offset:offset, max:10)                    
+                        def allPlugins = Plugin.list(fetch:[releases:'select'], offset:offset, max:10)                    
                         if(!allPlugins) break
                         
                         for(p in allPlugins) {
