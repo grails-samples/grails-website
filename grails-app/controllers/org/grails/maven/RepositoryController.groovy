@@ -3,13 +3,42 @@ package org.grails.maven
 import grails.plugin.springcache.annotations.Cacheable
 import org.grails.plugin.*
 
+import org.springframework.context.ApplicationEvent
 /**
  * 
- *
+ * Responsible for adapting Grails repository conventions onto a Maven compatible repository. Currently this is hard coded to http://repo.grails.org/grails/plugins.
+ * Also handles deployment of plugins using the publish action.
+ * 
  * @author Graeme Rocher
  */
 class RepositoryController {
 
+    /**
+     * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
+     */
+    def publish(PublishPluginCommand cmd) {
+        def p = cmd.plugin
+        def v = cmd.version
+        if(cmd.hasErrors()) {
+            render status:400, text:"Missing plugin data. Include name, version, pom, zip and xml in your multipart request"
+        }
+        else {
+
+            log.info "Publishing plugin [$p] with version [$v]"
+            def existing = PluginRelease.where {
+                plugin.name == p && releaseVersion == v
+            }
+
+            if(!existing.exists()) {
+                def pendingRelease = new PendingRelease(name:p, version:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
+                assert pendingRelease.save() // assertion should never fail due to prior validation in command object
+                publishEvent(new PluginPublishEvent(pendingRelease))
+            }
+            else {
+                render status:403, text:"Plugin [$p] already published for version [$v]"
+            }
+        }
+    }
     /**
      * Redirects Grails SVN-style repository to the Maven repository. Request to the path:
      *
@@ -71,5 +100,32 @@ class RepositoryController {
             }
         }
         
+    }
+}
+class PublishPluginCommand {
+    String plugin
+    String version
+    byte[] zip
+    byte[] pom
+    byte[] xml
+
+    static constraints = {
+        plugin blank:false
+        version blank:false
+        zip nullable:false, size:0..10000000
+        pom nullable:false, size:0..500000
+        xml nullable:false, size:0..500000
+    }
+
+}
+
+/**
+ * Application event that notifies the plugin portal that the details of
+ * a particular plugin need updating, perhaps due to a new release.
+ */
+class PluginPublishEvent extends ApplicationEvent {
+
+    PluginPublishEvent(PendingRelease source) {
+        super(source)
     }
 }
