@@ -30,7 +30,7 @@ class RepositoryController {
             }
 
             if(!existing.exists()) {
-                def pendingRelease = new PendingRelease(name:p, version:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
+                def pendingRelease = new PendingRelease(pluginName:p, pluginVersion:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
                 assert pendingRelease.save() // assertion should never fail due to prior validation in command object
                 publishEvent(new PluginPublishEvent(pendingRelease))
             }
