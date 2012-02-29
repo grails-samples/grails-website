@@ -101,7 +101,7 @@ class PluginService {
         return "plugin-${pluginName}-${tabName}"
     }
     
-    String extractTabName(String title) {
+    static String extractTabName(String title) {
         def titleParts = title.split('-')
         
         // The plugin tab type is encoded in the page title in different

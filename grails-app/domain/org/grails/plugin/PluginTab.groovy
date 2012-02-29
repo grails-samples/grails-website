@@ -6,7 +6,6 @@ import org.grails.content.Content
  * Domain class representing a plugin tab wiki page.
  */
 class PluginTab extends Content {
-    def pluginService
     
     static transients = ['plugin']
     
@@ -16,7 +15,7 @@ class PluginTab extends Content {
     }
     
     Plugin getPlugin() {
-        return Plugin."findBy${capitalize(pluginService.extractTabName(title))}"(this)
+        return Plugin."findBy${capitalize(PluginService.extractTabName(title))}"(this)
     }
     
     private capitalize(str) {

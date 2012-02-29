@@ -147,6 +147,11 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         if (isNewVersion && !event.snapshot) {
             plugin.lastReleased = new DateTime()
             announceRelease(plugin)
+	    def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, plugin.currentRelease)
+	    if(pr == null) {
+                pr = new PluginRelease(plugin:plugin,releaseVersion:plugin.currentRelease, downloadUrl: plugin.downloadUrl) 
+		pr.save()
+            }
         }
         else log.info "Not a new plugin release - won't tweet"
     }
@@ -191,10 +196,12 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         // Check that the message with standard URL does not exceed the
         // Twitter length limit.
-        if (exceedsTwitterLimit(msg, url)) url = shortenUrl(url)
+        
+	if (exceedsTwitterLimit(msg, url)) url = shortenUrl(url)
 
         // If the message length is still over the Twitter length, we must summarize
         // the message.
+
         if (exceedsTwitterLimit(msg, url)) msg = summarize(msg, twitterLimit - url.size())
 
         log.info "Tweeting the plugin release. Message: $msg"
@@ -252,7 +259,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     }
 
     private exceedsTwitterLimit(Object[] strs) {
-        return strs*.size().sum() > twitterLimit
+	return strs*.size().sum() > twitterLimit
     }
 
     private summarize(str, limit) {
