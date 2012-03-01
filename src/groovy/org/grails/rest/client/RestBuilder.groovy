@@ -5,8 +5,11 @@ import org.springframework.http.*
 import org.springframework.util.*
 import static org.springframework.http.MediaType.*
 import grails.converters.*
+import grails.web.*
 import org.springframework.http.client.*
-
+import org.codehaus.groovy.grails.plugins.codecs.Base64Codec
+import groovy.util.slurpersupport.*
+import org.codehaus.groovy.grails.web.json.*
 class RestBuilder {
 
     RestTemplate restTemplate
@@ -48,41 +51,92 @@ class RestBuilder {
 
     }
 
+    /**
+     * Issues a PUT request and returns the response in the most appropriate type
+     *
+     * @param url The URL
+     * @param customizer The clouser customizer
+     */
+    def put(String url, Closure customizer = null) {
+        def requestCustomizer = new RequestCustomizer()
+        customizer.delegate = requestCustomizer
+        customizer.call()
+        
+        def responseEntity = restTemplate.exchange(url, HttpMethod.PUT,customizer.createEntity(),String)
+        handleResponse(responseEntity)
+    }
+
     protected handleResponse(ResponseEntity responseEntity) {
-        def contentType = responseEntity.headers.getContentType()
-
-        switch("${contentType.type}/${contentType.subtype}".toString()) {
-            case TEXT_PLAIN_VALUE:
-                return responseEntity.body
-            case APPLICATION_JSON_VALUE:
-                return JSON.parse(responseEntity.body)
-            case APPLICATION_XML_VALUE:
-                return XML.parse(responseEntity.body)
-            case APPLICATION_XHTML_XML_VALUE:
-                return XML.parse(responseEntity.body)
-            case TEXT_XML_VALUE:
-                return XML.parse(responseEntity.body)
-            default:
-                return responseEntity.body
-
-        }
+        return new RestResponse(responseEntity: responseEntity)
     }
 }
+class RestResponse {
+    @Delegate ResponseEntity responseEntity
+    @Lazy JSONElement json = {
+        def body = responseEntity.body
+        if(body) {
+            return JSON.parse(body)
+        }
+    }()
+    @Lazy GPathResult xml = {
+        def body = responseEntity.body
+        if(body) {
+            return XML.parse(body)
+        }
+    }()
+
+    @Lazy String text = {
+        def body = responseEntity.body
+        if(body) {
+            return body.toString()
+        }
+        else {
+            responseEntity.statusCode.reasonPhrase
+        }
+    }()
+
+    int getStatus() {
+        responseEntity?.statusCode?.value() ?: 200
+    }
+
+}
 class RequestCustomizer {
-    @Delegate HttpHeaders headers = new HttpHeaders()
+    HttpHeaders headers = new HttpHeaders()
     def body
+
+    // configures basic author
+    RequestCustomizer auth(String username, String password) {
+        String authStr = "$username:$password"
+        String encoded = Base64Codec.encode(authStr)
+        headers["Authorization"] = "Basic $encoded".toString()
+        return this
+    }
 
     RequestCustomizer contentType(String contentType) {
         headers.setContentType(MediaType.valueOf(contentType))
+        return this
     }
 
     RequestCustomizer accept(String...contentTypes) {
         def list = contentTypes.collect { MediaType.valueOf(it) }
         headers.setAccept(list)
+        return this
     }
 
     RequestCustomizer header(String name, String value) {
         headers[name] = value
+        return this
+    }
+
+    RequestCustomizer json(Closure callable) {
+        def builder = new JSONBuilder()
+        JSON json = builder.build {
+            name = "test-group"
+            descrition = "temporary test group"
+        }
+
+        body = json.toString()
+        return this
     }
 
     HttpEntity createEntity() {
