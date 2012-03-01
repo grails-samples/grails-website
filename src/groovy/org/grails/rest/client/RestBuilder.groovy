@@ -69,7 +69,6 @@ class RestBuilder {
             customizer.delegate = requestCustomizer
             customizer.call()
         }
-         
         def responseEntity = restTemplate.exchange(url, method,requestCustomizer.createEntity(),String)
         handleResponse(responseEntity)
     }
@@ -110,6 +109,7 @@ class RestResponse {
 class RequestCustomizer {
     HttpHeaders headers = new HttpHeaders()
     def body
+    MultiValueMap<String, Object> mvm = new LinkedMultiValueMap<String, Object>()
 
     // configures basic author
     RequestCustomizer auth(String username, String password) {
@@ -137,6 +137,7 @@ class RequestCustomizer {
 
     RequestCustomizer json(Closure callable) {
         def builder = new JSONBuilder()
+        callable.resolveStrategy = Closure.DELEGATE_FIRST
         JSON json = builder.build(callable) 
 
         body = json.toString()
@@ -156,6 +157,15 @@ class RequestCustomizer {
     }
 
     HttpEntity createEntity() {
-        return new HttpEntity(body, headers)
+        if(mvm) {
+            return new HttpEntity(mvm, headers)
+        }
+        else {
+            return new HttpEntity(body, headers)
+        }
+    }
+
+    void setProperty(String name, value) {
+        mvm[name] = value
     }
 }
