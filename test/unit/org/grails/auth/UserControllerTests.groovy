@@ -14,6 +14,7 @@
  */
 package org.grails.auth
 
+import grails.test.mixin.*
 import grails.test.GrailsUnitTestCase
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException

@@ -4,6 +4,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.grails.wiki.WikiPage
 import org.grails.content.Version
 import org.grails.auth.User
+import grails.test.mixin.*
 
 @TestFor(PluginService)
 @Mock(User)
