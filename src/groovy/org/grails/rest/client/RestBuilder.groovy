@@ -130,10 +130,7 @@ class RequestCustomizer {
 
     RequestCustomizer json(Closure callable) {
         def builder = new JSONBuilder()
-        JSON json = builder.build {
-            name = "test-group"
-            descrition = "temporary test group"
-        }
+        JSON json = builder.build(callable) 
 
         body = json.toString()
         return this
