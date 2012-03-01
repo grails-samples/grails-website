@@ -25,30 +25,12 @@ class RestBuilder {
     }
 
     /**
-     * Issues a GET request and returns the response in the most appropriate type. For application/json a grails.converters.JSON is returned, for application/xml a GPathResult 
-     * returned. Otherwise the raw string is returned.
-     */
-    def get(String url) {
-        def httpEntity = new HttpEntity(new HttpHeaders())
-        def responseEntity = restTemplate.exchange(url, HttpMethod.GET,httpEntity,String)
-        handleResponse(responseEntity)
-    }
-
-    
-    /**
      * Issues a GET request and returns the response in the most appropriate type
      * @param url The URL
      * @param url The closure customizer used to customize request attributes
      */
-    def get(String url, Closure customizer) {
-
-        def requestCustomizer = new RequestCustomizer()
-
-        customizer.delegate = requestCustomizer
-        customizer.call()
-        def responseEntity = restTemplate.exchange(url, HttpMethod.GET,customizer.createEntity(),String)
-        handleResponse(responseEntity)
-
+    def get(String url, Closure customizer=null) {
+        doRequestInternal( url, customizer, HttpMethod.GET)
     }
 
     /**
@@ -58,14 +40,39 @@ class RestBuilder {
      * @param customizer The clouser customizer
      */
     def put(String url, Closure customizer = null) {
-        def requestCustomizer = new RequestCustomizer()
-        customizer.delegate = requestCustomizer
-        customizer.call()
-        
-        def responseEntity = restTemplate.exchange(url, HttpMethod.PUT,customizer.createEntity(),String)
-        handleResponse(responseEntity)
+        doRequestInternal( url, customizer, HttpMethod.PUT)
     }
 
+    /**
+     * Issues a POST request and returns the response
+     * @param url The URL
+     * @param customizer (optional) The closure customizer
+     */
+    def post(String url, Closure customizer = null) {
+        doRequestInternal( url, customizer, HttpMethod.POST)
+    }
+
+    /**
+     * Issues DELETE a request and returns the response
+
+     * @param url The URL
+     * @param customizer (optional) The closure customizer
+     */
+    def delete(String url, Closure customizer = null) {
+        doRequestInternal( url, customizer, HttpMethod.DELETE)
+    }
+
+    protected doRequestInternal(String url, Closure customizer, HttpMethod method) {
+
+        def requestCustomizer = new RequestCustomizer()
+        if(customizer != null) {
+            customizer.delegate = requestCustomizer
+            customizer.call()
+        }
+         
+        def responseEntity = restTemplate.exchange(url, method,requestCustomizer.createEntity(),String)
+        handleResponse(responseEntity)
+    }
     protected handleResponse(ResponseEntity responseEntity) {
         return new RestResponse(responseEntity: responseEntity)
     }
@@ -134,6 +141,18 @@ class RequestCustomizer {
 
         body = json.toString()
         return this
+    }
+
+    RequestCustomizer xml(Closure closure) {
+        def b = new groovy.xml.StreamingMarkupBuilder()
+        def markup = b.bind(closure)
+        def StringWriter sw = new StringWriter()
+        markup.writeTo(sw)
+        this.body = sw.toString()
+    }
+
+    RequestCustomizer body(content) {
+        this.body = content
     }
 
     HttpEntity createEntity() {

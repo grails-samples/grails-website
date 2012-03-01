@@ -83,5 +83,24 @@ class RestBuilderSpec extends spock.lang.Specification {
             resp != null
             resp.status == 201
             resp.text == "Created"
+
+        when:"The resource contents are requested"
+            resp = rest.get("http://repo.grails.org/grails/api/security/groups/test-group") {
+                auth System.getProperty("artifactory.user"), System.getProperty("artifactory.pass")
+            }
+
+        then:"The contents are valid"
+            resp != null
+            resp.json.name == 'test-group'
+
+        when:"The resource is deleted"
+            resp = rest.delete("http://repo.grails.org/grails/api/security/groups/test-group") {
+                auth System.getProperty("artifactory.user"), System.getProperty("artifactory.pass")
+            }
+
+        then:"The resource is gone"
+            resp != null
+            resp.status == 200
+            resp.text == "Group 'test-group' has been removed successfully."
     }
 }
