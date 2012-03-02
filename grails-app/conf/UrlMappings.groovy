@@ -21,9 +21,10 @@ class UrlMappings {
                 }                
             }
         }
-        "/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
-        "/grails-$plugin/tags/RELEASE_$version/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
-        "/grails-$plugin/tags/LATEST_RELEASE/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
+        "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
+        "/plugins/grails-$plugin/tags/RELEASE_$version/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
+
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
 
