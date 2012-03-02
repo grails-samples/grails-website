@@ -150,10 +150,12 @@ class RequestCustomizer {
         def StringWriter sw = new StringWriter()
         markup.writeTo(sw)
         this.body = sw.toString()
+        return this
     }
 
     RequestCustomizer body(content) {
         this.body = content
+        return this
     }
 
     HttpEntity createEntity() {

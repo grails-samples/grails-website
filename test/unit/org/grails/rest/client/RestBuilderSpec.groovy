@@ -103,4 +103,23 @@ class RestBuilderSpec extends spock.lang.Specification {
             resp.status == 200
             resp.text == "Group 'test-group' has been removed successfully."
     }
+
+    def "Test PUT request passing binary content in the body"() {
+        setup:
+            def rest = new RestBuilder(connectTimeout: 1000, readTimeout:10000)
+            rest.delete("http://repo.grails.org/grails/libs-snapshots-local/org/mycompany/1.0/foo-1.0.jar") {
+                auth System.getProperty("artifactory.user"), System.getProperty("artifactory.pass")
+            }
+   
+        when:"A put request is issued that contains binary content"
+            def resp = rest.put("http://repo.grails.org/grails/libs-snapshots-local/org/mycompany/1.0/foo-1.0.jar") {
+                auth System.getProperty("artifactory.user"), System.getProperty("artifactory.pass")
+                body "foo".bytes
+            }
+            
+        then:"The response JSON is correct"
+            resp.json.uri == "http://repo.grails.org/grails/libs-snapshots-local/org/mycompany/1.0/foo-1.0.jar"
+            new URL( "http://repo.grails.org/grails/libs-snapshots-local/org/mycompany/1.0/foo-1.0.jar").text == "foo"
+
+    }
 }
