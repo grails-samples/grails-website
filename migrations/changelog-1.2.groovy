@@ -54,4 +54,19 @@ databaseChangeLog = {
         }
     }
 
+    changeSet(author: "pledbrook (generated)", id: "1330711514540-1") {
+        createTable(tableName: "user_permissions") {
+            column(name: "user_id", type: "bigint")
+
+            column(name: "permissions_string", type: "varchar(255)")
+        }
+
+        createIndex(indexName: "FKE693E6101ADE5676", tableName: "user_permissions") {
+            column(name: "user_id")
+        }
+
+        createIndex(indexName: "FK919B5AFB2D0CED0B", tableName: "plugin_release") {
+            column(name: "plugin_id")
+        }
+    }
 }
