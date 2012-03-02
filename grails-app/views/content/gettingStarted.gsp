@@ -16,7 +16,7 @@
         <ul>
           <li><download:link software="Grails" version="${grailsDownload?.softwareVersion}" file="Binary Zip">download</download:link> and <g:link controller="content" action="index" id="Installation">install</g:link> Grails</li>
           <li>get a simple project <g:link controller="content" action="index" id="Quick Start">up and running</g:link></li>
-          <li>check out the <g:link controller="tutorial" action="index">tutorials</g:link></li>
+          <li>check out the <g:link uri="tutorials">tutorials</g:link></li>
         </ul>
     </div>
 </body>
