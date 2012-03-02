@@ -485,6 +485,7 @@ class PluginController extends BaseWikiController {
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,
+                official: plugin.official,
                 licenseList: plugin.licenses.collect { l -> [name: l.name, url: l.url] },
                 lastReleased: dateService.getRestDateTime(plugin.lastReleased),
                 file: plugin.downloadUrl,
