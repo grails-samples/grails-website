@@ -102,6 +102,13 @@ class JSecurityAuthFilters {
                 accessControl { true }
             }
         }
+        pluginPublishing(controller:"repository", action:"publish") {
+            before = {
+                accessControl {
+                    role("Administrator")
+                }
+            }
+        }
         screencasts(controller:"screencast", action:"(edit|create|save|update)") {
             before = {
                 accessControl { true }

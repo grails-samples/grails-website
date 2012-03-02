@@ -27,6 +27,8 @@ class UrlMappings {
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
 
+        "/api/v1.0/publish"(controller:"repository", action:"publish")
+        "/api/v1.0/publish/$plugin/$version"(controller:"repository", action:"publish")
         "/api/v1.0/plugins/$category?"(controller: "plugin", action: "apiList")
         "/api/v1.0/plugin/$name"(controller: "plugin") {
             action = [GET: "apiShow", PUT: "apiUpdate"]

@@ -17,26 +17,58 @@ class RepositoryController {
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
      */
     def publish(PublishPluginCommand cmd) {
-        def p = cmd.plugin
-        def v = cmd.version
-        if(cmd.hasErrors()) {
-            render status:400, text:"Missing plugin data. Include name, version, pom, zip and xml in your multipart request"
+        log.debug "Got publish request for method ${request.method}"
+        boolean isBrowserRequest = params['_method'] == 'PUT'
+        if(request.method == 'GET') {
+            log.debug "Got GET request, rendering publish view"
+            render view:"publish"
         }
-        else {
-
-            log.info "Publishing plugin [$p] with version [$v]"
-            def existing = PluginRelease.where {
-                plugin.name == p && releaseVersion == v
-            }
-
-            if(!existing.exists()) {
-                def pendingRelease = new PendingRelease(pluginName:p, pluginVersion:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
-                assert pendingRelease.save(flush:true) // assertion should never fail due to prior validation in command object
-                publishEvent(new PluginPublishEvent(pendingRelease))
+        else if(request.method == 'PUT' || isBrowserRequest) {
+            def p = cmd.plugin
+            def v = cmd.version
+            if(cmd.hasErrors()) {
+                if(isBrowserRequest){
+                    return [publishCommand:cmd]
+                }
+                else {
+                    render status:400, text:"Missing plugin data. Include name, version, pom, zip and xml in your multipart request"
+                }
             }
             else {
-                render status:403, text:"Plugin [$p] already published for version [$v]"
+
+                log.info "Publishing plugin [$p] with version [$v]"
+                def existing = PluginRelease.where {
+                    plugin.name == p && releaseVersion == v
+                }
+
+                if(!existing.exists()) {
+                    log.debug "Plugin [$p:$v] does not existing. Creating pending release..."
+                    def pendingRelease = new PendingRelease(pluginName:p, pluginVersion:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
+                    assert pendingRelease.save(flush:true) // assertion should never fail due to prior validation in command object
+
+                    log.debug "Triggering plugin publish event for plugin [$p:$v]"
+                    publishEvent(new PluginPublishEvent(pendingRelease))
+                    if(isBrowserRequest) {
+                        return [message:"Plugin published."]
+                    }
+                    else {
+                        render status:200, text:"Published"
+                    }
+                }
+                else {
+                    log.debug "Plugin [$p:$v] already published. Operation forbidden"
+                    if(isBrowserRequest) {
+                        cmd.errors['plugin'] = 'plugin.publish.already.exists'
+                        return [publishCommand:cmd]
+                    }else {
+                        render status:403, text:"Plugin [$p] already published for version [$v]"
+                    }
+                }
             }
+        }
+        else {
+            log.debug "Unsupported HTTP method $request.method used in publish action"
+            render status:405
         }
     }
     /**
@@ -127,5 +159,9 @@ class PluginPublishEvent extends ApplicationEvent {
 
     PluginPublishEvent(PendingRelease source) {
         super(source)
+        if(source == null) {
+            throw new IllegalArgumentException("Event source cannot be null")
+        }
+
     }
 }

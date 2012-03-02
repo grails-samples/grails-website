@@ -14,9 +14,13 @@ class PendingRelease {
 	static mapping = {
         pluginName blank:false
         pluginVersion blank:false
+	}
+
+    static constraints = {
 		zip size:0..10000000 // 10mb
 		pom size:0..500000 // 500kb
 		xml size:0..500000 // 500kb
-	}
+    }
 
+    String toString() { "$pluginName:$pluginVersion" }
 }

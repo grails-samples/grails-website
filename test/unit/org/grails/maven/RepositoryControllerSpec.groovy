@@ -9,8 +9,16 @@ import org.joda.time.DateTime
 class RepositoryControllerSpec extends spock.lang.Specification{
 
 
+    void "Test publish plugin invalid method"() {
+
+        when:"The publish plugin action is called with invalid data"
+            controller.publish()
+        then:"Return a 405"
+            response.status == 405
+    }
     void "Test publish plugin invalid data"() {
         when:"The publish plugin action is called with invalid data"
+            request.method = "PUT"
             controller.publish()
         then:"Return a 403"
             response.status == 400
@@ -26,8 +34,10 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             params.pom = "dummy"
 
         then:"The plugin release exists"
+            PluginRelease.count() == 1
             PluginRelease.findByPluginAndReleaseVersion(tomcat, params.version) != null
         when:"publish is called"
+            request.method = "PUT"
             controller.publish()
         then:"The operation is forbidden because the plugin already exists"
             response.status == 403
@@ -38,6 +48,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
         when:"publish is called without files to upload"
             params.plugin = "tomcat"
             params.version = "1.0.0"
+            request.method = "PUT"
             controller.publish()
 
         then:"A bad request response is issued"
@@ -57,12 +68,15 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             controller.metaClass.publishEvent = {
                 event = it
             }
+            request.method = "PUT"
             controller.publish()
 
         then:"The pending release is created and event published"
             PendingRelease.count() == 1
             event != null
             event.source instanceof PendingRelease
+            response.status == 200
+            response.text == "Published"
     }
 
     // http://localhost:8080/maven/grails-acegi/tags/RELEASE_0_1/grails-acegi-0.1.zip
