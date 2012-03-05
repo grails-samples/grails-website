@@ -45,7 +45,6 @@ div.errors {
 div.errors ul {
 }
 div.errors li {
-	background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
     line-height: 16px;
     padding-left: 30px;
 }
