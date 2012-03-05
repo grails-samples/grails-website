@@ -43,30 +43,20 @@ class PluginController extends BaseWikiController {
     def dateService
 
     def home() {
-        // We only want to display 5 plugins at a time in the web interface,
-        // but JSON and XML data shouldn't be limited in that way.
-        def max = 0
-        if (response.format == 'html') {
-            max = PORTAL_MAX_RESULTS
-        }
-
-        // If no category is specified, default to 'featured' for the
-        // web interface, and 'all' for JSON and XML requests.
-        def fetchInstalled = params.category == "installed"
-        def pluginData = listPlugins(max, (response.format == 'html' ? 'featured' : 'all'))
-
         withFormat {
             html {
+                def fetchInstalled = params.category == "installed"
+                def pluginData = listPlugins(PORTAL_MAX_RESULTS, "featured")
                 if (fetchInstalled && !pluginData.currentPlugins) {
                     pluginData.message = "Not enough data has been collected yet. This will start working once enough people have adopted Grails 2."
                 }
                 return pluginData
             }
             json {
-                render transformPlugins(pluginData.currentPlugins, pluginData.category) as JSON
+                forward action: "apiList"
             }
             xml {
-                renderMapAsXml transformPlugins(pluginData.currentPlugins, pluginData.category), "plugins"
+                forward action: "apiList"
             }
         }
     }
@@ -518,7 +508,7 @@ class PluginController extends BaseWikiController {
                 }
             }
             else {
-                builder."${entry.key}"(entry.value, test: "test")
+                builder."${entry.key}"(entry.value)
             }
         }
     }
