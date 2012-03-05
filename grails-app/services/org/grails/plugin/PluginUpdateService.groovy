@@ -146,12 +146,12 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // a new version.
         if (isNewVersion && !event.snapshot) {
             plugin.lastReleased = new DateTime()
-            announceRelease(plugin)
-	    def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, plugin.currentRelease)
-	    if(pr == null) {
+            def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, plugin.currentRelease)
+            if(pr == null) {
                 pr = new PluginRelease(plugin:plugin,releaseVersion:plugin.currentRelease, downloadUrl: plugin.downloadUrl) 
-		pr.save()
+                pr.save()
             }
+            announceRelease(plugin)
         }
         else log.info "Not a new plugin release - won't tweet"
     }
