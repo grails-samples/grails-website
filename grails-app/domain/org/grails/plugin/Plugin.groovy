@@ -111,7 +111,7 @@ class Plugin implements Taggable, Commentable, Rateable {
         usage column: '`usage`'
     }
     
-    def getFisheye() {
+    String getFisheye() {
         downloadUrl ? "${grailsApplication.config.plugins.fisheye}/grails-${name}" : ''
     }
     
