@@ -6,6 +6,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.grails.wiki.WikiPage
 import org.joda.time.DateTime
 
+import static org.junit.Assert.*
 /*
  * @author Matthew Taylor
  * @author Graeme Rocher

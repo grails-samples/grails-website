@@ -4,6 +4,7 @@ import grails.test.ControllerUnitTestCase
 import org.grails.downloads.Download
 import grails.test.mixin.*
 
+import static org.junit.Assert.*
 @TestFor(DownloadController)
 @Mock([Download, VersionOrder])
 class DownloadControllerUnitTests {

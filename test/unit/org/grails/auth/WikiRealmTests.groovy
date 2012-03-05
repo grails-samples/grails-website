@@ -4,6 +4,7 @@ import org.apache.commons.logging.LogFactory
 import org.apache.shiro.authc.*
 import org.apache.shiro.authc.credential.CredentialsMatcher
 import grails.test.mixin.*
+import static org.junit.Assert.*
 /**
 * @author Graeme Rocher
 * @since 1.0

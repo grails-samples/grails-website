@@ -6,6 +6,7 @@ import org.grails.content.Version
 import org.grails.auth.User
 import grails.test.mixin.*
 
+import static org.junit.Assert.*
 @TestFor(PluginService)
 @Mock([User, Version, WikiPage, Plugin, PluginTab])
 class PluginServiceUnitTests {

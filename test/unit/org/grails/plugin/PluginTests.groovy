@@ -8,6 +8,7 @@ import org.grails.rateable.Rating
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import grails.test.mixin.*
 
+import static org.junit.Assert.*
 @TestFor(Plugin)
 class PluginTests {
 
