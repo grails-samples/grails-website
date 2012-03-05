@@ -59,7 +59,7 @@ class LikeDislikeTagLib {
 
         if (currentUser.principal) {
             if (currVote && currVote.vote > 0) {
-                out << g.render(template: "/likeDislike/liked", model: [jsLibrary: attrs.js, item: item])
+                out << g.render(plugin: "like", template: "/likeDislike/liked", model: [jsLibrary: attrs.js, item: item])
             }
             else {
                 out << g.remoteLink(
