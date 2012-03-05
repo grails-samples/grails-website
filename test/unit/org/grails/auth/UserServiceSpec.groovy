@@ -1,7 +1,7 @@
 package org.grails.auth
 
 import spock.lang.*
-
+import grails.test.mixin.*
 @TestFor(UserService)
 @Mock([User, Role])
 class UserServiceSpec extends Specification {

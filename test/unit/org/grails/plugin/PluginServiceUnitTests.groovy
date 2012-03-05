@@ -7,14 +7,12 @@ import org.grails.auth.User
 import grails.test.mixin.*
 
 @TestFor(PluginService)
-@Mock(User)
+@Mock([User, Version, WikiPage, Plugin, PluginTab])
 class PluginServiceUnitTests {
-    PluginService service
 
     void setUp() {
         new User(login:'admin').save(validate: false)
 
-        service = new PluginService()
     }
 
     void testCompareVersions() {
@@ -34,15 +32,12 @@ class PluginServiceUnitTests {
     }
 
     void testGenerateMasterPlugins() {
-        def urlConstructor
-        def mockURL = mockFor(URL)
-        URL.metaClass.constructor = { String path ->
-            [getText: {-> org.grails.plugin.xml.PluginsListXmlMock.PLUGINS_LIST }]
+        service.metaClass.readPluginList {->
+            return new XmlSlurper().parseText(org.grails.plugin.xml.PluginsListXmlMock.PLUGINS_LIST )
         }
-
-        def mockMethods = mockFor(PluginService)
-        mockMethods.demand.getGrailsVersion { p -> 'mockGrailsVersion' }
-
+        service.metaClass.getGrailsVersion = {
+            'mockGrailsVersion'
+        }
         def plugins = service.generateMasterPlugins()
         
         assertNotNull plugins
@@ -69,14 +64,10 @@ class PluginServiceUnitTests {
         // ensure the docs got translated to the new site framework
         assertEquals 'http://grails.org/plugin/avatar', avatar.documentationUrl
 
-        mockMethods.verify()
     }
     
     void testTranslateMasterPlugins_AddsPluginsThatDontExist() {
-        def mockPluginList = [new Plugin(name: 'mock plugin', title: 'Mock Plugin')]
-        mockDomain(Plugin, mockPluginList)
-        mockDomain(WikiPage)
-        mockDomain(Version)
+        new Plugin(name: 'mock plugin', title: 'Mock Plugin').save flush:true, validate:false
 
         assertEquals 1, Plugin.count()
         service.translateMasterPlugins(generateMockMasterPluginList())
@@ -85,10 +76,7 @@ class PluginServiceUnitTests {
     }
     
     void testTranslateMasterPlugins_DoesntAddPluginThatExists() {
-        mockDomain(WikiPage)
-        def mockPluginList = [new Plugin(name: 'plugin-a', title: 'Plugin A Plugin', description: new WikiPage(title: 'Description', body:'', version:2))]
-        mockDomain(Plugin, mockPluginList)
-        mockDomain(Version)
+        new Plugin(name: 'plugin-a', title: 'Plugin A Plugin', description: new WikiPage(title: 'Description', body:'', version:2)).save flush:true, validate:false
 
         assertEquals 1, Plugin.count()
         service.translateMasterPlugins(generateMockMasterPluginList())
@@ -97,13 +85,10 @@ class PluginServiceUnitTests {
     }
     
     void testUpdatePlugin() {
-        mockDomain(Plugin)
-        mockDomain(WikiPage)
-        mockDomain(Version)
         def master = generateMockMasterPluginList()
         def plugin = new Plugin(
             name: 'plugin-a', 
-            description: new WikiPage(title: 'Description', body:'my body', version:2)
+            description: new PluginTab(title: 'Description', body:'my body', version:2)
         )
 
         service.updatePlugin(plugin, master[0])
@@ -118,16 +103,13 @@ class PluginServiceUnitTests {
     }
     
     void testUpdatePluginOverridesExisting_DocUrl_DlUrl_GrailsVersion_Release() {
-        mockDomain(Plugin)
-        mockDomain(WikiPage)
-        mockDomain(Version)
 
         def master = generateMockMasterPluginList()
         def plugin = new Plugin(
             name: 'plugin-a', 
             documentationUrl: 'old doc url',
             downloadUrl: 'old dl url',
-            description: new WikiPage(title:'Description', body:'old description', version:2),
+            description: new PluginTab(title:'Description', body:'old description', version:2),
             currentRelease: 'old release',
             grailsVersion:' old grailsVersion'
         )
@@ -139,15 +121,12 @@ class PluginServiceUnitTests {
     }
     
     void testUpdatePluginDoesNotOverrideExisting_Title_Desc_Body_Author_AuthorEmail() {
-        mockDomain(Plugin)
-        mockDomain(WikiPage)
-        mockDomain(Version)
 
         def master = generateMockMasterPluginList()
         def plugin = new Plugin(
             name: 'plugin-a', 
             title: 'Plugin A',
-            description: new WikiPage(title:'Description', body:'old description', version:2),
+            description: new PluginTab(title:'Description', body:'old description', version:2),
             author: 'Richard D. James',
             authorEmail: 'richard@aphextwin.com'
         )
@@ -159,15 +138,12 @@ class PluginServiceUnitTests {
     }
 
     void testUpdateCurrentRelease_AlsoUpdatesLastReleasedDate() {
-        mockDomain(Plugin)
-        mockDomain(WikiPage)
-        mockDomain(Version)
 
         def master = generateMockMasterPluginList()
         def plugin = new Plugin(
             name: 'plugin-a',
             title: 'Plugin A',
-            description: new WikiPage(title:'Description', body:'old description', version:2),
+            description: new PluginTab(title:'Description', body:'old description', version:2),
                 currentRelease: '5.0.1',
             author: 'Richard D. James',
             authorEmail: 'richard@aphextwin.com'
@@ -205,7 +181,7 @@ class PluginServiceUnitTests {
     private def generateMockMasterPluginList() {
         ('a'..'z').inject([]) {masterList, x ->
             def up = x.toUpperCase()
-            WikiPage descPage = new WikiPage(title: 'Description', body: "hosted at www.${x}-plugin.org", version:2)
+            def descPage = new PluginTab(title: 'Description', body: "hosted at www.${x}-plugin.org", version:2)
             masterList << new Plugin(
                     name: "plugin-${x}",
                     title: "Plugin ${up} Plugin",
@@ -217,6 +193,7 @@ class PluginServiceUnitTests {
                     currentRelease: "5.0.2",
                     grailsVersion: '1.1 > *'
             )
+            return masterList
         }
     }
 }

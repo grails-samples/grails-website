@@ -2,7 +2,6 @@ package org.grails.plugin.xml
 
 class PluginsListXmlMock {
     static def PLUGINS_LIST = """
-    <?xml version="1.0" encoding="UTF-8"?>
     <plugins revision="47491">
 
         <plugin latest-release="0.8.1" name="autobase">

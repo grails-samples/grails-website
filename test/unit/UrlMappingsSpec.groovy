@@ -1,5 +1,6 @@
 import org.grails.maven.RepositoryController
 import spock.lang.*
+import grails.test.mixin.*
 
 @TestFor(UrlMappings)
 @Mock(RepositoryController)
