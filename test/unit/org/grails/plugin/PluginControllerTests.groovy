@@ -1,9 +1,10 @@
 package org.grails.plugin
 
 import grails.test.ControllerUnitTestCase
-import org.grails.wiki.WikiPage
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import grails.test.mixin.*
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.grails.wiki.WikiPage
+import org.joda.time.DateTime
 
 /*
  * @author Matthew Taylor
@@ -120,22 +121,24 @@ class PluginControllerTests {
     
     void testHomePopulatesRecentlyUpdatedPlugins() {
         def plugins = [
-            new Plugin(name:'fourth', lastReleased: new GregorianCalendar(2001,01,01).time),
-            new Plugin(name:'second', lastReleased: new GregorianCalendar(2008,01,01).time),
-            new Plugin(name:'first', lastReleased: new GregorianCalendar(2009,01,01).time),
-            new Plugin(name:'third', lastReleased: new GregorianCalendar(2007,01,01).time)
+            new Plugin(name:'fifth', lastReleased: new DateTime(2001, 01, 01, 0, 0)),
+            new Plugin(name:'third', lastReleased: new DateTime(2008, 01, 01, 0, 0)),
+            new Plugin(name:'second', lastReleased: new DateTime(2009, 01, 01, 0, 0)),
+            new Plugin(name:'first', lastReleased: new DateTime(2009, 01, 01, 10, 0)),
+            new Plugin(name:'fourth', lastReleased: new DateTime(2007, 01, 01, 0, 0))
         ]*.save validate:false, flush:true
         params.category= 'recentlyUpdated'
         controller.metaClass.getCommentService = { -> [getLatestComments: { String type, num-> []}]}
         controller.pluginService = new PluginService()
         def model = controller.home()
         
-        assertNotNull model.currentPlugins
-        assertEquals 4, model.currentPlugins.size()
-        assertEquals 'first', model.currentPlugins[0].name
-        assertEquals 'second', model.currentPlugins[1].name
-        assertEquals 'third', model.currentPlugins[2].name
-        assertEquals 'fourth', model.currentPlugins[3].name
+        assert model.currentPlugins != null
+        assert model.currentPlugins.size() == 5
+        assert model.currentPlugins[0].name == 'first'
+        assert model.currentPlugins[1].name == 'second'
+        assert model.currentPlugins[2].name == 'third'
+        assert model.currentPlugins[3].name == 'fourth'
+        assert model.currentPlugins[4].name == 'fifth'
     }
     
     // test order
