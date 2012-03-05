@@ -495,3 +495,7 @@ table.wiki-table th, table.wiki-table td {
 .hint {
     font-size: 80%;
 }
+
+#grails-intro-presentation {
+    margin-left: 2.5em;
+}
