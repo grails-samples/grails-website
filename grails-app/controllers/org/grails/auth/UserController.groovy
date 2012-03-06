@@ -25,7 +25,27 @@ class UserController {
 		UUID uuid = UUID.randomUUID()
 		uuid.toString()[0..7]
 	}
-	
+
+    def update(Long id) {
+        def user = User.get(id)
+
+        if(user) {
+            user.properties = params
+            user.permissions.clear()
+            user.permissions.addAll(params.list('permissions'))
+            if(params.newPermission) {
+                user.permissions.add(params.newPermission)
+            }
+            if(!user.save(flush:true)) {
+               render view:"edit", model:[userInstance:user]
+            }
+            else {
+               redirect action:"show", id: user.id
+            }
+        } else {
+            redirect action:"list"
+        }   
+    }
 	def passwordReminder() {
 		if(request.method == 'POST') {
 			def user = User.findByLogin(params.login)

@@ -64,7 +64,8 @@
                                   <label for="permissions"><g:message code="user.permissions.label" default="Permissions" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: userInstance, field: 'permissions', 'errors')}">
-                                   <g:textField name="permissions" value="${userInstance?.permissions?.join(',')}" /> 
+                                    <g:select name="permissions" from="${userInstance?.permissions}" multiple="yes" value="${userInstance?.permissions}" /><br>
+                                    Add: <g:textField name="newPermission" />
                                 </td>
                             </tr>
                         
