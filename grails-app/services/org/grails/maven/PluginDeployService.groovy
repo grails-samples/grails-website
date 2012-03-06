@@ -5,7 +5,7 @@ import org.grails.plugin.*
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.transaction.annotation.Transactional
-import org.grails.rest.client.*
+import grails.plugins.rest.client.*
 /**
  * Responsible for taking a PendingRelease and publishing it to Artifactory
  *

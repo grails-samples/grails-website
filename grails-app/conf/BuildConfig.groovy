@@ -19,7 +19,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenLocal()
         mavenCentral()
-        mavenRepo "http://m2repo.spockframework.org/snapshots"
+        mavenRepo "https://oss.sonatype.org/content/repositories/releases/" 
     }
 
     plugins {
@@ -33,6 +33,7 @@ grails.project.dependency.resolution = {
         }
 
         runtime ":avatar:0.3",
+                ":rest-client-builder:1.0",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
@@ -65,7 +66,7 @@ grails.project.dependency.resolution = {
         }
         
         test    ":geb:0.6.0",
-                ":spock:0.6-SNAPSHOT", {
+                ":spock:0.6-rc-1", {
             excludes 'xml-apis'
         }
 

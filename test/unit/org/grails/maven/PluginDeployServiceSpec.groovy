@@ -1,7 +1,7 @@
 package org.grails.maven
 
 import grails.test.mixin.*
-import org.grails.rest.client.*
+import grails.plugins.rest.client.*
 import org.grails.plugin.*
 @TestFor(PluginDeployService)
 @Mock(PendingRelease)
