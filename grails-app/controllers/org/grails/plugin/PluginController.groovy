@@ -124,19 +124,42 @@ class PluginController extends BaseWikiController {
      * Display the details of one plugin in either JSON or XML form.
      */
     def apiShow() {
-        def plugin = byName(params)
-        if (!plugin) {
-            response.sendError 404
-            return
-        }
-
-        plugin = transformPlugin(plugin)
-        withFormat {
-            json {
-                render plugin as JSON
+        if(params.name && params.version) {
+            def p = params.name
+            def v = params.v
+            def release = PluginRelease.where {
+                plugin.name == p && releaseVersion == v 
             }
-            xml {
-                renderMapAsXml plugin, "plugin"
+            if(release.exists()) {
+                def plugin = transformPluginRelease(release)
+                withFormat {
+                    json {
+                        render plugin as JSON        
+                    }
+                    xml {
+                        renderMapAsXml plugin, "plugin"
+                    }
+                }
+            }
+            else {
+                render status:404
+            }
+        }
+        else {
+            def plugin = byName(params)
+            if (!plugin) {
+                response.sendError 404
+                return
+            }
+
+            plugin = transformPlugin(plugin)
+            withFormat {
+                json {
+                    render plugin as JSON
+                }
+                xml {
+                    renderMapAsXml plugin, "plugin"
+                }
             }
         }
     }
@@ -488,6 +511,11 @@ class PluginController extends BaseWikiController {
         return pluginMap
     }
 
+    protected transformPluginRelease(pluginRelease) {
+        def pluginMap = transformPlugin(pluginRelease.plugin)
+        pluginMap.version = pluginRelease.releaseVersion
+        return pluginMap
+    }
     protected renderMapAsXml(map, root = "root") {
         render contentType: "application/xml", {
             "${root}" {
