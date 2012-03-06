@@ -26,7 +26,7 @@ class UserController {
 		uuid.toString()[0..7]
 	}
 	
-	def passwordReminder = {
+	def passwordReminder() {
 		if(request.method == 'POST') {
 			def user = User.findByLogin(params.login)
 			if(user && user.login!='admin') {
@@ -46,7 +46,7 @@ class UserController {
 		}
 	}
 
-    def profile = {
+    def profile() {
         def userInfo = UserInfo.findByUser(request.user)
         if(request.method == 'POST') {
             if(!userInfo) userInfo = new UserInfo(user:request.user)
@@ -61,7 +61,7 @@ class UserController {
 
     }
 
-    def register = {
+    def register(){
         def renderParams = [ model:[originalURI:params.originalURI,
                       formData:params,
                       async:request.xhr] ]
@@ -128,12 +128,12 @@ class UserController {
 
     }
 
-    def logout = {
+    def logout() {
         SecurityUtils.subject.logout()
         redirect(uri:"/")
     }
 
-    def login = {
+    def login() {
         if(request.method == 'POST') {
             def authToken = new UsernamePasswordToken(params.login, params.password)
 
@@ -178,5 +178,5 @@ class UserController {
         }
     }
 
-    def unauthorized = {}
+    def unauthorized()  {}
 }
