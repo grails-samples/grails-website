@@ -26,7 +26,10 @@ class JSecurityAuthFilters {
                                                         async:true,
                                                         update:d.params._ul,
                                                         message:"auth.not.logged.in"])
-        } else {
+        } else if(d.response.format == 'text') {
+            d.render status:401, text:"Permission Denied"
+        
+        }else {
             // Redirect to login page.
             d.redirect(
                     controller: 'user',
