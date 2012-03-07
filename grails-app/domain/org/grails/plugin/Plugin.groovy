@@ -12,6 +12,19 @@ import org.joda.time.DateTime
  * author: Matthew Taylor
  */
 class Plugin implements Taggable, Commentable, Rateable {
+    static final WHITE_LIST = [
+            "title",
+            "groupId",
+            "summary",
+            "defaultDependencyScope",
+            "currentRelease",
+            "organization",
+            "organizationUrl",
+            "documentationUrl",
+            "downloadUrl",
+            "scmUrl",
+            "issuesUrl",
+            "grailsVersion" ]
 
     static final DEFAULT_GROUP = "org.grails.plugins"
     static final DEFAULT_SCOPE = "compile"

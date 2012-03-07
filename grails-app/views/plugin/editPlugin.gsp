@@ -49,18 +49,6 @@
 										description="A description/summary of the plugin">
 									<textarea id="summary" name="summary">${fieldValue(bean: plugin, field: 'summary')}</textarea>
 								</plugin:input>
-								
-								<plugin:input
-										name="Author"
-										description="Plugin author's name(s)">
-									<input type="text" id="author" name="author" value="${fieldValue(bean: plugin, field: 'author')}"/>
-								</plugin:input>
-
-								<plugin:input
-										name="Author Email"
-										description="Plugin author email addresses">
-									<input type="text" id="authorEmail" name="authorEmail" value="${fieldValue(bean: plugin, field: 'authorEmail')}"/>
-								</plugin:input>
 
 								<plugin:input
 										name="Grails Version"

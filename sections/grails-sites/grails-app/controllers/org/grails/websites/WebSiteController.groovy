@@ -80,7 +80,7 @@ class WebSiteController extends AbstractSectionController {
     protected bindParams(webSite) {
         // Update the tutorial's properties, but exclude 'featured'
         // because only an administrator can set that.
-        bindData webSite, params, ["featured"]
+        bindData webSite, params, [include: ["title", "description", "url", "preview"]]
 
         // Update 'featured' property if the current user has permission to.
         if (SecurityUtils.subject.isPermitted("webSite:feature")) {

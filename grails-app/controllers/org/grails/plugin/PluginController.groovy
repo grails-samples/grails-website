@@ -224,15 +224,18 @@ class PluginController extends BaseWikiController {
             if(request.method == 'POST') {
                 // Update the plugin's properties, but exclude 'zombie'
                 // because only an administrator can set that.
-                bindData plugin, params, [ "zombie" ]
+                bindData plugin, params, [include: Plugin.WHITE_LIST]
                 setRepositoryUrlsFromString plugin, params.mavenRepositoryUrls
 
                 if (!plugin.validate()) {
                     return render(view:'editPlugin', model: [plugin:plugin])
                 }
 
-                // Update 'zombie' if we have an administrator.
+                // Update 'zombie' if we have an administrator. Same with 'featured'
+                // and 'official'.
                 if (SecurityUtils.subject.hasRole(Role.ADMINISTRATOR)) {
+                    plugin.featured = params.featured ?: false
+                    plugin.official = params.official ?: false
                     plugin.zombie = params.zombie ?: false
                 }
                 

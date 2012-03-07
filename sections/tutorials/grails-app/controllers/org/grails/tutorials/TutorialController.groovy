@@ -79,7 +79,7 @@ class TutorialController extends AbstractSectionController {
     protected bindParams(tutorial) {
         // Update the tutorial's properties, but exclude 'featured'
         // because only an administrator can set that.
-        bindData tutorial, params['tutorial'], ["featured"]
+        bindData tutorial, params['tutorial'], [include: ["title", "description", "url"]]
 
         // Update 'featured' property if the current user has permission to.
         if (SecurityUtils.subject.isPermitted("tutorial:feature")) {
