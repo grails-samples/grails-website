@@ -18,12 +18,12 @@ class RepositoryController {
      */
     def publish(PublishPluginCommand cmd) {
         log.debug "Got publish request for method ${request.method}"
-        boolean isBrowserRequest = params['_method'] == 'PUT'
+        boolean isBrowserRequest = params.format == 'html'
         if(request.method == 'GET') {
             log.debug "Got GET request, rendering publish view"
             render view:"publish"
         }
-        else if(request.method == 'PUT' || isBrowserRequest) {
+        else if(request.method == 'POST' || isBrowserRequest) {
             def p = cmd.plugin
             def v = cmd.version
             if(cmd.hasErrors()) {
@@ -31,6 +31,8 @@ class RepositoryController {
                     return [publishCommand:cmd]
                 }
                 else {
+
+                    log.debug "Publish plugin failed. Invalid data:\n  ${cmd.errors}"
                     render status:400, text:"Missing plugin data. Include name, version, pom, zip and xml in your multipart request"
                 }
             }

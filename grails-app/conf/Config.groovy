@@ -126,6 +126,7 @@ myAuth.applicationName = grails.org
 
 [urls]
 /plugin/** = myAuth[PUT]
+/api/v1.0/publish/** = myAuth[POST]
 """
 
 springcache {
@@ -137,6 +138,7 @@ springcache {
         overflowToDisk = false
     }
     caches {
+
         contentCache {
             // set any properties unique to this cache
             timeToLive = 300
@@ -199,4 +201,10 @@ log4j = {
             'org.codehaus.groovy.grails.plugins', // plugins
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework'
+            
+    //debug 'grails.app.services'
+    //debug 'grails.app.controllers'
+    //debug 'org.grails.auth'
+    //trace 'org.apache.shiro'
+    //debug 'org.codehaus.groovy.grails.web.mapping'
 }

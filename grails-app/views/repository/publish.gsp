@@ -17,7 +17,8 @@
             </div>
         </g:hasErrors>
 
-        <g:uploadForm name="publishPlugin" url="[controller:'repository', action:'publish']" method="PUT">
+        <g:uploadForm name="publishPlugin" url="[controller:'repository', action:'publish']" method="POST">
+            <input type="hidden" name="format" value="html" />
             Plugin Name:&nbsp;&nbsp;&nbsp;<g:textField id="plugin" name="plugin" value="${publishCommand?.plugin}" /> <br /><br/>
 
             Plugin Version:&nbsp;&nbsp;&nbsp;<g:textField id="version" name="version" value="${publishCommand?.version}" /> <br /><br/>
