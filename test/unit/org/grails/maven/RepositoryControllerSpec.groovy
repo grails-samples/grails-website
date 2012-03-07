@@ -18,7 +18,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
     }
     void "Test publish plugin invalid data"() {
         when:"The publish plugin action is called with invalid data"
-            request.method = "PUT"
+            request.method = "POST"
             controller.publish()
         then:"Return a 403"
             response.status == 400
@@ -37,7 +37,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             PluginRelease.count() == 1
             PluginRelease.findByPluginAndReleaseVersion(tomcat, params.version) != null
         when:"publish is called"
-            request.method = "PUT"
+            request.method = "POST"
             controller.publish()
         then:"The operation is forbidden because the plugin already exists"
             response.status == 403
@@ -48,7 +48,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
         when:"publish is called without files to upload"
             params.plugin = "tomcat"
             params.version = "1.0.0"
-            request.method = "PUT"
+            request.method = "POST"
             controller.publish()
 
         then:"A bad request response is issued"
@@ -68,7 +68,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             controller.metaClass.publishEvent = {
                 event = it
             }
-            request.method = "PUT"
+            request.method = "POST"
             controller.publish()
 
         then:"The pending release is created and event published"
