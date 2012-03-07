@@ -31,7 +31,17 @@
 
 <h3>Versions:</h3>
 <div id="versions">
-    <cache:text id="${'versionList' + wikiPage?.id}">
+    <g:set var="cacheKey" value="${'versionList' + wikiPage?.id}"/>
+    <shiro:isLoggedIn>
+        <shiro:hasRole name="Administrator">
+            <g:set var="cacheKey" value="${cacheKey + '_admin'}"/>
+        </shiro:hasRole>
+        <shiro:lacksRole name="Administrator">
+            <g:set var="cacheKey" value="${cacheKey + '_user'}"/>
+        </shiro:lacksRole>
+    </shiro:isLoggedIn>
+
+    <cache:text id="${cacheKey}">
         <g:render template="/content/versionList" model="[versions: versions, authors: authors, wikiPage: wikiPage, update: updateElement]" />
     </cache:text>
 </div>
