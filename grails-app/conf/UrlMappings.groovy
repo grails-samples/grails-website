@@ -147,6 +147,8 @@ class UrlMappings {
         "/admin/$controller/$action?/$id?"()
         "/admin"(controller: "admin", action: "index")
 
+        "/health"(controller: "health", action: "index")
+
         if (Environment.current == Environment.TEST) {
             "/test/fixtures/$action"(controller: "fixtures")
 
