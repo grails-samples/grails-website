@@ -83,6 +83,12 @@
 								</plugin:input>
 
 								<shiro:hasRole name="${ Role.ADMINISTRATOR }">
+								<plugin:input name="Featured?" description="Should this plugin appear in the featured list?">
+									<g:checkBox name="featured" value="${plugin?.featured}"/>
+								</plugin:input>
+								<plugin:input name="Official?" description="Is this an official, supported plugin from SpringSource/VMware?">
+									<g:checkBox name="official" value="${plugin?.official}"/>
+								</plugin:input>
 								<plugin:input name="Abandoned?" description="Has the plugin been abandoned?">
 									<g:checkBox name="zombie" value="${plugin?.zombie}"/>
 								</plugin:input>
