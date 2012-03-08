@@ -112,7 +112,7 @@ class ContentController extends BaseWikiController {
             for(item in top5) {
                 entry(item.title) {
                     link = "http://grails.org/${item.title.encodeAsURL()}"
-                    publishedDate = item.dateCreated
+                    publishedDate = item.dateCreated?.toDate()
                     engine.render(item.body, context)
                 }
             }

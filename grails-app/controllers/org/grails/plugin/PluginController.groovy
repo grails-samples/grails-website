@@ -309,7 +309,7 @@ class PluginController extends BaseWikiController {
                 entry(item.title) {
                     link = "http://grails.org/plugin/${item.name.encodeAsURL()}"
                     author = item.author
-                    publishedDate = item.lastUpdated
+                    publishedDate = item.lastUpdated?.toDate()
                     item.summary
                 }
             }
