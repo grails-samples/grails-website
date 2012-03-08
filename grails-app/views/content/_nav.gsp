@@ -4,12 +4,12 @@
 	</div><!-- search -->	 
 	<div id="nav">
 	            <ul>
-	                <li id="start" class="header"><g:link controller="content" action="gettingStarted">Get Started</g:link>
+	                <li id="start" class="header"><g:link uri="/start">Get Started</g:link>
 	                <ul>
-	                    <li><g:link controller="content" id="Installation">Installation</g:link></li>
-	                    <li><g:link controller="content" id="Quick Start">Quick Start</g:link></li>
-	                    <li><g:link controller="content" id="IDE Integration">IDE Setup</g:link></li>
-	                    <li><g:link uri="tutorials">Tutorials</g:link></li>
+	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#requirements">Installation</g:link></li>
+	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#creatingAnApplication">Quick Start</g:link></li>
+	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#ide">IDE Setup</g:link></li>
+	                    <li><g:link uri="/tutorials">Tutorials</g:link></li>
 	                    <plugin:isAvailable name="screencasts">
 	                    	<li><g:link controller="screencast" action="list">Screencasts</g:link></li>
                             </plugin:isAvailable>
