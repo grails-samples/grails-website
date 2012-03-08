@@ -15,7 +15,7 @@ abstract class AbstractSectionController {
 
     def list() {
         def max = Math.min(params.max?.toInteger() ?: 10, 20)
-        def cat = params.category ?: "all"
+        def cat = params.category ?: "featured"
         try {
             def items = domainClass."${cat}Query".list(offset: params.offset?: 0, max: max)
             def count = domainClass."${cat}QueryNoSort".count()

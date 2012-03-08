@@ -21,6 +21,7 @@ class UrlMappings {
                 }                
             }
         }
+
         "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
         "/plugins/grails-$plugin/tags/RELEASE_$version/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
         "/plugins/grails-$plugin/tags/LATEST_RELEASE/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
@@ -118,7 +119,8 @@ class UrlMappings {
         "/screencast/show/$id"(controller:"screencast", action:"show")
         "/comment/add"(controller:"commentable", action:"add")
 
-        "/websites"(controller: "webSite", action: "list") { category = "featured" }
+        "/websites"(controller: "webSite", action: "list")
+        "/websites/$category"(controller: "webSite", action: "list")
         "/websites/add"(controller: "webSite", action: "create")
         "/websites/save"(controller: "webSite", action: "save")
         "/websites/search"(controller:"webSite", action:"search")
@@ -129,7 +131,7 @@ class UrlMappings {
 
         "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
 
-        "/tutorials"(controller: "tutorial", action: "list") { category = "featured" }
+        "/tutorials"(controller: "tutorial", action: "list")
         "/tutorials/$category"(controller: "tutorial", action: "list")
         "/tutorials/add"(controller: "tutorial", action: "create")
         "/tutorials/save"(controller: "tutorial", action: "save")
