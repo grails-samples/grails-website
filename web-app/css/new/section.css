@@ -282,6 +282,8 @@
 .webSiteThumbnail {
     margin-top: 10px;
     width: 300px;
+    max-height: 230px;
+    overflow: hidden;
 }
 
 .webSiteThumbnail.even {
