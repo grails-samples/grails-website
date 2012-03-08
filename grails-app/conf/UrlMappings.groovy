@@ -118,7 +118,7 @@ class UrlMappings {
         "/screencast/show/$id"(controller:"screencast", action:"show")
         "/comment/add"(controller:"commentable", action:"add")
 
-        "/websites"(controller: "webSite", action: "list")
+        "/websites"(controller: "webSite", action: "list") { category = "featured" }
         "/websites/add"(controller: "webSite", action: "create")
         "/websites/save"(controller: "webSite", action: "save")
         "/websites/search"(controller:"webSite", action:"search")
