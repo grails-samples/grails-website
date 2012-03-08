@@ -28,7 +28,7 @@ class TutorialController extends AbstractSectionController {
             if (!tutorial.hasErrors() && tutorial.save()) {
                 processTags tutorial, params.tags
                 tutorial.save flush: true
-                redirect action: "list"
+                redirect action: "list", params: [category: "newest"]
                 return
             }
         }

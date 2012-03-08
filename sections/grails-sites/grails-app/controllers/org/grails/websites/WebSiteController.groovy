@@ -27,7 +27,7 @@ class WebSiteController extends AbstractSectionController {
             if (!webSite.hasErrors() && validateAndSave(webSite)) {
                 processTags webSite, params.tags
                 webSite.save flush: true
-                redirect action: "list"
+                redirect action: "list", params: [category: "newest"]
                 return
             }
         }
