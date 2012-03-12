@@ -20,6 +20,7 @@
         <text:lineBreak>
             <text:summarize length="200" encodeAs="HTML">${artifact.description}</text:summarize>
         </text:lineBreak>
+        (<g:link controlle="webSite" action="show" id="${artifact.id}">more...</g:link>)
     </div>
     <p class="likeCount">Liked by <em>${artifact.popularity.netLiked}</em> ${artifact.popularity.netLiked == 1 ? 'person' : 'people'}</p>
 </div>

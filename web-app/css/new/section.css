@@ -273,10 +273,13 @@
 .artifacts .webSite a {
 }
 
-.artifacts .webSite .vote {
+.artifact .likeCount {
+    display: inline-block;
+}
+
+.artifacts .artifact .webSite .vote, .artifact .vote {
     display: inline-block;
     font-size: 0.9em;
-    padding: 0.1em;
 }
 
 .webSiteThumbnail {

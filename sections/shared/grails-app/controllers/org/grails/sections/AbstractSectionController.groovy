@@ -27,6 +27,18 @@ abstract class AbstractSectionController {
         }
     }
 
+    def show() {
+        println ">> Here!"
+        def artifact = domainClass.get(params.id)
+
+        if (!artifact) {
+            response.sendError 404
+        }
+        else { 
+            [ artifact : artifact ] 
+        }
+    }
+
     def feed() {
         def items = domainClass.list( offset: params.offset?: 0,max:10, cache:true, sort:"dateCreated", order:"desc" )
         def feedOutput = {

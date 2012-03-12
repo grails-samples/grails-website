@@ -130,6 +130,7 @@ class UrlMappings {
         "/websites/search"(controller:"webSite", action:"search")
         "/websites/tags"(controller:"webSite", action:"browseTags")
         "/websites/feed"(controller:"webSite", action:"feed")
+        "/website/$id"(controller: "webSite", action: "show")
         "/website/edit/$id"(controller: "webSite", action: "edit")
         "/website/update/$id"(controller: "webSite", action: "update")
 
@@ -142,6 +143,7 @@ class UrlMappings {
         "/tutorials/search"(controller:"tutorial", action:"search")
         "/tutorials/tags"(controller:"tutorial", action:"browseTags")
         "/tutorials/feed"(controller:"tutorial", action:"feed")
+        "/tutorial/$id"(controller: "tutorial", action: "show")
         "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
         "/tutorial/update/$id"(controller: "tutorial", action: "update")
 
