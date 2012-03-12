@@ -14,6 +14,9 @@ class UrlMappings {
         def populateVersion = {
             version = {
                 try {
+                    if(params.fullName.startsWith("grails-")) {
+                        params.fullName = params.fullName[7..-1]
+                    }
                     params.fullName[params.plugin.size()+1..-1] 
                 }
                 catch(e) {
@@ -24,9 +27,6 @@ class UrlMappings {
 
         "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
         "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
-        "/plugins/grails-$plugin/tags/RELEASE_$version/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
-        "/plugins/grails-$plugin/tags/LATEST_RELEASE/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
-
         "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
         "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
 

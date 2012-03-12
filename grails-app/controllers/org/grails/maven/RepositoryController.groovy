@@ -114,6 +114,11 @@ class RepositoryController {
         def total = Plugin.count()
         int offset = 0
         
+        // get the most recent plugin release and use it as the last modified date
+        def pr = PluginRelease.list(max:1, sort:'releaseDate', order:'desc')
+        if(pr) {
+            lastModified pr.releaseDate[0].toDate()
+        }
         render(contentType:"text/xml") {
             plugins {
 
