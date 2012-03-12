@@ -460,6 +460,7 @@ class PluginController extends BaseWikiController {
                 (currentPlugins, totalPlugins) = pluginService.searchWithTotal(*args)
             }
             else {
+                queryParams["fetch"] = [licenses: "select"]
                 (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
             }
             return [currentPlugins: currentPlugins, category: category,totalPlugins: totalPlugins]
