@@ -73,6 +73,12 @@ class RepositoryController {
             render status:405
         }
     }
+
+
+    def pluginMeta() {
+        render g.link(controller:"repository", action:"list", absolute:true, "plugins-list.xml")
+    }
+
     /**
      * Redirects Grails SVN-style repository to the Maven repository. Request to the path:
      *

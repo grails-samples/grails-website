@@ -61,6 +61,11 @@ class PluginController extends BaseWikiController {
         }
     }
 
+
+    def pluginMeta() {
+        render g.link(controller:"repository", action:"list", absolute:true, "Plugin List XML")
+    }
+
     def legacyHome() {
         redirect action: "home", permanent: true
     }
