@@ -19,11 +19,23 @@ abstract class AbstractSectionController {
         try {
             def items = domainClass."${cat}Query".list(offset: params.offset?: 0, max: max)
             def count = domainClass."${cat}QueryNoSort".count()
-            return [ artifacts: items, total: count ]
+            return [ artifacts: items, total: count, category: cat ]
         }
         catch (MissingMethodException ex) {
             log.warn "Unknown category '${cat}' - ${ex.message}"
             render text: "Unknown category: ${cat}", status: 404
+        }
+    }
+
+    def show() {
+        println ">> Here!"
+        def artifact = domainClass.get(params.id)
+
+        if (!artifact) {
+            response.sendError 404
+        }
+        else { 
+            [ artifact : artifact ] 
         }
     }
 

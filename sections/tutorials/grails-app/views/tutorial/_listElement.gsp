@@ -4,7 +4,7 @@
     <g:link action="edit" id="${artifact.id}"><r:img border="0" uri="/images/icon-edit.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0"/></g:link>
     <div id="like-${artifact.id}"><like:voteUp item="${artifact}" js="jquery"/></div>
   </div>
-  <p>${artifact.description.encodeAsHTML()}</p>
+  <p><text:summarize length="200"><wiki:text key="${'tutorial_description_' + artifact?.id}">${artifact.description}</wiki:text></text:summarize> (<g:link controller="tutorial" action="show" id="${artifact.id}">more...</g:link>)</p>
   <span class="likeCount">Liked by <em>${artifact.popularity.netLiked}</em> ${artifact.popularity.netLiked == 1 ? 'person' : 'people'}</span>
   <h3><span class="label">Tags:</span>
     <g:each in="${artifact.tags}" var="tag">

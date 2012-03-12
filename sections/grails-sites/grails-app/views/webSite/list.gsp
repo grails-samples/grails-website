@@ -1,7 +1,7 @@
 <g:setProvider library="jquery" plugin="jquery"/>
 <head>
     <plugin:isAvailable name="feeds">
-        <feed:meta kind="rss" version="2.0" controller="webSite" action="feed"/>		
+        <feed:meta kind="rss" version="2.0" controller="webSite" action="feed"/>
     </plugin:isAvailable>
     <title><g:message code="website.home.title" default="Web Sites"></g:message></title>
 </head>
@@ -15,7 +15,7 @@
                     <g:message code="grails.website.rss.link" 
                                default="RSS Feed"></g:message>
                 </g:link>
-            </div>			
+            </div>
         </plugin:isAvailable>
     </div>
     <div class="body">
@@ -26,8 +26,8 @@
             </div>
             </g:each>
             <div class="paginateButtons">
-                <g:paginate total="${total}"></g:paginate>
-            </div>				
+                <g:paginate params="[category: category]" total="${total}"></g:paginate>
+            </div>
         </div>
             
     </div>
