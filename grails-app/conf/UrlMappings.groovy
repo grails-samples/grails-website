@@ -27,6 +27,9 @@ class UrlMappings {
         "/plugins/grails-$plugin/tags/RELEASE_$version/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
         "/plugins/grails-$plugin/tags/LATEST_RELEASE/grails-$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
 
+        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
+
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
 
