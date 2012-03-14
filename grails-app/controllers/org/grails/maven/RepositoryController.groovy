@@ -93,7 +93,7 @@ class RepositoryController {
      */
     def artifact(String fullName, String plugin, String pluginVersion, String type) {       
         if(plugin && pluginVersion && type) {
-            String key = "artifact:$plugin:$pluginVersion:$type"
+            String key = "artifact:$plugin:$pluginVersion:$type".toString()
             def url = cacheService?.getContent(key)
             if(url == null) {
                 type = ".$type".toString()
@@ -125,7 +125,7 @@ class RepositoryController {
     
     def grailsLinkGenerator
     def listLatest(String plugin) {
-        def key = "artifact:list:latest:$plugin"
+        String key = "artifact:list:latest:$plugin"
         def content = cacheService?.getContent(key)
         if(content) {
             render content
