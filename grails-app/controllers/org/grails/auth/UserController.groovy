@@ -21,21 +21,35 @@ class UserController {
 
     def mailService
 
-	String randomPass() {
-		UUID uuid = UUID.randomUUID()
-		uuid.toString()[0..7]
-	}
+    def show() {
+        if (!params.id) {
+            render status: 404, text: "No ID specified"
+            return
+        }
+
+        def user
+        if (params.id.isLong()) {
+            user = User.get(params.id)
+        }
+        else {
+            user = User.findByLogin(params.id)
+        }
+
+        if (!user) {
+            render status: 404, text: "No user found with ID '${params.id}'"
+            return
+        }
+
+        [userInstance: user]
+    }
 
     def update(Long id) {
         def user = User.get(id)
 
         if(user) {
-            user.properties = params
-            user.permissions.clear()
-            user.permissions.addAll(params.list('permissions'))
-            if(params.newPermission) {
-                user.permissions.add(params.newPermission)
-            }
+            bindData user, params, [exclude: ["permissions"]]
+            setPermissionsFromString user, params.permissions
+
             if(!user.save(flush:true)) {
                render view:"edit", model:[userInstance:user]
             }
@@ -46,25 +60,26 @@ class UserController {
             redirect action:"list"
         }   
     }
-	def passwordReminder() {
-		if(request.method == 'POST') {
-			def user = User.findByLogin(params.login)
-			if(user && user.login!='admin') {
-				def newPassword = randomPass()
-				user.password = DigestUtils.shaHex(newPassword)
-				user.save()
-				mailService.sendMail {
-					from "wiki@grails.org"
-					to user.email
-					title "Grails.org password reset"
-					body "Your password has been reset. Please login with the following password: ${newPassword}"
-				}
-			}
-			else {
-				flash.message = "Username not found"
-			}
-		}
-	}
+
+    def passwordReminder() {
+        if(request.method == 'POST') {
+            def user = User.findByLogin(params.login)
+            if(user && user.login!='admin') {
+                def newPassword = randomPass()
+                user.password = DigestUtils.shaHex(newPassword)
+                user.save()
+                mailService.sendMail {
+                    from "wiki@grails.org"
+                    to user.email
+                    title "Grails.org password reset"
+                    body "Your password has been reset. Please login with the following password: ${newPassword}"
+                }
+            }
+            else {
+                flash.message = "Username not found"
+            }
+        }
+    }
 
     def profile() {
         def userInfo = UserInfo.findByUser(request.user)
@@ -72,10 +87,10 @@ class UserController {
             if(!userInfo) userInfo = new UserInfo(user:request.user)
             userInfo.properties = params
             userInfo.save()
-			if(params.password) {
-				request.user.password = DigestUtils.shaHex(params.password) 
-				request.user.save()
-			}
+            if(params.password) {
+                request.user.password = DigestUtils.shaHex(params.password) 
+                request.user.save()
+            }
         }
         return [user:request.user, userInfo:userInfo]
 
@@ -199,4 +214,9 @@ class UserController {
     }
 
     def unauthorized()  {}
+
+    protected String randomPass() {
+        UUID uuid = UUID.randomUUID()
+        uuid.toString()[0..7]
+    }
 }
