@@ -94,8 +94,9 @@ class RepositoryController {
     def artifact(String fullName, String plugin, String pluginVersion, String type) {       
         if(plugin && pluginVersion && type) {
             String key = "artifact:$plugin:$pluginVersion:$type".toString()
-            def url = cacheService?.getContent(key)
+            def url = null//cacheService?.getContent(key)
             if(url == null) {
+                def ext = type
                 type = ".$type".toString()
                 if(pluginVersion.endsWith("-plugin")) {
                     pluginVersion = version[0..-8]
@@ -112,7 +113,25 @@ class RepositoryController {
                     }
                 }
 
-                url = "http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/$plugin-${pluginVersion}$type"                
+                def snapshotVersion = pluginVersion
+                if(snapshotVersion.endsWith("-SNAPSHOT")) {
+                    // need to calculate actual version from maven metadata
+                    def parent = new URL("http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/maven-metadata.xml")
+                    try {
+                        def metadata = parent.newReader(connectTimeout: 10000, useCaches: false).withReader { new XmlSlurper().parse(it) }
+                        def timestamp = metadata.versioning.snapshot.timestamp.text()
+                        def buildNo = metadata.versioning.snapshot.buildNumber.text()
+                        if(timestamp && buildNo) {
+                            snapshotVersion = pluginVersion - "-SNAPSHOT"
+                            snapshotVersion = "$snapshotVersion-$timestamp-$buildNo"
+                        }
+                    }
+                    catch(e) {                        
+                        log.warn "Failed to parse maven metadata for $plugin: $e.message", e
+                    }
+                    
+                }
+                url = "http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"                
                 cacheService?.putContent(key, url)
             }
             
