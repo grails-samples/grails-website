@@ -126,10 +126,9 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             response.xml.plugin[0].@name == 'tomcat'
             response.xml.plugin[0].'@latest-release' == '1.0.1'            
             response.xml.plugin[0].release.size() == 2
-            response.xml.plugin[0].release[0].@version == '1.0.0'
             response.xml.plugin[0].release[0].author.text() == 'SpringSource'
             response.xml.plugin[0].release[0].authorEmail.text() == 'foo@bar.com'
-            response.xml.plugin[0].release[0].file.text() == "http://foo.com/tomcat-1.0.zip"
+            response.xml.plugin[0].release[0].file.text() == "http://foo.com/tomcat-1.0.1.zip"
 
     }
 

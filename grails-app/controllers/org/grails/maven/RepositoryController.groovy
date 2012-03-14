@@ -91,32 +91,28 @@ class RepositoryController {
      * http://repo.grails.org/grails/plugins/org/grails/plugins/heroku/1.0-SNAPSHOT/heroku-1.0-SNAPSHOT.zip
      *
      */
-    def artifact(String fullName, String plugin, String version, String type) {       
-        if(plugin && version && type) {
-            String key = "artifact:$plugin:$version:$type"
+    def artifact(String fullName, String plugin, String pluginVersion, String type) {       
+        if(plugin && pluginVersion && type) {
+            String key = "artifact:$plugin:$pluginVersion:$type"
             def url = cacheService?.getContent(key)
             if(url == null) {
-                type = ".$type"
-                if(version.endsWith("-plugin")) {
-                    version = version[0..-8]
+                type = ".$type".toString()
+                if(pluginVersion.endsWith("-plugin")) {
+                    pluginVersion = version[0..-8]
+                    type = "-plugin$type"
+                } else if(type == ".xml") {
                     type = "-plugin$type"
                 }
 
-                if(version == '[revision]' || version == 'latest.release' || version == 'latest.integration') {
+                if(pluginVersion == '[revision]' || pluginVersion == 'latest.release' || pluginVersion == 'latest.integration') {
                     // calculate latest
-                    def pr = PluginRelease.createCriteria().get {
-                        delegate.plugin {
-                            eq 'name', plugin
-                        }
-                        order 'releaseDate', 'desc'
-                        maxResults 1
-                    }
+                    def pr = findPluginRelease(plugin)
                     if(pr) {
-                        version = pr.releaseVersion
+                        pluginVersion = pr.releaseVersion
                     }
                 }
 
-                url = "http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$version/$plugin-${version}$type"                
+                url = "http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/$plugin-${pluginVersion}$type"                
                 cacheService?.putContent(key, url)
             }
             
@@ -125,6 +121,37 @@ class RepositoryController {
         } else {
             render status:404
         }
+    }
+    
+    def grailsLinkGenerator
+    def listLatest(String plugin) {
+        def key = "artifact:list:latest:$plugin"
+        def content = cacheService?.getContent(key)
+        if(content) {
+            render content
+        }
+        else {
+            def pr = findPluginRelease(plugin)
+            if(pr) {
+
+                content = g.render( template:"listLatest", model: [plugin:plugin,release:pr, fullName:"$plugin-$pr.releaseVersion"] )
+                cacheService?.putContent(key, content)
+                render content
+            }
+            else {
+                render status: 404
+            }
+            
+        }
+        
+    }
+    
+    private findPluginRelease(String n) {
+         return PluginRelease.where {
+            plugin.name == n
+         }.max(1)
+          .order("releaseDate", "desc")
+          .find()
     }
     
     def pluginService

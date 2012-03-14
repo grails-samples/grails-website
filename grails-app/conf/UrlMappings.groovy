@@ -12,15 +12,22 @@ class UrlMappings {
         "/start"(controller: "content", action: "gettingStarted")
 
         def populateVersion = {
-            version = {
+            pluginVersion = {
                 try {
-                    if(params.fullName.startsWith("grails-")) {
-                        params.fullName = params.fullName[7..-1]
+                    def fn = params.fullName
+                    if(fn.contains('-')) {
+                        if(fn.startsWith("grails-")) {
+                            fn = fn[7..-1]
+                            params.fullName = fn
+                        }
+                        return fn[params.plugin.size()+1..-1]                         
                     }
-                    params.fullName[params.plugin.size()+1..-1] 
+                    else {
+                        return params.version?.replace('_','.')
+                    }
                 }
                 catch(e) {
-                    // ignore, delegate validation to controller
+                    params.version?.replace('_','.')
                 }                
             }
         }
@@ -29,6 +36,8 @@ class UrlMappings {
         "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
         "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
         "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest") 
+
 
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
