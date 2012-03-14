@@ -13,6 +13,8 @@ import org.springframework.context.ApplicationEvent
  */
 class RepositoryController {
 
+    def cacheService
+    
     /**
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
      */
@@ -91,13 +93,34 @@ class RepositoryController {
      */
     def artifact(String fullName, String plugin, String version, String type) {       
         if(plugin && version && type) {
-            type = ".$type"
-            if(version.endsWith("-plugin")) {
-                version = version[0..-8]
-                type = "-plugin$type"
-            }
+            String key = "artifact:$plugin:$version:$type"
+            def url = cacheService?.getContent(key)
+            if(url == null) {
+                type = ".$type"
+                if(version.endsWith("-plugin")) {
+                    version = version[0..-8]
+                    type = "-plugin$type"
+                }
 
-            redirect url:"http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$version/$plugin-${version}$type"
+                if(version == '[revision]' || version == 'latest.release' || version == 'latest.integration') {
+                    // calculate latest
+                    def pr = PluginRelease.createCriteria().get {
+                        delegate.plugin {
+                            eq 'name', plugin
+                        }
+                        order 'releaseDate', 'desc'
+                        maxResults 1
+                    }
+                    if(pr) {
+                        version = pr.releaseVersion
+                    }
+                }
+
+                url = "http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$version/$plugin-${version}$type"                
+                cacheService?.putContent(key, url)
+            }
+            
+            redirect url:url
         
         } else {
             render status:404
