@@ -21,9 +21,26 @@ class UserController {
 
     def mailService
 
-    String randomPass() {
-        UUID uuid = UUID.randomUUID()
-        uuid.toString()[0..7]
+    def show() {
+        if (!params.id) {
+            render status: 404, text: "No ID specified"
+            return
+        }
+
+        def user
+        if (params.id.isLong()) {
+            user = User.get(params.id)
+        }
+        else {
+            user = User.findByLogin(params.id)
+        }
+
+        if (!user) {
+            render status: 404, text: "No user found with ID '${params.id}'"
+            return
+        }
+
+        [userInstance: user]
     }
 
     def update(Long id) {
@@ -200,4 +217,9 @@ class UserController {
     }
 
     def unauthorized()  {}
+
+    protected String randomPass() {
+        UUID uuid = UUID.randomUUID()
+        uuid.toString()[0..7]
+    }
 }
