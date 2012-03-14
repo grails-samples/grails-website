@@ -47,12 +47,9 @@ class UserController {
         def user = User.get(id)
 
         if(user) {
-            user.properties = params
-            user.permissions.clear()
-            user.permissions.addAll(params.list('permissions'))
-            if(params.newPermission) {
-                user.permissions.add(params.newPermission)
-            }
+            bindData user, params, [exclude: ["permissions"]]
+            setPermissionsFromString user, params.permissions
+
             if(!user.save(flush:true)) {
                render view:"edit", model:[userInstance:user]
             }
