@@ -219,4 +219,18 @@ class UserController {
         UUID uuid = UUID.randomUUID()
         uuid.toString()[0..7]
     }
+
+    protected setPermissionsFromString(user, String newlineSeparatedPermissions) {
+        newlineSeparatedPermissions = newlineSeparatedPermissions?.trim()
+        def perms = !newlineSeparatedPermissions ? [] : (newlineSeparatedPermissions.split(/\s*[\n;]\s*/) as List)
+
+        // Take the simple approach: clear the list and re-add all declared permissions.
+        if (user.permissions == null) {
+            user.permissions = perms
+        }
+        else {
+            user.permissions.clear()
+            user.permissions.addAll perms
+        }
+    }
 }
