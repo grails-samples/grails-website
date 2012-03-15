@@ -28,7 +28,6 @@ abstract class AbstractSectionController {
     }
 
     def show() {
-        println ">> Here!"
         def artifact = domainClass.get(params.id)
 
         if (!artifact) {
