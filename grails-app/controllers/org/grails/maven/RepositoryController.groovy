@@ -94,12 +94,12 @@ class RepositoryController {
     def artifact(String fullName, String plugin, String pluginVersion, String type) {       
         if(plugin && pluginVersion && type) {
             String key = "artifact:$plugin:$pluginVersion:$type".toString()
-            def url = null//cacheService?.getContent(key)
+            def url = cacheService?.getContent(key)
             if(url == null) {
                 def ext = type
                 type = ".$type".toString()
                 if(pluginVersion.endsWith("-plugin")) {
-                    pluginVersion = version[0..-8]
+                    pluginVersion = pluginVersion[0..-8]
                     type = "-plugin$type"
                 } else if(type == ".xml") {
                     type = "-plugin$type"
