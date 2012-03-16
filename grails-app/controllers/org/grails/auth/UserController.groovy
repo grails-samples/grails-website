@@ -97,9 +97,7 @@ class UserController {
     }
 
     def register(){
-        def renderParams = [ model:[originalURI:params.originalURI,
-                      formData:params,
-                      async:request.xhr] ]
+        def renderParams = [ model:[originalURI:params.originalURI, async:request.xhr] ]
         
         if(request.xhr)
             renderParams.template = "registerForm"
@@ -199,7 +197,6 @@ class UserController {
                     params.remove 'password'
                     render(template:"loginForm", model:[originalURI:params.remove('originalURI'),
                                                         update: params._ul,
-                                                        formData:params,
                                                         async:true,
                                                         message:"auth.invalid.login"])
                 } else {

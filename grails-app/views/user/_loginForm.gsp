@@ -1,7 +1,7 @@
 <g:setProvider library="yui" />
 
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
-<g:set var="paramExclusions" value="['login', 'async', 'Submit']"/>
+<g:set var="paramExclusions" value="['login', 'async', 'Submit', 'controller', 'action']"/>
 
 <g:render template="/common/messages" model="${pageScope.getVariables() + [bean:wikiPage]}" />
 

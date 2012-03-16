@@ -28,11 +28,6 @@
 
 
         <g:hiddenField name="originalURI" value="${originalURI}" />
-        <g:each in="${formData?}" var="d">
-            <g:if test="${!['login','password', 'password2', 'originalURI', 'email'].contains(d.key)}">
-                <g:hiddenField name="${d.key}" value="${d.value}" />
-            </g:if>
-        </g:each>
 
        <div class="formButtons" style="margin-top:100px;">
             <g:submitButton name="Submit" value="Register" />
