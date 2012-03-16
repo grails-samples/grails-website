@@ -1,6 +1,7 @@
 package org.grails.sections
 
 import grails.util.GrailsNameUtils
+import org.apache.shiro.SecurityUtils
 
 abstract class AbstractSectionController {
     private Class _domainClass
@@ -28,7 +29,6 @@ abstract class AbstractSectionController {
     }
 
     def show() {
-        println ">> Here!"
         def artifact = domainClass.get(params.id)
 
         if (!artifact) {
@@ -36,6 +36,28 @@ abstract class AbstractSectionController {
         }
         else { 
             [ artifact : artifact ] 
+        }
+    }
+
+    def delete() {
+        if (!params.id) {
+            response.sendError 404
+            return
+        }
+
+        // Only delete if user has permission.
+        if (SecurityUtils.subject.isPermitted("${propertyName}:delete:${params.id}")) {
+            def instance = domainClass.get(params.id)
+            if (!instance) {
+                response.sendError 404
+            }
+            else {
+                instance.delete()
+                redirect controller: propertyName, action: "list"
+            }
+        }
+        else {
+            response.sendError 403
         }
     }
 

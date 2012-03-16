@@ -22,6 +22,13 @@
             </p>
             <p class="likeCount">Liked by <em>${artifact.popularity.netLiked}</em> ${artifact.popularity.netLiked == 1 ? 'person' : 'people'} |</p>
             <div id="like-${artifact.id}" class="vote"><like:voteUp item="${artifact}" js="jquery"/></div>
+            <shiro:hasPermission permission="tutorial:delete:${artifact.id}">
+            <div>
+                <g:form action="delete" id="${artifact.id}">
+                    <g:submitButton name="delete" value="Delete"/>
+                </g:form>
+            </div>
+            </shiro:hasPermission>
         </div>
     </body>
 </html>
