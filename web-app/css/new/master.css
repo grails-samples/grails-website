@@ -34,6 +34,21 @@ h1, h2, h3, h4, h5, h6 {
 	padding:10px;
 	width:90%;
 }
+
+div.errors {
+    background: #fff3f3;
+    border: 1px solid red;
+    color: #cc0000;
+    margin: 10px 0 15px 0;
+    padding: 10px 0 0px 0;
+}
+div.errors ul {
+}
+div.errors li {
+    line-height: 16px;
+    padding-left: 30px;
+}
+
 #statusbox a {
 	color:#48802C;
 	text-decoration:none;

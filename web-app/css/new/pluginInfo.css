@@ -139,7 +139,6 @@
 #pluginBox .pluginDetail table {
 	border-spacing: 0;
 	text-align: left;
-	width: 100%;
 }
 #pluginBox .pluginDetail th {
 	width:16em;
@@ -148,6 +147,9 @@
 	text-transform: uppercase;
 	font-weight:normal;
 	color:#767676;
+}
+#pluginBox .pluginDetail pre {
+	margin: 3px 0;
 }
 #downloadBox {
 	float:right;

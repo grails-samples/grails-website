@@ -20,35 +20,37 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenLocal()
         mavenCentral()
-        mavenRepo "http://m2repo.spockframework.org/snapshots"
+        mavenRepo "https://oss.sonatype.org/content/repositories/releases/" 
     }
 
     plugins {
         compile ":burning-image:0.5.0",
-                ":commentable:0.7.5",
+                ":commentable:0.7.6",
+                ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
-        compile ":rateable:0.7.0", {
+        compile ":rateable:0.7.1", {
             exclude "yui"
         }
 
         runtime ":avatar:0.3",
+                ":rest-client-builder:1.0",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":cloud-foundry:1.2",
                 ":cloud-support:1.0.6",
                 ":database-migration:1.0",
                 ":feeds:1.5",
-                ":grails-ui:1.2.2",
+                ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",
-                ":hibernate:$grailsVersion",
+                ":hibernate:2.0.1",
                 ":jquery:1.6.1.1",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":resources:1.1.3",
+                ":resources:1.1.6",
                 ":richui:0.6",
-                ":screencasts:0.5.4",
+                ":screencasts:0.5.6",
                 ":searchable:0.6.3",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
@@ -67,17 +69,19 @@ grails.project.dependency.resolution = {
         }
         
         test    ":geb:0.6.0",
-                ":spock:0.6-SNAPSHOT", {
+                ":spock:0.6-rc-1", {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:$grailsVersion"
+        build   ":tomcat:2.0.1"
     }
 
     dependencies {
-        compile "org.twitter4j:twitter4j-core:2.1.8", "org.springframework:spring-context-support:3.0.3.RELEASE"
+        compile "org.twitter4j:twitter4j-core:2.1.8",
+                "org.springframework:spring-context-support:3.0.3.RELEASE",
+                "org.jadira.usertype:usertype.jodatime:1.9"
 
-        test "org.codehaus.geb:geb-spock:0.6.0",
+        test "org.codehaus.geb:geb-core:0.6.0",
              "org.gmock:gmock:0.8.1"
         test    "org.seleniumhq.selenium:selenium-htmlunit-driver:2.0a7", {
             excludes "htmlunit", "xml-apis"

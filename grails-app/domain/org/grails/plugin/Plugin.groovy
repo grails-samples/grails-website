@@ -6,13 +6,30 @@ import org.grails.taggable.TagLink
 import org.grails.comments.Commentable
 import org.grails.rateable.Rateable
 
+import org.joda.time.DateTime
+
 /*
  * author: Matthew Taylor
  */
 class Plugin implements Taggable, Commentable, Rateable {
+    static final WHITE_LIST = [
+            "title",
+            "groupId",
+            "summary",
+            "defaultDependencyScope",
+            "currentRelease",
+            "organization",
+            "organizationUrl",
+            "documentationUrl",
+            "downloadUrl",
+            "scmUrl",
+            "issuesUrl",
+            "grailsVersion" ]
 
-    static final def WIKIS = ['installation','description','faq','screenshots']
-    static final def VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
+    static final DEFAULT_GROUP = "org.grails.plugins"
+    static final DEFAULT_SCOPE = "compile"
+    static final WIKIS = ['installation','description','faq','screenshots']
+    static final VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
 
     transient cacheService
     transient grailsApplication
@@ -21,8 +38,9 @@ class Plugin implements Taggable, Commentable, Rateable {
 
     String name
     String title
-    String groupId = "org.grails.plugins"
+    String groupId = DEFAULT_GROUP
     String summary
+    String defaultDependencyScope = DEFAULT_SCOPE
     PluginTab description
     PluginTab installation
     PluginTab faq
@@ -43,11 +61,13 @@ class Plugin implements Taggable, Commentable, Rateable {
     boolean zombie = false
     BigDecimal usage
     Number avgRating
-    Date dateCreated
-    Date lastUpdated
-    Date lastReleased
+    DateTime dateCreated
+    DateTime lastUpdated
+    DateTime lastReleased = new DateTime()
 
-    static hasMany = [licenses: License]
+    List mavenRepositories
+
+    static hasMany = [licenses: License, mavenRepositories: String, releases: PluginRelease]
 
     static searchable = {
         only = [
@@ -55,6 +75,7 @@ class Plugin implements Taggable, Commentable, Rateable {
             'installation','description','faq','screenshots', 'tags',
             'featured', 'official', 'organization'
         ]
+        title boost: 2.0
         description component: true
         installation component: true
         faq component: true
@@ -69,7 +90,13 @@ class Plugin implements Taggable, Commentable, Rateable {
         tags component: true
     }
 
-    static transients = ['avgRating', 'fisheye', 'tags']
+    static transients = [
+            'avgRating',
+            'fisheye',
+            'tags',
+            'dependencyDeclation',
+            'customRepositoriesDeclaration',
+            'inDefaultGroup' ]
 
     static constraints = {
         name unique: true, matches: /[\w-]+/
@@ -97,8 +124,22 @@ class Plugin implements Taggable, Commentable, Rateable {
         usage column: '`usage`'
     }
     
-    def getFisheye() {
+    String getFisheye() {
         downloadUrl ? "${grailsApplication.config.plugins.fisheye}/grails-${name}" : ''
+    }
+    
+    String getDependencyDeclaration() {
+        return "${inDefaultGroup ? '' : groupId}:${name}:${currentRelease}"
+    }
+    
+    String getCustomRepositoriesDeclaration() {
+        if (!mavenRepositories.size()) return null
+
+        return mavenRepositories.collect { url -> "mavenRepo \"${url}\"" }.join('\n')
+    }
+
+    boolean isInDefaultGroup() {
+        return groupId == DEFAULT_GROUP
     }
 
     Collection<Tag> getTags() {

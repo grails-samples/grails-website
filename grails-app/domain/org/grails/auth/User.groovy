@@ -5,7 +5,7 @@ class User {
     String login
     String password
 
-    static hasMany = [roles:Role]
+    static hasMany = [roles:Role, permissions:String]
 
     static constraints = {
         email email: true, unique: true, blank: false

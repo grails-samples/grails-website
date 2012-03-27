@@ -1,13 +1,14 @@
 package org.grails.content
 
 import org.grails.comments.*
+import org.joda.time.DateTime
 
 class Content implements Serializable, Commentable {
     String title
     String body
     Boolean locked = false
-    Date dateCreated
-    Date lastUpdated
+    DateTime dateCreated
+    DateTime lastUpdated
 
     static hasMany = [versions:Version]
     static transients = ["latestVersion"]

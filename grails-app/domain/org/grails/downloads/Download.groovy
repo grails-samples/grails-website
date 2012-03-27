@@ -1,9 +1,11 @@
 package org.grails.downloads
 
+import org.joda.time.DateTime
+
 class Download implements Serializable{
     def grailsApplication
     
-    Date releaseDate = new Date()                    
+    DateTime releaseDate = new DateTime()                    
     String softwareName
     String softwareVersion
     int downloadCount

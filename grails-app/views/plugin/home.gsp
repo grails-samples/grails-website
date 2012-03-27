@@ -8,6 +8,8 @@
     </content>
 </head>
 <body>
+    <!-- IMPORTANT: DO NOT delete the link below, it is commented out, but used for plugin resolution -->
+    <!-- <g:link uri="/plugins/.plugin-meta" absolute="true">.plugin-meta</g:link> -->
     <g:render template="/common/messages" model="[message: message]"/>
     <tmpl:pluginList plugins="${currentPlugins}" total="${totalPlugins}" pageParams="[category: category]" />
 </body>

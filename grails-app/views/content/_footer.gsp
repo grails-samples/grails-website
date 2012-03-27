@@ -1,7 +1,6 @@
 <div id="footer">
     <div align="center">
         <div class="innerFooter">
-            <a href="http://contegix.com/"><r:img uri="/images/contegix_logo.jpg" alt="Hosted by Contegix" /></a>
             <a href="http://www.jfrog.org/">
                 <r:img uri="/images/artifactory-logo.png" class="artifactory" alt="Artifactory logo" title="In association with JFrog"/>
             </a>

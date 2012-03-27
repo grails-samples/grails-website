@@ -30,10 +30,6 @@ class WikiPageControllerTests {
     }
 
     void testSave() {
-        controller.save()
-        assert response.status == HttpServletResponse.SC_METHOD_NOT_ALLOWED
-
-        response.reset()
         request.method = 'POST'
         controller.save()
 
@@ -94,10 +90,6 @@ class WikiPageControllerTests {
 
     void testUpdate() {
 
-        controller.update()
-        assert response.status == HttpServletResponse.SC_METHOD_NOT_ALLOWED
-
-        response.reset()
         request.method = 'POST'
         controller.update()
 
@@ -132,10 +124,6 @@ class WikiPageControllerTests {
     }
 
     void testDelete() {
-        controller.delete()
-        assert response.status == HttpServletResponse.SC_METHOD_NOT_ALLOWED
-
-        response.reset()
         request.method = 'POST'
         controller.delete()
         assert flash.message != null

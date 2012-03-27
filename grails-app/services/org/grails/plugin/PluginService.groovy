@@ -2,9 +2,12 @@ package org.grails.plugin
 
 import org.grails.auth.User
 import org.grails.content.Version
+import org.joda.time.DateTime
 import org.grails.tags.TagNotFoundException
 import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
+import org.joda.time.DateTime
+import grails.plugin.springcache.annotations.*
 
 class PluginService {
 
@@ -98,7 +101,7 @@ class PluginService {
         return "plugin-${pluginName}-${tabName}"
     }
     
-    String extractTabName(String title) {
+    static String extractTabName(String title) {
         def titleParts = title.split('-')
         
         // The plugin tab type is encoded in the page title in different
@@ -127,7 +130,7 @@ class PluginService {
             
             // If there is no provided doc url, we'll assume that this page is the doc.
             if (!plugin.documentationUrl) {
-                plugin.documentationUrl = "${grailsApplication.config.grails.serverURL}/plugin/${plugin.name}"
+                plugin.documentationUrl = "${grailsApplication.config.grails.serverURL ?: ''}/plugin/${plugin.name}"
             }
         }
     }
@@ -136,8 +139,10 @@ class PluginService {
         try {
             searchableService.stopMirroring()
             
+            if (!plugin.defaultDependencyScope) plugin.defaultDependencyScope = Plugin.DEFAULT_SCOPE
+
             def newPlugin = !plugin.id
-            def savedPlugin = plugin.save(failOnError: failOnError)
+            def savedPlugin = plugin.save(failOnError: failOnError, flush: true)
             
             if (savedPlugin) {
                 if (newPlugin) savedPlugin.index()
@@ -151,20 +156,28 @@ class PluginService {
         }
     }
     
+     
+    @CacheFlush('pluginMetaList')
     def runMasterUpdate() {
         translateMasterPlugins(generateMasterPlugins())
+    }
+
+    /**
+     * Reads the plugin list and returns XML as a Gpath result
+     */
+    def readPluginList() {
+        def pluginLoc = grailsApplication.config?.plugins?.pluginslist
+        def listFile = new URL(pluginLoc)
+        def listText = listFile.text
+        // remove the first line of <?xml blah/>
+        listText = listText.replaceAll(/\<\?xml ([^\<\>]*)\>/, '')
+        new XmlSlurper().parseText(listText)        
     }
     
     def generateMasterPlugins() {
         try {
-            def pluginLoc = grailsApplication.config?.plugins?.pluginslist
-            def listFile = new URL(pluginLoc)
-            def listText = listFile.text
-            // remove the first line of <?xml blah/>
-            listText = listText.replaceAll(/\<\?xml ([^\<\>]*)\>/, '')
-            def plugins = new XmlSlurper().parseText(listText)
-
-            log.info "Found ${plugins.plugin.size()} master plugins."
+            def plugins = readPluginList()
+            log.debug "Found ${plugins.plugin.size()} master plugins."
 
             return plugins.plugin.inject([]) { pluginsList, pxml ->
                 if (!pxml.release.size()) return pluginsList
@@ -184,7 +197,21 @@ class PluginService {
                     downloadUrl = latestReleaseNode.file
                     currentRelease = latestRelease
                 }
+                
+                log.debug "Found plugin [$p.name] with current release [$p.currentRelease]"
+                Set releases = []
+                pxml.release.each { r ->
+                    def pr = new PluginRelease(plugin:p)
+                    def file = r.file.text()
+                    if(file) {
+                        pr.downloadUrl = file
+                        pr.releaseVersion = r.@version.text()
+                        releases << pr
+                    }
 
+                }
+
+                p.releases  = releases
                 pluginsList << p
             }
         }
@@ -201,15 +228,25 @@ class PluginService {
     }
 
     def translateMasterPlugins(masters) {
+        log.debug "Updating plugins from master versions..."
         Plugin.withSession { session ->
             masters.each { master ->
                 try {
+                    
                     def plugin = Plugin.findByName(master.name)
+                    log.debug "Checking plugin [$master.name]"
                     if (!plugin) {
+                        log.debug "Plugin [$master.name] doesn't exist, creating new one..."
+
                         // injecting a unique wiki page name for description
                         // pull off the desc so we don't try to save it
                         def descWiki = master.description
                         master.description = null
+                        
+                        // obtain release dates
+                        master.releases?.each { pr ->
+                            pr.releaseDate = fetchPluginReleaseDate(pr)
+                        }
                         // so we need to save the master first to get its id
                         if (!master.save()) {
                             log.error "Could not save master plugin: $master.name ($master.title), version $master.currentRelease"
@@ -219,7 +256,7 @@ class PluginService {
                         // put the wiki page back with a unique title
                         descWiki.title = "description-${master.id}"
                         master.description = descWiki
-                        log.info "No existing plugin, creating new ==> ${master.name}"
+                        log.debug "No existing plugin, creating new ==> ${master.name}"
                         // before saving the master, we need to save the description wiki page
                         if (!master.description.save() && master.description.hasErrors()) {
                             master.description.errors.allErrors.each { log.error it }
@@ -237,7 +274,7 @@ class PluginService {
                             assert master."$wiki".save()
                         }
                         // give an initial release date of now
-                        master.lastReleased = new Date()
+                        master.lastReleased = new DateTime()
                         if (!master.groupId) {
                                 master.groupId = "org.grails.plugins"
                         }
@@ -254,7 +291,9 @@ class PluginService {
                         }
                     } else {
                         // update existing plugin
+                        log.debug "Plugin [$master.name] already exists, updating..."
                         updatePlugin(plugin, master)
+                        synchronizePluginReleases(plugin, master)
                     }
                     
                 }
@@ -284,7 +323,7 @@ class PluginService {
         plugin.downloadUrl = master.downloadUrl
         // if this was a release update, also update the date of release
         if (plugin.currentRelease != master.currentRelease) {
-            plugin.lastReleased = new Date();
+            plugin.lastReleased = new DateTime()
         }
         plugin.currentRelease = master.currentRelease
         plugin.grailsVersion = master.grailsVersion
@@ -334,6 +373,25 @@ class PluginService {
             // the portal 'ping'.
             return ''
         }
+    }
+
+    protected synchronizePluginReleases(plugin, master) {
+        for (release in master.releases) {
+            def existing = PluginRelease.findByPluginAndReleaseVersion(plugin, release.releaseVersion)
+            if(!existing) {
+                release.releaseDate = fetchPluginReleaseDate(release)
+                release.plugin = plugin
+                release.save()
+                plugin.addToReleases(release)
+            }
+        }
+    }
+
+    protected DateTime fetchPluginReleaseDate(pluginRelease) {
+        log.debug "Found release [$pluginRelease.downloadUrl], obtaining last modified date"
+        def conn = new URL(pluginRelease.downloadUrl).openConnection()
+        conn.connectTimeout = 5000
+        return new DateTime(conn.lastModified)
     }
 
     /**

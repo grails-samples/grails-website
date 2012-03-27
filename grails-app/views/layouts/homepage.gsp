@@ -11,8 +11,8 @@
 	
     <title>Grails - The search is over.</title>
     
-    <r:use modules="homepage"/>
-    <r:resourceLink uri="/images/favicon.ico"/>
+    <r:require modules="homepage"/>
+    <r:external uri="/images/favicon.ico"/>
     <r:layoutResources/>
     
     <g:layoutHead />
@@ -60,7 +60,7 @@ new PeriodicalExecuter(function(pe) {
     --%>
 </head>
 <body>
-    
+
 <div align="center">
 	<g:render template="/content/logos"></g:render>
     <div class="mainMenuBarWrapper">
@@ -96,16 +96,16 @@ new PeriodicalExecuter(function(pe) {
                     <h2>What is grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
-                            <g:link controller="screencast" action="show" id="15">
+                            <a href="http://portal.sliderocket.com/vmware/what-is-grails">
                                 <r:img width="240" height="190" uri="/images/grails-taster-badge.png"/>
-                            </g:link>
+                            </a>
                         </div><!-- castScreen -->
                         <div class="playOverlay">
-                            <g:link controller="screencast" action="show" id="15">
+                            <a href="http://portal.sliderocket.com/vmware/what-is-grails">
                                 <r:img width="50" height="51" uri="/images/play.png"/>
-                            </g:link>
+                            </a>
                         </div>
-                        <h4><g:link controller="screencast" action="list">More screencasts</g:link></h4>
+                        <h4><g:link controller="content" action="gettingStarted">Find out more</g:link></h4>
                     </div><!-- castBox -->
                 </div><!-- screencasts -->
 
@@ -246,9 +246,6 @@ Visit the Grails <g:link controller="content" id="Community">community pages</g:
 <div id="footer">
     <div align="center">
         <div class="innerFooter">
-            <a href="http://contegix.com">
-                <r:img uri="/images/contegix_logo.jpg" alt="Contegix logo" title="Hosted by Contegix" border="0"/>
-            </a>
             <a href="http://www.jfrog.org/">
                 <r:img uri="/images/artifactory-logo.png" class="artifactory" alt="Artifactory logo" title="In association with JFrog"/>
             </a>

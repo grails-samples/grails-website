@@ -10,7 +10,7 @@ class WikiPage extends Content {
     String deprecatedUri
 	
     static searchable = [only: ['body', 'title', 'deprecated']]
-
+    static transients = ['cacheService']
     static constraints = {
         title(blank:false, matches:/[^\/\\]+/)
         body(blank:true)

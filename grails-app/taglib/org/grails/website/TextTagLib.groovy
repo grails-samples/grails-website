@@ -22,6 +22,10 @@ class TextTagLib {
         def s = internalSummarize(body().toString(), maxLen, ellipsis)
         out << (codec ? s."encodeAs$codec"() : s )
     }
+
+    def lineBreak = { attrs, body ->
+        out << body().toString().trim().replaceAll(/\n+/, '<br />')
+    }
     
     /**
      * Remove markup from HTML but leave escaped entities, so result can

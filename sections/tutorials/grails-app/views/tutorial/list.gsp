@@ -26,7 +26,7 @@
             </div>
             </g:each>
             <div class="paginateButtons">
-                <g:paginate total="${total}"></g:paginate>
+                <g:paginate params="[category: category]" total="${total}"></g:paginate>
             </div>				
         </div>
             

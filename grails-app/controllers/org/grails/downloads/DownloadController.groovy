@@ -3,6 +3,7 @@ package org.grails.downloads
 import grails.converters.JSON
 import grails.converters.XML
 import grails.plugin.springcache.annotations.*
+import grails.validation.Validateable
 import net.sf.ehcache.Element
 import net.sf.ehcache.Ehcache
 import org.hibernate.FetchMode
@@ -11,9 +12,9 @@ class DownloadController {
     def grailsApplication
     def downloadCache
     
-    def index = { redirect action: "list", params: params }
+    def index() { redirect action: "list", params: params }
 
-    def latest = {
+    def latest() {
         // Find out which versions we should display. This should be a
         // list like ['2.0', '1.3', '1.2'].
         def versions = versionOrder*.baseVersion ?: ['1.3', '1.2']
@@ -62,14 +63,14 @@ class DownloadController {
         render(view: 'index', model: [stableDownloads: downloads['stable'], betaDownloads: downloads['beta']])
     }
 
-    def archive = {
+    def archive() {
         def downloads = Download.findAllBySoftwareName(params.id, [order:'desc', sort:'releaseDate', cache:true])
 
         return [downloads:downloads]
     }
 
 
-    def downloadFile = {
+    def downloadFile() {
 
         def mirror = params.mirror? Mirror.get(params.mirror) : null
         if (mirror) {
@@ -94,12 +95,12 @@ class DownloadController {
         }
     }
 
-    def fileDetails = {
+    def fileDetails() {
         def downloadFile = DownloadFile.get(params.id)
         [downloadFile:downloadFile]
     }
 
-    def addFile = { AddFileCommand cmd ->
+    def addFile(AddFileCommand cmd) {
         def download = Download.get(params.id)
         if(request.method == 'POST') {
             if(!cmd.url) {                 
@@ -121,7 +122,7 @@ class DownloadController {
 
     }
 
-    def deleteMirror = {
+    def deleteMirror() {
         def mirror = Mirror.get(params.id)
         if(mirror) {
             mirror.delete(flush:true)
@@ -132,7 +133,7 @@ class DownloadController {
         }
     }
 
-    def addMirror = {
+    def addMirror() {
         def downloadFile = DownloadFile.get(params.id)
 
         if(downloadFile) {
@@ -348,6 +349,8 @@ class DownloadController {
                 }]
     }
 }
+
+@Validateable
 class AddFileCommand {
     String url
     String name

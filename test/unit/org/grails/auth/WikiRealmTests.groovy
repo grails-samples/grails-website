@@ -3,7 +3,8 @@ package org.grails.auth
 import org.apache.commons.logging.LogFactory
 import org.apache.shiro.authc.*
 import org.apache.shiro.authc.credential.CredentialsMatcher
-
+import grails.test.mixin.*
+import static org.junit.Assert.*
 /**
 * @author Graeme Rocher
 * @since 1.0
@@ -46,12 +47,12 @@ class WikiRealmTests {
         WikiRealm.metaClass.getLog = {-> LogFactory.getLog(WikiRealm) }
         def realm = new WikiRealm()
 
-        assertFalse realm.hasRole("Freddy", "Administrator")
+        assert ! realm.hasRole("Freddy", "Administrator")
 
         User.metaClass.getRoles={-> [] }
         User.metaClass.static.findByLogin = { String s -> new User(login:"Freddy") }
 
-        assertFalse realm.hasRole("Freddy", "Administrator")
+        assert ! realm.hasRole("Freddy", "Administrator")
 
         User.metaClass.getRoles={-> [[name:"Administrator"]] }
 
@@ -65,15 +66,15 @@ class WikiRealmTests {
 
         User.metaClass.static.createCriteria = {-> [list:{Closure c -> [] }] }
 
-        assertFalse realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
+        assert ! realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
 
         User.metaClass.static.createCriteria = {-> [list:{Closure c -> ["Editor"] }] }
 
-        assertFalse realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
+        assert ! realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
 
         User.metaClass.static.createCriteria = {-> [list:{Closure c -> ["Editor", "Administrator"] }] }
 
-        assertTrue realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
+        assert realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
     }
 
 

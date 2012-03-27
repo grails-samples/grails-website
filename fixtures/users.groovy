@@ -11,7 +11,8 @@ fixture {
                 login: "peter",
                 password: DigestUtils.shaHex("password"),
                 email: "peter@somewhere.net",
-                roles: [ observer, editor ])
+                roles: [ observer, editor ],
+                permissions: ["plugin:publish:shiro"])
         
         dilbert(User,
                 login: "dilbert",

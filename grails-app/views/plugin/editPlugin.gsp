@@ -49,18 +49,6 @@
 										description="A description/summary of the plugin">
 									<textarea id="summary" name="summary">${fieldValue(bean: plugin, field: 'summary')}</textarea>
 								</plugin:input>
-								
-								<plugin:input
-										name="Author"
-										description="Plugin author's name(s)">
-									<input type="text" id="author" name="author" value="${fieldValue(bean: plugin, field: 'author')}"/>
-								</plugin:input>
-
-								<plugin:input
-										name="Author Email"
-										description="Plugin author email addresses">
-									<input type="text" id="authorEmail" name="authorEmail" value="${fieldValue(bean: plugin, field: 'authorEmail')}"/>
-								</plugin:input>
 
 								<plugin:input
 										name="Grails Version"
@@ -68,10 +56,8 @@
 									<input type="text" id="grailsVersion" name="grailsVersion" value="${fieldValue(bean: plugin, field: 'grailsVersion')}"/>
 								</plugin:input>
 
-								<plugin:input
-										name="Current Release"
-										description="Current plugin release">
-									<input type="text" id="currentRelease" name="currentRelease" value="${fieldValue(bean: plugin, field: 'currentRelease')}"/>
+								<plugin:input name="Default Dependency Scope" description="When users declare a dependency on this plugin, which scope should they use (compile, build,...)?">
+									<input type="text" id="defaultDependencyScope" name="defaultDependencyScope" value="${fieldValue(bean: plugin, field: 'defaultDependencyScope')}"/>
 								</plugin:input>
 
 								<plugin:input
@@ -91,7 +77,18 @@
 								<plugin:input name="Issues URL" description="Where is the issue tracker for your plugin?">
 									<input type="text" id="issuesUrl" name="issuesUrl" value="${fieldValue(bean: plugin, field: 'issuesUrl')}"/>
 								</plugin:input>
+
+								<plugin:input name="Custom Repository URLs" description="Some plugins require dependencies that come from other repositories than the standard Grails and Maven ones. This is a comma-separated list of those repositories.">
+									<input type="text" id="mavenRepositoryUrls" name="mavenRepositoryUrls" value="${plugin.mavenRepositories?.join(', ') ?: ''}"/>
+								</plugin:input>
+
 								<shiro:hasRole name="${ Role.ADMINISTRATOR }">
+								<plugin:input name="Featured?" description="Should this plugin appear in the featured list?">
+									<g:checkBox name="featured" value="${plugin?.featured}"/>
+								</plugin:input>
+								<plugin:input name="Official?" description="Is this an official, supported plugin from SpringSource/VMware?">
+									<g:checkBox name="official" value="${plugin?.official}"/>
+								</plugin:input>
 								<plugin:input name="Abandoned?" description="Has the plugin been abandoned?">
 									<g:checkBox name="zombie" value="${plugin?.zombie}"/>
 								</plugin:input>

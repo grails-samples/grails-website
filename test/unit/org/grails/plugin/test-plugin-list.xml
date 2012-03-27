@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<plugins>
+    <plugin name="acegi" latest-release="0.5.3.2">
+        <release version="0.5">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_5/grails-acegi-0.5.zip</file>
+        </release>
+        <release version="0.5.3">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_5_3/grails-acegi-0.5.3.zip</file>
+        </release>
+        <release version="0.4.1">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_4_1/grails-acegi-0.4.1.zip</file>
+        </release>
+        <release version="0.2">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_2/grails-acegi-0.2.zip</file>
+        </release>
+        <release version="0.5.2">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_5_2/grails-acegi-0.5.2.zip</file>
+        </release>
+        <release version="0.4">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_4/grails-acegi-0.4.zip</file>
+        </release>
+        <release version="0.5.3.2">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_5_3_2/grails-acegi-0.5.3.2.zip</file>
+        </release>
+        <release version="0.2.1">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_2_1/grails-acegi-0.2.1.zip</file>
+        </release>
+        <release version="0.5.1">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_5_1/grails-acegi-0.5.1.zip</file>
+        </release>
+        <release version="0.6">
+            <title>Grails Spring Security 2.0 Plugin</title>
+            <author>Tsuyoshi Yamamoto</author>
+            <authorEmail>tyama@xmldo.jp</authorEmail>
+            <description>org.grails.plugin.PluginTab : 1</description>
+            <file>http://plugins.grails.org/grails-acegi/tags/RELEASE_0_5_3_1/grails-acegi-0.6.zip</file>
+        </release>
+    </plugin>
+    <plugin name="activemq" latest-release="0.3">
+        <release version="0.0">
+            <title>Grails ActiveMQ Plugin</title>
+            <author>Domingo Suarez Torres</author>
+            <authorEmail>domingo.suarez@gmail.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 5</description>
+            <file>http://plugins.grails.org/grails-activemq/tags/RELEASE_0_0/grails-activemq-0.0.zip</file>
+        </release>
+        <release version="0.2.1">
+            <title>Grails ActiveMQ Plugin</title>
+            <author>Domingo Suarez Torres</author>
+            <authorEmail>domingo.suarez@gmail.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 5</description>
+            <file>http://plugins.grails.org/grails-activemq/tags/RELEASE_0_2_1/grails-activemq-0.2.1.zip</file>
+        </release>
+        <release version="0.3">
+            <title>Grails ActiveMQ Plugin</title>
+            <author>Domingo Suarez Torres</author>
+            <authorEmail>domingo.suarez@gmail.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 5</description>
+            <file>http://plugins.grails.org/grails-activemq/tags/RELEASE_0_3/grails-activemq-0.3.zip</file>
+        </release>
+        <release version="0.2">
+            <title>Grails ActiveMQ Plugin</title>
+            <author>Domingo Suarez Torres</author>
+            <authorEmail>domingo.suarez@gmail.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 5</description>
+            <file>http://plugins.grails.org/grails-activemq/tags/RELEASE_0_2/grails-activemq-0.2.zip</file>
+        </release>
+        <release version="0.1">
+            <title>Grails ActiveMQ Plugin</title>
+            <author>Domingo Suarez Torres</author>
+            <authorEmail>domingo.suarez@gmail.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 5</description>
+            <file>http://plugins.grails.org/grails-activemq/tags/RELEASE_0_1/grails-activemq-0.1.zip</file>
+        </release>
+    </plugin>
+    <plugin name="activiti" latest-release="5.8">
+        <release version="5.6">
+            <title>Grails Activiti Plugin - Enabled Activiti BPM Suite support for Grails</title>
+            <author>Lim Chee Kin</author>
+            <authorEmail>limcheekin@vobject.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 9</description>
+            <file>http://plugins.grails.org/grails-activiti/tags/RELEASE_5_6/grails-activiti-5.6.zip</file>
+        </release>
+        <release version="5.8">
+            <title>Grails Activiti Plugin - Enabled Activiti BPM Suite support for Grails</title>
+            <author>Lim Chee Kin</author>
+            <authorEmail>limcheekin@vobject.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 9</description>
+            <file>http://plugins.grails.org/grails-activiti/tags/RELEASE_5_8/grails-activiti-5.8.zip</file>
+        </release>
+        <release version="5.0.rc1">
+            <title>Grails Activiti Plugin - Enabled Activiti BPM Suite support for Grails</title>
+            <author>Lim Chee Kin</author>
+            <authorEmail>limcheekin@vobject.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 9</description>
+            <file>http://plugins.grails.org/grails-activiti/tags/RELEASE_5_0_rc1/grails-activiti-5.0.rc1.zip</file>
+        </release>
+        <release version="5.0.alpha4">
+            <title>Grails Activiti Plugin - Enabled Activiti BPM Suite support for Grails</title>
+            <author>Lim Chee Kin</author>
+            <authorEmail>limcheekin@vobject.com</authorEmail>
+            <description>org.grails.plugin.PluginTab : 9</description>
+            <file>http://plugins.grails.org/grails-activiti/tags/RELEASE_5_0_alpha4/grails-activiti-5.0.alpha4.zip</file>
+        </release>
+    </plugin>
+</plugins>

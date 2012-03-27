@@ -2,6 +2,7 @@ package org.grails.plugin
 
 import groovyx.net.http.HTTPBuilder
 import org.grails.auth.User
+import org.joda.time.DateTime
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.transaction.annotation.Transactional
@@ -13,6 +14,13 @@ import org.springframework.transaction.annotation.Transactional
  */
 class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     static transactional = false
+
+    private static final DEFAULT_REPOSITORIES = [
+            "http://plugins.grails.org",
+            "http://repo.grails.org/grails/plugins/",
+            "http://repo.grails.org/grails/core/",
+            "http://svn.codehaus.org/grails/trunk/grails-plugins",
+            "http://repo1.maven.org/maven2/" ]
 
     protected int twitterLimit = 140
 
@@ -85,7 +93,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         def parser = new XmlSlurper()
         def pomUrl = new URL(baseUrl, "${event.name}-${event.version}.pom")
         def xml = null
-        pomUrl.withReader { reader ->
+        pomUrl.withReader("UTF-8") { reader ->
             xml = parser.parse(reader)
         }
         
@@ -105,11 +113,15 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         // Now do the same with the XML plugin descriptor.
         def descUrl = new URL(baseUrl, "${event.name}-${event.version}-plugin.xml")
-        descUrl.withReader { reader ->
+        descUrl.withReader("UTF-8") { reader ->
             xml = parser.parse(reader)
         }
 
         plugin.grailsVersion = xml.@grailsVersion.text()
+
+        // Fetch any custom repositories that may be needed by this plugin.
+        def customRepoUrls = xml.repositories.repository.@url*.text().findAll { !(it in DEFAULT_REPOSITORIES) }
+        addCustomRepositories plugin, customRepoUrls
 
         // Set the download URL for the plugin to the appropriate binary in the
         // repository, whether it be a Maven or Subversion one.
@@ -133,9 +145,14 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // Assuming the instance saved OK, we can announce the release if it's
         // a new version.
         if (isNewVersion && !event.snapshot) {
-			plugin.lastReleased = new Date()
-			announceRelease(plugin)
-		}
+            plugin.lastReleased = new DateTime()
+            def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, plugin.currentRelease)
+            if(pr == null) {
+                pr = new PluginRelease(plugin:plugin,releaseVersion:plugin.currentRelease, downloadUrl: plugin.downloadUrl) 
+                pr.save()
+            }
+            announceRelease(plugin)
+        }
         else log.info "Not a new plugin release - won't tweet"
     }
 
@@ -162,7 +179,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     }
     
     void announceRelease(plugin, version = null) {
-        def pluginUrl = baseUrl + "plugin/${plugin.name}"
+        def pluginUrl = siteBaseUrl + "plugin/${plugin.name}"
         announceOnPluginForum(plugin, version, pluginUrl)
         tweetRelease(plugin, version, pluginUrl)
     }
@@ -170,6 +187,8 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     /**
      * Sends a tweet to @grailsplugins with details of the new release.
      * @param plugin A plugin instance with 'name', 'title' and 'currentRelease'
+     * @param version The version of the plugin
+     * @param url The URL of the plugin
      * properties.
      */
     void tweetRelease(plugin, version, url) {
@@ -177,13 +196,16 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         // Check that the message with standard URL does not exceed the
         // Twitter length limit.
-        if (exceedsTwitterLimit(msg, url)) url = shortenUrl(url)
+        
+	if (exceedsTwitterLimit(msg, url)) url = shortenUrl(url)
 
         // If the message length is still over the Twitter length, we must summarize
         // the message.
+
         if (exceedsTwitterLimit(msg, url)) msg = summarize(msg, twitterLimit - url.size())
 
-        log.info "Tweeting the plugin release"
+        log.info "Tweeting the plugin release. Message: $msg"
+	
         twitterService.updateStatus(msg + url)
     }
     
@@ -211,8 +233,21 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         }
     }
 
-    private getBaseUrl() {
-        return normalize(grailsApplication.config?.grails?.serverURL)
+    protected addCustomRepositories(plugin, repoUrls) {
+        // No need to do anything if there the custom repositories
+        // haven't changed.
+        if (repoUrls == plugin.mavenRepositories) return
+
+        // Take the simple approach: clear the list and re-add
+        // all declared URLs.
+        if (plugin.mavenRepositories == null) plugin.mavenRepositories = []
+
+        plugin.mavenRepositories.clear()
+        plugin.mavenRepositories.addAll repoUrls
+    }
+
+    private getSiteBaseUrl() {
+        return normalize(grailsApplication.config?.grails?.serverURL ?: 'http://localhost:8080/')
     }
 
     private normalize(url) {
@@ -224,7 +259,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     }
 
     private exceedsTwitterLimit(Object[] strs) {
-        return strs*.size().sum() > twitterLimit
+	return strs*.size().sum() > twitterLimit
     }
 
     private summarize(str, limit) {

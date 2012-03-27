@@ -6,20 +6,11 @@ package org.grails.plugin
 import grails.test.GrailsUnitTestCase
 import org.grails.rateable.Rating
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.test.mixin.*
 
-class PluginTests extends GrailsUnitTestCase {
-
-    def cachedConfig 
-    
-    protected void setUp() {
-        super.setUp();
-        mockDomain(Plugin)
-        cachedConfig = ConfigurationHolder.config
-    }
-    
-    protected void tearDown() {
-        ConfigurationHolder.config = cachedConfig
-    }
+import static org.junit.Assert.*
+@TestFor(Plugin)
+class PluginTests {
 
     void testCurrentReleaseValidation() {
         def releaseMap = [
@@ -28,7 +19,6 @@ class PluginTests extends GrailsUnitTestCase {
                 '6.34.667.1': true,
                 '2.5-SNAPSHOT': true,
                 'steve':false,
-                '2.steve.5': false,
                 '.3.4.5': false
         ]
 
@@ -81,9 +71,8 @@ class PluginTests extends GrailsUnitTestCase {
     
     void testFisheyeTransientProperty() {
         def config = new ConfigObject()
-        config.plugins.fisheye = 'fisheyeUrl'
-        ConfigurationHolder.config = config
-        def p = new Plugin(name:'kevin', downloadUrl:'something')
+        grailsApplication.config.plugins.fisheye = 'fisheyeUrl'
+        def p = new Plugin(name:'kevin', downloadUrl:'something', grailsApplication: grailsApplication)
         assertEquals "fisheyeUrl/grails-kevin", p.fisheye
     }
 }

@@ -26,7 +26,10 @@ class JSecurityAuthFilters {
                                                         async:true,
                                                         update:d.params._ul,
                                                         message:"auth.not.logged.in"])
-        } else {
+        } else if(d.response.format == 'text') {
+            d.render status:401, text:"Permission Denied"
+        
+        }else {
             // Redirect to login page.
             d.redirect(
                     controller: 'user',
@@ -100,6 +103,11 @@ class JSecurityAuthFilters {
         comments(controller:"commentable", action:"add") {
             before = {
                 accessControl { true }
+            }
+        }
+        pluginPublishing(controller:"repository", action:"publish") {
+            before = {
+                accessControl { permission "plugin:publish:${params.plugin}" }
             }
         }
         screencasts(controller:"screencast", action:"(edit|create|save|update)") {

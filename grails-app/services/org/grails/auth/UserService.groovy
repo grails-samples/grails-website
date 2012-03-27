@@ -6,6 +6,6 @@ class UserService {
     @Cacheable("permissions")
     def permissionsForUser(principal) {
         def user = User.findByLogin(principal)
-        return user.roles*.permissions.inject([] as Set) { set, permList -> set.addAll permList; set }
+        return (user.permissions ?: []) + (user.roles*.permissions?.flatten() ?: []).unique()
     }
 }

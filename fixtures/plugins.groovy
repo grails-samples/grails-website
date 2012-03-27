@@ -3,6 +3,7 @@ import org.grails.content.Version
 import org.grails.plugin.License
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginTab
+import org.joda.time.DateTime
 
 fixture {
     build {
@@ -61,6 +62,7 @@ fixture {
                 author: "Peter Ledbrook",
                 organization: "KataSoft",
                 summary: "Integrates the Apache Shiro security framework into your Grails applications.",
+                lastReleased: new DateTime(2009, 12, 10, 10, 00),
                 installation: shiroInstallation,
                 description: shiroDescription,
                 faq: shiroFaq,
@@ -106,6 +108,7 @@ fixture {
                 currentRelease: "1.0.1",
                 author: "Grails Plugin Collective",
                 summary: "Declare sample data using a Spring Bean DSL like syntax and load it form anywhere in your application: tests, BootStrap, controllers, in fact anyhere. Also integrates with Build Test Data plugin.",
+                lastReleased: new DateTime(2011, 5, 5, 17, 11),
                 installation: fixturesInstallation,
                 description: fixturesDescription,
                 faq: fixturesFaq,
@@ -160,6 +163,7 @@ This is a test list:
 * Two
 * What comes next?
 """,
+                lastReleased: new DateTime(2012, 1, 23, 0, 0),
                 installation: btdInstallation,
                 description: btdDescription,
                 faq: btdFaq,
@@ -205,6 +209,7 @@ This is a test list:
                 author: "SpringSource",
                 organization: "SpringSource",
                 organizationUrl: "http://www.springsource.org/",
+                lastReleased: new DateTime(2011, 12, 31, 0, 0),
                 installation: hibernateInstallation,
                 description: hibernateDescription,
                 faq: hibernateFaq,
@@ -249,6 +254,7 @@ This is a test list:
                 title: "Tomcat",
                 currentRelease: "1.3.4",
                 author: "SpringSource",
+                lastReleased: new DateTime(2010, 8, 11, 22, 30),
                 installation: tomcatInstallation,
                 description: tomcatDescription,
                 faq: tomcatFaq,
@@ -294,6 +300,7 @@ This is a test list:
                 currentRelease: "0.2.3-SNAPSHOT",
                 grailsVersion: "1.1 > *",
                 author: "Peter Ledbrook",
+                lastReleased: new DateTime(2010, 8, 10, 14, 21),
                 installation: gwtInstallation,
                 description: gwtDescription,
                 faq: gwtFaq,
@@ -343,9 +350,61 @@ This is a test list:
                 issuesUrl: "http://jira.grails.org/browse/GPGEMFIRE",
                 scmUrl: "https://github.com/grails-plugins/grails-gemfire",
                 documentationUrl: "http://grails-plugins.github.com/grails-gemfire/",
+                lastReleased: new DateTime(2011, 3, 7, 8, 30),
                 installation: gemfireInstallation,
                 description: gemfireDescription,
                 faq: gemfireFaq,
                 screenshots: gemfireScreenshots)
+
+        // Spock
+        spockInstallation(PluginTab, title: "plugin-spock-installation", body: "@grails install-plugin spock@")
+        gfiVersion(Version,
+                title: spockInstallation.title,
+                body: spockInstallation.body,
+                number: 0,
+                current: spockInstallation,
+                author: admin)
+        
+        spockDescription(PluginTab, title: "plugin-spock-description", body: "")
+        gfdVersion(Version,
+                title: spockDescription.title,
+                body: spockDescription.body,
+                number: 0,
+                current: spockDescription,
+                author: admin)
+        
+        spockFaq(PluginTab, title: "plugin-spock-faq", body: "")
+        gffVersion(Version,
+                title: spockFaq.title,
+                body: spockFaq.body,
+                number: 0,
+                current: spockFaq,
+                author: admin)
+        
+        spockScreenshots(PluginTab, title: "plugin-spock-screenshots", body: "")
+        gfsVersion(Version,
+                title: spockScreenshots.title,
+                body: spockScreenshots.body,
+                number: 0,
+                current: spockScreenshots,
+                author: admin)
+        
+        spock(Plugin,
+                name: "spock",
+                groupId: "org.spockframework.grails",
+                title: "Spock Plugin",
+                summary: "Allows you to write your tests using Spock instead of JUnit.",
+                currentRelease: "1.0",
+                grailsVersion: "1.3 > *",
+                featured: true,
+                issuesUrl: "http://jira.grails.org/browse/GPSPOCK",
+                scmUrl: "https://github.com/grails-plugins/grails-spock",
+                documentationUrl: "http://grails-plugins.github.com/grails-spock/",
+                lastReleased: new DateTime(2011, 3, 7, 15, 59),
+                installation: spockInstallation,
+                description: spockDescription,
+                faq: spockFaq,
+                screenshots: spockScreenshots,
+                mavenRepositories: ["http://m2repo.spockframework.org/snapshots", "http://repo.grails.org/spock"])
     }
 }

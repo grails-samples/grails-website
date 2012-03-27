@@ -37,7 +37,7 @@ beans = {
     }
     contentCache(EhCacheFactoryBean) {
         timeToLive = 300
-        maxElementsInMemory = 200
+        maxElementsInMemory = 1000
         overflowToDisk=false        
     }
     wikiCache(EhCacheFactoryBean) {

@@ -11,6 +11,7 @@ import org.grails.content.Content
 import org.codehaus.groovy.grails.plugins.codecs.URLCodec
 import org.grails.wiki.*
 import org.grails.plugin.PluginService
+import grails.test.mixin.*
 
 /**
  * @author Graeme Rocher
@@ -18,111 +19,58 @@ import org.grails.plugin.PluginService
  *
  * Created: Feb 28, 2008
  */
-class ContentControllerTests extends grails.test.ControllerUnitTestCase {
+@TestFor(ContentController)
+@Mock([BlogEntry, Content, WikiPage, Version])
+class ContentControllerSpec extends spock.lang.Specification {
 
-    protected void setUp() {
-        super.setUp();
-
-        String.metaClass.decodeURL = { URLCodec.decode delegate }
-        String.metaClass.encodeAsURL = { URLCodec.encode delegate }
+    void "Test index no id"() {
+        when:"A POST request is issued with no id"
+            request.method = "POST"
+            CacheService cacheService = Mock()
+            controller.wikiPageService = new WikiPageService(cacheService: cacheService)
+            controller.index()
+        then:"The home page is rendered"
+            response.status == 404
     }
 
-    protected void tearDown() {
-        def remove = GroovySystem.metaClassRegistry.&removeMetaClass
-        remove ContentController
-        remove NewsItem
-        remove WikiPage
-        remove BlogEntry
-        remove Content
-        remove Version
-        remove ContentController
-    }
-
-    void testIndexNoId() {
-        mockDomain(BlogEntry)
-        ContentController.metaClass.getRequest = {-> [method: "POST"] }
-        ContentController.metaClass.getParams = {-> [id: null] }
-
-        def renderParams = [:]
-
-        def controller = new ContentController()
-        controller.metaClass.getPluginService = { -> [newestPlugins: { num -> [] } ] }
-        controller.metaClass.getScreencastService = { -> [getLatestScreencastId: { -> 5 } ] }
-        controller.metaClass.render = {Map args -> renderParams = args }
-
-        controller.index()
-
-        assertEquals "homePage", renderParams.view
-
-    }
-
-    void testIndexHomeId() {
-        mockDomain(BlogEntry)
-        ContentController.metaClass.getRequest = {-> [method: "POST"] }
-        ContentController.metaClass.getParams = {-> [id: "Home"] }
-
-        def renderParams = [:]
-        
-        def controller = new ContentController()
-        controller.metaClass.getPluginService = { -> [newestPlugins: { num -> [] } ] }
-        controller.metaClass.getScreencastService = { -> [getLatestScreencastId: { -> 5 } ] }
-        controller.metaClass.render = {Map args -> renderParams = args }
-
-        controller.index()
-
-        assertEquals "homePage", renderParams.view
+    void "Test index with id"() {
+        when:"A POST request is issued with an id for a page that doesn't exist"
+            request.method = "POST"
+            params.id = "home"
+            CacheService cacheService = Mock()
+            controller.wikiPageService = new WikiPageService(cacheService: cacheService)
+            controller.index()
+        then:"The home page is rendered"
+            response.status == 404
     }
 
 
-    void testIndexWikiPageNormalRequest() {
-        mockRequest.method = 'POST'
-        mockParams.id = 'Introduction'
-
-        def wikiPage = new WikiPage(title: 'Introduction')
-        mockDomain(WikiPage, [wikiPage])
-        wikiPage.metaClass.getComments = { -> [] }
-
-        def controller = new ContentController()
-
-        def manager = CacheManager.create()
-        manager.addCache "test1"
-        Cache cache = manager.getCache("test1")
-        def wikiPageService = new WikiPageService()
-        wikiPageService.cacheService = new CacheService(contentCache: cache)
-        controller.wikiPageService = wikiPageService
-
-        controller.index()
-
-        assertEquals "contentPage", renderArgs.view
-        assertTrue renderArgs.model.content instanceof WikiPage
-        assertEquals "Introduction", renderArgs.model.content.title
-
-        assertEquals renderArgs.model.content, cache.get("Introduction")?.getValue()
+    void "Test index action with id for page that exists"() {
+        when:"A POST request is issued with an id for a page that exists"
+            request.method = "POST"
+            params.id = "Introduction"
+            new WikiPage(title:"Introduction").save(flush:true,validate:false)
+            CacheService cacheService = Mock()
+            controller.wikiPageService = new WikiPageService(cacheService: cacheService)
+            controller.index()
+        then:"The page is rendered"
+            assert "/content/contentPage" == view
+            assert model.content instanceof WikiPage
+            assert "Introduction" == model.content.title
     }
 
-    void testIndexWikiPageAjaxRequest() {
-        ContentController.metaClass.getRequest = {-> [method: "POST", xhr: true] }
-        ContentController.metaClass.getParams = {-> [id: "Introduction"] }
-        mockParams.id = 'Introduction'
+    void "Test index action with id for a page that exists with Ajax"() {
+        when:"An ajax request with an id for a page that exists is executed"
+            request.makeAjaxRequest()
+            request.method = "POST"
+            params.id = "Introduction"
+            new WikiPage(title:"Introduction").save(flush:true,validate:false)
+            CacheService cacheService = Mock()
+            controller.wikiPageService = new WikiPageService(cacheService: cacheService)
+            controller.index()
 
-        def wikiPage = new WikiPage(title: 'Introduction')
-        mockDomain(WikiPage, [wikiPage])
-        wikiPage.metaClass.getComments = { -> [] }
-
-        def manager = CacheManager.create()
-        manager.addCache "test2"
-        Cache cache = manager.getCache("test2")
-        def wikiPageService = new WikiPageService()
-        wikiPageService.cacheService = new CacheService(contentCache: cache)
-        controller.wikiPageService = wikiPageService
-
-        controller.index()
-
-        assertEquals "wikiShow", renderArgs.template
-        assertTrue renderArgs?.model?.content instanceof WikiPage
-        assertEquals "Introduction", renderArgs?.model?.content?.title
-
-        assertEquals renderArgs?.model?.content, cache.get("Introduction")?.getValue()
+        then:"The page is rendered as a template"
+            response.text.contains 'wiki:text key="Introduction"'
     }
 
     void testShowWikiVersion() {

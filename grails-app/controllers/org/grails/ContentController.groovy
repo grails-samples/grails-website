@@ -14,6 +14,7 @@ import org.compass.core.engine.SearchEngineQueryParseException
 import org.grails.blog.BlogEntry
 import org.grails.content.Content
 import org.grails.content.Version
+import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
 import org.grails.wiki.BaseWikiController
 import org.grails.wiki.WikiPage
@@ -34,76 +35,9 @@ class ContentController extends BaseWikiController {
     def textCache
     def wikiPageService
     def grailsUrlMappingsHolder
+    def imageUploadService
 
-    def search = {
-        if(params.q) {
-            def q = "+(${params.q}) -deprecated:true".toString()
-            try {
-                def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape:false)
-                flash.message = "Found $searchResult.total results!"
-                flash.next()
-                render view:"/searchable/index", model: [searchResult: searchResult]
-            }
-            catch (SearchEngineQueryParseException ex) {
-                render view: "/searchable/index", model: [parseException: true]
-            }
-            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
-                render view: "/searchable/index", model: [clauseException: true]
-            }
-        }
-        else {
-            render(view:"homePage")
-        }
-    }
-
-    def latest = {
-
-         def engine = createWikiEngine()
-
-         def feedOutput = {
-
-            def top5 = WikiPage.listOrderByLastUpdated(order:'desc', max:5)
-            title = "Grails.org Wiki Updates"
-            link = "http://grails.org/wiki/latest?format=${request.format}"
-            description = "Latest wiki updates Grails framework community"
-
-            for(item in top5) {
-                entry(item.title) {
-                    link = "http://grails.org/${item.title.encodeAsURL()}"
-                    publishedDate = item.dateCreated
-                    engine.render(item.body, context)
-                }
-            }
-         }
-
-        withFormat {
-            html {
-                redirect(uri:"")
-            }
-            rss {
-                render(feedType:"rss",feedOutput)
-            }
-            atom {
-                render(feedType:"atom", feedOutput)
-            }
-        }
-    }
-
-    def previewWikiPage = {
-        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
-            // This is required for the 'page.properties = ...' call to work. 
-            page = GrailsHibernateUtil.unwrapIfProxy(page)
-            
-            def engine = createWikiEngine()
-            page.discard()
-            page.properties = params
-
-            render( engine.render(page.body, context) )
-        }
-    }
-
-    def index = {
+    def index() {
         def wikiPage = wikiPageService.getCachedOrReal(params.id)
         if (wikiPage?.instanceOf(PluginTab)) {
             def plugin = wikiPage.plugin
@@ -141,13 +75,83 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def postComment = {
+    def gettingStarted() {}
+
+    def search() {
+        if(params.q) {
+            def q = "+(${params.q}) -deprecated:true".toString()
+            try {
+                def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape:false)
+                flash.message = "Found $searchResult.total results!"
+                flash.next()
+                render view:"/searchable/index", model: [searchResult: searchResult]
+            }
+            catch (SearchEngineQueryParseException ex) {
+                render view: "/searchable/index", model: [parseException: true]
+            }
+            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
+                render view: "/searchable/index", model: [clauseException: true]
+            }
+        }
+        else {
+            render(view:"homePage")
+        }
+    }
+
+    def latest() {
+
+         def engine = createWikiEngine()
+
+         def feedOutput = {
+
+            def top5 = WikiPage.listOrderByLastUpdated(order:'desc', max:5)
+            title = "Grails.org Wiki Updates"
+            link = "http://grails.org/wiki/latest?format=${request.format}"
+            description = "Latest wiki updates Grails framework community"
+
+            for(item in top5) {
+                entry(item.title) {
+                    link = "http://grails.org/${item.title.encodeAsURL()}"
+                    publishedDate = item.dateCreated?.toDate()
+                    engine.render(item.body, context)
+                }
+            }
+         }
+
+        withFormat {
+            html {
+                redirect(uri:"")
+            }
+            rss {
+                render(feedType:"rss",feedOutput)
+            }
+            atom {
+                render(feedType:"atom", feedOutput)
+            }
+        }
+    }
+
+    def previewWikiPage() {
+        def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
+        if(page) {
+            // This is required for the 'page.properties = ...' call to work. 
+            page = GrailsHibernateUtil.unwrapIfProxy(page)
+            
+            def engine = createWikiEngine()
+            page.discard()
+            page.properties = params
+
+            render( engine.render(page.body, context) )
+        }
+    }
+
+    def postComment() {
         def content = Content.get(params.id)
         content.addComment(request.user, params.comment)
         render(template:'/comments/comment', var:'comment', bean:content.comments[-1])
     }
 
-    def showWikiVersion = {
+    def showWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         def version
         if (page) {
@@ -175,7 +179,7 @@ class ContentController extends BaseWikiController {
 
     }
 
-    def markupWikiPage = {
+    def markupWikiPage() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
 
         if(page) {
@@ -183,7 +187,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def infoWikiPage = {
+    def infoWikiPage() {
         def page = Content.findAllByTitle(params.id, [cache:true]).find { !it.instanceOf(Version) }
 
         if(page) {
@@ -208,7 +212,7 @@ class ContentController extends BaseWikiController {
 
     }
 
-    def editWikiPage = {
+    def editWikiPage() {
         if(!params.id) {
             render(template:"/shared/remoteError", model: [code:"page.id.missing"])
         }
@@ -230,14 +234,14 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def createWikiPage = {
+    def createWikiPage() {
         if (params.xhr) {
             return render(template:'wikiCreate', var:'pageName', bean:params.id)
         }
         [pageName:params.id]
     }
 
-    def saveWikiPage = {
+    def saveWikiPage() {
         if (!params.id) {
             render(template:"/shared/remoteError", model:[code:"page.id.missing"])
         }
@@ -284,7 +288,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def rollbackWikiVersion = {
+    def rollbackWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             def version = Version.findByCurrentAndNumber(page, params.number.toLong())
@@ -343,7 +347,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def diffWikiVersion = {
+    def diffWikiVersion() {
 
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
@@ -364,7 +368,7 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def previousWikiVersion = {
+    def previousWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
         if(page) {
             def leftVersion = params.number.toLong()
@@ -388,41 +392,76 @@ class ContentController extends BaseWikiController {
 
     }
 
-    def uploadImage = {
-        def config = ConfigurationHolder.getConfig()
-        if(request.method == 'POST') {
-            MultipartFile file = request.getFile('file')
-            ServletContext context = getServletContext()
-            def path = context.getRealPath("/images${ params.id ? '/' + params.id.encodeAsURL() : '' }" )
-            log.info "Uploading image, file: ${file.originalFilename} (${file.contentType}) to be saved at $path"
-            if(config.wiki.supported.upload.types?.contains(file.contentType)) {
-                def newFilename = file.originalFilename.replaceAll(/\s+/, '_')
-                File targetFile = new File("$path/${newFilename}")
-                if(!targetFile.parentFile.exists()) targetFile.parentFile.mkdirs()
-                log.info "Target file: ${targetFile.absolutePath}"
+    def uploadImage() {
+        def message = null
+        def uploadTypes = grailsApplication.config.wiki.supported.upload.types ?: []
+
+        if (request.method == 'POST') {
+            MultipartFile file = request.getFile('image')
+            log.info "Uploading image, file: ${file.originalFilename} (${file.contentType})"
+            if (uploadTypes?.contains(file.contentType)) {
+
                 try {
-                    log.info "Attempting file transfer..."
-                    file.transferTo(targetFile)
-                    log.info "Success! Rendering message back to view"
-                    render(view:"/common/iframeMessage", model:[pageId:"upload",
-                            frameSrc: g.createLink(controller:'content', action:'uploadImage', id:params.id),
-                            message: "Upload complete. Use the syntax !${params.id ? params.id.encodeAsURL() + '/' : ''}${newFilename}! to refer to your file"])
-                } catch (Exception e) {
-                    log.error(e.message, e)
-                    render(view:"/common/uploadDialog",model:[category:params.id,message:"Error uploading file!"])
+                    def newFilename = file.originalFilename.replaceAll(/\s+/, '_')
+                    def wikiImage = new WikiImage(params)
+                    wikiImage.name = getImageName(params.id, newFilename)
+                    if (wikiImage.save()) {
+                        imageUploadService.save(wikiImage)
+
+                        render view: "/common/iframeMessage", model: [
+                                pageId: "upload",
+                                frameSrc: g.createLink(controller: 'content', action: 'uploadImage', id: params.id),
+                                message: "Upload complete. Use the syntax !${wikiImage.name}! to refer to your file"]
+
+                        // Break out on successful upload.
+                        return
+                    }
+                    else {
+                        message = "Error uploading file! " +
+                                g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')
+                    }
+                }
+                catch (Exception e) {
+                    log.error e.message, e
+                    message = "Error uploading file! Info: ${e.message}"
                 }
             }
             else {
                 log.info "Bad file type, rendering error message to view"
-                render(view:"/common/uploadDialog",model:[category:params.id,message:"File type not in list of supported types: ${config.wiki.supported.upload.types?.join(',')}"])
+                message = "File type not in list of supported types: ${uploadTypes?.join(',')}"
             }
         }
+
+        render view: "/common/uploadDialog", model: [category: params.id, message: message]
+    }
+
+    /**
+     * Renders an image that was uploaded to a wiki page. It delegates to the
+     * Burning Image plugin's controller for serving up images, but it first
+     * has to work out the correct parameters to pass to that controller.
+     */
+    def showImage(String path) {
+        def wikiImage = WikiImage.findByName(path)
+        if (wikiImage) {
+            // Copied and modified from BurningImageTagLib. The WikiImage
+            // domain class has a generated property 'biImage' that contains
+            // the attached images - one for each configured size. We use
+            // the BI image to pass the required parameters to the BI
+            // controller.
+            def size = "large"
+            def image = wikiImage.biImage[size]
+            cache neverExpires: true
+            forward controller: "dbContainerImage", action: "index", params: [
+                    imageId: image.ident(),
+                    size: size,
+                    type: image.type ]
+        }
         else {
-            render(view:"/common/uploadDialog", model:[category:params.id])
+            response.sendError 404
         }
     }
 
-    def deprecate = {
+    def deprecate() {
         def page = WikiPage.findByTitle(params.id)
         if (!page) {
             response.sendError 404
@@ -443,7 +482,7 @@ class ContentController extends BaseWikiController {
         redirect action: "index", id: params.id
     }
     
-    def homePage = {
+    def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
         def newsItems = BlogEntry.list(max:3, cache:true, order:"desc", sort:"dateCreated")
@@ -461,5 +500,21 @@ class ContentController extends BaseWikiController {
         return [ newestPlugins: newestPlugins, 
                  newsItems: newsItems,
                  latestScreencastId: latestScreencastId ]
+    }
+
+    def screencastLegacy() {
+        redirect controller: "screencast", action: "list", permanent: true
+    }
+
+    /**
+     * Constructs an name for a wiki page image based on the name of a wiki
+     * page (preferably the one the image is on!) and the original filename
+     * of that image.
+     */
+    protected String getImageName(String wikiPageId, String filename) {
+        def b = new StringBuilder()
+        if (wikiPageId) b << wikiPageId << '/'
+        b << filename
+        return b.toString()
     }
 }

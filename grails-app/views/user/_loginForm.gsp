@@ -1,6 +1,7 @@
 <g:setProvider library="yui" />
 
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
+<g:set var="paramExclusions" value="['login', 'async', 'Submit', 'controller', 'action']"/>
 
 <g:render template="/common/messages" model="${pageScope.getVariables() + [bean:wikiPage]}" />
 
@@ -18,7 +19,7 @@
         </div>
         <g:hiddenField name="originalURI" value="${originalURI ?: formData?.originalURI}" />
         <g:each in="${formData}" var="d">
-           	<g:if test="${!(d.value instanceof Map) && d.key != 'login'}">
+            <g:if test="${!(d.value instanceof Map) && !(d.key in paramExclusions)}">
                 <g:hiddenField name="${d.key}" value="${d.value}" />
             </g:if>
         </g:each>

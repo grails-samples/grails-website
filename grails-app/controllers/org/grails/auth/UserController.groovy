@@ -21,50 +21,83 @@ class UserController {
 
     def mailService
 
-	String randomPass() {
-		UUID uuid = UUID.randomUUID()
-		uuid.toString()[0..7]
-	}
-	
-	def passwordReminder = {
-		if(request.method == 'POST') {
-			def user = User.findByLogin(params.login)
-			if(user && user.login!='admin') {
-				def newPassword = randomPass()
-				user.password = DigestUtils.shaHex(newPassword)
-				user.save()
-				mailService.sendMail {
-					from "wiki@grails.org"
-					to user.email
-					title "Grails.org password reset"
-					body "Your password has been reset. Please login with the following password: ${newPassword}"
-				}
-			}
-			else {
-				flash.message = "Username not found"
-			}
-		}
-	}
+    def show() {
+        if (!params.id) {
+            render status: 404, text: "No ID specified"
+            return
+        }
 
-    def profile = {
+        def user
+        if (params.id.isLong()) {
+            user = User.get(params.id)
+        }
+        else {
+            user = User.findByLogin(params.id)
+        }
+
+        if (!user) {
+            render status: 404, text: "No user found with ID '${params.id}'"
+            return
+        }
+
+        [userInstance: user]
+    }
+
+    def update(Long id) {
+        def user = User.get(id)
+
+        if(user) {
+            bindData user, params, [exclude: ["permissions"]]
+            setPermissionsFromString user, params.permissions
+
+            if(!user.save(flush:true)) {
+               render view:"edit", model:[userInstance:user]
+            }
+            else {
+               redirect action:"show", id: user.id
+            }
+        } else {
+            redirect action:"list"
+        }   
+    }
+
+    def passwordReminder() {
+        if(request.method == 'POST') {
+            def user = User.findByLogin(params.login)
+            if(user && user.login!='admin') {
+                def newPassword = randomPass()
+                user.password = DigestUtils.shaHex(newPassword)
+                user.save()
+                mailService.sendMail {
+                    from "wiki@grails.org"
+                    to user.email
+                    title "Grails.org password reset"
+                    body "Your password has been reset. Please login with the following password: ${newPassword}"
+                }
+            }
+            else {
+                flash.message = "Username not found"
+            }
+        }
+    }
+
+    def profile() {
         def userInfo = UserInfo.findByUser(request.user)
         if(request.method == 'POST') {
             if(!userInfo) userInfo = new UserInfo(user:request.user)
             userInfo.properties = params
             userInfo.save()
-			if(params.password) {
-				request.user.password = DigestUtils.shaHex(params.password) 
-				request.user.save()
-			}
+            if(params.password) {
+                request.user.password = DigestUtils.shaHex(params.password) 
+                request.user.save()
+            }
         }
         return [user:request.user, userInfo:userInfo]
 
     }
 
-    def register = {
-        def renderParams = [ model:[originalURI:params.originalURI,
-                      formData:params,
-                      async:request.xhr] ]
+    def register(){
+        def renderParams = [ model:[originalURI:params.originalURI, async:request.xhr] ]
         
         if(request.xhr)
             renderParams.template = "registerForm"
@@ -128,12 +161,12 @@ class UserController {
 
     }
 
-    def logout = {
+    def logout() {
         SecurityUtils.subject.logout()
         redirect(uri:"/")
     }
 
-    def login = {
+    def login() {
         if(request.method == 'POST') {
             def authToken = new UsernamePasswordToken(params.login, params.password)
 
@@ -164,7 +197,6 @@ class UserController {
                     params.remove 'password'
                     render(template:"loginForm", model:[originalURI:params.remove('originalURI'),
                                                         update: params._ul,
-                                                        formData:params,
                                                         async:true,
                                                         message:"auth.invalid.login"])
                 } else {
@@ -178,5 +210,24 @@ class UserController {
         }
     }
 
-    def unauthorized = {}
+    def unauthorized()  {}
+
+    protected String randomPass() {
+        UUID uuid = UUID.randomUUID()
+        uuid.toString()[0..7]
+    }
+
+    protected setPermissionsFromString(user, String newlineSeparatedPermissions) {
+        newlineSeparatedPermissions = newlineSeparatedPermissions?.trim()
+        def perms = !newlineSeparatedPermissions ? [] : (newlineSeparatedPermissions.split(/\s*[\n;]\s*/) as List)
+
+        // Take the simple approach: clear the list and re-add all declared permissions.
+        if (user.permissions == null) {
+            user.permissions = perms
+        }
+        else {
+            user.permissions.clear()
+            user.permissions.addAll perms
+        }
+    }
 }

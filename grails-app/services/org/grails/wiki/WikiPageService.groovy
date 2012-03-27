@@ -8,7 +8,6 @@ import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginTab
-
 /*
  * author: Matthew Taylor
  */
@@ -71,7 +70,7 @@ class WikiPageService {
     
     def createContent(Content content, User user) {
         if (content.locked == null) content.locked = false
-        content.save()
+        content.save(flush:true)
         if (!content.hasErrors()) {
             Version v = content.createVersion()
             v.author = user

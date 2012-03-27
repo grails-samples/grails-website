@@ -9,7 +9,7 @@
         <g:renderErrors bean="${tutorial}"></g:renderErrors>
         <div id="artifactForm" class="artifactForm">
         
-            <g:uploadForm name="uploadArtifactForm" url="[action:'update',id:tutorial.id]">
+            <g:uploadForm name="uploadArtifactForm" action="update" id="${tutorial.id}">
                 <label for="tutorial.title">Title:</label> 
                 <g:textField name="tutorial.title" value="${tutorial.title}" /> 
                 <label for="tutorial.description">Description:</label> 

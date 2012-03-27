@@ -1,5 +1,9 @@
 package org.grails.plugin
 
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import org.joda.time.format.ISODateTimeFormat
+
 import grails.converters.JSON
 import grails.converters.XML
 import grails.plugin.springcache.annotations.*
@@ -7,6 +11,7 @@ import grails.plugin.springcache.annotations.*
 import javax.persistence.OptimisticLockException
 import javax.servlet.http.HttpServletResponse
 
+import org.apache.commons.codec.digest.DigestUtils
 import org.apache.shiro.SecurityUtils
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
@@ -35,37 +40,27 @@ class PluginController extends BaseWikiController {
     def taggableService
     def wikiPageService
     def pluginService
-    def commentService
-    def grailsUrlMappingsHolder
+    def dateService
 
     def home() {
-        // We only want to display 5 plugins at a time in the web interface,
-        // but JSON and XML data shouldn't be limited in that way.
-        def max = 0
-        if (response.format == 'html') {
-            max = PORTAL_MAX_RESULTS
-        }
-
-        // If no category is specified, default to 'featured' for the
-        // web interface, and 'all' for JSON and XML requests.
-        def fetchInstalled = params.category == "installed"
-        def pluginData = listPlugins(max, (response.format == 'html' ? 'featured' : 'all'))
-
         withFormat {
             html {
+                def fetchInstalled = params.category == "installed"
+                def pluginData = listPlugins(PORTAL_MAX_RESULTS, "featured")
                 if (fetchInstalled && !pluginData.currentPlugins) {
                     pluginData.message = "Not enough data has been collected yet. This will start working once enough people have adopted Grails 2."
                 }
                 return pluginData
             }
             json {
-                render transformPlugins(pluginData.currentPlugins, pluginData.category) as JSON
+                forward action: "apiList"
             }
             xml {
-                renderMapAsXml transformPlugins(pluginData.currentPlugins, pluginData.category), "plugins"
+                forward action: "apiList"
             }
         }
     }
+
 
     def legacyHome() {
         redirect action: "home", permanent: true
@@ -130,19 +125,42 @@ class PluginController extends BaseWikiController {
      * Display the details of one plugin in either JSON or XML form.
      */
     def apiShow() {
-        def plugin = byName(params)
-        if (!plugin) {
-            response.sendError 404
-            return
-        }
-
-        plugin = transformPlugin(plugin)
-        withFormat {
-            json {
-                render plugin as JSON
+        if(params.name && params.version) {
+            def p = params.name
+            def v = params.v
+            def release = PluginRelease.where {
+                plugin.name == p && releaseVersion == v 
             }
-            xml {
-                renderMapAsXml plugin, "plugin"
+            if(release.exists()) {
+                def plugin = transformPluginRelease(release)
+                withFormat {
+                    json {
+                        render plugin as JSON        
+                    }
+                    xml {
+                        renderMapAsXml plugin, "plugin"
+                    }
+                }
+            }
+            else {
+                render status:404
+            }
+        }
+        else {
+            def plugin = byName(params)
+            if (!plugin) {
+                response.sendError 404
+                return
+            }
+
+            plugin = transformPlugin(plugin)
+            withFormat {
+                json {
+                    render plugin as JSON
+                }
+                xml {
+                    renderMapAsXml plugin, "plugin"
+                }
             }
         }
     }
@@ -207,15 +225,18 @@ class PluginController extends BaseWikiController {
             if(request.method == 'POST') {
                 // Update the plugin's properties, but exclude 'zombie'
                 // because only an administrator can set that.
-                bindData plugin, params, [ "zombie" ]
+                bindData plugin, params, [include: Plugin.WHITE_LIST]
+                setRepositoryUrlsFromString plugin, params.mavenRepositoryUrls
+
                 if (!plugin.validate()) {
                     return render(view:'editPlugin', model: [plugin:plugin])
                 }
-                if (!plugin.isNewerThan(params.currentRelease)) {
-                    plugin.lastReleased = new Date();
-                }
-                // Update 'zombie' if we have an administrator.
+
+                // Update 'zombie' if we have an administrator. Same with 'featured'
+                // and 'official'.
                 if (SecurityUtils.subject.hasRole(Role.ADMINISTRATOR)) {
+                    plugin.featured = params.featured ?: false
+                    plugin.official = params.official ?: false
                     plugin.zombie = params.zombie ?: false
                 }
                 
@@ -233,6 +254,8 @@ class PluginController extends BaseWikiController {
         // just in case this was an ad hoc creation where the user logged in during the creation...
         if (params.name) params.name = params.name - '?action=login'
         def plugin = new Plugin(params)
+        setRepositoryUrlsFromString plugin, params.mavenRepositoryUrls
+
         if(request.method == 'POST') {
             pluginService.initNewPlugin(plugin, request.user)
             
@@ -287,7 +310,7 @@ class PluginController extends BaseWikiController {
                 entry(item.title) {
                     link = "http://grails.org/plugin/${item.name.encodeAsURL()}"
                     author = item.author
-                    publishedDate = item.lastUpdated
+                    publishedDate = item.lastUpdated?.toDate()
                     item.summary
                 }
             }
@@ -349,7 +372,7 @@ class PluginController extends BaseWikiController {
     def postComment = {
         def plugin = Plugin.get(params.id)
         plugin.addComment(request.user, params.comment)
-        plugin.save(flush:true)
+        pluginService.savePlugin(plugin)
         return render(template:'/comments/comment', var:'comment', bean:plugin.comments[-1])
     }
 
@@ -358,15 +381,14 @@ class PluginController extends BaseWikiController {
         params.newTag.trim().split(',').each { newTag ->
             plugin.addTag(newTag.trim())
         }
-        Plugin.reindex(plugin)
+        pluginService.savePlugin(plugin)
         render(template:'tags', var:'plugin', bean:plugin)
     }
 
     def removeTag = {
         def plugin = Plugin.get(params.id)
         plugin.removeTag(params.tagName)
-        plugin.save()
-        Plugin.reindex(plugin)
+        pluginService.savePlugin(plugin)
         render(template:'tags', var:'plugin', bean:plugin)
     }
 
@@ -438,6 +460,7 @@ class PluginController extends BaseWikiController {
                 (currentPlugins, totalPlugins) = pluginService.searchWithTotal(*args)
             }
             else {
+                queryParams["fetch"] = [licenses: "select"]
                 (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
             }
             return [currentPlugins: currentPlugins, category: category,totalPlugins: totalPlugins]
@@ -446,6 +469,21 @@ class PluginController extends BaseWikiController {
             log.error "Unable to list plugins for category '${category}': ${ex.message}"
             response.sendError 404
             return [:]
+        }
+    }
+
+    protected setRepositoryUrlsFromString(plugin, String commaSeparatedUrls) {
+        commaSeparatedUrls = commaSeparatedUrls?.trim()
+        def urls = !commaSeparatedUrls ? [] : (commaSeparatedUrls.split(/\s*,\s*/) as List)
+
+        // Take the simple approach: clear the list and re-add
+        // all declared URLs.
+        if (plugin.mavenRepositories == null) {
+            plugin.mavenRepositories = urls
+        }
+        else {
+            plugin.mavenRepositories.clear()
+            plugin.mavenRepositories.addAll urls
         }
     }
 
@@ -461,12 +499,16 @@ class PluginController extends BaseWikiController {
                 version: plugin.currentRelease,
                 title: plugin.title,
                 author: plugin.author,
-                authorEmail: plugin.authorEmail,
+                authorEmailMd5: DigestUtils.md5Hex(plugin.authorEmail),
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,
+                official: plugin.official,
+                licenseList: plugin.licenses.collect { l -> [name: l.name, url: l.url] },
+                lastReleased: dateService.getRestDateTime(plugin.lastReleased),
                 file: plugin.downloadUrl,
-                rating: plugin.avgRating ]
+                rating: plugin.avgRating,
+                zombie: plugin.zombie ]
             
         if (plugin.issuesUrl) pluginMap.issues = plugin.issuesUrl
         if (plugin.scmUrl) pluginMap.scm = plugin.scmUrl
@@ -474,6 +516,11 @@ class PluginController extends BaseWikiController {
         return pluginMap
     }
 
+    protected transformPluginRelease(pluginRelease) {
+        def pluginMap = transformPlugin(pluginRelease.plugin)
+        pluginMap.version = pluginRelease.releaseVersion
+        return pluginMap
+    }
     protected renderMapAsXml(map, root = "root") {
         render contentType: "application/xml", {
             "${root}" {
@@ -494,7 +541,7 @@ class PluginController extends BaseWikiController {
                 }
             }
             else {
-                builder."${entry.key}"(entry.value, test: "test")
+                builder."${entry.key}"(entry.value)
             }
         }
     }

@@ -94,6 +94,21 @@ bi {
             contentType = ['image/gif', 'image/png', 'image/jpeg']
         }
     }
+
+    WikiImage {
+        prefix = 'wiki-'
+        images {
+            large {
+                scale = [width: 600, height: 700, type: ScaleType.APPROXIMATE]
+            }
+        }
+        constraints {
+            nullable = true
+            maxSize = 2 * 1024 * 1024
+            contentType = ['image/gif', 'image/png', 'image/jpeg']
+        }
+    }
+    
 }
 
 
@@ -132,6 +147,7 @@ myAuth.applicationName = grails.org
 
 [urls]
 /plugin/** = myAuth[PUT]
+/api/v1.0/publish/** = myAuth[POST]
 """
 
 springcache {
@@ -143,6 +159,7 @@ springcache {
         overflowToDisk = false
     }
     caches {
+
         contentCache {
             // set any properties unique to this cache
             timeToLive = 300
@@ -171,12 +188,19 @@ twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
 twitter4j.oauth.accessSecret="test"
 
 
+rest.dateFormat = "yyyy-MM-dd"
 format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"
 blog.page.layout="subpage"
 grails.blog.author.evaluator= {
     request.user
 }
+
+grails.gorm.default.mapping = {
+    'user-type' type: org.jadira.usertype.dateandtime.joda.PersistentDateTime, class: org.joda.time.DateTime
+    'user-type' type: org.jadira.usertype.dateandtime.joda.PersistentLocalDate, class: org.joda.time.LocalDate
+}
+
 
 // Enable these in a site-config.groovy file.
 /*
@@ -198,4 +222,10 @@ log4j = {
             'org.codehaus.groovy.grails.plugins', // plugins
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework'
+            
+    //debug 'grails.app.services'
+    //debug 'grails.app.controllers'
+    //debug 'org.grails.auth'
+    //trace 'org.apache.shiro'
+    //debug 'org.codehaus.groovy.grails.web.mapping'
 }

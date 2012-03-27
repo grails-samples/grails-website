@@ -1,11 +1,12 @@
 import org.grails.downloads.*
+import org.joda.time.DateTime
 
 fixture {
     download140m1(Download,
             softwareName: "Grails",
             softwareVersion: "1.4.0.M1",
             betaRelease: true,
-            releaseDate: new Date(111,3, 30),
+            releaseDate: new DateTime(2011, 4, 30, 0, 0),
             files: [
                 [ title: "Binary Zip", mirrors: [
                     new Mirror(name: "grails.org", urlString: "http://grails.org/dist/grails-1.4.0.M1.zip"),
@@ -17,7 +18,7 @@ fixture {
             softwareName: "Grails",
             softwareVersion: "1.3.8.BUILD-SNAPSHOT",
             betaRelease: true,
-            releaseDate: new Date(111, 1, 13),
+            releaseDate: new DateTime(2011, 2, 13, 0, 0),
             files: [
                 [ title: "Binary Zip", mirrors: [
                     new Mirror(name: "grails.org", urlString: "http://grails.org/dist/grails-1.3.8.BUILD-SNAPSHOT.zip"),
@@ -28,7 +29,7 @@ fixture {
     download137(Download,
             softwareName: "Grails",
             softwareVersion: "1.3.7",
-            releaseDate: new Date(111, 0, 13),
+            releaseDate: new DateTime(2011, 1, 13, 0, 0),
             files: [
                 [ title: "Binary Zip", mirrors: [
                     new Mirror(name: "grails.org", urlString: "http://grails.org/dist/grails-1.3.7.zip"),
@@ -39,7 +40,7 @@ fixture {
     download125(Download,
             softwareName: "Grails",
             softwareVersion: "1.2.5",
-            releaseDate: new Date(110, 9, 4),
+            releaseDate: new DateTime(2010, 10, 4, 0, 0),
             files: [
                 [ title: "Binary Zip", mirrors: [
                     new Mirror(name: "Codehaus", urlString: "http://dist.codehaus.org/grails/grails-1.2.5.zip") ]],

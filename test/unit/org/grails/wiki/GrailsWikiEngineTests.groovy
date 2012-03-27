@@ -77,9 +77,6 @@ class Book {
 
    } */
 
-    void testPageLinksWithAnchors() {
-        assertEquals 'My Link <a href="/Test+Page#MyAnchor" class="pageLink">Test Page</a>', engine.render('My Link [Test Page|Test Page#MyAnchor]', context)
-    }
 
     void testAnchorLinks() {
         assertEquals '<a href="#MyAnchor" class="pageLink">see My Anchor</a>', engine.render('[see My Anchor|#MyAnchor]', context)
@@ -125,7 +122,7 @@ hello world!
 
 an again!
 '''
-        assertEquals '''<img border="0" class="center" src="./images/image.jpg"></img><p class="paragraph"/>hello world!<p class="paragraph"/>an again!
+        assertEquals '''<img border="0" class="center" src="./wikiImage/image.jpg"></img><p class="paragraph"/>hello world!<p class="paragraph"/>an again!
 ''', engine.render(text, context)
     }
 }
