@@ -52,7 +52,7 @@
                                     <label for="releaseDate">Release Date:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:download,field:'releaseDate','errors')}">
-                                    <g:datePicker name="releaseDate" value="${download?.releaseDate}" ></g:datePicker>
+                                    <g:datePicker name="releaseDate" value="${download?.releaseDate?.toDate()}" ></g:datePicker>
                                 </td>
                             </tr> 
 
