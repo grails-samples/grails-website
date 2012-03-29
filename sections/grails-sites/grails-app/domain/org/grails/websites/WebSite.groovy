@@ -60,7 +60,7 @@ class WebSite implements Taggable {
 
         popularQuery {
             popularQueryNoSort()
-            order "dateCreated", "desc"
+            order "popularity.netLiked", "desc"
         }
     }
 
