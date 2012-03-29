@@ -10,7 +10,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
-import org.compass.core.engine.SearchEngineQueryParseException
+//import org.compass.core.engine.SearchEngineQueryParseException
 import org.grails.blog.BlogEntry
 import org.grails.content.Content
 import org.grails.content.Version
@@ -80,18 +80,18 @@ class ContentController extends BaseWikiController {
     def search() {
         if(params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
-            try {
+//            try {
                 def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape:false)
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
                 render view:"/searchable/index", model: [searchResult: searchResult]
-            }
-            catch (SearchEngineQueryParseException ex) {
-                render view: "/searchable/index", model: [parseException: true]
-            }
-            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
-                render view: "/searchable/index", model: [clauseException: true]
-            }
+//            }
+//            catch (SearchEngineQueryParseException ex) {
+//                render view: "/searchable/index", model: [parseException: true]
+//            }
+//            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
+//                render view: "/searchable/index", model: [clauseException: true]
+//            }
         }
         else {
             render(view:"homePage")

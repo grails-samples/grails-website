@@ -40,6 +40,7 @@ grails.project.dependency.resolution = {
                 ":cloud-foundry:1.2",
                 ":cloud-support:1.0.6",
                 ":database-migration:1.0",
+                ":elasticsearch:0.17.8.1",
                 ":feeds:1.5",
                 ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",
@@ -51,13 +52,14 @@ grails.project.dependency.resolution = {
                 ":resources:1.1.6",
                 ":richui:0.6",
                 ":screencasts:0.5.6",
-                ":searchable:0.6.3",
                 ":shiro:1.1.3",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.2",
                 ":yui:2.8.2.1",
-                ":zipped-resources:1.0"
+                ":zipped-resources:1.0", {
+            excludes "searchable"
+        }
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
