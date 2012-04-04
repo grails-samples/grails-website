@@ -122,7 +122,6 @@ class Plugin implements Taggable, Commentable, Rateable {
         cache 'nonstrict-read-write'
         summary type: 'text'
         usage column: '`usage`'
-        releases sort: 'releaseDate desc'
     }
     
     String getFisheye() {
