@@ -9,23 +9,20 @@ This application was developed against Grails 2.0.3 and should be used when maki
 The development enviroment is meant to be used with the H2 database. 
 The configuration in `DataSource.groovy` is as follows:
 
-```groovy
-development {
-    dataSource {
-        dbCreate = "update" // one of 'create', 'create-drop','update'
-        url = "jdbc:h2:mem:devDb"
-        driverClassName = "org.h2.Driver"
-        username = "sa"
-        password = ""
+    development {
+        dataSource {
+            dbCreate = "update" // one of 'create', 'create-drop','update'
+            url = "jdbc:h2:mem:devDb"
+            driverClassName = "org.h2.Driver"
+            username = "sa"
+            password = ""
+        }
     }
-}
-```
+
 
 To start the application, run the following command:
 
-```bash
-grails run-app
-```
+    grails run-app
 
 ## Production Environment
 
@@ -34,29 +31,25 @@ You can modify the username/password in the `DataSource.groovy` file as needed. 
 
 The configuration in `DataSource.groovy` is as follows:
 
-```groovy
-production {
-    dataSource {
-        pooled = true
-        driverClassName = "com.mysql.jdbc.Driver"  		
-        url = "jdbc:mysql://localhost/grails"
-        username = "root"
-        password = ""
+
+    production {
+        dataSource {
+            pooled = true
+            driverClassName = "com.mysql.jdbc.Driver"  		
+            url = "jdbc:mysql://localhost/grails"
+            username = "root"
+            password = ""
+        }
     }
-}
-```
 
 To start the application, you can simply run the following command:
 
-```bash
-grails prod run-app
-```
+    grails prod run-app
+
 
 However, if this is the first time the app is run, you can use this command in order to change the admin password:
 
-```bash
-grails prod -Dinitial.admin.password=changeit run-app
-```
+    grails prod -Dinitial.admin.password=changeit run-app
 
 ### Continuing after an update
 
