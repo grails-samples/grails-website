@@ -16,16 +16,20 @@ class BootStrap {
         def (adminRole, editorRole, observerRole) = setUpRoles()
         
         def admin = User.findByLogin("admin")
+
         if (!admin) {
             def password = Environment.current != Environment.PRODUCTION ? "changeit" : System.getProperty("initial.admin.password")
+
             if (!password) {
                 throw new Exception("""
 During the first run you must specify a password to use for the admin account. For example:
 
-grails -Dinitial.admin.password=changeit run-app""")
+grails prod -Dinitial.admin.password=changeit run-app""")
             }
             else {
+                println "CREATING ADMIN"
                 admin = new User(login:"admin", email:"info@g2one.com",password:DigestUtils.shaHex(password))
+                admin.save(flush:true, failOnError: true)
                 assert admin.email
                 assert admin.addToRoles(adminRole)
                            .addToRoles(editorRole)
