@@ -166,11 +166,15 @@ class RepositoryController {
     }
     
     private findPluginRelease(String n) {
-         return PluginRelease.where {
+        def query = PluginRelease.where {
             plugin.name == n
-         }.max(1)
-          .order("releaseDate", "desc")
-          .find()
+        }
+        def plugins = query.list(sort:'releaseDate', order:'desc')
+        if (plugins) {
+            return plugins[0]
+        } else {
+            throw new Exception("PluginRelease not found with Plugin name of $n")
+        }
     }
     
     def pluginService
@@ -194,7 +198,10 @@ class RepositoryController {
                 Plugin.withSession { session ->
                     
                     while(total > offset) {
-                        def allPlugins = Plugin.list(fetch:[releases:'select'], offset:offset, max:10)                    
+                        def allPlugins = Plugin.list(
+                                fetch:[releases:'select'],
+                                offset:offset,
+                                max:10)
                         if(!allPlugins) break
                         
                         for(p in allPlugins) {
