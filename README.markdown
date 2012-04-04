@@ -1,21 +1,61 @@
-## Grails.org (including Wiki)
+# Grails.org (including Wiki)
 
 This is the Grails project for [Grails.org](http://www.grails.org). Please fork and submit pull requests for any changes made.
 
-### Getting Started
+This application was developed against Grails 2.0.3 and should be used when making any changes.
 
-This application was developed against Grails 2.0.3. 
+## Development Enviroment
 
-If you are running the app in *DEVELOPMENT* mode, you can start the app with the `run-app` command:
+The development enviroment is meant to be used with the H2 database. 
+The configuration in `DataSource.groovy` is as follows:
+
+```groovy
+development {
+    dataSource {
+        dbCreate = "update" // one of 'create', 'create-drop','update'
+        url = "jdbc:h2:mem:devDb"
+        driverClassName = "org.h2.Driver"
+        username = "sa"
+        password = ""
+    }
+}
+```
+
+To start the application, run the following command:
 
 ```bash
 grails run-app
 ```
 
-If you are running the app in *PRODUCTION* mode, you can run the following command in order to change the admin password:
+## Production Environment
+
+The production enviroment is meant to be used with the MySQL database. Ensure that the database `grails` exists.
+You can modify the username/password in the `DataSource.groovy` file as needed. The default username is 'root' with no password.
+
+The configuration in `DataSource.groovy` is as follows:
+
+```groovy
+production {
+    dataSource {
+        pooled = true
+        driverClassName = "com.mysql.jdbc.Driver"  		
+        url = "jdbc:mysql://localhost/grails"
+        username = "root"
+        password = ""
+    }
+}
+```
+
+To start the application, you can simply run the following command:
 
 ```bash
-grails -Dinitial.admin.password=changeit run-app
+grails prod run-app
+```
+
+However, if this is the first time the app is run, you can use this command in order to change the admin password:
+
+```bash
+grails prod -Dinitial.admin.password=changeit run-app
 ```
 
 ### Continuing after an update
@@ -25,3 +65,8 @@ run `grails migrate` to update your local database. This should be run whenever 
 
 If you start seeing unexplained SQL exceptions, it is probably because you or someone else didn't keep the changelog
 current.
+
+## Testing
+
+Documentation to follow.
+
