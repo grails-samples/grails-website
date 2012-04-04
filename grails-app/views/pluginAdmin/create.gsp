@@ -94,7 +94,7 @@
                                     <label for="lastReleased">Last Released:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:pluginInstance,field:'lastReleased','errors')}">
-                                    <g:datePicker name="lastReleased" value="${pluginInstance?.lastReleased}" precision="minute" noSelection="['':'']"></g:datePicker>
+                                    <g:datePicker name="lastReleased" value="${pluginInstance?.lastReleased?.toDate()}" precision="minute" noSelection="['':'']"></g:datePicker>
                                 </td>
                             </tr> 
                         
@@ -121,7 +121,7 @@
                                     <label for="dateCreated">Date Created:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:pluginInstance,field:'dateCreated','errors')}">
-                                    <g:datePicker name="dateCreated" value="${pluginInstance?.dateCreated}" precision="minute" ></g:datePicker>
+                                    <g:datePicker name="dateCreated" value="${pluginInstance?.dateCreated?.toDate()}" precision="minute" ></g:datePicker>
                                 </td>
                             </tr> 
                         
@@ -157,7 +157,7 @@
                                     <label for="lastUpdated">Last Updated:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:pluginInstance,field:'lastUpdated','errors')}">
-                                    <g:datePicker name="lastUpdated" value="${pluginInstance?.lastUpdated}" precision="minute" ></g:datePicker>
+                                    <g:datePicker name="lastUpdated" value="${pluginInstance?.lastUpdated?.toDate()}" precision="minute" ></g:datePicker>
                                 </td>
                             </tr> 
                         
