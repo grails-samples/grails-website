@@ -18,15 +18,10 @@ If you are running the app in *PRODUCTION* mode, you can run the following comma
 grails -Dinitial.admin.password=changeit run-app
 ```
 
-Upon starting the application for the first time, a job will run that will attempt to update local plugin data with master 
-data located on the [Grails.org](http://www.grails.org) server.
-
-
 ### Continuing after an update
 
-If other developers have made database migrations and properly annotated them in a Liquibase changelog, you'll need to
-run `grails migrate` to update your local database. This should be run whenever anything in the grails-app/migrations
-folder has changed.
+If other developers have made database migrations and properly annotated them in the [Liquibase Changelog](https://github.com/cavneb/grails-website/blob/master/migrations/changelog.groovy), you'll need to
+run `grails migrate` to update your local database. This should be run whenever anything in the grails-app/migrations folder has changed.
 
 If you start seeing unexplained SQL exceptions, it is probably because you or someone else didn't keep the changelog
 current.
