@@ -1,3 +1,4 @@
+*.iml
 *.iws
 *Db.properties
 *Db.script
