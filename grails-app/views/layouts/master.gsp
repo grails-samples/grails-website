@@ -48,7 +48,17 @@
                 </ul>
             </li>
             <li class="spacing">&nbsp;</li>
-            <li class="active"><a href="login.html">My account</a></li>
+            <shiro:isLoggedIn>
+                <li>
+                    <a href="/profile">
+                        <gravatar:img email="#{user?.email}" size="20" align="top" />
+                        My Account
+                    </a>
+                </li>
+            </shiro:isLoggedIn>
+            <shiro:isNotLoggedIn>
+                <li><a href="/login">Login</a></li>
+            </shiro:isNotLoggedIn>
         </ul>
         <a href="http://www.springsource.org/" class="springSource">SpringSource</a>
 
