@@ -14,3 +14,5 @@ target
 /web-app/js/yui
 /web-app/plugins
 /web-app/WEB-INF/classes
+*.iml
+*.ipr
