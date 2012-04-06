@@ -1,10 +1,11 @@
-dataSource {
-    pooled = true
-    driverClassName = "com.mysql.jdbc.Driver"			
-    url = "jdbc:mysql://localhost/grails"
-    username = "root"
-    password = ""
-}
+//dataSource {
+//    pooled = true
+//    driverClassName = "com.mysql.jdbc.Driver"
+//    url = "jdbc:mysql://localhost/grails"
+//    username = "root"
+//    password = ""
+//}
+
 hibernate {
     cache.use_second_level_cache=true
     cache.use_query_cache=true
