@@ -1,4 +1,6 @@
-<form>
+<g:form name="login" controller='user' action="login">
+    <g:hiddenField name="originalURI" value="${originalURI ?: formData?.originalURI}" />
+
     <h2>Log in</h2>
     <p>
         <label for="login_field">Login or Email</label>
@@ -12,4 +14,4 @@
     <p>
         <input class="btn blueLight" tabindex="3" type="submit" value="Log in" /> <a href="#" class="btn blueLight">Create an account</a>
     </p>
-</form>
+</g:form>
