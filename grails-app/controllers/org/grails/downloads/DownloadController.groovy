@@ -12,7 +12,7 @@ class DownloadController {
     def grailsApplication
     def downloadCache
     
-    def index() { redirect action: "list", params: params }
+    def index() { }
 
     def latest() {
         // Find out which versions we should display. This should be a

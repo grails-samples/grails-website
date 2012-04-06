@@ -1,0 +1,37 @@
+#textshadow {
+	.white(@alpha:0.6) {
+		text-shadow: 0 1px 0 rgba(255,255,255,@alpha);
+	}
+	.black(@alpha:0.6) {
+		text-shadow: 0 1px 0 rgba(0,0,0,@alpha);
+	}
+	.blackSepcial(@alpha:0.4) {
+		text-shadow: 0 -1px 0 rgba(0,0,0,@alpha);
+	}	
+}
+
+#font {
+	#family {
+		.ptsans() {
+			font-family: "PT Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+		.magra() {
+			font-family: 'Magra', sans-serif
+		}		
+	}
+}
+
+#hoverState {
+	.aHover() {
+		padding: 2px 8px;
+		color: @grailsBlack;
+		text-decoration: none;
+		&:hover {
+			background: @grailsBlueLighter;
+			.border-radius(@radius);
+		}
+		&:active {
+			background: darken(@grailsBlueLighter, 5%);
+		}
+	}
+}

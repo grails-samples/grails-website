@@ -54,10 +54,13 @@ class UrlMappings {
             parseRequest = true
         }
 
-        "/Download"(controller: "download", action: "latest")
-        "/download/file"(controller: "download", action: "downloadFile")
-        "/download/url"(controller: "download", action: "showUrl")
-        "/download/archive/$id"(controller: "download", action: "archive")
+        "/download"(controller: "download", action: "index")
+        "/downloads"(controller: "download", action: "index")
+
+//        "/Download"(controller: "download", action: "latest")
+//        "/download/file"(controller: "download", action: "downloadFile")
+//        "/download/url"(controller: "download", action: "showUrl")
+//        "/download/archive/$id"(controller: "download", action: "archive")
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
@@ -119,6 +122,13 @@ class UrlMappings {
         "/rollback/$id/$number"(controller: "content", action: "rollbackWikiVersion")
         "/diff/$id/$number/$diff"(controller: "content", action: "diffWikiVersion")
         "/previous/$id/$number"(controller: "content", action: "previousWikiVersion")
+
+        "/learn"(controller:"learn", action:"gettingStarted")
+        "/learn/IDE_setup"(controller:"learn", action:"ideSetup")
+        "/learn/installation"(controller:"learn", action:"installation")
+        "/learn/quickStart"(controller:"learn", action:"quickStart")
+        "/learn/screencasts"(controller:"learn", action:"screencasts")
+        "/learn/tutorials"(controller:"learn", action:"tutorials")
 
         "/screencasts"(controller:"screencast", action:"list")
         "/screencasts/tags"(controller:"screencast", action:"browseTags")

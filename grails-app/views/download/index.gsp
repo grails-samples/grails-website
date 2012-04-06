@@ -1,167 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Download Grails</title>
-    <meta content="subpage" name="layout" />
-    <style type="text/css">
-
-        .download-table  {
-
-            margin:10px;
-            padding:5px;
-            width:90%;
-            margin-bottom:40px;
-        }
-        .download-table td  {
-            border-top:0px;
-            margin:10px;
-            padding:5px;
-
-        }
-
-        .download-table th  {
-            background-color: lightgray;
-            border:none;
-            border-top:0px;
-            margin:10px;
-            padding:5px;
-            color:#48802C;
-        }
-
-        .ajaxLink {
-            display: none;
-        }
-
-        .js .ajaxLink {
-            display: inline-block;
-        }
-
-        .js .download-cell {
-            width: 5em;
-        }
-
-        .js .download-cell {
-            width: 11em;
-        }
-
-        .download-cell a {
-            margin-left: 0.5em;
-        }
-
-    </style>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta content="master" name="layout"/>
 </head>
+
 <body>
-    <div id="contentPane">
-        <div class="downloads">
-            <shiro:hasRole name="Administrator">
-            <p>As an administrator, you can change which versions of Grails appear on this page and in which order. Note that you should only specify at most one beta/milestone release and that should take the form 'm.n beta' or 'm.n milestone'.</p>
-            <p>You'll have to refresh the page to see your changes.</p>
-            <p id="versionDisplayOrder">
-                <g:include controller="download" action="adminShowVersionOrder"/>
-            </p>
-            </shiro:hasRole>
-            <h2>Latest stable releases</h2>
-            <g:render template="download" collection="${stableDownloads}" var="download"/>
-            <g:if test="${betaDownloads}">
-                <h2>Latest milestone release</h2>
-                <g:render template="download" collection="${betaDownloads}" var="download"/>
-            </g:if>
-    <%--
-                    <g:if test="${betaDownload}">
-                            <g:render template="download" model="[download:betaDownload]"/>
-                    </g:if>
-    --%> 
 
-
-
-            <p>Past releases can be found at the <g:link controller="download" action="archive" id="Grails">Archive</g:link>.</p>
-            <br />
-            
-            <h3>Grails on Ubuntu</h3>
-            <p>Get Grails via Ubuntu's package manager by simply following the first three steps of:</p>
-            <script src="https://gist.github.com/901884.js"> </script>
-            <p>What could be easier? The package work for both i386 and amd64 flavours of Lucid, Maverick, and Natty. In
-            addition, it works with both the <tt>openjdk-6-jdk</tt> and <tt>sun-java6-jdk</tt> JDK packages. Note that
-            you do not need to set either the <tt>JAVA_HOME</tt> or <tt>GRAILS_HOME</tt> environment variables when using
-            this package.</p>
-            <p>As you can see from the code above, you can install multiple versions of Grails side-by-side and then switch between them using the <tt>update-alternatives</tt> command. The 'grails' package tracks the latest stable release, so when you upgrade it will automatically install the latest stable release at the top of this page. You can even install a 'grails-bash-completion' package to get bash completion for Grails commands.</p>
-            <p>One final thing: you can keep up to date with the development of the package via its
-            <a href="https://launchpad.net/~groovy-dev/+archive/grails">Launchpad page</a>.</p>
-
-            <h3>Grails Development Builds</h3>
-            <p>
-
-                You can obtain a development build of Grails from our Hudson continuous integration server at <a href="http://hudson.grails.org" class="pageLink">http://hudson.grails.org</a>
-            </p>
-            <p class="paragraph">Follow these steps:
-            </p>
-
-            <ul class="star">
-                <li>Click on the link for the version you want: grails_core_1.y.x</li>
-                <li>Under 'Last Successful Artifacts', click on the Grails distribution link: grails-1.y.z.BUILD-SNAPSHOT.zip</li>
-            </ul>
-
-            <br />
-
-            <h3>Grails Plugin Downloads</h3>
-
-            <p>Grails has a number of plugins available for it that extend its capability. Check out the <g:link controller="content" id="Plugins">Plugins page</g:link> for more info on available plugins and how they can be installed.</p>
-        </div>
+<div id="content" class="content-aside-2" role="main">
+    <div class="aside">
+        <aside id="github" class="github">
+            <div><a href="https://github.com/grails">Fork me on GitHub</a></div>
+        </aside>
+        <aside class="hudson">
+            <div>
+                <h3>Grails Development Builds</h3>
+                <p>You can obtain a development build of Grails from our Hudson continuous integration server at <a href="http://hudson.grails.org">hudson.grails.org</a></p>
+            </div>
+        </aside>
     </div>
+    <div id="main">
+        <section class="downloads">
+            <h2>Download latest release <small>(12/02/2012)</small></h2>
+            <p>Download Grails now and follow the easy installation instructions to get writing amazing web applications in minutes.</p>
+            <p class="url">
+                <input type="text" readonly="readonly" value="http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-2.0.1.zip" />
+            </p>
+            <div class="buttons">
+                <div class="btn-group">
+                    <a href="#" class="btn primary">Download Grails 2.0.1 (zip - 48Mo)</a>
+                    <a href="#" class="btn primary dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Installation for mac</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Installation for windows</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Installation for linux</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="links">
+                <a class="btn light">Documentation (zip)</a> |
+                <a href="#" class="btn light">Installation</a> |
+                <a id="show-ubuntu" href="#modal-ubuntu" class="btn light" data-toggle="modal" data-backdrop="true">Instruction on Ubuntu</a>
+            </p>
+        </section>
+        <section class="previousRelease">
+            <h3>Download previous release</h3>
+            <div class="dropdown dropdown-full" id="selectRelease">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <span>Selected a previous release</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a>Release: 2.0.0 RC3 (01/01/01)</a></li>
+                    <li><a>Release: 2.0.0 RC2 (01/01/01)</a></li>
+                    <li><a>Release: 2.0.0 RC1 (01/01/01)</a></li>
+                    <li class="divider"></li>
+                    <li><a>Release: 1.3.7 (01/01/01)</a></li>
+                </ul>
+            </div>
+            <div class="release hide">
+                <span class="extra"></span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
+                <p class="links">
+                    <a href="#" class="btn light">Distribution (zip)</a> |
+                    <a href="#" class="btn light">Documentation (zip)</a>
+                </p>
+            </div>
+        </section>
+        <section>
+            <h3>Best Grails plugins downloads</h3>
+            <p>Grails has a number of plugins available for it that extend its capability. Check out the <a href="plugins.html">Plugins page</a> for more info on available plugins and how they can be installed.</p>
+            <div class="plugins-list" id="plugins-list">
+                <ul>
+                    <li class="odd">
+                        <h3><a href="plugin.html">Cloud Foundry Integration</a></h3>
+                        <p>supported by SpringSource</p>
+                        <p class="rating">
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-50"></span>
+                            <span class="star-0"></span>
+                            <span class="note">999</span>
+                        </p>
+                        <p class="used">
+                            <strong>68%</strong> Used in of apps
+                        </p>
+                    </li>
+                    <li class="even">
+                        <h3><a href="plugin.html">Cloud Foundry Integration</a></h3>
+                        <p>supported by SpringSource</p>
+                        <p class="rating">
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-50"></span>
+                            <span class="star-0"></span>
+                            <span class="note">999</span>
+                        </p>
+                        <p class="used">
+                            <strong>68%</strong> Used in of apps
+                        </p>
+                    </li>
+                    <li class="odd">
+                        <h3><a href="plugin.html">Cloud Foundry Integration</a></h3>
+                        <p>supported by SpringSource</p>
+                        <p class="rating">
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-50"></span>
+                            <span class="star-0"></span>
+                            <span class="note">999</span>
+                        </p>
+                        <p class="used">
+                            <strong>68%</strong> Used in of apps
+                        </p>
+                    </li>
+                    <li class="even">
+                        <h3><a href="plugin.html">Cloud Foundry Integration</a></h3>
+                        <p>supported by SpringSource</p>
+                        <p class="rating">
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-100"></span>
+                            <span class="star-50"></span>
+                            <span class="star-0"></span>
+                            <span class="note">999</span>
+                        </p>
+                        <p class="used">
+                            <strong>68%</strong> Used in of apps
+                        </p>
+                    </li>
+                </ul>
+                <div class="buttonbars"><a href="plugins.html" class="btn btn-large blueLight">See all plugins</a></div>
+            </div>
+        </section>
+    </div>
+</div>
 
-<r:script>
-YAHOO.util.Event.onDOMReady(function() {
-    var links = YAHOO.util.Dom.getElementsByClassName('ajaxLink', 'a');
-    for (var i = 0, n = links.length; i < n; i++) {
-        YAHOO.util.Event.on(links[i], "click", function(e) {
-            YAHOO.util.Event.stopEvent(e);
-            showUrl(e.currentTarget);
-        });
-    }
-});
-
-function showUrl(link) {
-    var container = YAHOO.util.Dom.getAncestorByTagName(link, 'tr');
-    var mirrorId;
-    var options = container.getElementsByTagName('option');
-    for (var i = 0, n = options.length; i < n; i++) {
-        if (options[i].selected) {
-            mirrorId = options[i].value;
-        }
-    }
-    
-    YAHOO.util.Connect.setForm(container.getElementsByTagName('form')[0]);
-    YAHOO.util.Connect.asyncRequest(
-            'GET',
-            '${createLink(controller: 'download', action: 'showUrl')}',
-            {success: function(o) {
-                var panel = YAHOO.util.Dom.getNextSibling(container).getElementsByTagName('span')[0];
-                panel.innerHTML = o.responseText;
-                myYUI.appear(panel, 0, 0);
-
-                link.innerHTML = 'Hide URL';
-
-                YAHOO.util.Event.removeListener(link, "click");
-                YAHOO.util.Event.on(link, "click", function(e) {
-                    YAHOO.util.Event.stopEvent(e);
-                    hideUrl(e.currentTarget);
-                });
-            }, failure: function(o) {}},
-            'mirror=' + mirrorId);
-}
-
-function hideUrl(link) {
-    var container = YAHOO.util.Dom.getAncestorByTagName(link, 'tr');
-    var panel = YAHOO.util.Dom.getNextSibling(container).getElementsByTagName('span')[0];
-    myYUI.fade(panel, 0, 0);
-
-    link.innerHTML = 'Show URL';
-
-    YAHOO.util.Event.removeListener(link, "click");
-    YAHOO.util.Event.on(link, "click", function(e) {
-        YAHOO.util.Event.stopEvent(e);
-        showUrl(e.currentTarget);
-    });
-}
-</r:script>
 </body>
 </html>
