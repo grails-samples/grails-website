@@ -8,7 +8,7 @@
     </p>
 
     <p>
-        <label for="password">Password <a href="/sessions/forgot_password">(forgot password)</a></label>
+        <label for="password">Password <a href="/reminder">(forgot password)</a></label>
         <input class="text" id="password" name="password" style="width: 21em;" tabindex="2" type="password" value="" />
     </p>
     <p>

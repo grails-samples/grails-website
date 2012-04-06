@@ -3,7 +3,6 @@
 <head>
     <meta content="master" name="layout"/>
 </head>
-
 <body>
 
 <div id="content" class="content-form-small" role="main">

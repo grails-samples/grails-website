@@ -12,7 +12,7 @@
         <g:form name="register" url="[controller: 'user', action: 'profile']">
             <div class="inputForm">
                 <p><span class="label"><label for="password">Change Password:</label></span>
-                    <g:passwordField name="password"></g:passwordField>
+                    <g:passwordField name="password" style="width: 21em;" ></g:passwordField>
                 </p>
             </div>
 

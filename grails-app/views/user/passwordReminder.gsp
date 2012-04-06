@@ -1,26 +1,33 @@
 <html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<meta name="layout" content="subpage">
-		<title>Reset Password</title>
-		
-	</head>
-	
-	<body id="passwordreminder">
-		<p>Enter the username you registered with. A new password will be generated and emailed to you.</p>
-		<g:if test="${flash.message}">
-			<div class="error">
-				${flash.message}				
-			</div>
+<head>
+    <meta name="layout" content="master">
+</head>
 
-		</g:if>
-		<g:form action="passwordReminder" class="userForm">
+<body>
 
-            <p>
-                 <span class="label"><label for="login">Username:</label></span> <g:textField class="textInput" name="login" value="${formData?.login}"/>
-             </p>
-			<g:submitButton name="Send Password"></g:submitButton>
-			
-		</g:form>
-	</body>
+<div id="content" class="content-form-small" role="main">
+    <h2>Forgot Password?</h2>
+
+    <p>Enter the username or email address you registered with and a new password will be emailed to you.</p>
+
+    <g:if test="${flash.message}">
+        <div class="alert alert-info">
+            ${flash.message}
+        </div>
+    </g:if>
+
+    <g:form action="passwordReminder" class="userForm">
+        <p>
+            <input class="text" id="login" name="login" style="width: 21em;" value="${formData?.login}" tabindex="1" type="text" placeholder="Username or Email" />
+        </p>
+
+
+        <p>
+            <input class="btn blueLight" tabindex="2" type="submit" value="Send Password" /> <a href="/login" class="btn blueLight">Back to Login</a>
+        </p>
+
+    </g:form>
+</div>
+
+</body>
 </html>
