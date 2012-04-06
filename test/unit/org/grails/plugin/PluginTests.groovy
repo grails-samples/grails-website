@@ -72,7 +72,9 @@ class PluginTests {
     void testFisheyeTransientProperty() {
         def config = new ConfigObject()
         grailsApplication.config.plugins.fisheye = 'fisheyeUrl'
-        def p = new Plugin(name:'kevin', downloadUrl:'something', grailsApplication: grailsApplication)
+        def p = new Plugin(name:'kevin', downloadUrl:'something')
+        p.grailsApplication = grailsApplication
+
         assertEquals "fisheyeUrl/grails-kevin", p.fisheye
     }
 }
