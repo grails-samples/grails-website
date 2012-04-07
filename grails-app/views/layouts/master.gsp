@@ -28,20 +28,20 @@
         <ul class="topLinks nav pills">
             <li class="dropdown last" id="menu1">
                 <a class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="img/lang/uk.png"/>
+                    <img src="${resource(dir: 'img/lang', file: 'uk.png')}"/>
                     English
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#">
-                            <img src="img/lang/fr.png"/>
+                            <img src="${resource(dir: 'img/lang', file: 'fr.png')}"/>
                             French
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <img src="img/lang/fr.png"/>
+                            <img src="${resource(dir: 'img/lang', file: 'fr.png')}"/>
                             Spanish
                         </a>
                     </li>
@@ -75,9 +75,9 @@
             <li <g:if test="${controllerName == 'content'}">class="active"</g:if>><a href="/">Homepage</a></li>
             <li><a href="http://www.springsource.com">Products, Services &amp; Training</a></li>
             <li <g:if test="${controllerName == 'learn'}">class="active"</g:if>><a href="/learn">Learn</a></li>
-            <li><a href="community.html">Community</a></li>
+            <li <g:if test="${controllerName == 'community'}">class="active"</g:if>><a href="/community">Community</a></li>
             <li <g:if test="${controllerName == 'download'}">class="active"</g:if>><a href="/download">Downloads</a></li>
-            <li class="last"><a href="plugins.html">Plugins</a></li>
+            <li class="last<g:if test="${controllerName == 'plugin'}"> active</g:if>"><a href="/plugins">Plugins</a></li>
         </ul>
     </nav>
 

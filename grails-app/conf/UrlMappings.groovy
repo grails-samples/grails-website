@@ -32,11 +32,11 @@ class UrlMappings {
             }
         }
 
-        "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
-        "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
-        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
-        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion) 
-        "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest") 
+//        "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
+//        "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
+//        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
+//        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
+//        "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest")
 
 
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
@@ -64,31 +64,32 @@ class UrlMappings {
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
-        "/Plugins"(controller: "plugin", action: "legacyHome")
-        "/plugins"(controller: "plugin", action: "home")
-        "/plugins/forum"(controller: "plugin", action: "forum")
-        "/plugin/$name"(controller: "plugin") {
-            action = [ GET: "show", PUT: "apiUpdate" ]
-            parseRequest = true
-        }
-        "/plugin/home"(controller: "plugin", action:"home")
-        "/plugin/search"(controller: "plugin", action:"search")
-        "/plugin/list"(controller: "plugin", action:"list")
-        "/plugin/create"(controller: "plugin", action:"createPlugin")
-        "/plugin/delete/$name"(controller: "plugin", action:"deletePlugin")
-        "/plugin/edit/$id"(controller: "plugin", action:"editPlugin")
-        "/plugin/saveTab/$id"(controller: "plugin", action: "saveTab")
-        "/plugin/addTag/$id"(controller: "plugin", action:"addTag")
-        "/plugin/removeTag/$id"(controller: "plugin", action:"removeTag")
-        "/plugin/showTag"(controller: 'plugin', action:'showTag')
-        "/plugin/postComment/$id"(controller: "plugin", action:"postComment")
-        "/plugin/latest"(controller: "plugin", action: "latest")
-        "/plugin/category/all"(controller: "plugin", action: "browseByName")
-        "/plugin/category/$category"(controller: "plugin", action: "home")
-        "/plugin/showComment/$id"(controller: "plugin", action: "showComment")
-        "/plugins/category/$category"(controller: "plugin", action: "home")
-        "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
-        "/plugins/tags"(controller: "plugin", action: "browseTags")
+        "/plugins"(controller: "plugin", action: "index")
+//        "/Plugins"(controller: "plugin", action: "legacyHome")
+//        "/plugins"(controller: "plugin", action: "home")
+//        "/plugins/forum"(controller: "plugin", action: "forum")
+//        "/plugin/$name"(controller: "plugin") {
+//            action = [ GET: "show", PUT: "apiUpdate" ]
+//            parseRequest = true
+//        }
+//        "/plugin/home"(controller: "plugin", action:"home")
+//        "/plugin/search"(controller: "plugin", action:"search")
+//        "/plugin/list"(controller: "plugin", action:"list")
+//        "/plugin/create"(controller: "plugin", action:"createPlugin")
+//        "/plugin/delete/$name"(controller: "plugin", action:"deletePlugin")
+//        "/plugin/edit/$id"(controller: "plugin", action:"editPlugin")
+//        "/plugin/saveTab/$id"(controller: "plugin", action: "saveTab")
+//        "/plugin/addTag/$id"(controller: "plugin", action:"addTag")
+//        "/plugin/removeTag/$id"(controller: "plugin", action:"removeTag")
+//        "/plugin/showTag"(controller: 'plugin', action:'showTag')
+//        "/plugin/postComment/$id"(controller: "plugin", action:"postComment")
+//        "/plugin/latest"(controller: "plugin", action: "latest")
+//        "/plugin/category/all"(controller: "plugin", action: "browseByName")
+//        "/plugin/category/$category"(controller: "plugin", action: "home")
+//        "/plugin/showComment/$id"(controller: "plugin", action: "showComment")
+//        "/plugins/category/$category"(controller: "plugin", action: "home")
+//        "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
+//        "/plugins/tags"(controller: "plugin", action: "browseTags")
 
         name pluginTab: "/plugin/$id/$action/$_ul" {
             controller = "pluginTab"
@@ -129,6 +130,12 @@ class UrlMappings {
         "/learn/quickStart"(controller:"learn", action:"quickStart")
         "/learn/screencasts"(controller:"learn", action:"screencasts")
         "/learn/tutorials"(controller:"learn", action:"tutorials")
+
+        "/community"(controller: "community", action: "index")
+        "/community/websites"(controller: "community", action: "websites")
+        "/community/testimonials"(controller: "community", action: "testimonials")
+        "/community/contribute"(controller: "community", action: "contribute")
+        "/community/mailingList"(controller: "community", action: "mailingList")
 
         "/screencasts"(controller:"screencast", action:"list")
         "/screencasts/tags"(controller:"screencast", action:"browseTags")
