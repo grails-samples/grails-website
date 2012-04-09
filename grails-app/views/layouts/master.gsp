@@ -51,7 +51,7 @@
             <shiro:isLoggedIn>
                 <li>
                     <a href="/profile">
-                        <gravatar:img email="#{user?.email}" size="20" align="top" />
+                        <gravatar:img email="${user?.email}" size="20" align="top" />
                         My Account
                     </a>
                 </li>
