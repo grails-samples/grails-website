@@ -1,31 +1,59 @@
-<%  if (property.type == Boolean.class || property.type == boolean.class)
+<%
+    // Boolean
+    if (property.type == Boolean.class || property.type == boolean.class) {
         out << renderBooleanEditor(domainClass, property)
-    else if (Number.class.isAssignableFrom(property.type) || (property.type.isPrimitive() && property.type != boolean.class))
+
+    // Number
+    } else if (Number.class.isAssignableFrom(property.type) || (property.type.isPrimitive() && property.type != boolean.class)) {
         out << renderNumberEditor(domainClass, property)
-    else if (property.type == String.class)
+
+    // String
+    } else if (property.type == String.class) {
         out << renderStringEditor(domainClass, property)
-    else if (property.type == Date.class || property.type == java.sql.Date.class || property.type == java.sql.Time.class || property.type == Calendar.class)
+
+    // Date
+    } else if (property.type == Date.class ||
+            property.type == java.sql.Date.class ||
+            property.type == java.sql.Time.class || property.type == Calendar.class) {
         out << renderDateEditor(domainClass, property)
-    else if (property.type == URL.class)
+
+    // URL
+    } else if (property.type == URL.class) {
         out << renderStringEditor(domainClass, property)
-    else if (property.isEnum())
+
+    // Enum
+    } else if (property.isEnum()) {
         out << renderEnumEditor(domainClass, property)
-    else if (property.type == TimeZone.class)
+
+    // TimeZone
+    } else if (property.type == TimeZone.class) {
         out << renderSelectTypeEditor("timeZone", domainClass, property)
-    else if (property.type == Locale.class)
+
+    // Locale
+    } else if (property.type == Locale.class) {
         out << renderSelectTypeEditor("locale", domainClass, property)
-    else if (property.type == Currency.class)
+
+    // Currency
+    } else if (property.type == Currency.class) {
         out << renderSelectTypeEditor("currency", domainClass, property)
-    else if (property.type==([] as Byte[]).class) //TODO: Bug in groovy means i have to do this :(
+
+    // Array
+    } else if (property.type == ([] as Byte[]).class) { //TODO: Bug in groovy means i have to do this :(
         out << renderByteArrayEditor(domainClass, property)
-    else if (property.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
-        out << renderByteArrayEditor(domainClass, property)
-    else if (property.manyToOne || property.oneToOne)
+
+    // Many to One
+    } else if (property.manyToOne || property.oneToOne) {
         out << renderManyToOne(domainClass, property)
-    else if ((property.oneToMany && !property.bidirectional) || (property.manyToMany && property.isOwningSide()))
+
+    // Many to Many
+    } else if ((property.oneToMany && !property.bidirectional) ||
+            (property.manyToMany && property.isOwningSide())) {
         out << renderManyToMany(domainClass, property)
-    else if (property.oneToMany)
+
+    // One to Many
+    } else if (property.oneToMany) {
         out << renderOneToMany(domainClass, property)
+    }
 
     private renderEnumEditor(domainClass, property) {
         return "<g:select name=\"${property.name}\" from=\"\${${property.type.name}?.values()}\" keys=\"\${${property.type.name}?.values()*.name()}\" value=\"\${${domainInstance}?.${property.name}?.name()}\" ${renderNoSelection(property)} />"
@@ -33,7 +61,7 @@
 
     private renderStringEditor(domainClass, property) {
         if (!cp) {
-            return "<g:textField name=\"${property.name}\" value=\"\${${domainInstance}?.${property.name}}\" />"
+            return "<g:textField name=\"${property.name}\" value=\"\${${domainInstance}?.${property.name}}\" class=\"input-xlarge\" />"
         }
         else {
             if ("textarea" == cp.widget || (cp.maxSize > 250 && !cp.password && !cp.inList)) {
@@ -60,7 +88,7 @@
         return "<input type=\"file\" id=\"${property.name}\" name=\"${property.name}\" />"
     }
 
-    private renderManyToOne(domainClass,property) {
+    private renderManyToOne(domainClass, property) {
         if (property.association) {
             return "<g:select name=\"${property.name}.id\" from=\"\${${property.type.name}.list()}\" optionKey=\"id\" value=\"\${${domainInstance}?.${property.name}?.id}\" ${renderNoSelection(property)} />"
         }
@@ -98,12 +126,12 @@
             }
             else if (cp.inList) {
                 return "<g:select name=\"${property.name}\" from=\"\${${domainInstance}.constraints.${property.name}.inList}\" value=\"\${fieldValue(bean: ${domainInstance}, field: '${property.name}')}\" valueMessagePrefix=\"${domainClass.propertyName}.${property?.name}\" ${renderNoSelection(property)} />"
-            }            
+            }
             else {
                 return "<g:textField name=\"${property.name}\" value=\"\${fieldValue(bean: ${domainInstance}, field: '${property.name}')}\" />"
             }
         }
-     }
+    }
 
     private renderBooleanEditor(domainClass, property) {
         if (!cp) {
@@ -142,7 +170,7 @@
         }
     }
 
-    private renderSelectTypeEditor(type, domainClass,property) {
+    private renderSelectTypeEditor(type, domainClass, property) {
         if (!cp) {
             return "<g:${type}Select name=\"${property.name}\" value=\"\${${domainInstance}?.${property.name}}\" />"
         }
@@ -168,4 +196,5 @@
         }
         return ""
     }
+
 %>

@@ -56,6 +56,10 @@
                         <g:link controller="blogEntry" action="adminList">Blog Entries</g:link></li>
                     <li <g:if test="${controllerName == 'pluginAdmin'}">class="active"</g:if>>
                         <g:link controller="pluginAdmin" action="list">Plugins</g:link></li>
+                    <li <g:if test="${controllerName == 'tutorialAdmin'}">class="active"</g:if>>
+                        <g:link controller="tutorialAdmin" action="list">Tutorials</g:link></li>
+                    <li <g:if test="${controllerName == 'webSiteAdmin'}">class="active"</g:if>>
+                        <g:link controller="webSiteAdmin" action="list">Websites</g:link></li>
                     <plugin:isAvailable name="jobs">
                         <li <g:if test="${controllerName == 'jobAdmin'}">class="active"</g:if>>
                             <g:link controller="jobAdmin" action="list">Jobs</g:link></li>

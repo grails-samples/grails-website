@@ -1,5 +1,7 @@
 package org.grails.learn
 
+import org.grails.tutorials.Tutorial
+
 class LearnController {
 
     def gettingStarted() { }
@@ -12,6 +14,9 @@ class LearnController {
 
     def screencasts() { }
 
-    def tutorials() { }
+    def tutorials() {
+        def tutorials = Tutorial.list()
+        [tutorials: tutorials]
+    }
 
 }
