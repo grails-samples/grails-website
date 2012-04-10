@@ -24,8 +24,8 @@
                 <article>
                     <header>
                         <h3>
-                            <g:link uri="/plugins/plugin/">
-                                ${plugin.title}
+                            <g:link uri="/plugins/${plugin.name}/">
+                                ${plugin?.title?.encodeAsHTML()}
                                 <g:if test="${plugin.official}">
                                     <small>supported by SpringSource</small>
                                 </g:if>
@@ -45,25 +45,19 @@
                         </p>
 
                         <div class="right">
-                            <p class="rating">
-                                <span class="star-100"></span>
-                                <span class="star-100"></span>
-                                <span class="star-100"></span>
-                                <span class="star-50"></span>
-                                <span class="star-0"></span>
-                                <span class="note">999</span>
-                            </p>
-
-                            <p class="used">
-                                <strong>68%</strong> Used in of apps
-                            </p>
+                            <plugin:rating note="${plugin.averageRating}" total="${plugin.totalRatings}" />
+                            <g:if test="${plugin.usage>0}">
+                                <p class="used">
+                                    <strong><g:formatNumber number="${plugin.usage}" type="percent"/></strong> of Grails users
+                                </p>
+                            </g:if>
                         </div>
                     </header>
 
                     <div class="desc">
                         <p>${plugin.description.body} <a href="#">Read more</a></p>
                         <p class="dependency"><strong>Dependency :</strong><br/>
-                            <code>compile ":gemfire:1.0.0.M5"</code>
+                            <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
                         </p>
                     </div>
 

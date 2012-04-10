@@ -9,7 +9,6 @@ class PluginController {
     }
 
     def plugin() {
-
+        [plugin: Plugin.findByName(params.id)]
     }
-
 }

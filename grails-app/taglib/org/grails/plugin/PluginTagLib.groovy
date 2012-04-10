@@ -22,4 +22,18 @@ class PluginTagLib {
             </tr>
         """
     }
+
+    def rating = { attrs, body ->
+        //def note = attrs.averageRating
+        def max = 5
+
+        out << '<p class="rating">'
+        out << '<span class="star-100"></span>'
+        out << '<span class="star-100"></span>'
+        out << '<span class="star-100"></span>'
+        out << '<span class="star-50"></span>'
+        out << '<span class="star-0"></span>'
+        out << '<span class="note">' << attrs['total'] ?: 0 << '</span>'
+        out << '</p>'
+    }
 }

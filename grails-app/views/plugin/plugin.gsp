@@ -52,12 +52,22 @@
         <section class="plugin">
             <article>
                 <header>
-                    <h3>Cloud Foundry Integration <small>supported by SpringSource</small></h3>
+                    <h2>
+                        ${plugin?.title?.encodeAsHTML()}
+                        <g:if test="${plugin.official}">
+                            <small>supported by SpringSource</small>
+                        </g:if>
+                    </h2>
                     <p class="meta">
-                        Tags : /<br />
-                        Grails version : 1.3.3 > * • Current release : 1.2.1<br />
-                        Author(s) : <a href="#">Burt Beckwith</a><br />
-                        Organization : <a href="#">SpringSource</a><br />
+                        Tags :
+                        <g:if test="${plugin.tags.size() > 0}">
+                            <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="#">${tag}</a></g:each>
+                        </g:if>
+                        <g:else>
+                            /
+                        </g:else>
+                        <br/>
+                        Grails version : ${plugin.grailsVersion ?: '*'} • Current release : ${plugin.currentRelease}
                     </p>
                     <div class="right">
                         <p class="rating">
@@ -79,16 +89,22 @@
                 <div class="desc">
                     <div class="alert alert-info">
                         <strong>Installation :</strong><br />
-                        <code>grails install-plugin cloud-foundry</code>
+                        <code>${plugin.installation.body.encodeAsHTML()}</code>
                     </div>
                     <p class="dependency"><strong>Dependency :</strong><br />
-                        <code>compile ":gemfire:1.0.0.M5"</code>
+                        <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
                     </p>
                 </div>
                 <p class="buttons">
-                    <a href="#" class="btn blueLight source"><span class="ico"></span>Source</a>
-                    <a href="#" class="btn blueLight doc"><span class="ico"></span>Documenation</a>
-                    <a href="#" class="btn blueLight issues"><span class="ico"></span>Issues</a>
+                    <g:if test="${plugin.scmUrl}">
+                        <a href="${plugin.scmUrl}" class="btn blueLight source"><span class="ico"></span>Source</a>
+                    </g:if>
+                    <g:if test="${plugin.documentationUrl}">
+                        <a href="${plugin.documentationUrl}" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
+                    </g:if>
+                    <g:if test="${plugin.issuesUrl}">
+                        <a href="${plugin.issuesUrl}" class="btn blueLight issues"><span class="ico"></span>Issues</a>
+                    </g:if>
                 </p>
                 <div class="tabbable" id="tabs">
                     <ul class="nav nav-tabs">
