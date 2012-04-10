@@ -137,6 +137,7 @@ class UrlMappings {
         "/community/testimonials"(controller: "community", action: "testimonials")
         "/community/contribute"(controller: "community", action: "contribute")
         "/community/mailingList"(controller: "community", action: "mailingList")
+        "/community/twitter"(controller: "community", action: "twitter")
 
         "/screencasts"(controller:"screencast", action:"list")
         "/screencasts/tags"(controller:"screencast", action:"browseTags")

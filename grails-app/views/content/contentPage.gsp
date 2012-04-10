@@ -2,7 +2,7 @@
 
 <head>
     <title>${content?.title}</title>
-    <meta content="subpage" name="layout" />
+    <meta content="master" name="layout" />
     <g:render template="wikiJavaScript"/>
 </head>
 <body>

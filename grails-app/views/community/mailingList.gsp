@@ -15,9 +15,65 @@
 
     <section id="main">
         <article>
-            <h2>Grails Community <small>Lorem ipsum dolor sit amet, consectetur adipisicing</small></h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
+            <h2>Mailing Lists</h2>
+
+            <p>The main method of communication in the Grails community is a set of mailing lists. For each list, there are subscribe, unsubscribe, and archive links.</p>
+
+            <blockquote class="tip"><p><strong>Mailing list vs. Forum Alert:</strong><br/>
+                If you don't like mailing lists and prefer to use a forum then head over to the Nabble forums, which give you a forum view onto the mailing list. You can also search the archives at MarkMail</p>
+            </blockquote>
+
+            <p>You can choose which mailing lists you want to subscribe to on the Grails project page:</p>
+
+            <p><a href="http://xircles.codehaus.org/projects/grails">http://xircles.codehaus.org/projects/grails</a></p>
+
+            <h3>Grails User List</h3>
+
+            <p>This list is for Grails users to ask questions, share knowledge, and discuss issues related to using Grails to develop their applications.</p>
+
+            <p>
+                <a href="mailto:user-subscribe@grails.codehaus.org">subscribe</a> |
+                <a href="mailto:user-unsubscribe@grails.codehaus.org">unsubscribe</a> |
+                <a href="http://grails.markmail.org/search/list:user">archive</a> |
+                <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">archive</a>
+            </p>
+
+            <h3>Grails SCM and JIRA List</h3>
+
+            <p>This list includes notifications of Github commits and activity on JIRA issues.</p>
+
+            <p>
+                <a href="mailto:scm-subscribe@grails.codehaus.org">subscribe</a> |
+                <a href="mailto:scm-unsubscribe@grails.codehaus.org">unsubscribe</a> |
+                <a href="http://grails.markmail.org/search/list:scm">archive</a> |
+                <a href="http://archive.grails.codehaus.org/scm/">archive</a>
+            </p>
+
+            <h3>All Grails Lists</h3>
+
+            <p><a href="http://grails.markmail.org/">Full search</a></p>
+
+            <h3>Other Resources</h3>
+
+            <p>
+                <a href="http://grails.org/Forums">Forums</a> |
+                <a href="/community/twitter">Grails on Twitter</a>
+            </p>
+
+            <h3>Grails Developer List</h3>
+
+            <p>This list is for discussion of the development of Grails itself, not Grails-based applications. If you have usage questions, ask on the User list.</p>
+
+            <p>
+                <a href="mailto:dev-subscribe@grails.codehaus.org">subscribe</a> |
+                <a href="mailto:dev-unsubscribe@grails.codehaus.org">unsubscribe</a> |
+                <a href="http://grails.markmail.org/search/list:dev">archive</a> |
+                <a href="http://grails.1312388.n4.nabble.com/Grails-dev-f1393096.html">archive</a>
+            </p>
+
+            <blockquote class="tip"><p><strong>If you have trouble subscribing via email you can go to <a href="http://xircles.codehaus.org/manage_email">http://xircles.codehaus.org/manage_email</a> and register an e-mail to subscribe.</strong><br/>
+                If you are using gmail to subscribe and you are using an alternate "send mail as" address, it will not work. Use your actual gmail address to subscribe, and make sure you send messages from your gmail account when you send messages to the list.</p>
+            </blockquote>
         </article>
     </section>
 

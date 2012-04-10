@@ -38,6 +38,7 @@ class ContentController extends BaseWikiController {
     def imageUploadService
 
     def index() {
+
         def wikiPage = wikiPageService.getCachedOrReal(params.id)
         if (wikiPage?.instanceOf(PluginTab)) {
             def plugin = wikiPage.plugin
@@ -171,7 +172,7 @@ class ContentController extends BaseWikiController {
         }
 
         if (version) {
-            render(view:"showVersion", model:[content:version, update:params._ul])                    
+            render(view:"showVersion", model:[content:version, update:params._ul])
         }
         else {
             render(view:"contentPage", model:[content:page])

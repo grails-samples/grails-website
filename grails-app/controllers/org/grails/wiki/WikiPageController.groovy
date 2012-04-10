@@ -4,6 +4,8 @@ import org.grails.content.Version
 
 class WikiPageController {
 
+    def scaffold = WikiPage
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -15,11 +17,11 @@ class WikiPageController {
         [wikiPageInstanceList: WikiPage.list(params), wikiPageInstanceTotal: WikiPage.count()]
     }
 
-    def create() {
-        def wikiPageInstance = new WikiPage()
-        wikiPageInstance.properties = params
-        return [wikiPageInstance: wikiPageInstance]
-    }
+//    def create() {
+//        def wikiPageInstance = new WikiPage()
+//        wikiPageInstance.properties = params
+//        return [wikiPageInstance: wikiPageInstance]
+//    }
 
     def save() {
         def wikiPageInstance = new WikiPage(params)

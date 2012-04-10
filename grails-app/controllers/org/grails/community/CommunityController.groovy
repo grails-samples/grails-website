@@ -1,5 +1,7 @@
 package org.grails.community
 
+import org.grails.wiki.WikiPage
+
 class CommunityController {
 
     def index() { }
@@ -11,5 +13,7 @@ class CommunityController {
     def contribute() { }
 
     def mailingList() { }
+
+    def twitter() { }
 
 }
