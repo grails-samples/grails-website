@@ -1196,3 +1196,39 @@ a.like {
 	}
 	
 }
+
+.socialConnect {
+    .clearfix();
+    width: 350px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    a {
+        display: block;
+        width: 170px;
+        height: 28px;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        text-indent: -6000em;
+        float: left;
+        background: url(../../img/externalServices/connectwith.png) no-repeat 0 0;
+    }
+    a.facebook {
+        &:hover {
+            background-position: 0 -28px;
+        }
+        &:active {
+            background-position: 0 -56px;
+        }
+    }
+    a.twitter {
+        float: right;
+        background-position: -170px 0;
+        &:hover {
+            background-position: -170px -28px;
+        }
+        &:active {
+            background-position: -170px -56px;
+        }
+    }
+}
