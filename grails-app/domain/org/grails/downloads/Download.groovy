@@ -10,6 +10,7 @@ class Download implements Serializable{
     String softwareVersion
     int downloadCount
     Boolean betaRelease = false
+    Boolean latestRelease = false
 
     List files
     static hasMany = [files:DownloadFile]   
@@ -25,9 +26,14 @@ class Download implements Serializable{
         softwareVersion blank:false
         downloadCount min:0
         releaseDate nullable:true, widget:'datePicker'
+        latestRelease nullable:true
     }
 
     static mapping = {
         downloadCount column: '`count`'
+    }
+
+    def markAsLatest() {
+
     }
 }

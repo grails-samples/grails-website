@@ -46,8 +46,10 @@
                     %{--<li><g:link controller="userInfo" action="list">User Info</g:link></li>--}%
                     <li <g:if test="${controllerName == 'wikiPage'}">class="active"</g:if>>
                         <g:link controller="wikiPage" action="list">Wiki Pages</g:link></li>
-                    <li <g:if test="${controllerName == 'download'}">class="active"</g:if>>
-                        <g:link controller="download" action="list">Downloads</g:link></li>
+                    <li <g:if test="${controllerName == 'downloadAdmin'}">class="active"</g:if>>
+                        <g:link controller="downloadAdmin" action="list">Downloads</g:link></li>
+                    <li <g:if test="${controllerName == 'downloadFile'}">class="active"</g:if>>
+                        <g:link controller="downloadFile" action="list">Files</g:link></li>
                     <li <g:if test="${controllerName == 'commentLink'}">class="active"</g:if>>
                         <g:link controller="commentLink" action="list">Comments</g:link></li>
                     <li <g:if test="${controllerName == 'tag'}">class="active"</g:if>>

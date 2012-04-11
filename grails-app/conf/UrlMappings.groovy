@@ -54,8 +54,8 @@ class UrlMappings {
             parseRequest = true
         }
 
-        "/download"(controller: "download", action: "index")
-        "/downloads"(controller: "download", action: "index")
+        "/download"(controller: "download", action: "latest")
+        "/downloads"(controller: "download", action: "latest")
 
 //        "/Download"(controller: "download", action: "latest")
 //        "/download/file"(controller: "download", action: "downloadFile")

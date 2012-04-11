@@ -7,74 +7,88 @@ import grails.validation.Validateable
 import net.sf.ehcache.Element
 import net.sf.ehcache.Ehcache
 import org.hibernate.FetchMode
+import org.grails.content.Version
 
 class DownloadController {
     def grailsApplication
     def downloadCache
+    def downloadService
 
     def scaffold = Download
-    
+
     def index() { }
 
     def latest() {
         // Find out which versions we should display. This should be a
         // list like ['2.0', '1.3', '1.2'].
-        def versions = versionOrder*.baseVersion ?: ['1.3', '1.2']
-
-        def downloads = versions.inject([:]) { map, version ->
-            def m = version =~ /(\d+\.\d+)\s?(beta|milestone)?/
-            def verNumber = m[0][1]
-            def isBeta = m[0][2] as boolean
-
-            def downloads = Download.withCriteria {
-                eq 'softwareName', 'Grails'
-                like 'softwareVersion', "${verNumber}%"
-                if (isBeta) {
-                    eq 'betaRelease', true
-                }
-                else {
-                    or {
-                        eq 'betaRelease', false
-                        isNull 'betaRelease'
-                    }
-                }
-                fetchMode 'files', FetchMode.SELECT
-                order 'releaseDate', 'desc'
-                maxResults 1
-            }
-            def binaryDownload = downloads ? downloads[0] : null
-
-            def docDownload = !binaryDownload ? null : Download.findBySoftwareNameAndSoftwareVersion(
-                    'Grails Documentation',
-                    binaryDownload.softwareVersion,
-                    [fetch: [files: 'select']])
-
-            if (downloads) {
-                map[version] = [ binaryDownload, docDownload ]
-            }
-            else {
-                log.error "No downloads found for: ${version}"
-            }
-
-            return map
-        }
+//        def versions = versionOrder*.baseVersion ?: ['1.3', '1.2']
+//
+//        def downloads = versions.inject([:]) { map, version ->
+//            def m = version =~ /(\d+\.\d+)\s?(beta|milestone)?/
+//            def verNumber = m[0][1]
+//            def isBeta = m[0][2] as boolean
+//
+//            def downloads = Download.withCriteria {
+//                eq 'softwareName', 'Grails'
+//                like 'softwareVersion', "${verNumber}%"
+//                if (isBeta) {
+//                    eq 'betaRelease', true
+//                }
+//                else {
+//                    or {
+//                        eq 'betaRelease', false
+//                        isNull 'betaRelease'
+//                    }
+//                }
+//                fetchMode 'files', FetchMode.SELECT
+//                order 'releaseDate', 'desc'
+//                maxResults 1
+//            }
+//            def binaryDownload = downloads ? downloads[0] : null
+//
+//            def docDownload = !binaryDownload ? null : Download.findBySoftwareNameAndSoftwareVersion(
+//                    'Grails Documentation',
+//                    binaryDownload.softwareVersion,
+//                    [fetch: [files: 'select']])
+//
+//            if (downloads) {
+//                map[version] = [binaryDownload, docDownload]
+//            }
+//            else {
+//                log.error "No downloads found for: ${version}"
+//            }
+//
+//            return map
+//        }
 
         // Split the downloads into stable and non-stable.
-        downloads = downloads.groupBy { key, value -> value[0].betaRelease ? 'beta' : 'stable' }
+        def groupedDownloads = downloadService.buildGroupedDownloads()
 
-        render(view: 'index', model: [stableDownloads: downloads['stable'], betaDownloads: downloads['beta']])
+//        downloads = downloads.groupBy { key, value -> value[0].betaRelease ? 'beta' : 'stable' }
+
+        def latestDownload  = ((HashMap)groupedDownloads['latest']).values()
+        def stableDownloads = ((HashMap)groupedDownloads['stable']).values()
+        def betaDownloads   = ((HashMap)groupedDownloads['beta']).values()
+
+        render(view: 'index',
+                model: [
+                    groupedDownloads:groupedDownloads,
+                    latestDownload: latestDownload,
+                    stableDownloads: stableDownloads,
+                    betaDownloads: betaDownloads
+                ])
     }
 
     def archive() {
-        def downloads = Download.findAllBySoftwareName(params.id, [order:'desc', sort:'releaseDate', cache:true])
+        def downloads = Download.findAllBySoftwareName(params.id, [order: 'desc', sort: 'releaseDate', cache: true])
 
-        return [downloads:downloads]
+        return [downloads: downloads]
     }
 
 
     def downloadFile() {
 
-        def mirror = params.mirror? Mirror.get(params.mirror) : null
+        def mirror = params.mirror ? Mirror.get(params.mirror) : null
         if (mirror) {
             // This used to do a download count, but ran into problems with
             // optimistic locking exceptions. Also, we'll probably move
@@ -88,7 +102,7 @@ class DownloadController {
     }
 
     def showUrl() {
-        def mirror = params.mirror? Mirror.get(params.mirror) : null
+        def mirror = params.mirror ? Mirror.get(params.mirror) : null
         if (mirror) {
             render mirror.urlString
         }
@@ -99,36 +113,36 @@ class DownloadController {
 
     def fileDetails() {
         def downloadFile = DownloadFile.get(params.id)
-        [downloadFile:downloadFile]
+        [downloadFile: downloadFile]
     }
 
     def addFile(AddFileCommand cmd) {
         def download = Download.get(params.id)
-        if(request.method == 'POST') {
-            if(!cmd.url) {                 
-                return [download:download, message:"Invalid URL"]
+        if (request.method == 'POST') {
+            if (!cmd.url) {
+                return [download: download, message: "Invalid URL"]
             }
-            else if(!cmd.name) {
-                return [download:download, message:"You must specify the name of the mirror"]
+            else if (!cmd.name) {
+                return [download: download, message: "You must specify the name of the mirror"]
             }
             else {
                 def downloadFile = new DownloadFile(params)
-                downloadFile.addToMirrors(urlString: cmd.url, name:cmd.name)
+                downloadFile.addToMirrors(urlString: cmd.url, name: cmd.name)
                 download.addToFiles(downloadFile)
                 download.save()
-                redirect(action:'show', id:download.id)
+                redirect(action: 'show', id: download.id)
                 return
             }
         }
-        return [download:download]
+        return [download: download]
 
     }
 
     def deleteMirror() {
         def mirror = Mirror.get(params.id)
-        if(mirror) {
-            mirror.delete(flush:true)
-            render(template:'mirrorList', model:[downloadFile:mirror.file])
+        if (mirror) {
+            mirror.delete(flush: true)
+            render(template: 'mirrorList', model: [downloadFile: mirror.file])
         }
         else {
             render "Mirror not found for id ${params.id}"
@@ -138,12 +152,12 @@ class DownloadController {
     def addMirror() {
         def downloadFile = DownloadFile.get(params.id)
 
-        if(downloadFile) {
+        if (downloadFile) {
             def mirror = new Mirror(params)
-            if(mirror.urlString) {
+            if (mirror.urlString) {
                 downloadFile.addToMirrors(mirror)
-                downloadFile.save(flush:true)
-                render(template:'mirrorList', model:[downloadFile:downloadFile])   
+                downloadFile.save(flush: true)
+                render(template: 'mirrorList', model: [downloadFile: downloadFile])
             }
             else {
                 render "Invalid URL specified"
@@ -156,9 +170,9 @@ class DownloadController {
 
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [
-            delete:'POST',
-            save:'POST',
-            update:'POST',
+            delete: 'POST',
+            save: 'POST',
+            update: 'POST',
             apiList: 'GET',
             apiShow: 'GET']
 
@@ -215,15 +229,15 @@ class DownloadController {
 //    }
 
     def delete = {
-        def download = Download.get( params.id )
-        if(download) {
+        def download = Download.get(params.id)
+        if (download) {
             download.delete()
             flash.message = "Download ${params.id} deleted"
-            redirect(action:list)
+            redirect(action: list)
         }
         else {
             flash.message = "Download not found with id ${params.id}"
-            redirect(action:list)
+            redirect(action: list)
         }
     }
 
@@ -315,21 +329,21 @@ class DownloadController {
 
     protected void buildDownloadData(delegate, d) {
         delegate.download name: d.softwareName,
-                          version: d.softwareVersion,
-                          beta: d.betaRelease,
-                          releaseNotes: g.createLink(uri: d.releaseNotes, absolute: true), {
-            files {
-                for (f in d.files) {
-                    file(title: f.title) {
-                        mirrors {
-                            for (m in f.mirrors) {
-                                mirror name: m.name, url: m.urlString
+                version: d.softwareVersion,
+                beta: d.betaRelease,
+                releaseNotes: g.createLink(uri: d.releaseNotes, absolute: true), {
+                    files {
+                        for (f in d.files) {
+                            file(title: f.title) {
+                                mirrors {
+                                    for (m in f.mirrors) {
+                                        mirror name: m.name, url: m.urlString
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
     }
 
     protected void renderDownloadsAsJson(downloads) {
