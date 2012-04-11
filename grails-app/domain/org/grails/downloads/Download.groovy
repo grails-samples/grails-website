@@ -24,6 +24,7 @@ class Download implements Serializable{
         softwareName blank:false
         softwareVersion blank:false
         downloadCount min:0
+        releaseDate nullable:true, widget:'datePicker'
     }
 
     static mapping = {

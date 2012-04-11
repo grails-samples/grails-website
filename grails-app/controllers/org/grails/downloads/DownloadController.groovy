@@ -11,6 +11,8 @@ import org.hibernate.FetchMode
 class DownloadController {
     def grailsApplication
     def downloadCache
+
+    def scaffold = Download
     
     def index() { }
 
@@ -197,20 +199,20 @@ class DownloadController {
         }
     }
 
-    def list = {
-        if (!params.max) params.max = 10
-        [ downloadList: Download.list( params ) ]
-    }
-
-    def show = {
-        def download = Download.get( params.id )
-
-        if(!download) {
-            flash.message = "Download not found with id ${params.id}"
-            redirect(action:list)
-        }
-        else { return [ download : download ] }
-    }
+//    def list = {
+//        if (!params.max) params.max = 10
+//        [ downloadList: Download.list( params ) ]
+//    }
+//
+//    def show = {
+//        def download = Download.get( params.id )
+//
+//        if(!download) {
+//            flash.message = "Download not found with id ${params.id}"
+//            redirect(action:list)
+//        }
+//        else { return [ download : download ] }
+//    }
 
     def delete = {
         def download = Download.get( params.id )
@@ -225,51 +227,51 @@ class DownloadController {
         }
     }
 
-    def edit = {
-        def download = Download.get( params.id )
+//    def edit = {
+//        def download = Download.get( params.id )
+//
+//        if(!download) {
+//            flash.message = "Download not found with id ${params.id}"
+//            redirect(action:list)
+//        }
+//        else {
+//            return [ download : download ]
+//        }
+//    }
 
-        if(!download) {
-            flash.message = "Download not found with id ${params.id}"
-            redirect(action:list)
-        }
-        else {
-            return [ download : download ]
-        }
-    }
+//    def update = {
+//        def download = Download.get( params.id )
+//        if(download) {
+//            download.properties = params
+//            if(!download.hasErrors() && download.save()) {
+//                flash.message = "Download ${params.id} updated"
+//                redirect(action:show,id:download.id)
+//            }
+//            else {
+//                render(view:'edit',model:[download:download])
+//            }
+//        }
+//        else {
+//            flash.message = "Download not found with id ${params.id}"
+//            redirect(action:edit,id:params.id)
+//        }
+//    }
 
-    def update = {
-        def download = Download.get( params.id )
-        if(download) {
-            download.properties = params
-            if(!download.hasErrors() && download.save()) {
-                flash.message = "Download ${params.id} updated"
-                redirect(action:show,id:download.id)
-            }
-            else {
-                render(view:'edit',model:[download:download])
-            }
-        }
-        else {
-            flash.message = "Download not found with id ${params.id}"
-            redirect(action:edit,id:params.id)
-        }
-    }
+//    def create = {
+//        def download = new Download(params)
+//        return ['download':download]
+//    }
 
-    def create = {
-        def download = new Download(params)
-        return ['download':download]
-    }
-
-    def save = {
-        def download = new Download(params)
-        if(!download.hasErrors() && download.save()) {
-            flash.message = "Download ${download.id} created"
-            redirect(action:show,id:download.id)
-        }
-        else {
-            render(view:'create',model:[download:download])
-        }
-    }
+//    def save = {
+//        def download = new Download(params)
+//        if(!download.hasErrors() && download.save()) {
+//            flash.message = "Download ${download.id} created"
+//            redirect(action:show,id:download.id)
+//        }
+//        else {
+//            render(view:'create',model:[download:download])
+//        }
+//    }
 
     def adminShowVersionOrder = {
         render template: "showDisplayedVersions", model: [versions: versionOrder]
