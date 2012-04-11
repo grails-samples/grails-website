@@ -22,10 +22,9 @@
                     <h3><a href="#">${tutorial.title}</a></h3>
 
                     <p class="tags">
-                        <a href="#" class="btn blueLight">ecommerce</a>
-                        <a href="#" class="btn blueLight">high</a>
-                        <a href="#" class="btn blueLight">traffic</a>
-                        <a href="#" class="btn blueLight">retail</a>
+                        <g:each in="${tutorial.tags}" var="tag">
+                            <a href="#" class="btn blueLight">${tag}</a>
+                        </g:each>
                     </p>
 
                     <p>${tutorial.description } <a href="#">read more</a></p>
