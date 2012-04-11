@@ -33,7 +33,7 @@ class Download implements Serializable{
         downloadCount column: '`count`'
     }
 
-    def markAsLatest() {
-
+    def String toString() {
+        "${softwareName} ${softwareVersion}"
     }
 }

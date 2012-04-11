@@ -1,6 +1,6 @@
 <section>
     <h3>Best Grails plugins downloads</h3>
-    <p>Grails has a number of plugins available for it that extend its capability. Check out the <a href="plugins.html">Plugins page</a> for more info on available plugins and how they can be installed.</p>
+    <p>Grails has a number of plugins available for it that extend its capability. Check out the <a href="/plugins">Plugins page</a> for more info on available plugins and how they can be installed.</p>
     <div class="plugins-list" id="plugins-list">
         <ul>
             <li class="odd">
@@ -64,6 +64,6 @@
                 </p>
             </li>
         </ul>
-        <div class="buttonbars"><a href="plugins.html" class="btn btn-large blueLight">See all plugins</a></div>
+        <div class="buttonbars"><a href="/plugins" class="btn btn-large blueLight">See all plugins</a></div>
     </div>
 </section>

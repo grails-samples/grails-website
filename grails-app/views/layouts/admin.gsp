@@ -40,16 +40,31 @@
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    %{--<li><g:link controller="news" action="list">News</g:link></li>--}%
                     <li <g:if test="${controllerName == 'user'}">class="active"</g:if>>
                         <g:link controller="user" action="list">Users</g:link></li>
-                    %{--<li><g:link controller="userInfo" action="list">User Info</g:link></li>--}%
-                    <li <g:if test="${controllerName == 'wikiPage'}">class="active"</g:if>>
-                        <g:link controller="wikiPage" action="list">Wiki Pages</g:link></li>
-                    <li <g:if test="${controllerName == 'downloadAdmin'}">class="active"</g:if>>
-                        <g:link controller="downloadAdmin" action="list">Downloads</g:link></li>
-                    <li <g:if test="${controllerName == 'downloadFile'}">class="active"</g:if>>
-                        <g:link controller="downloadFile" action="list">Files</g:link></li>
+
+                    <li class="dropdown
+                        <g:if test="${['downloadAdmin', 'downloadFile', 'mirror'].contains(controllerName)}"> active</g:if>
+                    ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Downloads <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><g:link controller="downloadAdmin" action="list">Downloads</g:link></li>
+                            <li><g:link controller="downloadFile" action="list">Files</g:link></li>
+                            <li><g:link controller="mirror" action="list">Mirrors</g:link></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown
+                        <g:if test="${['webSiteAdmin', 'tutorialAdmin', 'wikiPage'].contains(controllerName)}"> active</g:if>
+                    ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Content <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><g:link controller="wikiPage" action="list">Wiki Pages</g:link></li>
+                            <li><g:link controller="webSiteAdmin" action="list">Websites</g:link></li>
+                            <li><g:link controller="tutorialAdmin" action="list">Tutorials</g:link></li>
+                        </ul>
+                    </li>
+
                     <li <g:if test="${controllerName == 'commentLink'}">class="active"</g:if>>
                         <g:link controller="commentLink" action="list">Comments</g:link></li>
                     <li <g:if test="${controllerName == 'tag'}">class="active"</g:if>>
@@ -60,10 +75,6 @@
                         <g:link controller="blogEntry" action="adminList">Blog Entries</g:link></li>
                     <li <g:if test="${controllerName == 'pluginAdmin'}">class="active"</g:if>>
                         <g:link controller="pluginAdmin" action="list">Plugins</g:link></li>
-                    <li <g:if test="${controllerName == 'tutorialAdmin'}">class="active"</g:if>>
-                        <g:link controller="tutorialAdmin" action="list">Tutorials</g:link></li>
-                    <li <g:if test="${controllerName == 'webSiteAdmin'}">class="active"</g:if>>
-                        <g:link controller="webSiteAdmin" action="list">Websites</g:link></li>
                     <plugin:isAvailable name="jobs">
                         <li <g:if test="${controllerName == 'jobAdmin'}">class="active"</g:if>>
                             <g:link controller="jobAdmin" action="list">Jobs</g:link></li>
@@ -81,6 +92,15 @@
 <div class="container">
     <g:layoutBody/>
 </div>
+
+<script src="${resource(dir:'js/libs', file:'jquery-1.7.1.min.js')}"></script>
+<script src="${resource(dir:'js/libs/bootstrap', file:'bootstrap.js')}"></script>
+<script src="${resource(dir:'js/libs/bootstrap', file:'dropdown.js')}"></script>
+<script type="text/javascript">
+    $(function() {
+        $('.dropdown-toggle').dropdown();
+    });
+</script>
 
 </body>
 </html>

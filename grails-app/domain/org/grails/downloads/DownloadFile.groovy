@@ -29,4 +29,8 @@ class DownloadFile implements Serializable{
                 break
         }
     }
+
+    String toString() {
+        "${download.toString()} - ${title}"
+    }
 }
