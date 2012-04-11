@@ -19,7 +19,7 @@
             <article class="tutorial">
                 <a href="#" class="like">+1</a>
                 <div>
-                    <h3><a href="#">${tutorial.title}</a></h3>
+                    <h3><g:link url="${tutorial.url}">${tutorial.title}</g:link></h3>
 
                     <p class="tags">
                         <g:each in="${tutorial.tags}" var="tag">
@@ -27,7 +27,10 @@
                         </g:each>
                     </p>
 
-                    <p>${tutorial.description } <a href="#">read more</a></p>
+                    <p>
+                        ${tutorial.description}
+                        <g:link url="${tutorial.url}">read more</g:link>
+                    </p>
                 </div>
             </article>
         </g:each>
