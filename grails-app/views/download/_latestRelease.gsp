@@ -3,6 +3,8 @@
 <g:set var="documentation" value="${latestDownload ? latestDownload['documentation'][0] : null}"/>
 
 <section class="downloads">
+
+    <g:if test="${download.respondsTo('releaseDate')}">
     <h2>Download latest release
         <small>(<g:formatDate format="MM/dd/yyyy" date="${download.releaseDate.toDate()}"/>)</small>
     </h2>
@@ -34,4 +36,9 @@
         <g:link url="${documentation.mirrors[0][0].urlString}" class="btn light">Documentation (zip)</g:link> |
         <g:link controller="learn" action="installation" class="btn light">Installation</g:link>
     </p>
+
+    </g:if>
+    <g:else>
+        The download list is in the process of being updated. Please check later.
+    </g:else>
 </section>
