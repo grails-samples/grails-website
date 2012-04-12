@@ -85,7 +85,7 @@
 
     <footer id="footer" role="contentinfo">
         <div class="buildWithGrails">
-            Build with Grails
+            Built with Grails
         </div>
 
         <div class="copyright">
