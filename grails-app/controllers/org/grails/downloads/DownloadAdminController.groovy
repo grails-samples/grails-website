@@ -18,6 +18,16 @@ class DownloadAdminController {
         [downloadInstance: downloadInstance]
     }
 
+    def create() {
+        def downloadInstance = new Download( releaseDate: new org.joda.time.DateTime() )
+        [downloadInstance: downloadInstance]
+    }
+
+    def edit() {
+        def downloadInstance = Download.findById(params.id)
+        [downloadInstance: downloadInstance]
+    }
+
     def markAsLatestRelease() {
         def downloadInstance = Download.findById(params.id)
         downloadService.markAsLatest(downloadInstance)

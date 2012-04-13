@@ -11,9 +11,10 @@
 
 <div id="content" class="content-aside-2" role="main">
 
-    <g:render template="sideNav"/>
+    <g:render template="sideNav" bean="${tags}" />
 
     <div id="main" class="plugins">
+
         <section class="search">
             <input type="search" placeholder="Search a plugin"/>
             <a href="#" class="zoom">Search</a>
@@ -55,7 +56,7 @@
                     </header>
 
                     <div class="desc">
-                        <p>${plugin.description.body} <a href="#">Read more</a></p>
+                        <p>${plugin.description.body} <g:link uri="/plugins/${plugin.name}/">Read more</g:link></p>
                         <p class="dependency"><strong>Dependency :</strong><br/>
                             <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
                         </p>
@@ -77,11 +78,10 @@
             </section>
         </g:each>
 
-        >>
-    <div class="pagination">
-        <g:paginate total="${pluginCount}"/>
-    </div>
-        <<
+        <div class="pagination">
+            ***** PAGINATION NOT WORKING - MUST FIX *****
+            <g:paginate total="${pluginCount}"/>
+        </div>
 
         <section class="pagination">
 

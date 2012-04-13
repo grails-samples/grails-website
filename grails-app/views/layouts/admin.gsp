@@ -65,6 +65,16 @@
                         </ul>
                     </li>
 
+                    <li class="dropdown
+                        <g:if test="${['pluginAdmin'].contains(controllerName)}"> active</g:if>
+                    ">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plugins <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><g:link controller="pluginAdmin" action="list">Plugin List</g:link></li>
+                            <li><a href="#">Approval Queue</a></li>
+                        </ul>
+                    </li>
+
                     <li <g:if test="${controllerName == 'commentLink'}">class="active"</g:if>>
                         <g:link controller="commentLink" action="list">Comments</g:link></li>
                     <li <g:if test="${controllerName == 'tag'}">class="active"</g:if>>
@@ -73,8 +83,7 @@
                         <g:link controller="ratingLink" action="list">Ratings</g:link></li>
                     <li <g:if test="${controllerName == 'blogEntry'}">class="active"</g:if>>
                         <g:link controller="blogEntry" action="adminList">Blog Entries</g:link></li>
-                    <li <g:if test="${controllerName == 'pluginAdmin'}">class="active"</g:if>>
-                        <g:link controller="pluginAdmin" action="list">Plugins</g:link></li>
+
                     <plugin:isAvailable name="jobs">
                         <li <g:if test="${controllerName == 'jobAdmin'}">class="active"</g:if>>
                             <g:link controller="jobAdmin" action="list">Jobs</g:link></li>

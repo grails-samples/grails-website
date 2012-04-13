@@ -9,46 +9,17 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-    <div class="aside">
-        <aside class="search">
-            <input type="search" placeholder="Search a plugin" />
-            <a href="#" class="zoom">Search</a>
-        </aside>
-        <aside class="filters">
-            <h4>Popular filters</h4>
-            <ul>
-                <li><a href="#">Featured</a></li>
-                <li><a href="#">Top Installed</a></li>
-                <li><a href="#">Highest Voted</a></li>
-                <li><a href="#">Recently Updated</a></li>
-                <li><a href="#">Newest</a></li>
-                <li class="last"><a href="#">Supported by SpringSource</a></li>
-            </ul>
-        </aside>
-        <aside class="tags">
-            <h4>Popular tags</h4>
-            <ul>
-                <li><a href="#">Ajax</a></li>
-                <li><a href="#">Javascript</a></li>
-                <li><a href="#">Functionality</a></li>
-                <li><a href="#">jQuery</a></li>
-                <li><a href="#">Security</a></li>
-                <li><a href="#">Database</a></li>
-                <li class="last"><a href="#">Testing</a></li>
-            </ul>
-            <ul>
-                <li><a href="#">Rich client</a></li>
-                <li><a href="#">Resources</a></li>
-                <li><a href="#">Perfomance</a></li>
-                <li><a href="#">Grails2</a></li>
-                <li><a href="#">Ui</a></li>
-                <li><a href="#">Sexy</a></li>
-                <li class="last"><a href="#">Bootstrap2</a></li>
-            </ul>
-        </aside>
-    </div>
+<div id="content" class="content-aside-2" role="main">
+
+    <g:render template="sideNav"/>
+
     <div id="main" class="plugins">
+
+        <section class="search">
+            <input type="search" placeholder="Search a plugin"/>
+            <a href="#" class="zoom">Search</a>
+        </section>
+
         <section class="plugin">
             <article>
                 <header>
@@ -81,58 +52,35 @@
                         <p class="used">
                             <strong>68%</strong> Used in of apps
                         </p>
-                        <p class="download">
-                            <a href="#" class="btn primary">Source on GitHub</a>
-                        </p>
+                        <g:if test="${plugin.isScmGitHub()}">
+                            <p class="download">
+                                <a href="${plugin.scmUrl}" target="_blank" class="btn primary">Source on GitHub</a>
+                            </p>
+                        </g:if>
                     </div>
                 </header>
                 <div class="desc">
                     <div class="alert alert-info">
-                        <strong>Installation :</strong><br />
-                        <code>${plugin.installation.body.encodeAsHTML()}</code>
-                    </div>
-                    <p class="dependency"><strong>Dependency :</strong><br />
+                        <strong>Dependency :</strong><br />
                         <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
-                    </p>
+                    </div>
                 </div>
                 <p class="buttons">
                     <g:if test="${plugin.scmUrl}">
-                        <a href="${plugin.scmUrl}" class="btn blueLight source"><span class="ico"></span>Source</a>
+                        <a href="${plugin.scmUrl}" target="_blank" class="btn blueLight source"><span class="ico"></span>Source</a>
                     </g:if>
                     <g:if test="${plugin.documentationUrl}">
-                        <a href="${plugin.documentationUrl}" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
+                        <a href="${plugin.documentationUrl}" target="_blank" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
                     </g:if>
                     <g:if test="${plugin.issuesUrl}">
-                        <a href="${plugin.issuesUrl}" class="btn blueLight issues"><span class="ico"></span>Issues</a>
+                        <a href="${plugin.issuesUrl}" target="_blank" class="btn blueLight issues"><span class="ico"></span>Issues</a>
                     </g:if>
                 </p>
-                <div class="tabbable" id="tabs">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Installation</a></li>
-                        <li class="disabled"><a href="#tab3">Screenshots</a></li>
-                        <li class="disabled"><a href="#tab4">Faq</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab1">
-                            <p>The Cloud Foundry plugin for Grails integrates Cloud Foundry's cloud deployment services to manage the running of Grails applications in the cloud from the command line.</p>
-                            <h3>Documentation</h3>
-                            <p>Please see the user guide for official documentation.</p>
-                            <p>(See also: “One-step deployment with Grails and Cloud Foundry,” a post by Peter Ledbrook on the SpringSource blog.)</p>
-                        </div>
-                        <div class="tab-pane" id="tab2">
-                            <p>
-                                Execute (<a href="#">copy</a>):<br />
-                                <code>grails install-plugin cloud-foundry</code>
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="tab3">
-                            <p>No screenshot.</p>
-                        </div>
-                        <div class="tab-pane" id="tab4">
-                            <p>No FAQ.</p>
-                        </div>
-                    </div>
+                <div class="documentation">
+                    <p>The Cloud Foundry plugin for Grails integrates Cloud Foundry's cloud deployment services to manage the running of Grails applications in the cloud from the command line.</p>
+                    <h3>Documentation</h3>
+                    <p>Please see the user guide for official documentation.</p>
+                    <p>(See also: “One-step deployment with Grails and Cloud Foundry,” a post by Peter Ledbrook on the SpringSource blog.)</p>
                 </div>
             </article>
         </section>

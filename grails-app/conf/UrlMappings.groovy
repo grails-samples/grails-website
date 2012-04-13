@@ -64,7 +64,7 @@ class UrlMappings {
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
-        "/plugins"(controller: "plugin", action: "index")
+        "/plugins"(controller: "plugin", action: "list")
         "/plugins/$id"(controller: "plugin", action: "plugin")
 //        "/Plugins"(controller: "plugin", action: "legacyHome")
 //        "/plugins"(controller: "plugin", action: "home")

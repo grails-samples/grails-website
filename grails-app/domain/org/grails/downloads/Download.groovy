@@ -8,7 +8,7 @@ class Download implements Serializable{
     DateTime releaseDate = new DateTime()                    
     String softwareName
     String softwareVersion
-    int downloadCount
+    int downloadCount // This is no longer needed.
     Boolean betaRelease = false
     Boolean latestRelease = false
 
@@ -24,8 +24,8 @@ class Download implements Serializable{
     static constraints = {
         softwareName blank:false
         softwareVersion blank:false
-        downloadCount min:0
-        releaseDate nullable:true, widget:'datePicker'
+        downloadCount nullable: true
+        releaseDate blank:false
         latestRelease nullable:true
     }
 

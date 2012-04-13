@@ -16,6 +16,10 @@
     </aside>
     <aside class="tags">
         <h4>Popular tags</h4>
+        <g:each in="${tags}" var="tag" status="i">
+            ${i}
+            <h3>${tag}</h3>
+        </g:each>
         <ul>
             <li><a href="#">Ajax</a></li>
             <li><a href="#">Javascript</a></li>
