@@ -65,6 +65,7 @@ class UrlMappings {
         "/auth/$action"(controller: "auth")
 
         "/plugins"(controller: "plugin", action: "list")
+        "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
         "/plugins/$id"(controller: "plugin", action: "plugin")
 //        "/Plugins"(controller: "plugin", action: "legacyHome")
 //        "/plugins"(controller: "plugin", action: "home")

@@ -24,40 +24,17 @@
 
 <div id="page">
     <header id="header" role="banner">
-        <h1 id="logo"><a href="index.html">Grails 2.0</a></h1>
+        <h1 id="logo"><a href="/">Grails 2.0</a></h1>
         <ul class="topLinks nav pills">
-            <li class="dropdown last" id="menu1">
-                <a class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="${resource(dir: 'img/lang', file: 'uk.png')}"/>
-                    English
-                    <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">
-                            <img src="${resource(dir: 'img/lang', file: 'fr.png')}"/>
-                            French
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="${resource(dir: 'img/lang', file: 'fr.png')}"/>
-                            Spanish
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="spacing">&nbsp;</li>
             <shiro:isLoggedIn>
-                <li>
-                    <a href="/profile">
-                        <gravatar:img email="${user?.email}" size="20" align="top" />
-                        My Account
-                    </a>
-                </li>
+                <li><a href="/logout">Logout</a></li>
+                <li class="spacing">&nbsp;</li>
+                <li class="current-user"><gravatar:img email="${user?.email}" size="16" align="top" /> ${user?.email}</li>
             </shiro:isLoggedIn>
             <shiro:isNotLoggedIn>
                 <li><a href="/login">Login</a></li>
+                <li class="spacing">&nbsp;</li>
+                <li><a href="/register">Create Account</a></li>
             </shiro:isNotLoggedIn>
         </ul>
         <a href="http://www.springsource.org/" class="springSource">SpringSource</a>

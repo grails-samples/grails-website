@@ -115,10 +115,22 @@
 				}
 			}
 			&.spacing {
-				padding-right: 10px;
+				padding-right: 5px;
 				border-right: 1px solid @grailsGrayLight;		
 				margin-right: 10px;
 			}
+            &.current-user {
+                color: @grailsBlack;
+                font-size: @baseFontSize - 1;
+                text-decoration: none;
+                line-height: 26px;
+                margin: 0px;
+
+                img {
+                    position: relative;
+                    top: 5px;
+                }
+            }
 			a.dropdown-toggle {
 				line-height: 14px;
 				text-decoration: none;

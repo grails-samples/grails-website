@@ -16,27 +16,26 @@
     </aside>
     <aside class="tags">
         <h4>Popular tags</h4>
-        <g:each in="${tags}" var="tag" status="i">
-            ${i}
-            <h3>${tag}</h3>
-        </g:each>
         <ul>
-            <li><a href="#">Ajax</a></li>
-            <li><a href="#">Javascript</a></li>
-            <li><a href="#">Functionality</a></li>
-            <li><a href="#">jQuery</a></li>
-            <li><a href="#">Security</a></li>
-            <li><a href="#">Database</a></li>
-            <li class="last"><a href="#">Testing</a></li>
+            <g:each in="${tags[0]}" var="tag" status="i">
+                <li<g:if test="${i == tags.size() - 1}"> class="last"</g:if>><a href="">${tag.toString().capitalize()}</a></li>
+            </g:each>
         </ul>
         <ul>
-            <li><a href="#">Rich client</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">Perfomance</a></li>
-            <li><a href="#">Grails2</a></li>
-            <li><a href="#">Ui</a></li>
-            <li><a href="#">Sexy</a></li>
-            <li class="last"><a href="#">Bootstrap2</a></li>
+            <g:each in="${tags[1]}" var="tag" status="i">
+                <li<g:if test="${i == tags.size() - 1}"> class="last"</g:if>><a href="">${tag.toString().capitalize()}</a></li>
+            </g:each>
         </ul>
+    </aside>
+
+    <aside class="notif">
+        <p>
+            If you are interested in creating and distributing a plugin in the Grails central repository, take a look at
+            the <a href="http://grails.org/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>.
+        </p>
+        <p style="padding-top: 10px;">
+            Are you ready to publish your plugin and need access to the Grails plugin repository,
+            <a href="/plugins/submitPlugin">please fill out this form</a>.
+        </p>
     </aside>
 </div>

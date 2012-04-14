@@ -105,6 +105,11 @@ class JSecurityAuthFilters {
                 accessControl { true }
             }
         }
+        pluginSubmitting(controller:"plugin", action: "submitPlugin") {
+            before = {
+                accessControl { true }
+            }
+        }
         pluginPublishing(controller:"repository", action:"publish") {
             before = {
                 accessControl { permission "plugin:publish:${params.plugin}" }

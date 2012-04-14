@@ -1142,6 +1142,30 @@ a.like {
 	width: 310px;
 	margin: 0 auto;
 	padding: 10px 20px;
+
+    input.text {
+        width: 21em;
+    }
+
+    input#emailSubscribed {
+        float: left;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+}
+
+.content-form {
+    div.confirm {
+        @decal: 9px;
+        padding-left: @decal;
+        margin-top: @decal;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        line-height: 20px;
+        background: @grailsGrayWhite;
+        .border-radius(@radius);
+        #textshadow > .white(1);
+    }
 }
 
 .numbers {

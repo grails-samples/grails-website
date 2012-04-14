@@ -66,12 +66,12 @@
                     </li>
 
                     <li class="dropdown
-                        <g:if test="${['pluginAdmin'].contains(controllerName)}"> active</g:if>
+                        <g:if test="${['pluginAdmin', 'pluginPendingApproval'].contains(controllerName)}"> active</g:if>
                     ">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plugins <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><g:link controller="pluginAdmin" action="list">Plugin List</g:link></li>
-                            <li><a href="#">Approval Queue</a></li>
+                            <li><g:link controller="pluginPendingApproval" action="list">Approval Queue</g:link></li>
                         </ul>
                     </li>
 
