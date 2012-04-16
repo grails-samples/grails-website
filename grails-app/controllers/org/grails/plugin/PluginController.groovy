@@ -6,7 +6,43 @@ class PluginController {
     def tagService
 
     def list() {
-        def (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
+
+        def plugins = []
+        def pluginCount = 0
+        def tag = params.tag ? params.tag.toString() : null
+        def filter = params.filter ? params.filter.toString() : null
+
+        if (tag) {
+            (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal([max: 200], params.tag)
+        }
+        else if (filter) {
+            switch (filter) {
+                case 'featured':
+                    (plugins, pluginCount) = pluginService.listFeaturedPluginsWithTotal()
+                    break
+//                case 'top_installed':
+//                    (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
+//                    break
+                case 'highest_voted':
+                    (plugins, pluginCount) = pluginService.listPopularPluginsWithTotal()
+                    break
+                case 'recently_updated':
+                    (plugins, pluginCount) = pluginService.listRecentlyUpdatedPluginsWithTotal()
+                    break
+                case 'newest':
+                    (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
+                    break
+                case 'official':
+                    (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal([max: 200], 'springsource')
+                    break
+                default:
+                    (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
+            }
+        }
+        else {
+            (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
+        }
+
         def tags = tagService.getPluginTagArray()
         [ tags: tags, plugins: plugins, pluginCount: pluginCount ]
     }

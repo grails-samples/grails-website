@@ -25,7 +25,7 @@
     <div id="main">
         <g:render template="latestRelease" bean="${latestDownload}" var="latestDownload" />
         <g:render template="previousReleases" model="${[stableDownloads: stableDownloads, betaDownloads: betaDownloads]}" />
-        <g:render template="pluginShortList" />
+        <g:render template="pluginShortList" model="${[pluginList: pluginList]}" />
     </div>
 </div>
 

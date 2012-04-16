@@ -10,8 +10,6 @@
 
 <body>
 
-${pluginPendingApproval.errors.inspect()}
-
 <div id="content" class="content-aside-2" role="main">
 
     <div class="aside">

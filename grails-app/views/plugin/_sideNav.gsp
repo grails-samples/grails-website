@@ -6,24 +6,29 @@
     <aside class="filters">
         <h4>Popular filters</h4>
         <ul>
-            <li><a href="#">Featured</a></li>
-            <li><a href="#">Top Installed</a></li>
-            <li><a href="#">Highest Voted</a></li>
-            <li><a href="#">Recently Updated</a></li>
-            <li><a href="#">Newest</a></li>
-            <li class="last"><a href="#">Supported by SpringSource</a></li>
+            <li <g:if test="${params.filter == 'featured'}">class="active"</g:if>><a href="/plugins?filter=featured">Featured</a></li>
+            <li <g:if test="${params.filter == 'highest_voted'}">class="active"</g:if>><a href="/plugins?filter=highest_voted">Highest Voted</a></li>
+            <li <g:if test="${params.filter == 'recently_updated'}">class="active"</g:if>><a href="/plugins?filter=recently_updated">Recently Updated</a></li>
+            <li <g:if test="${params.filter == 'newest'}">class="active"</g:if>><a href="/plugins?filter=newest">Newest</a></li>
+            <li class="last<g:if test="${params.filter == 'official'}"> active</g:if>"><a href="/plugins?filter=official">Supported by SpringSource</a></li>
         </ul>
     </aside>
     <aside class="tags">
         <h4>Popular tags</h4>
         <ul>
             <g:each in="${tags[0]}" var="tag" status="i">
-                <li<g:if test="${i == tags.size() - 1}"> class="last"</g:if>><a href="">${tag.toString().capitalize()}</a></li>
+                <li class="
+                    <g:if test="${params.tag == tag.toString()}"> active</g:if>
+                    <g:if test="${i == tags.size() - 1}"> last</g:if>
+                "><a href="/plugins?tag=${tag.toString()}">${tag.toString().capitalize()}</a></li>
             </g:each>
         </ul>
         <ul>
             <g:each in="${tags[1]}" var="tag" status="i">
-                <li<g:if test="${i == tags.size() - 1}"> class="last"</g:if>><a href="">${tag.toString().capitalize()}</a></li>
+                <li class="
+                    <g:if test="${params.tag == tag.toString()}"> active</g:if>
+                    <g:if test="${i == tags.size() - 1}"> last</g:if>
+                "><a href="/plugins?tag=${tag.toString()}">${tag.toString().capitalize()}</a></li>
             </g:each>
         </ul>
     </aside>

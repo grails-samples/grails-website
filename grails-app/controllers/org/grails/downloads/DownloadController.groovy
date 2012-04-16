@@ -13,6 +13,7 @@ class DownloadController {
     def grailsApplication
     def downloadCache
     def downloadService
+    def pluginService
 
     def scaffold = Download
 
@@ -70,12 +71,15 @@ class DownloadController {
         def stableDownloads = ((HashMap)groupedDownloads['stable']).values()
         def betaDownloads   = ((HashMap)groupedDownloads['beta']).values()
 
+        def pluginList = pluginService.listPopularPluginsWithTotal([max: 4])[0]
+
         render(view: 'index',
                 model: [
                     groupedDownloads:groupedDownloads,
                     latestDownload: latestDownload,
                     stableDownloads: stableDownloads,
-                    betaDownloads: betaDownloads
+                    betaDownloads: betaDownloads,
+                    pluginList: pluginList
                 ])
     }
 
