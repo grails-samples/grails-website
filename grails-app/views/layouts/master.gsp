@@ -6,16 +6,18 @@
 <head>
     <meta charset="utf-8">
     <title>Grails - The search is over.</title>
+    <r:layoutResources/>
     <meta name="description" content="">
     <meta name="author" content="Grails community">
     <meta name="viewport" content="width=device-width">
+
 
     <link rel="shortcut icon" href="${resource(dir: 'img', file: 'favicon.ico')}" type="image/x-icon">
 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
-    <link href="${resource(dir: 'css', file: 'style.css')}" rel="stylesheet" type="text/css">
-    <script src="${resource(dir: 'js/libs', file: 'jquery-1.7.1.min.js')}"></script>
+
+    <script src="${resource(dir: 'js/libs', file: 'jquery-1.7.2.min.js')}"></script>
     <script src="${resource(dir: 'js/libs', file: 'modernizr-2.5.3-respond-1.1.0.min.js')}"></script>
     <g:layoutHead/>
 </head>
@@ -80,7 +82,8 @@
 
 </div>
 
-<script src="${resource(dir: 'js', file: 'script-ck.js')}"></script>
+<r:layoutResources/>
+
 <script>
     var _state = 0, _banners, _containerBanner, _time = 5;
 
@@ -103,6 +106,8 @@
         $('div#banner').append(_containerBanner);
 
         setTimeout("tick()", _time * 1000);
+
+        $('.dropdown-toggle').dropdown();
     });
 </script>
 

@@ -4,11 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <meta content="master" name="layout"/>
+    <meta content="homepage" name="layout"/>
+    <r:require modules="master"/>
+
     <feed:meta kind="rss" version="2.0" controller="blog" action="feed" params="[format: 'rss']"/>
     <feed:meta kind="atom" version="1.0" controller="blog" action="feed" params="[format: 'atom']"/>
-
-    <script src="${resource(dir: 'js', file: 'twitter.js')}"></script>
 </head>
 
 <body>

@@ -5,6 +5,7 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
+    <r:require modules="community"/>
 </head>
 
 <body>

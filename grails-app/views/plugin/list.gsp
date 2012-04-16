@@ -5,6 +5,7 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
+    <r:require modules="plugin"/>
 </head>
 
 <body>
@@ -78,9 +79,8 @@
             </section>
         </g:each>
 
-        <div class="pagination">
+        <div class="alert alert-block">
             ***** PAGINATION NOT WORKING - MUST FIX *****
-            <g:paginate total="${pluginCount}"/>
         </div>
 
         <section class="pagination">
