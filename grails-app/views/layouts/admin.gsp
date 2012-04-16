@@ -18,6 +18,10 @@
     </style>
     <link href="${resource(dir: 'css', file: 'bootstrap-responsive.min.css')}" rel="stylesheet">
 
+    <script src="${resource(dir:'js/libs', file:'jquery-1.7.1.min.js')}"></script>
+    <script src="${resource(dir:'js/libs/bootstrap', file:'bootstrap.js')}"></script>
+    <script src="${resource(dir:'js/libs/bootstrap', file:'dropdown.js')}"></script>
+
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -102,9 +106,6 @@
     <g:layoutBody/>
 </div>
 
-<script src="${resource(dir:'js/libs', file:'jquery-1.7.1.min.js')}"></script>
-<script src="${resource(dir:'js/libs/bootstrap', file:'bootstrap.js')}"></script>
-<script src="${resource(dir:'js/libs/bootstrap', file:'dropdown.js')}"></script>
 <script type="text/javascript">
     $(function() {
         $('.dropdown-toggle').dropdown();

@@ -304,6 +304,14 @@ textarea[readonly] {
   .formFieldState(@successText, @successText, @successBackground);
 }
 
+// Error block (below fields)
+.error-block {
+	color: @errorText;
+	font-size: 11px;
+	font-style: italic;
+	margin-top: -10px;
+}
+
 // HTML5 invalid states
 // Shares styles with the .control-group.error above
 input:focus:required:invalid,

@@ -19,6 +19,8 @@
 
     <script src="${resource(dir: 'js/libs', file: 'jquery-1.7.2.min.js')}"></script>
     <script src="${resource(dir: 'js/libs', file: 'modernizr-2.5.3-respond-1.1.0.min.js')}"></script>
+
+    <r:layoutResources/>
     <g:layoutHead/>
 </head>
 
