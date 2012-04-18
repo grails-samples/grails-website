@@ -1,6 +1,7 @@
 package org.grails.plugin
 
 class PluginPendingApprovalController {
+    def pluginService
 
     def scaffold = PluginPendingApproval
 
@@ -35,12 +36,18 @@ class PluginPendingApprovalController {
         def pluginPendingApprovalResponse = new PluginPendingApprovalResponse(
             user: request.user,
             pluginPendingApproval: pluginPendingApproval,
-            status: params.int('status'),
+            status: ApprovalStatus.valueOf(params.status),
             responseText: params.responseText
         )
         if (!pluginPendingApprovalResponse.hasErrors() && pluginPendingApprovalResponse.save(flush: true)) {
-            pluginPendingApproval.setDisposition(pluginPendingApprovalResponse)
-            flash.message = "Response was submitted to ${pluginPendingApproval.user?.login} (${pluginPendingApproval.user?.email})"
+
+            if (pluginService.setDispositionOfPendingApproval(pluginPendingApprovalResponse)) {
+                flash.message = "Response was submitted to ${pluginPendingApproval.user?.login} (${pluginPendingApproval.user?.email})"
+            }
+            else {
+                flash.message = "Unable to process the request including sending the email."
+            }
+
         } else {
             println pluginPendingApprovalResponse.errors.inspect()
             flash.message = "Unable to save response."

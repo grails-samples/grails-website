@@ -79,25 +79,8 @@
             </section>
         </g:each>
 
-        <div class="alert alert-block">
-            ***** PAGINATION NOT WORKING - MUST FIX *****
-        </div>
-
-        <section class="pagination">
-
-            <ul>
-                <li class="first disabled"><span>Previous</span></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><span>...</span></li>
-                <li><a href="#">40</a></li>
-                <li><a href="#">41</a></li>
-                <li><a href="#">42</a></li>
-                <li class="last"><a href="#">Next</a></li>
-            </ul>
+        <section class="pager">
+            <g:paginate total="${pluginCount}" max="8" />
         </section>
     </div>
 </div>

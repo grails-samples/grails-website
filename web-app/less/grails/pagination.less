@@ -1,3 +1,44 @@
+// Needed b/c I didn't want to override the pagination stuff
+.pager {
+    background: transparent !important;
+    padding: 10px 0 !important;
+
+    span.step {
+        display: block;
+        margin: 2px 4px;
+        padding: 0 8px;
+        float: left;
+        #textshadow > .white(0.8);
+    }
+
+    span.currentStep {
+        margin: 2px 4px;
+        padding: 0 8px;
+        float: left;
+        display: block;
+        background: @white;
+        font-weight: bold;
+        #textshadow > .white(0.8);
+        color: @grailsGray;
+        .border-radius(@radius);
+    }
+
+    a {
+        display: block;
+        float: left;
+        margin: 2px 4px;
+        padding: 0 8px;
+        #textshadow > .white(0.8);
+        color: @grailsGray;
+        &:hover {
+            color: @grailsBlack;
+            background: @white;
+            text-decoration: none;
+            .border-radius(@radius);
+        }
+    }
+}
+
 .pagination {
 	background: transparent !important;
 	padding: 10px 0 !important;

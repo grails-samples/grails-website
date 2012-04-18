@@ -60,7 +60,7 @@
     </tr>
     <tr>
         <td class="show-label">Notes</td>
-        <td>${fieldValue(bean: pluginPendingApproval, field: 'notes')}</td>
+        <td>${fieldValue(bean: pluginPendingApproval, field: 'notes')?.encodeAsHTML()?.replace('\n', '<br/>\n')}</td>
     </tr>
     <tr>
         <td class="show-label">Responses</td>

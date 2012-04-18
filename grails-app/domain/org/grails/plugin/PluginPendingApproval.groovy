@@ -46,8 +46,6 @@ class PluginPendingApproval {
     def setDisposition(PluginPendingApprovalResponse pluginPendingApprovalResponse) {
         this.status = pluginPendingApprovalResponse.status
         this.save(flush: true)
-
-        // Trigger email sending
     }
 
 }

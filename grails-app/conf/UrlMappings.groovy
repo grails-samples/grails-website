@@ -64,11 +64,22 @@ class UrlMappings {
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 
+
+        /* ========================= PLUGINS ======================= */
         "/plugins"(controller: "plugin", action: "list")
         "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
         "/plugins/filter/$filter"(controller: "plugin", action: "list")
         "/plugins/tag/$tag"(controller: "plugin", action: "listByTag")
-        "/plugins/$id"(controller: "plugin", action: "plugin")
+        "/plugins/$id"(controller: "plugin", action: "plugin") {
+            constraints {
+                id(notEqual: "tag")
+            }
+        }
+        "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
+        "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
+
+
+
 //        "/Plugins"(controller: "plugin", action: "legacyHome")
 //        "/plugins"(controller: "plugin", action: "home")
 //        "/plugins/forum"(controller: "plugin", action: "forum")
@@ -128,6 +139,8 @@ class UrlMappings {
         "/diff/$id/$number/$diff"(controller: "content", action: "diffWikiVersion")
         "/previous/$id/$number"(controller: "content", action: "previousWikiVersion")
 
+
+        /* ========================= LEARN ======================= */
         "/learn"(controller:"learn", action:"gettingStarted")
         "/learn/IDE_setup"(controller:"learn", action:"ideSetup")
         "/learn/installation"(controller:"learn", action:"installation")
@@ -135,6 +148,7 @@ class UrlMappings {
         "/learn/screencasts"(controller:"learn", action:"screencasts")
         "/learn/tutorials"(controller:"learn", action:"tutorials")
 
+        /* ========================= COMMUNITY ======================= */
         "/community"(controller: "community", action: "index")
         "/community/websites"(controller: "community", action: "websites")
         "/community/testimonials"(controller: "community", action: "testimonials")
