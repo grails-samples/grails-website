@@ -4,24 +4,20 @@ import org.grails.auth.User
 
 class PluginPendingApproval {
 
-    static final int STATUS_PENDING_APPROVAL = 1
-    static final int STATUS_APPROVED = 2
-    static final int STATUS_REJECTED = 3
-
     static belongsTo = [ user: User ]
     static hasMany = [ pluginPendingApprovalResponses: PluginPendingApprovalResponse ]
 
     String name
     String scmUrl
     String email
-    int status = STATUS_PENDING_APPROVAL
+    ApprovalStatus status
     String notes
 
     static constraints = {
         name blank: false, unique: true, matches: /[\w-]+/
         scmUrl blank: false
         email blank: false, email: true
-        status blank: false, inList: [STATUS_PENDING_APPROVAL, STATUS_APPROVED, STATUS_REJECTED]
+        status blank: false
         notes nullable: true
     }
 
@@ -32,13 +28,13 @@ class PluginPendingApproval {
     String displayStatus() {
         def ret = ""
         switch (status) {
-            case STATUS_PENDING_APPROVAL:
+            case ApprovalStatus.PENDING:
                 ret = 'Pending Approval'
                 break
-            case STATUS_APPROVED:
+            case ApprovalStatus.APPROVED:
                 ret = 'Approved'
                 break
-            case STATUS_REJECTED:
+            case ApprovalStatus.REJECTED:
                 ret = 'Rejected'
                 break
             default:

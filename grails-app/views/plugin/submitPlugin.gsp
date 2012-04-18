@@ -29,6 +29,8 @@
                 <div class="alert alert-${pluginPendingApproval.errors.errorCount > 0 ? 'error' : 'info'}">${flash.message}</div>
             </g:if>
 
+            ${pluginPendingApproval.errors.inspect()}
+
             <g:form action="submitPlugin" class="content-form">
                 
                 <g:hiddenField name="status" value="${pluginPendingApproval.status}" />

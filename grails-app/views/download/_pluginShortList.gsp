@@ -19,7 +19,7 @@
                         <span class="note">999</span>
                     </p>
                     <p class="used">
-                        <strong>68%</strong> Used in of apps
+                        Used in <strong>~68%</strong> of apps
                     </p>
                 </li>
             </g:each>

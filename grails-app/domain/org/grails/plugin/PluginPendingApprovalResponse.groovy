@@ -7,15 +7,11 @@ class PluginPendingApprovalResponse {
     static belongsTo = [user: User, pluginPendingApproval: PluginPendingApproval]
 
     String responseText
-    int status
+    ApprovalStatus status
     Date dateCreated
 
     static constraints = {
-        status blank: false, inList: [
-            PluginPendingApproval.STATUS_PENDING_APPROVAL,
-            PluginPendingApproval.STATUS_APPROVED,
-            PluginPendingApproval.STATUS_REJECTED
-        ]
+        status blank: false
     }
 
     static String defaultApprovedResponse(PluginPendingApproval pluginPendingApproval) {
@@ -38,13 +34,13 @@ Your plugin '${pluginPendingApproval?.name}' has not been approved for the follo
     String displayStatus() {
         def ret = ""
         switch (status) {
-            case PluginPendingApproval.STATUS_PENDING_APPROVAL:
+            case ApprovalStatus.PENDING:
                 ret = 'Pending Approval'
                 break
-            case PluginPendingApproval.STATUS_APPROVED:
+            case ApprovalStatus.APPROVED:
                 ret = 'Approved'
                 break
-            case PluginPendingApproval.STATUS_REJECTED:
+            case ApprovalStatus.REJECTED:
                 ret = 'Rejected'
                 break
             default:

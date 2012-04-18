@@ -1,3 +1,4 @@
+<%@ page import="org.grails.plugin.ApprovalStatus" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -86,8 +87,8 @@
             <div class="controls">
                 <select name="status" id="status">
                     <option value=""></option>
-                    <option value="${org.grails.plugin.PluginPendingApproval.STATUS_APPROVED}">APPROVED</option>
-                    <option value="${org.grails.plugin.PluginPendingApproval.STATUS_REJECTED}">REJECTED</option>
+                    <option value="${ApprovalStatus.APPROVED}">APPROVED</option>
+                    <option value="${ApprovalStatus.REJECTED}">REJECTED</option>
                 </select>
             </div>
         </div>

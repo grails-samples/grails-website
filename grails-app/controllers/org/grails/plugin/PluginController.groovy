@@ -6,38 +6,12 @@ class PluginController {
     def tagService
 
     def list() {
-
         def plugins = []
         def pluginCount = 0
-        def tag = params.tag ? params.tag.toString() : null
-        def filter = params.filter ? params.filter.toString() : null
 
-        if (tag) {
-            (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal([max: 200], params.tag)
-        }
-        else if (filter) {
-            switch (filter) {
-                case 'featured':
-                    (plugins, pluginCount) = pluginService.listFeaturedPluginsWithTotal()
-                    break
-//                case 'top_installed':
-//                    (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
-//                    break
-                case 'highest_voted':
-                    (plugins, pluginCount) = pluginService.listPopularPluginsWithTotal()
-                    break
-                case 'recently_updated':
-                    (plugins, pluginCount) = pluginService.listRecentlyUpdatedPluginsWithTotal()
-                    break
-                case 'newest':
-                    (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
-                    break
-                case 'official':
-                    (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal([max: 200], 'springsource')
-                    break
-                default:
-                    (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
-            }
+        def filter = params.filter ? params.filter.toString() : null
+        if (filter) {
+            (plugins, pluginCount) = pluginService."list${filter}PluginsWithTotal"()
         }
         else {
             (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal()
@@ -45,6 +19,13 @@ class PluginController {
 
         def tags = tagService.getPluginTagArray()
         [ tags: tags, plugins: plugins, pluginCount: pluginCount ]
+    }
+
+    def listByTag() {
+        def tag = params.tag ? params.tag.toString() : null
+        def (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal([max: 200], params.tag)
+        def tags = tagService.getPluginTagArray()
+        render view: 'list', model: [ tags: tags, plugins: plugins, pluginCount: pluginCount ]
     }
 
     def plugin() {
@@ -56,7 +37,7 @@ class PluginController {
     def submitPlugin() {
         def pluginPendingApproval = new PluginPendingApproval(
             user: request.user,
-            status: PluginPendingApproval.STATUS_PENDING_APPROVAL
+            status: ApprovalStatus.PENDING
         )
         if (request.method == "POST") {
             pluginPendingApproval.name = params.name
