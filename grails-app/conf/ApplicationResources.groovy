@@ -3,6 +3,7 @@ modules = {
         resource url: 'css/style.css'
         resource 'js/libs/bootstrap/bootstrap.js'
         resource 'js/libs/bootstrap/dropdown.js'
+        resource 'js/script.js'
     }
 
     homepage {
