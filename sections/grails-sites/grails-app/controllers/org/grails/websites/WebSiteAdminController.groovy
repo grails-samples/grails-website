@@ -7,7 +7,7 @@ class WebSiteAdminController {
     def imageUploadService
     def searchableService
 
-    def scaffold = WebSite
+    static scaffold = WebSite
 
     def list() {
         [ webSites: WebSite.list() ]
