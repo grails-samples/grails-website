@@ -16,10 +16,7 @@
 
     <div id="main" class="plugins">
 
-        <section class="search">
-            <input type="search" placeholder="Search a plugin"/>
-            <a href="#" class="zoom">Search</a>
-        </section>
+        <g:render template="searchBar" />
 
         <g:each in="${plugins}" var="plugin">
             <section class="plugin">
@@ -37,7 +34,7 @@
                         <p class="meta">
                             Tags :
                             <g:if test="${plugin.tags.size() > 0}">
-                                <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="#">${tag}</a></g:each>
+                                <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="/plugins/tag/${tag}">${tag}</a></g:each>
                             </g:if>
                             <g:else>
                                 /

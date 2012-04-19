@@ -16,10 +16,7 @@
 
     <div id="main" class="plugins">
 
-        <section class="search">
-            <input type="search" placeholder="Search a plugin"/>
-            <a href="#" class="zoom">Search</a>
-        </section>
+        <g:render template="searchBar" />
 
         <section class="plugin">
             <article>

@@ -13,11 +13,7 @@
 <div id="content" class="content-aside-2" role="main">
 
     <div class="aside">
-        <aside class="tags">
-            <h4>Instructions</h4>
-
-            <p>Data and CSS needs to go here</p>
-        </aside>
+        <g:render template="sideSubmission" />
     </div>
 
     <div id="main" class="plugins">
@@ -28,8 +24,6 @@
             <g:if test="${flash.message}">
                 <div class="alert alert-${pluginPendingApproval.errors.errorCount > 0 ? 'error' : 'info'}">${flash.message}</div>
             </g:if>
-
-            ${pluginPendingApproval.errors.inspect()}
 
             <g:form action="submitPlugin" class="content-form">
                 

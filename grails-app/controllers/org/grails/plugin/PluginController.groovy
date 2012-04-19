@@ -63,13 +63,31 @@ class PluginController {
             pluginPendingApproval.notes = params.notes
             if (!pluginPendingApproval.hasErrors() && pluginPendingApproval.save(flush:true)) {
                 flash.message = "Your plugin has been submitted for approval"
-                pluginPendingApproval = new PluginPendingApproval(user: request.user)
-                params.clear()
+                redirect action: 'submissionReceived'
             } else {
                 flash.message = "Please correct the fields below"
+                flash.next()
             }
         }
         [pluginPendingApproval: pluginPendingApproval]
+    }
+
+    def submissionReceived() {
+    }
+
+    def search() {
+        render "THIS NEEDS TO BE IMPLEMENTED"
+//        if(params.q) {
+//            def tags = tagService.getPluginTagArray()
+//            def searchResult = Plugin.search(params.q, offset: params.offset)
+//            searchResult.results = searchResult.results.findAll{it}.unique { it.title }
+//            flash.message = "Found $searchResult.total results!"
+//            flash.next()
+//            render view: "searchResults", model: [tags: tags, searchResult: searchResult]
+//        }
+//        else {
+//            redirect action: 'list'
+//        }
     }
 
 }

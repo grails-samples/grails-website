@@ -29,16 +29,16 @@ class PluginPendingApproval {
         def ret = ""
         switch (status) {
             case ApprovalStatus.PENDING:
-                ret = 'Pending Approval'
+                ret = '<span class="badge badge-info">Pending Approval</span>'
                 break
             case ApprovalStatus.APPROVED:
-                ret = 'Approved'
+                ret = '<span class="badge badge-success">Approved</span>'
                 break
             case ApprovalStatus.REJECTED:
-                ret = 'Rejected'
+                ret = '<span class="badge badge-error">Rejected</span>'
                 break
             default:
-                ret = 'UNKNOWN'
+                ret = '<span class="badge badge-warning">UNKNOWN</span>'
         }
         return ret
     }
