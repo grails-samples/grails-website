@@ -18,6 +18,8 @@
     </style>
     <link href="${resource(dir: 'css', file: 'bootstrap-responsive.min.css')}" rel="stylesheet">
 
+    <link href="${resource(dir: 'css', file: 'admin.css')}" rel="stylesheet" />
+
     <script src="${resource(dir:'js/libs', file:'jquery-1.7.1.min.js')}"></script>
     <script src="${resource(dir:'js/libs/bootstrap', file:'bootstrap.js')}"></script>
     <script src="${resource(dir:'js/libs/bootstrap', file:'dropdown.js')}"></script>
