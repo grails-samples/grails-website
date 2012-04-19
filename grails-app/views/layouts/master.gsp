@@ -33,7 +33,7 @@
             <shiro:isLoggedIn>
                 <li><a href="/logout">Logout</a></li>
                 <li class="spacing">&nbsp;</li>
-                <li class="current-user"><gravatar:img email="${user?.email}" size="16" align="top" /> ${user?.email}</li>
+                <li class="current-user"><avatar:gravatar email="${user?.email}" size="16" /> ${user?.email}</li>
             </shiro:isLoggedIn>
             <shiro:isNotLoggedIn>
                 <li><a href="/login">Login</a></li>
@@ -108,8 +108,6 @@
         $('div#banner').append(_containerBanner);
 
         setTimeout("tick()", _time * 1000);
-
-        $('.dropdown-toggle').dropdown();
     });
 </script>
 

@@ -32,7 +32,8 @@ grails.project.dependency.resolution = {
             exclude "yui"
         }
 
-        runtime ":rest-client-builder:1.0",
+        runtime ":avatar:0.3",
+                ":rest-client-builder:1.0",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
