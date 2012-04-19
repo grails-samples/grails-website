@@ -12,8 +12,11 @@ class TagController {
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
     def list = {
+        def tagInstance = new Tag()
+        tagInstance.properties = params
+
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        [ tagInstanceList: Tag.list( params ), tagInstanceTotal: Tag.count() ]
+        [ tagInstanceList: Tag.list( params ), tagInstanceTotal: Tag.count(), tagInstance: tagInstance ]
     }
 
     def show = {
@@ -97,11 +100,11 @@ class TagController {
         def tagInstance = new Tag(params)
         if(!tagInstance.hasErrors() && tagInstance.save()) {
             flash.message = "Tag ${tagInstance.id} created"
-            redirect(action:show,id:tagInstance.id)
         }
         else {
-            render(view:'create',model:[tagInstance:tagInstance])
+            flash.message = "Unable to create tag"
         }
+        redirect(action:list)
     }
 
     def autoCompleteNames = {
