@@ -32,13 +32,6 @@ class UrlMappings {
             }
         }
 
-//        "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
-//        "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
-//        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
-//        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
-//        "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest")
-
-
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
 
@@ -66,6 +59,11 @@ class UrlMappings {
 
 
         /* ========================= PLUGINS ======================= */
+        "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
+        "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
+        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest")
         "/plugins"(controller: "plugin", action: "list")
         "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
         "/plugins/filter/$filter"(controller: "plugin", action: "list")
