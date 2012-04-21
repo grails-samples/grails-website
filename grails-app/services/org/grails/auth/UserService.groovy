@@ -35,7 +35,7 @@ class UserService {
      * <tt>User</tt> instance if the credentials are valid, otherwise it returns
      * <code>null</code>.
      */
-    long loginUser(username, password, rememberMe = false) {
+    Long loginUser(username, password, rememberMe = false) {
         try {
             def subject = SecurityUtils.subject
             subject.login new UsernamePasswordToken(username, password, rememberMe)
@@ -51,7 +51,7 @@ class UserService {
      * Determines whether the given username is unique within the system.
      * Returns <code>true</code> if it is.
      */
-    boolean isLoginUnique(login) {
+    Boolean isLoginUnique(login) {
         return User.findByLogin(login)
     }
 
@@ -59,7 +59,7 @@ class UserService {
      * Determines whether the given email address is unique within the system.
      * Returns <code>true</code> if it is.
      */
-    boolean isEmailUnique(email) {
+    Boolean isEmailUnique(email) {
         return User.findByEmail(email)
     }
 
