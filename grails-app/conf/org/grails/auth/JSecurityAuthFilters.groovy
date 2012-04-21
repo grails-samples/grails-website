@@ -21,7 +21,7 @@ class JSecurityAuthFilters {
         }
 
         if (d.request.xhr) {
-            d.render(template:"/user/loginForm", model:[originalURI:targetUri,
+            d.render(template:"/user/loginForm", model:[targetUri:targetUri,
                                                         formData:d.params,
                                                         async:true,
                                                         update:d.params._ul,
@@ -34,7 +34,7 @@ class JSecurityAuthFilters {
             d.redirect(
                     controller: 'user',
                     action: 'login',
-                    params:[originalURI: targetUri])
+                    params:[targetUri: targetUri])
         }
     }    
 

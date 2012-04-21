@@ -17,7 +17,7 @@
              </p>
 
         </div>
-        <g:hiddenField name="originalURI" value="${originalURI ?: formData?.originalURI}" />
+        <g:hiddenField name="targetUri" value="${targetUri ?: formData?.targetUri}" />
         <g:each in="${formData}" var="d">
             <g:if test="${!(d.value instanceof Map) && !(d.key in paramExclusions)}">
                 <g:hiddenField name="${d.key}" value="${d.value}" />
@@ -47,7 +47,7 @@
      <div>
 
          <g:set var="registerLink">
-            <g:if test="${true == async}"><g:remoteLink update="${updateElement}" controller="user" action="register" params="[originalURI: originalURI]" method="GET">click here</g:remoteLink></g:if>
+            <g:if test="${true == async}"><g:remoteLink update="${updateElement}" controller="user" action="register" params="[targetUri: targetUri]" method="GET">click here</g:remoteLink></g:if>
             <g:else><g:link controller="user" action="register">click here</g:link></g:else>
          </g:set>
          If you do not have an account ${registerLink} to register. Or have you <g:link controller="user" action="passwordReminder">forgotten your password?</g:link>

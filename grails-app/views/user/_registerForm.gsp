@@ -27,7 +27,7 @@
         </div>
 
 
-        <g:hiddenField name="originalURI" value="${originalURI}" />
+        <g:hiddenField name="targetUri" value="${targetUri}" />
 
        <div class="formButtons" style="margin-top:100px;">
             <g:submitButton name="Submit" value="Register" />

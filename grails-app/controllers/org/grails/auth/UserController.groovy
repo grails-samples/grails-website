@@ -101,7 +101,7 @@ class UserController {
     }
 
     def register(){
-        def renderParams = [ model:[originalURI:params.originalURI, async:request.xhr] ]
+        def renderParams = [ model:[targetUri:params.targetUri, async:request.xhr] ]
         
         if(request.xhr)
             renderParams.template = "registerForm"
@@ -142,9 +142,9 @@ class UserController {
                         def authToken = new UsernamePasswordToken(user.login, params.password)
                         SecurityUtils.subject.login(authToken)
 
-                        if(params.originalURI) {
+                        if(params.targetUri) {
 
-                            redirect(url:params.originalURI, params:params)
+                            redirect(url:params.targetUri, params:params)
                         }
                         else {
                             redirect(uri:"/")
@@ -223,7 +223,7 @@ class UserController {
 
             // If a controller redirected to this page, redirect back
             // to it. Otherwise redirect to the root URI.
-            def targetUri = params.originalURI ?: "/"
+            def targetUri = params.targetUri ?: "/"
             
             // Handle requests saved by Shiro filters.
             def savedRequest = WebUtils.getSavedRequest(request)
@@ -241,18 +241,18 @@ class UserController {
                 log.info "Authentication failure for user '${params.username}'."
                 if(request.xhr) {
                     params.remove 'password'
-                    render(template:"loginForm", model:[originalURI:params.remove('originalURI'),
+                    render(template:"loginForm", model:[targetUri:params.remove('targetUri'),
                                                         update: params._ul,
                                                         async:true,
                                                         message:"auth.invalid.login"])
                 } else {
                     flash.message = "Invalid username and/or password"
 
-                    redirect(action: 'login', params: [ username: params.username, originalURI:params.originalURI ])
+                    redirect(action: 'login', params: [ username: params.username, targetUri:params.targetUri ])
                 }
             }
         } else {            
-            render(view:"login", model: [originalURI:params.originalURI])
+            render(view:"login", model: [targetUri:params.targetUri])
         }
     }
 

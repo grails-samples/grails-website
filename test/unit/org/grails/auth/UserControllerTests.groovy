@@ -35,20 +35,20 @@ import javax.servlet.http.HttpServletRequest
 class UserControllerTests {
 
     void testRegisterGET() {
-        params.originalURI = "/foo/bar"
+        params.targetUri = "/foo/bar"
         params.more = "stuff"
 
         controller.register()
 
         assert view == "/user/register"
-        assert model.originalURI == "/foo/bar"
+        assert model.targetUri == "/foo/bar"
         assert model.formData == params
 
     }
 
     void testRegisterUserExists() {
         def user = new User(login: "fred").save(validate: false)
-        params.originalURI = "/foo/bar"
+        params.targetUri = "/foo/bar"
         params.login = user.login
         request.method = "POST"
 
@@ -56,13 +56,13 @@ class UserControllerTests {
 
         assert view == "/user/register"
         assert model.message == "auth.user.already.exists"
-        assert model.originalURI == "/foo/bar"
+        assert model.targetUri == "/foo/bar"
         assert model.formData == params 
          
     }
 
     void testRegisterWithNonMatchingPasswords() {
-        params.originalURI = "/foo/bar"
+        params.targetUri = "/foo/bar"
         params.login = "fred"
         params.password = "one"
         params.password2 = "two"
@@ -71,7 +71,7 @@ class UserControllerTests {
         controller.register()
 
         assert view == "/user/register"
-        assert model.originalURI == "/foo/bar"
+        assert model.targetUri == "/foo/bar"
         assert model.formData == params
     }
 
@@ -80,7 +80,7 @@ class UserControllerTests {
         new Role(name: Role.EDITOR).save(validate: false)
         new Role(name: Role.OBSERVER).save(validate: false)
 
-        params.originalURI = "/foo/bar"
+        params.targetUri = "/foo/bar"
         params.login = "fred"
         params.password = "one"
         params.password2 = "one"
@@ -92,7 +92,7 @@ class UserControllerTests {
         assert view == "/user/register"
         assert model.user
         
-        assert model.originalURI == "/foo/bar"
+        assert model.targetUri == "/foo/bar"
         assert model.formData == params
     }
 
@@ -100,7 +100,7 @@ class UserControllerTests {
         def secUtil = mockFor(SecurityUtils)
         secUtil.demand.static.getSubject {-> [login: {authToken -> true}] }
 
-        params.originalURI = "/foo/bar"
+        params.targetUri = "/foo/bar"
         params.login = "dilbert"
         params.password = "one"
         params.password2 = "one"
@@ -114,7 +114,7 @@ class UserControllerTests {
 
         controller.register()
 
-        assert response.redirectedUrl == params.originalURI
+        assert response.redirectedUrl == params.targetUri
 
         secUtil.verify()
     }
@@ -157,9 +157,9 @@ class UserControllerTests {
         def webUtil = mockFor(WebUtils)
         webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
-        views['/user/_loginForm.gsp'] = 'login form ${message} ${originalURI} ${async}'
+        views['/user/_loginForm.gsp'] = 'login form ${message} ${targetUri} ${async}'
 
-        params.originalURI = "/foo/bar"
+        params.targetUri = "/foo/bar"
         params.username = "fred"
         params.password = "letmein"
 
@@ -183,7 +183,7 @@ class UserControllerTests {
         def webUtil = mockFor(WebUtils)
         webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
-        params.originalURI = "/foo/bar"
+        params.targetUri = "/foo/bar"
         params.username = "fred"
         params.password = "letmein"
 
@@ -193,7 +193,7 @@ class UserControllerTests {
 
         def redirectUri = new URI(response.redirectedUrl)
         assert redirectUri.path == "/user/login"
-        assert redirectUri.query == "username=fred&originalURI=${params.originalURI}"
+        assert redirectUri.query == "username=fred&targetUri=${params.targetUri}"
 
         secUtil.verify()
         webUtil.verify()
@@ -206,7 +206,7 @@ class UserControllerTests {
         def webUtil = mockFor(WebUtils)
         webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
-        params.originalURI = "/foo/bar?queryString"
+        params.targetUri = "/foo/bar?queryString"
         params.username ="fred"
         params.password = "letmein"
         request.method = "POST"
