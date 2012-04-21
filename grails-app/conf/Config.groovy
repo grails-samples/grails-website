@@ -129,6 +129,20 @@ myAuth.applicationName = grails.org
 /api/v1.0/publish/** = myAuth[POST]
 """
 
+oauth {
+    provider = org.scribe.builder.api.TwitterApi
+    successUri = '/oauth/success?provider=twitter'
+    failureUri = '/unauthorized'
+}
+
+security {
+    shiro {
+        oauth {
+            linkAccountUrl = "/oauth/linkaccount"
+        }
+    }
+}
+
 springcache {
     disabled = true
     defaults {

@@ -1,5 +1,7 @@
 package org.grails.auth
 
+import grails.validation.Validateable
+
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.UsernamePasswordToken
@@ -16,10 +18,12 @@ import org.grails.meta.UserInfo
 * Created: Feb 19, 2008
 */
 class UserController {
+    private static final String ACCOUNT_SESSION_KEY = "accountCommand"
 
     def scaffold = User
 
     def mailService
+    def userService
 
     def show() {
         if (!params.id) {
@@ -161,6 +165,48 @@ class UserController {
 
     }
 
+    /**
+     * Page that allows users to link an OAuth account to an existing or new
+     * Shiro account.
+     */
+    def askToLinkOrCreateAccount() {
+        def cmd = session[ACCOUNT_SESSION_KEY]
+        session.removeAttribute ACCOUNT_SESSION_KEY
+
+        def token = session["shiroAuthToken"]
+        println "Access token: ${session.oasAccessToken.rawResponse}"
+        [login: cmd?.login ?: token.principal, email: cmd?.email, bean: cmd]
+    }
+
+    /**
+     * Links an oauth account to an existing Shiro account if the submitted
+     * credentials are correct. Otherwise it redirects back to the page that
+     * asks the user for those credentials.
+     */
+    def linkAccount(AccountCommand cmd) {
+        if (!handleCommandForLinkingAccounts(cmd)) return
+
+        try {
+            def userId = userService.loginUser(params.login, params.password)
+            forward controller: "shiroOAuth", action: "linkAccount", params: [userId: userId]
+        }
+        catch (AuthenticationException) {
+            cmd.errors.reject "auth.invalid.login", "Username or password is invalid"
+            redirectToAskToLinkPage cmd
+        }
+    }
+
+    /**
+     * Creates a new Shiro account and links it to the OAuth token that's in
+     * the current HTTP session.
+     */
+    def createAccount(AccountCommand cmd) {
+        if (!handleCommandForLinkingAccounts(cmd)) return
+
+        def user = userService.createUser(params.login, params.email)
+        forward controller: "shiroOAuth", action: "linkAccount", params: [userId: user.id]
+    }
+
     def logout() {
         SecurityUtils.subject.logout()
         redirect(uri:"/")
@@ -212,6 +258,32 @@ class UserController {
 
     def unauthorized()  {}
 
+    /**
+     * Checks for errors in the command object and if there are any, puts the
+     * command object in the session and redirects to the page asking the user
+     * for the account to link to. If there are no errors, then the object is
+     * removed from the session instead.
+     */
+    protected handleCommandForLinkingAccounts(cmd) {
+        if (cmd.hasErrors()) {
+            redirectToAskToLinkPage cmd
+            return false
+        }
+        else {
+            session.removeAttribute ACCOUNT_SESSION_KEY
+            return true
+        }
+    }
+
+    /**
+     * Puts the given command object in the session and redirects to the page
+     * asking the user for an account to link to.
+     */
+    protected redirectToAskToLinkPage(cmd) {
+        session[ACCOUNT_SESSION_KEY] = cmd
+        redirect action: "askToLinkOrCreateAccount"
+    }
+
     protected String randomPass() {
         UUID uuid = UUID.randomUUID()
         uuid.toString()[0..7]
@@ -228,6 +300,23 @@ class UserController {
         else {
             user.permissions.clear()
             user.permissions.addAll perms
+        }
+    }
+}
+
+@Validateable
+class AccountCommand {
+    transient userService
+
+    String login
+    String email
+
+    static constraints = {
+        login nullable: false, blank: false, validator: { obj, val ->
+            obj.userService.isLoginUnique(val) ? null : "user.login.unique"
+        }
+        email nullable: false, blank: false, validator: { obj, val ->
+            obj.userService.isEmailUnique(val) ? null : "user.email.unique"
         }
     }
 }

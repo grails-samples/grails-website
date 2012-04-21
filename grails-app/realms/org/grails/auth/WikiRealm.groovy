@@ -32,7 +32,7 @@ class WikiRealm {
 
         // Now check the user's password against the hashed value stored
         // in the database.
-        def account = new SimpleAccount(username, user.password, "WikiRealm")
+        def account = new SimpleAccount([user.id, username], user.password, "WikiRealm")
         if (!credentialMatcher.doCredentialsMatch(authToken, account)) {
             log.info 'Invalid password (DB realm)'
             throw new IncorrectCredentialsException("Invalid password for user '${username}'")
@@ -42,21 +42,14 @@ class WikiRealm {
     }
 
     def hasRole(principal, roleName) {
-        def user = User.findByLogin(principal)
+        def user = getUserFromPrincipal(principal)
 
         return null != user?.roles?.find { it.name == roleName }
     }
 
     def hasAllRoles(principal, roles) {
-        def criteria = User.createCriteria()
-        def r = criteria.list {
-            roles {
-                'in'('name', roles)
-            }
-            eq('login', principal)
-        }
-
-        return r.size() == roles.size()
+        def user = getUserFromPrincipal(principal)
+        return roles.size() == roles.intersect(user.roles).size()
     }
 
     boolean isPermitted(principal, requiredPermission) {
@@ -78,5 +71,10 @@ class WikiRealm {
         }
 
         return retval != null
+    }
+
+    protected final getUserFromPrincipal(principal) {
+        if (principal instanceof Number) return User.get(principal)
+        else return User.findByLogin(principal)
     }
 }

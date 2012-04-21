@@ -40,6 +40,9 @@
             ${formBody}
         </g:form>
     </g:else>
+    <div>
+    Or <oauth:connect>log in with Twitter</oauth:connect>
+    </div>
 
      <div>
 

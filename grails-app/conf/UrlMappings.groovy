@@ -104,6 +104,12 @@ class UrlMappings {
         "/search"(controller: "content", action: "search")
         "/upload/$id?"(controller: "content", action: "uploadImage")
         "/register"(controller: "user", action: "register")
+        "/user/create"(controller: "user", action: "createAccount")
+        "/oauth/success"(controller: "shiroOAuth", action: "onSuccess")
+        "/oauth/linkaccount"(controller: "user") {
+            action = [GET: "askToLinkOrCreateAccount", POST: "linkAccount"]
+        }
+        "/oauth/$action?"(controller: "oauth")
         "/login"(controller: "user", action: "login")
         "/unauthorized"(controller: "user", action: "unauthorized")
         "/reminder"(controller: "user", action: "passwordReminder")
