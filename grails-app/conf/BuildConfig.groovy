@@ -40,16 +40,16 @@ grails.project.dependency.resolution = {
                 ":feeds:1.5",
                 ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",
-                ":hibernate:2.0.3",
+                ":hibernate:$grailsVersion",
                 ":jquery:1.6.1.1",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
                 ":resources:1.1.6",
-                ":richui:0.6",
                 ":screencasts:0.5.6",
                 ":searchable:0.6.3",
-                ":shiro:1.1.3",
+                ":shiro:1.2.0-SNAPSHOT",
+                ":shiro-oauth:0.1",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.2",
@@ -66,11 +66,11 @@ grails.project.dependency.resolution = {
         }
         
         test    ":geb:0.6.0",
-                ":spock:0.6-rc-1", {
+                ":spock:0.6", {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:2.0.3"
+        build   ":tomcat:$grailsVersion"
     }
 
     dependencies {
