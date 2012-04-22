@@ -106,9 +106,9 @@ class UrlMappings {
         "/register"(controller: "user", action: "register")
         "/user/create"(controller: "user", action: "createAccount")
         "/oauth/success"(controller: "shiroOAuth", action: "onSuccess")
-        "/oauth/linkaccount"(controller: "user") {
-            action = [GET: "askToLinkOrCreateAccount", POST: "linkAccount"]
-        }
+        "/oauth/linkaccount"(controller: "user", action: "askToLinkOrCreateAccount")
+        "/oauth/save/linkaccount"(controller: "user", action: "linkAccount")
+        "/oauth/save/createaccount"(controller: "user", action: "createAccount")
         "/oauth/$action?"(controller: "oauth")
         "/login"(controller: "user", action: "login")
         "/unauthorized"(controller: "user", action: "unauthorized")

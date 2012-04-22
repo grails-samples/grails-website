@@ -48,8 +48,8 @@ grails.project.dependency.resolution = {
                 ":resources:1.1.6",
                 ":screencasts:0.5.6",
                 ":searchable:0.6.3",
-                ":shiro:1.1.3",
-                ":shiro-oauth:0.1-SNAPSHOT",
+                ":shiro:1.2.0-SNAPSHOT",
+                ":shiro-oauth:0.1",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.2",
@@ -66,7 +66,7 @@ grails.project.dependency.resolution = {
         }
         
         test    ":geb:0.6.0",
-                ":spock:0.6-rc-1", {
+                ":spock:0.6", {
             excludes 'xml-apis'
         }
 

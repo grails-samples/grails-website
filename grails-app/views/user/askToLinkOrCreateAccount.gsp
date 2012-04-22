@@ -35,23 +35,26 @@
       <div class="formButtons">
         <g:submitButton name="Submit" value="Login" />
       </div>
-    </div>
+    </g:form>
     <g:form id="newAccountForm" class="userForm" url="[controller: 'user', action: 'createAccount']">
       <h2>Create a new account</h2>
       <div class="inputForm">
         <p>
           <span class="label"><label for="login">Username:</label></span>
-          <g:textField class="textInput" name="login" />
+          <g:textField class="textInput" name="login" value="${login}"/>
         </p>
         <p>
           <span class="label"><label for="email">Email:</label></span>
           <g:textField class="textInput" name="email" />
         </p>
+        <g:if test="${targetUri}">
+        <g:hiddenField name="targetUri" value="${targetUri}"/>
+        </g:if>
       </div>
       <div class="formButtons">
         <g:submitButton name="Create"/>
       </div>
-    </div>
+    </g:form>
   </div>
 </body>
 </html>

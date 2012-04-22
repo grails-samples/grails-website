@@ -86,17 +86,19 @@ class UserController {
     }
 
     def profile() {
-        def userInfo = UserInfo.findByUser(request.user)
-        if(request.method == 'POST') {
-            if(!userInfo) userInfo = new UserInfo(user:request.user)
+        def userId = SecurityUtils.subject.principals.oneByType(Number)
+        def user = User.get(userId)
+        def userInfo = UserInfo.findByUser(user)
+        if (request.method == 'POST') {
+            if (!userInfo) userInfo = new UserInfo(user: user)
             userInfo.properties = params
             userInfo.save()
-            if(params.password) {
-                request.user.password = DigestUtils.shaHex(params.password) 
-                request.user.save()
+            if (params.password) {
+                user.password = DigestUtils.shaHex(params.password) 
+                user.save()
             }
         }
-        return [user:request.user, userInfo:userInfo]
+        return [user: user, userInfo: userInfo]
 
     }
 
@@ -183,14 +185,15 @@ class UserController {
      * credentials are correct. Otherwise it redirects back to the page that
      * asks the user for those credentials.
      */
-    def linkAccount(AccountCommand cmd) {
+    def linkAccount(LoginAccountCommand cmd) {
         if (!handleCommandForLinkingAccounts(cmd)) return
 
         try {
-            def userId = userService.loginUser(params.login, params.password)
+            def userId = userService.loginUser(cmd.login, cmd.password)
             forward controller: "shiroOAuth", action: "linkAccount", params: [userId: userId]
         }
-        catch (AuthenticationException) {
+        catch (AuthenticationException ex) {
+            println ">> Authentication failed: ${ex.message}"
             cmd.errors.reject "auth.invalid.login", "Username or password is invalid"
             redirectToAskToLinkPage cmd
         }
@@ -200,10 +203,10 @@ class UserController {
      * Creates a new Shiro account and links it to the OAuth token that's in
      * the current HTTP session.
      */
-    def createAccount(AccountCommand cmd) {
+    def createAccount(NewAccountCommand cmd) {
         if (!handleCommandForLinkingAccounts(cmd)) return
 
-        def user = userService.createUser(params.login, params.email)
+        def user = userService.createUser(cmd.login, cmd.email)
         forward controller: "shiroOAuth", action: "linkAccount", params: [userId: user.id]
     }
 
@@ -252,6 +255,7 @@ class UserController {
                 }
             }
         } else {            
+            if (params.targetUri) session["targetUri"] = params.targetUri
             render(view:"login", model: [targetUri:params.targetUri])
         }
     }
@@ -305,17 +309,33 @@ class UserController {
 }
 
 @Validateable
-class AccountCommand {
+class LoginAccountCommand {
+    transient userService
+
+    String login
+    String password
+    String email
+
+    static constraints = {
+        login nullable: false, blank: false
+        password nullable: false, blank: false
+    }
+}
+
+@Validateable
+class NewAccountCommand {
     transient userService
 
     String login
     String email
 
+    String password
+
     static constraints = {
-        login nullable: false, blank: false, validator: { obj, val ->
+        login nullable: false, blank: false, validator: { val, obj ->
             obj.userService.isLoginUnique(val) ? null : "user.login.unique"
         }
-        email nullable: false, blank: false, validator: { obj, val ->
+        email nullable: false, blank: false, validator: { val, obj ->
             obj.userService.isEmailUnique(val) ? null : "user.email.unique"
         }
     }

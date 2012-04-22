@@ -1,6 +1,9 @@
 package org.grails.auth
 
 import grails.plugin.springcache.annotations.Cacheable
+import org.apache.shiro.SecurityUtils
+import org.apache.shiro.authc.AuthenticationException
+import org.apache.shiro.authc.UsernamePasswordToken
 import org.grails.meta.UserInfo
 
 class UserService {
@@ -20,7 +23,7 @@ class UserService {
     def createUser(login, email, password = null) {
         def user = new User(
                 login: login,
-                password: password ? DigestUtils.shaHex(password) : null,
+                password: password ? DigestUtils.shaHex(password) : "** none **",
                 email: email)
                 .addToRoles(Role.findByName(Role.EDITOR))
                 .addToRoles(Role.findByName(Role.OBSERVER))
@@ -52,7 +55,7 @@ class UserService {
      * Returns <code>true</code> if it is.
      */
     Boolean isLoginUnique(login) {
-        return User.findByLogin(login)
+        return User.countByLogin(login) == 0
     }
 
     /**
@@ -60,7 +63,7 @@ class UserService {
      * Returns <code>true</code> if it is.
      */
     Boolean isEmailUnique(email) {
-        return User.findByEmail(email)
+        return User.countByEmail(email) == 0
     }
 
     protected final getUserFromPrincipal(principal) {

@@ -31,6 +31,7 @@ class JSecurityAuthFilters {
         
         }else {
             // Redirect to login page.
+            d.session["targetUri"] = targetUri 
             d.redirect(
                     controller: 'user',
                     action: 'login',
