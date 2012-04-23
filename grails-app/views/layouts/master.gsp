@@ -33,7 +33,7 @@
             <shiro:isLoggedIn>
                 <li><a href="/logout">Logout</a></li>
                 <li class="spacing">&nbsp;</li>
-                <li class="current-user">HOW CAN I GET THE EMAIL?</li>
+                <li class="current-user"><avatar:gravatar email="${user?.email}" size="16" /> ${user?.email}</li>
             </shiro:isLoggedIn>
             <shiro:isNotLoggedIn>
                 <li><a href="/login">Login</a></li>
