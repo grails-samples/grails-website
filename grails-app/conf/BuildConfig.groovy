@@ -28,10 +28,6 @@ grails.project.dependency.resolution = {
                 ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
-        compile ":rateable:0.7.1", {
-            exclude "yui"
-        }
-
         runtime ":avatar:0.3",
                 ":rest-client-builder:1.0",
                 ":cache-headers:1.1.5",
@@ -53,7 +49,6 @@ grails.project.dependency.resolution = {
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.2",
-                ":yui:2.8.2.1",
                 ":zipped-resources:1.0"
 
         if (Environment.current == Environment.DEVELOPMENT) {

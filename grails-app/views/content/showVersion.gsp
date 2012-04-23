@@ -1,5 +1,3 @@
-<g:setProvider library="yui"/>
-
 <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
 
 <div id="infoLinks" style="margin-left:450px;">
