@@ -28,6 +28,10 @@ grails.project.dependency.resolution = {
                 ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
+        compile ":rateable:0.7.1", {
+            exclude "yui"
+        }
+
         runtime ":avatar:0.3",
                 ":rest-client-builder:1.0",
                 ":cache-headers:1.1.5",
