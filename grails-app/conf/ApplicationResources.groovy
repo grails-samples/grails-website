@@ -31,6 +31,18 @@ modules = {
         dependsOn 'master'
     }
 
+    content {
+        dependsOn 'master'
+    }
+
+    section {
+        dependsOn 'content'
+    }
+
+    tutorial {
+        dependsOn 'master'
+    }
+
 
 
     // OLD
