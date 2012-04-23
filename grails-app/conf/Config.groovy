@@ -129,6 +129,22 @@ myAuth.applicationName = grails.org
 /api/v1.0/publish/** = myAuth[POST]
 """
 
+oauth {
+    provider = org.scribe.builder.api.TwitterApi
+    successUri = '/oauth/success?provider=twitter'
+    failureUri = '/unauthorized'
+    secret = 'hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY'
+    key = 'E1U4T7KgPdaGFagdpbdQ'
+}
+
+security {
+    shiro {
+        oauth {
+            linkAccountUrl = "/oauth/linkaccount"
+        }
+    }
+}
+
 springcache {
     disabled = true
     defaults {
@@ -161,8 +177,8 @@ springcache {
 }
 
 // Dummy Twitter settings.
-twitter4j.oauth.consumerKey="dummy"
-twitter4j.oauth.consumerSecret="notVerySecret"
+twitter4j.oauth.consumerKey="E1U4T7KgPdaGFagdpbdQ"
+twitter4j.oauth.consumerSecret="hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY"
 twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
 twitter4j.oauth.accessSecret="test"
 

@@ -109,7 +109,7 @@ comments = comments ? transform(comments, 5) : []
                 </g:if>
                 <g:else>
                     Login to leave a comment:
-                    <g:render template='../user/loginForm' var='originalURI' bean="${request.forwardURI}"/>
+                    <g:render template='../user/loginForm' var='targetUri' bean="${request.forwardURI}"/>
                 </g:else>
             </g:if>
             <g:else>

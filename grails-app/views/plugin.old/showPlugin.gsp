@@ -32,7 +32,7 @@
                 </shiro:isLoggedIn>
                 <shiro:isNotLoggedIn>
                     <div id="ratingDisplay">
-                        <rateable:ratings bean="${plugin}" active="false" href="${createLink(controller:'user', action:'login', params:[originalURI:request.forwardURI])}"/>                                                                                            
+                        <rateable:ratings bean="${plugin}" active="false" href="${createLink(controller:'user', action:'login', params:[targetUri:request.forwardURI])}"/>                                                                                            
                     </div>
                 </shiro:isNotLoggedIn>
             </div>
@@ -154,13 +154,13 @@
             YAHOO.util.Event.onDOMReady(function() {
                 // on show, put the dialog in the right place
                 YAHOO.util.Event.on('addTagTrigger', 'click', function() {
-                    window.location = "${createLink(controller:'user', action:'login', params:[originalURI:request.forwardURI])}";
+                    window.location = "${createLink(controller:'user', action:'login', params:[targetUri:request.forwardURI])}";
                 });
-                // also hang up rating click if not logged in, redirect to login page with originalURI of this page
+                // also hang up rating click if not logged in, redirect to login page with targetUri of this page
                 // for redirect
                 YAHOO.util.Event.on('ratingdiv', 'click', function(e) {
                     YAHOO.util.Event.stopEvent(e);
-                    window.location = "${createLink(controller:'user', action:'login', params:[originalURI:request.forwardURI])}";
+                    window.location = "${createLink(controller:'user', action:'login', params:[targetUri:request.forwardURI])}";
                 });
             });
         </script>

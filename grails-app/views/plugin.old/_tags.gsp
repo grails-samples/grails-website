@@ -16,7 +16,7 @@
                 YAHOO.util.Event.onDOMReady(function() {
                     // on show, put the dialog in the right place
                     YAHOO.util.Event.on("remove_${tag?.encodeAsJavaScript()}_tag_from_${plugin.id}", 'click', function() {
-                        window.location = "${createLink(controller:'user', action:'login', params:[originalURI:request.forwardURI])}";
+                        window.location = "${createLink(controller:'user', action:'login', params:[targetUri:request.forwardURI])}";
                     });
                 });
             </script>

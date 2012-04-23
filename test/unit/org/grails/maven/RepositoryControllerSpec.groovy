@@ -25,7 +25,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             response.status == 400
     }
 
-    void "Test that publishing a publish with an existing release works"() {
+    void "Test that publishing a plugin with an existing release works"() {
         when:"An existing plugin is created"
             def tomcat = tomcatPlugin
             params.plugin = "tomcat"
@@ -46,6 +46,36 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             response.status == 403
             response.text == 'Plugin [tomcat] already published for version [2.0.3]'
     }
+    
+    void "Test that publishing a plugin with an existing release and snapshot version works"() {
+        when:"An existing plugin is created"
+            def tomcat = tomcatPluginSnapshot
+            params.plugin = "tomcat"
+            params.version = "1.0.0.BUILD-SNAPSHOT"
+            params.zip = "dummy"
+            params.xml = "dummy"
+            params.pom = "dummy"
+
+        then:"The plugin release exists"
+            PluginRelease.count() == 1
+            PluginRelease.findByPluginAndReleaseVersion(tomcat, params.version) != null
+        when:"publish is called"
+            request.method = "POST"
+            def event
+            controller.metaClass.publishEvent = {
+                event = it
+            }            
+            controller.publish()
+        then:"The operation is forbidden because the plugin already exists"
+            event != null
+            event.source instanceof PendingRelease
+            response.status == 200
+            response.text == "Published"
+            
+            PluginRelease.count() == 1
+            PluginRelease.findByPluginAndReleaseVersion(tomcat, params.version) != null
+
+    }    
 
     void "Test publish plugin without necessary files"() {
         when:"publish is called without files to upload"
@@ -155,4 +185,19 @@ class RepositoryControllerSpec extends spock.lang.Specification{
         assert !p.hasErrors()
         return p
     }
+    
+    Plugin getTomcatPluginSnapshot() {
+        def p = new Plugin( name: "tomcat",
+                            title: "Tomcat",
+                            currentRelease: "1.0.0.BUILD-SNAPSHOT",
+                            author: "SpringSource",
+                            authorEmail:'foo@bar.com',
+                            downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip",
+                            documentationUrl:"http://grails.org/plugin/tomcat",
+                            lastReleased: new DateTime(2010, 8, 11, 22, 30))
+        p.releases = [ new PluginRelease(plugin:p, releaseVersion:"1.0.0.BUILD-SNAPSHOT", releaseDate:new DateTime(2010, 8, 11, 22, 30), downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip")]
+        p.save(flush:true)
+        assert !p.hasErrors()
+        return p
+    }    
 }
