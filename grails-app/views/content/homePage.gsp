@@ -12,6 +12,31 @@
 
     <feed:meta kind="rss" version="2.0" controller="blog" action="feed" params="[format: 'rss']"/>
     <feed:meta kind="atom" version="1.0" controller="blog" action="feed" params="[format: 'atom']"/>
+
+    <script>
+        var _state = 0, _banners, _containerBanner, _time = 5;
+
+        function tick() {
+            if (_state == (_banners.length - 1))
+                _state = 0;
+            else
+                _state++;
+            _containerBanner.animate({'left':-_state * 980}, 500);
+            setTimeout('tick()', _time * 1000);
+        }
+
+        $(function () {
+            _banners = $('div.banner').detach();
+            _containerBanner = $('<div />')
+                    .css('position', 'absolute')
+                    .css('left', 0).css('top', 0)
+                    .width(980 * _banners.length);
+            _containerBanner.append(_banners);
+            $('div#banner').append(_containerBanner);
+
+            setTimeout("tick()", _time * 1000);
+        });
+    </script>
 </head>
 
 <body>
