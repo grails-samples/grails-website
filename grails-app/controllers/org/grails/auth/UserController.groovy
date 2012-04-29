@@ -176,7 +176,6 @@ class UserController {
         session.removeAttribute ACCOUNT_SESSION_KEY
 
         def token = session["shiroAuthToken"]
-        println "Access token: ${session.oasAccessToken.rawResponse}"
         [login: cmd?.login ?: token.principal, email: cmd?.email, bean: cmd]
     }
 
@@ -193,7 +192,6 @@ class UserController {
             forward controller: "shiroOAuth", action: "linkAccount", params: [userId: userId]
         }
         catch (AuthenticationException ex) {
-            println ">> Authentication failed: ${ex.message}"
             cmd.errors.reject "auth.invalid.login", "Username or password is invalid"
             redirectToAskToLinkPage cmd
         }

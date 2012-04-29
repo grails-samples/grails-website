@@ -130,9 +130,38 @@ myAuth.applicationName = grails.org
 """
 
 oauth {
-    provider = org.scribe.builder.api.TwitterApi
-    successUri = '/oauth/success?provider=twitter'
-    failureUri = '/unauthorized'
+    providers {
+        twitter {
+            api = org.scribe.builder.api.TwitterApi
+            successUri = '/oauth/success?provider=twitter'
+            failureUri = '/unauthorized'
+            key = 'twitter-key'
+            secret = 'twitter-secret'
+            callback = "http://localhost:8080/oauth/twitter/callback"
+        }
+        facebook {
+            api = org.scribe.builder.api.FacebookApi
+            successUri = '/oauth/success?provider=facebook'
+            failureUri = '/unauthorized'
+            key = 'google-key'
+            secret = 'google-secret'
+            callback = "http://localhost:8080/oauth/google/callback"
+        }
+        google {
+            api = org.scribe.builder.api.GoogleApi
+            successUri = '/oauth/success?provider=google'
+            failureUri = '/unauthorized'
+            scope = 'https://www.googleapis.com/auth/userinfo.email'
+            key = 'google-key'
+            secret = 'google-secret'
+            callback = "http://localhost:8080/oauth/google/callback"
+        }
+//        github {
+//            api = org.scribe.builder.api.GitHubApi
+//            successUri = '/oauth/success?provider=facebook'
+//            failureUri = '/unauthorized'
+//        }
+    }
 }
 
 security {
