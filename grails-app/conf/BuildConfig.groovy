@@ -48,7 +48,7 @@ grails.project.dependency.resolution = {
                 ":resources:1.1.6",
                 ":screencasts:0.5.6",
                 ":searchable:0.6.3",
-                ":shiro:1.1.3",
+                ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
