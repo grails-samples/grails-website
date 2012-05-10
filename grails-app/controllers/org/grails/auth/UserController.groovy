@@ -1,5 +1,7 @@
 package org.grails.auth
 
+import grails.validation.Validateable
+
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.UsernamePasswordToken
@@ -16,10 +18,12 @@ import org.grails.meta.UserInfo
 * Created: Feb 19, 2008
 */
 class UserController {
+    private static final String ACCOUNT_SESSION_KEY = "accountCommand"
 
     def scaffold = User
 
     def mailService
+    def userService
 
     def show() {
         if (!params.id) {
@@ -82,22 +86,24 @@ class UserController {
     }
 
     def profile() {
-        def userInfo = UserInfo.findByUser(request.user)
-        if(request.method == 'POST') {
-            if(!userInfo) userInfo = new UserInfo(user:request.user)
+        def userId = SecurityUtils.subject.principals.oneByType(Number)
+        def user = User.get(userId)
+        def userInfo = UserInfo.findByUser(user)
+        if (request.method == 'POST') {
+            if (!userInfo) userInfo = new UserInfo(user: user)
             userInfo.properties = params
             userInfo.save()
-            if(params.password) {
-                request.user.password = DigestUtils.shaHex(params.password) 
-                request.user.save()
+            if (params.password) {
+                user.password = DigestUtils.shaHex(params.password) 
+                user.save()
             }
         }
-        return [user:request.user, userInfo:userInfo]
+        return [user: user, userInfo: userInfo]
 
     }
 
     def register(){
-        def renderParams = [ model:[originalURI:params.originalURI, async:request.xhr] ]
+        def renderParams = [ model:[targetUri:params.targetUri, async:request.xhr] ]
         
         if(request.xhr)
             renderParams.template = "registerForm"
@@ -138,9 +144,9 @@ class UserController {
                         def authToken = new UsernamePasswordToken(user.login, params.password)
                         SecurityUtils.subject.login(authToken)
 
-                        if(params.originalURI) {
+                        if(params.targetUri) {
 
-                            redirect(url:params.originalURI, params:params)
+                            redirect(url:params.targetUri, params:params)
                         }
                         else {
                             redirect(uri:"/")
@@ -161,6 +167,47 @@ class UserController {
 
     }
 
+    /**
+     * Page that allows users to link an OAuth account to an existing or new
+     * Shiro account.
+     */
+    def askToLinkOrCreateAccount() {
+        def cmd = session[ACCOUNT_SESSION_KEY]
+        session.removeAttribute ACCOUNT_SESSION_KEY
+
+        def token = session["shiroAuthToken"]
+        [login: cmd?.login ?: token.principal, email: cmd?.email, bean: cmd]
+    }
+
+    /**
+     * Links an oauth account to an existing Shiro account if the submitted
+     * credentials are correct. Otherwise it redirects back to the page that
+     * asks the user for those credentials.
+     */
+    def linkAccount(LoginAccountCommand cmd) {
+        if (!handleCommandForLinkingAccounts(cmd)) return
+
+        try {
+            def userId = userService.loginUser(cmd.login, cmd.password)
+            forward controller: "shiroOAuth", action: "linkAccount", params: [userId: userId]
+        }
+        catch (AuthenticationException ex) {
+            cmd.errors.reject "auth.invalid.login", "Username or password is invalid"
+            redirectToAskToLinkPage cmd
+        }
+    }
+
+    /**
+     * Creates a new Shiro account and links it to the OAuth token that's in
+     * the current HTTP session.
+     */
+    def createAccount(NewAccountCommand cmd) {
+        if (!handleCommandForLinkingAccounts(cmd)) return
+
+        def user = userService.createUser(cmd.login, cmd.email)
+        forward controller: "shiroOAuth", action: "linkAccount", params: [userId: user.id]
+    }
+
     def logout() {
         SecurityUtils.subject.logout()
         redirect(uri:"/")
@@ -177,7 +224,7 @@ class UserController {
 
             // If a controller redirected to this page, redirect back
             // to it. Otherwise redirect to the root URI.
-            def targetUri = params.originalURI ?: "/"
+            def targetUri = params.targetUri ?: "/"
             
             // Handle requests saved by Shiro filters.
             def savedRequest = WebUtils.getSavedRequest(request)
@@ -195,22 +242,49 @@ class UserController {
                 log.info "Authentication failure for user '${params.username}'."
                 if(request.xhr) {
                     params.remove 'password'
-                    render(template:"loginForm", model:[originalURI:params.remove('originalURI'),
+                    render(template:"loginForm", model:[targetUri:params.remove('targetUri'),
                                                         update: params._ul,
                                                         async:true,
                                                         message:"auth.invalid.login"])
                 } else {
                     flash.message = "Invalid username and/or password"
 
-                    redirect(action: 'login', params: [ username: params.username, originalURI:params.originalURI ])
+                    redirect(action: 'login', params: [ username: params.username, targetUri:params.targetUri ])
                 }
             }
         } else {            
-            render(view:"login", model: [originalURI:params.originalURI])
+            if (params.targetUri) session["targetUri"] = params.targetUri
+            render(view:"login", model: [targetUri:params.targetUri])
         }
     }
 
     def unauthorized()  {}
+
+    /**
+     * Checks for errors in the command object and if there are any, puts the
+     * command object in the session and redirects to the page asking the user
+     * for the account to link to. If there are no errors, then the object is
+     * removed from the session instead.
+     */
+    protected handleCommandForLinkingAccounts(cmd) {
+        if (cmd.hasErrors()) {
+            redirectToAskToLinkPage cmd
+            return false
+        }
+        else {
+            session.removeAttribute ACCOUNT_SESSION_KEY
+            return true
+        }
+    }
+
+    /**
+     * Puts the given command object in the session and redirects to the page
+     * asking the user for an account to link to.
+     */
+    protected redirectToAskToLinkPage(cmd) {
+        session[ACCOUNT_SESSION_KEY] = cmd
+        redirect action: "askToLinkOrCreateAccount"
+    }
 
     protected String randomPass() {
         UUID uuid = UUID.randomUUID()
@@ -228,6 +302,39 @@ class UserController {
         else {
             user.permissions.clear()
             user.permissions.addAll perms
+        }
+    }
+}
+
+@Validateable
+class LoginAccountCommand {
+    transient userService
+
+    String login
+    String password
+    String email
+
+    static constraints = {
+        login nullable: false, blank: false
+        password nullable: false, blank: false
+    }
+}
+
+@Validateable
+class NewAccountCommand {
+    transient userService
+
+    String login
+    String email
+
+    String password
+
+    static constraints = {
+        login nullable: false, blank: false, validator: { val, obj ->
+            obj.userService.isLoginUnique(val) ? null : "user.login.unique"
+        }
+        email nullable: false, blank: false, validator: { val, obj ->
+            obj.userService.isEmailUnique(val) ? null : "user.email.unique"
         }
     }
 }

@@ -267,7 +267,7 @@
 }
 
 .artifacts .webSite {
-    min-height: 230px;
+    overflow-y: hidden;
 }
 
 .artifacts .webSite a {
@@ -283,9 +283,9 @@
 }
 
 .webSiteThumbnail {
-    margin-top: 10px;
+    margin: 10px 0;
     width: 300px;
-    max-height: 230px;
+    max-height: 200px;
     overflow: hidden;
 }
 
