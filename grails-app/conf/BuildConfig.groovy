@@ -64,11 +64,22 @@ grails.project.dependency.resolution = {
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.1", {
+                exclude "svn"
+            }
         }
         else {
             test    ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.1", {
+                exclude "svn"
+            }
+        }
+
+        if (Environment.current == Environment.PRODUCTION) {
+            compile ":cache-redis:1.0.0.M1"
+        }
+        else {
+            compile ":cache-ehcache:1.0.0.M1"
         }
         
         test    ":geb:0.6.0",

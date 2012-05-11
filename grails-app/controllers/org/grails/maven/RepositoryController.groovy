@@ -1,6 +1,7 @@
 package org.grails.maven
 
-import grails.plugin.springcache.annotations.Cacheable
+import grails.plugin.cache.Cacheable
+import grails.plugin.cache.CacheEvict
 import org.grails.plugin.*
 
 import org.springframework.context.ApplicationEvent
@@ -18,6 +19,7 @@ class RepositoryController {
     /**
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
      */
+    @CacheEvict("pluginMetaList")
     def publish(PublishPluginCommand cmd) {
         log.debug "Got publish request for method ${request.method}"
         boolean isBrowserRequest = params.format == 'html'

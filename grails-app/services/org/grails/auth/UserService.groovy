@@ -1,6 +1,7 @@
 package org.grails.auth
 
-import grails.plugin.springcache.annotations.Cacheable
+import grails.plugin.cache.Cacheable
+import grails.plugin.cache.CacheEvict
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
@@ -9,10 +10,34 @@ import org.grails.meta.UserInfo
 class UserService {
     static transactional = true
 
-    @Cacheable("permissions")
-    def permissionsForUser(principal) {
-        def user = getUserFromPrincipal(principal)
+    /**
+     * Returns a collection of permission strings that represent what the given
+     * user is allowed to do.
+     *
+     * @param user A <tt>User</tt> instance.
+     */
+    @Cacheable(value="permissions", key="#user.id")
+    def permissionsForUser(user) {
         return (user.permissions ?: []) + (user.roles*.permissions?.flatten() ?: []).unique()
+    }
+
+    /**
+     * Changes the permissions for a user.
+     *
+     * @param user A <tt>User</tt> instance whose permissions you want to change.
+     * @param permissions A collection of permission strings that will replace any
+     * existing ones for the given user.
+     */
+    @CacheEvict(value="permissions", key="#user.id")
+    void updateUserPemissions(user, permissions) {
+        // Take the simple approach: clear the list and re-add all declared permissions.
+        if (user.permissions == null) {
+            user.permissions = permissions
+        }
+        else {
+            user.permissions.clear()
+            user.permissions.addAll permissions
+        }
     }
 
     /**

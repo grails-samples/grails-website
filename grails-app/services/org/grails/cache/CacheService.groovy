@@ -1,8 +1,5 @@
 package org.grails.cache
 
-import net.sf.ehcache.Ehcache
-import net.sf.ehcache.Element
-
 /**
 * @author Graeme Rocher
 * @since 1.0
@@ -11,41 +8,48 @@ import net.sf.ehcache.Element
 */
 class CacheService {
 
-    static transactional = false
+    static final String CONTENT_CACHE = "content"
+    static final String WIKI_CACHE = "wiki"
+    static final String TEXT_CACHE = "text"
 
-    Ehcache contentCache
-    Ehcache wikiCache
-    Ehcache textCache
+    static final transactional = false
+
+    def cacheManager
 
     def getContent(key) {  
-        contentCache.get(key)?.getValue()
+        return contentCache.get(key)?.get()
     }
 
-    def putContent(key,value) {
+    def putContent(key, value) {
         def old = getContent(key)
-        contentCache.put(new Element(key,value))
+        contentCache.put key, value
         return old
     }
 
     def removeContent(key) {
-        contentCache.remove key
+        contentCache.evict key
     }
 
     def flushWikiCache() {
-        wikiCache.flush()
-        textCache.flush()
+        wikiCache.clear()
+        textCache.clear()
     }
     def getWikiText(key) {
-        wikiCache.get(key)?.getValue()
+        wikiCache.get(key)?.get()
     }
 
     def removeWikiText(key) {
-        wikiCache.remove key
+        wikiCache.evict key
     }
 
-    def putWikiText(key,value) {
+    def putWikiText(key, value) {
         def old = getWikiText(key)
-        wikiCache.put(new Element(key,value))
+        wikiCache.put key,value
         return old
     }
+
+    protected getContentCache() { return cacheManager.getCache(CONTENT_CACHE) }
+    protected getWikiCache() { return cacheManager.getCache(WIKI_CACHE) }
+    protected getTextCache() { return cacheManager.getCache(TEXT_CACHE) }
+
 }

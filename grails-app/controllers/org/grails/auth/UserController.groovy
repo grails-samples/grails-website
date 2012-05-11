@@ -20,10 +20,10 @@ import org.grails.meta.UserInfo
 class UserController {
     private static final String ACCOUNT_SESSION_KEY = "accountCommand"
 
-    def scaffold = User
+    static scaffold = User
 
-    def mailService
-    def userService
+    transient mailService
+    transient userService
 
     def show() {
         if (!params.id) {
@@ -294,15 +294,7 @@ class UserController {
     protected setPermissionsFromString(user, String newlineSeparatedPermissions) {
         newlineSeparatedPermissions = newlineSeparatedPermissions?.trim()
         def perms = !newlineSeparatedPermissions ? [] : (newlineSeparatedPermissions.split(/\s*[\n;]\s*/) as List)
-
-        // Take the simple approach: clear the list and re-add all declared permissions.
-        if (user.permissions == null) {
-            user.permissions = perms
-        }
-        else {
-            user.permissions.clear()
-            user.permissions.addAll perms
-        }
+        userService.updateUserPemissions(user, perms)
     }
 }
 
