@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <cache:text id="allPluginList">
+    <cache:block id="allPluginList">
         <div id="contentWindowTop"></div>
         <div id="contentBody">
             <h2>All Plugins (${totalPlugins} Total)</h2>
@@ -30,6 +30,6 @@
         </div>
         <div id="contentFooter"></div>
 	
-    </cache:text>
+    </cache:block>
 </body>
 </html>

@@ -16,31 +16,6 @@ beans = {
         storedCredentialsHexEncoded = true
     }
 
-    textCache(EhCacheFactoryBean) {
-        timeToLive = 300
-        maxElementsInMemory = 100
-        overflowToDisk=false
-    }
-    downloadCache(EhCacheFactoryBean) {
-        timeToLive = 300
-        maxElementsInMemory = 100
-        overflowToDisk=false        
-    }
-    contentCache(EhCacheFactoryBean) {
-        timeToLive = 300
-        maxElementsInMemory = 1000
-        overflowToDisk=false        
-    }
-    wikiCache(EhCacheFactoryBean) {
-        timeToLive = 300
-        maxElementsInMemory = 200
-        overflowToDisk=false        
-    }
-    pluginListCache(EhCacheFactoryBean) {
-        timeToLive = 600
-        maxElementsInMemory = 10
-        overflowToDisk=false        
-    }
     wikiContext(BaseInitialRenderContext)
     wikiEngine(GrailsWikiEngineFactoryBean) {
         cacheService = ref('cacheService')

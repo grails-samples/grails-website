@@ -167,7 +167,7 @@
     </shiro:isNotLoggedIn>
 
     <div id="pluginContent">
-        <cache:text key="pluginTabs_${plugin.id}">
+        <cache:block key="pluginTabs_${plugin.id}">
             <gui:tabView>
                 <g:each var="wiki" in="${Plugin.WIKIS}">
                     <gui:tab id="${wiki}Tab" label="${wiki[0].toUpperCase() + wiki[1..-1]}" active="${wiki == 'description'}">
@@ -176,7 +176,7 @@
                     </gui:tab>
                 </g:each>
             </gui:tabView>
-        </cache:text>        
+        </cache:block>        
     </div>
 </body>
 </html>

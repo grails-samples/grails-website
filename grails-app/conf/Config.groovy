@@ -227,6 +227,28 @@ beans {
 
 */
 
+grails.cache.config = {
+    cache {
+        name 'content'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
+        maxElementsOnDisk 10000000
+    }
+    cache {
+        name 'wiki'
+    }
+    cache {
+        name 'text'
+    }
+    cache {
+        name 'plugin'
+    }
+    cache {
+        name 'permissions'
+    }
+}
+
 // Dummy Twitter settings.
 twitter4j.oauth.consumerKey="E1U4T7KgPdaGFagdpbdQ"
 twitter4j.oauth.consumerSecret="hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY"

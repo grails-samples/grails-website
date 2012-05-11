@@ -60,7 +60,7 @@ class WikiRealm {
     }
 
     boolean isPermitted(principal, requiredPermission) {
-        def permissions = userService.permissionsForUser(principal)
+        def permissions = userService.permissionsForUser(getUserFromPrincipal(principal))
         def retval = permissions?.find { permString ->
             // Create a real permission instance from the database
             // permission.

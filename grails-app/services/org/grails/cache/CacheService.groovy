@@ -1,8 +1,5 @@
 package org.grails.cache
 
-import net.sf.ehcache.Ehcache
-import net.sf.ehcache.Element
-
 /**
 * @author Graeme Rocher
 * @since 1.0
@@ -12,52 +9,67 @@ import net.sf.ehcache.Element
 class CacheService {
     private static final String PLUGIN_LIST_KEY = "pluginListKey"
 
-    static transactional = false
+    static final String CONTENT_CACHE = "content"
+    static final String WIKI_CACHE = "wiki"
+    static final String TEXT_CACHE = "text"
+    static final String PLUGIN_CACHE = "plugin"
 
-    Ehcache contentCache
-    Ehcache wikiCache
-    Ehcache textCache
-    Ehcache pluginListCache
+    static final transactional = false
+
+    transient grailsCacheManager
+    transient grailsCacheAdminService
 
     def getContent(key) {  
-        contentCache.get(key)?.getValue()
+        return contentCache.get(key)?.get()
     }
 
-    def putContent(key,value) {
+    def putContent(key, value) {
         def old = getContent(key)
-        contentCache.put(new Element(key,value))
+        contentCache.put key, value
         return old
     }
 
     def removeContent(key) {
-        contentCache.remove key
+        contentCache.evict key
     }
 
     def flushWikiCache() {
-        wikiCache.flush()
-        textCache.flush()
+        wikiCache.clear()
     }
+
     def getWikiText(key) {
-        wikiCache.get(key)?.getValue()
+        wikiCache.get(key)?.get()
     }
 
     def removeWikiText(key) {
-        wikiCache.remove key
+        wikiCache.evict key
     }
 
-    def putWikiText(key,value) {
+    def putWikiText(key, value) {
         def old = getWikiText(key)
-        wikiCache.put(new Element(key,value))
+        wikiCache.put key,value
         return old
     }
 
-    def getPluginList() { pluginListCache.get(PLUGIN_LIST_KEY)?.getValue() }
+    def getPluginList() { pluginCache.get(PLUGIN_LIST_KEY)?.getValue() }
 
     def putPluginList(content) {
-        def old = getContent(PLUGIN_LIST_KEY)
-        pluginListCache.put(new Element(PLUGIN_LIST_KEY, content))
+        def old = pluginList
+        pluginCache.put PLUGIN_LIST_KEY, content
         return old
     }
 
-    def removePluginList() { pluginListCache.remove PLUGIN_LIST_KEY }
+    def removePluginList() { pluginCache.evict PLUGIN_LIST_KEY }
+
+    def removeCachedText(id) {
+        // There is currently no way to evict a particular key from the
+        // templates cache.
+        grailsCacheAdminService.clearTemplatesCache()
+    }
+
+    protected getContentCache() { return grailsCacheManager.getCache(CONTENT_CACHE) }
+    protected getWikiCache() { return grailsCacheManager.getCache(WIKI_CACHE) }
+    protected getTextCache() { return grailsCacheManager.getCache(TEXT_CACHE) }
+    protected getPluginCache() { return grailsCacheManager.getCache(PLUGIN_CACHE) }
+
 }

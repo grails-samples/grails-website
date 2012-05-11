@@ -61,6 +61,9 @@ grails.project.dependency.resolution = {
             test    ":build-test-data:1.1.1",
                     ":fixtures:1.2"
         }
+
+        compile ":cache:1.0.1"
+        runtime ":cache-ehcache:1.0.0", { exclude "cache" }
         
         test    ":geb:0.6.0",
                 ":spock:0.6", {
