@@ -39,7 +39,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
      * <p>Note: The @Transactional annotation is used due to a bug in the Spring
      * Events plugin - http://jira.grails.org/browse/GPSPRINGEVENTS-2 </p>
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception)
     void onApplicationEvent(PluginUpdateEvent event) {
         log.info "Updating information for plugin ${event.name}, version ${event.version}${event.snapshot ? ' (snapshot)' : ''}"
 
