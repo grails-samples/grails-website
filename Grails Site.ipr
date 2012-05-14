@@ -213,6 +213,13 @@
   <component name="ProjectDetails">
     <option name="projectName" value="Grails Site" />
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="eberry">
+      <words>
+        <w>rocher</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectKey">
     <option name="state" value="project:///Users/rhyolight/dev/grails/grails/grails-samples/grails.org/Grails Site.ipr" />
   </component>
@@ -220,7 +227,14 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/src/Grails Site.iml" filepath="$PROJECT_DIR$/src/Grails Site.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/Grails Site-grailsPlugins.iml" filepath="$PROJECT_DIR$/src/Grails Site-grailsPlugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/like-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/like-inplacePlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/shared-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/shared-inplacePlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/tutorials-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/tutorials-inplacePlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/websites-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/websites-inplacePlugin.iml" />
     </modules>
+  </component>
+  <component name="ProjectResources">
+    <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

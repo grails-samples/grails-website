@@ -154,7 +154,7 @@ class UrlMappings {
 
         /* ========================= COMMUNITY ======================= */
         "/community"(controller: "community", action: "index")
-        "/community/websites"(controller: "community", action: "websites")
+        "/community/websites"(controller: "webSite", action: "list")
         "/community/testimonials"(controller: "community", action: "testimonials")
         "/community/contribute"(controller: "community", action: "contribute")
         "/community/mailingList"(controller: "community", action: "mailingList")

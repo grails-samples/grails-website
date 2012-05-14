@@ -1,25 +1,24 @@
 package org.grails.websites
 
-import grails.util.GrailsNameUtils
 import org.apache.shiro.SecurityUtils
 import org.grails.sections.AbstractSectionController
 
-class WebSiteController extends AbstractSectionController {
+class WebSiteControllerOld extends AbstractSectionController {
     static final int IMAGE_PREVIEW_MAX_SIZE = 2 * 1024 * 1024
 
     def imageUploadService
     def searchableService
 
-    WebSiteController() {
-        super(WebSite)
+    WebSiteControllerOld() {
+        super(WebSiteOld)
     }
 
     def create() {
-        [ webSite: new WebSite(params) ]
+        [ webSite: new WebSiteOld(params) ]
     }
 
     def save() {
-        def webSite = new WebSite()
+        def webSite = new WebSiteOld()
         bindParams webSite
 
         try {
@@ -39,7 +38,7 @@ class WebSiteController extends AbstractSectionController {
     }
 
     def edit() {
-        def webSite = WebSite.get(params.id)
+        def webSite = WebSiteOld.get(params.id)
 
         if (!webSite) {
             response.sendError 404
@@ -50,7 +49,7 @@ class WebSiteController extends AbstractSectionController {
     }
 
     def update() {
-        def webSite = WebSite.get(params.id)
+        def webSite = WebSiteOld.get(params.id)
 
         if (!webSite) {
             response.sendError 404

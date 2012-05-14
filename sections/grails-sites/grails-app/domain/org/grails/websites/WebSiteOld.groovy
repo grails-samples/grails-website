@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import pl.burningice.plugins.image.ast.DBImageContainer
 
 @DBImageContainer(field = "preview")
-class WebSite implements Taggable {
+class WebSiteOld implements Taggable {
     String title
     String description
     String url

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="admin"/>
-    <script type="text/javascript">
+    <r:script>
         $(function() {
             $('#submit-btn').attr('disabled', 'disabled');
             $('#status').change(function() {
@@ -19,7 +19,7 @@
                                   .focus();
             });
         })
-    </script>
+    </r:script>
 </head>
 
 <body>

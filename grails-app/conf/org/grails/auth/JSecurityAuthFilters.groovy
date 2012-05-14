@@ -165,9 +165,8 @@ class JSecurityAuthFilters {
                 if (controllerName == "error") return true
 
                 def subject = SecurityUtils.getSubject()
-                def principal = subject?.principal
-                if(principal) {
-                    request.user = User.findById(principal, [cache:true])
+                if(subject?.principal) {
+                    request.user = User.get(subject.principal)
                 }
             }
         }

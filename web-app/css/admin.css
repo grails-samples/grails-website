@@ -9,3 +9,7 @@
 .pagination .prevLink {
     border-left: 1px solid #DDD !important;
 }
+div.hint {
+    color: #969696;
+    font-style: italic;
+}

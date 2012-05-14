@@ -2,7 +2,7 @@
     <aside id="community">
         <h3><img src="${resource(dir: "img/aside", file: "community.png")}" alt="" title=""/>Community</h3>
         <ul>
-            <li<g:if test="${actionName == 'websites'}"> class="active"</g:if>>
+            <li<g:if test="${controllerName == 'webSite'}"> class="active"</g:if>>
                 <a href="/community/websites">Sites using Grails</a></li>
             <li<g:if test="${actionName == 'testimonials'}"> class="active"</g:if>>
                 <a href="/community/testimonials">Testimonials</a></li>

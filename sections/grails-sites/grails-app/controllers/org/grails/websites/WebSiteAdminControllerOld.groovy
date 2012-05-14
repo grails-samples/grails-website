@@ -1,29 +1,29 @@
 package org.grails.websites
 
-class WebSiteAdminController {
+class WebSiteAdminControllerOld {
 
     static final int IMAGE_PREVIEW_MAX_SIZE = 2 * 1024 * 1024
 
     def imageUploadService
     def searchableService
 
-    static scaffold = WebSite
+    static scaffold = WebSiteOld
 
     def list() {
-        [ webSites: WebSite.list() ]
+        [ webSites: WebSiteOld.list() ]
     }
 
     def show() {
-        def webSite = WebSite.findById(params.id)
+        def webSite = WebSiteOld.findById(params.id)
         [ webSite: webSite ]
     }
 
     def create() {
-        [ webSite: new WebSite(params) ]
+        [ webSite: new WebSiteOld(params) ]
     }
 
     def save() {
-        def webSite = new WebSite()
+        def webSite = new WebSiteOld()
         bindParams webSite
 
         try {
@@ -43,11 +43,11 @@ class WebSiteAdminController {
     }
 
     def edit() {
-        [ webSite: WebSite.findById(params.id) ]
+        [ webSite: WebSiteOld.findById(params.id) ]
     }
 
     def update() {
-        def webSite = WebSite.get(params.id)
+        def webSite = WebSiteOld.get(params.id)
         bindParams webSite
 
         if (!webSite.hasErrors() && webSite.save()) {

@@ -1,6 +1,7 @@
 package org.grails.plugin
 
 import org.grails.auth.User
+import org.grails.common.ApprovalStatus
 
 class PluginPendingApprovalResponse {
 

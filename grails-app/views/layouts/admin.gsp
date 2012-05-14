@@ -66,7 +66,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Content <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><g:link controller="wikiPage" action="list">Wiki Pages</g:link></li>
-                            <li><g:link controller="webSiteAdmin" action="list">Websites</g:link></li>
+                            <li><g:link controller="webSiteAdmin" action="list">Web Sites</g:link></li>
                             <li><g:link controller="tutorialAdmin" action="list">Tutorials</g:link></li>
                         </ul>
                     </li>
