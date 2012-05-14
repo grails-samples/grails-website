@@ -55,7 +55,6 @@ grails.project.dependency.resolution = {
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
                 ":simple-blog:0.1.5",
-                ":springcache:1.3.1",
                 ":spring-events:1.2",
                 ":yui:2.8.2.1",
                 ":zipped-resources:1.0", {
@@ -76,10 +75,10 @@ grails.project.dependency.resolution = {
         }
 
         if (Environment.current == Environment.PRODUCTION) {
-            compile ":cache-redis:1.0.0.M1"
+            compile ":cache-redis:1.0.0.M2"
         }
         else {
-            compile ":cache-ehcache:1.0.0.M1"
+            compile ":cache-ehcache:1.0.0.M2"
         }
         
         test    ":geb:0.6.0",
