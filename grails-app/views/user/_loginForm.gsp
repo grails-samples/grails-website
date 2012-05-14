@@ -40,9 +40,11 @@
             ${formBody}
         </g:form>
     </g:else>
+    <%--
     <div>
     Or log in with <oauth:connect provider="twitter">Twitter</oauth:connect> - <oauth:connect provider="facebook">Facebook</oauth:connect> - <oauth:connect provider="google">Google</oauth:connect>
     </div>
+    --%>
 
      <div>
 
