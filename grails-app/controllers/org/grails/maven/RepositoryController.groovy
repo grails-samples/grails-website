@@ -233,11 +233,10 @@ class PublishPluginCommand {
     byte[] xml
 
     static constraints = {
+        importFrom PendingRelease
+
         plugin blank:false
         version blank:false
-        zip nullable:false, size:0..10000000
-        pom nullable:false, size:0..500000
-        xml nullable:false, size:0..500000
     }
 
 }

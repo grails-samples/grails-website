@@ -11,12 +11,9 @@ class PendingRelease {
     byte[] pom
     byte[] xml
 
-    static mapping = {
-        pluginName blank:false
-        pluginVersion blank:false
-    }
-
     static constraints = {
+        pluginName blank: false
+        pluginVersion blank: false
         zip size:0..50000000 // ~50mb
         pom size:0..500000 // 500kb
         xml size:0..500000 // 500kb
