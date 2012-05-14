@@ -17,6 +17,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
     private static final DEFAULT_REPOSITORIES = [
             "http://plugins.grails.org",
+            "http://grails.org/plugins",
             "http://repo.grails.org/grails/plugins/",
             "http://repo.grails.org/grails/core/",
             "http://svn.codehaus.org/grails/trunk/grails-plugins",
