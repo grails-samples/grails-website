@@ -1,4 +1,3 @@
-grails.plugin.location.websites = "${basedir}/sections/grails-sites"
 grails.plugin.location.tutorials = "${basedir}/sections/tutorials"
 
 grails.project.work.dir = "target"

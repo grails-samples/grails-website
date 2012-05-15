@@ -14,11 +14,8 @@ class GenericApprovalResponse {
     Date dateCreated
 
     static constraints = {
-        submittedBy nullable: false
-        moderatedBy nullable: false
-        whatType blank: false, nullable: false
-        whatId nullable: false
-        status nullable: false, blank: false
+        whatType blank: false
+        status blank: false
     }
 
 }

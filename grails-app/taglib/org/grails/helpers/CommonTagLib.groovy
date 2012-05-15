@@ -11,14 +11,11 @@ class CommonTagLib {
         def type = attrs.type ?: 'label'
 
         def labelClass = "inverse"
-        if (status == ApprovalStatus.PENDING) {
-            labelClass = "warning"
-        }
-        else if (status == ApprovalStatus.REJECTED) {
-            labelClass = "important"
-        }
-        else if (status == ApprovalStatus.APPROVED) {
-            labelClass = "success"
+
+        switch(status) {
+            case ApprovalStatus.PENDING: labelClass = 'warning'; break;
+            case ApprovalStatus.REJECTED: labelClass = 'important'; break;
+            case ApprovalStatus.APPROVED: labelClass = 'success'; break;
         }
 
         out << "<span class=\"${type} ${type}-${labelClass}\">${status.toString()}</span>"

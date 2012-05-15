@@ -230,7 +230,6 @@
       <module fileurl="file://$PROJECT_DIR$/src/like-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/like-inplacePlugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/shared-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/shared-inplacePlugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/src/tutorials-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/tutorials-inplacePlugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/websites-inplacePlugin.iml" filepath="$PROJECT_DIR$/src/websites-inplacePlugin.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
