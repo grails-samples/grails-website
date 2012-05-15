@@ -66,7 +66,7 @@ class UserService {
         return User.countByEmail(email) == 0
     }
 
-    protected final getUserFromPrincipal(principal) {
+    final getUserFromPrincipal(principal) {
         if (principal instanceof Number) return User.get(principal)
         else return User.findByLogin(principal)
     }

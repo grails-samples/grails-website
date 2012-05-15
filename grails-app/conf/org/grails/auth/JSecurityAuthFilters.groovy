@@ -9,6 +9,7 @@ import org.apache.shiro.SecurityUtils
 * Created: Feb 26, 2008
 */
 class JSecurityAuthFilters {
+    def userService
     
     /**
      * Called when an unauthenticated user tries to access a secured
@@ -160,8 +161,8 @@ class JSecurityAuthFilters {
                 if (controllerName == "error") return true
 
                 def subject = SecurityUtils.getSubject()
-                if(subject && subject?.principal) {
-                    request.user = User.findByLogin(subject.principal, [cache:true])
+                if (subject?.principal) {
+                    request.user = userService.getUserFromPrincipal(subject.principal)
                 }
             }
         }
