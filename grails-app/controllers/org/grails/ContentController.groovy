@@ -32,7 +32,6 @@ class ContentController extends BaseWikiController {
     def screencastService
     def pluginService
     def dateService
-    def textCache
     def wikiPageService
     def grailsUrlMappingsHolder
     def imageUploadService
@@ -282,10 +281,7 @@ class ContentController extends BaseWikiController {
     private evictFromCache(id, title) {
         cacheService.removeWikiText(title)
         cacheService.removeContent(title)
-        
-        if (id) {
-            textCache.remove 'versionList' + id
-        }
+        if (id) cacheService.removeCachedText('versionList' + id)
     }
 
     def rollbackWikiVersion() {

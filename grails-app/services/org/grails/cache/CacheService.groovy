@@ -10,11 +10,11 @@ class CacheService {
 
     static final String CONTENT_CACHE = "content"
     static final String WIKI_CACHE = "wiki"
-    static final String TEXT_CACHE = "text"
 
     static final transactional = false
 
-    def cacheManager
+    transient grailsCacheManager
+    transient grailsCacheAdminService
 
     def getContent(key) {  
         return contentCache.get(key)?.get()
@@ -32,8 +32,8 @@ class CacheService {
 
     def flushWikiCache() {
         wikiCache.clear()
-        textCache.clear()
     }
+
     def getWikiText(key) {
         wikiCache.get(key)?.get()
     }
@@ -48,8 +48,13 @@ class CacheService {
         return old
     }
 
-    protected getContentCache() { return cacheManager.getCache(CONTENT_CACHE) }
-    protected getWikiCache() { return cacheManager.getCache(WIKI_CACHE) }
-    protected getTextCache() { return cacheManager.getCache(TEXT_CACHE) }
+    def removeCachedText(id) {
+        // There is currently no way to evict a particular key from the
+        // templates cache.
+        grailsCacheAdminService.clearTemplatesCache()
+    }
+
+    protected getContentCache() { return grailsCacheManager.getCache(CONTENT_CACHE) }
+    protected getWikiCache() { return grailsCacheManager.getCache(WIKI_CACHE) }
 
 }

@@ -5,7 +5,6 @@ import org.grails.content.Version
 
 class PluginTabController {
     def cacheService
-    def textCache
     def wikiPageService
 
     def index() {
@@ -231,8 +230,6 @@ class PluginTabController {
         cacheService.removeWikiText(title)
         cacheService.removeContent(title)
         
-        if (id) {
-            textCache.remove 'versionList' + id
-        }
+        if (id) cacheService.removeCachedText('versionList' + id)
     }
 }

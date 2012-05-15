@@ -224,6 +224,25 @@ springcache {
     }
 }
 
+grails.cache.config = {
+    cache {
+        name 'content'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
+        maxElementsOnDisk 10000000
+    }
+    cache {
+        name 'wiki'
+    }
+    cache {
+        name 'pluginMetaList'
+    }
+    cache {
+        name 'permissions'
+    }
+}
+
 // Dummy Twitter settings.
 twitter4j.oauth.consumerKey="dummy"
 twitter4j.oauth.consumerSecret="notVerySecret"

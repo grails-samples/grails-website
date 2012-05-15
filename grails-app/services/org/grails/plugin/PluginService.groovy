@@ -1,13 +1,12 @@
 package org.grails.plugin
 
+import grails.plugin.cache.CacheEvict
 import org.grails.auth.User
 import org.grails.content.Version
-import org.joda.time.DateTime
-import org.grails.tags.TagNotFoundException
 import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
+import org.grails.tags.TagNotFoundException
 import org.joda.time.DateTime
-import grails.plugin.springcache.annotations.*
 
 class PluginService {
 
@@ -157,7 +156,7 @@ class PluginService {
     }
     
      
-    @CacheFlush('pluginMetaList')
+    @CacheEvict('pluginMetaList')
     def runMasterUpdate() {
         translateMasterPlugins(generateMasterPlugins())
     }
