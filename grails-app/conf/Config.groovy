@@ -291,3 +291,7 @@ log4j = {
     //trace 'org.apache.shiro'
     //debug 'org.codehaus.groovy.grails.web.mapping'
 }
+
+ConfigLoader.addEntries(loadJson(fetchJson()), this)
+def fetchJson() { return System.getenv("GRAILS_APP_CONFIG") }
+def loadJson(content) { return content ? grails.converters.JSON.parse(content) : [:] }
