@@ -10,7 +10,7 @@
                 <a href="/doc/latest/guide/gettingStarted.html#creatingAnApplication">Quick Start</a></li>
             <li<g:if test="${actionName == 'ideSetup'}"> class="active"</g:if>>
                 <a href="/doc/latest/guide/gettingStarted.html#ide">IDE Setup</a></li>
-            <li<g:if test="${actionName == 'tutorials'}"> class="active"</g:if>>
+            <li<g:if test="${controllerName == 'tutorial'}"> class="active"</g:if>>
                 <a href="/tutorials">Tutorials</a></li>
             <li class="last<g:if test="${actionName == 'screencasts'}"> active</g:if>"><a href="/screencasts">Screencasts</a></li>
         </ul>

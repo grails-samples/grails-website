@@ -150,7 +150,7 @@ class UrlMappings {
         "/learn/installation"(controller:"learn", action:"installation")
         "/learn/quickStart"(controller:"learn", action:"quickStart")
         "/learn/screencasts"(controller:"learn", action:"screencasts")
-        "/learn/tutorials"(controller:"learn", action:"tutorials")
+        "/learn/tutorials"(controller:"tutorial", action:"list")
 
         /* ========================= COMMUNITY ======================= */
         "/community"(controller: "community", action: "index")
@@ -186,15 +186,15 @@ class UrlMappings {
         "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
 
         "/tutorials"(controller: "tutorial", action: "list")
-        "/tutorials/$category"(controller: "tutorial", action: "list")
         "/tutorials/add"(controller: "tutorial", action: "create")
         "/tutorials/save"(controller: "tutorial", action: "save")
-        "/tutorials/search"(controller:"tutorial", action:"search")
-        "/tutorials/tags"(controller:"tutorial", action:"browseTags")
-        "/tutorials/feed"(controller:"tutorial", action:"feed")
         "/tutorial/$id"(controller: "tutorial", action: "show")
-        "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
-        "/tutorial/update/$id"(controller: "tutorial", action: "update")
+//        "/tutorials/$category"(controller: "tutorial", action: "list")
+//        "/tutorials/search"(controller:"tutorial", action:"search")
+//        "/tutorials/tags"(controller:"tutorial", action:"browseTags")
+//        "/tutorials/feed"(controller:"tutorial", action:"feed")
+//        "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
+//        "/tutorial/update/$id"(controller: "tutorial", action: "update")
 
         "/social/like"(controller: "likeDislike", action: "like")
         "/social/unlike"(controller: "likeDislike", action: "unlike")

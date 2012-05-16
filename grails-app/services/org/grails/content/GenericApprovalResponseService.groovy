@@ -11,6 +11,11 @@ class GenericApprovalResponseService {
 
         item.setDisposition(genericApprovalResponse)
 
+        if (!genericApprovalResponse?.submittedBy?.email || !genericApprovalResponse.responseText) {
+            println "Skipped sending email due to missing data"
+            return true
+        }
+
         // Send email to the user
         def mailConfig = grailsApplication.config.plugins.forum.mail
         def toAddress = genericApprovalResponse.submittedBy?.email ?: 'cavneb@gmail.com' // Debugging

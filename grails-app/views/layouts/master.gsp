@@ -11,6 +11,11 @@
     <meta name="author" content="Grails community">
     <meta name="viewport" content="width=device-width">
 
+    <g:if test="${grailsApplication?.ENVIRONMENT != grailsApplication?.ENV_PRODUCTION}">
+        <script>
+            var disqus_developer = 1;
+        </script>
+    </g:if>
 
     <link rel="shortcut icon" href="${resource(dir: 'img', file: 'favicon.ico')}" type="image/x-icon">
 
@@ -33,7 +38,7 @@
             <shiro:isLoggedIn>
                 <li><a href="/logout">Logout</a></li>
                 <li class="spacing">&nbsp;</li>
-                <li class="current-user"><avatar:gravatar email="${user?.email}" size="16" /> ${user?.email}</li>
+                <li class="current-user"><avatar:gravatar email="${user?.email}" size="16"/> ${user?.email}</li>
             </shiro:isLoggedIn>
             <shiro:isNotLoggedIn>
                 <li><a href="/login">Login</a></li>
@@ -53,12 +58,15 @@
 
     <nav id="navigation" role="navigation">
         <ul>
-            <li <g:if test="${controllerName == 'content' && actionName == 'homePage'}">class="active"</g:if>><a href="/">Homepage</a></li>
+            <li <g:if test="${controllerName == 'content' && actionName == 'homePage'}">class="active"</g:if>><a
+                    href="/">Homepage</a></li>
             <li><a href="http://www.springsource.com">Products, Services &amp; Training</a></li>
             <li <g:if test="${controllerName == 'learn'}">class="active"</g:if>><a href="/start">Learn</a></li>
-            <li <g:if test="${controllerName == 'community'}">class="active"</g:if>><a href="/community">Community</a></li>
-            <li <g:if test="${controllerName == 'download'}">class="active"</g:if>><a href="/download">Downloads</a></li>
-            <li class="last<g:if test="${controllerName == 'plugin'}"> active</g:if>"><a href="/plugins">Plugins</a></li>
+            <li <g:if test="${controllerName == 'community'}">class="active"</g:if>><a href="/community">Community</a>
+            </li>
+            <li <g:if test="${controllerName == 'download'}">class="active"</g:if>><a href="/download">Downloads</a>
+            </li>
+            <li class="last<g:if test="${controllerName == 'plugin'}">active</g:if>"><a href="/plugins">Plugins</a></li>
         </ul>
     </nav>
 

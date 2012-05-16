@@ -969,10 +969,6 @@ p.rating {
 			.border-radius(@radius);
 			.clearfix();
 
-			&.tutorial {
-				padding-left: 0px;
-			}
-			
 			a.like {
 				position: absolute;
 				right: 8px;
@@ -1023,7 +1019,44 @@ p.rating {
 				padding: 0;
 				margin: 0;
 			}
+
+            &.tutorial {
+                padding-left: 0px;
+
+                div {
+                    width: 600px;
+                }
+
+                p.tags {
+                    margin-bottom: 5px;
+                }
+
+                p.link {
+                    margin-top: 10px;
+                }
+            }
 		}
+
+        span {
+            &.status {
+                display: block;
+                height: 53px;
+                width: 53px;
+                position: absolute;
+                right: -7px;
+                top: -7px;
+                text-indent: -6000em;
+                background-image: url(../img/plugin/status.png);
+                background-repeat: no-repeat;
+
+            }
+            &.status-new {
+                background-position: 0 0;
+            }
+            &.status-up {
+                background-position: 0 -53px;
+            }
+        }
 	
 		.colset3 {
 			.clearfix();
@@ -1073,7 +1106,10 @@ a.like {
 		background: url(../img/page/like.png) no-repeat right -16px;
 		text-decoration: none;
 	}
-	
+
+    &.with-ribbon {
+        margin-right: 30px;
+    }
 }
 
 .page-search {

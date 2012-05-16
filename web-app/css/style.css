@@ -2952,9 +2952,6 @@ p.rating .note {
 .content-aside #main.websites article:after {
   clear: both;
 }
-.content-aside #main.websites article.tutorial {
-  padding-left: 0px;
-}
 .content-aside #main.websites article a.like {
   position: absolute;
   right: 8px;
@@ -3000,6 +2997,35 @@ p.rating .note {
 .content-aside #main.websites article p {
   padding: 0;
   margin: 0;
+}
+.content-aside #main.websites article.tutorial {
+  padding-left: 0px;
+}
+.content-aside #main.websites article.tutorial div {
+  width: 600px;
+}
+.content-aside #main.websites article.tutorial p.tags {
+  margin-bottom: 5px;
+}
+.content-aside #main.websites article.tutorial p.link {
+  margin-top: 10px;
+}
+.content-aside #main.websites span.status {
+  display: block;
+  height: 53px;
+  width: 53px;
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  text-indent: -6000em;
+  background-image: url(../img/plugin/status.png);
+  background-repeat: no-repeat;
+}
+.content-aside #main.websites span.status-new {
+  background-position: 0 0;
+}
+.content-aside #main.websites span.status-up {
+  background-position: 0 -53px;
 }
 .content-aside #main.websites .colset3 {
   *zoom: 1;
@@ -3064,6 +3090,9 @@ a.like:hover {
   color: #ce1121;
   background: url(../img/page/like.png) no-repeat right -16px;
   text-decoration: none;
+}
+a.like.with-ribbon {
+  margin-right: 30px;
 }
 .page-search .content-single #main section {
   padding: 0;

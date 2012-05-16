@@ -1,4 +1,4 @@
-grails.plugin.location.tutorials = "${basedir}/sections/tutorials"
+grails.plugin.location.like = "${basedir}/sections/like"
 
 grails.project.work.dir = "target"
 grails.project.test.reports.dir = "target/test-reports"
@@ -36,6 +36,7 @@ grails.project.dependency.resolution = {
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
+                ":disqus:0.1",
                 ":feeds:1.5",
                 ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",

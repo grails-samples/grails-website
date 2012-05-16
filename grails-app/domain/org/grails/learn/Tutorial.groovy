@@ -1,93 +1,53 @@
-package org.grails.community
+package org.grails.learn
 
-import org.joda.time.DateTime
 import grails.plugin.like.Popularity
-import org.grails.taggable.TagLink
+import org.joda.time.DateTime
 import org.grails.taggable.Tag
-import pl.burningice.plugins.image.ast.DBImageContainer
+import org.grails.taggable.TagLink
+import org.grails.taggable.Taggable
 import org.grails.common.ApprovalStatus
 import org.grails.auth.User
 import org.grails.content.GenericApprovalResponse
+import org.joda.time.Days
 
-@DBImageContainer(field = "preview")
-class WebSite {
-
-    def taggableService
+class Tutorial implements Taggable {
 
     String title
-    String shortDescription
     String description
     String url
-    boolean featured
     ApprovalStatus status = ApprovalStatus.PENDING
     User submittedBy
     Popularity popularity = new Popularity()
     DateTime dateCreated
 
+    def taggableService
+
+    static embedded = ["popularity"]
+
     static constraints = {
         title blank: false, maxSize: 50
-        shortDescription blank: false, nullable: true, maxSize: 150
         description blank: false, maxSize: 5000
         url blank: false
+        status nullable: true
         submittedBy nullable: false
     }
 
     static hasMany = [genericApprovalResponses: GenericApprovalResponse]
 
-    static embedded = ["popularity"]
+    static transients = ['genericApprovalResponses', 'isNew']
 
-    static transients = ['genericApprovalResponses']
+    static searchable = {
+        only = ["title", "description", "tags"]
+        tags component: true
+    }
 
     static namedQueries = {
-        allQueryNoSort {
-        }
-
         approved {
             eq "status", ApprovalStatus.APPROVED
         }
-
         allQuery {
-            allQueryNoSort()
-            order "title", "asc"
-        }
-
-        notFeaturedQueryNoSort {
             approved()
-            ne "featured", true
-        }
-
-        featuredQueryNoSort {
-            approved()
-            eq "featured", true
-        }
-
-        notFeaturedQuery {
-            notFeaturedQueryNoSort()
             order "dateCreated", "desc"
-        }
-
-        featuredQuery {
-            featuredQueryNoSort()
-            order "dateCreated", "desc"
-        }
-
-        newestQueryNoSort {
-            approved()
-        }
-
-        newestQuery {
-            newestQueryNoSort()
-            order "dateCreated", "desc"
-        }
-
-        popularQueryNoSort {
-            approved()
-            gt "popularity.netLiked", 0
-        }
-
-        popularQuery {
-            popularQueryNoSort()
-            order "popularity.netLiked", "desc"
         }
     }
 
@@ -113,5 +73,9 @@ class WebSite {
             whatType == this.class.name && whatId == this.id
         }
         return query.list(sort: 'id', order: 'asc')
+    }
+
+    def getIsNew() {
+        (dateCreated > (new DateTime() - Days.days(14)))
     }
 }

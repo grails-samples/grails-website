@@ -45,9 +45,9 @@ class WebSiteAdminController {
         try {
             searchableService.stopMirroring()
             if (!webSiteInstance.hasErrors() && validateAndSave(webSiteInstance)) {
-//                processTags webSiteInstance, params.tags
+                processTags webSiteInstance, params.tags
                 webSiteInstance.save flush: true
-                flash.message = "Web Site was created successfully"
+                flash.message = "${message(code: 'default.created.message', args: ['Web Site', webSiteInstance.id])}"
                 redirect(action: "show", id: webSiteInstance.id)
                 return
             }
@@ -62,8 +62,7 @@ class WebSiteAdminController {
     def show = {
         def webSiteInstance = WebSite.get(params.id)
         if (!webSiteInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'webSite.label', default: 'WebSite'), params.id])}"
-            redirect(action: "list")
+            response.sendError 404
         }
         else {
             [webSiteInstance: webSiteInstance]
@@ -73,8 +72,7 @@ class WebSiteAdminController {
     def edit = {
         def webSiteInstance = WebSite.get(params.id)
         if (!webSiteInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'webSite.label', default: 'WebSite'), params.id])}"
-            redirect(action: "list")
+            response.sendError 404
         }
         else {
             return [webSiteInstance: webSiteInstance]
@@ -89,7 +87,7 @@ class WebSiteAdminController {
             try {
                 searchableService.stopMirroring()
                 if (!webSiteInstance.hasErrors() && validateAndSave(webSiteInstance)) {
-//                processTags webSiteInstance, params.tags
+                    processTags webSiteInstance, params.tags
                     webSiteInstance.save flush: true
                     flash.message = "Web Site was created successfully"
                     redirect(action: "show", id: webSiteInstance.id)
@@ -121,8 +119,7 @@ class WebSiteAdminController {
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'webSite.label', default: 'WebSite'), params.id])}"
-            redirect(action: "list")
+            response.sendError 404
         }
     }
 
@@ -179,6 +176,11 @@ class WebSiteAdminController {
 
     protected hasPreviewImage() {
         return !request.getFile("preview").isEmpty()
+    }
+
+    protected processTags(domainInstance, tagString) {
+        def tags = tagString.split(/[,;]/)
+        domainInstance.tags = tags
     }
 
 }

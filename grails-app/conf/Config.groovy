@@ -20,6 +20,8 @@ plugins.location = "http://plugins.grails.org"
 plugins.forum.mail.to = "plugins-announce@nowhere.net"
 plugins.forum.mail.from = "test@grails.org"
 
+grails.plugins.disqus.shortname = "grails"
+
 grails.mail.port = 3025
 
 grails.mime.use.accept.header = true

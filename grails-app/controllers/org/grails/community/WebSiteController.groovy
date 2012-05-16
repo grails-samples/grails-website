@@ -32,7 +32,7 @@ class WebSiteController {
         if (!webSiteInstance.hasErrors() && validateAndSave(webSiteInstance)) {
             webSiteInstance.save flush: true
             flash.message = "Your submission was successful. We will let you know when it is approved."
-            redirect(action: "list", id: webSiteInstance.id)
+            redirect(action: "list")
         }
         else {
             render(view: "create", model: [webSiteInstance: webSiteInstance])
@@ -42,7 +42,6 @@ class WebSiteController {
     def show = {
         def webSiteInstance = WebSite.get(params.id)
         if (!webSiteInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'webSite.label', default: 'WebSite'), params.id])}"
             redirect(action: "list")
         }
         else {

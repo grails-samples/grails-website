@@ -144,6 +144,7 @@
     <orderEntry type="library" name="grails-2.0.3" level="application" />
     <orderEntry type="library" name="grails-2.0.3" level="application" />
     <orderEntry type="module" module-name="tutorials-inplacePlugin" exported="" />
+    <orderEntry type="module" module-name="like-inplacePlugin" exported="" />
   </component>
 </module>
 

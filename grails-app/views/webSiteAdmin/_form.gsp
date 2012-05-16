@@ -32,14 +32,6 @@
     </div>
 </div>
 
-<div class="control-group ${hasErrors(bean: webSiteInstance, field: 'shortDescription', 'error')}">
-    <label class="control-label" for="shortDescription">Short Description</label>
-
-    <div class="controls">
-        <g:textField name="shortDescription" value="${webSiteInstance?.shortDescription}" class="input-xxlarge"/>
-    </div>
-</div>
-
 <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'title', 'error')}">
     <label class="control-label" for="description">Description</label>
 
