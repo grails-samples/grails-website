@@ -1,7 +1,7 @@
 <g:render template="/common/messages" model="${pageScope.getVariables() + [bean:user]}" />
 
 <g:form name="login" controller='user' action="login">
-    <g:hiddenField name="originalURI" value="${originalURI ?: formData?.originalURI}" />
+    <g:hiddenField name="targetUri" value="${targetUri ?: formData?.targetUri}" />
 
     <h2>Log in</h2>
     <p>
