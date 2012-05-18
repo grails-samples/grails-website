@@ -1,19 +1,13 @@
 package org.grails.auth
 
 import org.grails.plugin.PluginPendingApproval
-import org.grails.plugin.PluginPendingApprovalResponse
 
 class User {
     String email
     String login
     String password
 
-    static hasMany = [
-            roles:Role,
-            permissions:String,
-            pluginPendingApprovals:PluginPendingApproval,
-            pluginPendingApprovalResponses: PluginPendingApprovalResponse
-    ]
+    static hasMany = [roles: Role, permissions: String]
 
     static constraints = {
         email email: true, unique: true, blank: false

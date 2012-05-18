@@ -42,5 +42,9 @@
             Are you ready to publish your plugin and need access to the Grails plugin repository,
             <a href="/plugins/submitPlugin">please fill out this form</a>.
         </p>
+        <p style="padding-top: 10px;">
+            <strong>NEW:</strong> Get involved by voicing your opinion on new plugins waiting to be approved in the
+            <a href="/plugins/pending">Pending Plugin</a> portal.
+        </p>
     </aside>
 </div>

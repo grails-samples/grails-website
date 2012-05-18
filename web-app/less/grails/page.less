@@ -230,6 +230,16 @@ h2 {
 							font-weight: bold;
 						}
 					}
+
+                    &.instructions {
+                        padding-top: 8px;
+                    }
+
+                    p {
+                        padding: 0px 10px;
+                        font-size: 13px;
+                        line-height: 18px;
+                    }
 				}
 			}
 
@@ -951,6 +961,28 @@ p.rating {
 }
 
 .content-aside {
+    #main.with-banner {
+        span {
+            &.status {
+                display: block;
+                height: 53px;
+                width: 53px;
+                position: absolute;
+                right: -7px;
+                top: -7px;
+                text-indent: -6000em;
+                background-image: url(../img/plugin/status.png);
+                background-repeat: no-repeat;
+
+            }
+            &.status-new {
+                background-position: 0 0;
+            }
+            &.status-up {
+                background-position: 0 -53px;
+            }
+        }
+    }
 	#main.websites {
 		background: 0 none;
 		width: 665px + 40px;
@@ -1028,37 +1060,18 @@ p.rating {
                 }
 
                 p.tags {
+                    font-size: 12px;
                     margin-bottom: 5px;
                 }
 
                 p.link {
                     margin-top: 10px;
+                    font-size: 12px;
                 }
             }
 		}
 
-        span {
-            &.status {
-                display: block;
-                height: 53px;
-                width: 53px;
-                position: absolute;
-                right: -7px;
-                top: -7px;
-                text-indent: -6000em;
-                background-image: url(../img/plugin/status.png);
-                background-repeat: no-repeat;
-
-            }
-            &.status-new {
-                background-position: 0 0;
-            }
-            &.status-up {
-                background-position: 0 -53px;
-            }
-        }
-	
-		.colset3 {
+        .colset3 {
 			.clearfix();
 			article {
 				float: left;
@@ -1300,4 +1313,10 @@ a.like {
             background-position: -170px -56px;
         }
     }
+}
+
+.disqus-container {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
 }

@@ -86,6 +86,9 @@
       <sourceFolder url="file://$MODULE_DIR$/../plugins/database-migration-1.0/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../plugins/database-migration-1.0/grails-app/controllers" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../plugins/disqus-0.1">
+      <sourceFolder url="file://$MODULE_DIR$/../plugins/disqus-0.1/grails-app/taglib" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../plugins/feeds-1.5">
       <sourceFolder url="file://$MODULE_DIR$/../plugins/feeds-1.5/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../plugins/feeds-1.5/grails-app/i18n" isTestSource="false" />

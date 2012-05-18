@@ -14,32 +14,49 @@
 
     <g:render template="/learn/sideNav"/>
 
-    <div id="main" class="websites">
-        <section>
-            <article class="tutorial">
-                <a href="#" class="like ${!tutorialInstance?.isNew ?: 'with-ribbon'}">+1</a>
-                <div>
-                    <h3><g:link action="show" id="${tutorialInstance?.id}">${tutorialInstance?.title?.encodeAsHTML()}</g:link></h3>
+    <div id="main" class="plugins">
+        <section class="plugin">
+            <article>
+                <header>
+                    <h3 style="padding: 5px 0;">
+                        <a href="/tutorial/${tutorialInstance?.id}">${tutorialInstance?.title?.encodeAsHTML()}</a>
+                    </h3>
 
-                    <p class="tags">
-                        <g:each in="${tutorialInstance?.tags}" var="tag">
-                            <a href="#" class="btn blueLight">${tag}</a>
-                        </g:each>
+                    <p class="meta">
+                        Tags :
+                        <g:if test="${tutorialInstance.tags.size() > 0}">
+                            <g:each in="${tutorialInstance.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="#">${tag}</a></g:each>
+                        </g:if>
+                        <g:else>
+                            none
+                        </g:else>
+                        <br/>
+                        submitted by <a href="#">${tutorialInstance?.submittedBy?.login}</a>
+                        <prettytime:display date="${tutorialInstance?.dateCreated}"/>
                     </p>
 
-                    <p>${tutorialInstance?.description?.encodeAsHTML()}</p>
+                </header>
 
-                    <p class="link">
-                        <a href="${tutorialInstance.url.encodeAsHTML()}" target="_blank">${tutorialInstance?.url?.encodeAsHTML()}</a>
+                <div class="desc">
+                    <p><wiki:shorten text="${tutorialInstance?.description?.encodeAsHTML()}" length="250"/>
+                        <g:if test="${tutorialInstance?.description?.length() > 250}">
+                            <a href="/tutorial/${tutorialInstance?.id}">read more</a>
+                        </g:if>
                     </p>
                 </div>
 
+                <p class="link">
+                    <a href="${tutorialInstance.url.encodeAsHTML()}"
+                       target="_blank">${tutorialInstance?.url?.encodeAsHTML()}</a>
+                </p>
                 <g:if test="${tutorialInstance?.isNew}">
                     <span class="status status-new">New</span>
                 </g:if>
 
+                <div class="disqus-container">
+                    <disqus:comments bean="${tutorialInstance}"/>
+                </div>
             </article>
-            <disqus:comments bean="${tutorialInstance}" />
         </section>
     </div>
 </div>

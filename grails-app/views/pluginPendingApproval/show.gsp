@@ -1,25 +1,8 @@
-<%@ page import="org.grails.plugin.ApprovalStatus" %>
+<%@ page import="org.grails.common.ApprovalStatus" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="admin"/>
-    <r:script>
-        $(function() {
-            $('#submit-btn').attr('disabled', 'disabled');
-            $('#status').change(function() {
-                if ($(this).val() != '') {
-                    $('#submit-btn').removeAttr('disabled');
-                } else {
-                    $('#submit-btn').attr('disabled', 'disabled');
-                }
-            });
-            $('a.default_response').click(function(evt) {
-                evt.preventDefault();
-                $('#responseText').val($(this).data('response'))
-                                  .focus();
-            });
-        })
-    </r:script>
 </head>
 
 <body>
@@ -42,6 +25,16 @@
     <tr>
         <td class="show-label">ID</td>
         <td>${fieldValue(bean: pluginPendingApproval, field: 'id')}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Submitted By</td>
+        <td class="show-value">
+            <g:link controller="user" action="show" id="${pluginPendingApproval?.submittedBy?.id}">
+                <avatar:gravatar email="${pluginPendingApproval?.submittedBy?.email}"
+                                 size="16"/> ${pluginPendingApproval?.submittedBy?.email}
+            </g:link>
+        </td>
+    </tr>
     <tr>
         <td class="show-label">Name</td>
         <td>${fieldValue(bean: pluginPendingApproval, field: 'name')}</td>
@@ -51,12 +44,8 @@
         <td>${fieldValue(bean: pluginPendingApproval, field: 'scmUrl')}</td>
     </tr>
     <tr>
-        <td class="show-label">Email</td>
-        <td>${fieldValue(bean: pluginPendingApproval, field: 'email')}</td>
-    </tr>
-    <tr>
         <td class="show-label">Status</td>
-        <td>${pluginPendingApproval.displayStatus()}</td>
+        <td><common:approvalStatus status="${pluginPendingApproval.status}" type="badge" /></td>
     </tr>
     <tr>
         <td class="show-label">Notes</td>
@@ -66,8 +55,8 @@
         <td class="show-label">Responses</td>
         <td>
             <dl style="margin: 0px;">
-            <g:each in="${pluginPendingApproval.pluginPendingApprovalResponses}" var="${resp}">
-                <dt>${resp.user?.login} marked submission as ${resp.displayStatus()} on ${resp.dateCreated}
+            <g:each in="${pluginPendingApproval.genericApprovalResponses}" var="${resp}">
+                <dt>${resp.moderatedBy?.login} marked submission as ${resp.status?.toString()} on ${resp.dateCreated}
                     <dd><blockquote>${resp.responseText}</blockquote></dd>
                 </dt>
             </g:each>
@@ -77,44 +66,59 @@
     </tbody>
 </table>
 
-<h2 class="page-header">Respond to Submitter</h2>
-<g:form class="form-horizontal" action="dispositionPendingPlugin">
-    <fieldset>
-        <g:hiddenField name="id" value="${pluginPendingApproval.id}"/>
+<div class="row">
+    <div class="span4">
+        <h3 class="page-header">Respond to Submitter</h3>
 
-        <div class="control-group">
-            <label class="control-label" for="status">Request has been:</label>
-            <div class="controls">
-                <select name="status" id="status">
-                    <option value=""></option>
-                    <option value="${ApprovalStatus.APPROVED}">APPROVED</option>
-                    <option value="${ApprovalStatus.REJECTED}">REJECTED</option>
-                </select>
-            </div>
-        </div>
+        <g:form action="disposition">
+            <fieldset>
+                <g:hiddenField name="id" value="${pluginPendingApproval.id}"/>
 
-        <div class="control-group">
-            <label class="control-label" for="responseText">Response (for email):</label>
-            <div class="controls">
-                <textarea cols="50" rows="10" style="width: 99%;" name="responseText" id="responseText"></textarea>
-                <p>
-                    <g:each in="${defaultResponses}" var="resp" status="i">
-                        <g:if test="${i > 0}">
-                            |
-                        </g:if>
-                        <a href="#" class="default_response" data-response="${resp.value}">${resp.key}</a>
-                    </g:each>
-                </p>
-            </div>
-        </div>
+                <div class="control-group">
+                    <label class="control-label" for="status">Request has been:</label>
+                    <div class="controls">
+                        <select name="status" id="status">
+                            <option value=""></option>
+                            <option value="${ApprovalStatus.APPROVED}">APPROVED</option>
+                            <option value="${ApprovalStatus.REJECTED}">REJECTED</option>
+                        </select>
+                    </div>
+                </div>
 
-        <div class="form-actions">
-            <g:submitButton id="submit-btn" name="submit" class="btn btn-primary"
-                            value="Send Response to Submitter"
-                            onclick="return confirm('Are you sure?');" />
+                <div class="control-group">
+                    <label class="control-label" for="responseText">Response (for email):</label>
+                    <div class="controls">
+                        <textarea cols="50" rows="10" style="width: 99%;" name="responseText" id="responseText" required="required"></textarea>
+                        <p>
+                            <g:each in="${defaultResponses}" var="resp" status="i">
+                                <g:if test="${i > 0}">
+                                    |
+                                </g:if>
+                                <a href="#" class="default_response" data-response="${resp.value}">${resp.key}</a>
+                            </g:each>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <g:submitButton id="submit-btn" name="submit" class="btn btn-primary"
+                                    value="Send Response to Submitter"
+                                    onclick="return confirm('Are you sure?');" />
+                </div>
+            </fieldset>
+        </g:form>
+
+    </div>
+    <div class="span8">
+        <h3 class="page-header">Disqus Thread</h3>
+        <div style="padding: 0 20px;">
+            <disqus:comments bean="${pluginPendingApproval}" />
         </div>
-    </fieldset>
-</g:form>
+    </div>
+</div>
+
+
+
 
 </body>
 </html>

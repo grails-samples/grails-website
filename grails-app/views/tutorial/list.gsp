@@ -14,14 +14,14 @@
 
     <g:render template="/learn/sideNav"/>
 
-    <div id="main" class="websites">
-        <section>
+    <div id="main" class="plugins">
+        <section class="plugin">
             <article>
                 <flash:message flash="${flash}" />
                 <a href="/tutorials/add">Add Tutorial</a>
             </article>
-            <g:render template="tutorial" collection="${tutorialInstanceList}" var="tutorialInstance"/>
         </section>
+        <g:render template="tutorial" collection="${tutorialInstanceList}" var="tutorialInstance"/>
     </div>
 </div>
 

@@ -1,9 +1,11 @@
 package org.grails.plugin
 
+import org.grails.content.GenericApprovalResponse
+import org.grails.common.ApprovalStatus
+
 class PluginPendingApprovalController {
     def pluginService
-
-    def scaffold = PluginPendingApproval
+    def genericApprovalResponseService
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
@@ -15,44 +17,42 @@ class PluginPendingApprovalController {
 
     def show() {
 
-        def pluginPendingApproval = PluginPendingApproval.findById(params.id)
+        def pluginPendingApproval = PluginPendingApproval.get(params.id)
 
         if (pluginPendingApproval) {
-
-            def defaultResponses = [
-                'approved': PluginPendingApprovalResponse.defaultApprovedResponse(pluginPendingApproval),
-                'rejected': PluginPendingApprovalResponse.defaultRejectedResponse(pluginPendingApproval),
-            ]
-
-            [ pluginPendingApproval: pluginPendingApproval, defaultResponses: defaultResponses ]
+            [ pluginPendingApproval: pluginPendingApproval ]
 
         } else {
             redirect action: 'list'
         }
     }
 
-    def dispositionPendingPlugin() {
-        def pluginPendingApproval = PluginPendingApproval.findById(params.id)
-        def pluginPendingApprovalResponse = new PluginPendingApprovalResponse(
-            user: request.user,
-            pluginPendingApproval: pluginPendingApproval,
-            status: ApprovalStatus.valueOf(params.status),
-            responseText: params.responseText
-        )
-        if (!pluginPendingApprovalResponse.hasErrors() && pluginPendingApprovalResponse.save(flush: true)) {
+    def disposition = {
+        def pluginPendingApprovalInstance = PluginPendingApproval.get(params.id)
 
-            if (pluginService.setDispositionOfPendingApproval(pluginPendingApprovalResponse)) {
-                flash.message = "Response was submitted to ${pluginPendingApproval.user?.login} (${pluginPendingApproval.user?.email})"
+        def genericApprovalResponse = new GenericApprovalResponse(
+                submittedBy: pluginPendingApprovalInstance.submittedBy,
+                moderatedBy: request.user,
+                whatType: pluginPendingApprovalInstance.class.name,
+                whatId: pluginPendingApprovalInstance.id,
+                responseText: params.responseText,
+                status: ApprovalStatus.valueOf(params.status)
+        )
+
+        if (!genericApprovalResponse.hasErrors() && genericApprovalResponse.save(flush: true)) {
+            if (genericApprovalResponseService.setDispositionOfPendingApproval(genericApprovalResponse)) {
+                flash.message = "Response was submitted to ${genericApprovalResponse.submittedBy?.login} (${genericApprovalResponse.submittedBy?.email})"
             }
             else {
                 flash.message = "Unable to process the request including sending the email."
             }
-
-        } else {
-            println pluginPendingApprovalResponse.errors.inspect()
+        }
+        else {
+            println genericApprovalResponse.errors?.inspect()
             flash.message = "Unable to save response."
         }
-        redirect action: 'show', id: pluginPendingApproval.id
+        redirect action: 'show', id: pluginPendingApprovalInstance.id
     }
+
 
 }

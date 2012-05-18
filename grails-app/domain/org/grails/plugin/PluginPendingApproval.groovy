@@ -2,51 +2,52 @@ package org.grails.plugin
 
 import org.grails.auth.User
 import org.grails.common.ApprovalStatus
+import org.grails.content.GenericApprovalResponse
+import org.joda.time.DateTime
+import org.joda.time.Days
 
 class PluginPendingApproval {
 
-    static belongsTo = [ user: User ]
-    static hasMany = [ pluginPendingApprovalResponses: PluginPendingApprovalResponse ]
-
     String name
+    String versionNumber
     String scmUrl
-    String email
-    ApprovalStatus status
+    ApprovalStatus status = ApprovalStatus.PENDING
+    User submittedBy
     String notes
+    DateTime dateCreated
 
     static constraints = {
-        name blank: false, unique: true, matches: /[\w-]+/
+        name blank: false, unique: 'versionNumber'
+        versionNumber blank: false
         scmUrl blank: false
-        email blank: false, email: true
         status blank: false
-        notes nullable: true
+        notes nullable: true, blank: true
+        submittedBy nullable: false
     }
 
     static mapping = {
         notes type: 'text'
     }
 
-    String displayStatus() {
-        def ret = ""
-        switch (status) {
-            case ApprovalStatus.PENDING:
-                ret = '<span class="badge badge-info">Pending Approval</span>'
-                break
-            case ApprovalStatus.APPROVED:
-                ret = '<span class="badge badge-success">Approved</span>'
-                break
-            case ApprovalStatus.REJECTED:
-                ret = '<span class="badge badge-error">Rejected</span>'
-                break
-            default:
-                ret = '<span class="badge badge-warning">UNKNOWN</span>'
+    static namedQueries = {
+        pending {
+            eq('status', ApprovalStatus.PENDING)
         }
-        return ret
     }
 
-    def setDisposition(PluginPendingApprovalResponse pluginPendingApprovalResponse) {
-        this.status = pluginPendingApprovalResponse.status
+    def setDisposition(GenericApprovalResponse genericApprovalResponse) {
+        this.status = genericApprovalResponse.status
         this.save(flush: true)
     }
 
+    List<GenericApprovalResponse> getGenericApprovalResponses() {
+        def query = GenericApprovalResponse.where {
+            whatType == this.class.name && whatId == this.id
+        }
+        return query.list(sort: 'id', order: 'asc')
+    }
+
+    def getIsNew() {
+        (dateCreated > (new DateTime() - Days.days(14)))
+    }
 }

@@ -8,9 +8,10 @@ import pl.burningice.plugins.image.ast.DBImageContainer
 import org.grails.common.ApprovalStatus
 import org.grails.auth.User
 import org.grails.content.GenericApprovalResponse
+import org.grails.taggable.Taggable
 
 @DBImageContainer(field = "preview")
-class WebSite {
+class WebSite implements Taggable {
 
     def taggableService
 

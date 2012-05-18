@@ -75,6 +75,8 @@ class UrlMappings {
         }
         "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
         "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
+        "/plugins/pending"(controller: "plugin", action: "pendingPlugins")
+        "/plugins/pending/$id"(controller: "plugin", action: "showPendingPlugin")
 
 
 

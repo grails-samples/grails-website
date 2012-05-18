@@ -97,7 +97,7 @@
                 </ul>
 
                 <p class="navbar-text pull-right">
-                    Logged in as <shiro:principal/> | <g:link controller="user" action="logout">logout</g:link>
+                    Logged in as ${user?.login} | <g:link controller="user" action="logout">logout</g:link>
                 </p>
             </div><!--/.nav-collapse -->
         </div>

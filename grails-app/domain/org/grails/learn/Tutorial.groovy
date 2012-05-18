@@ -12,6 +12,8 @@ import org.joda.time.Days
 
 class Tutorial implements Taggable {
 
+    def taggableService
+
     String title
     String description
     String url
@@ -19,10 +21,6 @@ class Tutorial implements Taggable {
     User submittedBy
     Popularity popularity = new Popularity()
     DateTime dateCreated
-
-    def taggableService
-
-    static embedded = ["popularity"]
 
     static constraints = {
         title blank: false, maxSize: 50
@@ -33,6 +31,8 @@ class Tutorial implements Taggable {
     }
 
     static hasMany = [genericApprovalResponses: GenericApprovalResponse]
+
+    static embedded = ["popularity"]
 
     static transients = ['genericApprovalResponses', 'isNew']
 

@@ -1,6 +1,7 @@
 package org.grails.plugin
 
 import org.grails.tags.TagNotFoundException
+import org.grails.common.ApprovalStatus
 
 class PluginController {
 
@@ -53,17 +54,21 @@ class PluginController {
 
     def submitPlugin() {
         def pluginPendingApproval = new PluginPendingApproval(
-            user: request.user,
+            submittedBy: request.user,
             status: ApprovalStatus.PENDING
         )
         if (request.method == "POST") {
             pluginPendingApproval.name = params.name
             pluginPendingApproval.scmUrl = params.scmUrl
-            pluginPendingApproval.email = params.email
+            pluginPendingApproval.versionNumber = params.versionNumber
             pluginPendingApproval.notes = params.notes
+
+            pluginPendingApproval.validate()
+            println "PPA: ${pluginPendingApproval.inspect()}"
+
             if (!pluginPendingApproval.hasErrors() && pluginPendingApproval.save(flush:true)) {
                 flash.message = "Your plugin has been submitted for approval"
-                redirect action: 'submissionReceived'
+                redirect url: "/plugins/pending/${pluginPendingApproval?.id}"
             } else {
                 flash.message = "Please correct the fields below"
                 flash.next()
@@ -73,6 +78,25 @@ class PluginController {
     }
 
     def submissionReceived() {
+    }
+
+    def pendingPlugins() {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def tags = tagService.getPluginTagArray()
+        [
+                tags: tags,
+                pluginPendingApprovalList: PluginPendingApproval.pending.list(params),
+                pluginPendingApprovalTotal: PluginPendingApproval.pending.count()
+        ]
+    }
+
+    def showPendingPlugin() {
+        def pluginPendingApprovalInstance = PluginPendingApproval.get(params.id)
+        if (!pluginPendingApprovalInstance) {
+            redirect action: 'pendingPlugins'
+        }
+
+        [pluginPendingApprovalInstance: pluginPendingApprovalInstance]
     }
 
     def search() {

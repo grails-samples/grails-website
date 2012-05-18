@@ -25,25 +25,25 @@ class PluginService {
      * @param pluginPendingApprovalResponse
      * @return Boolean true if everything went well
      */
-    def setDispositionOfPendingApproval(PluginPendingApprovalResponse pluginPendingApprovalResponse) {
-        // Load it from ID so we don't have any oddities
-        def pluginPendingApproval = PluginPendingApproval.findById(pluginPendingApprovalResponse?.pluginPendingApproval?.id)
-        pluginPendingApproval.setDisposition(pluginPendingApprovalResponse)
-
-        // Send email to the user
-        def mailConfig = grailsApplication.config.plugins.forum.mail
-        def toAddress = mailConfig.to
-        def fromAddress = mailConfig.from
-
-        mailService.sendMail {
-            to toAddress
-            from fromAddress
-            subject "${pluginPendingApproval.name} has been ${pluginPendingApprovalResponse.status}"
-            text pluginPendingApprovalResponse.responseText
-        }
-
-        return true
-    }
+//    def setDispositionOfPendingApproval(PluginPendingApprovalResponse pluginPendingApprovalResponse) {
+//        // Load it from ID so we don't have any oddities
+//        def pluginPendingApproval = PluginPendingApproval.findById(pluginPendingApprovalResponse?.pluginPendingApproval?.id)
+//        pluginPendingApproval.setDisposition(pluginPendingApprovalResponse)
+//
+//        // Send email to the user
+//        def mailConfig = grailsApplication.config.plugins.forum.mail
+//        def toAddress = mailConfig.to
+//        def fromAddress = mailConfig.from
+//
+//        mailService.sendMail {
+//            to toAddress
+//            from fromAddress
+//            subject "${pluginPendingApproval.name} has been ${pluginPendingApprovalResponse.status}"
+//            text pluginPendingApprovalResponse.responseText
+//        }
+//
+//        return true
+//    }
     
     def popularPlugins(minRatings, max = DEFAULT_MAX) {
         def ratingsComparator = new PluginComparator()

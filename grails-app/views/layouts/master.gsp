@@ -66,7 +66,7 @@
             </li>
             <li <g:if test="${controllerName == 'download'}">class="active"</g:if>><a href="/download">Downloads</a>
             </li>
-            <li class="last<g:if test="${controllerName == 'plugin'}">active</g:if>"><a href="/plugins">Plugins</a></li>
+            <li class="last<g:if test="${controllerName == 'plugin'}"> active</g:if>"><a href="/plugins">Plugins</a></li>
         </ul>
     </nav>
 
