@@ -2,16 +2,16 @@ package org.grails.downloads
 
 import grails.converters.JSON
 import grails.converters.XML
-import grails.plugin.springcache.annotations.*
+import grails.plugin.cache.Cacheable
+import grails.plugin.cache.CacheEvict
 import grails.validation.Validateable
 import net.sf.ehcache.Element
 import net.sf.ehcache.Ehcache
 import org.hibernate.FetchMode
 
 class DownloadController {
-    def grailsApplication
-    def downloadCache
-    
+    def grailsCacheAdminService
+
     def index() { redirect action: "list", params: params }
 
     def latest() {
@@ -197,12 +197,12 @@ class DownloadController {
         }
     }
 
-    def list = {
+    def list() {
         if (!params.max) params.max = 10
         [ downloadList: Download.list( params ) ]
     }
 
-    def show = {
+    def show() {
         def download = Download.get( params.id )
 
         if(!download) {
@@ -212,7 +212,7 @@ class DownloadController {
         else { return [ download : download ] }
     }
 
-    def delete = {
+    def delete() {
         def download = Download.get( params.id )
         if(download) {
             download.delete()
@@ -225,7 +225,7 @@ class DownloadController {
         }
     }
 
-    def edit = {
+    def edit() {
         def download = Download.get( params.id )
 
         if(!download) {
@@ -237,7 +237,7 @@ class DownloadController {
         }
     }
 
-    def update = {
+    def update() {
         def download = Download.get( params.id )
         if(download) {
             download.properties = params
@@ -255,12 +255,12 @@ class DownloadController {
         }
     }
 
-    def create = {
+    def create() {
         def download = new Download(params)
         return ['download':download]
     }
 
-    def save = {
+    def save() {
         def download = new Download(params)
         if(!download.hasErrors() && download.save()) {
             flash.message = "Download ${download.id} created"
@@ -271,15 +271,15 @@ class DownloadController {
         }
     }
 
-    def adminShowVersionOrder = {
+    def adminShowVersionOrder() {
         render template: "showDisplayedVersions", model: [versions: versionOrder]
     }
 
-    def adminEditVersionOrder = {
+    def adminEditVersionOrder() {
         render template: "editDisplayedVersions", model: [versions: versionOrder]
     }
 
-    def adminUpdateVersionOrder = {
+    def adminUpdateVersionOrder() {
         def hasError = false
         def versions = params.versions?.split(/\s*,\s*/)
 
@@ -293,6 +293,8 @@ class DownloadController {
                 status.setRollbackOnly()
             }
         }
+
+        grailsCacheAdminService.clearBlocksCache()
 
         render template: "showDisplayedVersions", model: [versions: versionOrder, hasError: hasError]
     }
