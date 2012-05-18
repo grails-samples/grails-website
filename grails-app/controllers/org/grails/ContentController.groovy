@@ -321,6 +321,7 @@ class ContentController extends BaseWikiController {
                     page.version = page.version+1
                     page.body = version.body
                     page.save(flush: true, failOnError: true)
+                    eventAsync "wikiPageUpdated", [id: page.id]
                     Version v = page.createVersion()
                     v.author = request.user                        
                     v.save(failOnError: true)

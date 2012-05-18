@@ -263,6 +263,18 @@ grails.gorm.default.mapping = {
     'user-type' type: org.jadira.usertype.dateandtime.joda.PersistentLocalDate, class: org.joda.time.LocalDate
 }
 
+rabbitmq {
+    connectionfactory {
+        username = 'guest'
+        password = 'guest'
+        hostname = 'localhost'
+    }
+
+    queues = {
+        exchange name: 'website.eventbus', type: fanout, durable: false, autoDelete: true
+    }
+    
+}
 
 // Enable these in a site-config.groovy file.
 /*

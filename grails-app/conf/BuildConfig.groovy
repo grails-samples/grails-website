@@ -2,7 +2,8 @@ import grails.util.Environment
 
 grails.plugin.location.websites = "${basedir}/sections/grails-sites"
 grails.plugin.location.tutorials = "${basedir}/sections/tutorials"
-grails.plugin.location.tutorials = "${basedir}/sections/mailgun"
+grails.plugin.location.mailgun = "${basedir}/sections/mailgun"
+grails.plugin.location.'events-si' = "${basedir}/../grails-plugins/grails-events-si"
 
 grails.project.work.dir = "target"
 grails.project.test.reports.dir = "target/test-reports"
@@ -42,15 +43,17 @@ grails.project.dependency.resolution = {
                 ":cloud-foundry:1.2",
                 ":cloud-support:1.0.6",
                 ":database-migration:1.0",
-                ":elasticsearch:0.17.8.1",
+//                ":elasticsearch:0.17.8.1",
                 ":feeds:1.5",
                 ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",
                 ":hibernate:$grailsVersion",
                 ":jquery:1.6.1.1",
                 ":mail:1.0",
+                ":platform-core:1.0.M2d-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
+                ":rabbitmq:1.0.0.RC1",
                 ":resources:1.1.6",
                 ":screencasts:0.5.6",
                 ":searchable:0.6.3",
@@ -59,9 +62,7 @@ grails.project.dependency.resolution = {
                 ":simple-blog:0.1.5",
                 ":spring-events:1.2",
                 ":yui:2.8.2.1",
-                ":zipped-resources:1.0", {
-            excludes "searchable"
-        }
+                ":zipped-resources:1.0"
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
@@ -113,6 +114,23 @@ grails.project.dependency.resolution = {
         if (Environment.current == Environment.DEVELOPMENT) {
             runtime "org.grails:grails-test:$grailsVersion"
         }
+
+//        if (Environment.current == Environment.PRODUCTION) {
+            runtime "org.springframework.amqp:spring-amqp:1.1.0.RELEASE"
+            compile "org.springframework.integration:spring-integration-amqp:2.1.1.RELEASE"
+            /*
+            compile "org.springframework.amqp:spring-rabbit:1.0.0.RELEASE", {
+                excludes 'junit',
+                         'spring-aop',
+                         'spring-core', // Use spring-core from Grails.
+                         'spring-oxm',
+                         'spring-test',
+                         'spring-tx',
+                         'slf4j-log4j12',
+                         'log4j'
+            }
+            */
+//        }
     }
 
 }

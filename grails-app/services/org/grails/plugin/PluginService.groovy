@@ -7,6 +7,7 @@ import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
 import org.grails.tags.TagNotFoundException
 import org.joda.time.DateTime
+import org.springframework.integration.message.GenericMessage
 
 class PluginService {
 
@@ -14,6 +15,9 @@ class PluginService {
     static transactional = true
     
     def grailsApplication
+    def grailsEventsPublisher
+    def grailsEvents
+    def grailsPipeline
     def searchableService
     def wikiPageService
     
@@ -135,24 +139,16 @@ class PluginService {
     }
     
     def savePlugin(Plugin plugin, boolean failOnError = false) {
-        try {
-            searchableService.stopMirroring()
-            
-            if (!plugin.defaultDependencyScope) plugin.defaultDependencyScope = Plugin.DEFAULT_SCOPE
+        if (!plugin.defaultDependencyScope) plugin.defaultDependencyScope = Plugin.DEFAULT_SCOPE
 
-            def newPlugin = !plugin.id
-            def savedPlugin = plugin.save(failOnError: failOnError, flush: true)
-            
-            if (savedPlugin) {
-                if (newPlugin) savedPlugin.index()
-                else plugin.reindex()
-            }
-            
-            return savedPlugin
+        def newPlugin = !plugin.id
+        def savedPlugin = plugin.save(failOnError: failOnError, flush: true)
+        
+        if (savedPlugin) {
+            eventAsync "pluginUpdated", [id: savedPlugin.id]
         }
-        finally {
-            searchableService.startMirroring()
-        }
+        
+        return savedPlugin
     }
     
      

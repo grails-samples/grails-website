@@ -51,14 +51,12 @@ grails -Dinitial.admin.password=changeit run-app""")
             }
         }
         
-        // We manually start the mirroring process to ensure that it comes after
-        // Autobase performs its migrations.
+        // Only perform an initial bulk index if we're not in development mode
+        // or it's explicitly requested. This reduces startup time in dev mode.
         if (Environment.current != Environment.DEVELOPMENT || System.getProperty("reindex")) {
             println "Performing bulk index"
             searchableService.reindex()
         }
-        println "Starting mirror service"
-        searchableService.startMirroring()
     }
 
     def destroy = {

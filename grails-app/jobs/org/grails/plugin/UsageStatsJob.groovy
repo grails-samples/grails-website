@@ -40,11 +40,6 @@ class UsageStatsJob {
     }
 
     protected updatePlugins(data, baseValue) {
-        // We have to disable Searchable mirroring to avoid Hibernate issues here.
-        // Unfortunately, this means disabling it globally, so any updates to domain
-        // instances during this time won't be indexed!
-        searchableService.stopMirroring()
-
         Plugin.withTransaction {
             def plugins = Plugin.list()
             for (p in plugins) {
@@ -52,7 +47,5 @@ class UsageStatsJob {
                 if (pluginUsage != null) p.usage = pluginUsage / baseValue
             }
         }
-
-        searchableService.startMirroring()
     }
 }

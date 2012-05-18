@@ -24,6 +24,7 @@ class WikiPageController {
     def save() {
         def wikiPageInstance = new WikiPage(params)
         if (wikiPageInstance.save(flush: true)) {
+            eventAsync "wikiPageUpdated", [id: wikiPageInstance.id]
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), wikiPageInstance.id])}"
             redirect action: "show", id: wikiPageInstance.id
         }
@@ -68,6 +69,7 @@ class WikiPageController {
             }
             wikiPageInstance.properties = params
             if (!wikiPageInstance.hasErrors() && wikiPageInstance.save(flush: true)) {
+                eventAsync "wikiPageUpdated", [id: wikiPageInstance.id]
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), wikiPageInstance.id])}"
                 redirect action: "show", id: wikiPageInstance.id
             }

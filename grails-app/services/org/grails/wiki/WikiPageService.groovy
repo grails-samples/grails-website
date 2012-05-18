@@ -39,32 +39,28 @@ class WikiPageService {
             page = new WikiPage(title: title, body: body)
             return createContent(page, user)
         }
+
+        if (!page.hasErrors()) {
+            eventAsync "wikiPageUpdated", [id: page.id]
+        }
     }
     
     @CacheEvict(value="content", key="#title")
     PluginTab createOrUpdatePluginTab(String title, String body, User user, Long version = null) {
-        try {
-            searchableService.stopMirroring()
-            
-            def page = PluginTab.findByTitle(title)
-            if (page) {
-                updateContent(page, body, user, version)
-            }
-            else {
-                page = new PluginTab(title: title, body: body)
-                createContent(page, user)
-            }
+        def page = PluginTab.findByTitle(title)
+        if (page) {
+            updateContent(page, body, user, version)
+        }
+        else {
+            page = new PluginTab(title: title, body: body)
+            createContent(page, user)
+        }
 
-            // Mirroring does not automatically reindex the associated plugin
-            // because there is no proper back reference. Also, the plugin may
-            // not have been saved yet, hence why we do a null-safe call.
-            page.plugin?.reindex()
-            
-            return page
+        if (!page.hasErrors()) {
+            eventAsync "pluginUpdated", [id: page.plugin?.id]
         }
-        finally {
-            searchableService.startMirroring()
-        }
+        
+        return page
     }
     
     def createContent(Content content, User user) {
