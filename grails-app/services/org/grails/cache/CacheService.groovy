@@ -35,16 +35,17 @@ class CacheService {
     }
 
     def getWikiText(key) {
-        wikiCache.get(key)?.get()
+        wikiCache.get(wikiKey(key))?.get()
     }
 
     def removeWikiText(key) {
-        wikiCache.evict key
+        wikiCache.evict wikiKey(key)
     }
 
     def putWikiText(key, value) {
+        key = wikiKey(key)
         def old = getWikiText(key)
-        wikiCache.put key,value
+        wikiCache.put key, value
         return old
     }
 
@@ -56,5 +57,5 @@ class CacheService {
 
     protected getContentCache() { return grailsCacheManager.getCache(CONTENT_CACHE) }
     protected getWikiCache() { return grailsCacheManager.getCache(WIKI_CACHE) }
-
+    protected wikiKey(String key) { return "wiki##${key}" }
 }
