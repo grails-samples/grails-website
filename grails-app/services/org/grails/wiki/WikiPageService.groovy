@@ -33,16 +33,18 @@ class WikiPageService {
     WikiPage createOrUpdateWikiPage(String title, String body, User user, Long version = null) {
         def page = WikiPage.findByTitle(title)
         if (page) {
-            return updateContent(page, body, user, version)
+            page = updateContent(page, body, user, version)
         }
         else {
             page = new WikiPage(title: title, body: body)
-            return createContent(page, user)
+            page = createContent(page, user)
         }
 
         if (!page.hasErrors()) {
             eventAsync "wikiPageUpdated", [id: page.id]
         }
+
+        return page
     }
     
     @CacheEvict(value="content", key="#title")
