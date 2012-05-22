@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLinkTo(dir:'admin')}">Home</a></span>
+            <span class="menuButton"><a class="home" href="${resource(dir:'admin')}">Home</a></span>
         </div>
         <div class="body">
             <h1>Comments</h1>

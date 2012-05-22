@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLinkTo(dir:'admin')}">Home</a></span>
+            <span class="menuButton"><a class="home" href="${resource(dir:'admin')}">Home</a></span>
             <span class="menuButton"><g:link class="list" controller="commentLink" action="list">Comment List</g:link></span>
         </div>
         <div class="body">
