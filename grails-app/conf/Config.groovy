@@ -285,6 +285,20 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 
 // log4j configuration
 log4j = {
+    appenders {
+        appender new org.springframework.amqp.rabbit.log4j.AmqpAppender(
+                name: "amqp",
+                exchangeName: "amq.topic",
+                exchangeType: "topic",
+                routingKeyPattern: "logs.grails-website",
+                applicationId: "grails-website")
+    
+    }
+
+    root {
+        info 'stdout', 'amqp'
+    }
+
     off     'grails.app.service.org.grails.plugin.resource'
 
     error   'org.hibernate'
