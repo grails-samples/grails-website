@@ -23,6 +23,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenLocal()
         mavenCentral()
+        mavenRepo "http://maven.springframework.org/milestone/"
         mavenRepo "https://oss.sonatype.org/content/repositories/releases/" 
     }
 
@@ -40,7 +41,7 @@ grails.project.dependency.resolution = {
                 ":rest-client-builder:1.0",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
-                ":cloud-foundry:1.2",
+                ":cloud-foundry:1.2.2",
                 ":cloud-support:1.0.6",
                 ":database-migration:1.0",
 //                ":elasticsearch:0.17.8.1",
