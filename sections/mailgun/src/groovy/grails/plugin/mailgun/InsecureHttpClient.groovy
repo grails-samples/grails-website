@@ -23,8 +23,8 @@ import org.apache.http.impl.conn.SingleClientConnManager
  * <p>The original reason for this class was to deal with Mailgun via HTTPS because
  * for some reason its SSL certificate was completely invalid.</p>
  */
-class MyInsecureClient extends HTTPBuilder {
-    MyInsecureClient(baseUrl) {
+class InsecureHttpClient extends HTTPBuilder {
+    InsecureHttpClient(baseUrl) {
         super(baseUrl)
 
         def oldParams = client.params

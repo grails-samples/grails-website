@@ -36,7 +36,7 @@ class MailgunSender {
     def password
 
     def send(message) {
-        def http = new MyInsecureClient(targetUrl)
+        def http = new InsecureHttpClient(targetUrl)
         def targetUri = http.uri.toURI()
 
         http.auth.basic username, password
