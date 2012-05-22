@@ -10,4 +10,8 @@ class Mirror implements Serializable{
         urlString blank: false
         name blank:false
     }
+
+    String toString() {
+        "${name} (${urlString})"
+    }
 }

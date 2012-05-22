@@ -17,6 +17,10 @@ class WikiPage extends Content {
         deprecatedUri(nullable: true, blank: true)
     }
 
+    static mapping = {
+        body type: 'text'
+    }
+
     def onAddComment = { comment ->
         cacheService?.flushWikiCache()
     }

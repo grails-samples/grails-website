@@ -162,7 +162,18 @@ class Plugin implements Taggable, Commentable, Rateable {
         pluginService.compareVersions(currentRelease, version) > 0
     }
 
+    def isScmGitHub() {
+        if (!scmUrl) return false
+        def pattern = ~/.*github.*/
+        def matches = pattern.matcher(scmUrl).matches()
+        return matches
+    }
+
     String toString() {
         "$name : $title"
+    }
+
+    static Collection<Tag> getAllTags() {
+        TagLink.findAllByType('Plugin')
     }
 }

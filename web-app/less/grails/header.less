@@ -1,0 +1,155 @@
+/* Header */
+#header{
+	height: 100px;
+	position: relative;
+	background: url(../img/page/light.png) no-repeat 0 0;
+	h1#logo {
+		width: 190px;
+		height: 39px;
+		margin: 0;
+		position: absolute;
+		top: 29px;
+		left: 0;
+		padding: 0;
+		a {
+			background: url(../img/grails.png) no-repeat 0 0;
+			display: block;
+			width: 190px;
+			height: 39px;
+			margin: 0;
+			padding: 0;
+			text-indent: -6000em;
+		}
+	}
+	#quickSearch {
+		position: absolute;
+		right: 5px;
+		top: 105px;
+	
+		&.active {
+			a {
+				background: url(../img/page/quickSearch.png) no-repeat right -30px;
+				&:hover {
+					background: url(../img/page/quickSearch.png) no-repeat right -30px;
+				}
+			}
+		}
+	
+		a {
+			background: url(../img/page/quickSearch.png) no-repeat right 0;
+			color: @white;
+			display: block;
+			@height: 30px;
+			height: @height;
+			line-height: @height;
+			width: 34px;
+			text-indent: -6000em;
+			&:hover {
+				background: url(../img/page/quickSearch.png) no-repeat right -30px;
+			}
+		}
+		.inputSearch {
+			position: absolute;
+			overflow: hidden;
+			right: 31px;
+			width: 170px;
+			height: 30px;
+			background: url(../img/page/quickSearch.png) no-repeat right -60px;
+			input {
+				position: absolute;
+				width: 155px;
+				top: 6px;
+				left: 5px;
+				border: 0 none;
+				background: @white;
+				outline: 0 none;
+				.box-shadow(0 0 0 black);
+				margin: 0;
+				padding: 0;		
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+	}
+	.springSource {
+		display: block;
+		text-indent: -6000em;
+		position:absolute;
+		right: 10px;
+		top: 42px;
+		width: 179px;
+		height: 36px;
+		margin: 0;
+		padding: 0;
+		background: url(../img/springsource.png) no-repeat 0 0;
+	}
+	ul.topLinks {
+		margin: 0;
+		position: absolute;
+		width: 300px;
+		text-align: right;
+		padding: 0;
+		list-style: 0 none;
+		list-style-type: none;
+		top: 6px;
+		.clearfix();
+		right: 2px;
+		>li.active {
+			a {
+				color: @grailsGreen;
+				text-decoration: underline;
+			}
+		}
+		>li {
+			margin: 0;
+			padding: 0;
+			float: right;
+			a {
+				color: @grailsBlack;
+				font-size: @baseFontSize - 1;
+				text-decoration: none;
+				line-height: 26px;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+			&.spacing {
+				padding-right: 5px;
+				border-right: 1px solid @grailsGrayLight;		
+				margin-right: 10px;
+			}
+            &.current-user {
+                color: @grailsBlack;
+                font-size: @baseFontSize - 1;
+                text-decoration: none;
+                line-height: 26px;
+                margin: 0px;
+
+                img {
+                    position: relative;
+                    top: 5px;
+                }
+            }
+			a.dropdown-toggle {
+				line-height: 14px;
+				text-decoration: none;
+				b.caret {
+					margin-top: 5px;	
+					border-top-color: @grailsBlack;
+				}
+				&:hover {
+					text-decoration: none;
+				}
+			}
+			ul.dropdown-menu {
+				li a {
+					padding: 0 10px;
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+}

@@ -22,10 +22,11 @@ class BootStrap {
                 throw new Exception("""
 During the first run you must specify a password to use for the admin account. For example:
 
-grails -Dinitial.admin.password=changeit run-app""")
+grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
             }
             else {
                 admin = new User(login:"admin", email:"info@g2one.com",password:DigestUtils.shaHex(password))
+                admin.save(flush: true, failOnError: true)
                 assert admin.email
                 assert admin.addToRoles(adminRole)
                            .addToRoles(editorRole)
@@ -45,7 +46,6 @@ grails -Dinitial.admin.password=changeit run-app""")
             println "Loading fixture data"
             fixtureLoader.with {
                 load("users").load("plugins").load("tags", "ratings")
-                load("tutorials").load("tutorialTags")
                 load("wiki")
                 load("downloads")
             }

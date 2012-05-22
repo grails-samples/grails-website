@@ -1,0 +1,103 @@
+#banner {
+	height: 300px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	position: relative;
+	
+	.banner {
+		height: 298px;
+		position: relative;
+		float: left;
+		width: 980px;
+	}
+	
+	/* Learn Grails ! */
+	.learnGrails {
+		background: @grailsGreen;
+	}
+	
+	.downloadGrails {
+		background: url(../img/page/bgblue.png) repeat 0 0;
+	}
+	
+	/* Banner full stack */
+	.fullStackFramework {
+		background: url(../img/page/light.png) no-repeat 0 bottom;
+		border: 1px solid @grailsGrayMedium;
+		border-width: 1px 0;
+	
+		h2 {
+			margin: 0;
+			margin-bottom: 20px;
+			padding: 0;
+			text-indent: -6000em;
+			background: url(../img/banner/fullStackFramework/title.png) no-repeat 0 0;
+			width: 300px;
+			height: 71px;
+		}
+		
+		p {
+			#font #family .ptsans();
+			font-size: 18px;
+			margin-top: 10px;
+			margin-bottom: 15px;
+			strong {
+				color: @grailsBlue;
+				font-weight: normal;
+			}
+		}
+		
+		@size: 110px;
+
+		ul {
+			position: absolute;
+			top: 70px;
+			left: 460px;
+			list-style: 0 none;
+			list-style-type: none;
+			.clearfix();
+			li {
+				float: left;
+				padding: 10px 20px;
+				width: @size;
+				a {
+					border: 6px solid @grailsGrayLight;
+					height: @size;
+					width: @size;
+					.border-radius(@size / 2 + 5);
+					#font #family .ptsans();
+					font-size: 24px;
+					color: @grailsGrayMedium;
+					display: block;
+					float: left;
+					line-height: @size;
+					text-align: center;
+			
+					&:hover {
+						border-color: @grailsGreen;
+						color: @grailsGreen;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		
+		.left {
+			width: 400px;
+			position: absolute;
+			top: 40px;
+			left: 15px;
+		}
+		
+		.btn {
+			padding: 9px 20px;
+			margin-right: 5px;
+			font-size: 15px;
+			#font #family .sans-serif();
+			letter-spacing: 0;
+			
+			font-weight: normal;
+			.box-shadow(0 0 0 5px rgba(0,0,0,.1));
+		}
+	}
+}

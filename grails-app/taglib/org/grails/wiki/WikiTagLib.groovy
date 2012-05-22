@@ -5,6 +5,7 @@ import org.grails.cache.CacheService
 import org.radeox.engine.context.BaseRenderContext
 import org.springframework.context.ApplicationContextAware
 import org.springframework.context.ApplicationContext
+import org.grails.common.Helpers
 
 /**
 * @author Graeme Rocher
@@ -21,17 +22,22 @@ class WikiTagLib implements ApplicationContextAware  {
     def wikiPageService
     ApplicationContext applicationContext
 
-	
     def shorten = { attrs, body ->
         def text = attrs.text
         def length = attrs.length?.toInteger() ?: 25
-        
+        def camelCase = attrs.camelCase ?: 'false'
+        def ret = ""
+
         if(text.length() > length) {
-            out << "${text[0..length]}..."
+            ret = "${text[0..length]}..."
         }
         else {
-            out << text
+            ret = text
         }
+        if (camelCase == "true") {
+            ret = Helpers.capitalizeWords(ret.toString())
+        }
+        out << ret
     }
 	
     def preview = { attrs, body ->

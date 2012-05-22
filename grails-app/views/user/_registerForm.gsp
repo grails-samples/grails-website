@@ -1,53 +1,46 @@
 <g:render template="/common/messages" model="${pageScope.getVariables() + [bean:user]}" />
 
+<g:set var="formBody">
+    <g:hiddenField name="originalURI" value="${originalURI}" />
 
+    <h2>Register</h2>
+    <p>
+        <label for="login">Login (username)</label>
+        <g:textField name="login" class="text" value="${params.login}" />
+    </p>
 
-<h1>Site Registration</h1>
-<div id="registerForm" class="userForm">
-    <g:set var="formBody">
-       <div  class="inputForm">
+    <p>
+        <label for="password">Password</label>
+        <g:field type="password" name="password" class="text" value="" />
+    </p>
+    <p>
+        <label for="password">Password (confirm)</label>
+        <g:field type="password" name="password2" class="text" value="${params.password2}" />
+    </p>
+    <p>
+        <label for="email">Email Address</label>
+        <g:textField name="email" value="${params.email}" class="text" />
+    </p>
+    <p>
+        <label for="emailSubscribed">
+            <g:checkBox name="emailSubscribed" id="emailSubscribed" value="${false}" style=""/>
+            Receive E-mail Updates?
+        </label>
+    </p>
+    <p>
+        <input class="btn blueLight" type="submit" value="Create an account" />
+        <a href="/login" class="btn blueLight">Log in</a>
+    </p>
 
+</g:set>
 
-           <p>
-                <span class="label"><label for="login">Username:</label></span> <g:textField name="login" value="${params.login}" />
-            </p>
-            <p>
-                <span class="label"><label for="password">Password:</label></span> <g:field type="password" name="password" value="${params.password}" />
-            </p>
-            <p>
-                <span class="label"><label for="password">Confirm Password:</label></span> <g:field type="password" name="password2" value="${params.password2}" />
-            </p>
-            <p>
-                 <span class="label"><label for="email">Email:</label></span> <g:textField name="email" value="${params.email}"/>
-            </p>
-           <p>
-                <span class="label"><label for="email">Receive E-mail Updates for Content Changes?:</label></span> <g:checkBox name="emailSubscribed" value="${false}"/>
-           </p>
-
-        </div>
-
-
-        <g:hiddenField name="originalURI" value="${originalURI}" />
-
-       <div class="formButtons" style="margin-top:100px;">
-            <g:submitButton name="Submit" value="Register" />
-        </div>
-    </g:set>
-
-
-    <g:if test="${true == async}">
-        <g:formRemote name="register" url="[controller:'user',action:'register']" update="contentPane">
-              ${formBody}
-        </g:formRemote>
-    </g:if>
-    <g:else>
-        <g:form name="register" url="[controller:'user',action:'register']" update="contentPane">
-              ${formBody}
-        </g:form>
-    </g:else>
-
-
-
-</div>
-
-<g:render template="/common/messages_effects" model="${pageScope.getVariables()}" />
+<g:if test="${true == async}">
+    <g:formRemote name="register" url="[controller:'user',action:'register']" update="contentPane">
+        ${formBody}
+    </g:formRemote>
+</g:if>
+<g:else>
+    <g:form name="register" url="[controller:'user',action:'register']" update="contentPane">
+        ${formBody}
+    </g:form>
+</g:else>

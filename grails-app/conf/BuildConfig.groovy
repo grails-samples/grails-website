@@ -1,5 +1,4 @@
-grails.plugin.location.websites = "${basedir}/sections/grails-sites"
-grails.plugin.location.tutorials = "${basedir}/sections/tutorials"
+grails.plugin.location.like = "${basedir}/sections/like"
 
 grails.project.work.dir = "target"
 grails.project.test.reports.dir = "target/test-reports"
@@ -37,23 +36,23 @@ grails.project.dependency.resolution = {
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
+                ":disqus:0.1",
                 ":feeds:1.5",
                 ":grails-ui:1.2.3",
                 ":greenmail:1.2.2",
-                ":hibernate:2.0.3",
+                ":hibernate:$grailsVersion",
                 ":jquery:1.6.1.1",
                 ":mail:1.0-SNAPSHOT",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
                 ":resources:1.1.6",
-                ":richui:0.6",
                 ":screencasts:0.5.6",
                 ":searchable:0.6.3",
-                ":shiro:1.1.3",
+                ":shiro:1.2.0-SNAPSHOT",
+                ":shiro-oauth:0.1",
                 ":simple-blog:0.1.5",
                 ":springcache:1.3.1",
                 ":spring-events:1.2",
-                ":yui:2.8.2.1",
                 ":zipped-resources:1.0"
 
         if (Environment.current == Environment.DEVELOPMENT) {
@@ -66,11 +65,11 @@ grails.project.dependency.resolution = {
         }
         
         test    ":geb:0.6.0",
-                ":spock:0.6-rc-1", {
+                ":spock:0.6", {
             excludes 'xml-apis'
         }
 
-        build   ":tomcat:2.0.3"
+        build   ":tomcat:$grailsVersion"
     }
 
     dependencies {
@@ -97,4 +96,5 @@ grails.project.dependency.resolution = {
 
 }
 
-grails.tomcat.jvmArgs = [ '-Xmx512m', '-XX:MaxPermSize=256m' ]
+grails.tomcat.jvmArgs = [ '-Xmx512m', '-XX:MaxPermSize=256m','-Dinitial.admin.password=changeit',
+        '-Dload.fixtures=1' ]

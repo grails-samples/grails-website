@@ -42,8 +42,6 @@ class UserControllerTests {
 
         assert view == "/user/register"
         assert model.originalURI == "/foo/bar"
-        assert model.formData == params
-
     }
 
     void testRegisterUserExists() {
@@ -57,8 +55,6 @@ class UserControllerTests {
         assert view == "/user/register"
         assert model.message == "auth.user.already.exists"
         assert model.originalURI == "/foo/bar"
-        assert model.formData == params 
-         
     }
 
     void testRegisterWithNonMatchingPasswords() {
@@ -72,7 +68,6 @@ class UserControllerTests {
 
         assert view == "/user/register"
         assert model.originalURI == "/foo/bar"
-        assert model.formData == params
     }
 
     void testRegisterWithFormErrors() {
@@ -90,10 +85,8 @@ class UserControllerTests {
         controller.register()
 
         assert view == "/user/register"
-        assert model.user
-        
+        assert model.user.login == "fred"
         assert model.originalURI == "/foo/bar"
-        assert model.formData == params
     }
 
     void testRegisterAndRedirectToOriginalPage() {

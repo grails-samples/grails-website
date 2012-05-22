@@ -1,0 +1,88 @@
+/* Footer */
+#footer {
+	padding: 20px 0;
+	margin-top: 40px;
+	position: relative;
+	border-top: 1px solid @grailsGrayLight;
+	.box-shadow(inset 0 1px 0 0 rgba(255, 255, 255, .5));
+	color: @grailsGrayMedium;
+	#textshadow > .white(0.5);
+
+	.buildWithGrails {
+		position: absolute;
+		width: 110px;
+		background: url(../img/page/build.png) no-repeat 0 center;
+		padding-left: 43px;
+		right: 0;
+		height: 21px;
+		line-height: 30px;
+		top: -30px;
+	}
+	
+	.copyright {
+		background: url(../img/page/copyright.png) no-repeat 0 center;
+		padding-left: 38px;
+	}
+
+	ul.privacy {
+		margin: 0;
+		list-style: 0 none;
+		list-style-type: none;
+		position: absolute;
+		right: 200px;
+		top: 20px;
+		width: 400px;
+		li {
+			display: inline;
+			border-right: 1px solid @grailsGrayLight;
+		
+			a {
+				color: @grailsGray;
+				#textshadow > .white(0.7);
+				padding: 0 10px;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+			
+			&.last {
+				border-right: 0 none;
+				padding-right: 0;
+			}
+		}
+	}
+	
+	ul.external-services {
+		.clearfix();
+		width: 400px;
+		margin: 0;
+		list-style: 0 none;
+		list-style-type: none;
+		position: absolute;
+		top: 20px;
+		right: 0;
+		li {
+			float: right;
+			padding: 0 20px;
+			border-right: 1px solid @grailsGrayLight;
+			a {
+				height: 20px;
+				display: block;
+				float: right;
+				text-indent: -6000em;
+		
+				&.artifactory {
+					background: url(../img/externalServices/artifactory.png) no-repeat 0 0;
+					width: 95px;
+					&:hover {
+						background: url(../img/externalServices/artifactory.png) no-repeat 0 -20px;
+					}
+				}				
+			}
+			&.last {
+				border-right: 0 none;
+				padding-right: 0;
+			}
+		}
+	}
+}

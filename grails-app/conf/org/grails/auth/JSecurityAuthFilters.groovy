@@ -21,7 +21,7 @@ class JSecurityAuthFilters {
         }
 
         if (d.request.xhr) {
-            d.render(template:"/user/loginForm", model:[originalURI:targetUri,
+            d.render(template:"/user/loginForm", model:[targetUri:targetUri,
                                                         formData:d.params,
                                                         async:true,
                                                         update:d.params._ul,
@@ -31,10 +31,11 @@ class JSecurityAuthFilters {
         
         }else {
             // Redirect to login page.
+            d.session["targetUri"] = targetUri 
             d.redirect(
                     controller: 'user',
                     action: 'login',
-                    params:[originalURI: targetUri])
+                    params:[targetUri: targetUri])
         }
     }    
 
@@ -105,6 +106,11 @@ class JSecurityAuthFilters {
                 accessControl { true }
             }
         }
+        pluginSubmitting(controller:"plugin", action: "submitPlugin") {
+            before = {
+                accessControl { true }
+            }
+        }
         pluginPublishing(controller:"repository", action:"publish") {
             before = {
                 accessControl { permission "plugin:publish:${params.plugin}" }
@@ -159,8 +165,8 @@ class JSecurityAuthFilters {
                 if (controllerName == "error") return true
 
                 def subject = SecurityUtils.getSubject()
-                if(subject && subject?.principal) {
-                    request.user = User.findByLogin(subject.principal, [cache:true])
+                if(subject?.principal) {
+                    request.user = User.get(subject.principal)
                 }
             }
         }
