@@ -33,7 +33,7 @@
         </ul>
     </aside>
 
-    <aside class="notif">
+    <aside class="alert alert-block">
         <p>
             If you are interested in creating and distributing a plugin in the Grails central repository, take a look at
             the <a href="http://grails.org/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>.

@@ -36,6 +36,16 @@ h2 {
 	font-weight: normal;
 }
 
+#page {
+    .margin-bottom-15 {
+        margin-bottom: 15px;
+    }
+
+    .padding-top {
+        padding-top: 10px;
+    }
+}
+
 /* Page */
 #page {
 	width: 980px;
@@ -438,6 +448,10 @@ h2 {
 					outline: none;
 				}
 			}
+            form {
+                padding: 0;
+                margin: 0;
+            }
 			a.zoom {
 				display: block;
 				background: url(../img/icons/zoom.png) no-repeat center 0;
@@ -526,7 +540,10 @@ h2 {
 					bottom: -12px;
 					left: (@widthAside / 2) - 12px;
 				}
-			}	
+			}
+            &.alert-block {
+               background: #FCF8E3;
+            }
 			&.filters {
 				h4 {
 					margin: 0 15px;

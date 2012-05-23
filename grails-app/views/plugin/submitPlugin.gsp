@@ -20,22 +20,21 @@
 
         <section class="previousRelease">
             <article>
-                <h3>Submit Plugin for Approval</h3>
+                <h2>Submit Plugin for Approval</h2>
 
                 <g:if test="${flash.message}">
                     <div class="alert alert-${pluginPendingApproval.errors.errorCount > 0 ? 'error' : 'info'}">${flash.message}</div>
                 </g:if>
 
-                <g:form action="submitPlugin" class="content-form">
+                <g:form action="submitPlugin" class="content-form padding-top">
 
                     <g:hiddenField name="status" value="${pluginPendingApproval.status}"/>
 
                     <div class="control-group ${hasErrors(bean: pluginPendingApproval, field: 'name', 'error')}">
-                        <label for="name">Plugin Name <small>(whatever you passed to the create-plugin command)</small>
-                        </label>
+                        <label for="name">Plugin Name <small>(whatever you passed to the create-plugin command)</small></label>
 
                         <div class="controls">
-                            <g:textField name="name" value="${params.name}" required="required"/>
+                            <g:textField name="name" value="${params.name}" required="required" class="input-fullsize"/>
                             <g:if test="${pluginPendingApproval.errors.getFieldErrorCount('name') > 0}">
                                 <p class="error-block">${pluginPendingApproval.errors.getFieldError('name').defaultMessage}</p>
                             </g:if>
@@ -43,26 +42,20 @@
                     </div>
 
                     <div class="control-group ${hasErrors(bean: pluginPendingApproval, field: 'versionNumber', 'error')}">
-                        <label for="versionNumber">Version Number <small>(example: 0.0.1)</small>
-                        </label>
-
+                        <label for="versionNumber">Version Number <small>(example: 0.0.1)</small></label>
                         <div class="controls">
-                            <g:textField name="versionNumber" value="${params.versionNumber}" required="required"/>
+                            <g:textField name="versionNumber" value="${params.versionNumber}" required="required" class="input-fullsize"/>
                             <g:if test="${pluginPendingApproval.errors.getFieldErrorCount('versionNumber') > 0}">
-                                <p class="error-block">${pluginPendingApproval.errors.getFieldError('versionNumber').defaultMessage}</p>
+                                <p class="help-block">${pluginPendingApproval.errors.getFieldError('versionNumber').defaultMessage}</p>
                             </g:if>
-                            <g:else>
-                                <p class="help-block">This is important indicating versions if you need to re-submit plugins</p>
-                            </g:else>
+                            <p class="help-block">This is important indicating versions if you need to re-submit plugins</p>
                         </div>
                     </div>
 
                     <div class="control-group ${hasErrors(bean: pluginPendingApproval, field: 'scmUrl', 'error')}">
-                        <label for="scmUrl">Repository URL <small>(for example, http://www.github.com/grails/grails-core)</small>
-                        </label>
-
+                        <label for="scmUrl">Repository URL <small>(for example, http://www.github.com/grails/grails-core)</small></label>
                         <div class="controls">
-                            <g:textField name="scmUrl" value="${params.scmUrl}" required="required"/>
+                            <g:textField name="scmUrl" value="${params.scmUrl}" required="required" class="input-fullsize"/>
                             <g:if test="${pluginPendingApproval.errors.getFieldErrorCount('scmUrl') > 0}">
                                 <p class="error-block">${pluginPendingApproval.errors.getFieldError('scmUrl').defaultMessage}</p>
                             </g:if>
@@ -73,7 +66,7 @@
                         <label for="notes">Plugin Description</label>
 
                         <div class="controls">
-                            <g:textArea rows="8" cols="60" name="notes" value="${params.notes}" required="required"></g:textArea>
+                            <g:textArea rows="8" cols="60" name="notes" value="${params.notes}" required="required" class="input-fullsize"></g:textArea>
                         </div>
                     </div>
 
@@ -82,7 +75,10 @@
                         documented, which includes a full description and usage.</em>
                     </p>
 
-                    <g:submitButton name="submit" value="Submit for Approval" class="btn"/>
+                    <div class="form-actions">
+                        <g:submitButton name="submit" value="Submit for Approval" class="btn"/>
+                    </div>
+
                 </g:form>
             </article>
 

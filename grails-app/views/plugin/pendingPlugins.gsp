@@ -18,13 +18,11 @@
 
     <div id="main" class="plugins">
         <g:if test="${pluginPendingApprovalTotal == 0}">
-            <section class="plugin">
-                <article>
-                    <h2>Woot!</h2>
-                    <p>We must really be on top of things if we have no pending plugin approvals.</p>
-                    <p>To submit your plugin for approval, go to the <a href="/plugins/submitPlugin">Submit a Plugin</a> page.</p>
-                </article>
-            </section>
+            <div class="alert alert-block">
+                <p><strong>Woot!</strong><br />
+                We must really be on top of things if we have no pending plugin approvals.<br />
+                    To submit your plugin for approval, go to the <a href="/plugins/submitPlugin">Submit a Plugin</a> page.</p>
+            </div>
         </g:if>
         <g:render template="pendingPlugin" collection="${pluginPendingApprovalList}"
                   var="pluginPendingApprovalInstance"/>

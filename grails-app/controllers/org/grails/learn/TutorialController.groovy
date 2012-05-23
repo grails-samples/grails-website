@@ -33,6 +33,8 @@ class TutorialController {
 
     def save = {
         def tutorialInstance = new Tutorial(params)
+        println(params)
+        println(tutorialInstance)
         tutorialInstance.status = ApprovalStatus.PENDING
         tutorialInstance.submittedBy = request.user
 
@@ -45,7 +47,7 @@ class TutorialController {
                 redirect(action: "list")
             }
             else {
-                render(view: "create", model: [webSiteInstance: tutorialInstance])
+                render(view: "create", model: [tutorialInstance: tutorialInstance])
             }
         }
         catch (Exception ex) {

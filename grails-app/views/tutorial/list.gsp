@@ -11,16 +11,15 @@
 <body>
 
 <div id="content" class="content-aside" role="main">
-
     <g:render template="/learn/sideNav"/>
-
     <div id="main" class="plugins">
-        <section class="plugin">
-            <article>
-                <flash:message flash="${flash}" />
-                <a href="/tutorials/add">Add Tutorial</a>
-            </article>
-        </section>
+        <div class="alert alert-block margin-bottom-15">
+            <p><g:message code="tutorial.list.submit.description" /></p>
+            <p>
+                <g:link uri="/tutorials/add" class="btn"><g:message code="tutorial.list.submit.button" /></g:link>
+            </p>
+        </div>
+        <flash:message flash="${flash}" />
         <g:render template="tutorial" collection="${tutorialInstanceList}" var="tutorialInstance"/>
     </div>
 </div>

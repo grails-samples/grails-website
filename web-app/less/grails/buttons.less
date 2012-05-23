@@ -18,7 +18,7 @@
 	#textshadow > .black(0.2);
 	background-color: #4b8723;
 	#gradient>.vertical(#8f989d, #757c80);
-	.border-radius(@baseLineHeight - 3px);
+	.border-radius(3px);
 	cursor: pointer;
 	.box-shadow(0 0 0 black);
 	.ie7-restore-left-whitespace();
@@ -47,6 +47,19 @@
 		#gradient>.vertical(#e9eef0, #e5ebed);
 		#font > #family > .sans-serif();
 	}
+}
+
+.alert-block {
+    border: 1px solid #e5dfbf;
+    .btn {
+	    #gradient>.vertical(#bf9752, #99702f);
+    }
+    .btn:hover {
+	    #gradient>.vertical(#99702f, #815d25);
+    }
+    .btn:active {
+
+    }
 }
 
 input.btn {
