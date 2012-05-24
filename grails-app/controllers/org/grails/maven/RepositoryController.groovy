@@ -78,8 +78,8 @@ class RepositoryController {
     }
 
 
-    def pluginMeta() {
-        render g.link(controller:"repository", action:"list", absolute:true, "plugins-list.xml")
+    def pluginMeta() {	
+        render '<a href="http://plugins.grails.org/.plugin-meta">plugins-list.xml</a>'
     }
 
     /**
