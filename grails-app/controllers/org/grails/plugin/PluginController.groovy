@@ -2,6 +2,7 @@ package org.grails.plugin
 
 import org.grails.tags.TagNotFoundException
 import org.grails.common.ApprovalStatus
+import org.compass.core.engine.SearchEngineQueryParseException
 
 class PluginController {
 
@@ -48,6 +49,14 @@ class PluginController {
 
     def plugin() {
         def plugin = Plugin.findByName(params.id)
+
+        // Redirect to the list page if the plugin doesn't exist
+        if (!plugin) {
+            flash.message = "Plugin not found"
+            redirect action: 'list'
+            return
+        }
+
         def tags = tagService.getPluginTagArray()
         [ plugin: plugin, tags: tags ]
     }
@@ -100,18 +109,29 @@ class PluginController {
     }
 
     def search() {
-        render "THIS NEEDS TO BE IMPLEMENTED"
-//        if(params.q) {
-//            def tags = tagService.getPluginTagArray()
-//            def searchResult = Plugin.search(params.q, offset: params.offset)
-//            searchResult.results = searchResult.results.findAll{it}.unique { it.title }
-//            flash.message = "Found $searchResult.total results!"
-//            flash.next()
-//            render view: "searchResults", model: [tags: tags, searchResult: searchResult]
-//        }
-//        else {
-//            redirect action: 'list'
-//        }
+        if(params.q) {
+            def tags = tagService.getPluginTagArray()
+            try {
+                println "Q: ${params.q}"
+                def searchResult = Plugin.search(params.q, offset: params.offset)
+
+                println searchResult.inspect()
+
+                searchResult.results = searchResult.results.findAll{it}.unique { it.title }
+                flash.message = "Found $searchResult.total results!"
+                flash.next()
+                render view: "searchResults", model: [tags: tags, searchResult: searchResult]
+            }
+            catch (SearchEngineQueryParseException ex) {
+                render view: "searchResults", model: [tags: tags, parseException: true]
+            }
+            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
+                render view: "searchResults", model: [tags: tags, clauseException: true]
+            }
+        }
+        else {
+            redirect(action: 'list')
+        }
     }
 
 }

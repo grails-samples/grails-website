@@ -77,6 +77,7 @@ class UrlMappings {
         "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
         "/plugins/pending"(controller: "plugin", action: "pendingPlugins")
         "/plugins/pending/$id"(controller: "plugin", action: "showPendingPlugin")
+        "/plugins/search"(controller: "plugin", action: "search")
 
 
 
