@@ -78,7 +78,7 @@ grails.project.dependency.resolution = {
             }
         }
 
-        if (Environment.current == Environment.PRODUCTION) {
+        if (Environment.current == Environment.PRODUCTION || Environment.current.name == "cloud") {
             compile ":cache-redis:1.0.0.M2"
         }
         else {
