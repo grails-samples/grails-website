@@ -45,12 +45,14 @@ public class Log4jConfigListener implements ServletContextListener {
             */
             RabbitServiceInfo rabbitServiceInfo = (RabbitServiceInfo) env.getServiceByVendor("rabbitmq");
             AmqpAppender amqpAppender = getAmqpAppender();
-            amqpAppender.close();                                 // Required for changes to take effect
-            amqpAppender.setHost(rabbitServiceInfo.getHost());
-            amqpAppender.setPort(rabbitServiceInfo.getPort());
-            amqpAppender.setVirtualHost(rabbitServiceInfo.getVirtualHost());
-            amqpAppender.setUsername(rabbitServiceInfo.getUserName());
-            amqpAppender.setPassword(rabbitServiceInfo.getPassword());
+            if (amqpAppender != null) {
+                amqpAppender.close();                                 // Required for changes to take effect
+                amqpAppender.setHost(rabbitServiceInfo.getHost());
+                amqpAppender.setPort(rabbitServiceInfo.getPort());
+                amqpAppender.setVirtualHost(rabbitServiceInfo.getVirtualHost());
+                amqpAppender.setUsername(rabbitServiceInfo.getUserName());
+                amqpAppender.setPassword(rabbitServiceInfo.getPassword());
+            }
         }
         catch (Throwable t) {
             t.printStackTrace();
