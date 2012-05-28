@@ -225,11 +225,9 @@ grails.gorm.default.mapping = {
 
 
 // Enable these in a site-config.groovy file.
-/*
 grails.plugin.databasemigration.changelogLocation = "migrations"
-grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.updateOnStart = false
 grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
-*/
 
 // log4j configuration
 log4j = {
