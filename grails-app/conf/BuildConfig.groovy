@@ -4,6 +4,7 @@ grails.plugin.location.websites = "${basedir}/sections/grails-sites"
 grails.plugin.location.tutorials = "${basedir}/sections/tutorials"
 grails.plugin.location.mailgun = "${basedir}/sections/mailgun"
 grails.plugin.location.'events-si' = "${basedir}/../grails-plugins/grails-events-si"
+grails.plugin.location.siDefns = "${basedir}/sections/si-definitions"
 
 grails.project.work.dir = "target"
 grails.project.test.reports.dir = "target/test-reports"

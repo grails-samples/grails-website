@@ -1,43 +1,29 @@
-import grails.util.Environment
-import grails.plugin.mailgun.MailgunService
-
-import org.apache.shiro.authc.credential.Sha1CredentialsMatcher
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.grails.auth.ShiroUserBean
-import org.grails.content.notifications.ContentAlertStack
 import org.grails.plugin.platform.events.registry.SpringIntegrationEventsRegistry
 import org.grails.rabbitmq.AutoQueueMessageListenerContainer
-import org.grails.wiki.GrailsWikiEngineFactoryBean
-import org.radeox.engine.context.BaseInitialRenderContext
-import org.springframework.cache.ehcache.EhCacheFactoryBean
 import org.springframework.integration.amqp.AmqpHeaders
 
-// Place your Spring DSL code here
-beans = {
-    currentUser(ShiroUserBean)
+import static org.grails.plugin.platform.events.publisher.EventsPublisherGateway.EVENT_OBJECT_KEY
 
-    if (Environment.current.name == "cloud") {
-        mailService(MailgunService) { bean ->
-            bean.autowire = true
-        }
-    }
+class SiDefinitionsGrailsPlugin {
+    def version = "0.1"
+    def grailsVersion = "2.0 > *"
+    def dependsOn = [:]
+    def pluginExcludes = [
+        "grails-app/views/error.gsp"
+    ]
 
-    // Shiro defaults to SHA-256 for password hashing. We're going to
-    // use SHA-1 for now.
-    credentialMatcher(Sha1CredentialsMatcher) {
-        storedCredentialsHexEncoded = true
-    }
+    def title = "Application SI Definitions" // Headline display name of the plugin
+    def author = "Peter Ledbrook"
+    def authorEmail = ""
+    def description = '''\
+Brief summary/description of the plugin.
+'''
 
-    wikiContext(BaseInitialRenderContext)
-    wikiEngine(GrailsWikiEngineFactoryBean) {
-        cacheService = ref('cacheService')
-        def config = ConfigurationHolder.getConfig()
-        contextPath = config.grails.serverURL ?: ""
-        context = wikiContext
-    }
+    def loadAfter = ["*"]
 
-//    if (Environment.current == Environment.PRODUCTION) {
-        /*
+    // URL to the plugin's documentation
+    def documentation = "http://grails.org/plugin/si-definitions"
+    def doWithSpring = {
         xmlns rabbit: "http://www.springframework.org/schema/rabbit"
         "eventBusQueue"(AutoQueueMessageListenerContainer) {
             acknowledgeMode = "NONE"
@@ -64,7 +50,7 @@ beans = {
         si.channel id: "toRabbit"
         si.chain id: "outboundFilter", 'input-channel': "grailsPipeline", 'output-channel': "toRabbit", {
             // Exclude GORM events.
-            si.filter expression: "!headers.containsKey('${SpringIntegrationEventsRegistry.GORM_EVENT_KEY}')"
+            si.filter expression: "headers['${EVENT_OBJECT_KEY}'].scope != 'gorm'"
 
             // Exclude events that have come via RabbitMQ from another node.
             si.filter expression: "!headers.containsKey('nodeId')"
@@ -88,13 +74,15 @@ beans = {
         siAmqp.'inbound-channel-adapter' channel: "fromRabbit",
                 'listener-container': "eventBusQueue"
 
-//        si.bridge id: "ignoreIncomingAmqp", 'input-channel': "fromRabbit", 'output-channel': "nullChannel"
+        si.bridge id: "ignoreIncomingAmqp", 'input-channel': "fromRabbit", 'output-channel': "nullChannel"
+        /*
         si.chain id: "inboundFilter", 'input-channel': "fromRabbit", 'output-channel': "grailsPipeline", {
             // Filter out messages that came from this node.
- //           si.filter expression: "headers.get('nodeId') != #{ clusterService.nodeId }"
+            si.filter expression: "headers.get('nodeId') != #{ clusterService.nodeId }"
 
             // From JSON back to a map instance.
-//            si.'json-to-object-transformer' type: "java.util.Map"
+            si.'json-to-object-transformer' type: "java.util.Map"
         }
         */
+    }
 }
