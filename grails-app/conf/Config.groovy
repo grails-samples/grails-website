@@ -300,7 +300,9 @@ log4j = {
     off     'grails.app.service.org.grails.plugin.resource'
 
     error   'org.hibernate'
-    
+//    debug   'org.springframework.integration'
+//    error   'org.grails.website.amqp'
+
     warn    'org.codehaus.groovy.grails.web.servlet',
             'org.codehaus.groovy.grails.web.pages', //  GSP
             'org.codehaus.groovy.grails.web.sitemesh', //  layouts

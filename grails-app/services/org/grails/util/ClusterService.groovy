@@ -5,10 +5,10 @@ class ClusterService {
 
     ClusterService() {
         if (System.getenv("VCAP_APP_HOST")) {
-            nodeId = System.getenv("VCAP_APP_HOST") + "\\#\\#" + System.getenv("VCAP_APP_PORT")
+            nodeId = System.getenv("VCAP_APP_HOST") + "##" + System.getenv("VCAP_APP_PORT")
         }
         else {
-            nodeId = "123434\\#\\#56"
+            nodeId = "123434##6"
         }
     }
 
