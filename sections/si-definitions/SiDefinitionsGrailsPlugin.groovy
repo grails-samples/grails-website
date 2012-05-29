@@ -1,11 +1,11 @@
+import org.grails.events.AmqpErrorHandler
 import org.grails.plugin.platform.events.registry.SpringIntegrationEventsRegistry
+import org.grails.rabbitmq.AutoQueueMessageListenerContainer
+import org.springframework.amqp.support.converter.JsonMessageConverter
+import org.springframework.integration.amqp.AmqpHeaders
 
 import static org.grails.plugin.platform.events.publisher.EventsPublisherGateway.EVENT_OBJECT_KEY
 
-import org.grails.rabbitmq.AutoQueueMessageListenerContainer
-import org.grails.website.amqp.ErrorsHandler
-import org.springframework.amqp.support.converter.JsonMessageConverter
-import org.springframework.integration.amqp.AmqpHeaders
 
 class SiDefinitionsGrailsPlugin {
     def version = "0.1"
@@ -29,21 +29,21 @@ Brief summary/description of the plugin.
     def doWithSpring = {
         xmlns rabbit: "http://www.springframework.org/schema/rabbit"
 
-        amqpErrorHandler(ErrorsHandler)
-
-        "eventBusQueue"(AutoQueueMessageListenerContainer) {
+        amqpErrorHandler(AmqpErrorHandler)
+        eventBusQueue(AutoQueueMessageListenerContainer) {
             acknowledgeMode = "NONE"
             channelTransacted = false
             errorHandler = ref('amqpErrorHandler')
             connectionFactory = ref("rabbitMQConnectionFactory")
             exchangeBeanName = "grails.rabbit.exchange.website.eventbus"
+            errorHandler = ref('amqpErrorHandler')
         }
 
         xmlns si: 'http://www.springframework.org/schema/integration'
 
         // Debug logging
         si.'logging-channel-adapter' id: "loggingChannel", 'log-full-message': "true", level: "INFO"
-        si.'channel-interceptor'(pattern: "grailsPipeline") {
+        si.'channel-interceptor'(pattern: "fromRabbit") {
             si.'wire-tap' channel: "loggingChannel"
         }
 
@@ -73,7 +73,9 @@ Brief summary/description of the plugin.
         // event bus.
         si.channel id: "fromRabbit"
         siAmqp.'inbound-channel-adapter' channel: "fromRabbit",
-                'listener-container': "eventBusQueue", 'mapped-request-headers':"*", 'mapped-reply-headers':"*"
+                'listener-container': "eventBusQueue",
+                'mapped-request-headers':"*",
+                'mapped-reply-headers':"*"
 
         si.chain id: "inboundFilter", 'input-channel': "fromRabbit", 'output-channel': "grailsPipeline", {
             // Filter out messages that came from this node.

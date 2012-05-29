@@ -310,6 +310,8 @@ log4j = {
             'org.codehaus.groovy.grails.plugins', // plugins
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework'
+
+    info    'org.springframework.integration'
             
     //debug 'grails.app.services'
     //debug 'grails.app.controllers'
