@@ -1,7 +1,7 @@
 package org.grails.search
 
+import grails.events.Listener
 import org.grails.content.Content
-import org.grails.plugin.platform.events.Listener
 import org.grails.plugin.Plugin
 
 class IndexingService {
