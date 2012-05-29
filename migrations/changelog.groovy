@@ -4,7 +4,7 @@ import grails.util.Environment
 databaseChangeLog = {
     delegate.databaseChangeLog logicalFilePath: "site-autobase"
 
-    if (Environment.current == Environment.PRODUCTION) {
+    if (Environment.current == Environment.PRODUCTION || Environment.current.name == "cloud") {
         // Initial changelog to bootstrap the database.
         include file: "init-changelog.groovy"
 
