@@ -1,8 +1,10 @@
 import org.grails.plugin.platform.events.registry.SpringIntegrationEventsRegistry
-import org.grails.rabbitmq.AutoQueueMessageListenerContainer
-import org.springframework.integration.amqp.AmqpHeaders
 
 import static org.grails.plugin.platform.events.publisher.EventsPublisherGateway.EVENT_OBJECT_KEY
+
+import org.grails.rabbitmq.AutoQueueMessageListenerContainer
+import org.grails.website.amqp.ErrorsHandler
+import org.springframework.integration.amqp.AmqpHeaders
 
 class SiDefinitionsGrailsPlugin {
     def version = "0.1"
@@ -25,9 +27,13 @@ Brief summary/description of the plugin.
     def documentation = "http://grails.org/plugin/si-definitions"
     def doWithSpring = {
         xmlns rabbit: "http://www.springframework.org/schema/rabbit"
+
+        amqpErrorHandler(ErrorsHandler)
+
         "eventBusQueue"(AutoQueueMessageListenerContainer) {
             acknowledgeMode = "NONE"
             channelTransacted = false
+            errorHandler = ref('amqpErrorHandler')
             connectionFactory = ref("rabbitMQConnectionFactory")
             exchangeBeanName = "grails.rabbit.exchange.website.eventbus"
         }
@@ -39,11 +45,6 @@ Brief summary/description of the plugin.
         si.'channel-interceptor'(pattern: "grailsPipeline") {
             si.'wire-tap' channel: "loggingChannel"
         }
-        si.'channel-interceptor'(pattern: "grailsGormPipeline") {
-            si.'wire-tap' channel: "loggingChannel"
-        }
-
-        si.bridge 'input-channel': "grailsGormPipeline", 'output-channel': "nullChannel"
 
         // Forward non-GORM messages to a RabbitMQ broker so that they propagate
         // to other application nodes.
