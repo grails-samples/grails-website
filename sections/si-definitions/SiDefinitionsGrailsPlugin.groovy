@@ -4,6 +4,7 @@ import static org.grails.plugin.platform.events.publisher.EventsPublisherGateway
 
 import org.grails.rabbitmq.AutoQueueMessageListenerContainer
 import org.grails.website.amqp.ErrorsHandler
+import org.springframework.amqp.support.converter.JsonMessageConverter
 import org.springframework.integration.amqp.AmqpHeaders
 
 class SiDefinitionsGrailsPlugin {
@@ -58,7 +59,6 @@ Brief summary/description of the plugin.
 
             // Identify the source of this event and convert the payload to JSON.
             si.'header-enricher' {
-                si.header name: AmqpHeaders.CONTENT_TYPE, value: "application/json"
                 si.header(name: "nodeId", ref: "clusterService", method: "getNodeId")
             }
             si.'object-to-json-transformer'()
@@ -67,23 +67,20 @@ Brief summary/description of the plugin.
         xmlns siAmqp: "http://www.springframework.org/schema/integration/amqp"
         siAmqp.'outbound-channel-adapter' channel: "toRabbit",
                 'amqp-template': "rabbitTemplate",
-                'exchange-name': "website.eventbus"
+                'exchange-name': "website.eventbus", 'mapped-request-headers':"*", 'mapped-reply-headers':"*"
 
         // Fetch event bus messages from RabbitMQ and feed them into this node's
         // event bus.
         si.channel id: "fromRabbit"
         siAmqp.'inbound-channel-adapter' channel: "fromRabbit",
-                'listener-container': "eventBusQueue"
+                'listener-container': "eventBusQueue", 'mapped-request-headers':"*", 'mapped-reply-headers':"*"
 
-        si.bridge id: "ignoreIncomingAmqp", 'input-channel': "fromRabbit", 'output-channel': "nullChannel"
-        /*
         si.chain id: "inboundFilter", 'input-channel': "fromRabbit", 'output-channel': "grailsPipeline", {
             // Filter out messages that came from this node.
-            si.filter expression: "headers.get('nodeId') != #{ clusterService.nodeId }"
+            si.filter expression: "headers['nodeId'] != @clusterService.nodeId"
 
             // From JSON back to a map instance.
             si.'json-to-object-transformer' type: "java.util.Map"
         }
-        */
     }
 }

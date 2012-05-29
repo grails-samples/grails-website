@@ -18,8 +18,6 @@ import org.springframework.util.ErrorHandler
 
      final static Logger logger = LoggerFactory.getLogger(ErrorsHandler)
 
-         //~--- methods ------------------------------------------------------------
-
          /**
           * Handle the given error, possibly rethrowing it as a fatal exception
           *
