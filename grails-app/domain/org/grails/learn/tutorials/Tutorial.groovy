@@ -21,6 +21,7 @@ class Tutorial implements Taggable {
     User submittedBy
     Popularity popularity = new Popularity()
     DateTime dateCreated
+    DateTime lastUpdated
 
     static constraints = {
         title blank: false, maxSize: 50

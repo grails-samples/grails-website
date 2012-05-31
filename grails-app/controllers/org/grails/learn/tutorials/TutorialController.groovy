@@ -34,8 +34,6 @@ class TutorialController {
 
     def save = {
         def tutorialInstance = new Tutorial(params)
-        println(params)
-        println(tutorialInstance)
         tutorialInstance.status = ApprovalStatus.PENDING
         tutorialInstance.submittedBy = request.user
 
@@ -60,7 +58,7 @@ class TutorialController {
     }
 
     protected processTags(domainInstance, tagString) {
-        def tags = tagString.split(/[,;]/)
+        def tags = tagString.split(/[,;]/)*.trim()
         domainInstance.tags = tags
     }
 }

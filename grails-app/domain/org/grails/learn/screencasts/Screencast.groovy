@@ -21,8 +21,8 @@ class Screencast implements Taggable {
     ApprovalStatus status = ApprovalStatus.PENDING
     User submittedBy
     Popularity popularity = new Popularity()
-    Date dateCreated
-    Date lastUpdated
+    DateTime dateCreated
+    DateTime lastUpdated
 
     static constraints = {
         title blank:false
@@ -40,9 +40,21 @@ class Screencast implements Taggable {
 
     static embedded = ["popularity"]
 
+    static transients = ['genericApprovalResponses', 'isNew']
+
     static searchable = {
             only = ["title"]
             tags component: true
+    }
+
+    static namedQueries = {
+        approved {
+            eq "status", ApprovalStatus.APPROVED
+        }
+        allQuery {
+            approved()
+            order "dateCreated", "desc"
+        }
     }
 
     def setDisposition(GenericApprovalResponse genericApprovalResponse) {
