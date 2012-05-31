@@ -1,4 +1,4 @@
-package org.grails.learn
+package org.grails.learn.tutorials
 
 import grails.plugin.like.Popularity
 import org.joda.time.DateTime

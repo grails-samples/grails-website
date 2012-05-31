@@ -9,8 +9,6 @@
           <root url="file://$MODULE_DIR$/../plugins/zipped-resources-1.0/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/../plugins/zipped-resources-1.0/grails-app/views" relative="/" />
           <root url="file://$MODULE_DIR$/../plugins/searchable-0.6.3/grails-app/views" relative="/" />
-          <root url="file://$MODULE_DIR$/../plugins/screencasts-0.5.6/web-app" relative="/" />
-          <root url="file://$MODULE_DIR$/../plugins/screencasts-0.5.6/grails-app/views" relative="/" />
           <root url="file://$MODULE_DIR$/../plugins/cached-resources-1.0/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/../plugins/cached-resources-1.0/grails-app/views" relative="/" />
           <root url="file://$MODULE_DIR$/../plugins/cache-headers-1.1.5/web-app" relative="/" />
@@ -29,8 +27,8 @@
           <root url="file://$MODULE_DIR$/../plugins/commentable-0.7.6/grails-app/views" relative="/" />
           <root url="file://$MODULE_DIR$/../plugins/rateable-0.7.1/web-app" relative="/" />
           <root url="file://$MODULE_DIR$/../plugins/greenmail-1.2.2/grails-app/views" relative="/" />
-          <root url="file://$MODULE_DIR$/../plugins/mail-1.0-SNAPSHOT/web-app" relative="/" />
-          <root url="file://$MODULE_DIR$/../plugins/mail-1.0-SNAPSHOT/grails-app/views" relative="/" />
+          <root url="file://$MODULE_DIR$/../plugins/mail-1.0/web-app" relative="/" />
+          <root url="file://$MODULE_DIR$/../plugins/mail-1.0/grails-app/views" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -120,11 +118,11 @@
       <sourceFolder url="file://$MODULE_DIR$/../plugins/jquery-1.6.1.1/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../plugins/jquery-1.6.1.1/grails-app/taglib" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../plugins/mail-1.0-SNAPSHOT">
-      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0-SNAPSHOT/src/groovy" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0-SNAPSHOT/grails-app/i18n" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0-SNAPSHOT/grails-app/services" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0-SNAPSHOT/grails-app/taglib" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../plugins/mail-1.0">
+      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0/grails-app/i18n" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../plugins/mail-1.0/grails-app/taglib" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../plugins/oauth-scribe-1.3">
       <sourceFolder url="file://$MODULE_DIR$/../plugins/oauth-scribe-1.3/src/groovy" isTestSource="false" />
@@ -158,11 +156,6 @@
     </content>
     <content url="file://$MODULE_DIR$/../plugins/rest-client-builder-1.0">
       <sourceFolder url="file://$MODULE_DIR$/../plugins/rest-client-builder-1.0/src/groovy" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../plugins/screencasts-0.5.6">
-      <sourceFolder url="file://$MODULE_DIR$/../plugins/screencasts-0.5.6/grails-app/controllers" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../plugins/screencasts-0.5.6/grails-app/domain" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../plugins/screencasts-0.5.6/grails-app/taglib" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../plugins/searchable-0.6.3">
       <sourceFolder url="file://$MODULE_DIR$/../plugins/searchable-0.6.3/src/java" isTestSource="false" />

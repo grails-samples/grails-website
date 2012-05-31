@@ -3,6 +3,7 @@ modules = {
         resource url: 'css/style.css'
         resource 'js/libs/bootstrap/bootstrap.js'
         resource 'js/libs/bootstrap/dropdown.js'
+        resource 'js/script-ck.js'
         resource 'js/script.js'
     }
 
@@ -41,6 +42,26 @@ modules = {
 
     tutorial {
         dependsOn 'master'
+    }
+
+    admin {
+        resource 'js/libs/jquery-1.7.2.min.js'
+        resource 'js/libs/bootstrap/bootstrap.js'
+        resource 'css/bootstrap.css'
+        resource 'css/bootstrap-responsive.css'
+        resource 'css/admin.css'
+    }
+
+    codeMirror {
+        resource 'js/libs/codemirror/codemirror.js'
+        resource 'js/libs/codemirror/util/closetag.js'
+        resource 'js/libs/codemirror/util/overlay.js'
+        resource 'js/libs/codemirror/util/runmode.js'
+        resource 'css/codemirror.css'
+        resource 'js/libs/codemirror/mode/xml/xml.js'
+        resource 'js/libs/codemirror/mode/javascript/javascript.js'
+        resource 'js/libs/codemirror/mode/css/css.js'
+        resource 'js/libs/codemirror/mode/htmlmixed/htmlmixed.js'
     }
 
 

@@ -1,5 +1,5 @@
 <%@ page import="org.grails.plugin.Plugin" %>
-<%@ page import="org.grails.screencasts.Screencast"%>
+<%@ page import="org.grails.learn.screencasts.Screencast"%>
 <%@ page import="org.springframework.util.ClassUtils" %>
 <html>
 <head>

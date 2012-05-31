@@ -1,6 +1,7 @@
-package org.grails.learn
+package org.grails.learn.tutorials
 
 import org.grails.common.ApprovalStatus
+import org.grails.learn.tutorials.Tutorial
 
 class TutorialController {
     def searchableService

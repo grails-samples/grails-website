@@ -7,22 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="shortcut icon" href="${resource(dir: 'img', file: 'favicon.ico')}" type="image/x-icon">
-
-    <!-- Le styles -->
-    <link href="${resource(dir: 'css', file: 'bootstrap.min.css')}" rel="stylesheet">
-    <style type="text/css">
-    body {
-        padding-top: 40px;
-    }
-    </style>
-    <link href="${resource(dir: 'css', file: 'bootstrap-responsive.min.css')}" rel="stylesheet">
-
-    <link href="${resource(dir: 'css', file: 'admin.css')}" rel="stylesheet" />
-
-    <script src="${resource(dir:'js/libs', file:'jquery-1.7.1.min.js')}"></script>
-    <script src="${resource(dir:'js/libs/bootstrap', file:'bootstrap.js')}"></script>
-    <script src="${resource(dir:'js/libs/bootstrap', file:'dropdown.js')}"></script>
+    <r:require modules="admin"/>
+    <r:external uri="/img/favicon.ico"/>
+    <r:layoutResources/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -68,6 +55,8 @@
                             <li><g:link controller="wikiPage" action="list">Wiki Pages</g:link></li>
                             <li><g:link controller="webSiteAdmin" action="list">Web Sites</g:link></li>
                             <li><g:link controller="tutorialAdmin" action="list">Tutorials</g:link></li>
+                            <li><g:link controller="screencastAdmin" action="list">Screencasts</g:link></li>
+                            <li><g:link controller="videoHostAdmin" action="list">Video Hosts</g:link></li>
                         </ul>
                     </li>
 
@@ -80,11 +69,6 @@
                             <li><g:link controller="pluginPendingApproval" action="list">Approval Queue</g:link></li>
                         </ul>
                     </li>
-
-                    <li <g:if test="${controllerName == 'commentLink'}">class="active"</g:if>>
-                        <g:link controller="commentLink" action="list">Comments</g:link></li>
-                    <li <g:if test="${controllerName == 'tag'}">class="active"</g:if>>
-                        <g:link controller="tag" action="list">Tags</g:link></li>
                     <li <g:if test="${controllerName == 'ratingLink'}">class="active"</g:if>>
                         <g:link controller="ratingLink" action="list">Ratings</g:link></li>
                     <li <g:if test="${controllerName == 'blogEntry'}">class="active"</g:if>>
@@ -107,6 +91,8 @@
 <div class="container">
     <g:layoutBody/>
 </div>
+
+<r:layoutResources/>
 
 <script type="text/javascript">
     $(function() {

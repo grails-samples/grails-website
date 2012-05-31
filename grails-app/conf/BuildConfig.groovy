@@ -18,7 +18,7 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenLocal()
         mavenCentral()
-        mavenRepo "https://oss.sonatype.org/content/repositories/releases/" 
+        mavenRepo "https://oss.sonatype.org/content/repositories/releases/"
     }
 
     plugins {
@@ -46,7 +46,6 @@ grails.project.dependency.resolution = {
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
                 ":resources:1.1.6",
-                ":screencasts:0.5.6",
                 ":searchable:0.6.3",
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.1",

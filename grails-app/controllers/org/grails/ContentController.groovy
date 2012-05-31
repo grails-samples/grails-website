@@ -21,7 +21,6 @@ import org.grails.wiki.WikiPage
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController
 import org.grails.plugin.PluginTab
-import org.grails.screencasts.Screencast
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.multipart.MultipartFile
 
@@ -29,7 +28,6 @@ class ContentController extends BaseWikiController {
     static allowedMethods = [saveWikiPage: "POST", rollbackWikiVersion: "POST"]
 
     def searchableService
-    def screencastService
     def pluginService
     def downloadService
     def dateService
@@ -503,11 +501,6 @@ class ContentController extends BaseWikiController {
                 dateService.getDayOfMonth(it.dateCreated)
             }
         }
-        def latestScreencastId = screencastService.latestScreencastId
-        return [ latestDownload: latestDownload,
-                 newestPlugins: newestPlugins,
-                 newsItems: newsItems,
-                 latestScreencastId: latestScreencastId ]
     }
 
     def screencastLegacy() {

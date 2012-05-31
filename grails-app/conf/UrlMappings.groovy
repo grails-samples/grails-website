@@ -9,7 +9,7 @@ class UrlMappings {
             }
         }
 
-        "/start"(controller: "content", action: "gettingStarted")
+        "/start"(controller: "learn", action: "gettingStarted")
 
         def populateVersion = {
             pluginVersion = {

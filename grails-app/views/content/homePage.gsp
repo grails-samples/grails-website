@@ -7,9 +7,6 @@
     <meta content="master" name="layout"/>
     <r:require modules="homepage"/>
 
-    <g:set var="download" value="${latestDownload ? latestDownload['download'][0] : null}"/>
-    <g:set var="binaries" value="${latestDownload ? latestDownload['binary'] : null}"/>
-
     <feed:meta kind="rss" version="2.0" controller="blog" action="feed" params="[format: 'rss']"/>
     <feed:meta kind="atom" version="1.0" controller="blog" action="feed" params="[format: 'atom']"/>
 
@@ -50,7 +47,7 @@
             </p>
 
             <p>
-                <a href="${binaries[0].mirrors[0][0].urlString}" class="btn">Download Grails ${download.softwareVersion}</a>&nbsp;&nbsp;
+                <a href="/download" class="btn">Download Grails</a>&nbsp;&nbsp;
                 <a href="/learn" class="btn primary">Start using Grails!</a>
             </p>
         </div>

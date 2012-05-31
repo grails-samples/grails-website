@@ -6,6 +6,17 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
     <r:require modules="learn"/>
+    <r:script>
+        $(function(){
+            $(".modal").on('shown', function(){
+                $('.modal-backdrop').addClass('dark');
+                $(this).find('iframe').attr('src', 'http://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
+            });
+            $(".modal").on('hide', function(){
+                $(this).find('iframe').attr('src', '');
+            });
+        });
+    </r:script>
 </head>
 
 <body>
