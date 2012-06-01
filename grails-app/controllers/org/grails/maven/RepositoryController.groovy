@@ -1,6 +1,6 @@
 package org.grails.maven
 
-import grails.plugin.springcache.annotations.Cacheable
+import groovy.xml.MarkupBuilder
 import org.grails.plugin.*
 
 import org.springframework.context.ApplicationEvent
@@ -128,7 +128,7 @@ class RepositoryController {
                         }
                     }
                     catch(e) {                        
-                        log.warn "Failed to parse maven metadata for $plugin: $e.message", e
+                        log.debug "Failed to parse maven metadata for $plugin: $e.message"
                     }
                     
                 }
@@ -179,50 +179,59 @@ class RepositoryController {
     /**
      * Renders the plugin list as XML in a format compatible with all versions of Grails
      */
-    @Cacheable("pluginMetaList")
     def list() {
-        def total = Plugin.count()
-        int offset = 0
-        
+        def content = cacheService.getPluginList()
+        if (!content) {
+            content = generatePluginListXml()
+            cacheService.putPluginList(content)
+        }
+
         // get the most recent plugin release and use it as the last modified date
         def pr = PluginRelease.list(max:1, sort:'releaseDate', order:'desc')
         if(pr) {
             lastModified pr.releaseDate[0].toDate()
         }
-        render(contentType:"text/xml") {
-            plugins {
 
-                Plugin.withSession { session ->
+        render text: content, contentType: "text/xml"
+    }
+
+    private String generatePluginListXml() {
+        final total = Plugin.count()
+        int offset = 0
+        def writer = new StringWriter(1600000)
+        new MarkupBuilder(writer).plugins {
+
+            Plugin.withSession { session ->
+                
+                while(total > offset) {
+                    def allPlugins = Plugin.list(fetch:[releases:'select'], offset:offset, max:10)                    
+                    if(!allPlugins) break
                     
-                    while(total > offset) {
-                        def allPlugins = Plugin.list(fetch:[releases:'select'], offset:offset, max:10)                    
-                        if(!allPlugins) break
-                        
-                        for(p in allPlugins) {
-                            def latest = p.releases.max { it.releaseDate }
-                            plugin(name:p.name, 'latest-release':latest?.releaseVersion) {
-                                p.releases?.each { r ->
-                                    release(version:r.releaseVersion) {
-                                        title p.title
-                                        author p.author
-                                        authorEmail p.authorEmail
-                                        description p.summary
-                                        file r.downloadUrl
-                                    }
+                    for(p in allPlugins) {
+                        def latest = p.releases.max { it.releaseDate }
+                        plugin(name:p.name, 'latest-release':latest?.releaseVersion) {
+                            p.releases?.each { r ->
+                                release(version:r.releaseVersion) {
+                                    title p.title
+                                    author p.author
+                                    authorEmail p.authorEmail
+                                    description p.summary
+                                    file r.downloadUrl
                                 }
-
                             }
-                        }
-                        offset += 10
-                        session.clear()                        
-                    }
-                    
 
+                        }
+                    }
+                    offset += 10
+                    session.clear()                        
                 }
                 
+
             }
+                
         }
-        
+
+        return writer.toString()
     }
 }
 class PublishPluginCommand {

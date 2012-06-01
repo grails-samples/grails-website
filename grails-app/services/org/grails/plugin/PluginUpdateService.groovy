@@ -152,6 +152,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
                 pr = new PluginRelease(plugin:plugin,releaseVersion:plugin.currentRelease, downloadUrl: plugin.downloadUrl) 
                 pr.save()
             }
+            cacheService.removePluginList()
             announceRelease(plugin)
         }
         else log.info "Not a new plugin release - won't tweet"
