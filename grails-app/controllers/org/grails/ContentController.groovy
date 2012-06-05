@@ -64,10 +64,10 @@ class ContentController extends BaseWikiController {
             // than in the view.
             def latestVersion = wikiPage.latestVersion
             if (request.xhr) {
-                render template:"wikiShow", model:[content:wikiPage, update:params._ul, latest:latestVersion]
+                render template: "wikiShow", model: [content: wikiPage, update: params._ul, latest: latestVersion]
             } else {
                 // disable comments
-                render view:"contentPage", model:[content:wikiPage, latest:latestVersion]
+                render view: "contentPage", model: [content: wikiPage, latest: latestVersion]
             }
         }
         else {
@@ -78,13 +78,13 @@ class ContentController extends BaseWikiController {
     def gettingStarted() {}
 
     def search() {
-        if(params.q) {
+        if (params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
             try {
-                def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape:false)
+                def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape: false)
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
-                render view:"/searchable/index", model: [searchResult: searchResult]
+                render view: "/searchable/index", model: [searchResult: searchResult]
             }
             catch (SearchEngineQueryParseException ex) {
                 render view: "/searchable/index", model: [parseException: true]
@@ -94,61 +94,66 @@ class ContentController extends BaseWikiController {
             }
         }
         else {
-            render(view:"homePage")
+            render(view: "homePage")
         }
     }
 
     def latest() {
 
-         def engine = createWikiEngine()
+        def engine = createWikiEngine()
 
-         def feedOutput = {
+        def feedOutput = {
 
-            def top5 = WikiPage.listOrderByLastUpdated(order:'desc', max:5)
+            def top5 = WikiPage.listOrderByLastUpdated(order: 'desc', max: 5)
             title = "Grails.org Wiki Updates"
             link = "http://grails.org/wiki/latest?format=${request.format}"
             description = "Latest wiki updates Grails framework community"
 
-            for(item in top5) {
+            for (item in top5) {
                 entry(item.title) {
                     link = "http://grails.org/${item.title.encodeAsURL()}"
                     publishedDate = item.dateCreated?.toDate()
                     engine.render(item.body, context)
                 }
             }
-         }
+        }
 
         withFormat {
             html {
-                redirect(uri:"")
+                redirect(uri: "")
             }
             rss {
-                render(feedType:"rss",feedOutput)
+                render(feedType: "rss", feedOutput)
             }
             atom {
-                render(feedType:"atom", feedOutput)
+                render(feedType: "atom", feedOutput)
             }
         }
     }
 
     def previewWikiPage() {
+        def engine = createWikiEngine()
+        render(engine.render(params.body ?: 'Missing Content', context))
+    }
+
+    def previewWikiPageOld() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
-            // This is required for the 'page.properties = ...' call to work. 
+        if (page) {
+            // This is required for the 'page.properties = ...' call to work.
             page = GrailsHibernateUtil.unwrapIfProxy(page)
-            
+
             def engine = createWikiEngine()
             page.discard()
             page.properties = params
 
-            render( engine.render(page.body, context) )
+            render(engine.render(page.body, context))
         }
     }
 
     def postComment() {
         def content = Content.get(params.id)
         content.addComment(request.user, params.comment)
-        render(template:'/comments/comment', var:'comment', bean:content.comments[-1])
+        render(template: '/comments/comment', var: 'comment', bean: content.comments[-1])
     }
 
     def showWikiVersion() {
@@ -171,10 +176,10 @@ class ContentController extends BaseWikiController {
         }
 
         if (version) {
-            render(view:"showVersion", model:[content:version, update:params._ul])
+            render(view: "showVersion", model: [content: version, update: params._ul])
         }
         else {
-            render(view:"contentPage", model:[content:page])
+            render(view: "contentPage", model: [content: page])
         }
 
     }
@@ -182,15 +187,15 @@ class ContentController extends BaseWikiController {
     def markupWikiPage() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
 
-        if(page) {
-            render(template:"wikiFields", model:[wikiPage:page])
+        if (page) {
+            render(template: "wikiFields", model: [wikiPage: page])
         }
     }
 
     def infoWikiPage() {
-        def page = Content.findAllByTitle(params.id, [cache:true]).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id, [cache: true]).find { !it.instanceOf(Version) }
 
-        if(page) {
+        if (page) {
 
             def pageVersions = Version.withCriteria {
                 projections {
@@ -201,20 +206,33 @@ class ContentController extends BaseWikiController {
                 order 'number', 'asc'
                 cache true
             }
-            def first = pageVersions ? Version.findByNumberAndCurrent(pageVersions[0][0], page, [cache:true]) : null
-            def last  = pageVersions ? Version.findByNumberAndCurrent(pageVersions[-1][0], page, [cache:true]) : null
+            def first = pageVersions ? Version.findByNumberAndCurrent(pageVersions[0][0], page, [cache: true]) : null
+            def last = pageVersions ? Version.findByNumberAndCurrent(pageVersions[-1][0], page, [cache: true]) : null
 
-            render(template:'wikiInfo',model:[first:first, last:last,wikiPage:page, 
-                                              versions:pageVersions.collect { it[0]}, 
-                                              authors:pageVersions.collect { it[1]}, 
-                                              update:params._ul])
+            render(template: 'wikiInfo', model: [first: first, last: last, wikiPage: page,
+                    versions: pageVersions.collect { it[0]},
+                    authors: pageVersions.collect { it[1]},
+                    update: params._ul])
         }
 
     }
 
     def editWikiPage() {
-        if(!params.id) {
-            render(template:"/shared/remoteError", model: [code:"page.id.missing"])
+        if (!params.id) {
+            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
+            return
+        }
+
+        def pages = WikiPage.findAllByTitle(params.id, [sort: "version", order: "desc"])
+        if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
+        WikiPage page = pages.find { !it.instanceOf(Version) }
+
+        [wikiPage: page]
+    }
+
+    def editWikiPageOld() {
+        if (!params.id) {
+            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
         }
         else {
             // WikiPage.findAllByTitle should only return one record, but at this time
@@ -224,26 +242,26 @@ class ContentController extends BaseWikiController {
             if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
             def page = pages.find { !it.instanceOf(Version) }
 
-            render(template:"wikiEdit",model:[
-                    wikiPage:page,
+            render(template: "wikiEdit", model: [
+                    wikiPage: page,
                     update: params._ul,
 //                    editFormName: params.editFormName,
                     saveUri: page.instanceOf(PluginTab) ?
-                            g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
-                            g.createLink(action: "saveWikiPage", id: page.title)])
+                        g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
+                        g.createLink(action: "saveWikiPage", id: page.title)])
         }
     }
 
     def createWikiPage() {
         if (params.xhr) {
-            return render(template:'wikiCreate', var:'pageName', bean:params.id)
+            return render(template: 'wikiCreate', var: 'pageName', bean: params.id)
         }
-        [pageName:params.id]
+        [pageName: params.id]
     }
 
     def saveWikiPage() {
         if (!params.id) {
-            render(template:"/shared/remoteError", model:[code:"page.id.missing"])
+            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
         }
         else {
             try {
@@ -254,21 +272,31 @@ class ContentController extends BaseWikiController {
                         params.long('version'))
 
                 if (wikiPage.hasErrors()) {
-                    render(template: "wikiEdit", model: [
-                            wikiPage: new WikiPage(title: params.id, body: params.body)])
-                }
-                else {
-                    if (wikiPage.latestVersion.number == 0) {
-                        // It's a new page.
-                        redirect(uri:"/${wikiPage.title.encodeAsURL()}")
+                    if (params.id) {
+                        def pages = WikiPage.findAllByTitle(params.id, [sort: "version", order: "desc"])
+                        if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
+                        WikiPage page = pages.find { !it.instanceOf(Version) }
+                        render(view: "editWikiPage", model: [wikiPage: page])
                     }
                     else {
-                        render(template: "wikiShow", model: [
-                                content: wikiPage,
-                                message: "wiki.page.updated",
-                                update: params._ul,
-                                latest: wikiPage.latestVersion])
+                        render(view: "createWikiPage", model: [title: params.id, body: params.body])
                     }
+                }
+                else {
+                    flash.message = "Wiki Page has been updated successfully"
+                    redirect(uri: "/${wikiPage.title.encodeAsURL()}")
+// Why was this done?
+//                    if (wikiPage.latestVersion.number == 0) {
+//                        // It's a new page.
+//                        redirect(uri: "/${wikiPage.title.encodeAsURL()}")
+//                    }
+//                    else {
+//                        render(template: "wikiShow", model: [
+//                                content: wikiPage,
+//                                message: "wiki.page.updated",
+//                                update: params._ul,
+//                                latest: wikiPage.latestVersion])
+//                    }
                 }
             }
             catch (OptimisticLockException ex) {
@@ -282,7 +310,7 @@ class ContentController extends BaseWikiController {
     private evictFromCache(id, title) {
         cacheService.removeWikiText(title)
         cacheService.removeContent(title)
-        
+
         if (id) {
             textCache.remove 'versionList' + id
         }
@@ -290,7 +318,7 @@ class ContentController extends BaseWikiController {
 
     def rollbackWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
+        if (page) {
             def version = Version.findByCurrentAndNumber(page, params.number.toLong())
             def allVersions = Version.withCriteria {
                 projections {
@@ -302,42 +330,42 @@ class ContentController extends BaseWikiController {
                 cache true
             }
 
-            if(!version) {
-                render(template:"versionList", model:[
+            if (!version) {
+                render(template: "versionList", model: [
                         wikiPage: page,
                         versions: allVersions.collect { it[0] },
                         authors: allVersions.collect { it[1] },
-                        message:"wiki.version.not.found",
+                        message: "wiki.version.not.found",
                         update: params._ul])
             }
             else {
-                if(page.body == version.body) {
-                    render(template:"versionList", model:[
+                if (page.body == version.body) {
+                    render(template: "versionList", model: [
                             wikiPage: page,
                             versions: allVersions.collect { it[0] },
                             authors: allVersions.collect { it[1] },
-                            message:"Contents are identical, no need for rollback.",
+                            message: "Contents are identical, no need for rollback.",
                             update: params._ul])
                 }
                 else {
 
                     page.lock()
-                    page.version = page.version+1
+                    page.version = page.version + 1
                     page.body = version.body
                     page.save(flush: true, failOnError: true)
                     Version v = page.createVersion()
-                    v.author = request.user                        
+                    v.author = request.user
                     v.save(failOnError: true)
                     evictFromCache page.id, page.title
-                    
+
                     // Add the new version to the version list, otherwise it won't appear!
                     allVersions << [v.number, v.author]
 
-                    render(template:"versionList", model:[
+                    render(template: "versionList", model: [
                             wikiPage: page,
                             versions: allVersions.collect { it[0] },
                             authors: allVersions.collect { it[1] },
-                            message:"Page rolled back, a new version ${v.number} was created",
+                            message: "Page rolled back, a new version ${v.number} was created",
                             update: params._ul])
                 }
             }
@@ -350,13 +378,13 @@ class ContentController extends BaseWikiController {
     def diffWikiVersion() {
 
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
+        if (page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
             def rightVersion = params.diff.toLong()
             def right = Version.findByCurrentAndNumber(page, rightVersion)
-            if(left && right) {
-                return [message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1:right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()]
+            if (left && right) {
+                return [message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()]
             }
             else {
                 return [message: "Version not found in diff"]
@@ -364,30 +392,30 @@ class ContentController extends BaseWikiController {
 
         }
         else {
-            return [message: "Page not found to diff" ]
+            return [message: "Page not found to diff"]
         }
     }
 
     def previousWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
+        if (page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
 
             List allVersions = Version.findAllByCurrent(page).sort { it.number }
-            def right = allVersions[allVersions.indexOf(left)-1]
+            def right = allVersions[allVersions.indexOf(left) - 1]
             def rightVersion = right.number
 
-            if(left && right) {
-                render(view:"diffView",model:[content:page,message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1:right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()])
+            if (left && right) {
+                render(view: "diffView", model: [content: page, message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()])
             }
             else {
-                render(view:"diffView",model:[message: "Version not found in diff"])
+                render(view: "diffView", model: [message: "Version not found in diff"])
             }
 
         }
         else {
-            render(view:"diffView",model: [message: "Page not found to diff" ] )
+            render(view: "diffView", model: [message: "Page not found to diff"])
         }
 
     }
@@ -454,7 +482,7 @@ class ContentController extends BaseWikiController {
             forward controller: "dbContainerImage", action: "index", params: [
                     imageId: image.ident(),
                     size: size,
-                    type: image.type ]
+                    type: image.type]
         }
         else {
             response.sendError 404
@@ -481,23 +509,23 @@ class ContentController extends BaseWikiController {
         // dialogs.
         redirect action: "index", id: params.id
     }
-    
+
     def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
 
         // Split the downloads into stable and non-stable.
         def groupedDownloads = downloadService.buildGroupedDownloads()
-        def latestDownload  = ((HashMap)groupedDownloads['latest']).values()
+        def latestDownload = ((HashMap) groupedDownloads['latest']).values()
 
-        def newsItems = BlogEntry.list(max:3, cache:true, order:"desc", sort:"dateCreated")
+        def newsItems = BlogEntry.list(max: 3, cache: true, order: "desc", sort: "dateCreated")
 
         // make it easy to get the month and day
         newsItems.each {
-            it.metaClass.getMonth = { ->
+            it.metaClass.getMonth = {->
                 dateService.getMonthString(it.dateCreated)
             }
-            it.metaClass.getDay = { ->
+            it.metaClass.getDay = {->
                 dateService.getDayOfMonth(it.dateCreated)
             }
         }

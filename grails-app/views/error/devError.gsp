@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Grails Runtime Exception</title>
-		<meta name="layout" content="scaffold">
+		<meta name="layout" content="master">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'errors.css')}" type="text/css">
 	</head>
 	<body>

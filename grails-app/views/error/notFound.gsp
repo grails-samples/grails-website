@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Page not found</title>
-    <meta content="subpage" name="layout" />
+    <meta content="master" name="layout" />
     <g:external dir="css" file="errors.css"/>
     <style type="text/css">
 	body {

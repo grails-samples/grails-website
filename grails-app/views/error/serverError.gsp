@@ -2,7 +2,7 @@
 <head>
     <gui:resources components='expandablePanel'/>
     <title>Grails.org Error</title>
-    <meta content="subpage" name="layout" />
+    <meta content="master" name="layout" />
     <g:external dir="css" file="errors.css"/>
     <style type="text/css">
 	body {

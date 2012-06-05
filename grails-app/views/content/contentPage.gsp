@@ -1,9 +1,6 @@
-<g:setProvider plugin="yui" library="yui"/>
-
 <head>
     <title>${content?.title}</title>
     <meta content="master" name="layout"/>
-    <g:render template="wikiJavaScript"/>
     <r:require modules="content"/>
 </head>
 
@@ -15,9 +12,12 @@
 
     <div id="main">
         <article>
-            <div id="wikiLastUpdated">Last updated by ${latest?.author?.login} <prettytime:display
-                    date="${content.lastUpdated}"/></div>
+            <div id="wikiLastUpdated">Last updated by ${latest?.author?.login}
+                <prettytime:display date="${content.lastUpdated}"/></div>
             <g:render template="viewActions" model="[content: content]"/>
+
+            <flash:message flash="${flash}"/>
+
             <div id="editPane" style="margin-top:10px;">
                 <g:if test="${content?.deprecated}">
                     <wiki:deprecated uri="${content?.deprecatedUri}"/>

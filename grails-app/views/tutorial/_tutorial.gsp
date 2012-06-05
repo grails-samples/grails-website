@@ -20,7 +20,10 @@
         </header>
 
         <div class="desc">
-            <p><wiki:shorten text="${tutorialInstance?.description?.encodeAsHTML()}" length="250"/>
+            <p>
+                <wiki:text key="${tutorialInstance?.title}">
+                    <wiki:shorten text="${tutorialInstance?.description?.encodeAsHTML()}" length="250"/>
+                </wiki:text>
                 <g:if test="${tutorialInstance?.description?.length() > 250}">
                     <a href="/tutorial/${tutorialInstance?.id}">read more</a>
                 </g:if>

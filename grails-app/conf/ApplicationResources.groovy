@@ -2,7 +2,6 @@ modules = {
     master {
         resource url: 'css/style.css'
         resource 'js/libs/bootstrap/bootstrap.js'
-        resource 'js/libs/bootstrap/dropdown.js'
         resource 'js/script-ck.js'
         resource 'js/script.js'
     }
@@ -62,6 +61,13 @@ modules = {
         resource 'js/libs/codemirror/mode/javascript/javascript.js'
         resource 'js/libs/codemirror/mode/css/css.js'
         resource 'js/libs/codemirror/mode/htmlmixed/htmlmixed.js'
+    }
+
+    fancyBox {
+        dependsOn 'jquery'
+        resource 'fancybox/jquery.mousewheel-3.0.6.pack.js'
+        resource 'fancybox/jquery.fancyBox.css'
+        resource 'fancybox/jquery.fancybox.js'
     }
 
 

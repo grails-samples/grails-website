@@ -1,7 +1,5 @@
 <%@ page import="org.grails.wiki.WikiPage" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: wikiPageInstance, field: 'title', 'error')} required">
 	<label for="title">
 		<g:message code="wikiPage.title.label" default="Title" />

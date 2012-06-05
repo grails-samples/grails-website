@@ -21,7 +21,7 @@ class WikiPageService {
     def getCachedOrReal(id) {
          def wikiPage = cacheService.getContent(id)
             if(!wikiPage) {
-                wikiPage = Content.findAllByTitle(id, [cache:true]).find { !it.instanceOf(Version) }
+                wikiPage = WikiPage.findAllByTitle(id, [cache:true]).find { !it.instanceOf(Version) }
                 if(wikiPage) cacheService.putContent(id, wikiPage)
             }
          return wikiPage
