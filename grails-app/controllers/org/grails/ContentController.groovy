@@ -230,34 +230,55 @@ class ContentController extends BaseWikiController {
         [wikiPage: page]
     }
 
-    def editWikiPageOld() {
-        if (!params.id) {
-            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
-        }
-        else {
-            // WikiPage.findAllByTitle should only return one record, but at this time
-            // (2010-06-24) it seems to be returning more on the grails.org server.
-            // This is to help determine whether that's what is in fact happening.
-            def pages = Content.findAllByTitle(params.id, [sort: "version", order: "desc"])
-            if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
-            def page = pages.find { !it.instanceOf(Version) }
-
-            render(template: "wikiEdit", model: [
-                    wikiPage: page,
-                    update: params._ul,
-//                    editFormName: params.editFormName,
-                    saveUri: page.instanceOf(PluginTab) ?
-                        g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
-                        g.createLink(action: "saveWikiPage", id: page.title)])
-        }
-    }
+//    def editWikiPageOld() {
+//        if (!params.id) {
+//            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
+//        }
+//        else {
+//            // WikiPage.findAllByTitle should only return one record, but at this time
+//            // (2010-06-24) it seems to be returning more on the grails.org server.
+//            // This is to help determine whether that's what is in fact happening.
+//            def pages = Content.findAllByTitle(params.id, [sort: "version", order: "desc"])
+//            if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
+//            def page = pages.find { !it.instanceOf(Version) }
+//
+//            render(template: "wikiEdit", model: [
+//                    wikiPage: page,
+//                    update: params._ul,
+////                    editFormName: params.editFormName,
+//                    saveUri: page.instanceOf(PluginTab) ?
+//                        g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
+//                        g.createLink(action: "saveWikiPage", id: page.title)])
+//        }
+//    }
 
     def createWikiPage() {
-        if (params.xhr) {
-            return render(template: 'wikiCreate', var: 'pageName', bean: params.id)
+        def page = WikiPage.findByTitle(params.id)
+        if (page) {
+            redirect(action: 'editWikiPage', id: params.id)
+            return
         }
-        [pageName: params.id]
+
+        String body = "h1. ${params.id}\n\n"
+
+        page = WikiPage.findByTitle('Default Create Wiki Template')
+        if (page) {
+            body += page?.body
+        }
+        else {
+            log.warn "Wiki Page [Default Create Wiki Template] is missing"
+        }
+
+        def wikiPage = new WikiPage(title: params.id, body: body)
+        [wikiPage: wikiPage]
     }
+
+//    def createWikiPageOld() {
+//        if (params.xhr) {
+//            return render(template: 'wikiCreate', var: 'pageName', bean: params.id)
+//        }
+//        [pageName: params.id]
+//    }
 
     def saveWikiPage() {
         if (!params.id) {

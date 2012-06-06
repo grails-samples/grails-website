@@ -108,6 +108,10 @@ class WikiPageService {
         return content
     }
 
+    def Version latestVersion(Content content) {
+
+    }
+
     private evictFromCache(id, title) {
         cacheService.removeWikiText(title)
         cacheService.removeContent(title)

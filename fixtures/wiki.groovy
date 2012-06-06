@@ -441,6 +441,62 @@ h2. Beginner Tutorial Sequence
 ** *[Changing the view with Groovy Server Pages|http://www.ibm.com/developerworks/java/library/j-grails03118]*\\\\Groovy Server Pages (GSP) puts the "Web" in the Grails Web framework. In the third installment of his Mastering Grails  series, Scott Davis shows you the ins and outs of working with GSP. See how easy it is to use Grails TagLibs, mix together partial fragments of GSPs, and customize the default templates for the automatically generated (scaffolded) views.
 '''
 
+def defaultCreateWikiTemplatePage = '''\
+Edit the page contents here. You can use Wiki Syntax or HTML.
+
+Here are some examples of syntax usage. Click *Preview* below to view the output.
+
+@monospace@
+
+_italic_
+
+*bold*
+
+--strikethrough--
+
+!../../img/grails.png!
+
+[Mailing Lists]
+
+[http://www.g2one.com/]
+
+[G2one|http://www.g2one.com/] or "G2One":http://www.g2one.com/
+
+h3. Heading3
+
+h4. Heading4
+
+# item 1
+# item 2
+# item 3
+
+* item 1
+** subitem 1
+** subitem 2
+* item 2
+
+{table}
+  *Name* | *Number*
+  Albert | 46
+  Wilma  | 1348
+  James  | 12
+{table}
+
+{code}
+class Book {
+    String title
+}
+{code}
+
+{note}
+This is a note!
+{note}
+
+{warning}
+This is a warning!
+{warning}
+'''
+
 fixture {
     build {
         def admin = User.findByLogin("admin")
@@ -503,6 +559,14 @@ fixture {
                 body: tutorialsPage,
                 number: 0,
                 current: tutorials,
+                author: admin)
+
+        defaultCreateWikiTemplate(WikiPage, title: "Default Create Wiki Template", body: defaultCreateWikiTemplatePage)
+        defaultCreateWikiTemplateVersion(Version,
+                title: "Default Create Wiki Template",
+                body: defaultCreateWikiTemplatePage,
+                number: 0,
+                current: defaultCreateWikiTemplate,
                 author: admin)
     }
 }

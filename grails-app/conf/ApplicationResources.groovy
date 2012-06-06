@@ -1,5 +1,6 @@
 modules = {
     master {
+        dependsOn 'jquery'
         resource url: 'css/style.css'
         resource 'js/libs/bootstrap/bootstrap.js'
         resource 'js/script-ck.js'

@@ -2803,6 +2803,16 @@ a.like.with-ribbon {
   font-size: 12px;
   color: rgba(102, 102, 102, 0.79);
 }
+.wiki-form .CodeMirror {
+  border: 1px solid #eee;
+  width: 663px;
+}
+.wiki-form .CodeMirror-scroll {
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+  width: 100%;
+}
 /* Footer */
 #footer {
   padding: 20px 0;

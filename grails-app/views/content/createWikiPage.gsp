@@ -1,9 +1,9 @@
 <%@ page import="org.grails.wiki.WikiPage" %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Create Page</title>
+    <title><g:message code="wiki.create.title" args="${[wikiPage?.title]}"/></title>
     <meta content="master" name="layout"/>
-    <r:require modules="content"/>
+    <r:require modules="content, codeMirror, fancyBox"/>
 </head>
 
 <body>
@@ -14,10 +14,14 @@
 
     <div id="main">
         <article>
-            <g:render template='wikiCreate' var="pageName" bean="${pageName}"/>
+            <h2><g:message code="wiki.create.title" args="${[wikiPage?.title]}"/></h2>
+
+            <p><g:message code="wiki.create.description"/></p>
+
+            <g:render template="wikiForm"/>
         </article>
     </div>
-
 </div>
+
 </body>
 </html>

@@ -17,11 +17,11 @@ class WikiPageController {
         [wikiPageInstanceList: WikiPage.list(params), wikiPageInstanceTotal: WikiPage.count()]
     }
 
-//    def create() {
-//        def wikiPageInstance = new WikiPage()
-//        wikiPageInstance.properties = params
-//        return [wikiPageInstance: wikiPageInstance]
-//    }
+    def create() {
+        def wikiPageInstance = new WikiPage()
+        wikiPageInstance.properties = params
+        [wikiPageInstance: wikiPageInstance]
+    }
 
     def save() {
         def wikiPageInstance = new WikiPage(params)
