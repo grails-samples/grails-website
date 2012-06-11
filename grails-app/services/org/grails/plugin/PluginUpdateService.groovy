@@ -25,6 +25,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
     protected int twitterLimit = 140
 
+    def cacheService
     def shortenService
     def twitterService
     def mailService
