@@ -1,5 +1,6 @@
+<%@ page import="grails.util.GrailsNameUtils" %>
 <%@ page import="org.grails.plugin.Plugin" %>
-<%@ page import="org.grails.screencasts.Screencast"%>
+<%@ page import="org.grails.content.Content"%>
 <%@ page import="org.springframework.util.ClassUtils" %>
 <html>
 <head>
@@ -56,13 +57,15 @@
                                 <g:link controller="plugin" action="show" params="${[name:result.name]}">Plugin > ${className}</g:link>
                                 <g:set var="desc" value="${result.summary ?: 'No description'}"/>
                             </g:if>
-                            <g:elseif test="${result instanceof Screencast}">
-                                <g:link controller="screencast" action="show" id="${result.id}">Screencast > ${className}</g:link>
-                                <g:set var="desc" value="${result.description ?: 'No description'}"/>
-                            </g:elseif>
-                            <g:else>
+                            <g:elseif test="${result instanceof Content}">
                                 <g:link controller="content" id="${result.title}">Wiki page > ${className}</g:link>
                                 <g:set var="desc" value="${result.body}"/>
+                            </g:elseif>
+                            <g:else>
+                                <g:set var="itemName" value="${GrailsNameUtils.getShortName(result.class.name)}"/>
+                                <g:link controller="${GrailsNameUtils.getPropertyName(itemName)}"
+                                        action="show" id="${result.id}">${itemName} > ${className}</g:link>
+                                <g:set var="desc" value="${result.description ?: 'No description'}"/>
                             </g:else>
                         </div>
 
