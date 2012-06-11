@@ -80,7 +80,7 @@
                         Page:
                         <g:set var="totalPages" value="${Math.ceil(searchResult.total / searchResult.max)}"/>
                         <g:if test="${totalPages == 1}"><span class="currentStep">1</span></g:if>
-                        <g:else><g:paginate controller="searchable" action="index" params="[q: params.q]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>
+                        <g:else><g:paginate controller="content" action="search" params="[q: params.q]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>
                     </g:if>
                 </div>
             </div>
