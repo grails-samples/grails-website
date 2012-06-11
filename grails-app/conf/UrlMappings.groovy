@@ -1,4 +1,4 @@
-import grails.util.Environment;
+import grails.util.Environment
 
 class UrlMappings {
     static mappings = {
