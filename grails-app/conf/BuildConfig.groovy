@@ -45,7 +45,7 @@ grails.project.dependency.resolution = {
                 ":mail:1.0",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":resources:1.1.6",
+                ":resources:1.2-RC1",
                 ":screencasts:0.5.6",
                 ":searchable:0.6.3",
                 ":shiro:1.2.0-SNAPSHOT",
