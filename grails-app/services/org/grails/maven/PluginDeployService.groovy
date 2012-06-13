@@ -22,7 +22,7 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
     @Transactional
     void onApplicationEvent(PluginPublishEvent event) {
         PendingRelease pendingRelease = event.source
-        log.debug "Recieved plugin publish event for pending release [$event.source]"        
+        log.debug "Received plugin publish event for pending release [$event.source]"        
         deployRelease(pendingRelease)
     }
     
@@ -56,7 +56,7 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
                 body pendingRelease[type]
             }
 
-            log.debug "Recieved artifactory response: ${resp?.text}"
+            log.debug "Received artifactory response: ${resp?.text}"
 
             uri = "$baseUrl/$p/$v/$p-${v}${ext}.md5"
 
@@ -66,7 +66,7 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
                 body DigestUtils.md5Hex(pendingRelease[type])
             }
 
-            log.debug "Recieved artifactory response: ${resp?.text}"
+            log.debug "Received artifactory response: ${resp?.text}"
             uri = "$baseUrl/$p/$v/$p-${v}${ext}.sha1"
 
             log.debug "Uploading SHA1 checksum $uri"
@@ -75,6 +75,6 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
                 body DigestUtils.shaHex(pendingRelease[type])
             }
 
-            log.debug "Recieved artifactory response: ${resp?.text}"
+            log.debug "Received artifactory response: ${resp?.text}"
     }
 }

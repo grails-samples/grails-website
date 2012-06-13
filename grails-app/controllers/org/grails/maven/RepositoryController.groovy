@@ -94,6 +94,8 @@ class RepositoryController {
      */
     def artifact(String fullName, String plugin, String pluginVersion, String type) {       
         if(plugin && pluginVersion && type) {
+            type = getCorrectType(fullName, type)
+
             String key = "artifact:$plugin:$pluginVersion:$type".toString()
             def url = cacheService?.getContent(key)
             if(url == null) {
@@ -232,6 +234,23 @@ class RepositoryController {
         }
 
         return writer.toString()
+    }
+
+    /**
+     * When the requested file is a checksum (.sha1 or .md5), the <em>actual</em>
+     * type is encoded in the "full name" part of the file. This method extracts
+     * the real type and appends the checksum part. For example,
+     * <tt>grails-shiro-1.0.0.zip.sha1</tt> has a type of 'sha1' and the '.zip'
+     * is included in the <tt>fullName</tt> parameter. In this case, the method
+     * will return 'zip.sha1'. For non-checksum files, the type is returned as
+     * is, e.g. if <tt>type</tt> is 'zip' the method returns 'zip'.
+     */
+    protected getCorrectType(String fullName, String type) {
+        if (type != 'md5' && type != 'sha1') return type
+
+        def pos = fullName.lastIndexOf('.')
+        if (pos != -1) return fullName.substring(pos + 1) + '.' + type
+        else return type
     }
 }
 class PublishPluginCommand {
