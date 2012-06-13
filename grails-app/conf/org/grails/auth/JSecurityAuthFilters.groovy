@@ -38,6 +38,9 @@ class JSecurityAuthFilters {
                     action: 'login',
                     params:[targetUri: targetUri])
         }
+
+        // Don't execute the default behaviour.
+        return false
     }    
 
     /**
@@ -47,6 +50,8 @@ class JSecurityAuthFilters {
     def onUnauthorized(subject, d) {
         if (d.request.xhr) {
             d.render "You do not have permission to access this page."
+        } else if (d.response.format == 'text') {
+            d.render status: 403, text: "Permission denied"
         } else {
             // Redirect to the 'unauthorized' page.
             d.redirect controller: 'user', action: 'unauthorized'
