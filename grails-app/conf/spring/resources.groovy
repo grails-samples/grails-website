@@ -38,7 +38,7 @@ beans = {
     }
     pluginListCache(EhCacheFactoryBean) {
         timeToLive = 600
-        maxElementsInMemory = 100        
+        maxElementsInMemory = 10
         overflowToDisk=false        
     }
     wikiContext(BaseInitialRenderContext)

@@ -1,4 +1,4 @@
-import grails.util.Environment;
+import grails.util.Environment
 
 class UrlMappings {
     static mappings = {
@@ -13,22 +13,34 @@ class UrlMappings {
 
         def populateVersion = {
             pluginVersion = {
-                try {
-                    def fn = params.fullName
-                    if(fn.contains('-')) {
-                        if(fn.startsWith("grails-")) {
-                            fn = fn[7..-1]
-                            params.fullName = fn
-                        }
-                        return fn[params.plugin.size()+1..-1]                         
-                    }
-                    else {
-                        return params.version?.replace('_','.')
-                    }
+                def version = params.version
+                if (version) {
+                    // In the case of the RELEASE_* tag, we can just use
+                    // the version number it provides.
+                    return params.version?.replace('_','.')
                 }
-                catch(e) {
-                    params.version?.replace('_','.')
-                }                
+                else {
+                    // For LATEST_RELEASE tags, we have to work out the
+                    // version from the filename.
+                    def fn = params.fullName
+                    def pluginName = params.plugin
+                    if (!fn.startsWith(pluginName) && fn.startsWith("grails-")) {
+                        // This is the plugin package (zip) or its associated
+                        // checksums, because the packages have a 'grails-'
+                        // prefix in their names.
+                        fn = fn[7..-1]
+                        params.fullName = fn
+                    }
+
+                    // The full name may be no more than the plugin name, i.e.
+                    // without the version. Only an invalid URL would be like this
+                    // so just return null and let the URL matching return a 404.
+                    // Otherwise extract the version number from the filename. Note
+                    // that this may include a '-plugin' suffix in the case of the
+                    // XML plugin descriptor, but that's fine as the action handles
+                    // that.
+                    return fn == pluginName ? null : fn.substring(pluginName.size() + 1)
+                }
             }
         }
 

@@ -1,6 +1,6 @@
 package org.grails.maven
 
-import grails.plugin.springcache.annotations.Cacheable
+import groovy.xml.MarkupBuilder
 import org.grails.plugin.*
 
 import org.springframework.context.ApplicationEvent
@@ -78,8 +78,8 @@ class RepositoryController {
     }
 
 
-    def pluginMeta() {
-        render g.link(controller:"repository", action:"list", absolute:true, "plugins-list.xml")
+    def pluginMeta() {	
+        render '<a href="http://plugins.grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a>'
     }
 
     /**
@@ -94,6 +94,8 @@ class RepositoryController {
      */
     def artifact(String fullName, String plugin, String pluginVersion, String type) {       
         if(plugin && pluginVersion && type) {
+            type = getCorrectType(fullName, type)
+
             String key = "artifact:$plugin:$pluginVersion:$type".toString()
             def url = cacheService?.getContent(key)
             if(url == null) {
@@ -128,7 +130,7 @@ class RepositoryController {
                         }
                     }
                     catch(e) {                        
-                        log.warn "Failed to parse maven metadata for $plugin: $e.message", e
+                        log.debug "Failed to parse maven metadata for $plugin: $e.message"
                     }
                     
                 }
@@ -183,53 +185,76 @@ class RepositoryController {
     /**
      * Renders the plugin list as XML in a format compatible with all versions of Grails
      */
-    @Cacheable("pluginMetaList")
     def list() {
-        def total = Plugin.count()
-        int offset = 0
-        
+        def content = cacheService.getPluginList()
+        if (!content) {
+            content = generatePluginListXml()
+            cacheService.putPluginList(content)
+        }
+
         // get the most recent plugin release and use it as the last modified date
         def pr = PluginRelease.list(max:1, sort:'releaseDate', order:'desc')
         if(pr) {
             lastModified pr.releaseDate[0].toDate()
         }
-        render(contentType:"text/xml") {
-            plugins {
 
-                Plugin.withSession { session ->
+        render text: content, contentType: "text/xml"
+    }
+
+    private String generatePluginListXml() {
+        final total = Plugin.count()
+        int offset = 0
+        def writer = new StringWriter(1600000)
+        new MarkupBuilder(writer).plugins {
+
+            Plugin.withSession { session ->
+                
+                while(total > offset) {
+                    def allPlugins = Plugin.list(fetch:[releases:'select'], offset:offset, max:10)                    
+                    if(!allPlugins) break
                     
-                    while(total > offset) {
-                        def allPlugins = Plugin.list(
-                                fetch:[releases:'select'],
-                                offset:offset,
-                                max:10)
-                        if(!allPlugins) break
-                        
-                        for(p in allPlugins) {
-                            def latest = p.releases.max { it.releaseDate }
-                            plugin(name:p.name, 'latest-release':latest?.releaseVersion) {
-                                p.releases?.each { r ->
-                                    release(version:r.releaseVersion) {
-                                        title p.title
-                                        author p.author
-                                        authorEmail p.authorEmail
-                                        description p.summary
-                                        file r.downloadUrl
-                                    }
+                    for(p in allPlugins) {
+                        def latest = p.releases.max { it.releaseDate }
+                        plugin(name:p.name, 'latest-release':latest?.releaseVersion) {
+                            p.releases?.each { r ->
+                                release(version:r.releaseVersion) {
+                                    title p.title
+                                    author p.author
+                                    authorEmail p.authorEmail
+                                    description p.summary
+                                    file r.downloadUrl
                                 }
-
                             }
-                        }
-                        offset += 10
-                        session.clear()                        
-                    }
-                    
 
+                        }
+                    }
+                    offset += 10
+                    session.clear()                        
                 }
                 
+
             }
+                
         }
-        
+
+        return writer.toString()
+    }
+
+    /**
+     * When the requested file is a checksum (.sha1 or .md5), the <em>actual</em>
+     * type is encoded in the "full name" part of the file. This method extracts
+     * the real type and appends the checksum part. For example,
+     * <tt>grails-shiro-1.0.0.zip.sha1</tt> has a type of 'sha1' and the '.zip'
+     * is included in the <tt>fullName</tt> parameter. In this case, the method
+     * will return 'zip.sha1'. For non-checksum files, the type is returned as
+     * is, e.g. if <tt>type</tt> is 'zip' the method returns 'zip'.
+     */
+    protected getCorrectType(String fullName, String type) {
+        if (type != 'md5' && type != 'sha1') return type
+
+        def pos = fullName.lastIndexOf('.')
+        if (pos != -1) return fullName.substring(pos + 1) + '.' + type
+        else return type
     }
 }
 class PublishPluginCommand {
@@ -240,11 +265,10 @@ class PublishPluginCommand {
     byte[] xml
 
     static constraints = {
+        importFrom PendingRelease
+
         plugin blank:false
         version blank:false
-        zip nullable:false, size:0..10000000
-        pom nullable:false, size:0..500000
-        xml nullable:false, size:0..500000
     }
 
 }

@@ -28,7 +28,7 @@ grails.mime.use.accept.header = true
 grails.mime.file.extensions = false // enables the parsing of file extensions from URLs into the request format
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       xml: ['text/xml', 'application/xml'],
-                      text: 'text-plain',
+                      text: 'text/plain',
                       js: 'text/javascript',
                       rss: 'application/rss+xml',
                       atom: 'application/atom+xml',
@@ -132,11 +132,38 @@ myAuth.applicationName = grails.org
 """
 
 oauth {
-    provider = org.scribe.builder.api.TwitterApi
-    successUri = '/oauth/success?provider=twitter'
-    failureUri = '/unauthorized'
-    secret = 'hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY'
-    key = 'E1U4T7KgPdaGFagdpbdQ'
+    providers {
+        twitter {
+            api = org.scribe.builder.api.TwitterApi
+            successUri = '/oauth/success?provider=twitter'
+            failureUri = '/unauthorized'
+            key = 'twitter-key'
+            secret = 'twitter-secret'
+            callback = "http://localhost:8080/oauth/twitter/callback"
+        }
+        facebook {
+            api = org.scribe.builder.api.FacebookApi
+            successUri = '/oauth/success?provider=facebook'
+            failureUri = '/unauthorized'
+            key = 'google-key'
+            secret = 'google-secret'
+            callback = "http://localhost:8080/oauth/google/callback"
+        }
+        google {
+            api = org.scribe.builder.api.GoogleApi
+            successUri = '/oauth/success?provider=google'
+            failureUri = '/unauthorized'
+            scope = 'https://www.googleapis.com/auth/userinfo.email'
+            key = 'google-key'
+            secret = 'google-secret'
+            callback = "http://localhost:8080/oauth/google/callback"
+        }
+//        github {
+//            api = org.scribe.builder.api.GitHubApi
+//            successUri = '/oauth/success?provider=facebook'
+//            failureUri = '/unauthorized'
+//        }
+    }
 }
 
 security {
@@ -148,7 +175,7 @@ security {
 }
 
 springcache {
-    disabled = true
+    disabled = false
     defaults {
         // set default cache properties that will apply to all caches that do not override them
         eternal = false
@@ -200,11 +227,9 @@ grails.gorm.default.mapping = {
 
 
 // Enable these in a site-config.groovy file.
-/*
 grails.plugin.databasemigration.changelogLocation = "migrations"
-grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.updateOnStart = false
 grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
-*/
 
 // log4j configuration
 log4j = {

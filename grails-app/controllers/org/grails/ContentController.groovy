@@ -16,11 +16,13 @@ import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
-import org.grails.wiki.BaseWikiController
-import org.grails.wiki.WikiPage
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController
 import org.grails.plugin.PluginTab
+import org.grails.tutorials.Tutorial
+import org.grails.websites.WebSite
+import org.grails.wiki.BaseWikiController
+import org.grails.wiki.WikiPage
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.multipart.MultipartFile
 
@@ -81,7 +83,11 @@ class ContentController extends BaseWikiController {
         if (params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
             try {
-                def searchResult = searchableService.search(q, classes: [WikiPage, Plugin], offset: params.offset, escape: false)
+                def searchResult = searchableService.search(
+                        q,
+                        classes: [WikiPage, Plugin, WebSite, Tutorial],
+                        offset: params.offset,
+                        escape:false)
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
                 render view: "/searchable/index", model: [searchResult: searchResult]

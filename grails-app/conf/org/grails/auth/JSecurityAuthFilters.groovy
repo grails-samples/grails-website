@@ -9,6 +9,7 @@ import org.apache.shiro.SecurityUtils
 * Created: Feb 26, 2008
 */
 class JSecurityAuthFilters {
+    def userService
     
     /**
      * Called when an unauthenticated user tries to access a secured
@@ -37,6 +38,9 @@ class JSecurityAuthFilters {
                     action: 'login',
                     params:[targetUri: targetUri])
         }
+
+        // Don't execute the default behaviour.
+        return false
     }    
 
     /**
@@ -46,6 +50,8 @@ class JSecurityAuthFilters {
     def onUnauthorized(subject, d) {
         if (d.request.xhr) {
             d.render "You do not have permission to access this page."
+        } else if (d.response.format == 'text') {
+            d.render status: 403, text: "Permission denied"
         } else {
             // Redirect to the 'unauthorized' page.
             d.redirect controller: 'user', action: 'unauthorized'
@@ -165,8 +171,8 @@ class JSecurityAuthFilters {
                 if (controllerName == "error") return true
 
                 def subject = SecurityUtils.getSubject()
-                if(subject?.principal) {
-                    request.user = User.get(subject.principal)
+                if (subject?.principal) {
+                    request.user = userService.getUserFromPrincipal(subject.principal)
                 }
             }
         }

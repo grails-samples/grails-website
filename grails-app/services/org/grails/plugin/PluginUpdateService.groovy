@@ -17,6 +17,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
     private static final DEFAULT_REPOSITORIES = [
             "http://plugins.grails.org",
+            "http://grails.org/plugins",
             "http://repo.grails.org/grails/plugins/",
             "http://repo.grails.org/grails/core/",
             "http://svn.codehaus.org/grails/trunk/grails-plugins",
@@ -24,6 +25,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
     protected int twitterLimit = 140
 
+    def cacheService
     def shortenService
     def twitterService
     def mailService
@@ -39,7 +41,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
      * <p>Note: The @Transactional annotation is used due to a bug in the Spring
      * Events plugin - http://jira.grails.org/browse/GPSPRINGEVENTS-2 </p>
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception)
     void onApplicationEvent(PluginUpdateEvent event) {
         log.info "Updating information for plugin ${event.name}, version ${event.version}${event.snapshot ? ' (snapshot)' : ''}"
 
@@ -151,6 +153,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
                 pr = new PluginRelease(plugin:plugin,releaseVersion:plugin.currentRelease, downloadUrl: plugin.downloadUrl) 
                 pr.save()
             }
+            cacheService.removePluginList()
             announceRelease(plugin)
         }
         else log.info "Not a new plugin release - won't tweet"
