@@ -1,5 +1,7 @@
+<g:if test="${!onlyLink}">
 <aside id="getStarted">
     <h3><img src="${resource(dir: 'img/aside', file: 'getStarted.png')}" alt="" title=""/>Get Started</h3>
+</g:if>
     <ul>
         <li<g:if test="${actionName == 'gettingStarted'}"> class="active"</g:if>>
             <a href="/start">Start with Grails!</a></li>
@@ -14,4 +16,6 @@
         <li class="last<g:if test="${controllerName == 'screencast'}"> active</g:if>"><a
                 href="/screencasts">Screencasts</a></li>
     </ul>
+<g:if test="${!onlyLink}">
 </aside>
+</g:if>

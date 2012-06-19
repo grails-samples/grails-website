@@ -11,7 +11,7 @@
     <feed:meta kind="atom" version="1.0" controller="blog" action="feed" params="[format: 'atom']"/>
 
     <script>
-        var _state = 0, _banners, _containerBanner, _time = 5;
+        var _state = 0, _banners, _containerBanner, _time = 10;
 
         function tick() {
             if (_state == (_banners.length - 1))
@@ -39,6 +39,7 @@
 <body>
 
 <div id="banner">
+    <div class="springone banner"></div>
     <div class="fullStackFramework banner">
         <div class="left">
             <h2>Grails Framework, Full stack</h2>
@@ -68,14 +69,6 @@
                 <p class="hide">Get instant feedback, see instant results. Grails is the premier dynamic language web framework for the JVM. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </li>
         </ul>
-    </div>
-
-    <div class="learnGrails banner">
-        Oh Yeah !
-    </div>
-
-    <div class="downloadGrails banner">
-        Smurf
     </div>
 </div>
 

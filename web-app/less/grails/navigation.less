@@ -2,14 +2,14 @@
 #navigation {
 	background: url(../img/page/nav.png) no-repeat 0 0;
 	margin-bottom: 15px;
-	ul {
+	>ul {
 		#font > #family > .magra();
 		.clearfix();
 		list-style: 0 none;
 		padding: 0;
 		margin: 0;
 		list-style-type: none;
-		li {
+		>li {
 			float: left;
 			background: url(../img/page/separatorNav.png) no-repeat right center;
 			padding: 6px 8px 6px 6px;
@@ -39,7 +39,7 @@
 				}
 			}
 			&.active {
-				a {
+				>a {
 					background: @grailsGreen;
 					#gradient >.vertical(@grailsGreen, @grailsGreenHover);
 					.box-shadow(inset 0 1px 0 0 #5ba006);
@@ -50,6 +50,72 @@
 			&.last {
 				background: 0 none;
 			}
+            &.open {
+                .dropdown-toggle {
+                   background: @grailsGreen;
+                   #gradient >.vertical(@grailsGreen, @grailsGreenHover);
+                   .box-shadow(inset 0 1px 0 0 #5ba006);
+                   color: @white;
+                   #textshadow > .blackSepcial();
+                }
+            }
+
+            &.dropdown {
+                a.dropdown-toggle {
+                    padding-right: 30px;
+                    border: 0 none;
+                    position: relative;
+                    span.caret {
+                        border-top-color: white;
+                        .opacity(100);
+                        top: 5px;
+                        right: 13px;
+                        position: absolute;
+                    }
+                }
+                #list>.round();
+                div.dropdown-menu {
+                    top: 39px;
+                    padding: 10px 20px;
+                    border: 0 none;
+                    .border-radius(0);
+                    ul {
+                        >li {
+                            color: #CCC;
+                        }
+                    }
+                }
+            }
+
+            &.services-springSource {
+                div.dropdown-menu {
+                    min-width: 250px;
+                    padding-bottom: 20px;
+                }
+                h3 {
+                    margin: 10px 0 20px 0;
+                }
+            }
+
+            &.learn {
+                h3 {
+                    line-height: 25px;
+                }
+                div.dropdown-menu {
+                    width: 320px;
+                    max-width: 320px;
+                    padding: 20px;
+                    .col1, .col2 {
+                        float: left;
+                        width: 150px;
+                        padding-bottom: 5px;
+                    }
+                    .col1 {
+                        margin-right: 19px;
+                        border-right: 1px solid #e9e9e7;
+                    }
+                }
+            }
 		}
 	}
 }

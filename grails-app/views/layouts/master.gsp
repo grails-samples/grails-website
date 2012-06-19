@@ -56,19 +56,7 @@
         </div>
     </header>
 
-    <nav id="navigation" role="navigation">
-        <ul>
-            <li <g:if test="${controllerName == 'content' && actionName == 'homePage'}">class="active"</g:if>><a
-                    href="/">Homepage</a></li>
-            <li><a href="http://www.springsource.com">Products, Services &amp; Training</a></li>
-            <li <g:if test="${controllerName == 'learn'}">class="active"</g:if>><a href="/start">Learn</a></li>
-            <li <g:if test="${controllerName == 'community'}">class="active"</g:if>><a href="/community">Community</a>
-            </li>
-            <li <g:if test="${controllerName == 'download'}">class="active"</g:if>><a href="/download">Downloads</a>
-            </li>
-            <li class="last<g:if test="${controllerName == 'plugin'}"> active</g:if>"><a href="/plugins">Plugins</a></li>
-        </ul>
-    </nav>
+    <g:render template="/layouts/navigation" />
 
     <g:layoutBody/>
 

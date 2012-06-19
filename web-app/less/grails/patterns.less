@@ -7,7 +7,7 @@
 	}
 	.blackSepcial(@alpha:0.4) {
 		text-shadow: 0 -1px 0 rgba(0,0,0,@alpha);
-	}	
+	}
 }
 
 #font {
@@ -34,4 +34,42 @@
 			background: darken(@grailsBlueLighter, 5%);
 		}
 	}
+}
+
+
+#list {
+    .round {
+        li {
+            padding: 0;
+            margin: 0;
+            line-height: 20px;
+            border: 0 none;
+            float: none;
+            height: auto;
+            @shadow: inset 0 0 0 black;
+            .box-shadow(@shadow);
+            a {
+                padding: 0;
+                margin: 0;
+                border: 0 none;
+                float: none;
+                height: auto;
+                line-height: 20px;
+                color: @grailsBlack;
+                border: 0 none;
+                text-shadow: 0 0 0 black;
+                cursor: pointer;
+                &:hover {
+                    background: 0 none;
+                    border: 0 none;
+                    .box-shadow(@shadow);
+                    color: @grailsGreen;
+                }
+            }
+            &.active a {
+                color: @grailsGreen;
+            }
+        }
+
+    }
 }
