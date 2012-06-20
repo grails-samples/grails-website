@@ -233,7 +233,7 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 log4j = {
     appenders {
           rollingFile name: "stacktrace", maxFileSize: 20000,
-                      file: "/var/tmp/logs/grails-stacktrace.log"
+                      file: "/opt/s2/tcs/grails.org/logs/grails-stacktrace.log"
     }
     
     off     'grails.app.service.org.grails.plugin.resource'
