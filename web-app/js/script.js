@@ -16,7 +16,6 @@ jQuery(function(){
 			_quickSearchMaster.removeClass('active');
 		}
 	});
-
 	_quickSearchSubmit.click(function(e){
 		e.stopImmediatePropagation();
 		_quickSearchInput.focus();

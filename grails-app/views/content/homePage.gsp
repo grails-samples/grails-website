@@ -73,9 +73,23 @@
 </div>
 
 <section class="section-1">
+    <h2><strong>Grails ? What is it ?</strong> <small>FullStack framework</small></h2>
+    <p><strong>Grails is an open source web application framework</strong> which uses the <a href="http://groovy.codehaus.org/">Groovy</a> programming language (which is in turn based on the Java platform). It is intended to be a high-productivity framework by following the "coding by convention" paradigm, providing a stand-alone development environment and hiding much of the configuration detail from the developer.</p>
     <div class="left">
-        <h2><strong>Grails ? What is it ?</strong> <small>FullStack framework</small></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
+        <h3>Latest News</h3>
+        <article class="news">
+            <h3><a href="#"><time datetime="2012-06-04">juin 04, 2012</time> Support Crowd-Funded Open-Source Grails Note Taking App Akanoo</a></h3>
+            <p>Akanoo will be a Grails-driven, visually appealing, easy-to-use open-source note taking app for web and mobile. It allows you to create, arrange... <a href="#">Read more</a></p>
+        </article>
+        <article class="news">
+            <h3><a href="#"><time datetime="2012-04-08">mai 28, 2012</time> Multiple versions of Grails released: 2.0.4, 1.3.9 & 2.1.RC2</a></h3>
+            <p>We're pleased to announce the release of several different versions of Grails: 2.0.4 - Patch release for 2.0.x, 1.3.9 - Patch release for 1.3.x fixing a ... <a href="#">Read more</a></p>
+        </article>
+        <article class="news">
+            <h3><a href="#"><time datetime="2012-04-08">mai 28, 2012</time> Transaction logic engine for Grails 2.0.3</a></h3>
+            <p>Grails provides great declarative UI and persistence. But that still leaves all the business logic portion of your apps to be written (and tested and maintained) by hand ... <a href="#">Read more</a></p>
+        </article>
+        <a href="#">Read more news</a>
     </div>
     <div class="right">
         <div class="twitter">
