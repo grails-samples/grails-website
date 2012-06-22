@@ -57,7 +57,7 @@ class PluginTabController {
         def version
         if (page) {
             try {
-                version = Version.findByCurrentAndNumber(page, params.number.toLong())
+                version = Version.findByCurrentAndNumber(page, params.number?.toLong())
             }
             catch (NumberFormatException ex) {
                 log.error "Not a valid version number: ${params.number}"

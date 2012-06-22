@@ -133,7 +133,9 @@ class UrlMappings {
         "/create/$id"(controller: "content", action: "createWikiPage")
         "/info/$id"(controller: "content", action: "infoWikiPage")
         "/markup/$id"(controller: "content", action: "markupWikiPage")
-        "/version/$id/$number"(controller: "content", action: "showWikiVersion")
+        "/version/$id/$number"(controller: "content", action: "showWikiVersion") {
+            constraints { number matches: /\d+/ }
+        }
         "/rollback/$id/$number"(controller: "content", action: "rollbackWikiVersion")
         "/diff/$id/$number/$diff"(controller: "content", action: "diffWikiVersion")
         "/previous/$id/$number"(controller: "content", action: "previousWikiVersion")
@@ -144,10 +146,14 @@ class UrlMappings {
         "/screencast/save"(controller:"screencast", action:"save")
         "/screencast/search"(controller:"screencast", action:"search")
         "/screencast/update"(controller:"screencast", action:"update")
-        "/screencast/edit/$id"(controller:"screencast", action:"edit")
+        "/screencast/edit/$id"(controller:"screencast", action:"edit") {
+            constraints { id matches: /\d+/ }
+        }
         "/screencast/feed"(controller:"screencast", action:"feed")
         "/screencast/add"(controller:"screencast", action:"create")
-        "/screencast/show/$id"(controller:"screencast", action:"show")
+        "/screencast/show/$id"(controller:"screencast", action:"show") {
+            constraints { id matches: /\d+/ }
+        }
         "/comment/add"(controller:"commentable", action:"add")
 
         "/websites"(controller: "webSite", action: "list")
