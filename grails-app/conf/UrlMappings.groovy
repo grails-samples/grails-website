@@ -39,7 +39,7 @@ class UrlMappings {
                     // that this may include a '-plugin' suffix in the case of the
                     // XML plugin descriptor, but that's fine as the action handles
                     // that.
-                    return fn == pluginName ? null : fn.substring(pluginName.size() + 1)
+                    return isPluginNameWithVersion(fn) ? fn.substring(getVersionPrefix(pluginName).size()) : null
                 }
             }
         }
@@ -208,4 +208,15 @@ class UrlMappings {
             "500"(controller: "error", action: "devError")
         }
     }
+
+    private boolean isPluginNameWithVersion(fullName, pluginName) {
+        if (fullName == pluginName) return false
+        else {
+            def bitBeforeVersion = getVersionPrefix(pluginName)
+            if (fullName.startsWith(bitBeforeVersion) && fullName.size() > bitBeforeVersion.size()) return true
+            else return false
+        }
+    }
+
+    private String getVersionPrefix(pluginName) { return pluginName + '-' }
 }
