@@ -1,5 +1,7 @@
 package org.grails.downloads
 
+import org.grails.downloads.DownloadFile.FileType
+
 class DownloadService {
 
     def markAsLatest(Download download) {
@@ -22,46 +24,42 @@ class DownloadService {
     def buildGroupedDownloads() {
 
         def groupedDownloads = [ beta: [:], stable: [:], latest: [:] ]
-        def downloadListInstance = Download.list()
-        downloadListInstance.eachWithIndex { value, idx ->
-            Download download = value
-            download.files.each { file ->
-
-                if (download.betaRelease) {
-                    if (!groupedDownloads['beta'][download.id.toString()]) {
-                        groupedDownloads['beta'][download.id.toString()] = [download: null, binary: [], documentation: []]
-                    }
-                    groupedDownloads['beta'][download.id.toString()]['download'] = download
-                    if (file.fileType == DownloadFile.TYPE_BINARY) {
-                        groupedDownloads['beta'][download.id.toString()]['binary'].push(file)
-                    } else {
-                        groupedDownloads['beta'][download.id.toString()]['documentation'].push(file)
-                    }
-
-                } else if (download.latestRelease) {
-                    if (!groupedDownloads['latest'][download.id.toString()]) {
-                        groupedDownloads['latest'][download.id.toString()] = [download: null, binary: [], documentation: []]
-                    }
-                    groupedDownloads['latest'][download.id.toString()]['download'] = download
-                    if (file.fileType == DownloadFile.TYPE_BINARY) {
-                        groupedDownloads['latest'][download.id.toString()]['binary'].push(file)
-                    } else {
-                        groupedDownloads['latest'][download.id.toString()]['documentation'].push(file)
-                    }
-
-                } else {
-                    if (!groupedDownloads['stable'][download.id.toString()]) {
-                        groupedDownloads['stable'][download.id.toString()] = [download: null, binary: [], documentation: []]
-                    }
-                    groupedDownloads['stable'][download.id.toString()]['download'] = download
-                    if (file.fileType == DownloadFile.TYPE_BINARY) {
-                        groupedDownloads['stable'][download.id.toString()]['binary'].push(file)
-                    } else {
-                        groupedDownloads['stable'][download.id.toString()]['documentation'].push(file)
-                    }
-                }
-            }
+        for (download in Download.list()) {
+            def downloadId = download.id
+            def group = getAppropriateDownloadGroup(groupedDownloads, download)
+            addDownloadToGroup(group, download)
         }
+        println ">>> Grouped downloads: $groupedDownloads"
         return groupedDownloads
+    }
+
+    protected Map getAppropriateDownloadGroup(groups, download) {
+        if (download.betaRelease) return groups["beta"]
+        else if (download.latestRelease) return groups["latest"]
+        else return groups["stable"]
+    }
+
+    protected Map addDownloadToGroup(group, download) {
+        def downloadFilesMap = createInitialFilesMap()
+        for (file in download.files) {
+            if (!file) println ">> WTF?! ${download.files}"
+            downloadFilesMap["download"] = download
+            downloadFilesMap[getFileTypeGroupName(file.fileType)] << file
+        }
+
+        group[download.id] = downloadFilesMap
+        return group
+    }
+
+    protected Map createInitialFilesMap() {
+        return [download: null, binary: [], source: [], documentation: []]
+    }
+
+    protected String getFileTypeGroupName(FileType type) {
+        switch (type) {
+        case FileType.BINARY: return "binary"
+        case FileType.SOURCE: return "source"
+        case FileType.DOCUMENTATION: return "documentation"
+        }
     }
 }

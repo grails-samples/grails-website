@@ -9,7 +9,9 @@
             <g:each in="${stableDownloads}" var="downloadMap">
                 <li><a class="release_option"
                    data-binary-url="${downloadMap['binary'].mirrors[0][0].urlString}"
+                   <g:if test="${downloadMap['documentation']?.mirrors[0]}">
                    data-documentation-url="${downloadMap['documentation'].mirrors[0][0].urlString}"
+                   </g:if>
                    data-release-notes="TO COME SOON"
                 >Release: ${downloadMap['download'].softwareVersion}
                     (<g:formatDate format="MM/dd/yyyy" date="${downloadMap['download'].releaseDate.toDate()}"/>)</a>
@@ -20,7 +22,9 @@
                 <g:each in="${betaDownloads}" var="downloadMap">
                     <li><a class="release_option"
                        data-binary-url="${downloadMap['binary'].mirrors[0][0].urlString}"
+                       <g:if test="${downloadMap['documentation']?.mirrors}">
                        data-documentation-url="${downloadMap['documentation'].mirrors[0][0].urlString}"
+                       </g:if>
                        data-release-notes="TO COME SOON"
                     >Beta Release: ${downloadMap['download'].softwareVersion}
                     (<g:formatDate format="MM/dd/yyyy" date="${downloadMap['download'].releaseDate.toDate()}"/>)</a></li>
