@@ -7,7 +7,7 @@
 <body>
 
 <div class="socialConnect">
-    %{--<a href="#" class="facebook">Facebook connect</a>--}%
+    <oauth:connect provider="facebook" class="facebook">Facebook connect</oauth:connect>
     <oauth:connect provider="twitter" class="twitter">Twitter connect</oauth:connect>
 </div>
 <div id="content" class="content-form-small" role="main">
