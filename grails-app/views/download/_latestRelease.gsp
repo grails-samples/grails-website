@@ -1,11 +1,12 @@
-<g:set var="download" value="${latestDownload ? latestDownload['download'][0] : null}"/>
+<%-- Don't use a variable name that matches a tag namespace! --%>
+<g:set var="downloadDesc" value="${latestDownload ? latestDownload['download'][0] : null}"/>
 <g:set var="binaries" value="${latestDownload ? latestDownload['binary'] : null}"/>
 <g:set var="documentation" value="${latestDownload ? latestDownload['documentation'][0] : null}"/>
 
 <section class="downloads">
 
     <h2>Download latest release
-        <small>(<g:formatDate format="MM/dd/yyyy" date="${download.releaseDate.toDate()}"/>)</small>
+        <small>(<g:formatDate format="MM/dd/yyyy" date="${downloadDesc.releaseDate.toDate()}"/>)</small>
     </h2>
 
     <p>Download Grails now and follow the easy installation instructions to get writing amazing web applications in minutes.</p>
@@ -16,7 +17,7 @@
 
     <div class="buttons">
         <div class="btn-group">
-            <a href="${binaries[0].mirrors[0][0].urlString}" class="btn primary">Download Grails ${download.softwareVersion}</a>
+            <a href="${binaries[0].mirrors[0][0].urlString}" class="btn primary">Download Grails ${downloadDesc.softwareVersion}</a>
             <a href="#" class="btn primary dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
             </a>
