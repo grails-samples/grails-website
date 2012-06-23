@@ -4,6 +4,12 @@ databaseChangeLog = {
         addColumn(tableName: "download") {
             column(name: "latest_release", type: "bit")
         }
+
+        // Make 2.0.4 the latest download on startup.
+        update(tableName: "download") {
+            column name: "latest_release", valueBoolean: "true"
+            where "software_name = 'Grails' and software_version = '2.0.4'"
+        }
     }
 
     changeSet(author: "eberry (generated)", id: "1334328604860-2") {
@@ -92,11 +98,18 @@ databaseChangeLog = {
             column(name: "status", type: "varchar(255)")
             column(name: "submitted_by_id", type: "bigint") { constraints(nullable: "false") }
         }
+
+        dropColumn(columnName: "thumbnail_location", tableName: "screencast")
+        createIndex(indexName: "FKE72625AB8FF3BE26", tableName: "screencast") {
+            column(name: "submitted_by_id")
+        }
+        dropIndex(indexName: "FK326C9CD3A67C8B4A", tableName: "screencast_mirror")
+        dropTable(tableName: "screencast_mirror")
     }
 
     changeSet(author: "pledbrook (generated)", id: "1340116940515-11") {
         addColumn(tableName: "tutorial") {
-            column(name: "last_updated", type: "datetime") { constraints(nullable: "false") }
+            column(name: "last_updated", type: "datetime", valueDate: "2012-06-22") { constraints(nullable: "false") }
             column(name: "status", type: "varchar(255)")
             column(name: "submitted_by_id", type: "bigint") { constraints(nullable: "false") }
         }
@@ -137,12 +150,6 @@ databaseChangeLog = {
         }
     }
 
-    changeSet(author: "pledbrook (generated)", id: "1340116940515-20") {
-        createIndex(indexName: "FKE72625AB8FF3BE26", tableName: "screencast") {
-            column(name: "submitted_by_id")
-        }
-    }
-
     changeSet(author: "pledbrook (generated)", id: "1340116940515-21") {
         createIndex(indexName: "FKB852B5E8FF3BE26", tableName: "tutorial") {
             column(name: "submitted_by_id")
@@ -155,20 +162,8 @@ databaseChangeLog = {
         }
     }
 
-    changeSet(author: "pledbrook (generated)", id: "1340116940515-49") {
-        dropIndex(indexName: "FK326C9CD3A67C8B4A", tableName: "screencast_mirror")
-    }
-
-    changeSet(author: "pledbrook (generated)", id: "1340116940515-50") {
-        dropColumn(columnName: "thumbnail_location", tableName: "screencast")
-    }
-
     changeSet(author: "pledbrook (generated)", id: "1340116940515-51") {
         dropColumn(columnName: "featured", tableName: "tutorial")
-    }
-
-    changeSet(author: "pledbrook (generated)", id: "1340116940515-52") {
-        dropTable(tableName: "screencast_mirror")
     }
 
 }
