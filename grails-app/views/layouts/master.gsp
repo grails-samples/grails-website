@@ -6,7 +6,6 @@
 <head>
     <meta charset="utf-8">
     <title>Grails - The search is over.</title>
-    <r:layoutResources/>
     <meta name="description" content="">
     <meta name="author" content="Grails community">
     <meta name="viewport" content="width=device-width">
