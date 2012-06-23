@@ -43,8 +43,8 @@ class Screencast implements Taggable {
     static transients = ['genericApprovalResponses', 'isNew']
 
     static searchable = {
-            only = ["title"]
-            tags component: true
+        only = ["title"]
+        tags component: true
     }
 
     static namedQueries = {

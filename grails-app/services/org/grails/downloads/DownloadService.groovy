@@ -29,7 +29,6 @@ class DownloadService {
             def group = getAppropriateDownloadGroup(groupedDownloads, download)
             addDownloadToGroup(group, download)
         }
-        println ">>> Grouped downloads: $groupedDownloads"
         return groupedDownloads
     }
 
@@ -42,7 +41,6 @@ class DownloadService {
     protected Map addDownloadToGroup(group, download) {
         def downloadFilesMap = createInitialFilesMap()
         for (file in download.files) {
-            if (!file) println ">> WTF?! ${download.files}"
             downloadFilesMap["download"] = download
             downloadFilesMap[getFileTypeGroupName(file.fileType)] << file
         }
