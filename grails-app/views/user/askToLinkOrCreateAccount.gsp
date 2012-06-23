@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Login Page</title>
-  <meta content="subpage" name="layout" />
+  <meta content="master" name="layout" />
   <style type="text/css">
 #content-container {
     height:700px;
