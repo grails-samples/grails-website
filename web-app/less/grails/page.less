@@ -60,12 +60,18 @@ h2 {
 	background: @white;
 	margin-bottom: 20px;
 	padding: 15px;
+    padding-left: 25px;
+
+    .left, .right {
+        padding-top: 10px;
+    }
 
 	.left {
 		float: left;
 		width: 610px;
 		padding: 10px;
 		padding-top: 0;
+        padding-left: 0;
 		padding-right: 20px;
 	}
 	.right {
@@ -1381,5 +1387,45 @@ a.like {
         overflow-y: hidden;
         overflow-x: auto;
         width: 100%;
+    }
+}
+
+article.news {
+    h3 {
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+        line-height: 20px;
+        a {
+            color: @grailsBlack;
+            margin-left: -8px;
+            #hoverState > .aHover();
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    time {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        color: @grailsGreen;
+        font-weight: normal;
+    }
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    border-bottom: 1px solid #EEE;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    &.last {
+        border-bottom: 0 none;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 }

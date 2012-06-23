@@ -41,7 +41,7 @@
                 <li class="current-user">${user?.email}</li>
             </shiro:isLoggedIn>
             <shiro:isNotLoggedIn>
-                <li><a href="/login">Login</a></li>
+                <li><a href="/login" class="login">Login</a></li>
                 <li class="spacing">&nbsp;</li>
                 <li><a href="/register">Create Account</a></li>
             </shiro:isNotLoggedIn>
