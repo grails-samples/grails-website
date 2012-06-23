@@ -12,15 +12,15 @@ import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
 import org.compass.core.engine.SearchEngineQueryParseException
 import org.grails.blog.BlogEntry
+import org.grails.community.WebSite
 import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
+import org.grails.learn.tutorials.Tutorial
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController
 import org.grails.plugin.PluginTab
-import org.grails.tutorials.Tutorial
-import org.grails.websites.WebSite
 import org.grails.wiki.BaseWikiController
 import org.grails.wiki.WikiPage
 import org.springframework.web.context.request.RequestContextHolder
