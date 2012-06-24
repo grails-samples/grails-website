@@ -54,7 +54,7 @@
                     </header>
 
                     <div class="desc">
-                        <p>${plugin.description.body} <g:link uri="/plugins/${plugin.name}/">Read more</g:link></p>
+                        <p>${plugin.summary} <g:link uri="/plugin/${plugin.name}">Read more</g:link></p>
                         <p class="dependency"><strong>Dependency :</strong><br/>
                             <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
                         </p>
