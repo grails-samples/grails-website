@@ -95,8 +95,8 @@ databaseChangeLog = {
             column(name: "popularity_disliked", type: "integer") { constraints(nullable: "false") }
             column(name: "popularity_liked", type: "integer") { constraints(nullable: "false") }
             column(name: "popularity_net_liked", type: "integer") { constraints(nullable: "false") }
-            column(name: "status", type: "varchar(255)")
-            column(name: "submitted_by_id", type: "bigint") { constraints(nullable: "false") }
+            column(name: "status", type: "varchar(255)", value: "APPROVED")
+            column(name: "submitted_by_id", type: "bigint", valueNumeric: "1") { constraints(nullable: "false") }
         }
 
         dropColumn(columnName: "thumbnail_location", tableName: "screencast")
@@ -110,16 +110,16 @@ databaseChangeLog = {
     changeSet(author: "pledbrook (generated)", id: "1340116940515-11") {
         addColumn(tableName: "tutorial") {
             column(name: "last_updated", type: "datetime", valueDate: "2012-06-22") { constraints(nullable: "false") }
-            column(name: "status", type: "varchar(255)")
-            column(name: "submitted_by_id", type: "bigint") { constraints(nullable: "false") }
+            column(name: "status", type: "varchar(255)", value: "APPROVED")
+            column(name: "submitted_by_id", type: "bigint", valueNumeric: "1") { constraints(nullable: "false") }
         }
     }
 
     changeSet(author: "pledbrook (generated)", id: "1340116940515-13") {
         addColumn(tableName: "web_site") {
             column(name: "short_description", type: "varchar(150)")
-            column(name: "status", type: "varchar(255)") { constraints(nullable: "false") }
-            column(name: "submitted_by_id", type: "bigint") {
+            column(name: "status", type: "varchar(255)", value: "APPROVED") { constraints(nullable: "false") }
+            column(name: "submitted_by_id", type: "bigint", valueNumeric: "1") {
                 constraints(nullable: "false")
             }
         }
