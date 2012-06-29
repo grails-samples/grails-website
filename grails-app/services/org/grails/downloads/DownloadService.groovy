@@ -15,16 +15,14 @@ class DownloadService {
     /**
      *   [
      *       'beta': [
-     *           '1' : {
-     *              download: null, binary: [], documentation: []
-     *           }
+     *           [download: (Download), binary: [(DownloadFile)*], documentation: [(DownloadFile)*] ]
      *       ]
      *   ]
      */
     def buildGroupedDownloads() {
 
-        def groupedDownloads = [ beta: [:], stable: [:], latest: [:] ]
-        for (download in Download.list()) {
+        def groupedDownloads = [ beta: [], stable: [], latest: [] ]
+        for (download in Download.list(fetch: [files: "join"])) {
             def downloadId = download.id
             def group = getAppropriateDownloadGroup(groupedDownloads, download)
             addDownloadToGroup(group, download)
@@ -32,7 +30,12 @@ class DownloadService {
         return groupedDownloads
     }
 
-    protected Map getAppropriateDownloadGroup(groups, download) {
+    def getLatestBinaryDownload() {
+        def download = getLatestDownload()
+        return [download, download.files.find { it.fileType == FileType.BINARY }]
+    }
+
+    protected List getAppropriateDownloadGroup(groups, download) {
         if (download.betaRelease) return groups["beta"]
         else if (download.latestRelease) return groups["latest"]
         else return groups["stable"]
@@ -45,12 +48,16 @@ class DownloadService {
             downloadFilesMap[getFileTypeGroupName(file.fileType)] << file
         }
 
-        group[download.id] = downloadFilesMap
-        return group
+        group << downloadFilesMap
+        return downloadFilesMap
     }
 
     protected Map createInitialFilesMap() {
         return [download: null, binary: [], source: [], documentation: []]
+    }
+
+    protected getLatestDownload() {
+        return Download.where { latestRelease == true }.get()
     }
 
     protected String getFileTypeGroupName(FileType type) {

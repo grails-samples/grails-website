@@ -67,9 +67,9 @@ class DownloadController {
 
 //        downloads = downloads.groupBy { key, value -> value[0].betaRelease ? 'beta' : 'stable' }
 
-        def latestDownload  = ((HashMap)groupedDownloads['latest']).values()
-        def stableDownloads = ((HashMap)groupedDownloads['stable']).values()
-        def betaDownloads   = ((HashMap)groupedDownloads['beta']).values()
+        def latestDownload  = groupedDownloads['latest'][0]
+        def stableDownloads = groupedDownloads['stable']
+        def betaDownloads   = groupedDownloads['beta']
 
         def pluginList = pluginService.listPopularPluginsWithTotal([max: 4])[0]
 

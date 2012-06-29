@@ -10,7 +10,6 @@ class DownloadFile implements Serializable{
 
     static belongsTo = [download: Download]
     static hasMany = [mirrors: Mirror]
-    static fetchMode = [mirrors: 'eager']
 
     static constraints = {
         mirrors minSize: 1
@@ -18,6 +17,7 @@ class DownloadFile implements Serializable{
 
     static mapping = {
         fileType enumType: "ordinal"
+        mirrors lazy: false
     }
 
     def getDisplayFileType() {

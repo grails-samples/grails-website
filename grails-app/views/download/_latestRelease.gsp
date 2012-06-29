@@ -1,6 +1,6 @@
 <%-- Don't use a variable name that matches a tag namespace! --%>
-<g:set var="downloadDesc" value="${latestDownload ? latestDownload['download'][0] : null}"/>
-<g:set var="binaries" value="${latestDownload ? latestDownload['binary'] : null}"/>
+<g:set var="downloadDesc" value="${latestDownload ? latestDownload['download'] : null}"/>
+<g:set var="binary" value="${latestDownload ? latestDownload['binary'][0] : null}"/>
 <g:set var="documentation" value="${latestDownload ? latestDownload['documentation'][0] : null}"/>
 
 <section class="downloads">
@@ -12,28 +12,13 @@
     <p>Download Grails now and follow the easy installation instructions to get writing amazing web applications in minutes.</p>
 
     <p class="url">
-        <input type="text" readonly="readonly" value="${binaries[0].mirrors[0][0].urlString}"/>
+        <input type="text" readonly="readonly" value="${binary.mirrors[0].urlString}"/>
     </p>
 
-    <div class="buttons">
-        <div class="btn-group">
-            <a href="${binaries[0].mirrors[0][0].urlString}" class="btn primary">Download Grails ${downloadDesc.softwareVersion}</a>
-            <a href="#" class="btn primary dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <g:each in="${binaries[0].mirrors[0]}" var="mirror" status="i">
-                    <g:if test="${i > 0}">
-                        <li class="divider"></li>
-                    </g:if>
-                    <li><g:link url="${mirror.urlString}">${mirror.name}</g:link></li>
-                </g:each>
-            </ul>
-        </div>
-    </div>
+    <g:render template="/download/downloadLatestButton" model="[downloadFile: binary, softwareVersion: downloadDesc.softwareVersion]"/>
 
     <p class="links">
-        <g:link url="${documentation.mirrors[0][0].urlString}" class="btn light">Documentation (zip)</g:link> |
+        <g:link url="${documentation.mirrors[0].urlString}" class="btn light">Documentation (zip)</g:link> |
         <g:link controller="learn" action="installation" class="btn light">Installation</g:link>
     </p>
 
