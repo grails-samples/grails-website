@@ -1,57 +1,50 @@
 <nav id="navigation" role="navigation">
     <ul>
         <li ${controllerName == 'content' && actionName == 'homePage' ? ' class="active"' : ''}>
-            <g:link uri="/">Homepage</g:link>
+            <g:link uri="/"><g:message code="layout.nav.home"/></g:link>
         </li>
         <li class="dropdown services-springSource">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                Products, Services &amp; Training
+                <g:message code="layout.nav.services"/>
                 <span class="caret"></span>
             </a>
             <div class="dropdown-menu">
                 <h3 class="springSource">SpringSource</h3>
                 <ul>
                     <li>
-                        <g:link url="http://www.springsource.com">Support & services</g:link>
+                        <g:link url="http://www.springsource.com"><g:message code="layout.nav.services.support"/></g:link>
                     </li>
                     <li>
-                        <g:link url="http://www.springsource.com">Groovy & Grails Consulting</g:link>
+                        <g:link url="http://www.springsource.com"><g:message code="layout.nav.services.consulting"/></g:link>
                     </li>
                     <li>
-                        <g:link url="http://www.springsource.com">Training</g:link>
+                        <g:link url="http://www.springsource.com"><g:message code="layout.nav.services.training"/></g:link>
                     </li>
                     <li>
-                        <g:link url="http://www.springsource.com">About SpringSource</g:link>
+                        <g:link url="http://www.springsource.com"><g:message code="layout.nav.services.about"/></g:link>
                     </li>
                 </ul>
             </div>
         </li>
         <li class="dropdown learn${controllerName == 'learn' ? ' active' : ''}">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                Learn
+                <g:message code="layout.nav.learn"/>
                 <span class="caret"></span>
             </a>
-            <div class="dropdown-menu">
-                <div class="col1">
-                    <h3>Get Started</h3>
-                    <g:render template="/shared/getStartedSideNav" model="[onlyLink: true]" />
-                </div>
-                <div class="col2">
-                    <h3>Reference</h3>
-
-                    <g:render template="/shared/referenceSideNav" model="[onlyLink: true]" />
-                </div>
-            </div>
+            <ul class="dropdown-menu">
+                <li><g:link uri="/learn"><g:message code="layout.nav.learn.getstarted"/></g:link></li>
+                <li><g:link uri="/Documentation"><g:message code="layout.nav.learn.documentation"/></g:link></li>
+            </ul>
 
         </li>
         <li${controllerName == 'community' ? ' class="active"' : ''}>
-            <g:link controller="community" action="index">Community</g:link>
+            <g:link controller="community" action="index"><g:message code="layout.nav.community"/></g:link>
         </li>
         <li${controllerName == 'download' ? ' class="active"' : ''}>
-            <g:link controller="download" action="latest">Downloads</g:link>
+            <g:link controller="download" action="latest"><g:message code="layout.nav.downloads"/></g:link>
         </li>
         <li${controllerName == 'plugin' ? ' class="active"' : ''}>
-            <g:link controller="plugin" action="list">Plugins</g:link>
+            <g:link controller="plugin" action="list"><g:message code="layout.nav.plugins"/></g:link>
         </li>
     </ul>
 </nav>

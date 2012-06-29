@@ -73,8 +73,8 @@
 </div>
 
 <section class="section-1">
-    <h2><strong>Grails ? What is it ?</strong> <small>FullStack framework</small></h2>
-    <p><strong>Grails is an open source web application framework</strong> which uses the <a href="http://groovy.codehaus.org/">Groovy</a> programming language (which is in turn based on the Java platform). It is intended to be a high-productivity framework by following the "coding by convention" paradigm, providing a stand-alone development environment and hiding much of the configuration detail from the developer.</p>
+    <h2><strong>What is Grails?</strong> <small>in short</small></h2>
+    <p><strong>Grails is an open source, full stack, web application framework for the JVM</strong>. It takes advantage of the <strong><a href="http://groovy.codehaus.org/">Groovy</a></strong> programming language and <strong>convention over configuration</strong> to provide a productive and stream-lined development experience. Powered by <strong><a href="http://springframework.org">Spring</a></strong>, Grails outperforms the competition. <g:link uri="/learn">Learn more</g:link></p>
     <div class="left">
         <h3>Latest News</h3>
         <article class="news">
