@@ -79,7 +79,7 @@ class RepositoryController {
 
 
     def pluginMeta() {	
-        render '<a href="http://plugins.grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a><a href="http://grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a>'
+        render '<a href="http://plugins.grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a><a href="http://grails.org/plugins/.plugin-meta/plugins-list.xml">plugins-list.xml</a>'
     }
 
     /**
