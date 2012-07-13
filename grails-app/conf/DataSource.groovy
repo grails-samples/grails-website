@@ -7,7 +7,7 @@
 //}
 
 hibernate {
-    cache.use_second_level_cache=true
+    cache.use_second_level_cache=false
     cache.use_query_cache=false
 //    cache.provider_class='net.sf.ehcache.hibernate.EhCacheProvider'
 }
