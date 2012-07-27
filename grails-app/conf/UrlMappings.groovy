@@ -44,6 +44,14 @@ class UrlMappings {
             }
         }
 
+        // These mimic the old Subversion-based Central Plugin Repository URLs, for
+        // clients that still use those.
+        "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
+        "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
+        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest")
+
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
         "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
 
@@ -71,22 +79,16 @@ class UrlMappings {
 
 
         /* ========================= PLUGINS ======================= */
-        "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
-        "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
-        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
-        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
-        "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest")
         "/plugins"(controller: "plugin", action: "list")
         "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
-        "/plugins/filter/$filter"(controller: "plugin", action: "list")
-        "/plugins/tag/$tag"(controller: "plugin", action: "listByTag")
-        "/plugins/$id"(controller: "plugin", action: "plugin") {
+        "/plugins/tag/$tag"(controller: "plugin", action: "list")
+        "/plugin/$id"(controller: "plugin", action: "plugin") {
             constraints {
                 id(notEqual: "tag")
             }
         }
-        "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
-        "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
+//        "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
+//        "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
         "/plugins/pending"(controller: "plugin", action: "pendingPlugins")
         "/plugins/pending/$id"(controller: "plugin", action: "showPendingPlugin")
         "/plugins/search"(controller: "plugin", action: "search")

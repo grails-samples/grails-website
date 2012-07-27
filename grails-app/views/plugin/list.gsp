@@ -77,7 +77,12 @@
         </g:each>
 
         <section class="pager">
-            <g:paginate total="${pluginCount}" max="8" />
+            <%
+                otherParams = [:]
+                if (activeTag) otherParams.tag = activeTag
+                if (activeFilter) otherParams.filter = activeFilter
+            %>
+            <g:paginate total="${pluginCount}" max="10" params="${otherParams}" />
         </section>
     </div>
 </div>

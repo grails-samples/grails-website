@@ -10,40 +10,30 @@ class PluginController {
     def tagService
 
     def list() {
-        def plugins = []
-        def pluginCount = 0
-        def maxResults = params.int('max') ?: 10
-        def offset = params.int('offset') ?: 0
-
-        def filter = params.filter ? params.filter.toString() : null
-        if (filter) {
-            (plugins, pluginCount) = pluginService."list${filter}PluginsWithTotal"(max: maxResults, offset: offset)
-        }
-        else {
-            (plugins, pluginCount) = pluginService.listNewestPluginsWithTotal(max: maxResults, offset: offset)
-        }
-
-        def tags = tagService.getPluginTagArray()
-        [ tags: tags, plugins: plugins, pluginCount: pluginCount ]
-    }
-
-    def listByTag() {
         try {
+            def maxResults = params.int("max") ?: 10
+            def offset = params.int("offset") ?: 0
+
+            def plugins
+            def pluginCount
+            def filter = params.filter?.toString() ?: "featured"
+            if (params.tag) {
+                filter = "all"
+                (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tag, max: maxResults, offset: offset)
+            }
+            else {
+                (plugins, pluginCount) = pluginService."list${filter.capitalize()}PluginsWithTotal"(max: maxResults, offset: offset)
+            }
+
             def tags = tagService.getPluginTagArray()
-            def maxResults = params.int('max') ?: 10
-            def offset = params.int('offset') ?: 0
-            def (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tag, max: maxResults, offset: offset)
-            render view: 'list', model: [
-                    tags: tags,
-                    plugins: plugins,
-                    pluginCount: pluginCount,
-                    max: maxResults,
-                    offset: offset
-            ]
+            def model = [ tags: tags, plugins: plugins, pluginCount: pluginCount ]
+            if (filter) model["activeFilter"] = filter
+            if (params.tag) model["activeTag"] = params.tag
+            return model
         }
         catch (TagNotFoundException ex) {
             flash.message = "Tag not found"
-            redirect action: 'list'
+            redirect action: "list"
         }
     }
 

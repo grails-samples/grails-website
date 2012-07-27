@@ -4,43 +4,42 @@
         <span class="extra"></span>
     </aside>
     <aside class="filters">
-        <h4>Popular filters</h4>
+        <h4>Filters<g:if test="${activeFilter != 'all'}">&nbsp;&nbsp;&nbsp;<a style="font-size: smaller;" href="/plugins?filter=all">clear filter</a></g:if></h4>
         <ul>
-            <li <g:if test="${params.filter == 'Featured'}">class="active"</g:if>><a href="/plugins/filter/Featured">Featured</a></li>
-            <li <g:if test="${params.filter == 'Popular'}">class="active"</g:if>><a href="/plugins/filter/Popular">Popular</a></li>
-            <li <g:if test="${params.filter == 'RecentlyUpdated'}">class="active"</g:if>><a href="/plugins/filter/RecentlyUpdated">Recently Updated</a></li>
-            <li <g:if test="${params.filter == 'Newest'}">class="active"</g:if>><a href="/plugins/filter/Newest">Newest</a></li>
-            <li class="last<g:if test="${params.filter == 'Supported'}"> active</g:if>"><a href="/plugins/filter/Supported">Supported by SpringSource</a></li>
+            <li <g:if test="${activeFilter == 'featured'}">class="active"</g:if>><a href="/plugins?filter=featured">Featured</a></li>
+            <li <g:if test="${activeFilter == 'installed'}">class="active"</g:if>><a href="/plugins?filter=installed">Top Installed</a></li>
+            <li <g:if test="${activeFilter == 'popular'}">class="active"</g:if>><a href="/plugins?filter=popular">Popular</a></li>
+            <li <g:if test="${activeFilter == 'recentlyUpdated'}">class="active"</g:if>><a href="/plugins?filter=recentlyUpdated">Recently Updated</a></li>
+            <li <g:if test="${activeFilter == 'newest'}">class="active"</g:if>><a href="/plugins?filter=newest">Newest</a></li>
+            <li class="last<g:if test="${activeFilter == 'supported'}"> active</g:if>"><a href="/plugins?filter=supported">Supported by SpringSource</a></li>
         </ul>
     </aside>
+
     <aside class="tags">
-        <h4>Popular tags</h4>
+        <h4>Popular tags<g:if test="${activeTag}">&nbsp;&nbsp;&nbsp;<a style="font-size: smaller;" href="/plugins?filter=all">clear tag</a></g:if></h4>
         <ul>
             <g:each in="${tags[0]}" var="tag" status="i">
                 <li class="
-                    <g:if test="${params.tag == tag.toString()}"> active</g:if>
+                    <g:if test="${activeTag == tag}"> active</g:if>
                     <g:if test="${i == tags.size() - 1}"> last</g:if>
-                "><a href="/plugins/tag/${tag.toString()}">${tag.toString().capitalize()}</a></li>
+                "><a href="/plugins/tag/${tag}">${tag.capitalize()}</a></li>
             </g:each>
         </ul>
         <ul>
             <g:each in="${tags[1]}" var="tag" status="i">
                 <li class="
-                    <g:if test="${params.tag == tag.toString()}"> active</g:if>
+                    <g:if test="${activeTag == tag}"> active</g:if>
                     <g:if test="${i == tags.size() - 1}"> last</g:if>
-                "><a href="/plugins/tag/${tag.toString()}">${tag.toString().capitalize()}</a></li>
+                "><a href="/plugins/tag/${tag}">${tag.capitalize()}</a></li>
             </g:each>
         </ul>
     </aside>
 
     <aside class="alert alert-block">
         <p>
-            If you are interested in creating and distributing a plugin in the Grails central repository, take a look at
-            the <a href="http://grails.org/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>.
-        </p>
-        <p style="padding-top: 10px;">
-            Are you ready to publish your plugin and need access to the Grails plugin repository,
-            <a href="/plugins/submitPlugin">please fill out this form</a>.
+            Interested in your own plugin appearing here? Take a look at
+            the <a href="http://grails.org/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>
+            and when you're ready, <a href="/plugins/submitPlugin">please fill out this form</a>.
         </p>
         <p style="padding-top: 10px;">
             <strong>NEW:</strong> Get involved by voicing your opinion on new plugins waiting to be approved in the
