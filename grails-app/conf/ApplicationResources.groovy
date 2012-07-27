@@ -1,8 +1,9 @@
 modules = {
     master {
         dependsOn 'jquery'
-        resource url: 'css/style.css'
+        resource 'css/style.css'
         resource 'js/libs/bootstrap/bootstrap.js'
+        resource 'js/libs/modernizr-2.5.3-respond-1.1.0.min.js'
         resource 'js/script.js'
     }
 
@@ -70,7 +71,10 @@ modules = {
         resource 'fancybox/jquery.fancybox.js'
     }
 
-
+    errors {
+        dependsOn "master"
+        resource url: "css/errors.css"
+    }
 
     // OLD
 

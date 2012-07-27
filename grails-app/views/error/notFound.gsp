@@ -2,7 +2,7 @@
 <head>
     <title>Page not found</title>
     <meta content="master" name="layout" />
-    <g:external dir="css" file="errors.css"/>
+    <r:require modules="errors"/>
     <style type="text/css">
 	body {
 	    font-family: Lucida Grande, Lucida, sans-serif;

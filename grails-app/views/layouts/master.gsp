@@ -1,3 +1,4 @@
+<%@page import="grails.util.Environment" %>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -5,12 +6,12 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Grails - The search is over.</title>
+    <title><g:layoutTitle default="Grails - The search is over."/></title>
     <meta name="description" content="">
     <meta name="author" content="Grails community">
     <meta name="viewport" content="width=device-width">
 
-    <g:if test="${grailsApplication?.ENVIRONMENT != grailsApplication?.ENV_PRODUCTION}">
+    <g:if test="${Environment.current != Environment.PRODUCTION}">
         <script>
             var disqus_developer = 1;
         </script>
@@ -20,10 +21,7 @@
 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
-
-    <script src="${resource(dir: 'js/libs', file: 'jquery-1.7.2.min.js')}"></script>
-    <script src="${resource(dir: 'js/libs', file: 'modernizr-2.5.3-respond-1.1.0.min.js')}"></script>
-
+    <r:require modules="master"/>
     <r:layoutResources/>
     <g:layoutHead/>
 </head>
