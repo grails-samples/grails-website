@@ -1,3 +1,7 @@
+// Version 1.3 of the application was never released, but somehow this
+// changeset mistakenly got applied to the production database. Hence
+// it remains in the application. Note that the table below is required
+// for version 2.0 of the app.
 databaseChangeLog = {
 
     changeSet(author: "pledbrook (generated)", id: "1333827938390-1") {
