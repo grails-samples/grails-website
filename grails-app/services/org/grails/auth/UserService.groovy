@@ -1,6 +1,6 @@
 package org.grails.auth
 
-import grails.plugin.springcache.annotations.Cacheable
+import grails.plugin.cache.Cacheable
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken

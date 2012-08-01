@@ -33,6 +33,7 @@ grails.project.dependency.resolution = {
 
         runtime ":avatar:0.3",
                 ":rest-client-builder:1.0",
+                ":cache:1.0.0",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
@@ -50,7 +51,6 @@ grails.project.dependency.resolution = {
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
                 ":simple-blog:0.1.5",
-                ":springcache:1.3.1",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0"
 
