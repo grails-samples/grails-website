@@ -1,9 +1,8 @@
 package org.grails.content
 
-import org.grails.comments.*
 import org.joda.time.DateTime
 
-class Content implements Serializable, Commentable {
+class Content implements Serializable {
     String title
     String body
     Boolean locked = false

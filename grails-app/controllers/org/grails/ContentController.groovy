@@ -6,12 +6,10 @@ import javax.persistence.OptimisticLockException
 import javax.servlet.ServletContext
 import javax.servlet.http.HttpServletResponse
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
 import org.compass.core.engine.SearchEngineQueryParseException
-import org.grails.blog.BlogEntry
 import org.grails.community.WebSite
 import org.grails.content.Content
 import org.grails.content.Version
@@ -544,18 +542,6 @@ class ContentController extends BaseWikiController {
         // Split the downloads into stable and non-stable.
         def groupedDownloads = downloadService.buildGroupedDownloads()
         def latestDownload = ((HashMap) groupedDownloads['latest']).values()
-
-        def newsItems = BlogEntry.list(max: 3, cache: true, order: "desc", sort: "dateCreated")
-
-        // make it easy to get the month and day
-        newsItems.each {
-            it.metaClass.getMonth = {->
-                dateService.getMonthString(it.dateCreated)
-            }
-            it.metaClass.getDay = {->
-                dateService.getDayOfMonth(it.dateCreated)
-            }
-        }
     }
 
     def screencastLegacy() {

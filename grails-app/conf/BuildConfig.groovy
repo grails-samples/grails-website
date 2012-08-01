@@ -23,7 +23,6 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":burning-image:0.5.0",
-                ":commentable:0.7.6",
                 ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
@@ -39,7 +38,6 @@ grails.project.dependency.resolution = {
                 ":database-migration:1.0",
                 ":disqus:0.1",
                 ":feeds:1.5",
-                ":grails-ui:1.2.3",
 //                ":greenmail:1.2.2",
                 ":hibernate:$grailsVersion",
                 ":jquery:1.7.2",
@@ -50,7 +48,6 @@ grails.project.dependency.resolution = {
                 ":searchable:0.6.3",
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
-                ":simple-blog:0.1.5",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0"
 
