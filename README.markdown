@@ -1,12 +1,12 @@
 # Grails.org (including Wiki)
 
-This is the Grails project for [Grails.org](http://www.grails.org). Please fork and submit pull requests for any changes made, and don't forget to use the appropriate version of Grails as specified in [application.properties](https://github.com/grails-samples/grails-website/blob/master/application.properties).
+This is the Grails project for [Grails.org](http://www.grails.org). Please fork and submit pull requests for any changes made, and don't forget to use the appropriate version of Grails as specified in [application.properties](https://github.com/grails-samples/grails-website/blob/master/application.properties). Alternatively, you can use the Grails wrapper script in the root of the project, `grailsw`.
 
 ## Quick Start
 
-Once you have cloned the repository and have the appropriate version of Grails on your path, you have everything you need to run and test the application. To try it out, simply run
+Once you have cloned the repository, you can immediately try it out with
 
-    grails run-app
+    ./grailsw -Dreindex=1 run-app
 
 Ignore the warnings about not finding the site-config.groovy files - they are expected.
 
@@ -33,17 +33,17 @@ You don't have to use the credentials and database name specified above, but mak
 
 With the data source configured you can just start the application:
 
-    grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app
+    ./grailsw -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app
 
 We start it in the production environment because that's required for the database migrations to run. If you run without the 'prod', your database will be empty and the application will fail to start. Remember, we're not using Hibernate's automatic schema creation.
 
 Once you have started the application using the above command line, you can subsequently run it using the much simpler
 
-    grails run-app
+    ./grailsw run-app
 
 or 
 
-    grails prod run-app
+    ./grailsw prod run-app
 
 Since the data source in site-config.groovy isn't tied to a particular environment, both development and production will run against the configured MySQL database.
 
