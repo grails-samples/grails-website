@@ -71,6 +71,8 @@ databaseChangeLog = {
             column(name: "what_id", type: "bigint") { constraints(nullable: "false") }
             column(name: "what_type", type: "varchar(255)") { constraints(nullable: "false") }
         }
+        
+        sql("ALTER TABLE generic_approval_response ENGINE=InnoDB")
     }
 
     changeSet(author: "pledbrook (generated)", id: "1340116940515-2") {
@@ -88,6 +90,8 @@ databaseChangeLog = {
             column(name: "submitted_by_id", type: "bigint") { constraints(nullable: "false") }
             column(name: "version_number", type: "varchar(255)") { constraints(nullable: "false") }
         }
+        
+        sql('ALTER TABLE plugin_pending_approval ENGINE=InnoDB')
     }
 
     changeSet(author: "pledbrook (generated)", id: "1340116940515-8") {
@@ -103,7 +107,6 @@ databaseChangeLog = {
         createIndex(indexName: "FKE72625AB8FF3BE26", tableName: "screencast") {
             column(name: "submitted_by_id")
         }
-        dropIndex(indexName: "FK326C9CD3A67C8B4A", tableName: "screencast_mirror")
         dropTable(tableName: "screencast_mirror")
     }
 
