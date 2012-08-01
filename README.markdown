@@ -6,6 +6,7 @@ This is the Grails project for [Grails.org](http://www.grails.org). Please fork 
 
 Once you have cloned the repository, you can immediately try it out with
 
+    ./grailsw compile
     ./grailsw -Dreindex=1 run-app
 
 Ignore the warnings about not finding the site-config.groovy files - they are expected.
