@@ -1,4 +1,7 @@
+import org.grails.downloads.Download
 import org.grails.downloads.DownloadFile
+import org.grails.downloads.Mirror
+import org.grails.downloads.VersionOrder
 import org.joda.time.DateTime
 
 fixture {
