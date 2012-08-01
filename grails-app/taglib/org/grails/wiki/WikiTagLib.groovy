@@ -28,11 +28,11 @@ class WikiTagLib implements ApplicationContextAware  {
         def camelCase = attrs.camelCase ?: 'false'
         def ret = ""
 
-        if(text.length() > length) {
+        if(text?.length() > length) {
             ret = "${text[0..length]}..."
         }
         else {
-            ret = text
+            ret = text ?: ''
         }
         if (camelCase == "true") {
             ret = Helpers.capitalizeWords(ret.toString())
