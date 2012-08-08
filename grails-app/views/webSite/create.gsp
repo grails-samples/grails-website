@@ -17,7 +17,7 @@
     <div id="main" class="websites">
         <section>
             <article>
-                <h3>Add Web Site</h3>
+                <h2>Add Web Site</h2>
 
                 <p>Fill out this form to submit your web site for approval to appear on the websites page.</p>
 
@@ -29,12 +29,12 @@
                     </div>
                 </g:hasErrors>
 
-                <g:uploadForm action="save">
+                <g:uploadForm action="save" class="content-form padding-top">
 
                     <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'title', 'error')}">
                         <label class="control-label" for="title">Title</label>
                         <div class="controls">
-                            <g:textField name="title" value="${webSiteInstance?.title}" class="input-xxlarge"/>
+                            <g:textField name="title" value="${webSiteInstance?.title}" class="input-fullsize"/>
                         </div>
                     </div>
 
@@ -42,7 +42,7 @@
                     <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'shortDescription', 'error')}">
                         <label class="control-label" for="shortDescription">Short Description</label>
                         <div class="controls">
-                            <g:textField name="shortDescription" value="${webSiteInstance?.shortDescription}" class="input-xxlarge"/>
+                            <g:textField name="shortDescription" value="${webSiteInstance?.shortDescription}" class="input-fullsize"/>
                         </div>
                     </div>
 
@@ -50,14 +50,14 @@
                         <label class="control-label" for="description">Description</label>
                         <div class="controls">
                             <g:textArea cols="30" rows="4" name="description"
-                                        value="${webSiteInstance?.description}" class="input-xxlarge"/>
+                                        value="${webSiteInstance?.description}" class="input-fullsize"/>
                         </div>
                     </div>
 
                     <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'url', 'error')}">
                         <label class="control-label" for="url">URL</label>
                         <div class="controls">
-                            <g:textField name="url" value="${webSiteInstance?.url}" class="input-xxlarge"/>
+                            <g:textField name="url" value="${webSiteInstance?.url}" class="input-fullsize"/>
                         </div>
                     </div>
 
@@ -70,8 +70,8 @@
                         </div>
                     </div>
 
-                    <div>
-                    <g:submitButton name="submit" value="Submit for Approval" class="btn"/>
+                    <div class="form-actions">
+                        <g:submitButton name="submit" value="Submit for Approval" class="btn"/>
                     </div>
 
                 </g:uploadForm>
