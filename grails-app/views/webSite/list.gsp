@@ -15,7 +15,7 @@
     <g:render template="/community/sideNav"/>
 
     <div id="main" class="websites">
-        <section>
+        <section class="listing">
             <article>
                 <flash:message flash="${flash}" />
                 <g:link action="create">Add Web Site</g:link>
