@@ -32,6 +32,10 @@ The production environment uses a MySQL database, for which you need to configur
 
 You don't have to use the credentials and database name specified above, but make sure that the database you specify exists because it won't be created automatically! Also note that the `dbCreate` setting is important as we want to disable Hibernate's automatic schema creation.
 
+You'll then want to make sure the database migration plugin's autorun feature is enabled in your 'site-config.groovy' file so that the necessary tables are created in your database:
+    
+    grails.plugin.databasemigration.updateOnStart = true
+
 With the data source configured you can just start the application:
 
     ./grailsw -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app
