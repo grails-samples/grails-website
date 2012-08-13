@@ -9,6 +9,8 @@ class UrlMappings {
             }
         }
 
+        "/products/$action"(controller: "product")
+
         "/start"(controller: "content", action: "gettingStarted")
 
         def populateVersion = {
