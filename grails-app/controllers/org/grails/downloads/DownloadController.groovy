@@ -92,7 +92,7 @@ class DownloadController {
 
     def downloadFile() {
 
-        def mirror = params.mirror ? Mirror.get(params.mirror) : null
+        def mirror = params.mirror?.isInteger() ? Mirror.get(params.mirror) : null
         if (mirror) {
             // This used to do a download count, but ran into problems with
             // optimistic locking exceptions. Also, we'll probably move
