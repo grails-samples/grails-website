@@ -28,6 +28,12 @@ databaseChangeLog = {
         }
     }
 
+    // This changeset is required if the changelog is executed against an InnoDB database.
+    // Without it, later changesets fail due to problems creating associated foreign keys.
+    changeSet(author: "pledbrook", id: "FixPluginLicenseTableType") {
+        sql('ALTER TABLE plugin_license ENGINE=MyISAM')
+    }
+
     changeSet(author: "pledbrook (generated)", id: "1320944813799-3") {
         addColumn(tableName: "plugin") {
             column(name: "organization", type: "varchar(255)")

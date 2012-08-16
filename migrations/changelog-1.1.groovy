@@ -8,6 +8,12 @@ databaseChangeLog = {
         }
     }
 
+    // This changeset is required if the changelog is executed against an InnoDB database.
+    // Without it, later changesets fail due to problems creating associated foreign keys.
+    changeSet(author: "pledbrook", id: "FixRolePermissionsTableType") {
+        sql('ALTER TABLE role_permissions ENGINE=MyISAM')
+    }
+
     changeSet(author: "pledbrook (generated)", id: "1320427106545-1") {
         createTable(tableName: "bi_images") {
             column(autoIncrement: "true", name: "id", type: "bigint") {
