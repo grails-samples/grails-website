@@ -92,11 +92,6 @@ databaseChangeLog = {
         createTable(tableName: "test_rater") { column name: "id", type: "BIGINT(20)" }
 
         createIndex(tableName: "content", indexName: 'FK38B73479BC488994') { column name: "title" }
-        createIndex(tableName: "plugin", indexName: 'FKC5476F339B7AA533') { column name: "id" }
-        createIndex(tableName: "plugin", indexName: 'FKC5476F33DDE70EC0') { column name: "name" }
-        createIndex(tableName: "plugin", indexName: 'FKC5476F3317DC9031') { column name: "title" }
-        createIndex(tableName: "plugin", indexName: 'FKC5476F33B0CAFAD7') { column name: "grails_version" }
-        createIndex(tableName: 'rating_link', indexName: 'FK1827315C45884E64') { column name: 'rating_id' }
         createIndex(tableName: 'screencast_mirror', indexName: 'FK326C9CD3A67C8B4A') { column(name: 'screencast_id') }
 
         addForeignKeyConstraint(constraintName: 'FK38B73479839030FB',
@@ -111,33 +106,21 @@ databaseChangeLog = {
                 baseTableName: 'mirror', baseColumnNames: 'file_id',
                 referencedTableName: 'download_file', referencedColumnNames: 'id')
 
-        addForeignKeyConstraint(constraintName: 'FKC5476F33FA44DC5E',
+        addForeignKeyConstraint(constraintName: 'FKC5476F33DDE70EC0',
                 baseTableName: 'plugin', baseColumnNames: 'screenshots_id',
                 referencedTableName: 'content', referencedColumnNames: 'id')
 
-        addForeignKeyConstraint(constraintName: 'FKC5476F33B7D872D1',
+        addForeignKeyConstraint(constraintName: 'FKC5476F339B7AA533',
                 baseTableName: 'plugin', baseColumnNames: 'installation_id',
                 referencedTableName: 'content', referencedColumnNames: 'id')
 
-        addForeignKeyConstraint(constraintName: 'FKC5476F33343A5DCF',
+        addForeignKeyConstraint(constraintName: 'FKC5476F3317DC9031',
                 baseTableName: 'plugin', baseColumnNames: 'description_id',
                 referencedTableName: 'content', referencedColumnNames: 'id')
 
-        addForeignKeyConstraint(constraintName: 'FKC5476F33CD28C875',
+        addForeignKeyConstraint(constraintName: 'FKC5476F33B0CAFAD7',
                 baseTableName: 'plugin', baseColumnNames: 'faq_id',
                 referencedTableName: 'content', referencedColumnNames: 'id')
-
-        addForeignKeyConstraint(constraintName: 'FK1437D8A21ADE5676',
-                baseTableName: 'user_info', baseColumnNames: 'user_id',
-                referencedTableName: 'user', referencedColumnNames: 'id')
-
-        addForeignKeyConstraint(constraintName: 'FK143BF46A16D0D038',
-                baseTableName: 'user_role', baseColumnNames: 'user_roles_id',
-                referencedTableName: 'user', referencedColumnNames: 'id')
-
-        addForeignKeyConstraint(constraintName: 'FK143BF46A75B39296',
-                baseTableName: 'user_role', baseColumnNames: 'role_id',
-                referencedTableName: 'role', referencedColumnNames: 'id')
 
         addForeignKeyConstraint(constraintName: 'FK1827315C45884E64',
            baseTableName: 'rating_link', baseColumnNames: 'rating_id',
