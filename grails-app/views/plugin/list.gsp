@@ -18,6 +18,25 @@
 
         <g:render template="searchBar" />
 
+        <g:if test="${query}">
+            <g:if test="${searchResult}">
+            <p>
+                Showing <strong>${searchResult.offset + 1}</strong> - <strong>${searchResult.results.size() + searchResult.offset}</strong> of <strong>${searchResult.total}</strong>
+                results for <strong>${query}</strong>
+            </p>
+            </g:if>
+            <g:elseif test="${parseException}">
+                <p>Your query - <strong>${query}</strong> - is not valid.</p>
+            </g:elseif>
+            <g:elseif test="${clauseException}">
+                <p>Your query - <strong>${query}</strong> - cannot be handled, sorry. Be more restrictive with your wildcards, like '*'.
+                </p>
+            </g:elseif>
+            <g:else>
+                <p>Nothing matched your query - <strong>${query}</strong></p>
+            </g:else>
+        </g:if>
+
         <g:each in="${plugins}" var="plugin">
             <section class="plugin">
                 <article>
@@ -78,7 +97,7 @@
 
         <section class="pager">
             <%
-                otherParams = [:]
+                otherParams = otherParams ?: [:]
                 if (activeTag) otherParams.tag = activeTag
                 if (activeFilter) otherParams.filter = activeFilter
             %>

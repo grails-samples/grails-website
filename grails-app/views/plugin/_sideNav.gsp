@@ -1,6 +1,6 @@
 <div class="aside">
     <aside class="notif">
-        <p>Welcome to the Grails plugin portal. The place where you can find information about the latest plugins available for the Grails framework.</p>
+        <p>Welcome to the Grails plugin portal, where you can find out about all the publicly available Grails plugins.</p>
         <span class="extra"></span>
     </aside>
     <aside class="filters">

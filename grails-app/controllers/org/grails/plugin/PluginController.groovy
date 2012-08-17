@@ -99,7 +99,7 @@ class PluginController {
     }
 
     def search() {
-        if(params.q) {
+        if (params.q) {
             def tags = tagService.getPluginTagArray()
             try {
                 println "Q: ${params.q}"
@@ -110,17 +110,23 @@ class PluginController {
                 searchResult.results = searchResult.results.findAll{it}.unique { it.title }
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
-                render view: "searchResults", model: [tags: tags, searchResult: searchResult]
+                render view: "list", model: [
+                        query: params.q,
+                        tags: tags,
+                        searchResult: searchResult, 
+                        plugins: searchResult.results, 
+                        pluginCount: searchResult.total,
+                        otherParams: [q: params.q] ]
             }
             catch (SearchEngineQueryParseException ex) {
-                render view: "searchResults", model: [tags: tags, parseException: true]
+                render view: "list", model: [tags: tags, parseException: true]
             }
             catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
-                render view: "searchResults", model: [tags: tags, clauseException: true]
+                render view: "list", model: [tags: tags, clauseException: true]
             }
         }
         else {
-            redirect(action: 'list')
+            redirect action: "list"
         }
     }
 
