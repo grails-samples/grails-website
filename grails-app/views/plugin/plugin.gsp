@@ -39,22 +39,19 @@
                         Grails version : ${plugin.grailsVersion ?: '*'} • Current release : ${plugin.currentRelease}
                     </p>
                     <div class="right">
-                        <p class="rating">
-                            <span class="star-100"></span>
-                            <span class="star-100"></span>
-                            <span class="star-100"></span>
-                            <span class="star-50"></span>
-                            <span class="star-0"></span>
-                            <span class="note">10</span>
-                        </p>
-                        <p class="used">
-                            <strong>68%</strong> Used in of apps
-                        </p>
+                        <plugin:rating averageRating="${plugin.avgRating ?: 0}" total="${plugin.ratingCount ?: 0}" />
+                        <g:if test="${plugin.usage>0}">
+                            <p class="used">
+                                <strong><g:formatNumber number="${plugin.usage}" type="percent"/></strong> of Grails users
+                            </p>
+                        </g:if>
+                        <%--
                         <g:if test="${plugin.isScmGitHub()}">
                             <p class="download">
                                 <a href="${plugin.scmUrl}" target="_blank" class="btn primary">Source on GitHub</a>
                             </p>
                         </g:if>
+                        --%>
                     </div>
                 </header>
                 <div class="desc">

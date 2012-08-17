@@ -42,7 +42,7 @@
                 <article>
                     <header>
                         <h3>
-                            <g:link uri="/plugins/${plugin.name}/">
+                            <g:link action="plugin" id="${plugin.name}">
                                 ${plugin?.title?.encodeAsHTML()}
                                 <g:if test="${plugin.official}">
                                     <small>supported by SpringSource</small>
@@ -59,11 +59,11 @@
                                 /
                             </g:else>
                             <br/>
-                            Grails version : ${plugin.grailsVersion ?: '*'} • Current release : ${plugin.currentRelease}
+                            Latest : <strong>${plugin.currentRelease}</strong> • Grails version : ${plugin.grailsVersion ?: '*'}
                         </p>
 
                         <div class="right">
-                            <plugin:rating note="${plugin.averageRating}" total="${plugin.totalRatings}" />
+                            <plugin:rating averageRating="${plugin.avgRating ?: 0}" total="${plugin.ratingCount ?: 0}" />
                             <g:if test="${plugin.usage>0}">
                                 <p class="used">
                                     <strong><g:formatNumber number="${plugin.usage}" type="percent"/></strong> of Grails users
@@ -80,11 +80,11 @@
                     </div>
 
                     <p class="buttons">
-                        <g:if test="${plugin.scmUrl}">
-                            <a href="${plugin.scmUrl}" class="btn blueLight source"><span class="ico"></span>Source</a>
-                        </g:if>
                         <g:if test="${plugin.documentationUrl}">
                             <a href="${plugin.documentationUrl}" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
+                        </g:if>
+                        <g:if test="${plugin.scmUrl}">
+                            <a href="${plugin.scmUrl}" class="btn blueLight source"><span class="ico"></span>Source</a>
                         </g:if>
                         <g:if test="${plugin.issuesUrl}">
                             <a href="${plugin.issuesUrl}" class="btn blueLight issues"><span class="ico"></span>Issues</a>

@@ -59,7 +59,6 @@ class Plugin implements Taggable, Rateable {
     Boolean featured = false
     boolean zombie = false
     BigDecimal usage
-    Number avgRating
     DateTime dateCreated
     DateTime lastUpdated
     DateTime lastReleased = new DateTime()
@@ -86,11 +85,14 @@ class Plugin implements Taggable, Rateable {
         downloadUrl index: "no", store: "yes"
         scmUrl index: "no", store: "yes"
         issuesUrl index: "no", store: "yes"
+        avgRating index: "not_analyzed", store: "yes"
+        ratingCount index: "not_analyzed", store: "yes"
         tags component: true
     }
 
     static transients = [
             'avgRating',
+            'ratingCount',
             'fisheye',
             'tags',
             'dependencyDeclation',
@@ -151,6 +153,15 @@ class Plugin implements Taggable, Rateable {
                     taggableService.domainClassFamilies[this.class.name],
                     [cache:true]).tag
         }
+    }
+
+    Double getAvgRating() {
+        // Dynamic call to method added by Rateable plugin.
+        return averageRating
+    }
+
+    Integer getRatingCount() {
+        return totalRatings
     }
 
     def onAddComment = { comment ->
