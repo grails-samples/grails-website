@@ -102,12 +102,9 @@ class PluginController {
         if (params.q) {
             def tags = tagService.getPluginTagArray()
             try {
-                println "Q: ${params.q}"
                 def searchResult = Plugin.search(params.q, offset: params.offset)
-
-                println searchResult.inspect()
-
                 searchResult.results = searchResult.results.findAll{it}.unique { it.title }
+
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
                 render view: "list", model: [
