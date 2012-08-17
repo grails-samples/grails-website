@@ -39,6 +39,11 @@ class WebSite implements Taggable {
 
     static transients = ['genericApprovalResponses']
 
+    static searchable = {
+        only = ["title", "shortDescription", "description"]
+        title boost: 2.0
+    }
+
     static namedQueries = {
         allQueryNoSort {
         }

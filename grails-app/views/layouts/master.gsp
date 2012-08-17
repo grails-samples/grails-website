@@ -46,10 +46,12 @@
         <a href="http://www.springsource.org/" class="springSource">SpringSource</a>
 
         <div id="quickSearch" role="search">
-            <div class="inputSearch hide">
-                <input type="search"/>
+           <g:form name="globalSearchForm" controller="content" action="search" method="get">
+            <div class="inputSearch">
+                <input name="q" type="search"/>
             </div>
-            <a href="#" class="submitSearch">Search</a>
+            <input type="submit" alt="Search" title="Search the whole site" name="submit" />
+            </g:form>
         </div>
     </header>
 

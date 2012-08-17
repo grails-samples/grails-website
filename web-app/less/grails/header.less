@@ -27,7 +27,7 @@
 		top: 105px;
 	
 		&.active {
-			a {
+			input[type=submit] {
 				background: url(../img/page/quickSearch.png) no-repeat right -30px;
 				&:hover {
 					background: url(../img/page/quickSearch.png) no-repeat right -30px;
@@ -35,10 +35,12 @@
 			}
 		}
 	
-		a {
+		input[type=submit] {
 			background: url(../img/page/quickSearch.png) no-repeat right 0;
-			color: @white;
+			border: 0 none;
+			color: transparent;
 			display: block;
+			font-size: 0;
 			@height: 30px;
 			height: @height;
 			line-height: @height;

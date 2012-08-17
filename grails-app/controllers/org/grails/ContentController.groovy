@@ -85,7 +85,7 @@ class ContentController extends BaseWikiController {
                         q,
                         classes: [WikiPage, Plugin, WebSite, Tutorial],
                         offset: params.offset,
-                        escape:false)
+                        escape: false)
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
                 render view: "/searchable/index", model: [searchResult: searchResult]
@@ -98,7 +98,7 @@ class ContentController extends BaseWikiController {
             }
         }
         else {
-            render(view: "homePage")
+            redirect action: "homePage"
         }
     }
 

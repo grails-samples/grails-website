@@ -4,7 +4,7 @@
 <%@ page import="org.springframework.util.ClassUtils" %>
 <html>
 <head>
-    <meta content="subpage" name="layout"/>
+    <meta content="master" name="layout"/>
     <title>Search Results</title>
     <script type="text/javascript">
         var focusQueryInput = function() {
