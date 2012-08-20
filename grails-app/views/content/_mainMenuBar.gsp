@@ -1,6 +1,6 @@
 <ul id="mainMenuBar">
 	
-    <li><a href="http://www.springsource.com/products/grails">Products</a></li>
+    <li><a href="http://www.vmware.com/products/application-platform/vfabric.html">Products</a></li>
     <li><a href="http://www.springsource.com/groovy-grails-consulting">Services</a></li>
     <li><a href="http://www.springsource.com/training/grv001">Training</a></li>
     <li><g:link controller="content" id="Community">Community</g:link></li>

@@ -3,8 +3,9 @@
   <meta name="layout" content="subpage">
   <style>
 #contentBody ul.links {
-    height: 2em;
+    height: 3em;
     list-style-type: none;
+    margin-bottom: 2.5em;
 }
 
 #contentBody ul.links li {
@@ -66,5 +67,12 @@
   <ul class="links">
     <li><a href="http://www.springsource.org/groovy-grails-tool-suite-download">Download GGTS</a></li>
     <li><a href="http://blog.springsource.com/category/tools/">Development Tools Blog</a></li>
+  </ul>
+
+  <h2>More info</h2>
+  <ul>
+    <li><a href="http://download.springsource.com/release/STS/doc/STS-new_and_noteworthy.pdf">New and Noteworthy</a></li>
+    <li><a href="https://issuetracker.springsource.com/browse/STS">JIRA Issue Tracker</a></li>
+    <li><a href="http://forum.springsource.org/forumdisplay.php?32-SpringSource-Tool-Suite">Support Forum</a></li>
   </ul>
 </body>
