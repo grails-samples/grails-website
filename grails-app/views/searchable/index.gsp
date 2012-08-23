@@ -65,7 +65,7 @@
                                 <g:set var="desc" value="${result.body}"/>
                             </g:elseif>
                             <g:elseif test="${result instanceof org.compass.core.lucene.LuceneResource}">
-                                <a href="${resource(dir: 'doc/latest/guide', file: result.url[0].stringValue)}">${result.title[0].stringValue}</a>
+                                <a href="${resource(dir: 'doc/latest', file: result.url[0].stringValue)}">${result.title[0].stringValue}</a>
                                 <g:set var="desc" value="${searchResult.highlights[index] ?: result.body[0].stringValue}"/>
                             </g:elseif>
                             <g:else>

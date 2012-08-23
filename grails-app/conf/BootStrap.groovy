@@ -122,20 +122,20 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
             // Also, don't recurse into the 'pages' directory (or any sub-directory
             // for that matter).
             new File(docsDir, "guide").eachFileMatch(~/^.+(?<!(index|single))\.html$/) { f ->
-                resources << createCompassResourceFromDocPage(f, compass.resourceFactory, session)
+                resources << createCompassResourceFromDocPage(f, "guide", compass.resourceFactory, session)
             }
 
             new File(docsDir, "ref").traverse(
                     type: FileType.FILES,
                     nameFilter: ~/^.+\.html$/) { f ->
-                resources << createCompassResourceFromDocPage(f, compass.resourceFactory, session)
+                resources << createCompassResourceFromDocPage(f, "ref/" + f.parentFile.name, compass.resourceFactory, session)
             }
 
             return resources
         } as CompassCallback )
     }
 
-    private createCompassResourceFromDocPage(file, resourceFactory, compassSession) {
+    private createCompassResourceFromDocPage(file, basePath, resourceFactory, compassSession) {
         def id = file.name - ".html"
         log.info "Indexing chapter '${id}'"
 
@@ -144,7 +144,7 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
             def resource = resourceFactory.createResource("doc")
             resource.addProperty("id", id)
             resource.addProperty("title", title)
-            resource.addProperty("url", file.name)
+            resource.addProperty("url", basePath + "/" + file.name)
             resource.addProperty("body", content)
             compassSession.save(resource)
 
