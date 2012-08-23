@@ -36,7 +36,7 @@
                             /
                         </g:else>
                         <br/>
-                        Grails version : ${plugin.grailsVersion ?: '*'} • Current release : ${plugin.currentRelease}
+                        Current release : <strong>${plugin.currentRelease}</strong> • Grails version : ${plugin.grailsVersion ?: '*'}
                     </p>
                     <div class="right">
                         <plugin:rating averageRating="${plugin.avgRating ?: 0}" total="${plugin.ratingCount ?: 0}" />
@@ -59,6 +59,12 @@
                         <strong>Dependency :</strong><br />
                         <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
                     </div>
+                    <g:if test="${plugin.customRepositoriesDeclaration}">
+                    <div class="alert alert-info">
+                        <strong>Custom repositories :</strong><br />
+                        <pre>${plugin.customRepositoriesDeclaration.encodeAsHTML()}</pre>
+                    </div>
+                    </g:if>
                 </div>
                 <p class="buttons">
                     <g:if test="${plugin.scmUrl}">
@@ -72,10 +78,7 @@
                     </g:if>
                 </p>
                 <div class="documentation">
-                    <p>The Cloud Foundry plugin for Grails integrates Cloud Foundry's cloud deployment services to manage the running of Grails applications in the cloud from the command line.</p>
-                    <h3>Documentation</h3>
-                    <p>Please see the user guide for official documentation.</p>
-                    <p>(See also: “One-step deployment with Grails and Cloud Foundry,” a post by Peter Ledbrook on the SpringSource blog.)</p>
+                    <wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text>
                 </div>
             </article>
         </section>

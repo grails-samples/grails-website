@@ -2049,7 +2049,6 @@ ul.list-links li a:hover small {
 .plugins section.plugin .desc {
   border-left: 2px solid #e8e8e6;
   padding: 5px 0;
-  padding-right: 190px;
   margin: 8px 0;
   padding-left: 12px;
 }
@@ -2073,6 +2072,12 @@ ul.list-links li a:hover small {
   -moz-border-radius: 3px;
   border-radius: 3px;
   text-shadow: 0 1px 0 #ffffff;
+}
+.plugins section.plugin .desc pre {
+  background-color: transparent;
+  color: #6f7a7f;
+  padding: 0;
+  margin: 0.3em 0;
 }
 .plugins section.plugin .documentation {
   margin-top: 20px;
