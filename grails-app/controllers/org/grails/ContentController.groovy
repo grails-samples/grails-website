@@ -108,13 +108,13 @@ class ContentController extends BaseWikiController {
                         withHighlighter: hitHandler)
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
-                render view: "/searchable/index", model: [searchResult: groupResultsByType(searchResult)]
+                render view: "/searchable/index", model: [query: params.q, searchResult: groupResultsByType(searchResult)]
             }
             catch (SearchEngineQueryParseException ex) {
-                render view: "/searchable/index", model: [parseException: true]
+                render view: "/searchable/index", model: [query: params.q, parseException: true]
             }
             catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
-                render view: "/searchable/index", model: [clauseException: true]
+                render view: "/searchable/index", model: [query: params.q, clauseException: true]
             }
         }
         else {

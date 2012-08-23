@@ -6,22 +6,21 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Search Results</title>
-    <script type="text/javascript">
-        var focusQueryInput = function() {
-            document.getElementById("q").focus();
-        }
-    </script>
-    <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'search.css')}"/>
+    <r:script type="text/javascript">
+$(document).ready(function() {
+    $("#quickSearch input[name='q']").val('${query ?: ''}');
+    $("#quickSearch input[name='q']").focus();
+});
+    </r:script>
 </head>
-<body onload="focusQueryInput();">
+<body>
     <div id="main">
-        <g:set var="haveQuery" value="${params.q?.trim()}"/>
-        <g:set var="haveResults" value="${searchResult?.results}"/>
-        <g:set var="query" value="${params.q?.encodeAsHTML()}"/>
+        <g:set var="haveQuery" value="${query}"/>
+        <g:set var="resultCount" value="${searchResult?.results.inject(0) { tot, entry -> tot + entry.value.size() } }"/>
         <div class="title">
             <span>
-                <g:if test="${haveQuery && haveResults}">
-                    Showing <strong>${searchResult.offset + 1}</strong> - <strong>${searchResult.results.size() + searchResult.offset}</strong> of <strong>${searchResult.total}</strong>
+                <g:if test="${haveQuery && resultCount}">
+                    Showing <strong>${searchResult.offset + 1}</strong> - <strong>${resultCount + searchResult.offset}</strong> of <strong>${searchResult.total}</strong>
                     results for <strong>${query}</strong>
                 </g:if>
                 <g:else>
@@ -36,12 +35,13 @@
         <g:elseif test="${clauseException}">
             <p>Your query - <strong>${query}</strong> - cannot be handled, sorry. Be more restrictive with your wildcards, like '*'.</p>
         </g:elseif>
-        <g:elseif test="${haveQuery && !haveResults}">
+        <g:elseif test="${haveQuery && !resultCount}">
             <p>Nothing matched your query - <strong>${query}</strong></p>
         </g:elseif>
-        <g:elseif test="${haveResults}">
+        <g:elseif test="${resultCount}">
             <div id="results" class="results">
                 <g:each var="group" in="${searchResult.results}">
+                <g:if test="${group.value?.size()}">
                 <div class="resultGroup">
                     <h3>${group.key}</h3>
 
@@ -83,16 +83,17 @@
                     </div>
                     </g:each>
                 </div>
+                </g:if>
                 </g:each>
             </div>
 
             <div>
                 <div class="paging">
-                    <g:if test="${haveResults}">
+                    <g:if test="${resultCount}">
                         Page:
                         <g:set var="totalPages" value="${Math.ceil(searchResult.total / searchResult.max)}"/>
                         <g:if test="${totalPages == 1}"><span class="currentStep">1</span></g:if>
-                        <g:else><g:paginate controller="content" action="search" params="[q: params.q]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>
+                        <g:else><g:paginate controller="content" action="search" params="[q: query]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>
                     </g:if>
                 </div>
             </div>

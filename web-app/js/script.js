@@ -1,4 +1,5 @@
 jQuery(function(){
+        /*
 	var _quickSearchInput = jQuery("#quickSearch .inputSearch input");
 	var _quickSearchSubmit = jQuery("#quickSearch .submitSearch");
 	var _quickSearch = jQuery("#quickSearch .inputSearch");
@@ -41,6 +42,7 @@ jQuery(function(){
 		_quickSearch.css('width', 170).removeClass('hide');
 		_quickSearchMaster.addClass('active');
 	}
+        */
 	
 	$('.downloads .url>input').click(function(){
 		$(this).select();
