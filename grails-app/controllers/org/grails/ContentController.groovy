@@ -10,6 +10,7 @@ import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
 import org.compass.core.engine.SearchEngineQueryParseException
+import org.compass.core.lucene.LuceneResource
 import org.grails.community.WebSite
 import org.grails.content.Content
 import org.grails.content.Version
@@ -77,18 +78,37 @@ class ContentController extends BaseWikiController {
 
     def gettingStarted() {}
 
+
+    protected static searchResultsGroupOrder = [
+        (LuceneResource): "User Guide",
+        (Plugin): "Plugins",
+        (WikiPage): "Wiki Pages",
+        other: "Other" ]
+    
+    protected static hitHandler = { highlighter, index, sr ->
+        if (!sr.highlights) {
+            sr.highlights = [:]
+        }
+        
+        def result = sr.results[index]
+        if (result instanceof LuceneResource) {
+            sr.highlights[result.id[0].stringValue] = (highlighter.fragment("title") ?: highlighter.fragment("body"))
+        }
+    }
+
     def search() {
         if (params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
             try {
                 def searchResult = searchableService.search(
                         q,
-                        classes: [WikiPage, Plugin, WebSite, Tutorial],
                         offset: params.offset,
-                        escape: false)
+                        max: params.max,
+                        escape: false,
+                        withHighlighter: hitHandler)
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
-                render view: "/searchable/index", model: [searchResult: searchResult]
+                render view: "/searchable/index", model: [searchResult: groupResultsByType(searchResult)]
             }
             catch (SearchEngineQueryParseException ex) {
                 render view: "/searchable/index", model: [parseException: true]
@@ -546,6 +566,17 @@ class ContentController extends BaseWikiController {
 
     def screencastLegacy() {
         redirect controller: "screencast", action: "list", permanent: true
+    }
+
+    protected groupResultsByType(searchResult) {
+        def resultsAsList = searchResult.results
+        def resultsAsMap = searchResultsGroupOrder.collectEntries { key, value -> [value, []] }
+        for (r in resultsAsList) {
+            def group = searchResultsGroupOrder[r.getClass()] ?: "Other"
+            resultsAsMap[group] << r
+        }
+        searchResult.results = resultsAsMap 
+        return searchResult
     }
 
     /**

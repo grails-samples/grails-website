@@ -71,7 +71,8 @@ grails.project.dependency.resolution = {
     dependencies {
         compile "org.twitter4j:twitter4j-core:2.1.8",
                 "org.springframework:spring-context-support:3.0.3.RELEASE",
-                "org.jadira.usertype:usertype.jodatime:1.9"
+                "org.jadira.usertype:usertype.jodatime:1.9",
+                "org.jsoup:jsoup:1.6.3"
 
         test "org.codehaus.geb:geb-core:0.6.0",
              "org.gmock:gmock:0.8.1"

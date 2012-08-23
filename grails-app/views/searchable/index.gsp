@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'search.css')}"/>
 </head>
 <body onload="focusQueryInput();">
-<div id="header">
     <div id="main">
         <g:set var="haveQuery" value="${params.q?.trim()}"/>
         <g:set var="haveResults" value="${searchResult?.results}"/>
@@ -42,7 +41,11 @@
         </g:elseif>
         <g:elseif test="${haveResults}">
             <div id="results" class="results">
-                <g:each var="result" in="${searchResult.results}" status="index">
+                <g:each var="group" in="${searchResult.results}">
+                <div class="resultGroup">
+                    <h3>${group.key}</h3>
+
+                    <g:each var="result" in="${group.value}" status="index">
                     <div class="result">
 
                         <g:set var="className" value="${result.title?.encodeAsHTML()}"/>
@@ -54,12 +57,16 @@
                                 link it properly to the Plugin domain.  Otherwise it gets treated like a normal WikiPage
                             --}%
                             <g:if test="${result instanceof Plugin}">
-                                <g:link controller="plugin" action="show" params="${[name:result.name]}">Plugin > ${className}</g:link>
+                                <g:link controller="plugin" action="show" params="${[name:result.name]}">${className}</g:link>
                                 <g:set var="desc" value="${result.summary ?: 'No description'}"/>
                             </g:if>
                             <g:elseif test="${result instanceof Content}">
-                                <g:link controller="content" id="${result.title}">Wiki page > ${className}</g:link>
+                                <g:link controller="content" id="${result.title}">${className}</g:link>
                                 <g:set var="desc" value="${result.body}"/>
+                            </g:elseif>
+                            <g:elseif test="${result instanceof org.compass.core.lucene.LuceneResource}">
+                                <a href="${resource(dir: 'doc/latest/guide', file: result.url[0].stringValue)}">${result.title[0].stringValue}</a>
+                                <g:set var="desc" value="${searchResult.highlights[index] ?: result.body[0].stringValue}"/>
                             </g:elseif>
                             <g:else>
                                 <g:set var="itemName" value="${GrailsNameUtils.getShortName(result.class.name)}"/>
@@ -74,6 +81,8 @@
                         </div>
 
                     </div>
+                    </g:each>
+                </div>
                 </g:each>
             </div>
 
@@ -89,6 +98,5 @@
             </div>
         </g:elseif>
     </div>
-</div>
 </body>
 </html>
