@@ -2,7 +2,6 @@ package org.grails
 
 import org.grails.news.NewsItem
 import org.grails.ContentController
-import org.grails.blog.BlogEntry
 import org.grails.cache.CacheService
 import net.sf.ehcache.Cache
 import net.sf.ehcache.CacheManager
@@ -20,7 +19,7 @@ import grails.test.mixin.*
  * Created: Feb 28, 2008
  */
 @TestFor(ContentController)
-@Mock([BlogEntry, Content, WikiPage, Version])
+@Mock([Content, WikiPage, Version])
 class ContentControllerSpec extends spock.lang.Specification {
 
     void "Test index no id"() {
