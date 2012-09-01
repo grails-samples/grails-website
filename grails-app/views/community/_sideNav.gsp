@@ -4,7 +4,7 @@
         <ul>
             <li<g:if test="${controllerName == 'webSite'}"> class="active"</g:if>>
                 <a href="/community/websites">Sites using Grails</a></li>
-            <li<g:if test="${actionName == 'testimonials'}"> class="active"</g:if>>
+            <li<g:if test="${controllerName == 'testimonial'}"> class="active"</g:if>>
                 <a href="/community/testimonials">Testimonials</a></li>
             <li<g:if test="${actionName == 'contribute'}"> class="active"</g:if>>
                 <a href="/community/contribute">Contribute</a></li>

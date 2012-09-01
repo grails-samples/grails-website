@@ -170,6 +170,12 @@ class JSecurityAuthFilters {
             }
         }
 
+        testimonialSubmitting(plugin: "testimonial", action: "create") {
+            before = {
+                accessControl { true }
+            }
+        }
+
         adminArea(uri:"/admin/**") {
             before = {
                 if (controllerName == "error") return true
@@ -190,5 +196,7 @@ class JSecurityAuthFilters {
                 }
             }
         }
+
+
     }
 }

@@ -68,6 +68,10 @@ modules = {
         dependsOn 'master'
     }
 
+    testimonial {
+        dependsOn 'master'
+    }
+
     admin {
         resource 'js/libs/jquery-1.7.2.min.js'
         resource 'js/libs/bootstrap/bootstrap.js'
