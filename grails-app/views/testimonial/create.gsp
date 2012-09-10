@@ -6,6 +6,7 @@
     <g:set var="entityName" value="${message(code: 'testimonial.label', default: 'Testimonial')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 
+    <r:require modules="codeMirror, fancyBox" />
 </head>
 
 <body>
@@ -29,10 +30,6 @@
         <article>
             <h2>Add a Testimonial</h2>
 
-            <p>Fill out this form to submit your web site for approval to appear on the websites page.</p>
-
-
-
             <g:form action="save" class="form-horizontal" >
 
 
@@ -42,7 +39,11 @@
                 <div class="form-actions">
                     <g:submitButton name="create" class="btn btn-primary"
                                     value="Submit for Approval"/>
-                </div>
+
+                <a class="btn preview">Preview</a>
+
+
+            </div>
             </fieldset>
             </g:form>
 

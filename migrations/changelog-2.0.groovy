@@ -216,7 +216,7 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 
-			column(name: "content", type: "varchar(255)") {
+			column(name: "body", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
 

@@ -8,13 +8,11 @@ import pl.burningice.plugins.image.ast.DBImageContainer
 class Testimonial {
 
     String title
-    String content
+    String body
     String companyName
     User submittedBy
     boolean featured = false
     ApprovalStatus status = ApprovalStatus.PENDING
-
-    static transients = ['shortDescription']
 
     DateTime dateCreated
     DateTime lastUpdated

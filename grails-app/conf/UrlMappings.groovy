@@ -193,10 +193,10 @@ class UrlMappings {
         "/screencasts/save"(controller: "screencast", action: "save")
         "/screencast/$id"(controller: "screencast", action: "show")
 
-        "/community/testimonials"(controller: "testimonial", action: "list")
-        "/community/testimonials/add"(controller: "testimonial", action: "create")
-        "/community/testimonials/save"(controller: "testimonial", action: "save")
-        "/community/testimonials/$id"(controller: "testimonial", action: "show")
+        "/testimonials"(controller: "testimonial", action: "list")
+        "/testimonials/add"(controller: "testimonial", action: "create")
+        "/testimonials/save"(controller: "testimonial", action: "save")
+        "/testimonials/$id"(controller: "testimonial", action: "show")
 
 //        "/screencasts"(controller:"screencast", action:"list")
 //        "/screencasts/tags"(controller:"screencast", action:"browseTags")
