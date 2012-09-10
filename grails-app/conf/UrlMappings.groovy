@@ -9,6 +9,8 @@ class UrlMappings {
             }
         }
 
+        "/products/$action"(controller: "product")
+
         "/start"(controller: "content", action: "gettingStarted")
 
         def populateVersion = {
@@ -39,7 +41,7 @@ class UrlMappings {
                     // that this may include a '-plugin' suffix in the case of the
                     // XML plugin descriptor, but that's fine as the action handles
                     // that.
-                    return fn == pluginName ? null : fn.substring(pluginName.size() + 1)
+                    return isPluginNameWithVersion(fn, pluginName) ? fn.substring(getVersionPrefix(pluginName).size()) : null
                 }
             }
         }
@@ -133,7 +135,9 @@ class UrlMappings {
         "/create/$id"(controller: "content", action: "createWikiPage")
         "/info/$id"(controller: "content", action: "infoWikiPage")
         "/markup/$id"(controller: "content", action: "markupWikiPage")
-        "/version/$id/$number"(controller: "content", action: "showWikiVersion")
+        "/version/$id/$number"(controller: "content", action: "showWikiVersion") {
+            constraints { number matches: /\d+/ }
+        }
         "/rollback/$id/$number"(controller: "content", action: "rollbackWikiVersion")
         "/diff/$id/$number/$diff"(controller: "content", action: "diffWikiVersion")
         "/previous/$id/$number"(controller: "content", action: "previousWikiVersion")
@@ -144,10 +148,14 @@ class UrlMappings {
         "/screencast/save"(controller:"screencast", action:"save")
         "/screencast/search"(controller:"screencast", action:"search")
         "/screencast/update"(controller:"screencast", action:"update")
-        "/screencast/edit/$id"(controller:"screencast", action:"edit")
+        "/screencast/edit/$id"(controller:"screencast", action:"edit") {
+            constraints { id matches: /\d+/ }
+        }
         "/screencast/feed"(controller:"screencast", action:"feed")
         "/screencast/add"(controller:"screencast", action:"create")
-        "/screencast/show/$id"(controller:"screencast", action:"show")
+        "/screencast/show/$id"(controller:"screencast", action:"show") {
+            constraints { id matches: /\d+/ }
+        }
         "/comment/add"(controller:"commentable", action:"add")
 
         "/websites"(controller: "webSite", action: "list")
@@ -208,4 +216,15 @@ class UrlMappings {
             "500"(controller: "error", action: "devError")
         }
     }
+
+    private static boolean isPluginNameWithVersion(String fullName, String pluginName) {
+        if (fullName == pluginName) return false
+        else {
+            def bitBeforeVersion = getVersionPrefix(pluginName)
+            if (fullName.startsWith(bitBeforeVersion) && fullName.size() > bitBeforeVersion.size()) return true
+            else return false
+        }
+    }
+
+    private static String getVersionPrefix(String pluginName) { return pluginName + '-' }
 }

@@ -4,6 +4,7 @@ dataSource {
     url = "jdbc:mysql://localhost/grails"
     username = "root"
     password = ""
+    dialect = org.grails.db.Utf8InnodbDialect
 }
 hibernate {
     cache.use_second_level_cache=true
