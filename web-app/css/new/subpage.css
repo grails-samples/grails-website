@@ -26,7 +26,7 @@ p {
 	z-index:3;
 }
 #contentWindow {
-	margin-left:230px;
+	padding-left:240px;
 	padding-top:50px;
 }
 #contentBody h1,#contentBody h2,#contentBody h3,#contentBody h4,#contentBody h5,#contentBody p, #contentBody ul, #contentBody ol, #contentBody table {
