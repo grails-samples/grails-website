@@ -1,26 +1,37 @@
-<g:set var="updateElement" value="${update ?: 'contentPane'}"/>
+<head>
+    <title><g:message code="wiki.edit.title" args="${[content?.title]}"/></title>
+    <meta content="master" name="layout"/>
+    <r:require modules="content, codeMirror, fancyBox"/>
+</head>
 
-<div id="infoLinks" style="margin-left:450px;">
-    <g:remoteLink update="${updateElement}" id="${content?.title}" params="[_ul: updateElement]">
-        <img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
-        View Page
-    </g:remoteLink>
+<body>
 
-    <shiro:isLoggedIn>
-        <g:remoteLink update="editPane" action="markupWikiPage" id="${content?.title}" params="[_ul: updateElement]">
-            <img src="${createLinkTo(dir:'images/','icon-edit.png')}" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
-            View Markup
-        </g:remoteLink>
-    </shiro:isLoggedIn>
+<div id="content" class="content-aside" role="main">
 
+    <g:render template="sideNav"/>
+
+    <div id="main">
+        <article>
+            <div id="wikiLastUpdated">Last updated by ${latest?.author?.login}
+                <prettytime:display date="${content.lastUpdated}"/></div>
+            <g:render template="viewActions" model="[content: content]"/>
+                        
+            <h3>Page: ${content?.title}, Version:${content?.number}</h3>
+
+            <div id="editPane">
+                <wiki:text>
+                    ${content?.body}
+                </wiki:text>
+
+            </div>
+  
+        </article>
+    </div>
 </div>
 
+</body>
+</html>
 
-<h3>Page: ${content?.title}, Version:${content?.number}</h3>
 
-<div id="editPane">
-    <wiki:text>
-        ${content?.body}
-    </wiki:text>
 
-</div>
+

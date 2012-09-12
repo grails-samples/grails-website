@@ -233,10 +233,13 @@ class ContentController extends BaseWikiController {
             def first = pageVersions ? Version.findByNumberAndCurrent(pageVersions[0][0], page, [cache: true]) : null
             def last = pageVersions ? Version.findByNumberAndCurrent(pageVersions[-1][0], page, [cache: true]) : null
 
-            render(template: 'wikiInfo', model: [first: first, last: last, wikiPage: page,
+            return [first: first, last: last, wikiPage: page,
                     versions: pageVersions.collect { it[0]},
                     authors: pageVersions.collect { it[1]},
-                    update: params._ul])
+                    update: params._ul]
+        }
+        else {
+            render status:404
         }
 
     }
@@ -429,7 +432,7 @@ class ContentController extends BaseWikiController {
             def rightVersion = params.diff.toLong()
             def right = Version.findByCurrentAndNumber(page, rightVersion)
             if (left && right) {
-                return [message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()]
+                return [message: "Showing difference between version ${leftVersion} and ${rightVersion}", content: page,text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()]
             }
             else {
                 return [message: "Version not found in diff"]

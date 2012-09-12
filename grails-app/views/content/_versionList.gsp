@@ -1,19 +1,15 @@
-<g:setProvider library="yui"/>
-
 <g:set var="updateElement" value="${update ?: 'contentPane'}" />
 <g:if test="${message}">
-    <div id="message" class="message">${message}</div>
+    <div id="message" class="alert-success">${message}</div>
 </g:if>
 <ul>
 
 <g:each in="${versions}" var="v" status="i">
     <li>
-        <g:remoteLink update="${updateElement}"
-                action="showWikiVersion" id="${wikiPage?.title}"
-                params="[number: v, _ul: updateElement]"
+        <g:link controller="content"
                 mapping="${urlMapping}"
-                method="GET">
-            Version ${v}</g:remoteLink> (Updated by <strong>${authors[i].login}</strong>)
+                action="showWikiVersion" id="${wikiPage?.title}" params="[number:v]">
+            Version ${v}</g:link> (Updated by <strong>${authors[i].login}</strong>)
 
         <shiro:isLoggedIn>
             <g:if test="${v != wikiPage.version}">
@@ -29,30 +25,18 @@
             </g:if>
             <g:else>Latest Version</g:else>
             |
-            <g:if test="${previous}">
-                <g:remoteLink update="diffPane"
+            <g:if test="${previous != null}">
+                <g:link 
                         action="diffWikiVersion"
-                        id="${wikiPage?.title}"
-                        params="[number:v, diff:previous, _ul: updateElement]"
+                        params="[id:wikiPage?.title,number:v, diff:previous, _ul: updateElement]"
                         mapping="${urlMapping}"
-                        method="GET"
-                        onComplete="showDiff();">Diff with previous</g:remoteLink></li>
+                        method="GET">Diff with previous</g:link>
             </g:if>
             <g:else>
                 First Version
             </g:else>
         </shiro:isLoggedIn>
-
-        <g:set var="previous" value="${v}" />
+    </li>
+    <g:set var="previous" value="${v}" />
 </g:each>
 </ul>
-<div id="diffPane">
-</div>
-<div id="diffOutputDiv" class="diffOutput" style="display:none;">
-    
-</div>
-<script type="text/javascript">
-    if(myYUI.get('message')!=null) {
-        myYUI.fade('message', {delay:3})
-    }
-</script>
