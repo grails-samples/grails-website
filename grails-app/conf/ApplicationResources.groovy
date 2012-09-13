@@ -75,6 +75,10 @@ modules = {
         dependsOn "master"
         resource url: "css/errors.css"
     }
+    
+    diffmatch {
+        resource url: 'js/diff_match_patch.js', disposition: 'head'
+    }
 
     // OLD
 
