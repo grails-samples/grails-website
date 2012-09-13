@@ -46,6 +46,13 @@ class UserController {
 
         [userInstance: user]
     }
+    
+    def search(String q) {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def results = User.findAllByLoginLike("%$q%", params)
+        def total = User.countByLoginLike("%$q%")
+        render view:'list', model:[userInstanceList:results, userInstanceTotal:total]
+    }
 
     def update(Long id) {
         def user = User.get(id)
