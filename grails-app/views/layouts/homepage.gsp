@@ -217,15 +217,15 @@ new PeriodicalExecuter(function(pe) {
                 <div id="grailsOptions">
                     <div class="left">
             	        <h3>Training</h3>
-                        <p><a href="http://www.springsource.com/training">SpringSource University</a> provides a comprehensive education and certification program for SpringSource software products as well as Spring, Groovy, Grails, and Apache open source technologies.
+                        <p><a href="http://mylearn.vmware.com/mgrReg/plan.cfm?plan=31719&ui=www_edu">VMware</a> provides a comprehensive education and certification program for VMware software products as well as Spring, Groovy, Grails, and Apache open source technologies.
 	<br><br>
 	 We offer both public and customized private training and have trained over 4,000 people. Whichever course you decide to take, you are guaranteed to experience what many before you refer to as “The best Enterprise Software Class I have ever attended”.
 						</p>		
                     </div><!-- left column -->
                     <div class="center">
             			<h3>Support &amp; Services</h3>
-                        <p>SpringSource enterprise software and <a href="http://www.springsource.com/services/enterprisesupport">support subscriptions</a> are the way to get developer and production support for Grails and other SpringSource software products and certified versions of our open source technologies including patches, updates, security fixes, and legal indemnification. 
-	<br><br><a href="http://www.springsource.com/groovy-grails-consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of SpringSource’s Grails technology experts.</p>
+                        <p>VMware enterprise software and <a href="http://www.vmware.com/support/product-support/vfabric-suite.html">support subscriptions</a> are the way to get developer and production support for Grails and other SpringSource software products and certified versions of our open source technologies including patches, updates, security fixes, and legal indemnification. 
+	<br><br><a href="http://www.springsource.org/consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of VMware’s Grails technology experts.</p>
                     </div><!-- center column -->
                     <div class="right">
                         <h3>Community</h3>
@@ -253,7 +253,7 @@ Visit the Grails <g:link controller="content" id="Community">community pages</g:
             <p>
             <a href="http://www.vmware.com/help/legal.html">Terms of Use</a> |
             <a href="http://www.vmware.com/help/privacy.html">Privacy</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&copy; Copyright 2009-2011 SpringSource.<br/>All Rights Reserved.
+            &nbsp;&nbsp;&nbsp;&nbsp;&copy; Copyright 2009-2012 VMware.<br/>All Rights Reserved.
             </p>
         </div><!-- innerFooter -->
     </div><!-- center -->
