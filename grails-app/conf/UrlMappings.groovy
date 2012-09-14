@@ -180,6 +180,10 @@ class UrlMappings {
         "/community/contribute"(controller: "community", action: "contribute")
         "/community/mailingList"(controller: "community", action: "mailingList")
         "/community/twitter"(controller: "community", action: "twitter")
+        "/news"(controller:"newsItem")
+        "/news/add"(controller:"newsItem", action:"create")
+        "/news/$id"(controller:"newsItem", action:"show")
+        "/news/edit/$id"(controller:"newsItem", action:"edit")
 
         "/screencasts"(controller: "screencast", action: "list")
         "/screencasts/add"(controller: "screencast", action: "create")

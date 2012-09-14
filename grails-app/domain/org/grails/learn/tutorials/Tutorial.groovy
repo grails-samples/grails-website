@@ -43,6 +43,9 @@ class Tutorial implements Taggable {
     }
 
     static namedQueries = {
+        pending {
+            eq 'status', ApprovalStatus.PENDING
+        }
         approved {
             eq "status", ApprovalStatus.APPROVED
         }

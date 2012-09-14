@@ -77,19 +77,17 @@
     <p><strong>Grails is an open source, full stack, web application framework for the JVM</strong>. It takes advantage of the <strong><a href="http://groovy.codehaus.org/">Groovy</a></strong> programming language and <strong>convention over configuration</strong> to provide a productive and stream-lined development experience. Powered by <strong><a href="http://springframework.org">Spring</a></strong>, Grails outperforms the competition. <g:link uri="/learn">Learn more</g:link></p>
     <div class="left">
         <h3>Latest News</h3>
-        <article class="news">
-            <h3><a href="#"><time datetime="2012-06-04">juin 04, 2012</time> Support Crowd-Funded Open-Source Grails Note Taking App Akanoo</a></h3>
-            <p>Akanoo will be a Grails-driven, visually appealing, easy-to-use open-source note taking app for web and mobile. It allows you to create, arrange... <a href="#">Read more</a></p>
-        </article>
-        <article class="news">
-            <h3><a href="#"><time datetime="2012-04-08">mai 28, 2012</time> Multiple versions of Grails released: 2.0.4, 1.3.9 & 2.1.RC2</a></h3>
-            <p>We're pleased to announce the release of several different versions of Grails: 2.0.4 - Patch release for 2.0.x, 1.3.9 - Patch release for 1.3.x fixing a ... <a href="#">Read more</a></p>
-        </article>
-        <article class="news">
-            <h3><a href="#"><time datetime="2012-04-08">mai 28, 2012</time> Transaction logic engine for Grails 2.0.3</a></h3>
-            <p>Grails provides great declarative UI and persistence. But that still leaves all the business logic portion of your apps to be written (and tested and maintained) by hand ... <a href="#">Read more</a></p>
-        </article>
-        <a href="#">Read more news</a>
+        <g:each in="${latestNews}" var="newsItem">
+            <article class="news">
+                <h3><g:link controller="newsItem" action="show" id="${newsItem.id}">
+                        <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
+                            <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
+                        </time> ${newsItem.title.encodeAsHTML()}</g:link></h3>
+                <p><wiki:shorten text="${newsItem.body}" /> <g:link controller="newsItem" action="show" id="${newsItem.id}">Read more</g:link></p>
+
+            </article>                        
+        </g:each>
+        <g:link controller="newsItem">Read more news</g:link>
     </div>
     <div class="right">
         <div class="twitter">
