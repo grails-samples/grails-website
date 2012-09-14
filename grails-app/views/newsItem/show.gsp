@@ -31,7 +31,10 @@
                  </ul>
                 </div>
             </g:if>
-                 
+
+            <g:if test="${flash.message}">
+                <div class="alert alert-info">${flash.message}</div>
+            </g:if>                 
 
                 <header>
                     <h3 style="padding: 5px 0;">

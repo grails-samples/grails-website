@@ -22,6 +22,13 @@ class NewsItemController {
                 redirect action:'create'
             }
             else {
+                if(request.user?.roles?.any { it.name == org.grails.auth.Role.ADMINISTRATOR }) {
+                    newsItem.status = ApprovalStatus.APPROVED
+                }
+                else {
+                    flash.message = "Your news post has been submitted to the administrators for approval"                    
+                }
+
                 newsItem.save(flush:true)
                 redirect action:"show", id:newsItem.id
             }
