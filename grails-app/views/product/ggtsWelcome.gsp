@@ -2,6 +2,18 @@
   <title>Groovy/Grails Tool Suite</title>
   <meta name="layout" content="subpage">
   <style>
+#contentBody iframe {
+  height: 0;
+}
+
+#contentBody h1 {
+  margin-bottom: 0;
+}
+
+#contentBody p:nth-of-type(1) {
+  margin-top: 0;
+}
+
 #contentBody ul {
     height: 3em;
     list-style-type: none;
@@ -27,6 +39,23 @@
 </head>
 <body>
   <h1>Welcome to Groovy/Grails Tool Suite</h1>
+  <!-- Google Code for ggts_successful_install Conversion Page -->
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 969539089;
+    var google_conversion_language = "en";
+    var google_conversion_format = "2";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "QvBWCJ-qtgQQkfynzgM";
+    var google_conversion_value = 500;
+    /* ]]> */
+  </script>
+  <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js"></script>
+  <noscript>
+    <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/969539089/?value=500&amp;label=QvBWCJ-qtgQQkfynzgM&amp;guid=ON&amp;script=0"/>
+    </div>
+  </noscript>
   <p>Thank you for installing Groovy/Grails Tool Suite.</p>
   <ul>
     <li>
