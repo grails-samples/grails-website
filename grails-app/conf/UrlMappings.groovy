@@ -10,6 +10,7 @@ class UrlMappings {
         }
 
         "/products/$action"(controller: "product")
+        "/products/ggts/welcome"(controller: "product", action: "ggtsWelcome")
 
         "/start"(controller: "content", action: "gettingStarted")
 
