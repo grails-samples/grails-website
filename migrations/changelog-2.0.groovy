@@ -165,6 +165,12 @@ databaseChangeLog = {
         }
     }
 
+    changeSet(author: "grocher", id: "Add status column to news_item table") {
+        addColumn(tableName: "news_item") {
+            column(name: "status", type: "varchar(255)", value: "APPROVED") { constraints(nullable: "false") }
+        }
+    }
+
     changeSet(author: "pledbrook (generated)", id: "1340116940515-51") {
         dropColumn(columnName: "featured", tableName: "tutorial")
     }
