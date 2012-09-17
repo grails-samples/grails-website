@@ -6,7 +6,7 @@
         <li<g:if test="${actionName == 'gettingStarted'}"> class="active"</g:if>>
             <a href="/start">Start with Grails!</a></li>
         <li<g:if test="${content?.title == 'Installation'}"> class="active"</g:if>>
-            <a href="/Installation">Installation</a></li>
+            <a href="/doc/latest/guide/gettingStarted.html#requirements">Installation</a></li>
         <li<g:if test="${actionName == 'quickStart'}"> class="active"</g:if>>
             <a href="/doc/latest/guide/gettingStarted.html#creatingAnApplication">Quick Start</a></li>
         <li<g:if test="${actionName == 'ideSetup'}"> class="active"</g:if>>

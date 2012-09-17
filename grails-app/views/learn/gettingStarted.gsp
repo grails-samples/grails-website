@@ -27,8 +27,8 @@
 
     <div id="main">
         <article class="numbers">
-            <h2>Learn Grails <small>in 6 easy steps</small></h2>
-            <p>The following 6 steps will take you from knowing nothing about Grails to running a Grails application - all in a matter of minutes! And if you already have some knowledge of the framework, skip the steps you don't need.</p>
+            <h2>Learn Grails <small>in 5 easy steps</small></h2>
+            <p>The following 5 steps will take you from knowing nothing about Grails to running a Grails application - all in a matter of minutes! And if you already have some knowledge of the framework, skip the steps you don't need.</p>
             <div class="item">
                 <span class="number">1</span>
                 <h3>What is Grails?</h3>
@@ -37,7 +37,7 @@
                     <g:message code="page.learn.play"/>
                 </a></p>
             </div>
-            <div class="item">
+<!--             <div class="item">
                 <span class="number">2</span>
                 <h3>Grails for ...</h3>
                 <p>Understand how Grails differs from the frameworks you already know.</p>
@@ -53,33 +53,33 @@
                         <p class="links"><a class="btn blueLight play" href="#"><g:message code="page.learn.play"/></a></p>
                     </div>
                 </div>
+            </div> -->
+            <div class="item">
+                <span class="number">2</span>
+                <h3>Try a sample application</h3>
+                <p>Check out one of the available sample applications from Github.</p>
+                <p class="links"><a class="btn blueLight" href="https://github.com/grails-samples">Sample Applications</a></p>
             </div>
             <div class="item">
                 <span class="number">3</span>
-                <h3>Try a sample application</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
-                <p class="links"><a class="btn blueLight" href="#">Download latest release (2.0.1)</a></p>
-            </div>
-            <div class="item">
-                <span class="number">4</span>
                 <h3>Download Grails</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
+                <p>Grab the latest stable release of Grails.</p>
                 <g:render template="/download/downloadLatestButton" model="[downloadFile: latestDownload, softwareVersion: latestVersion]"/>
                 <%--
                 <p class="links"><a class="btn blueLight" href="#">Download latest release (2.0.1)</a></p>
                 --%>
             </div>
             <div class="item">
-                <span class="number">5</span>
+                <span class="number">4</span>
                 <h3>Installation</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
-                <p class="links"><a class="btn blueLight" href="#">Read manual installation</a></p>
+                <p>Quick and easy. Setting up a framework has never been as simple.</p>
+                <p class="links"><a class="btn blueLight" href="http://grails.org/doc/latest/guide/gettingStarted.html#requirements">Read manual installation</a></p>
             </div>
             <div class="item">
-                <span class="number">6</span>
+                <span class="number">5</span>
                 <h3>Manual & Tutorials</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do.</p>
-                <p class="links"><a class="btn blueLight" href="#">Manual</a> <a class="btn blueLight" href="#">Tutorials</a></p>
+                <p>Extend your knowledge via the great user guide and extensive tutorial selection.</p>
+                <p class="links"><a class="btn blueLight" href="http://grails.org/latest/doc">Manual</a> <g:link class="btn blueLight" controller="tutorial" action="list">Tutorials</g:link></p>
             </div>
         </article>
     </div>
