@@ -3,7 +3,7 @@ modules = {
         dependsOn 'jquery'
         resource 'css/style.css'
         resource 'js/libs/bootstrap/bootstrap.js'
-        resource 'js/libs/modernizr-2.5.3-respond-1.1.0.min.js'
+        resource url: 'js/libs/modernizr-2.5.3-respond-1.1.0.min.js', disposition: 'head'
         resource 'js/script.js'
     }
 
