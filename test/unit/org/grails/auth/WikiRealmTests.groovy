@@ -26,6 +26,20 @@ class WikiRealmTests {
         }
     }
 
+    void testAuthenticateDisabledUser() {
+        def realm = new WikiRealm()
+
+        realm.credentialMatcher = [doCredentialsMatch:{ AuthenticationToken authenticationToken, Account account-> false }] as CredentialsMatcher
+        new User(login:"Freddy", enabled:false).save(flush:true, validate:false)
+
+        assert User.count() == 1
+        assert User.findByLogin("Freddy").enabled == false
+
+        shouldFail(DisabledAccountException) {
+            realm.authenticate( new UsernamePasswordToken("Freddy", "Frog"))
+        }
+    }
+
     void testAuthenticateBadPassword() {
         def realm = new WikiRealm()
         realm.credentialMatcher = [doCredentialsMatch:{ AuthenticationToken authenticationToken, Account account-> false }] as CredentialsMatcher
@@ -42,8 +56,10 @@ class WikiRealmTests {
     }
 
     void testHasRole() {
-        User.metaClass.static.findByLogin = { String s -> null }
-
+        User.metaClass.static.findByLogin = { String s -> 
+            return null 
+        }
+        
         WikiRealm.metaClass.getLog = {-> LogFactory.getLog(WikiRealm) }
         def realm = new WikiRealm()
 
@@ -72,9 +88,12 @@ class WikiRealmTests {
 
         assert ! realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
 
-        User.metaClass.static.createCriteria = {-> [list:{Closure c -> ["Editor", "Administrator"] }] }
-
-        assert realm.hasAllRoles( [name:"Freddy"], ["Administrator", "Editor"])
+        def u = new User(login:"Freddy")
+                    .addToRoles(new Role(name:"Administrator"))
+                    .addToRoles(new Role(name: "Editor"))
+                    .save(flush:true, validate:false)
+        assert User.count() == 1
+        assert realm.hasAllRoles( "Freddy", [new Role(name:"Administrator"), new Role(name:"Editor")])
     }
 
 

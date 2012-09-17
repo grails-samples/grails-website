@@ -6,6 +6,7 @@ class User {
     String email
     String login
     String password
+    Boolean enabled = true
 
     static hasMany = [roles: Role, permissions: String]
 

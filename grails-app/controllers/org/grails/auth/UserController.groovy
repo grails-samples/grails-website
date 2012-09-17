@@ -245,6 +245,9 @@ class UserController {
 
                 log.info "Redirecting to '${targetUri}'."
                 redirect(uri: targetUri)
+            } catch(org.apache.shiro.authc.DisabledAccountException ex) {
+                flash.message = "Your account has been disabled"
+                redirect(action: 'login', params: [ username: params.username, targetUri:params.targetUri ])
             } catch (AuthenticationException ex){
                 log.info "Authentication failure for user '${params.username}'."
                 if(request.xhr) {

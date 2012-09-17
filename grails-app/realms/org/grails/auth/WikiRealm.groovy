@@ -4,6 +4,7 @@ import org.apache.shiro.authc.AccountException
 import org.apache.shiro.authc.IncorrectCredentialsException
 import org.apache.shiro.authc.UnknownAccountException
 import org.apache.shiro.authc.SimpleAccount
+import org.apache.shiro.authc.DisabledAccountException
 
 class WikiRealm {
     static authTokenClass = org.apache.shiro.authc.UsernamePasswordToken
@@ -29,6 +30,9 @@ class WikiRealm {
         if (!user) {
             throw new UnknownAccountException("No account found for user [${username}]")
         }
+        if(!user.enabled) {
+            throw new DisabledAccountException("Account for user [$username] has been disabled")
+        }
 
         // Now check the user's password against the hashed value stored
         // in the database.
@@ -49,7 +53,12 @@ class WikiRealm {
 
     def hasAllRoles(principal, roles) {
         def user = getUserFromPrincipal(principal)
-        return roles.size() == roles.intersect(user.roles).size()
+        if(user == null) return false
+        else {
+            println "USER ROLES $user.roles"
+            println "SIZE = ${roles.intersect(user.roles).size()}"
+            return roles.size() == roles.intersect(user.roles).size()            
+        }
     }
 
     boolean isPermitted(principal, requiredPermission) {

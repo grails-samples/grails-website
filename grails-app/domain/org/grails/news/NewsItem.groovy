@@ -36,7 +36,7 @@ class NewsItem extends Content {
         all {
             order "dateCreated", "desc"
         }
-        allProved {
+        allApproved {
             approved()
             all()
         }
