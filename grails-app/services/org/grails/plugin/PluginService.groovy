@@ -296,7 +296,7 @@ class PluginService {
         case "newest":
             return [sort: "dateCreated", order: "desc"] 
 
-        case "recentlyUpdate":
+        case "recentlyUpdated":
             return [sort: "lastReleased", order: "desc"] 
 
         default:
