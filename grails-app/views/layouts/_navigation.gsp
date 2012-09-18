@@ -46,5 +46,8 @@
         <li${controllerName == 'plugin' ? ' class="active"' : ''}>
             <g:link controller="plugin" action="list"><g:message code="layout.nav.plugins"/></g:link>
         </li>
+        <shiro:hasRole name="Administrator">
+        <li><g:link uri="/admin/"><g:message code="layout.nav.admin"/></g:link></li>
+        </shiro:hasRole>
     </ul>
 </nav>
