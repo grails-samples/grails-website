@@ -173,7 +173,7 @@ databaseChangeLog = {
 
     changeSet(author: "grocher", id: "AddEnabledColumnToUserTable") {
         addColumn(tableName: "user") {
-            column(name: "enabled", type: "bit") { constraints(nullable: "false") }
+            column(name: "enabled", type: "bit", valueBoolean: "true") { constraints(nullable: "false") }
         }
     }    
 
