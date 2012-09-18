@@ -68,7 +68,7 @@ modules = {
     fancyBox {
         dependsOn 'jquery'
         resource 'fancybox/jquery.mousewheel-3.0.6.pack.js'
-        resource 'fancybox/jquery.fancyBox.css'
+        resource 'fancybox/jquery.fancybox.css'
         resource 'fancybox/jquery.fancybox.js'
     }
 
