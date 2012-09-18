@@ -97,9 +97,8 @@ class UrlMappings {
         "/plugins/pending/$id"(controller: "plugin", action: "showPendingPlugin")
         "/plugins/search"(controller: "plugin", action: "search")
 
-
-
-//        "/Plugins"(controller: "plugin", action: "legacyHome")
+        // Legacy plugin links.
+        "/Plugins"(controller: "plugin", action: "legacyHome")
 //        "/plugins"(controller: "plugin", action: "home")
 //        "/plugins/forum"(controller: "plugin", action: "forum")
 //        "/plugin/$name"(controller: "plugin") {

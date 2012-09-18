@@ -9,6 +9,10 @@ class PluginController {
     def pluginService
     def tagService
 
+    def legacyHome() {
+        redirect action: "list", permanent: true
+    }
+
     def list() {
         try {
             def maxResults = params.int("max") ?: 10
