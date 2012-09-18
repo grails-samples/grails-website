@@ -165,9 +165,9 @@ databaseChangeLog = {
         }
     }
 
-    changeSet(author: "grocher", id: "AddStatusColumnToNewsItemTable") {
-        addColumn(tableName: "news_item") {
-            column(name: "status", type: "varchar(255)", value: "APPROVED") { constraints(nullable: "false") }
+    changeSet(author: "grocher", id: "AddStatusColumnToContentTable") {
+        addColumn(tableName: "content") {
+            column(name: "status", type: "varchar(255)", value: "APPROVED") { constraints(nullable: "true") }
         }
     }
 

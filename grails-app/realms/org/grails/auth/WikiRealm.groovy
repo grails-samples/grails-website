@@ -55,8 +55,6 @@ class WikiRealm {
         def user = getUserFromPrincipal(principal)
         if(user == null) return false
         else {
-            println "USER ROLES $user.roles"
-            println "SIZE = ${roles.intersect(user.roles).size()}"
             return roles.size() == roles.intersect(user.roles).size()            
         }
     }
