@@ -12,7 +12,7 @@
 <body>
 
 <h1 class="page-header">
-    <g:message code="default.create.label" args="[entityName]"/>
+    <g:message code="default.edit.label" args="[entityName]"/>
     <span class="pull-right">
         <g:link class="btn" action="list"><g:message code="default.list.label" args="[entityName]"/></g:link>
         <g:link class="btn" action="create"><g:message code="default.create.label" args="[entityName]"/></g:link>
