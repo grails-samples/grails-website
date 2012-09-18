@@ -2,9 +2,9 @@ package org.grails.downloads
 
 class DownloadAdminController {
 
-    def downloadService
+    static scaffold = Download
 
-    def scaffold = Download
+    def downloadService
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)

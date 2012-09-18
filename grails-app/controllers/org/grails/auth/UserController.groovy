@@ -20,7 +20,7 @@ import org.grails.meta.UserInfo
 class UserController {
     private static final String ACCOUNT_SESSION_KEY = "accountCommand"
 
-    def scaffold = User
+    static scaffold = User
 
     def mailService
     def userService
