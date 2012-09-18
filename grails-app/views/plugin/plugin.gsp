@@ -30,7 +30,9 @@
                     <p class="meta">
                         Tags :
                         <g:if test="${plugin.tags.size() > 0}">
-                            <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="#">${tag}</a></g:each>
+                            <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if>
+                            <g:link controller="plugin" action="list" params="[tag: tag]">${tag}</g:link>
+                            </g:each>
                         </g:if>
                         <g:else>
                             /

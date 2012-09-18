@@ -113,6 +113,12 @@ class PluginService {
         if (links) {
             result << Plugin.withCriteria {
                 inList 'id', links*.tagRef
+                if (args.sort) {
+                    order args.sort, args.order ?: "asc"
+                }
+                else {
+                    order "lastReleased", "desc"
+                }
             }
 
             result << TagLink.countByTagAndType(tag, 'plugin')
