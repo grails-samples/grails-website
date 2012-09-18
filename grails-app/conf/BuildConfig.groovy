@@ -26,9 +26,7 @@ grails.project.dependency.resolution = {
                 ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
-        compile ":rateable:0.7.1", {
-            exclude "yui"
-        }
+        compile ":rateable:0.7.1"
 
         runtime ":avatar:0.3",
                 ":rest-client-builder:1.0",
@@ -44,7 +42,7 @@ grails.project.dependency.resolution = {
                 ":mail:1.0",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":resources:1.2-RC1",
+                ":resources:1.2.RC2",
                 ":searchable:0.6.3",
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
