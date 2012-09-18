@@ -23,7 +23,7 @@ class WikiTagLib implements ApplicationContextAware  {
     ApplicationContext applicationContext
 
     def shorten = { attrs, body ->
-        def text = attrs.text
+        def text = attrs.text ?: body()
         def length = attrs.length?.toInteger() ?: 25
         def camelCase = attrs.camelCase ?: 'false'
         def ret = ""
