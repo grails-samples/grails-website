@@ -69,13 +69,15 @@ class UrlMappings {
             parseRequest = true
         }
 
-        "/download"(controller: "download", action: "latest")
-        "/downloads"(controller: "download", action: "latest")
+        "/download"(controller: "download", action: "index")
+        "/downloads"(controller: "download", action: "index")
 
-//        "/Download"(controller: "download", action: "latest")
-//        "/download/file"(controller: "download", action: "downloadFile")
-//        "/download/url"(controller: "download", action: "showUrl")
-//        "/download/archive/$id"(controller: "download", action: "archive")
+        // Legacy download links.
+        "/Download"(controller: "download", action: "legacyHome")
+        "/download/file"(controller: "download", action: "downloadFile")
+        "/download/url"(controller: "download", action: "showUrl")
+        "/download/archive/$id"(controller: "download", action: "archive")
+
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")
 

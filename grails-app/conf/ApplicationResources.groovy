@@ -22,6 +22,7 @@ modules = {
 
     download {
         dependsOn 'master'
+        resource 'css/downloads.css'
     }
 
     plugin {

@@ -6,10 +6,10 @@
 <section class="downloads">
 
     <h2>Download latest release
-        <small>(<g:formatDate format="MM/dd/yyyy" date="${downloadDesc.releaseDate.toDate()}"/>)</small>
+        <small>(<g:formatDate format="dd MMM yyyy" date="${downloadDesc.releaseDate.toDate()}"/>)</small>
     </h2>
 
-    <p>Download Grails now and follow the easy installation instructions to get writing amazing web applications in minutes.</p>
+    <p>Download Grails now and follow the simple installation instructions to start writing amazing web applications in minutes.</p>
 
     <p class="url">
         <input type="text" readonly="readonly" value="${binary.mirrors[0].urlString}"/>

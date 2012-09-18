@@ -41,7 +41,7 @@
             <g:link controller="community" action="index"><g:message code="layout.nav.community"/></g:link>
         </li>
         <li${controllerName == 'download' ? ' class="active"' : ''}>
-            <g:link controller="download" action="latest"><g:message code="layout.nav.downloads"/></g:link>
+            <g:link controller="download" action="index"><g:message code="layout.nav.downloads"/></g:link>
         </li>
         <li${controllerName == 'plugin' ? ' class="active"' : ''}>
             <g:link controller="plugin" action="list"><g:message code="layout.nav.plugins"/></g:link>

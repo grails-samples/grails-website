@@ -1,0 +1,290 @@
+// CSS Reset
+@import "bootstrap/reset.less";
+
+// Core variables and mixins
+@import "bootstrap/variables.less";
+@import "bootstrap/mixins.less";
+@import "grails/variables.less";
+
+// Variables
+@radius: 3px;
+
+.content-aside-2 {
+    @widthAside: 338px;
+    .clearfix();
+
+    aside.ubuntu {
+        margin-bottom: 8px;
+        background: url(../img/aside/shadow.png) no-repeat 0 bottom;
+        padding-bottom: 15px;
+        div {
+            .border-radius(@radius);
+            padding: 15px 10px;
+            padding-right: 100px;
+            background: white url(../img/aside/ubuntu.png) no-repeat 210px 10px;
+            h3 {
+                font-size: 16px;
+                line-height: 22px;
+            }
+            p {
+                padding: 0;
+                line-height: 20px;
+                font-size: 13px;            
+                margin: 0;
+            }
+        }
+    }
+
+    #main {
+        width: 980px - 15px - @widthAside;
+        float: right;
+        section {
+            background: @white;
+            .border-radius(@radius);
+            padding: 10px 20px;
+            margin-bottom: 8px;
+        }
+        .previousRelease {
+            display: none;
+
+            div.release {
+                background: url(../img/page/bgblue.png) repeat 0 0;
+                .border-radius(@radius);
+                padding: 10px 10px 2px;
+                color: #334c58;
+                margin: 12px 0 5px;
+                text-align: center;
+                position: relative;
+                p.links {
+                    color: #acbac0;
+                }
+                .extra {
+                    display: block;
+                    width: 24px;
+                    height: 12px;
+                    background: url(../img/aside/arrowNotif.png) no-repeat 0 bottom;
+                    position: absolute;
+                    top: -12px;
+                    left: 50%;
+                    margin-left:-12px;
+                }
+            }
+        }
+        .downloads {
+            background: url(../img/page/bgblue.png) repeat 0 0;
+            padding: 20px 30px;
+            color: #334c58;
+            h2 {
+                font-weight: normal;
+                font-size: 22px;
+                line-height: 25px;
+                padding-bottom: 5px;
+                margin: 0;
+                color: #334c58;
+                small {
+                    font-size: 14px;
+                }
+            }
+            p.url {
+                padding: 0;
+                padding-bottom: 1px;
+                input {
+                    border: 1px solid #acbac0;
+                    display: block;
+                    width: 545px;
+                    padding: 5px 6px;
+                    .border-radius(@radius);
+                    background: white;
+                    color: @grailsGray;
+                    margin: 5px 0;
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+            .buttons {
+                margin: 0;
+                .btn-group {
+                    .clearfix();
+                    position: relative;
+                    width: 330px;
+                    margin: 0 auto;
+                    &.open {
+                        .dropdown-menu {
+                            display: block;
+                            top: 38px;
+                            right: 15px;
+                            .border-radius(@radius);
+                        }
+                    }
+                }
+                .btn {
+                    padding: 0 20px;
+                    line-height: 37px;
+                    .border-radius(40px 0 0 40px);
+                    display: block;
+                    float: left;
+                    width: 240px;
+                    border-right: 1px solid #356017;
+                }
+                .dropdown-toggle {
+                    .border-radius(0 40px 40px 0);
+                    display: block;
+                    float: left;
+                    width: 5px;
+                    height: 37px;
+                    position: relative;
+                    border: 0 none;
+                    border-left: 1px solid rgba(255,255,255,.2);
+                    
+                    .caret{
+                        border-top-color: white;
+                        position: absolute;
+                        top: 15px;
+                        left: 16px;
+                    }
+                }
+                
+                .open>a.dropdown-toggle, a.dropdown-toggle:active{
+                    border-top: 0 none;
+                    border-right: 0 none;
+                    border-bottom: 0 none;
+                    #gradient>.vertical(#457c20, #356216);
+                    @shadow: inset 0 2px 2px rgba(0,0,0,.4);
+                    .box-shadow(@shadow);
+                }
+                ul.dropdown-menu {
+                    @width: 240px;
+                    max-width: @width;
+                    min-width: @width;
+                    width: @width;
+                }
+            }
+            .links {
+                color: #acbac0;
+                padding: 0;
+                padding-top: 10px;
+                text-align: center;
+                margin: 0;
+                font-size: 12px;
+                a {
+                    color: #334c58;
+                }
+            }
+        }
+    }
+}
+
+#release_container {
+    .archiveDetails {
+        height: 2.5em;
+        margin: 1em;
+        text-align: left;
+        width: 100%;
+
+        h4, p {
+            float: left;
+            margin-right: 1em;
+        }
+        
+        h4 {
+            width: 6em;
+        }
+        
+        p {
+            width: 7em;
+        }
+
+        ul.links {
+            float: left;
+            list-style-type: none;
+            margin: 0;
+            
+            li {
+                float: left;
+                margin: 0 0.8em;
+            }
+
+        }
+
+    }
+}
+
+.js {
+    #main {
+        section.previousRelease {
+            display: block;
+        }
+    }
+
+    #downloadArchives {
+        display: none;
+
+        .archiveDetails {
+            background-color: white;
+            border: solid black 2px;
+            float: left;
+            padding: 1.5em;
+            margin: 0.5em 1em 1em 0;
+            width: 13em;
+        }
+    }
+    
+    #ubuntuInstall pre.nojs {
+        display: none;
+    }
+}
+
+
+#downloadArchives {
+    clear: both;
+
+    .majorVersion {
+        clear: left;
+    }
+
+    .archiveDetails {
+        background-color: white;
+        border: solid black 2px;
+        float: left;
+        padding: 1.5em;
+        margin: 0.5em 1em 1em 0;
+        width: 13em;
+    
+        p, h4 {
+            display: inline-block;
+        }
+
+        p {
+            font-size: 0.9em;
+            margin-left: 1em;
+        }
+
+        ul.links {
+            list-style-type: none;
+            margin: 0;
+
+            li {
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+
+                background-color: @grailsGreen;
+                display: inline-block;
+                margin-left: 0.5em;
+                padding: 0.3em 0.5em;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+
+            a {
+                color: white;
+            }
+        }
+    }
+}
+
+#ubuntuInstall {
+    clear: both;
+}
