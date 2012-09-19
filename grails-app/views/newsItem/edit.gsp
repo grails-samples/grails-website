@@ -39,7 +39,7 @@
                         <div class="control-group ${hasErrors(bean: newsItem, field: 'body', 'error')}">
                             <label class="control-label" for="body"><g:message code="news.body" /></label>
                             <div class="controls">
-                                <g:textArea cols="30" rows="10" name="body" id="wikiPageBody" required="required" value="${newsItem?.body}" class="input-fullsize"/>
+                                <g:textArea cols="30" rows="10" name="body" id="wikiPageBody" value="${newsItem?.body}" class="input-fullsize"/>
                             </div>
                         </div>
 

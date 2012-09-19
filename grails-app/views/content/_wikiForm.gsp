@@ -8,7 +8,7 @@
 
         <div class="control-group ${hasErrors(bean: wikiPage, field: 'body', 'error')}">
             <div class="controls">
-                <g:textArea cols="30" rows="20" id="wikiPageBody" name="body" required="required"
+                <g:textArea cols="30" rows="20" id="wikiPageBody" name="body"
                             value="${wikiPage?.body}" class="input-fullsize"/>
             </div>
         </div>
