@@ -10,7 +10,7 @@
 
 	.buildWithGrails {
 		position: absolute;
-		background: url(../img/page/build.png) no-repeat 0 center;
+		background: url("@{imagesPath}/page/build.png") no-repeat 0 center;
 		padding-left: 43px;
 		right: 0;
 		height: 21px;
@@ -19,7 +19,7 @@
 	}
 	
 	.copyright {
-		background: url(../img/page/copyright.png) no-repeat 0 center;
+		background: url("@{imagesPath}/page/copyright.png") no-repeat 0 center;
 		padding-left: 38px;
 	}
 
@@ -71,10 +71,10 @@
 				text-indent: -6000em;
 		
 				&.artifactory {
-					background: url(../img/externalServices/artifactory.png) no-repeat 0 0;
+					background: url("@{imagesPath}/externalServices/artifactory.png") no-repeat 0 0;
 					width: 95px;
 					&:hover {
-						background: url(../img/externalServices/artifactory.png) no-repeat 0 -20px;
+						background: url("@{imagesPath}/externalServices/artifactory.png") no-repeat 0 -20px;
 					}
 				}				
 			}

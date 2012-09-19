@@ -1,3 +1,24 @@
+import org.lesscss.LessCompiler
+
+eventCreateWarStart = { name, stagingDir ->
+    compileLessCss name, stagingDir
+}
+
+void compileLessCss(name, stagingDir) {
+    // Instantiate the LESS compiler
+    def lessCompiler = new LessCompiler()
+
+    // Or compile LESS input file to CSS output file
+    event "StatusUpdate", [ "LESS CSS: compiling .less files ..." ]
+    lessCompiler.compile(
+            new File(stagingDir, "less/style.less"),
+            new File(stagingDir, "css/style.css"))
+    lessCompiler.compile(
+            new File(stagingDir, "less/downloads.less"),
+            new File(stagingDir, "css/downloads.css"))
+    event "StatusUpdate", [ "LESS CSS: compilation done" ]
+}
+
 def classExcludePatterns = [
     'BuildConfig*',
     'grails/buildtestdata/**',

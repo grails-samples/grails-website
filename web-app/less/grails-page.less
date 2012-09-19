@@ -1,7 +1,7 @@
 /* Override theme */
 @radius: 3px;
 body {
-	background: #ededeb url(../img/page/bg.png) repeat 0 0;
+	background: #ededeb url("@{imagesPath}/page/bg.png") repeat 0 0;
 	font-family: @grailsFontFamily;
 	font-size: @baseFontSize;
 }
@@ -208,7 +208,7 @@ h2 {
 			h3 {
 				position: relative;
 				margin: 0;
-				background: @grailsGrayDark url(../img/aside/head.png) no-repeat 0 0;
+				background: @grailsGrayDark url("@{imagesPath}/aside/head.png") no-repeat 0 0;
 				color: @white;
 				font-size: @baseFontSize;
 				line-height: 35px;
@@ -238,16 +238,16 @@ h2 {
 						display: block;
 						padding: 0 10px;
 						line-height: 30px;
-						background: @white url(../img/page/arrow.png) no-repeat 400 0;
+						background: @white url("@{imagesPath}/page/arrow.png") no-repeat 400 0;
 						text-decoration: none;
 						&:hover {
-							background: @grailsGrayWhite url(../img/page/arrow.png) no-repeat right 0;
+							background: @grailsGrayWhite url("@{imagesPath}/page/arrow.png") no-repeat right 0;
 						}
 					}
 					
 					&.active {
 						a {
-							background: @grailsGrayWhite url(../img/page/arrow.png) no-repeat right -35px;
+							background: @grailsGrayWhite url("@{imagesPath}/page/arrow.png") no-repeat right -35px;
 							color: @grailsGreen;
 							font-weight: bold;
 						}
@@ -340,7 +340,7 @@ h2 {
             }
 			a.zoom {
 				display: block;
-				background: url(../img/icons/zoom.png) no-repeat center 0;
+				background: url("@{imagesPath}/icons/zoom.png") no-repeat center 0;
 				width: 30px;
 				height: 30px;
 				text-indent: -6000em;
@@ -349,7 +349,7 @@ h2 {
 				right: 9px;
 				top: 7px;
 				&:hover {
-					background: url(../img/icons/zoom.png) no-repeat center -30px;
+					background: url("@{imagesPath}/icons/zoom.png") no-repeat center -30px;
 				}
 			}
 		}
@@ -361,10 +361,10 @@ h2 {
 			background: white;
 			margin-bottom: 8px;
 			&.github {
-				background: url(../img/aside/shadow.png) no-repeat 0 bottom;
+				background: url("@{imagesPath}/aside/shadow.png") no-repeat 0 bottom;
 				padding-bottom: 15px;
 				div {
-					background: url(../img/aside/github.png) no-repeat -5px -14px;
+					background: url("@{imagesPath}/aside/github.png") no-repeat -5px -14px;
 					height: 143px;
 					width: @widthAside;
 					position: relative;
@@ -374,7 +374,7 @@ h2 {
 						position: absolute;
 						left: 0;
 						top: -20px;
-						background: url(../img/aside/github2.png) no-repeat 0 0;
+						background: url("@{imagesPath}/aside/github2.png") no-repeat 0 0;
 						height: 180px;
 						width: 380px;
 						display: block;
@@ -387,13 +387,13 @@ h2 {
 			}
 			&.hudson {
 				margin-bottom: 8px;
-				background: url(../img/aside/shadow.png) no-repeat 0 bottom;
+				background: url("@{imagesPath}/aside/shadow.png") no-repeat 0 bottom;
 				padding-bottom: 15px;
 				div {
 					.border-radius(@radius);
 					padding: 15px 10px;
 					padding-left: 90px;
-					background: white url(../img/aside/hudson.png) no-repeat 0 0;
+					background: white url("@{imagesPath}/aside/hudson.png") no-repeat 0 0;
 					h3 {
 						font-size: 16px;
 						line-height: 22px;
@@ -407,7 +407,7 @@ h2 {
 				}
 			}
 			&.notif {
-				background: url(../img/page/bgblue.png) repeat 0 0;				
+				background: url("@{imagesPath}/page/bgblue.png") repeat 0 0;				
 				color: #1e2d35;
 				#textshadow > .white(.8);
 				padding: 10px;
@@ -419,7 +419,7 @@ h2 {
 					margin: 0;
 				}
 				span.extra {
-					background: url(../img/aside/arrowNotif.png) no-repeat 0 0;
+					background: url("@{imagesPath}/aside/arrowNotif.png") no-repeat 0 0;
 					width: 24px;
 					height: 12px;
 					position: absolute;
@@ -451,9 +451,9 @@ h2 {
 							padding-left: 25px;
 							color: @grailsGrayMedium;
 							text-decoration: none;
-							background: url(../img/aside/filters.png) no-repeat 0 -70px;			
+							background: url("@{imagesPath}/aside/filters.png") no-repeat 0 -70px;			
 							&:hover {
-								background: url(../img/aside/filters.png) no-repeat 0 -36px;
+								background: url("@{imagesPath}/aside/filters.png") no-repeat 0 -36px;
 								color: @grailsGreen;
 							}
 						}
@@ -463,7 +463,7 @@ h2 {
 					}
 					li.active {
 						a, a:hover {
-							background: url(../img/aside/filters.png) no-repeat 0 -2px;
+							background: url("@{imagesPath}/aside/filters.png") no-repeat 0 -2px;
 							color: @grailsGreen;
 							font-weight: bold;
 						}			
@@ -508,7 +508,7 @@ ul.list-links {
 	position: relative;
 	font-size: @baseFontSize - 1;
 	h2 {
-		background: url(../img/twitter/bird.png) no-repeat 0 0;
+		background: url("@{imagesPath}/twitter/bird.png") no-repeat 0 0;
 		width: 60px;
 		height: 35px;
 		text-indent: -6000em;
@@ -623,7 +623,7 @@ ul.list-links {
 				right: -7px;
 				top: -7px;
 				text-indent: -6000em;
-				background-image: url(../img/plugin/status.png);
+				background-image: url("@{imagesPath}/plugin/status.png");
 				background-repeat: no-repeat;
 			}
 			&.status-new {
@@ -775,7 +775,7 @@ p.rating {
 		height: 16px;
 		width: 16px;
 		margin-right: 2px;
-		background-image: url(../img/page/rating.png);
+		background-image: url("@{imagesPath}/page/rating.png");
 		background-repeat: no-repeat;
 	}
 	.star-100 {
@@ -881,7 +881,7 @@ p.rating {
                 right: -7px;
                 top: -7px;
                 text-indent: -6000em;
-                background-image: url(../img/plugin/status.png);
+                background-image: url("@{imagesPath}/plugin/status.png");
                 background-repeat: no-repeat;
 
             }
@@ -1023,10 +1023,10 @@ a.like {
 	line-height: 16px;
 	color: @grailsGray;
 	font-size: 12px;
-	background: url(../img/page/like.png) no-repeat right 0;
+	background: url("@{imagesPath}/page/like.png") no-repeat right 0;
 	&:hover{
 		color: #ce1121;
-		background: url(../img/page/like.png) no-repeat right -16px;
+		background: url("@{imagesPath}/page/like.png") no-repeat right -16px;
 		text-decoration: none;
 	}
 
@@ -1075,7 +1075,7 @@ a.like {
 				border-bottom: 2px dotted @grailsGrayLight;
 				padding: 5px 0 0 0;
 				span {
-					background: #ededeb url(../img/page/bg.png) repeat 0 0;
+					background: #ededeb url("@{imagesPath}/page/bg.png") repeat 0 0;
 					padding-right: 12px;
 				}
 				margin-bottom: 14px;
@@ -1203,7 +1203,7 @@ a.like {
         margin: 0;
         text-indent: -6000em;
         float: left;
-        background: url(../../img/externalServices/connectwith.png) no-repeat 0 0;
+        background: url("@{imagesPath}/externalServices/connectwith.png") no-repeat 0 0;
     }
     a.facebook {
         &:hover {

@@ -23,6 +23,9 @@
     <link href='http://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
     <r:require modules="master"/>
     <r:layoutResources/>
+    <g:if test="${Environment.developmentMode}">
+    <g:external dir="js" file="less-1.3.0.min.js"/>
+    </g:if>
     <g:layoutHead/>
 </head>
 

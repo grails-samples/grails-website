@@ -67,6 +67,8 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+        build "org.lesscss:lesscss:1.3.0"
+
         compile "org.twitter4j:twitter4j-core:2.1.8",
                 "org.springframework:spring-context-support:3.0.3.RELEASE",
                 "org.jadira.usertype:usertype.jodatime:1.9",

@@ -9,7 +9,16 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 // }
 grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*"]
 grails.resources.adhoc.excludes = [ "**/*.swp", "**/*.html" ]
-grails.resources.zip.excludes = ["/**/*.png","/**/*.gif","/**/*.jpg"]
+
+// Fixes reloading bug in Zipped Resources (GPZIPPEDRESOURCES-3) that means
+// that modifying LESS files has no impact on the running app. This also
+// fixes the exclusions for images (GPZIPPEDRESOURCES-1).
+grails.resources.zip.excludes = ["**/*.png","**/*.gif","**/*.jpg", "**/*.less"]
+
+// Don't cache LESS files. Since they are converted to CSS when the WAR is created,
+// this is fine - we don't need caching in dev mode.
+grails.resources.mappers.hashandcache.excludes = ['**/*.less']
+
 
 wiki.supported.upload.types = ['image/png','image/jpg','image/jpeg','image/gif']
 // location of plugins-list.xml
