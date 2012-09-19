@@ -28,6 +28,10 @@ grails.project.dependency.resolution = {
 
         compile ":rateable:0.7.1"
 
+        runtime ":grails-ui:1.2.3", {
+            exclude "yui"
+        }
+
         runtime ":avatar:0.3",
                 ":rest-client-builder:1.0",
                 ":cache:1.0.0",

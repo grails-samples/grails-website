@@ -1,13 +1,14 @@
 <head>
   <title>Groovy/Grails Tool Suite</title>
-  <meta name="layout" content="subpage">
+  <meta name="layout" content="master">
   <style>
-#contentBody ul.links {
-    height: 2em;
+#page ul.links {
+    height: 3em;
     list-style-type: none;
+    margin-bottom: 2.5em;
 }
 
-#contentBody ul.links li {
+#page ul.links li {
     border: 1px solid orange;
     border-radius: 4px;
     float: left;
@@ -25,7 +26,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
 }
 
-#contentBody ul.links li a {
+#page ul.links li a {
     border: none;
 }
   </style>
@@ -66,5 +67,12 @@
   <ul class="links">
     <li><a href="http://www.springsource.org/groovy-grails-tool-suite-download">Download GGTS</a></li>
     <li><a href="http://blog.springsource.com/category/tools/">Development Tools Blog</a></li>
+  </ul>
+
+  <h2>More info</h2>
+  <ul>
+    <li><a href="http://download.springsource.com/release/STS/doc/STS-new_and_noteworthy.pdf">New and Noteworthy</a></li>
+    <li><a href="https://issuetracker.springsource.com/browse/STS">JIRA Issue Tracker</a></li>
+    <li><a href="http://forum.springsource.org/forumdisplay.php?32-SpringSource-Tool-Suite">Support Forum</a></li>
   </ul>
 </body>
