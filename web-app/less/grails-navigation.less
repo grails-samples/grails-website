@@ -22,7 +22,7 @@
 				.border-radius(@radius);
 				padding: 0 10px;
 				color: @white;
-				font-size: @baseFontSize;
+				font-size: @baseFontSize * 1.1;
 				text-decoration: none;
   
 				&:hover {
@@ -74,15 +74,14 @@
                     }
                 }
                 #list>.round();
-                div.dropdown-menu {
+                ul.dropdown-menu {
                     top: 39px;
                     padding: 10px 20px;
                     border: 0 none;
                     .border-radius(0);
-                    ul {
-                        >li {
-                            color: #CCC;
-                        }
+                    >li {
+                        color: #CCC;
+                        margin: 3px 0;
                     }
                 }
             }
