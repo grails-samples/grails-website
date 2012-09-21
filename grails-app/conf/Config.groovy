@@ -214,6 +214,19 @@ springcache {
     }
 }
 
+/* Sample configuration for pushing plugins to a local Artifactory repository
+
+beans {
+    pluginDeployService {
+        releaseUrl = "http://localhost:8081/artifactory/plugins-releases-local/org/grails/plugins"
+        snapshotUrl = "http://localhost:8081/artifactory/plugins-snapshots-local/org/grails/plugins"
+        deployUsername = "admin"
+        deployPassword = "password"
+    }
+}
+
+*/
+
 // Dummy Twitter settings.
 twitter4j.oauth.consumerKey="E1U4T7KgPdaGFagdpbdQ"
 twitter4j.oauth.consumerSecret="hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY"
@@ -221,6 +234,7 @@ twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
 twitter4j.oauth.accessSecret="test"
 
 
+artifactRepository.url = "http://repo.grails.org/grails/plugins"
 rest.dateFormat = "yyyy-MM-dd"
 format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"

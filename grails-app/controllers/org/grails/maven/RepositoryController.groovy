@@ -6,14 +6,16 @@ import org.grails.plugin.*
 import org.springframework.context.ApplicationEvent
 /**
  * 
- * Responsible for adapting Grails repository conventions onto a Maven compatible repository. Currently this is hard coded to http://repo.grails.org/grails/plugins.
- * Also handles deployment of plugins using the publish action.
+ * Responsible for adapting Grails repository conventions onto a Maven compatible repository.
+ * Defaults to http://repo.grails.org/grails/plugins. Also handles deployment of plugins using
+ * the publish action.
  * 
  * @author Graeme Rocher
  */
 class RepositoryController {
 
     def cacheService
+    def grailsApplication
     
     /**
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
@@ -78,7 +80,7 @@ class RepositoryController {
     }
 
 
-    def pluginMeta() {	
+    def pluginMeta() {
         render '<a href="http://plugins.grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a><a href="http://grails.org/plugins/.plugin-meta/plugins-list.xml">plugins-list.xml</a>'
     }
 
@@ -119,7 +121,7 @@ class RepositoryController {
                 def snapshotVersion = pluginVersion
                 if(snapshotVersion.endsWith("-SNAPSHOT")) {
                     // need to calculate actual version from maven metadata
-                    def parent = new URL("http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/maven-metadata.xml")
+                    def parent = new URL("${repoUrl}/org/grails/plugins/$plugin/$pluginVersion/maven-metadata.xml")
                     try {
                         def metadata = parent.newReader(connectTimeout: 10000, useCaches: false).withReader { new XmlSlurper().parse(it) }
                         def timestamp = metadata.versioning.snapshot.timestamp.text()
@@ -134,7 +136,7 @@ class RepositoryController {
                     }
                     
                 }
-                url = "http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"                
+                url = "${repoUrl}/org/grails/plugins/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"                
                 cacheService?.putContent(key, url)
             }
             
@@ -166,6 +168,11 @@ class RepositoryController {
             
         }
         
+    }
+    
+    protected getRepoUrl() {
+        def repoUrl = grailsApplication.config.artifactRepository.url ?: "http://repo.grails.org/grails/plugins"
+        return repoUrl.endsWith("/") ? repoUrl[0..-2] : repoUrl
     }
     
     private findPluginRelease(String n) {
