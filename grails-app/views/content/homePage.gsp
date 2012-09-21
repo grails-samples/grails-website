@@ -44,11 +44,11 @@
         <div class="left">
             <h2>Grails Framework, Full stack</h2>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <strong>labore et dolore magna aliqua</strong>.
+            <p>Build modern, sophisticated and robust Groovy web applications in record time! <strong>Grails brings back the enjoyment of Java web development</strong>.
             </p>
 
             <p>
-                <a href="/download" class="btn">Download Grails</a>&nbsp;&nbsp;
+                <a href="/download" class="btn">Download Grails</a>
                 <a href="/learn" class="btn primary">Start using Grails!</a>
             </p>
         </div>
@@ -56,26 +56,34 @@
             <li>
                 <a href="#">rapid</a>
 
-                <p class="hide">Get instant feedback, see instant results. Grails is the premier dynamic language web framework for the JVM. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p class="hide">Have your next Web project done in weeks instead of months. Grails delivers a new age of Java web application productivity.</p>
             </li>
             <li>
                 <a href="#">dynamic</a>
 
-                <p class="hide">Get instant feedback, see instant results. Grails is the premier dynamic language web framework for the JVM. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p class="hide">Get instant feedback, see instant results. Grails is the premier dynamic language web framework for the JVM.</p>
             </li>
             <li>
                 <a href="#">robust</a>
 
-                <p class="hide">Get instant feedback, see instant results. Grails is the premier dynamic language web framework for the JVM. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <p class="hide">Powered by Spring and designed for the JVM, Grails outperforms the competition. Dynamic, agile web development without compromises.</p>
             </li>
         </ul>
     </div>
 </div>
 
 <section class="section-1">
-    <h2><strong>What is Grails?</strong> <small>in short</small></h2>
-    <p><strong>Grails is an open source, full stack, web application framework for the JVM</strong>. It takes advantage of the <strong><a href="http://groovy.codehaus.org/">Groovy</a></strong> programming language and <strong>convention over configuration</strong> to provide a productive and stream-lined development experience. Powered by <strong><a href="http://springframework.org">Spring</a></strong>, Grails outperforms the competition. <g:link uri="/learn">Learn more</g:link></p>
+    <h2><strong>What is Grails?</strong> </h2>
+    <p><strong>Grails is an Open Source, full stack, web application framework for the JVM</strong>. It takes advantage of the <strong><a href="http://groovy.codehaus.org/">Groovy</a></strong> programming language and <strong>convention over configuration</strong> to provide a productive and stream-lined development experience. <g:link uri="/learn">Learn more</g:link></p>
     <div class="left">
+    <div id="#downloadNow" class="downloads">
+        <h2>Grab the latest and greatest release!</h2>
+        <div class="buttons">
+            <a href="${latestDownload[1].mirrors[0].urlString}" class="btn primary">Download ${latestDownload[0].softwareVersion}</a> 
+        </div>
+        
+    </div>
+
         <h3>Latest News</h3>
         <g:each in="${latestNews}" var="newsItem">
             <article class="news">
@@ -89,7 +97,9 @@
         </g:each>
         <g:link controller="newsItem">Read more news</g:link>
     </div>
-    <div class="right">
+    <div id="homeRightPanel" class="right">
+
+        
         <div class="twitter">
             <h2>@grailsframework</h2>
             <div id="jstwitter"></div>
@@ -97,18 +107,18 @@
                 <a href="https://twitter.com/grailsframework" class="btn blue">Follow @grailsframework</a>
             </p>
         </div>
-    </div>
+    </div>        
 </section>
 
 <section class="section-3">
     <div class="col1">
         <h3>Training</h3>
-        <p><a href="http://www.springsource.com/training">SpringSource University</a> provides a comprehensive education and certification program for SpringSource software products as well as Spring, Groovy, Grails, and Apache open source technologies.</p>
+        <p><a href="http://www.springsource.com/training">SpringSource University</a> provides a comprehensive education and certification program for SpringSource software products as well as Spring, Groovy, Grails, and Apache Open Source technologies.</p>
         <p>We offer both public and customized private training and have trained over 4,000 people. Whichever course you decide to take, you are guaranteed to experience what many before you refer to as “The best Enterprise Software Class I have ever attended”.</p>
     </div>
     <div class="col2">
         <h3>Support &amp; services</h3>
-        <p>SpringSource enterprise software and <a href="http://www.springsource.com/services/enterprisesupport">support subscriptions</a> are the way to get developer and production support for Grails and other SpringSource software products and certified versions of our open source technologies including patches, updates, security fixes, and legal indemnification.</p>
+        <p>SpringSource enterprise software and <a href="http://www.springsource.com/services/enterprisesupport">support subscriptions</a> are the way to get developer and production support for Grails and other SpringSource software products and certified versions of our Open Source technologies including patches, updates, security fixes, and legal indemnification.</p>
         <p><a href="http://www.springsource.com/groovy-grails-consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of SpringSource’s Grails technology experts.</p>
     </div>
 
