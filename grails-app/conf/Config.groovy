@@ -13,7 +13,7 @@ grails.resources.adhoc.excludes = [ "**/*.swp", "**/*.html" ]
 // Fixes reloading bug in Zipped Resources (GPZIPPEDRESOURCES-3) that means
 // that modifying LESS files has no impact on the running app. This also
 // fixes the exclusions for images (GPZIPPEDRESOURCES-1).
-grails.resources.zip.excludes = ["**/*.png","**/*.gif","**/*.jpg", "**/*.less"]
+grails.resources.mappers.zip.excludes = ["**/*.png","**/*.gif","**/*.jpg", "**/*.less"]
 
 // Don't cache LESS files. Since they are converted to CSS when the WAR is created,
 // this is fine - we don't need caching in dev mode.
