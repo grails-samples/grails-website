@@ -128,6 +128,17 @@ databaseChangeLog = {
         }
     }
 
+    changeSet(author: "pledbrook", id: "ReleaseStatusForPendingPlugins") {
+        addColumn(tableName: "pending_release") {
+            column(name: "date_created", type: "datetime") { constraints(nullable: "false") }
+            column(name: "status", type: "varchar(255)", value: "COMPLETED") { constraints(nullable: "false") }
+        }
+
+        dropNotNullConstraint tableName: "pending_release", columnName: "zip", columnDataType: "longblob"
+        dropNotNullConstraint tableName: "pending_release", columnName: "pom", columnDataType: "mediumblob"
+        dropNotNullConstraint tableName: "pending_release", columnName: "xml", columnDataType: "mediumblob"
+    }
+
     changeSet(author: "pledbrook (generated)", id: "1340116940515-16") {
         createIndex(indexName: "FK2F0606558FF3BE26", tableName: "generic_approval_response") {
             column(name: "submitted_by_id")

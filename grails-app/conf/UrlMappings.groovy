@@ -69,6 +69,7 @@ class UrlMappings {
             action = [GET: "apiShow", PUT: "apiUpdate"]
             parseRequest = true
         }
+        "/api/v1.0/plugin/status/$name/$version"(controller: "pendingRelease", action: "status")
 
         "/download"(controller: "download", action: "index")
         "/downloads"(controller: "download", action: "index")
@@ -87,9 +88,13 @@ class UrlMappings {
         "/plugins"(controller: "plugin", action: "list")
         "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
         "/plugins/tag/$tag"(controller: "plugin", action: "list")
-        "/plugin/$id"(controller: "plugin", action: "plugin") {
+        "/plugin/$id"(controller: "plugin") {
+            // The PUT is legacy, but can't add it as a separate mapping.
+            action = [ GET: "show", PUT: "apiUpdate" ]
+            parseRequest = true
+
             constraints {
-                id(notEqual: "tag")
+                id notEqual: "tag"
             }
         }
 //        "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
@@ -102,10 +107,6 @@ class UrlMappings {
         "/Plugins"(controller: "plugin", action: "legacyHome")
 //        "/plugins"(controller: "plugin", action: "home")
 //        "/plugins/forum"(controller: "plugin", action: "forum")
-//        "/plugin/$name"(controller: "plugin") {
-//            action = [ GET: "show", PUT: "apiUpdate" ]
-//            parseRequest = true
-//        }
 //        "/plugin/home"(controller: "plugin", action:"home")
 //        "/plugin/search"(controller: "plugin", action:"search")
 //        "/plugin/list"(controller: "plugin", action:"list")

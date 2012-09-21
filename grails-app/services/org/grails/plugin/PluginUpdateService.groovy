@@ -144,6 +144,12 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         pluginService.savePlugin(plugin, true)
 
+        // Clear out associated pending releases.
+        def pendingReleases = PendingRelease.findAllByPluginNameAndPluginVersion(plugin.name, plugin.currentRelease)
+        for (pendingRelease in pendingReleases) {
+            pendingRelease.delete()
+        }
+
         // Assuming the instance saved OK, we can announce the release if it's
         // a new version.
         if (isNewVersion && !event.snapshot) {

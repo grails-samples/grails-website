@@ -1,5 +1,6 @@
 package org.grails.plugin
 
+import grails.converters.*
 import org.grails.tags.TagNotFoundException
 import org.grails.common.ApprovalStatus
 import org.compass.core.engine.SearchEngineQueryParseException
@@ -41,8 +42,8 @@ class PluginController {
         }
     }
 
-    def plugin() {
-        def plugin = Plugin.findByName(params.id)
+    def show(String id) {
+        def plugin = Plugin.findByName(id)
 
         // Redirect to the list page if the plugin doesn't exist
         if (!plugin) {
@@ -128,6 +129,182 @@ class PluginController {
         }
         else {
             redirect action: "list"
+        }
+    }
+
+    //---- REST API --------------------------------------
+
+    /**
+     * Display all plugins or subset of using preferred content type. Only
+     * JSON or XML supported at this point.
+     */
+    def apiList() {
+        def pluginData = listPlugins(0, 'all')
+        def pluginList = transformPlugins(pluginData.currentPlugins, pluginData.category)
+
+        withFormat {
+            json {
+                render pluginList as JSON
+            }
+            xml {
+                renderMapAsXml pluginList, "plugins"
+            }
+        }
+    }
+
+    /**
+     * Display the details of one plugin in either JSON or XML form.
+     */
+    def apiShow() {
+        if(params.name && params.version) {
+            def p = params.name
+            def v = params.v
+            def release = PluginRelease.where {
+                plugin.name == p && releaseVersion == v 
+            }
+            if(release.exists()) {
+                def plugin = transformPluginRelease(release)
+                withFormat {
+                    json {
+                        render plugin as JSON        
+                    }
+                    xml {
+                        renderMapAsXml plugin, "plugin"
+                    }
+                }
+            }
+            else {
+                render status:404
+            }
+        }
+        else {
+            def plugin = byName(params)
+            if (!plugin) {
+                response.sendError 404
+                return
+            }
+
+            plugin = transformPlugin(plugin)
+            withFormat {
+                json {
+                    render plugin as JSON
+                }
+                xml {
+                    renderMapAsXml plugin, "plugin"
+                }
+            }
+        }
+    }
+
+    /**
+     * Plugin 'ping'. Should only be accessible from a PUT. It extracts
+     * the location of the plugin's deployment repository from the request
+     * and queues up a job to update the plugin's details in the database
+     * from the POM and plugin descriptor stored in the repository.
+     */
+    def apiUpdate() {
+        // Start by getting the named plugin if it exists.
+        def plugin = Plugin.findByName(params.id)
+
+        // Check the payload. There should be a 'url' parameter containing
+        // the location of the repository to which the plugin was deployed.
+        // If the parameter doesn't exist or it's not a URL, we return a 400.
+        def data = JSON.parse(request)
+        if (!data.url) {
+            render contentType: "application/json", status: 400, {
+                message = "No repository URI provided"
+            }
+            return
+        }
+
+        try {
+            def uri = new URI(data.url)
+
+            if (!uri.absolute) {
+                render contentType: "application/json", status: 400, {
+                    message = "Relative repository URI not supported: ${uri}"
+                }
+                return
+            }
+
+            // Default to it not being a snapshot release if 'isSnapshot' is not provided.
+            publishEvent(new PluginUpdateEvent(this, data.name, data.version, data.group, data.isSnapshot ?: false, uri))
+
+            render contentType: "application/json", {
+                message = "OK"
+            }
+        }
+        catch (URISyntaxException ex) {
+            render contentType: "application/json", status: 400, {
+                message = "Invalid repository URI: ${data.url}"
+            }
+            return
+        }
+        catch (Exception ex) {
+            log.error "Plugin update failed", ex
+            render contentType: "application/json", status: 500, {
+                message = "Internal server error: ${ex.message}"
+            }
+            return
+        }
+    }
+
+    protected transformPlugins(plugins, category = null) {
+        def map = [ pluginList: plugins ? plugins.collect { p -> transformPlugin(p) } : [] ]
+        if (category) map.category = category
+        return map 
+    }
+
+    protected transformPlugin(plugin) {
+        def pluginMap = [
+                name: plugin.name,
+                version: plugin.currentRelease,
+                title: plugin.title,
+                author: plugin.author,
+                authorEmailMd5: DigestUtils.md5Hex(plugin.authorEmail),
+                description: plugin.summary,
+                grailsVersion: plugin.grailsVersion,
+                documentation: plugin.documentationUrl,
+                official: plugin.official,
+                licenseList: plugin.licenses.collect { l -> [name: l.name, url: l.url] },
+                lastReleased: dateService.getRestDateTime(plugin.lastReleased),
+                file: plugin.downloadUrl,
+                rating: plugin.avgRating,
+                zombie: plugin.zombie ]
+            
+        if (plugin.issuesUrl) pluginMap.issues = plugin.issuesUrl
+        if (plugin.scmUrl) pluginMap.scm = plugin.scmUrl
+
+        return pluginMap
+    }
+
+    protected transformPluginRelease(pluginRelease) {
+        def pluginMap = transformPlugin(pluginRelease.plugin)
+        pluginMap.version = pluginRelease.releaseVersion
+        return pluginMap
+    }
+    protected renderMapAsXml(map, root = "root") {
+        render contentType: "application/xml", {
+            "${root}" {
+                mapAsXml delegate, map
+            }
+        }
+    }
+
+    protected mapAsXml(builder, map) {
+        for (entry in map) {
+            if (entry.value instanceof Collection) {
+                builder."${entry.key}" {
+                    for (m in entry.value) {
+                        "${entry.key - 'List'}" {
+                            mapAsXml builder, m
+                        }
+                    }
+                }
+            }
+            else {
+                builder."${entry.key}"(entry.value)
+            }
         }
     }
 
