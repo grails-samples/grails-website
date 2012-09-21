@@ -48,16 +48,6 @@
     
     <tr>
         <td class="show-label">
-            <g:message code="user.email.label" default="Email"/>
-        </td>
-
-        
-        <td class="show-value">${fieldValue(bean: userInstance, field: "email")}</td>
-        
-    </tr>
-    
-    <tr>
-        <td class="show-label">
             <g:message code="user.login.label" default="Login"/>
         </td>
 
@@ -68,11 +58,11 @@
     
     <tr>
         <td class="show-label">
-            <g:message code="user.password.label" default="Password"/>
+            <g:message code="user.email.label" default="Email"/>
         </td>
 
         
-        <td class="show-value">${fieldValue(bean: userInstance, field: "password")}</td>
+        <td class="show-value">${fieldValue(bean: userInstance, field: "email")}</td>
         
     </tr>
     
