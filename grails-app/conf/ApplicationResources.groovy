@@ -1,9 +1,9 @@
-import grails.util.Environment
+import grails.util.Metadata
 
 modules = {
 
     masterStyles {
-        if (Environment.current.developmentMode) {
+        if (isDevMode()) {
             resource url: 'less/style.less', attrs: [rel: 'stylesheet/less', type: 'css']
         }
         else {
@@ -40,7 +40,7 @@ modules = {
     download {
         dependsOn 'master'
 
-        if (Environment.current.developmentMode) {
+        if (isDevMode()) {
             resource url: 'less/downloads.less', attrs: [rel: 'stylesheet/less', type: 'css']
         }
         else {
@@ -104,3 +104,6 @@ modules = {
         resource url: 'js/diff_match_patch.js', disposition: 'head'
     }
 }
+
+/** Returns {@code true} if we're using run-app. */
+boolean isDevMode() { !Metadata.current.isWarDeployed() }
