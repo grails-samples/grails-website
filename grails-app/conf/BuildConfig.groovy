@@ -40,7 +40,7 @@ grails.project.dependency.resolution = {
                 ":database-migration:1.0",
                 ":disqus:0.1",
                 ":feeds:1.5",
-//                ":greenmail:1.2.2",
+                ":greenmail:1.2.2",
                 ":hibernate:$grailsVersion",
                 ":jquery:1.7.2",
                 ":mail:1.0",
