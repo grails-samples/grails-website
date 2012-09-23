@@ -93,7 +93,7 @@ new PeriodicalExecuter(function(pe) {
             
             <div class="eventDownloadWrapper">
                 <div id="screencasts">
-                    <h2>What is grails?</h2>
+                    <h2>What is Grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
                             <a href="http://portal.sliderocket.com/vmware/what-is-grails">
