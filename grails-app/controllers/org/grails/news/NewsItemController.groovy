@@ -1,7 +1,8 @@
 package org.grails.news
 
-import org.grails.wiki.WikiPage
+import org.grails.auth.User
 import org.grails.common.*
+import org.grails.wiki.WikiPage
 
 class NewsItemController {
 
@@ -52,6 +53,18 @@ class NewsItemController {
         }
         else {
             render status:404
+        }
+    }
+
+    def legacyShow(String author, String title) {
+        def a = User.findByLogin(author)
+        def newsItem = NewsItem.where { author == a && title == title }.get()
+
+        if (newsItem) {
+            redirect action: "show", id: newsItem.id, permanent: true
+        }
+        else {
+            response.sendError 404
         }
     }
     

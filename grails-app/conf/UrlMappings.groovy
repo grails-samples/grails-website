@@ -187,6 +187,7 @@ class UrlMappings {
         "/news/add"(controller:"newsItem", action:"create")
         "/news/$id"(controller:"newsItem", action:"show")
         "/news/edit/$id"(controller:"newsItem", action:"edit")
+        "/blog/view/$author/$title"(controller: "newsItem", action: "legacyShow")
 
         "/screencasts"(controller: "screencast", action: "list")
         "/screencasts/add"(controller: "screencast", action: "create")

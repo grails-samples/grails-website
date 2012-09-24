@@ -14,10 +14,6 @@ class NewsItem extends Content {
     User author
     ApprovalStatus status = ApprovalStatus.PENDING    
 
-    static constraints = {
-        body(size:1..300)
-    }
-
     static mapping = {
         cache true
     }
