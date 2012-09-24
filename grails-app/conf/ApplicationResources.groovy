@@ -21,7 +21,7 @@ modules = {
     homepage {
         dependsOn 'master'
         resource 'js/twitter.js'
-        if (Environment.current.developmentMode) {
+        if (isDevMode()) {
             resource url: 'less/downloads.less', attrs: [rel: 'stylesheet/less', type: 'css']
         }
         else {
