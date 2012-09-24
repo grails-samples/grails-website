@@ -183,7 +183,7 @@ class UrlMappings {
         "/community/contribute"(controller: "community", action: "contribute")
         "/community/mailingList"(controller: "community", action: "mailingList")
         "/community/twitter"(controller: "community", action: "twitter")
-        "/news"(controller:"newsItem")
+        "/news"(controller:"newsItem", action:"index")
         "/news/add"(controller:"newsItem", action:"create")
         "/news/$id"(controller:"newsItem", action:"show")
         "/news/edit/$id"(controller:"newsItem", action:"edit")

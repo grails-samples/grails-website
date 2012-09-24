@@ -26,10 +26,13 @@ class NewsItemController {
                     newsItem.status = ApprovalStatus.APPROVED
                 }
                 else {
+
                     flash.message = "Your news post has been submitted to the administrators for approval"                    
                 }
 
                 newsItem.save(flush:true)
+                request.user.addToPermissions("news:edit:$newsItem.id")
+                request.user.save()
                 redirect action:"show", id:newsItem.id
             }
 
@@ -55,11 +58,8 @@ class NewsItemController {
     def edit( Long id) {
         def newsItem = show(id)
         
-        if(request.author != null && newsItem?.author == request.author) {
+        if(newsItem) {
             render view:"edit", model: newsItem
-        }
-        else {
-           render status:403 
-        }
+        }        
     }
 }

@@ -75,13 +75,20 @@ class JSecurityAuthFilters {
             }
         }
 
-        newsViewing(controller:'newsItem', action:"(create|edit)") {
+        newsViewing(controller:'newsItem', action:"create") {
             before = {
                 accessControl {
                     role("Editor") || role("Administrator")                    
                 }
             }
         }
+        newsViewing(controller:'newsItem', action:"edit") {
+            before = {
+                accessControl {
+                    role("Administrator") ||  SecurityUtils.subject.isPermitted("news:edit:${params.id}")                  
+                }
+            }
+        }        
         // Ensure that all controllers and actions require an authenticated user,
         
         // Creating, modifying, or deleting a book requires the "Administrator"
