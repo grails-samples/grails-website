@@ -22,10 +22,10 @@ modules = {
         dependsOn 'master'
         resource 'js/twitter.js'
         if (isDevMode()) {
-            resource url: 'less/downloads.less', attrs: [rel: 'stylesheet/less', type: 'css']
+            resource url: 'less/homepage.less', attrs: [rel: 'stylesheet/less', type: 'css']
         }
         else {
-            resource 'css/downloads.css'
+            resource 'css/homepage.css'
         }        
     }
 

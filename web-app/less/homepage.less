@@ -1,0 +1,46 @@
+// CSS Reset
+@import "bootstrap-reset.less";
+
+// Core variables and mixins
+@import "bootstrap-variables.less";
+@import "bootstrap-mixins.less";
+@import "grails-variables.less";
+
+.section-1 {
+        .downloads {
+            background: url(../img/page/bgblue.png) repeat 0 0;
+            padding: 20px 30px;
+            margin-top:10px;
+            margin-bottom: 20px;
+            color: #334c58;
+            -moz-border-radius: 5px;
+            border-radius: 5px;            
+            h2 {
+                font-weight: normal;
+                font-size: 18px;
+                line-height: 25px;
+                padding-bottom: 5px;
+                margin: 0;
+                color: #334c58;
+                small {
+                    font-size: 14px;
+                }
+            }
+
+            .buttons {
+                margin: 0;
+                float:right;
+                position:relative;
+                bottom:35px;
+                left:10px;
+                .btn {
+                    padding: 0 20px;
+                    line-height: 37px;
+                    .border-radius(40px);                                     
+                    width: 150px;
+                    border-right: 1px solid #356017;
+                }
+                
+            }
+        }  
+}
