@@ -3,6 +3,14 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
      <r:require modules="content"/>
+    <style type="text/css">
+        .author {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;        
+            font-size: 12px;
+            color: rgba(102, 102, 102, 0.79);        
+        }
+    </style>     
 </head>
 
 <body>
@@ -35,11 +43,14 @@
 
                 <header>
                     <h3 style="padding: 5px 0;">
-                        <a href="/news/${newsItem?.id}">${newsItem?.title?.encodeAsHTML()}</a>
+                        <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
+                            <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
+                        </time>                         
+                        - <a href="/news/${newsItem?.id}">${newsItem?.title?.encodeAsHTML()}</a>
                     </h3>
 
-                    <p class="meta">
-                        submitted by <a href="#">${newsItem?.author?.login}</a>
+                    <p class="author">
+                        Submitted by <a href="#">${newsItem?.author?.login}</a>
                         <prettytime:display date="${newsItem?.dateCreated}"/>
                     </p>
 
