@@ -85,7 +85,7 @@ class JSecurityAuthFilters {
         newsViewing(controller:'newsItem', action:"edit") {
             before = {
                 accessControl {
-                    role("Administrator") ||  SecurityUtils.subject.isPermitted("news:edit:${params.id}")                  
+                    role("Administrator") || permission("news:edit:${params.id}")                  
                 }
             }
         }        
