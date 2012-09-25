@@ -42,7 +42,7 @@
                 <article>
                     <header>
                         <h3>
-                            <g:link action="plugin" id="${plugin.name}">
+                            <g:link uri="/plugin/${plugin.name}">
                                 ${plugin?.title?.encodeAsHTML()}
                                 <g:if test="${plugin.official}">
                                     <small>supported by SpringSource</small>
