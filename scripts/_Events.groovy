@@ -8,14 +8,18 @@ void compileLessCss(name, stagingDir) {
     // Instantiate the LESS compiler
     def lessCompiler = new LessCompiler()
 
-    // Or compile LESS input file to CSS output file
+    // Compile all top-level LESS files into CSS output files. A top-level
+    // LESS file is identified as one whose name does not begin with 'grails-'
+    // or 'bootstrap-'
     event "StatusUpdate", [ "LESS CSS: compiling .less files ..." ]
-    lessCompiler.compile(
-            new File(stagingDir, "less/style.less"),
-            new File(stagingDir, "css/style.css"))
-    lessCompiler.compile(
-            new File(stagingDir, "less/downloads.less"),
-            new File(stagingDir, "css/downloads.css"))
+
+    def lessFiles = new File(stagingDir, "less").listFiles({ dir, fname ->
+        fname.endsWith(".less") && !(fname.startsWith("bootstrap-") || fname.startsWith("grails-"))
+    } as FilenameFilter)
+
+    for (lessFile in lessFiles) {
+        lessCompiler.compile(lessFile, new File(stagingDir, "css/${lessFile.name - '.less'}.css"))
+    }
     event "StatusUpdate", [ "LESS CSS: compilation done" ]
 }
 
