@@ -57,7 +57,7 @@ $(document).ready(function() {
                                 link it properly to the Plugin domain.  Otherwise it gets treated like a normal WikiPage
                             --}%
                             <g:if test="${result instanceof Plugin}">
-                                <g:link controller="plugin" action="show" params="${[name:result.name]}">${className}</g:link>
+                                <g:link uri="/plugin/${result.name}">${className}</g:link>
                                 <g:set var="desc" value="${result.summary ?: 'No description'}"/>
                             </g:if>
                             <g:elseif test="${result instanceof Content}">
