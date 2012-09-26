@@ -59,8 +59,7 @@ def disableAutoTimestamping(instance) {
 def getUser(username) {
     def user = authors[username]
     if (!user) {
-        def randomUserNumber = new Random().nextInt(6000) + 100
-        user = User.findByLogin("user${randomUserNumber}")
+        user = User.findByLogin(username)
         authors[username] = user
     }
     return user
