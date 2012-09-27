@@ -8,6 +8,8 @@
 <div id="content" class="content-form-small" role="main">
     <h1>${user?.login}'s Profile</h1>
 
+    <flash:message flash="${flash}" bean="${userInfo}"/>
+
     <div id="profileForm" class="userForm">
         <g:form name="register" url="[controller: 'user', action: 'profile']">
             <div class="inputForm">

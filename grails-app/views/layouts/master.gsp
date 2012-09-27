@@ -38,7 +38,7 @@
             <shiro:isLoggedIn>
                 <li><a href="/logout">Logout</a></li>
                 <li class="spacing">&nbsp;</li>
-                <li class="current-user">${user?.email}</li>
+                <li class="current-user"><g:link uri="/profile">${user?.email}</g:link></li>
             </shiro:isLoggedIn>
             <shiro:isNotLoggedIn>
                 <li><a href="/login" class="login">Login</a></li>

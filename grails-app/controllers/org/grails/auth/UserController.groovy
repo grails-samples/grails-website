@@ -104,9 +104,13 @@ class UserController {
                 user.password = DigestUtils.shaHex(params.password) 
                 user.save()
             }
-        }
-        return [user: user, userInfo: userInfo]
 
+            flash.message = "Settings changed"
+            redirect action: "profile"
+        }
+        else {
+            return [user: user, userInfo: userInfo]
+        }
     }
 
     def register(){
