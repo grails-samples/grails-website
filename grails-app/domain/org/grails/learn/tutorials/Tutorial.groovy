@@ -51,6 +51,7 @@ class Tutorial implements Taggable {
             eq "status", ApprovalStatus.APPROVED
         }
         allQuery {
+            approved()
             order "dateCreated", "desc"
         }
     }
