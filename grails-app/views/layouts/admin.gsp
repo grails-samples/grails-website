@@ -73,13 +73,13 @@
                     </li>
                     <li <g:if test="${controllerName == 'ratingLink'}">class="active"</g:if>>
                         <g:link controller="ratingLink" action="list">Ratings</g:link></li>
-                    <li <g:if test="${controllerName == 'blogEntry'}">class="active"</g:if>>
-                        <g:link controller="blogEntry" action="adminList">Blog Entries</g:link></li>
 
                     <plugin:isAvailable name="jobs">
                         <li <g:if test="${controllerName == 'jobAdmin'}">class="active"</g:if>>
                             <g:link controller="jobAdmin" action="list">Jobs</g:link></li>
                     </plugin:isAvailable>
+
+                    <li><g:link uri="/">Back to site</g:link></li>
                 </ul>
 
                 <p class="navbar-text pull-right">
