@@ -8,8 +8,12 @@ class WikiPage extends Content {
 
     boolean deprecated
     String deprecatedUri
-	
-    static searchable = [only: ['body', 'title', 'deprecated']]
+
+    static searchable = {
+        only = ['body', 'title', 'deprecated']
+        title boost: 2.0
+    }
+
     static transients = ['cacheService']
     static constraints = {
         title(blank:false, matches:/[^\/\\]+/)

@@ -38,7 +38,8 @@ class Tutorial implements Taggable {
     static transients = ['genericApprovalResponses', 'isNew']
 
     static searchable = {
-        only = ["title", "description", "tags"]
+        only = ["title", "description"]
+        title boost: 2.0
         tags component: true
     }
 
