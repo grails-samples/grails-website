@@ -14,7 +14,7 @@
 
     <g:render template="/community/sideNav"/>
 
-    <div id="main" class="websites">
+    <div id="main">
         <section>
             <article>
                 <h2>Add Web Site</h2>
