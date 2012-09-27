@@ -18,7 +18,7 @@
         <section class="listing">
             <article>
                 <flash:message flash="${flash}" />
-                <g:link action="create">Add Web Site</g:link>
+                <div><g:link action="create">Add Web Site</g:link></div>
             </article>
 
             <g:render template="webSiteLarge" collection="${featuredWebSiteInstanceList}" var="webSiteInstance"/>
