@@ -11,6 +11,8 @@
             <ul class="dropdown-menu">
                 <li><g:link uri="/learn"><g:message code="layout.nav.learn.getstarted"/></g:link></li>
                 <li><g:link uri="/Documentation"><g:message code="layout.nav.learn.documentation"/></g:link></li>
+                <li><g:link uri="/tutorials"><g:message code="layout.nav.learn.tutorials"/></g:link></li>
+                <li><g:link uri="/screencasts"><g:message code="layout.nav.learn.screencasts"/></g:link></li>
             </ul>
 
         </li>
