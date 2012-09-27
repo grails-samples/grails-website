@@ -200,7 +200,7 @@ class UserController {
 
         try {
             def userId = userService.loginUser(cmd.login, cmd.password)
-            forward controller: "shiroOAuth", action: "linkAccount", params: [userId: userId]
+            forwardToShiroLinkAccount userId
         }
         catch (AuthenticationException ex) {
             cmd.errors.reject "auth.invalid.login", "Username or password is invalid"
@@ -216,7 +216,7 @@ class UserController {
         if (!handleCommandForLinkingAccounts(cmd)) return
 
         def user = userService.createUser(cmd.login, cmd.email)
-        forward controller: "shiroOAuth", action: "linkAccount", params: [userId: user.id]
+        forwardToShiroLinkAccount user.id
     }
 
     def logout() {
@@ -289,6 +289,21 @@ class UserController {
             session.removeAttribute ACCOUNT_SESSION_KEY
             return true
         }
+    }
+
+    /**
+     * Forward the current request to the ShiroOAuthController in order to
+     * link the user with the given ID to the current OAuth principal. This
+     * also ensures that the {@code targetUri} parameter is appropriately
+     * set.
+     */
+    protected forwardToShiroLinkAccount(userId) {
+        def newParams = [userId: userId]
+        if (!session["targetUri"]) {
+            newParams["targetUri"] = "/"
+        }
+
+        forward controller: "shiroOAuth", action: "linkAccount", params: newParams
     }
 
     /**
