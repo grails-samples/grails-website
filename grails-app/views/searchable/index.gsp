@@ -92,8 +92,9 @@ $(document).ready(function() {
                 <div class="pager">
                     <g:if test="${resultCount}">
                         <g:set var="totalPages" value="${Math.ceil(searchResult.total / searchResult.max)}"/>
-                        <g:if test="${totalPages == 1}"><span class="currentStep">1</span></g:if>
-                        <g:else><g:paginate controller="content" action="search" params="[q: query]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>
+                        <g:if test="${totalPages > 1}">
+                        <g:paginate controller="content" action="search" params="[q: query]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/>
+                        </g:if>
                     </g:if>
                 </div>
             </div>
