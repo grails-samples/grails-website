@@ -45,6 +45,10 @@ class WebSite implements Taggable {
     }
 
     static namedQueries = {
+        pending {
+            eq 'status', ApprovalStatus.PENDING
+        }
+
         allQueryNoSort {
         }
 
