@@ -6,6 +6,7 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Search Results</title>
+    <r:require modules="search"/>
     <r:script type="text/javascript">
 $(document).ready(function() {
     $("#quickSearch input[name='q']").val('${query ?: ''}');
@@ -88,9 +89,8 @@ $(document).ready(function() {
             </div>
 
             <div>
-                <div class="paging">
+                <div class="pager">
                     <g:if test="${resultCount}">
-                        Page:
                         <g:set var="totalPages" value="${Math.ceil(searchResult.total / searchResult.max)}"/>
                         <g:if test="${totalPages == 1}"><span class="currentStep">1</span></g:if>
                         <g:else><g:paginate controller="content" action="search" params="[q: query]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>

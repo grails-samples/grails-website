@@ -103,6 +103,16 @@ modules = {
     diffmatch {
         resource url: 'js/diff_match_patch.js', disposition: 'head'
     }
+
+    search {
+        dependsOn "master"
+        if (isDevMode()) {
+            resource url: 'less/search.less', attrs: [rel: 'stylesheet/less', type: 'css']
+        }
+        else {
+            resource 'css/search.css'
+        }        
+    }
 }
 
 /** Returns {@code true} if we're using run-app. */

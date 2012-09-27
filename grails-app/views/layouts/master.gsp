@@ -53,7 +53,7 @@
             <div class="inputSearch">
                 <input name="q" type="search"/>
             </div>
-            <input type="submit" alt="Search" title="Search the whole site" name="submit" />
+            <input type="submit" alt="Search" title="Search the whole site"/>
             </g:form>
         </div>
     </header>
