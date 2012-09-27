@@ -6,16 +6,16 @@ class ScreencastController {
     def searchableService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index = {
+    def index() {
         redirect(action: "list", params: params)
     }
 
-    def list = {
+    def list() {
         def screencastInstanceList = Screencast.allQuery.list()
         [screencastInstanceList: screencastInstanceList]
     }
 
-    def show = {
+    def show() {
         def screencastInstance = Screencast.get(params.id)
         if (!screencastInstance) {
             redirect(action: "list")
@@ -25,13 +25,13 @@ class ScreencastController {
         }
     }
 
-    def create = {
+    def create() {
         def screencastInstance = new Screencast()
         screencastInstance.properties = params
         return [screencastInstance: screencastInstance]
     }
 
-    def save = {
+    def save() {
         def screencastInstance = new Screencast(params)
         screencastInstance.status = ApprovalStatus.PENDING
         screencastInstance.submittedBy = request.user

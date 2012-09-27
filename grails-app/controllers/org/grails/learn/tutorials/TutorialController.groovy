@@ -7,16 +7,16 @@ class TutorialController {
     def searchableService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index = {
+    def index() {
         redirect(action: "list", params: params)
     }
 
-    def list = {
+    def list() {
         def tutorialInstanceList = Tutorial.allQuery.list()
         [tutorialInstanceList: tutorialInstanceList]
     }
 
-    def show = {
+    def show() {
         def tutorialInstance = Tutorial.get(params.id)
         if (!tutorialInstance) {
             redirect(action: "list")
@@ -26,13 +26,13 @@ class TutorialController {
         }
     }
 
-    def create = {
+    def create() {
         def tutorialInstance = new Tutorial()
         tutorialInstance.properties = params
         return [tutorialInstance: tutorialInstance]
     }
 
-    def save = {
+    def save() {
         def tutorialInstance = new Tutorial(params)
         tutorialInstance.status = ApprovalStatus.PENDING
         tutorialInstance.submittedBy = request.user
