@@ -17,6 +17,11 @@ class NewsItem extends Content {
     static mapping = {
         cache true
     }
+
+    static searchable = {
+        only = ['body', 'title']
+        title boost: 2.0
+    }
     
     static namedQueries = {
         approved {
