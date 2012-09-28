@@ -48,7 +48,7 @@ class RepositoryController {
                 }
 
                 if(!existing.exists() || v.endsWith("-SNAPSHOT")) {
-                    log.debug "Plugin [$p:$v] does not existing. Creating pending release..."
+                    log.debug "Plugin [$p:$v] does not exist. Creating pending release..."
                     def pendingRelease = new PendingRelease(pluginName:p, pluginVersion:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
                     assert pendingRelease.save(flush:true) // assertion should never fail due to prior validation in command object                        
 
