@@ -1,12 +1,14 @@
 package org.grails.plugin
 
 import grails.converters.*
+import org.apache.commons.codec.digest.DigestUtils
 import org.grails.tags.TagNotFoundException
 import org.grails.common.ApprovalStatus
 import org.compass.core.engine.SearchEngineQueryParseException
 
 class PluginController {
 
+    def dateService
     def pluginService
     def tagService
 
@@ -158,11 +160,12 @@ class PluginController {
     def apiShow() {
         if(params.name && params.version) {
             def p = params.name
-            def v = params.v
+            def v = params.version
             def release = PluginRelease.where {
                 plugin.name == p && releaseVersion == v 
-            }
-            if(release.exists()) {
+            }.get()
+
+            if (release) {
                 def plugin = transformPluginRelease(release)
                 withFormat {
                     json {
@@ -174,7 +177,7 @@ class PluginController {
                 }
             }
             else {
-                render status:404
+                response.sendError 404
             }
         }
         else {
@@ -308,4 +311,15 @@ class PluginController {
         }
     }
 
+    protected byName(params) {
+        Plugin.createCriteria().get {
+            eq 'name', params.name
+            join 'description'
+            join 'installation'
+            join 'faq'
+            join 'screenshots'
+            maxResults 1
+            cache true
+        }
+    }
 }
