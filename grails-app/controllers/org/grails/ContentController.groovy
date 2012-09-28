@@ -563,11 +563,11 @@ class ContentController extends BaseWikiController {
     def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
-        def latestDownload = downloadService.getLatestBinaryDownload()
+        def (latestDownload, binaryFile) = downloadService.getLatestBinaryDownload()
         def latestNews = org.grails.news.NewsItem.allApproved.list(max:3)
         
         
-        [newestPlugins: newestPlugins, latestDownload: latestDownload, latestNews: latestNews]
+        [newestPlugins: newestPlugins, latestDownload: latestDownload, latestBinary: binaryFile, latestNews: latestNews]
     }
 
     def screencastLegacy() {

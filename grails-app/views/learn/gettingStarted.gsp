@@ -29,8 +29,9 @@
         <article class="numbers">
             <h2>Learn Grails <small>in 5 easy steps</small></h2>
             <p>The following 5 steps will take you from knowing nothing about Grails to running a Grails application - all in a matter of minutes! And if you already have some knowledge of the framework, skip the steps you don't need.</p>
+            <g:set var="step" value="${0}" />
             <div class="item">
-                <span class="number">1</span>
+                <span class="number">${++step}</span>
                 <h3>What is Grails?</h3>
                 <p>Never heard of Grails? Heard of it but not sure what it is or does? Watch this short presentation for a quick overview.</p>
                 <p class="links"><a class="btn blueLight play" href="#modal-pres1" data-toggle="modal" data-backdrop="true">
@@ -38,7 +39,7 @@
                 </a></p>
             </div>
 <!--             <div class="item">
-                <span class="number">2</span>
+                <span class="number">${++step}</span>
                 <h3>Grails for ...</h3>
                 <p>Understand how Grails differs from the frameworks you already know.</p>
                 <div class="colset2">
@@ -55,28 +56,26 @@
                 </div>
             </div> -->
             <div class="item">
-                <span class="number">2</span>
+                <span class="number">${++step}</span>
                 <h3>Try a sample application</h3>
                 <p>Check out one of the available sample applications from Github.</p>
                 <p class="links"><a class="btn blueLight" href="https://github.com/grails-samples">Sample Applications</a></p>
             </div>
-            <div class="item">
-                <span class="number">3</span>
+            <div class="item downloads">
+                <span class="number">${++step}</span>
                 <h3>Download Grails</h3>
                 <p>Grab the latest stable release of Grails.</p>
                 <g:render template="/download/downloadLatestButton" model="[downloadFile: latestDownload, softwareVersion: latestVersion]"/>
-                <%--
-                <p class="links"><a class="btn blueLight" href="#">Download latest release (2.0.1)</a></p>
-                --%>
+                <p>You can find other Grails releases and methods of installation on the <g:link uri="/download">downloads page</g:link>.
             </div>
             <div class="item">
-                <span class="number">4</span>
+                <span class="number">${++step}</span>
                 <h3>Installation</h3>
                 <p>Quick and easy. Setting up a framework has never been as simple.</p>
                 <p class="links"><a class="btn blueLight" href="/doc/latest/guide/gettingStarted.html#requirements">Read manual installation</a></p>
             </div>
             <div class="item">
-                <span class="number">5</span>
+                <span class="number">${++step}</span>
                 <h3>Manual & Tutorials</h3>
                 <p>Extend your knowledge via the great user guide and extensive tutorial selection.</p>
                 <p class="links"><a class="btn blueLight" href="/latest/doc">Manual</a> <g:link class="btn blueLight" controller="tutorial" action="list">Tutorials</g:link></p>

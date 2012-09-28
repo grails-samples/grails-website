@@ -1,7 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
@@ -78,10 +75,8 @@
     <div class="left">
     <div id="#downloadNow" class="downloads">
         <h2>Grab the latest and greatest release!</h2>
-        <div class="buttons">
-            <a href="${latestDownload[1].mirrors[0].urlString}" class="btn primary">Download ${latestDownload[0].softwareVersion}</a> 
-        </div>
-        
+        <g:render template="/download/downloadLatestButton"
+                  model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
     </div>
 
         <h3>Latest News</h3>
