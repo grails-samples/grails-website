@@ -1,6 +1,9 @@
 <%@ page import="org.grails.community.Testimonial" %>
 
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'title', 'error')} required">
+<r:require modules="codeMirror, fancyBox, imageUpload" />
+
+
+<div class="control-group ${hasErrors(bean: testimonialInstance, field: 'title', 'error')} required">
         <label class="control-label" for="title">
             <g:message code="testimonial.title.label" default="Title" />
             <span class="required-indicator">*</span>
@@ -22,17 +25,23 @@
         </div>
     </div>
 
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'content', 'error')} ">
-        <div class="controls">
-            <g:textArea name="body" rows="40" cols="130" value="${testimonialInstance?.body}"/>
-        </div>
+
+<p><g:message code="testimonial.body.description"/></p>
+<p>
+    <div id="images">
+
     </div>
+    <a id="upload-image" class="btn">Add image</a>
+</p>
+
+<g:textArea name="body" rows="40" cols="130" value="${testimonialInstance?.body}"/>
+
 </fieldset>
 
 
 <r:script>
     $(function () {
-        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('body'), {
+        var editor = CodeMirror.fromTextArea(document.getElementById('body'), {
             lineNumbers: true,
             wordWrap: true,
             lineWrapping: true,
@@ -40,12 +49,16 @@
             fixedGutter: true,
             autofocus: true
         });
+
+        // store editor so it can be accessed later by image upload
+        $("#body").data(editor, "editor");
+
         $('.preview').click(function() {
             $.ajax({
                 type    : "POST",
                 cache   : false,
                 url     : "/previewWikiPage",
-                data    : { body: myCodeMirror.getValue() },
+                data    : { body: editor.getValue() },
                 success : function(data) {
                     $.fancybox(data, {
                         maxWidth    : 710,
@@ -62,5 +75,6 @@
             });
             return false;
         });
+
     });
 </r:script>

@@ -117,6 +117,18 @@ modules = {
             resource 'css/search.css'
         }        
     }
+
+    fileUploader {
+        dependsOn "master"
+        resource url: '/js/fileuploader.min.js'
+        resource url: '/css/fileuploader.css'
+    }
+
+    imageUpload {
+        dependsOn "fileUploader"
+        resource url: '/js/image-upload.js'
+    }
+
 }
 
 /** Returns {@code true} if we're using run-app. */

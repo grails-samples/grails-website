@@ -25,10 +25,25 @@
     </div>
 </g:if>
 
+    <shiro:hasRole name="Administrator" >
+        <span class="pull-right">
+            <g:form controller="testimonialAdmin">
+                <g:hiddenField name="id" value="${testimonialInstance?.id}"/>
+                <g:actionSubmit class="btn btn-info" action="edit"
+                                value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
+                <g:actionSubmit class="btn btn-danger" action="delete"
+                                value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+                                onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+            </g:form>
+        </span>
+    </shiro:hasRole>
+
 
     <wiki:text key="${testimonialInstance?.title}">
         ${testimonialInstance?.body}
     </wiki:text>
+
+
 
             </section>
 </div>

@@ -31,79 +31,8 @@
 <g:form action="save" class="form-horizontal" >
 <fieldset>
 
-    
+    <g:render template="form" model="model" />
 
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'title', 'error')}">
-        <label class="control-label" for="title">
-            <g:message code="testimonial.title.label" default="Title"/>
-        </label>
-
-        <div class="controls">
-            <g:textField name="title" maxlength="50" required="" value="${testimonialInstance?.title}"/>
-        </div>
-    </div>
-
-    
-
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'status', 'error')}">
-        <label class="control-label" for="status">
-            <g:message code="testimonial.status.label" default="Status"/>
-        </label>
-
-        <div class="controls">
-            <g:select name="status" from="${org.grails.common.ApprovalStatus?.values()}" keys="${org.grails.common.ApprovalStatus.values()*.name()}" value="${testimonialInstance?.status?.name()}" noSelection="['': '']"/>
-        </div>
-    </div>
-
-    
-
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'submittedBy', 'error')}">
-        <label class="control-label" for="submittedBy">
-            <g:message code="testimonial.submittedBy.label" default="Submitted By"/>
-        </label>
-
-        <div class="controls">
-            <g:select id="submittedBy" name="submittedBy.id" from="${org.grails.auth.User.list()}" optionKey="id" required="" value="${testimonialInstance?.submittedBy?.id}" class="many-to-one"/>
-        </div>
-    </div>
-
-    
-
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'body', 'error')}">
-        <label class="control-label" for="body">
-            <g:message code="testimonial.body.label" default="Body"/>
-        </label>
-
-        <div class="controls">
-            <g:textField name="body" value="${testimonialInstance?.body}"/>
-        </div>
-    </div>
-
-    
-
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'companyName', 'error')}">
-        <label class="control-label" for="companyName">
-            <g:message code="testimonial.companyName.label" default="Company Name"/>
-        </label>
-
-        <div class="controls">
-            <g:textField name="companyName" value="${testimonialInstance?.companyName}"/>
-        </div>
-    </div>
-
-    
-
-    <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'featured', 'error')}">
-        <label class="control-label" for="featured">
-            <g:message code="testimonial.featured.label" default="Featured"/>
-        </label>
-
-        <div class="controls">
-            <g:checkBox name="featured" value="${testimonialInstance?.featured}" />
-        </div>
-    </div>
-
-    
 
     <div class="form-actions">
         <g:submitButton name="create" class="btn btn-primary"

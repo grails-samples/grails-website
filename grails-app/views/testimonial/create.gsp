@@ -6,7 +6,6 @@
     <g:set var="entityName" value="${message(code: 'testimonial.label', default: 'Testimonial')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 
-    <r:require modules="codeMirror, fancyBox" />
 </head>
 
 <body>
@@ -30,9 +29,9 @@
         <article>
             <h2>Add a Testimonial</h2>
 
-            <g:form action="save" class="form-horizontal" >
 
 
+            <g:form action="save" class="form-horizontal"  enctype="multipart/form-data">
             <fieldset>
                <g:render template="form" model="model" />
 
@@ -50,6 +49,8 @@
         </article>
     </section>
 </div>
+
+
 
 </body>
 </html>

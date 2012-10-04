@@ -91,6 +91,9 @@ bi {
             large {
                 scale = [width: 600, height: 700, type: ScaleType.APPROXIMATE]
             }
+            small {
+                scale = [width: 200, height: 200, type: ScaleType.APPROXIMATE]
+            }
         }
         constraints {
             nullable = true

@@ -10,7 +10,10 @@ class TestimonialController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [testimonialInstanceList: Testimonial.list(params), testimonialInstanceTotal: Testimonial.count()]
+        def testimonialInstanceList =  Testimonial.approved().list(max: params.max)
+        def testimonialInstanceTotal = Testimonial.approved().count()
+
+        [testimonialInstanceList: testimonialInstanceList, testimonialInstanceTotal: testimonialInstanceTotal]
     }
 
     def create = {

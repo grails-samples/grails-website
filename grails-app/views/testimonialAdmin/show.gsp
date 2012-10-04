@@ -157,8 +157,7 @@
             <div class="controls">
                 <label class="checkbox" for="featured">
                     <g:checkBox name="featured" value="${testimonialInstance?.featured}"/>
-                    Check this box if the website is featured on the <a href="/community/websites"
-                                                                        target="_blank">/community/websites</a> page.
+                    Check this box if the website is featured on the Testimonials page.
                 </label>
             </div>
         </div>

@@ -4,6 +4,7 @@ import org.grails.common.ApprovalStatus
 import org.grails.auth.User
 import org.joda.time.DateTime
 import pl.burningice.plugins.image.ast.DBImageContainer
+import org.grails.content.GenericApprovalResponse
 
 class Testimonial {
 
@@ -31,4 +32,17 @@ class Testimonial {
             order "dateCreated", "desc"
         }
     }
+
+    def setDisposition(GenericApprovalResponse genericApprovalResponse) {
+        this.status = genericApprovalResponse.status
+        this.save(flush: true)
+    }
+
+    List<GenericApprovalResponse> getGenericApprovalResponses() {
+        def query = GenericApprovalResponse.where {
+            whatType == this.class.name && whatId == this.id
+        }
+        return query.list(sort: 'id', order: 'asc')
+    }
+
 }
