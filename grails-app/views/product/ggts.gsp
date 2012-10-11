@@ -71,7 +71,7 @@
 
   <h2>More info</h2>
   <ul>
-    <li><a href="http://download.springsource.com/release/STS/doc/STS-new_and_noteworthy.pdf">New and Noteworthy</a></li>
+    <li><a href="http://static.springsource.org/sts/nan/latest/NewAndNoteworthy.html">New and Noteworthy</a></li>
     <li><a href="https://issuetracker.springsource.com/browse/STS">JIRA Issue Tracker</a></li>
     <li><a href="http://forum.springsource.org/forumdisplay.php?32-SpringSource-Tool-Suite">Support Forum</a></li>
   </ul>
