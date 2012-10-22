@@ -7,7 +7,8 @@
 <head>
     <meta charset="utf-8">
     <title><g:layoutTitle default="Grails - The search is over."/></title>
-    <meta name="description" content="">
+    <meta name="robots" content="NOODP">
+    <meta name="description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">   
     <meta name="author" content="Grails community">
     <meta name="viewport" content="width=device-width">
 
