@@ -473,13 +473,14 @@ class ContentController extends BaseWikiController {
         def result = [success: true, error: '']
 
         MultipartFile image = request.getFile('image')
+        String fileName = image.originalFilename
 
         if (uploadTypes?.contains(image.contentType)) {
 
             try {
                 def wikiImage = new WikiImage()
 
-                wikiImage.name = getImageName("testimonials", image.originalFilename)
+                wikiImage.name = getImageName(params.prefix, fileName)
                 wikiImage.image = image
 
                 if (wikiImage.save()) {
@@ -488,18 +489,18 @@ class ContentController extends BaseWikiController {
                 }
                 else {
                     result.success = false
-                    result.error = "Error uploading file! ${g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')}"
+                    result.error = "Error uploading ${fileName}! ${g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')}"
                 }
             }
             catch (Exception e) {
                 log.error e.message
                 result.success = false
-                result.error = "Error uploading file! Info: ${e.message}"
+                result.error = "Error uploading ${fileName}! Info: ${e.message}"
             }
         }
         else {
             result.success = false
-            result.error = "File type not in list of supported types: ${uploadTypes?.join(',')}"
+            result.error = "File type of ${fileName} is not in list of supported types: ${uploadTypes?.join(', ')}"
         }
 
         // needs to be text/html for IE
@@ -590,10 +591,12 @@ class ContentController extends BaseWikiController {
      * page (preferably the one the image is on!) and the original filename
      * of that image.
      */
-    protected String getImageName(String prefix, String filename) {
+    protected String getImageName(String prefix, String fileName) {
+        fileName = fileName.replace(" ", "_")
+
         def b = new StringBuilder()
         if (prefix) b << prefix << '/'
-        b << filename
+        b << fileName
         return b.toString()
     }
 }

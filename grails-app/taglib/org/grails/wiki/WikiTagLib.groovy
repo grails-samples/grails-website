@@ -118,9 +118,19 @@ class WikiTagLib implements ApplicationContextAware  {
         request[ROBOTS_ATTRIBUTE] = "noindex, nofollow"
     }
 
-    def editViewButton = { attrs, body ->
-        def displayLinks = attrs.containsKey("displayEditLinks") ? Boolean.valueOf(attrs.displayEditLinks) : true
-        out << render(template:"/content/editViewButton", model:[id:attrs.id, text:attrs.text, displayEditLinks: displayLinks, onComplete:attrs.onComplete ])
+    def uploadImages = {attrs ->
+       def prefix = attrs.prefix ?: ""
+
+       out << """
+          <div id="images-container">
+            ${g.hiddenField(name: "image.prefix", value: prefix)}
+            <div id="images"></div>
+            <p class="spinner" style="display:none"><img src="${resource(dir:'img',file:'spinner.gif')}" alt="Loading" /></p>
+            <p><a class="btn upload-image">Upload image</a></p>
+            <div class="alert alert-error error" style="display:none"></div>
+            <div class="progress alert" style="display:none"></div>
+        </div>
+       """
     }
 
     private wikiToHtml(String wikiText) {

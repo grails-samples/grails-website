@@ -170,11 +170,13 @@ class JSecurityAuthFilters {
             }
         }
 
-        testimonialSubmitting(plugin: "testimonial", action: "create") {
+        testimonialSubmitting(controller: "testimonial", action: "(create|save)") {
             before = {
                 accessControl { true }
             }
         }
+
+        testimonialEditing(controller: "testimonial", action: "")
 
         adminArea(uri:"/admin/**") {
             before = {

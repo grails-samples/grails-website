@@ -45,10 +45,9 @@
 
 
 <p><g:message code="testimonial.body.description"/></p>
-<p>
-<div id="images">
 
-</div>
+<p>
+<div id="images"></div>
 <a id="upload-image" class="btn">Add image</a>
 </p>
 

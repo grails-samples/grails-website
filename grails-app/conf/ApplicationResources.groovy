@@ -121,7 +121,6 @@ modules = {
     fileUploader {
         dependsOn "master"
         resource url: '/js/fileuploader.min.js'
-        resource url: '/css/fileuploader.css'
     }
 
     imageUpload {

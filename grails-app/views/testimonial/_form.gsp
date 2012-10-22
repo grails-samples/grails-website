@@ -2,7 +2,6 @@
 
 <r:require modules="codeMirror, fancyBox, imageUpload" />
 
-
 <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'title', 'error')} required">
         <label class="control-label" for="title">
             <g:message code="testimonial.title.label" default="Title" />
@@ -25,19 +24,11 @@
         </div>
     </div>
 
-
 <p><g:message code="testimonial.body.description"/></p>
-<p>
-    <div id="images">
 
-    </div>
-    <a id="upload-image" class="btn">Add image</a>
-</p>
+<wiki:uploadImages prefix="testimonials" />
 
 <g:textArea name="body" rows="40" cols="130" value="${testimonialInstance?.body}"/>
-
-</fieldset>
-
 
 <r:script>
     $(function () {

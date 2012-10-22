@@ -27,17 +27,19 @@
 
     <section id="main">
         <article>
-            <h2>Add a Testimonial</h2>
+            <h2>Edit a Testimonial</h2>
 
+            <g:form action="update" class="form-horizontal" >
 
+              <fieldset>
+                  <g:hiddenField name="id" value="${testimonialInstance?.id}"/>
+                  <g:hiddenField name="version" value="${testimonialInstance?.version}"/>
 
-            <g:form action="save" class="form-horizontal" >
-            <fieldset>
-               <g:render template="form" model="model" />
+                  <g:render template="form" model="model" />
 
                 <div class="form-actions">
-                    <g:submitButton name="create" class="btn btn-primary"
-                                    value="Submit for Approval"/>
+                    <g:submitButton name="update" class="btn btn-primary"
+                                    value="Update"/>
 
                 <a class="btn preview">Preview</a>
 

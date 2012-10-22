@@ -15,33 +15,31 @@
     <g:render template="/community/sideNav"/>
 
     <section id="main">
-        <h1 class="page-header">
-    ${testimonialInstance?.title}
-</h1>
+        <h1 class="page-header">${testimonialInstance?.title}
+            <shiro:hasRole name="Administrator" >
+                <span class="pull-right">
+                    <g:form controller="testimonial">
+                        <g:hiddenField name="id" value="${testimonialInstance?.id}"/>
+                        <g:actionSubmit class="btn btn-info" action="edit"
+                                        value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
+                    </g:form>
+                </span>
+            </shiro:hasRole>
+        </h1>
 
-<g:if test="${flash.message}">
-    <div class="alert alert-info">
-        ${flash.message}
-    </div>
-</g:if>
+        <h2>${testimonialInstance?.companyName}</h2>
 
-    <shiro:hasRole name="Administrator" >
-        <span class="pull-right">
-            <g:form controller="testimonialAdmin">
-                <g:hiddenField name="id" value="${testimonialInstance?.id}"/>
-                <g:actionSubmit class="btn btn-info" action="edit"
-                                value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
-                <g:actionSubmit class="btn btn-danger" action="delete"
-                                value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                                onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-            </g:form>
-        </span>
-    </shiro:hasRole>
+        <g:if test="${flash.message}">
+            <div class="alert alert-info">
+                ${flash.message}
+            </div>
+        </g:if>
 
 
-    <wiki:text key="${testimonialInstance?.title}">
-        ${testimonialInstance?.body}
-    </wiki:text>
+
+        <wiki:text>
+            ${testimonialInstance?.body}
+        </wiki:text>
 
 
 
