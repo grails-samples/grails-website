@@ -38,7 +38,7 @@
     <aside class="alert alert-block">
         <p>
             Interested in your own plugin appearing here? Take a look at
-            the <a href="http://grails.org/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>
+            the <a href="/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>
             and when you're ready, <a href="/plugins/submitPlugin">please fill out this form</a>.
         </p>
         <p style="padding-top: 10px;">

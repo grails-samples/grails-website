@@ -30,7 +30,7 @@
         <div class="createPlugin">
             <h3>Want to create a plugin?</h3>
             <div class="detail">
-                If you are interested in creating and distributing a plugin in the Grails central repository, take a look at this <a href="http://grails.org/doc/latest/guide/12. Plug-ins.html">user guide section</a>.
+                If you are interested in creating and distributing a plugin in the Grails central repository, take a look at this <a href="/doc/latest/guide/12. Plug-ins.html">user guide section</a>.
             </div>
         </div>
         <div class="bottom"></div>

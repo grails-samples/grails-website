@@ -73,13 +73,13 @@
                 <span class="number">4</span>
                 <h3>Installation</h3>
                 <p>Quick and easy. Setting up a framework has never been as simple.</p>
-                <p class="links"><a class="btn blueLight" href="http://grails.org/doc/latest/guide/gettingStarted.html#requirements">Read manual installation</a></p>
+                <p class="links"><a class="btn blueLight" href="/doc/latest/guide/gettingStarted.html#requirements">Read manual installation</a></p>
             </div>
             <div class="item">
                 <span class="number">5</span>
                 <h3>Manual & Tutorials</h3>
                 <p>Extend your knowledge via the great user guide and extensive tutorial selection.</p>
-                <p class="links"><a class="btn blueLight" href="http://grails.org/latest/doc">Manual</a> <g:link class="btn blueLight" controller="tutorial" action="list">Tutorials</g:link></p>
+                <p class="links"><a class="btn blueLight" href="/latest/doc">Manual</a> <g:link class="btn blueLight" controller="tutorial" action="list">Tutorials</g:link></p>
             </div>
         </article>
     </div>

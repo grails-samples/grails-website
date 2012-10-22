@@ -27,12 +27,12 @@
 
             <h3>Steps</h3>
             <ul>
-                <li><a href="http://grails.org/Download">Download</a> the latest Grails <a href="http://grails.org/Releases">release</a></li>
+                <li><a href="/Download">Download</a> the latest Grails <a href="/Releases">release</a></li>
                 <li>Extract the archive into an appropriate location; typically <code>C:\grails</code> on Windows or <code>~/grails</code> on Unix</li>
                 <li>Create a <code>GRAILS_HOME</code> environment variable that points to the path where you extracted the archive (eg C:\grails on Windows or ~/grails on Unix)</li>
                 <li>If you have not set the <code>JAVA_HOME</code> environment variable yet, create <code>JAVA_HOME</code> environment variable that points to the path where you have installed Java</li>
                 <li>Append a reference to the "bin" directory within the Grails directory to your PATH variable (eg <code>%GRAILS_HOME%\bin</code> on Windows or <code>$GRAILS_HOME/bin</code> on Unix). Note that, for Windows, both <code>PATH</code> and <code>GRAILS_HOME</code> must be defined at the same environment variable level (eg. 'System variables') rather than across environment variable levels (eg. PATH under 'System variables' and <code>GRAILS_HOME</code> under 'User variables')</li>
-                <li>Type "grails" at the command line, if a help message is displayed you are ready to <a href="http://grails.org/Quick+Start">start using Grails</a>!</li>
+                <li>Type "grails" at the command line, if a help message is displayed you are ready to <a href="/Quick+Start">start using Grails</a>!</li>
                 <li>If you get an error message, try to chmod +x the grails script inside the bin directory.</li>
             </ul>
 
@@ -61,7 +61,7 @@
             <ul>
                 <li>Go to the <code>GRAILS_HOME</code> directory and run: <code>./gradlew libs</code></li>
                 <li>Then from the <code>GRAILS_HOME</code> directory run: <code>./gradlew install</code></li>
-                <li>That's it! You can now <a href="http://grails.org/Quick+Start">start developing in Grails</a> using your custom copy of Grails!</li>
+                <li>That's it! You can now <a href="/Quick+Start">start developing in Grails</a> using your custom copy of Grails!</li>
             </ul>
 
             <h3>For the 1.2.x branch:</h3>

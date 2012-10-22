@@ -57,7 +57,7 @@
             <h3>Other Resources</h3>
 
             <p>
-                <a href="http://grails.org/Forums">Forums</a> |
+                <a href="/Forums">Forums</a> |
                 <a href="/community/twitter">Grails on Twitter</a>
             </p>
 

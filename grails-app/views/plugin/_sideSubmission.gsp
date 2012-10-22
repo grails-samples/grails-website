@@ -21,7 +21,7 @@
             <li
                 <g:if test="${['pendingPlugins','showPendingPlugin'].contains(actionName)}">class="active"</g:if>
             ><a href="/plugins/pending">View Pending Plugins</a></li>
-            <li><a href="http://grails.org/Creating+Plugins" target="_blank">Publishing Plugins Guide</a></li>
+            <li><a href="/Creating+Plugins" target="_blank">Publishing Plugins Guide</a></li>
         </ul>
     </aside>
 </section>
