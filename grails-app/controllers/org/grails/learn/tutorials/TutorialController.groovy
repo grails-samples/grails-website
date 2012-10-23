@@ -11,6 +11,10 @@ class TutorialController {
         redirect(action: "list", params: params)
     }
 
+    def legacyHome() {
+        redirect action: "list", params: params, permanent: true
+    }
+
     def list() {
         def tutorialInstanceList = Tutorial.allQuery.list()
         [tutorialInstanceList: tutorialInstanceList]

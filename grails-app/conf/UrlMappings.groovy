@@ -223,6 +223,7 @@ class UrlMappings {
 
         "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
 
+        "/Tutorials"(controller: "tutorial", action: "legacyHome")
         "/tutorials"(controller: "tutorial", action: "list")
         "/tutorials/add"(controller: "tutorial", action: "create")
         "/tutorials/save"(controller: "tutorial", action: "save")
