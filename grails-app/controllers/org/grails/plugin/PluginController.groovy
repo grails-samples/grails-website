@@ -252,6 +252,54 @@ class PluginController {
         }
     }
 
+    protected listPlugins(defaultMax, defaultCategory) {
+        def queryParams = [:]
+        queryParams.offset = params.offset ?: 0
+        queryParams.sort = params.sort ?: 'name'
+        queryParams.order = params.order ?: 'asc'
+
+        // If a default maximum is provided, use that. params.max is ignored
+        // completely by this method.
+        if (defaultMax) {
+            queryParams.max = defaultMax
+            params.max = defaultMax
+        }
+        
+        log.debug "[listPlugins] Parameters: $params"
+
+        def category = params.remove('category') ?: defaultCategory
+        def currentPlugins = []
+        def totalPlugins = 0
+
+        try {
+            if (params.q) {
+                // Build the arguments for the search, starting with the query
+                // string. We add the category if it's defined. Finally we add
+                // the search options.
+                def args = [params.q]
+                if (category) args << category
+                args << queryParams
+
+                // Remove any sort arguments, since they can only work with untokenized
+                // search fields.
+                queryParams.remove("sort")
+                queryParams.remove("order")
+
+                (currentPlugins, totalPlugins) = pluginService.searchWithTotal(*args)
+            }
+            else {
+                queryParams["fetch"] = [licenses: "select"]
+                (currentPlugins, totalPlugins) = pluginService."list${category.capitalize()}PluginsWithTotal"(queryParams)
+            }
+            return [currentPlugins: currentPlugins, category: category,totalPlugins: totalPlugins]
+        }
+        catch (MissingMethodException ex) {
+            log.error "Unable to list plugins for category '${category}': ${ex.message}"
+            response.sendError 404
+            return [:]
+        }
+    }
+
     protected transformPlugins(plugins, category = null) {
         def map = [ pluginList: plugins ? plugins.collect { p -> transformPlugin(p) } : [] ]
         if (category) map.category = category
