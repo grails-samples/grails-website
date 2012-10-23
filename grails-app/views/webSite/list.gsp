@@ -29,7 +29,7 @@
                         <a href="#" class="like">+1</a>
 
                         <h3><a href="#"><wiki:shorten text="${webSiteInstance?.title?.encodeAsHTML()}" length="20" />
-                            <small><wiki:shorten text="${webSiteInstance?.shortDescription?.encodeAsHTML()}" length="50" /></small>
+                            <small><wiki:shorten text="${webSiteInstance?.shortDescription}" length="50" /></small>
                         </a></h3>
 
                         <div class="img" style="height: 130px; overflow: hidden;"><bi:hasImage bean="${webSiteInstance}">

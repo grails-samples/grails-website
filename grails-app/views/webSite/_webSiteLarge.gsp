@@ -11,7 +11,7 @@
     <div>
         <h3><g:link action="show" id="${webSiteInstance?.id}">${webSiteInstance?.title?.encodeAsHTML()}</h3></g:link>
 
-        <small style="color: #999; font-size: 14px;"><wiki:shorten text="${webSiteInstance?.shortDescription?.encodeAsHTML()}" length="80" /></small>
+        <small style="color: #999; font-size: 14px;"><wiki:shorten text="${webSiteInstance?.shortDescription}" length="80" /></small>
 
         <p class="tags">
             <a href="${webSiteInstance.url.encodeAsHTML()}" target="_blank">${webSiteInstance?.url?.encodeAsHTML()}</a>

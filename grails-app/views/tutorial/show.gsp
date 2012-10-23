@@ -38,7 +38,7 @@
                 </header>
 
                 <div class="desc">
-                    <p><wiki:shorten text="${tutorialInstance?.description?.encodeAsHTML()}" length="250"/>
+                    <p><wiki:shorten text="${tutorialInstance?.description}" length="250"/>
                         <g:if test="${tutorialInstance?.description?.length() > 250}">
                             <a href="/tutorial/${tutorialInstance?.id}">read more</a>
                         </g:if>
