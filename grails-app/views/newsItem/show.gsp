@@ -41,31 +41,30 @@
                 <div class="alert alert-info">${flash.message}</div>
             </g:if>                 
 
-                <header>
-                    <h3 style="padding: 5px 0;">
-                        <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
-                            <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
-                        </time>                         
-                        - <a href="/news/${newsItem?.id}">${newsItem?.title?.encodeAsHTML()}</a>
-                    </h3>
+            <header>
+                <h3 style="padding: 5px 0;">
+                    <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
+                        <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
+                    </time>                         
+                    - <a href="/news/${newsItem?.id}">${newsItem?.title?.encodeAsHTML()}</a>
+                </h3>
 
-                    <p class="author">
-                        Submitted by <a href="#">${newsItem?.author?.login}</a>
-                        <prettytime:display date="${newsItem?.dateCreated}"/>
-                    </p>
+                <p class="author">
+                    Submitted by <a href="#">${newsItem?.author?.login}</a>
+                    <prettytime:display date="${newsItem?.dateCreated}"/>
+                </p>
 
-                </header>
+            </header>
 
-                <div class="desc">
-                    <p><wiki:text>${newsItem?.body}</wiki:text>
-                    </p>
-                </div>
+            <div class="desc">
+                <wiki:text>${newsItem?.body}</wiki:text>
+            </div>
 
-                
-                <div class="disqus-container">
-                    <disqus:comments bean="${newsItem}"/>
-                </div>
-            </article>
+            
+            <div class="disqus-container">
+                <disqus:comments bean="${newsItem}"/>
+            </div>
+        </article>
     </div>
 </div>
 
