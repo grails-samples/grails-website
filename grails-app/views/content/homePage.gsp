@@ -28,6 +28,8 @@
             _containerBanner.append(_banners);
             $('div#banner').append(_containerBanner);
 
+            $('#springoneBanner').addClass('springone');
+
             setTimeout("tick()", _time * 1000);
         });
     </script>
@@ -36,7 +38,6 @@
 <body>
 
 <div id="banner">
-    <div class="springone banner"></div>
     <div class="fullStackFramework banner">
         <div class="left">
             <h2>Grails Framework, Full stack</h2>
@@ -67,6 +68,7 @@
             </li>
         </ul>
     </div>
+    <div id="springoneBanner" class="banner"></div>
 </div>
 
 <section class="section-1">
