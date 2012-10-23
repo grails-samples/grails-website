@@ -16,13 +16,13 @@
             </ul>
 
         </li>
-        <li class="dropdown services-springSource">
+        <li class="dropdown services-springSource${controllerName == 'product' ? ' active' : ''}">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                 <g:message code="layout.nav.services"/>
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li>
+                <li class="${controllerName == 'product' ? 'active' : ''}">
                     <g:link uri="/products/ggts">
                         <g:message code="layout.nav.products.ggts"/>
                     </g:link>

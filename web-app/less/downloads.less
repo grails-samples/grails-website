@@ -29,7 +29,7 @@
             p {
                 padding: 0;
                 line-height: 20px;
-                font-size: 13px;            
+                font-size: 13px;
                 margin: 0;
             }
         }
@@ -57,6 +57,18 @@
                 position: relative;
                 p.links {
                     color: #acbac0;
+                }
+                h3 {
+                    text-align: left;
+                    border-bottom: 1px solid #8397a2;
+                    line-height: 26px;
+                    padding-bottom: 5px;
+                    font-size: 16px;
+                    padding-left: 5px;
+                    @shadow: 0 1px 0 rgba(255,255,255,.6);
+                    .box-shadow(@shadow);
+                    margin-bottom: 8px;
+
                 }
                 .extra {
                     display: block;
@@ -190,24 +202,14 @@
         h4 {
             width: 6em;
         }
-        
-        p {
-            width: 7em;
-        }
-
-        ul.links {
-            float: left;
-            list-style-type: none;
-            margin: 0;
-            
-            li {
-                float: left;
-                margin: 0 0.8em;
-            }
-
-        }
-
     }
+
+    ul {
+        li {
+            text-align: left;
+        }
+    }
+
 }
 
 .js {
@@ -286,5 +288,8 @@
 }
 
 #ubuntuInstall {
-    clear: both;
+    .clearfix();
+    background: @white;
+    padding: 10px 20px;
+    .border-radius(6px);
 }
