@@ -36,7 +36,7 @@
     <section id="downloadArchives">
         <g:each var="majorVersion" in="${majorVersions}">
         <div class="majorVersion">
-            <h3>Grails ${majorVersion} : list of versions</h3>
+            <h3>Grails ${majorVersion} releases</h3>
             <ul>
                 <g:each var="download" in="${groupedDownloads[majorVersion]}">
                     <li>
