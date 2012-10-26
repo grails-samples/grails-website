@@ -25,7 +25,7 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
     void onApplicationEvent(PluginPublishEvent event) {
         PendingRelease pendingRelease = event.source
         log.debug "Received plugin publish event for pending release [$event.source]"        
-        deployRelease(pendingRelease)
+        deployRelease pendingRelease
     }
     
     /**
@@ -48,12 +48,6 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
         catch (Exception ex) {
             log.error "Failed to deploy plugin to artifact repository: ${ex.message}"
             failRelease pendingRelease
-        }
-        finally {
-            try {
-                pendingRelease.delete flush: true
-            }
-            catch (Exception ex) { log.error "Failed to delete pending release ${pendingRelease.id}: ${ex.message}" }
         }
     }
 
@@ -117,9 +111,17 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
     }
 
     protected saveRelease(pendingRelease, status) {
-        new PendingRelease(
-                pluginName: pendingRelease.pluginName,
-                pluginVersion: pendingRelease.pluginVersion,
-                status: status).save(failOnError: true)
+        if (pendingRelease.id) {
+            pendingRelease = PendingRelease.get(pendingRelease.id)
+            pendingRelease.status = status
+        }
+        else {
+            pendingRelease = new PendingRelease(
+                    pluginName: pendingRelease.pluginName,
+                    pluginVersion: pendingRelease.pluginVersion,
+                    status: status)
+        }
+
+        pendingRelease.save(failOnError: true)
     }
 }

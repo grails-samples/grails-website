@@ -192,4 +192,14 @@ databaseChangeLog = {
         dropColumn(columnName: "featured", tableName: "tutorial")
     }
 
+    changeSet(author: "pledbrook", id: "EnhancePluginReleaseTable") {
+        addColumn(tableName: "plugin_release") {
+            column(name: "is_snapshot", type: "bit", valueBoolean: "false") { constraints nullable: "false" }
+        }
+
+        // Fix values for new columns for snapshot releases, i.e. those whose
+        // version ends with '-SNAPSHOT'.
+        sql "UPDATE plugin_release SET is_snapshot = true WHERE release_version like '%-SNAPSHOT%'"
+    }
+
 }

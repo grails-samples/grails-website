@@ -29,7 +29,9 @@ class PendingReleaseController {
     def status(String name, String version) {
         def pr = PendingRelease.findByPluginNameAndPluginVersion(name, version)
         if (!pr) {
-            def pluginRelease = PluginRelease.where { plugin.name == name && releaseVersion == version }
+            def pluginRelease = PluginRelease.where {
+                plugin.name == name && releaseVersion == version
+            }.get()
             if (pluginRelease) pr = [status: ReleaseStatus.COMPLETED]
         }
 

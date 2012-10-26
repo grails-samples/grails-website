@@ -41,20 +41,18 @@ class RepositoryController {
                 }
             }
             else {
-
                 log.info "Publishing plugin [$p] with version [$v]"
+
+                // We disallow re-publication of non-snapshot releases, so find
+                // out whether this version has been published before.
                 def existing = PluginRelease.where {
-                    plugin.name == p && releaseVersion == v
+                    plugin.name == p && releaseVersion == v && isSnapshot == false
                 }
 
-                if(!existing.exists() || v.endsWith("-SNAPSHOT")) {
-                    log.debug "Plugin [$p:$v] does not exist. Creating pending release..."
-                    def pendingRelease = new PendingRelease(pluginName:p, pluginVersion:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
-                    assert pendingRelease.save(flush:true) // assertion should never fail due to prior validation in command object                        
+                if (!existing.exists()) {
+                    log.debug "Plugin [$p:$v] does not exist or is snapshot. Creating pending release..."
+                    createPendingRelease p, v, cmd
 
-
-                    log.debug "Triggering plugin publish event for plugin [$p:$v]"
-                    publishEvent(new PluginPublishEvent(pendingRelease))
                     if(isBrowserRequest) {
                         return [message:"Plugin published."]
                     }
@@ -110,12 +108,17 @@ class RepositoryController {
                     type = "-plugin$type"
                 }
 
-                if(pluginVersion == '[revision]' || pluginVersion == 'latest.release' || pluginVersion == 'latest.integration') {
-                    // calculate latest
-                    def pr = findPluginRelease(plugin)
-                    if(pr) {
-                        pluginVersion = pr.releaseVersion
-                    }
+                // WARNING These aliases work on the basis of release date, not
+                // version, so if a developer publishes an older version after a
+                // newer one, the older one takes precedence as the 'latest' release.
+                // This pretty much matches the old svn.codehaus.org behaviour, but
+                // it's counter-intuitive for users.
+                if(pluginVersion == '[revision]' || pluginVersion == 'latest.release') {
+                    // Use the most recent non-snapshot release.
+                    pluginVersion = findLatestNonSnapshotPluginRelease(plugin) ?: pluginVersion
+                } else if(pluginVersion == 'latest.integration') {
+                    // Use the most recent release, including snapshots.
+                    pluginVersion = findLatestPluginRelease(plugin) ?: pluginVersion
                 }
 
                 def snapshotVersion = pluginVersion
@@ -147,7 +150,6 @@ class RepositoryController {
         }
     }
     
-    def grailsLinkGenerator
     def listLatest(String plugin) {
         String key = "artifact:list:latest:$plugin"
         def content = cacheService?.getContent(key)
@@ -155,7 +157,7 @@ class RepositoryController {
             render content
         }
         else {
-            def pr = findPluginRelease(plugin)
+            def pr = findLatestNonSnapshotPluginRelease(plugin)
             if(pr) {
 
                 content = g.render( template:"listLatest", model: [plugin:plugin,release:pr, fullName:"$plugin-$pr.releaseVersion"] )
@@ -175,16 +177,45 @@ class RepositoryController {
         return repoUrl.endsWith("/") ? repoUrl[0..-2] : repoUrl
     }
     
-    private findPluginRelease(String n) {
+    private findLatestNonSnapshotPluginRelease(String n) {
         def query = PluginRelease.where {
-            plugin.name == n
+            plugin.name == n && isSnapshot == false
         }
-        def plugins = query.list(sort:'releaseDate', order:'desc')
-        if (plugins) {
-            return plugins[0]
+        def latestPlugin = query.get(sort:'releaseDate', order:'desc', max: 1)
+        if (latestPlugin) {
+            return latestPlugin
         } else {
             throw new Exception("PluginRelease not found with Plugin name of $n")
         }
+    }
+    
+    private findLatestPluginRelease(String n) {
+        def query = PluginRelease.where {
+            plugin.name == n && isSnapshot == false
+        }
+        def latestPlugin = query.get(sort:'releaseDate', order:'desc', max: 1)
+        if (latestPlugin) {
+            return latestPlugin
+        } else {
+            throw new Exception("PluginRelease not found with Plugin name of $n")
+        }
+    }
+
+    protected createPendingRelease(name, version, files) {
+        // First remove any existing pending entries for this plugin.
+        def pendingRelease = PendingRelease.where { pluginName == name && pluginVersion == version }.get()
+        if (pendingRelease) pendingRelease.delete()
+
+        pendingRelease = new PendingRelease(
+                pluginName: name,
+                pluginVersion: version,
+                zip: files.zip,
+                pom: files.pom,
+                xml: files.xml).save(flush: true)
+        assert pendingRelease // assertion should never fail due to prior validation in command object
+
+        log.debug "Triggering plugin publish event for plugin [$name:$version]"
+        publishEvent(new PluginPublishEvent(pendingRelease))
     }
     
     def pluginService
@@ -200,9 +231,9 @@ class RepositoryController {
         }
 
         // get the most recent plugin release and use it as the last modified date
-        def pr = PluginRelease.list(max:1, sort:'releaseDate', order:'desc')
+        def pr = PluginRelease.get(max:1, sort:'releaseDate', order:'desc')
         if(pr) {
-            lastModified pr.releaseDate[0].toDate()
+            lastModified pr.releaseDate.toDate()
         }
 
         render text: content, contentType: "text/xml"
