@@ -202,47 +202,47 @@
         sql "UPDATE plugin_release SET is_snapshot = true WHERE release_version like '%-SNAPSHOT%'"
     }
 
-        changeSet(author: "craig (generated)", id: "1345809360198-3") {
-            createTable(tableName: "testimonial") {
-                column(autoIncrement: "true", name: "id", type: "bigint") {
-                    constraints(nullable: "false", primaryKey: "true", primaryKeyName: "testimonialPK")
-                }
+    changeSet(author: "craig (generated)", id: "1345809360198-3") {
+        createTable(tableName: "testimonial") {
+            column(autoIncrement: "true", name: "id", type: "bigint") {
+                constraints(nullable: "false", primaryKey: "true", primaryKeyName: "testimonialPK")
+            }
 
-                column(name: "version", type: "bigint") {
-                    constraints(nullable: "false")
-                }
+            column(name: "version", type: "bigint") {
+                constraints(nullable: "false")
+            }
 
-                column(name: "company_name", type: "varchar(255)") {
-                    constraints(nullable: "false")
-                }
+            column(name: "company_name", type: "varchar(255)") {
+                constraints(nullable: "false")
+            }
 
-                column(name: "body", type: "longtext") {
-                    constraints(nullable: "false")
-                }
+            column(name: "body", type: "longtext") {
+                constraints(nullable: "false")
+            }
 
-                column(name: "date_created", type: "datetime") {
-                    constraints(nullable: "false")
-                }
+            column(name: "date_created", type: "datetime") {
+                constraints(nullable: "false")
+            }
 
-                column(name: "featured", type: "bit") {
-                    constraints(nullable: "false")
-                }
+            column(name: "featured", type: "bit") {
+                constraints(nullable: "false")
+            }
 
-                column(name: "last_updated", type: "datetime") {
-                    constraints(nullable: "false")
-                }
+            column(name: "last_updated", type: "datetime") {
+                constraints(nullable: "false")
+            }
 
-                column(name: "status", type: "varchar(255)")
+            column(name: "status", type: "varchar(255)")
 
-                column(name: "submitted_by_id", type: "bigint") {
-                    constraints(nullable: "false")
-                }
+            column(name: "submitted_by_id", type: "bigint") {
+                constraints(nullable: "false")
+            }
 
-                column(name: "title", type: "varchar(50)") {
-                    constraints(nullable: "false")
-                }
+            column(name: "title", type: "varchar(50)") {
+                constraints(nullable: "false")
             }
         }
+    }
 
 
     }
