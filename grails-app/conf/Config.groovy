@@ -92,7 +92,7 @@ bi {
                 scale = [width: 600, height: 700, type: ScaleType.APPROXIMATE]
             }
             small {
-                scale = [width: 200, height: 150, type: ScaleType.APPROXIMATE]
+                scale = [width: 100, height: 100, type: ScaleType.APPROXIMATE]
             }
         }
         constraints {

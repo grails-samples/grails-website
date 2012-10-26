@@ -24,9 +24,9 @@
         </div>
     </div>
 
-<p><g:message code="testimonial.body.description"/></p>
+<wiki:uploadImages prefix="testimonial${Testimonial.count() + 1}" />
 
-<wiki:uploadImages prefix="testimonials" />
+<p><g:message code="testimonial.body.description"/></p>
 
 <g:textArea name="body" rows="40" cols="130" value="${testimonialInstance?.body}"/>
 
