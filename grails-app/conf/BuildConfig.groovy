@@ -22,7 +22,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        compile ":burning-image:0.5.0",
+        compile ":burning-image:0.5.1",
                 ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
@@ -47,7 +47,7 @@ grails.project.dependency.resolution = {
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
                 ":resources:1.2.RC2",
-                ":searchable:0.6.3",
+                ":searchable:0.6.4",
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
                 ":spring-events:1.2",
