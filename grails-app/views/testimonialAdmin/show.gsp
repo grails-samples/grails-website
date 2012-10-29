@@ -14,7 +14,7 @@
 <h1 class="page-header">
     <g:message code="default.show.label" args="[entityName]"/>
     <span class="pull-right">
-        <g:form controller="testimonial">
+        <g:form controller="testimonialAdmin">
             <g:hiddenField name="id" value="${testimonialInstance?.id}"/>
             <g:link class="btn" action="list">
                 <g:message code="default.list.label" args="[entityName]"/>

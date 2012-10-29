@@ -4,10 +4,6 @@ class TestimonialController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index = {
-        redirect(action: "list", params: params)
-    }
-
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def testimonialInstanceList =  Testimonial.approved().list(max: params.max)
@@ -28,6 +24,10 @@ class TestimonialController {
         testimonialInstance.submittedBy = request.user
 
         if (testimonialInstance.save(flush: true)) {
+            // Make sure user can edit tesimonials they create
+            request.user.addToPermissions("testimonial:edit,update:$testimonialInstance.id")
+            request.user.save()
+
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'testimonial.label', default: 'Testimonial'), testimonialInstance.id])}"
             redirect(action: "show", id: testimonialInstance.id)
         }

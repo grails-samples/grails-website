@@ -197,6 +197,8 @@ class UrlMappings {
         "/testimonials"(controller: "testimonial", action: "list")
         "/testimonials/add"(controller: "testimonial", action: "create")
         "/testimonials/save"(controller: "testimonial", action: "save")
+        "/testimonials/edit"(controller: "testimonial", action: "edit")
+        "/testimonials/update"(controller: "testimonial", action: "update")
         "/testimonials/$id"(controller: "testimonial", action: "show")
 
 //        "/screencasts"(controller:"screencast", action:"list")

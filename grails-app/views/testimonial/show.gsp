@@ -16,15 +16,17 @@
 
     <section id="main">
         <h1 class="page-header">${testimonialInstance?.title}
-            <shiro:hasRole name="Administrator" >
+            <shiro:hasPermission permission="${"testimonial:edit:${testimonialInstance.id}"}">
                 <span class="pull-right">
-                    <g:form controller="testimonial">
+                    <g:form controller="testimonial" action="edit">
                         <g:hiddenField name="id" value="${testimonialInstance?.id}"/>
-                        <g:actionSubmit class="btn btn-info" action="edit"
-                                        value="${message(code: 'default.button.edit.label', default: 'Edit')}"/>
+
+                        <button type="submit" class="btn btn-info">
+                            ${message(code: 'default.button.edit.label', default: 'Edit')}
+                        </button>
                     </g:form>
                 </span>
-            </shiro:hasRole>
+            </shiro:hasPermission>
         </h1>
 
         <h2>${testimonialInstance?.companyName}</h2>

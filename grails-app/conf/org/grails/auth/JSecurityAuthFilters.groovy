@@ -59,11 +59,13 @@ class JSecurityAuthFilters {
     }    
 
     static filters = {
+
         def requiresPermissions = [
                 pluginTab: ["editWikiPage"],
                 tutorial: ["create", "edit", "save", "update"] as Set,
                 webSite: ["create", "edit", "save", "update"] as Set,
-                likeDislike: ["like", "dislike"] as Set ]
+                likeDislike: ["like", "dislike"] as Set
+        ]
         withPermissions(controller: "*", action: "*") {
             before = {
                 if (actionName in requiresPermissions[controllerName]) {
@@ -176,7 +178,11 @@ class JSecurityAuthFilters {
             }
         }
 
-        testimonialEditing(controller: "testimonial", action: "")
+        testimonialEditing(controller: "testimonial", action: "edit") {
+            before = {
+                accessControl()
+            }
+        }
 
         adminArea(uri:"/admin/**") {
             before = {
