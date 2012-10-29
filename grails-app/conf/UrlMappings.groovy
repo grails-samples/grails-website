@@ -143,6 +143,7 @@ class UrlMappings {
         "/search"(controller: "content", action: "search")
         "/upload/$id?"(controller: "content", action: "uploadImage")
         "/addImage/$id?"(controller: "content", action: "addImage")
+
         "/register"(controller: "user", action: "register")
         "/user/create"(controller: "user", action: "createAccount")
         "/oauth/success"(controller: "shiroOAuth", action: "onSuccess")
