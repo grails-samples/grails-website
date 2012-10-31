@@ -55,11 +55,11 @@ grails.project.dependency.resolution = {
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.2"
         }
         else {
             test    ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.2"
         }
         
         test    ":geb:0.6.0",
