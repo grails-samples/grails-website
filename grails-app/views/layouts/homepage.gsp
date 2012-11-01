@@ -93,7 +93,7 @@ new PeriodicalExecuter(function(pe) {
             
             <div class="eventDownloadWrapper">
                 <div id="screencasts">
-                    <h2>What is grails?</h2>
+                    <h2>What is Grails?</h2>
                     <div class="castBox">
                         <div class="castScreen">
                             <a href="http://portal.sliderocket.com/vmware/what-is-grails">
@@ -230,7 +230,7 @@ new PeriodicalExecuter(function(pe) {
                     <div class="right">
                         <h3>Community</h3>
                         <p>
-Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails  <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="http://grails.org/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the latest news on the <g:link controller="blog" action="list">Grails blog</g:link>.							
+Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="https://github.com/grails-samples/grails-website">source code</a> from GitHub, report issues on the Grails  <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="http://grails.org/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the latest news on the <g:link controller="blog" action="list">Grails blog</g:link>.							
 <br></br><br></br>
 
 The whole Grails site is written in Grails <g:meta name="app.grails.version" /> and is an open wiki,  the <a href="http://github.com/grails/grails-samples/tree/master/grails.org">source code</a> for which is available from Github.
