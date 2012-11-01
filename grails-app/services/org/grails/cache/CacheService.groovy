@@ -52,6 +52,21 @@ class CacheService {
         return old
     }
 
+    def getShortenedWikiText(key) {
+        wikiCache.get(wikiShortKey(key))?.get()
+    }
+
+    def removeShortenedWikiText(key) {
+        wikiCache.evict wikiShortKey(key)
+    }
+
+    def putShortenedWikiText(key, value) {
+        key = wikiShortKey(key)
+        def old = getShortenedWikiText(key)
+        wikiCache.put key, value
+        return old
+    }
+
     def getPluginList() { pluginCache.get(PLUGIN_LIST_KEY)?.getValue() }
 
     def putPluginList(content) {
@@ -75,4 +90,5 @@ class CacheService {
 
     // Workaround for GPCACHEREDIS-1.
     protected wikiKey(String key) { return "wiki##${key}" }
+    protected wikiShortKey(String key) { return "shortenedwiki##${key}" }
 }

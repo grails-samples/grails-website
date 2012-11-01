@@ -73,7 +73,7 @@
                     </header>
 
                     <div class="desc">
-                        <p><wiki:shorten length="500"><wiki:text>${plugin.summary}</wiki:text></wiki:shorten> <g:link uri="/plugin/${plugin.name}">Read more</g:link></p>
+                        <p><wiki:shorten key="${'plugin_' + plugin.id}" wikiText="${plugin.summary}" length="500"/> <g:link uri="/plugin/${plugin.name}">Read more</g:link></p>
                         <p class="dependency"><strong>Dependency :</strong><br/>
                             <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
                         </p>

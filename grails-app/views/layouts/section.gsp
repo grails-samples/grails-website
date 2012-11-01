@@ -11,7 +11,7 @@
     <section class="aside">
         <aside id="tutorials">
             <h3><img src="${resource(dir: 'img/aside', file: 'getStarted.png')}" alt="" title=""/>
-                <wiki:shorten text="${g.layoutTitle(default:'')}" length="35" camelCase="true" /></h3>
+                <wiki:shorten html="${g.layoutTitle(default:'')}" length="35" camelCase="true" /></h3>
             <ul>
                 <li class="all"><g:link action="list" params="[category:'all']">All</g:link></li>
                 <li class="featured"><g:link action="list" params="[category:'featured']">Featured</g:link></li>

@@ -83,13 +83,16 @@
 
         <h3>Latest News</h3>
         <g:each in="${latestNews}" var="newsItem">
+            <g:set var="cacheKey" value="${'news_' + newsItem.id}"/>
             <article class="news">
                 <h3><g:link controller="newsItem" action="show" id="${newsItem.id}">
-                        <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
-                            <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
-                        </time> ${newsItem.title.encodeAsHTML()}</g:link></h3>
-                <p><wiki:shorten text="${newsItem.body}" /> <g:link controller="newsItem" action="show" id="${newsItem.id}">Read more</g:link></p>
-
+                    <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
+                        <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
+                    </time> ${newsItem.title.encodeAsHTML()}</g:link></h3>
+                <p>
+                    <wiki:shorten key="${cacheKey}" wikiText="${newsItem.body}" length="200"/>
+                    <g:link controller="newsItem" action="show" id="${newsItem.id}">Read more</g:link>
+                </p>
             </article>                        
         </g:each>
         <g:link controller="newsItem">Read more news</g:link>
