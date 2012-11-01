@@ -2,6 +2,7 @@ package org.grails.plugin
 
 import groovyx.net.http.HTTPBuilder
 import org.grails.auth.User
+import org.grails.meta.UserInfo
 import org.joda.time.DateTime
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
@@ -272,14 +273,13 @@ class PluginUpdater {
             title = pom.name.text()
             summary = pom.description.text()
             documentationUrl = pom.url.text()
-            author = pom.developers.developer[0].name.text()
-            authorEmail = pom.developers.developer[0].email.text()
             organization = pom.organization.name.text()
             organizationUrl = pom.organization.url.text()
             scmUrl = pom.scm.url.text()
             issuesUrl = pom.issueManagement.url.text()
         }
 
+        addAuthors xml.developers
         addLicenses pom.licenses
 
         // Now do the same with the XML plugin descriptor to get the Grails
@@ -299,13 +299,13 @@ class PluginUpdater {
         if (log.debugEnabled) {
             log.debug """\
                 Updated plugin info:
-                  name         = ${plugin.name}
-                  version      = ${plugin.currentRelease}
-                  groupId      = ${plugin.groupId}
-                  title        = ${plugin.title}
-                  docs URL     = ${plugin.documentationUrl}
-                  author name  = ${plugin.author}
-                  author email = ${plugin.authorEmail}
+                  name          = ${plugin.name}
+                  version       = ${plugin.currentRelease}
+                  groupId       = ${plugin.groupId}
+                  title         = ${plugin.title}
+                  docs URL      = ${plugin.documentationUrl}
+                  author names  = ${plugin.authors.collect {it.name}.join(', ')}
+                  author emails = ${plugin.authors.collect {it.email}.join(', ')}
                 """.stripIndent()
         }
     }
@@ -332,6 +332,19 @@ class PluginUpdater {
             // 404 on the Maven URL, so use a Subversion repository URL instead.
             baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/")
             filename = "grails-" + filename
+        }
+    }
+
+    protected addAuthors(pomDevelopersXml) {
+        plugin.authors.clear()
+        for (developer in pomDevelopersXml.developer) {
+            def user = UserInfo.findOrCreateByEmail(email: license.name.text())
+            if (!user.name) {
+                user.name = developer.name.text()
+                user.save(failOnError: true)
+            }
+
+            plugin.addToAuthors(user)
         }
     }
 

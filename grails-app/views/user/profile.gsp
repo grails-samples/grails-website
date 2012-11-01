@@ -13,6 +13,18 @@
     <div id="profileForm" class="userForm">
         <g:form name="register" url="[controller: 'user', action: 'profile']">
             <div class="inputForm">
+                <p><span class="label"><label for="name">Name:</label></span>
+                    <g:textField name="name" value="${userInfo?.name}" style="width: 21em;" ></g:textField>
+                </p>
+            </div>
+
+            <div class="inputForm">
+                <p><span class="label"><label for="email">Email address:</label></span>
+                    <g:textField name="password" value="${userInfo?.email}" style="width: 21em;" ></g:textField>
+                </p>
+            </div>
+
+            <div class="inputForm">
                 <p><span class="label"><label for="password">Change Password:</label></span>
                     <g:passwordField name="password" style="width: 21em;" ></g:passwordField>
                 </p>

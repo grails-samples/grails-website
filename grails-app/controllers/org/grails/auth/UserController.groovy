@@ -98,7 +98,7 @@ class UserController {
         def userInfo = UserInfo.findByUser(user)
         if (request.method == 'POST') {
             if (!userInfo) userInfo = new UserInfo(user: user)
-            userInfo.properties = params
+            bindData userInfo, params, [include: ["email", "name", "emailSubscribed"]]
             userInfo.save()
             if (params.password) {
                 user.password = DigestUtils.shaHex(params.password) 

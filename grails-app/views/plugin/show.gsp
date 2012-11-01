@@ -27,9 +27,9 @@
                             <small>supported by SpringSource</small>
                         </g:if>
                     </h2>
-                    <p class="meta">
-                        Tags :
-                        <g:if test="${plugin.tags.size() > 0}">
+                    <ul class="meta">
+                        <li>Tags :
+                        <g:if test="${plugin.tags}">
                             <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if>
                             <g:link controller="plugin" action="list" params="[tag: tag]">${tag}</g:link>
                             </g:each>
@@ -37,9 +37,23 @@
                         <g:else>
                             /
                         </g:else>
-                        <br/>
-                        Current release : <strong>${plugin.currentRelease}</strong> • Grails version : ${plugin.grailsVersion ?: '*'}
-                    </p>
+                        </li>
+                        <li>Current release : <strong>${plugin.currentRelease.encodeAsHTML()}</strong> • Grails version : ${plugin.grailsVersion.encodeAsHTML() ?: '*'}</li>
+                        <li>Authors : <%= plugin.authors.collect { it.name.encodeAsHTML() }.join(', ') %></li>
+                        <g:if test="${plugin.licenses}">
+                        <li>License : <%= plugin.licenses.collect { '<a href="' + it.url.encodeAsHTML() + '">' + it.name + '</a>' }.join(',') %></li>
+                        </g:if>
+                        <g:if test="${plugin.organization}">
+                        <li>Organization : 
+                            <g:if test="${plugin.organizationUrl}">
+                            <a href="${plugin.organizationUrl.encodeAsHTML()}">${plugin.organization.encodeAsHTML()}</a>
+                            </g:if>
+                            <g:else>
+                            ${plugin.organization.encodeAsHTML()}
+                            </g:else>
+                        </li>
+                        </g:if>
+                    </ul>
                     <div class="right">
                         <plugin:rating averageRating="${plugin.avgRating ?: 0}" total="${plugin.ratingCount ?: 0}" />
                         <g:if test="${plugin.usage>0}">
@@ -70,17 +84,32 @@
                 </div>
                 <p class="buttons">
                     <g:if test="${plugin.scmUrl}">
-                        <a href="${plugin.scmUrl}" target="_blank" class="btn blueLight source"><span class="ico"></span>Source</a>
+                        <a href="${plugin.scmUrl.encodeAsHTML()}" target="_blank" class="btn blueLight source"><span class="ico"></span>Source</a>
                     </g:if>
                     <g:if test="${plugin.documentationUrl}">
-                        <a href="${plugin.documentationUrl}" target="_blank" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
+                        <a href="${plugin.documentationUrl.encodeAsHTML()}" target="_blank" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
                     </g:if>
                     <g:if test="${plugin.issuesUrl}">
-                        <a href="${plugin.issuesUrl}" target="_blank" class="btn blueLight issues"><span class="ico"></span>Issues</a>
+                        <a href="${plugin.issuesUrl.encodeAsHTML()}" target="_blank" class="btn blueLight issues"><span class="ico"></span>Issues</a>
                     </g:if>
                 </p>
                 <div class="documentation">
+                    <section>
+                    <h2>Description</h2>
                     <wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text>
+                    </section>
+                    <g:if test="${plugin.installation?.body}">
+                    <section>
+                    <h2>Installation</h2>
+                    <wiki:text key="${'pluginInfo_install_' + plugin.name}">${plugin.installation.body}</wiki:text>
+                    </section>
+                    </g:if>
+                    <g:if test="${plugin.description?.body}">
+                    <section>
+                    <h2>More Info</h2>
+                    <wiki:text key="${'pluginInfo_desc_' + plugin.name}">${plugin.description.body}</wiki:text>
+                    </section>
+                    </g:if>
                 </div>
             </article>
         </section>

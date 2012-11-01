@@ -569,7 +569,7 @@ ul.list-links {
 	}
 }
 
-.plugins {
+#main.plugins {
 	section.plugin {
 		position: relative;
 		article {
@@ -619,7 +619,7 @@ ul.list-links {
 			}
 		}
 		
-		p.meta, p.buttons {
+		ul.meta, p.buttons {
 			color: @grailsGray;
 			margin: 0;
 			padding: 0;
@@ -628,6 +628,10 @@ ul.list-links {
 			.btn {
 				font-size: 12px;
 			}
+		}
+
+		ul.meta {
+			list-style-type: none;
 		}
 		
 		p.download {
@@ -672,6 +676,17 @@ ul.list-links {
 			padding: 15px;
 			border: 1px solid #ddd;
 			#textshadow > .white(1);
+
+			section {
+				background-color: inherit;
+				margin: 0 0 0.5em 0;
+				padding: 0;
+
+				h2:first-child {
+					color: @grailsGreen;
+					font-size: 1.3em;
+				}
+			}
 		}
 		.tabbable {
 			margin-top: 20px;

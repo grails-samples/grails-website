@@ -18,6 +18,10 @@
         <g:field type="password" name="password2" class="text" value="${params.password2}" />
     </p>
     <p>
+        <label for="name">Full Name</label>
+        <g:textField name="name" value="${params.name}" class="text" />
+    </p>
+    <p>
         <label for="email">Email Address</label>
         <g:textField name="email" value="${params.email}" class="text" />
     </p>

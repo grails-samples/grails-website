@@ -311,8 +311,10 @@ class PluginController {
                 name: plugin.name,
                 version: plugin.currentRelease,
                 title: plugin.title,
-                author: plugin.author,
-                authorEmailMd5: DigestUtils.md5Hex(plugin.authorEmail),
+                // These two for backwards compatibility
+                author: plugin.authors[0].name,
+                authorEmailMd5: DigestUtils.md5Hex(plugin.authors[0].email),
+                authorList: plugin.authors.collect { [name: it.name, email: DigestUtils.md5Hex(it.email)] },
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,

@@ -50,16 +50,16 @@
                             </g:link>
                         </h3>
 
-                        <p class="meta">
-                            Tags :
+                        <ul class="meta">
+                            <li>Tags :
                             <g:if test="${plugin.tags.size() > 0}">
                                 <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="/plugins/tag/${tag}">${tag}</a></g:each>
                             </g:if>
                             <g:else>
                                 /
                             </g:else>
-                            <br/>
-                            Latest : <strong>${plugin.currentRelease}</strong> • Grails version : ${plugin.grailsVersion ?: '*'}
+                            </li>
+                            <li>Latest : <strong>${plugin.currentRelease}</strong> • Grails version : ${plugin.grailsVersion ?: '*'}</li>
                         </p>
 
                         <div class="right">
