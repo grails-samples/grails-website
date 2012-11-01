@@ -19,6 +19,6 @@
             <a href="${webSiteInstance.url.encodeAsHTML()}" target="_blank">${webSiteInstance?.url?.encodeAsHTML()}</a>
         </p>
 
-        <p>${webSiteInstance?.description?.encodeAsHTML()}</p>
+        <p><wiki:text key="${'webSite_' + webSiteInstance.id}">${webSiteInstance.description}</wiki:text></p>
     </div>
 </article>

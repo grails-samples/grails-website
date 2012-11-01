@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="desc" style="padding-right: 10px;">
-                    <p>${screencastInstance?.description?.encodeAsHTML()}</p>
+                    <p><wiki:text key="${'screencast_' + screencastInstance.id}">${screencastInstance.description}</wiki:text></p>
                 </div>
 
                 <g:if test="${screencastInstance?.isNew}">

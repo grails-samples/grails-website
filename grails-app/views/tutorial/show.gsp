@@ -38,7 +38,7 @@
                 </header>
 
                 <div class="desc">
-                    <p>${tutorialInstance?.description?.encodeAsHTML()}</p>
+                    <p><wiki:text key="${'tutorial_' + tutorialInstance.id}">${tutorialInstance?.description}</wiki:text></p>
                 </div>
 
                 <p class="link">
