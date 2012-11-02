@@ -202,7 +202,7 @@ databaseChangeLog = {
 
     changeSet(author: "pledbrook", id: "AddMultiplePluginAuthors") {
         addColumn(tableName: "user_info") {
-            column(name: "email", type: "varchar(255)") { constraints nullable: "false" }
+            column name: "email", type: "varchar(255)"
             column name: "name", type: "varchar(255)"
         }
         dropNotNullConstraint columnDataType: "bigint", columnName: "user_id", tableName: "user_info"
