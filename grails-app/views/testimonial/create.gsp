@@ -10,10 +10,7 @@
 
 <body>
 
-
-<g:if test="${flash.message}">
-    <div class="alert alert-info">${flash.message}</div>
-</g:if>
+<flash:message flash="${flash}" bean="${testimonialInstance}" />
 
 <g:hasErrors bean="${testimonialInstance}">
     <div class="alert alert-error">

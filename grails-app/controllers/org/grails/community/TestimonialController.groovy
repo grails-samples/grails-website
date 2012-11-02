@@ -6,10 +6,12 @@ class TestimonialController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        def testimonialInstanceList =  Testimonial.approved().list(max: params.max)
-        def testimonialInstanceTotal = Testimonial.approved().count()
 
-        [testimonialInstanceList: testimonialInstanceList, testimonialInstanceTotal: testimonialInstanceTotal]
+        def featuredList =  Testimonial.featuredApproved().list()
+        def nonFeaturedList =  Testimonial.nonFeaturedApproved().list(max: params.max)
+        def nonFeaturedTotal = Testimonial.nonFeaturedApproved().count()
+
+        [featuredList: featuredList, nonFeaturedList: nonFeaturedList, nonFeaturedTotal: nonFeaturedTotal]
     }
 
     def create = {
@@ -24,11 +26,11 @@ class TestimonialController {
         testimonialInstance.submittedBy = request.user
 
         if (testimonialInstance.save(flush: true)) {
-            // Make sure user can edit tesimonials they create
+            // Make sure user can edit testimonials they create
             request.user.addToPermissions("testimonial:edit,update:$testimonialInstance.id")
             request.user.save()
 
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'testimonial.label', default: 'Testimonial'), testimonialInstance.id])}"
+            flash.message = "${message(code: 'testimonial.created.message')}"
             redirect(action: "show", id: testimonialInstance.id)
         }
         else {

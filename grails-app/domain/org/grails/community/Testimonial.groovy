@@ -25,8 +25,15 @@ class Testimonial {
     }
 
     static namedQueries = {
-        approved {
+        nonFeaturedApproved {
+            eq "featured", false
             eq "status", ApprovalStatus.APPROVED
+            order "dateCreated", "desc"
+        }
+        featuredApproved {
+            eq "featured", true
+            eq "status", ApprovalStatus.APPROVED
+            order "dateCreated", "desc"
         }
         allQuery {
             order "dateCreated", "desc"
@@ -45,5 +52,8 @@ class Testimonial {
         return query.list(sort: 'id', order: 'asc')
     }
 
+    public String toString() {
+        title
+    }
 
 }

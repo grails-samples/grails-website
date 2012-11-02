@@ -128,6 +128,12 @@ modules = {
         resource url: '/js/image-upload.js'
     }
 
+    wikiEditor {
+        dependsOn: 'codeMirror'
+        resource url: '/js/wiki-editor.js'
+    }
+
+
 }
 
 /** Returns {@code true} if we're using run-app. */

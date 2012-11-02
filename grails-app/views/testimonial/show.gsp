@@ -15,7 +15,10 @@
     <g:render template="/community/sideNav"/>
 
     <section id="main">
-        <h1 class="page-header">${testimonialInstance?.title}
+
+    <flash:message flash="${flash}" />
+
+    <h1 class="page-header">${testimonialInstance?.title}
             <shiro:hasPermission permission="${"testimonial:edit:${testimonialInstance.id}"}">
                 <span class="pull-right">
                     <g:form controller="testimonial" action="edit">
@@ -29,14 +32,10 @@
             </shiro:hasPermission>
         </h1>
 
+
+    <g:if test="${testimonialInstance?.companyName}">
         <h2>${testimonialInstance?.companyName}</h2>
-
-        <g:if test="${flash.message}">
-            <div class="alert alert-info">
-                ${flash.message}
-            </div>
-        </g:if>
-
+    </g:if>
 
 
         <wiki:text>

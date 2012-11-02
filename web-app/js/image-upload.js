@@ -1,7 +1,6 @@
 $(document).ready(function() {
     var container = $("#images-container");
     var errorBox = $(container).find(".error");
-    var progressBox = $(container).find(".progress");
     var imagePrefix = $(container).find("input[name='image.prefix']").val();
     var spinner = $(container).find(".spinner");
 
@@ -30,15 +29,6 @@ $(document).ready(function() {
         },
         onError: function(id, fileName, errorReason) {
             $(this).showMessage(errorReason);
-        },
-        onProgress: function(id, fileName, uploadedBytes, totalBytes) {
-            var percentComplete = Math.round((uploadedBytes / totalBytes) * 100);
-            $(progressBox).show().html("Uploading " + fileName + "... " + percentComplete + "% complete");
-
-            if (percentComplete == 100) {
-                setTimeout(function() {$(progressBox).fadeOut('slow');}, 1000);
-            }
-
         }
     });
 
@@ -55,7 +45,8 @@ $(document).ready(function() {
         var imageName = $(this).find("img").attr("name");
         var wikiImage = "!" + imageName + "!";
 
-        var editor = $("textarea#body").data(editor);
+        var editorTextArea = $("textarea.wiki");
+        var editor = $(editorTextArea).data(editor);
         editor.replaceSelection(wikiImage, "end");
     });
 
