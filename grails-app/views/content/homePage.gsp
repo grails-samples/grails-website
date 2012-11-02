@@ -68,7 +68,9 @@
             </li>
         </ul>
     </div>
+    <%--
     <div id="springoneBanner" class="banner"></div>
+    --%>
 </div>
 
 <section class="section-1">
