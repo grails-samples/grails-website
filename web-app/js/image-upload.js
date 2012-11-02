@@ -1,8 +1,9 @@
 $(document).ready(function() {
-    var errorBox = $("#images-container .error");
-    var progressBox = $("#images-container .progress");
-    var imagePrefix = $("#images-container input[name='image.prefix']").val();
-    var spinner =  $("#images-container .spinner");
+    var container = $("#images-container");
+    var errorBox = $(container).find(".error");
+    var progressBox = $(container).find(".progress");
+    var imagePrefix = $(container).find("input[name='image.prefix']").val();
+    var spinner = $(container).find(".spinner");
 
     var params = {prefix: imagePrefix}
 
@@ -41,8 +42,15 @@ $(document).ready(function() {
         }
     });
 
+    // Change photo-name when hovering over image
+    $("#images-container #images").on('hover', ".image", function() {
+        var imageName = $(this).find("img").attr("name");
+        updateImageName(imageName);
+    });
+
+
     // Add image to wiki content
-    $("#images-container #images").on('click', "a", function(event) {
+    $("#images-container #images").on('click', ".image", function(event) {
         event.preventDefault();
         var imageName = $(this).find("img").attr("name");
         var wikiImage = "!" + imageName + "!";
@@ -53,11 +61,17 @@ $(document).ready(function() {
 
 });
 
+function updateImageName(imageName) {
+    var wikiImage = "!" + imageName + "!";
+    $("#images-container .image-name").html(wikiImage);
+}
+
 function renderAddImage(id) {
     var data = {id: id};
 
     var container = $("#images");
     var spinner = $("#images-container .spinner");
+    var descriptionBox = $("#images-container .description");
 
     $(spinner).show();
 
@@ -67,6 +81,9 @@ function renderAddImage(id) {
         success: function(response) {
             $(spinner).hide();
             $(container).append(response);
+            var imageName = $(container).find("img").attr("name");
+            updateImageName(imageName);
+            descriptionBox.show();
         }
     });
 }

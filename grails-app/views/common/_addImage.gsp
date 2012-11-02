@@ -2,7 +2,6 @@
 
     <a href="#">
         <img name="${wikiImage.name}" src="${createLink(controller: "content", action: "showImage", params: [path: wikiImage.name, size: "small"])}"  /><br />
-        <strong>!${wikiImage.name}!</strong>
     </a>
 
 

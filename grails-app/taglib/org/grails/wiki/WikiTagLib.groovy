@@ -125,6 +125,7 @@ class WikiTagLib implements ApplicationContextAware  {
           <div id="images-container">
             ${g.hiddenField(name: "image.prefix", value: prefix)}
             <div id="images"></div>
+            <div class="description" style="display:none">${g.message(code:'wikiImage.add.description')}</div>
             <p class="spinner" style="display:none"><img src="${resource(dir:'img',file:'spinner.gif')}" alt="Loading" /></p>
             <div class=\"progress alert\" style=\"display:none\"></div>
             <p><a class="btn upload-image">Upload image</a></p>
