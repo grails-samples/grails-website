@@ -1,12 +1,15 @@
 <%@ page import="org.grails.community.Testimonial" %>
 <%@ page import="org.grails.common.ApprovalStatus"  %>
 
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="admin"/>
     <g:set var="entityName" value="${message(code: 'testimonial.label', default: 'Testimonial')}"/>
     <title><g:message code="default.show.label" args="[entityName]"/></title>
+    <r:require modules="fancyBox"/>
+
 </head>
 
 <body>
@@ -122,9 +125,9 @@
 
 
 <h2>Content</h2>
-<wiki:text >
-    ${testimonialInstance.body}
-</wiki:text>
+<wiki:shorten length="100" wikiText="${testimonialInstance.body}" />
+
+<p><a class="btn preview" data-contents="${testimonialInstance.body?.encodeAsHTML()}">Preview</a></p>
 
 <h2 class="page-header">Respond to Submitter</h2>
 <g:form class="form-horizontal" action="disposition">
@@ -169,6 +172,35 @@
         </div>
     </fieldset>
 </g:form>
+
+<r:script>
+    $(function () {
+        // Show preview of wiki content
+        $('.preview').click(function() {
+            var body = $(this).data('contents');
+            $.ajax({
+                type    : "POST",
+                cache   : false,
+                url     : "/previewWikiPage",
+                data    : { body: body },
+                success : function(data) {
+                    $.fancybox(data, {
+                        maxWidth    : 710,
+                        maxHeight   : 600,
+                        fitToView   : false,
+                        width       : '70%',
+                        height      : '70%',
+                        autoSize    : false,
+                        closeClick  : false,
+                        openEffect  : 'fade',
+                        closeEffect : 'fade'
+                    });
+                }
+            });
+            return false;
+        });
+    });
+</r:script>
 
 </body>
 </html>

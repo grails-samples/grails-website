@@ -39,7 +39,7 @@
 
 
     <div class="form-actions">
-    <g:submitButton name="update" class="btn btn-primary"
+    <g:actionSubmit action="update" class="btn btn-primary"
                     value="${message(code: 'default.button.update.label', default: 'Update')}"/>
     <g:actionSubmit class="btn btn-danger" action="delete"
                     value="${message(code: 'default.button.delete.label', default: 'Delete')}"
