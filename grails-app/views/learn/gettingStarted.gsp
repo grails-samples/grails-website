@@ -37,7 +37,7 @@
                     <g:message code="page.learn.play"/>
                 </a></p>
             </div>
-<!--             <div class="item">
+<%--             <div class="item">
                 <span class="number">${++step}</span>
                 <h3>Grails for ...</h3>
                 <p>Understand how Grails differs from the frameworks you already know.</p>
@@ -53,7 +53,7 @@
                         <p class="links"><a class="btn blueLight play" href="#"><g:message code="page.learn.play"/></a></p>
                     </div>
                 </div>
-            </div> -->
+            </div> --%>
             <div class="item">
                 <h3><span class="number">${++step}.</span> Try a sample application</h3>
                 <p>Check out one of the available sample applications from Github.</p>
