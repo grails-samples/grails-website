@@ -1,7 +1,7 @@
-<section class="plugin">
+<section class="box">
     <article>
         <header>
-            <h3 style="padding: 5px 0;">
+            <h3>
                 <a href="/tutorial/${tutorialInstance?.id}">${tutorialInstance?.title?.encodeAsHTML()}</a>
             </h3>
             <p class="meta">

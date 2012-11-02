@@ -16,7 +16,7 @@
         <g:render template="sideSubmission"/>
     </div>
 
-    <div id="main" class="plugins">
+    <div id="main" class="boxWhite">
         <g:if test="${pluginPendingApprovalTotal == 0}">
             <div class="alert alert-block">
                 <p><strong>Woot!</strong><br />

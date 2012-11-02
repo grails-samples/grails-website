@@ -3,15 +3,15 @@
         <li ${controllerName == 'content' && actionName == 'homePage' ? ' class="active"' : ''}>
             <g:link uri="/"><g:message code="layout.nav.home"/></g:link>
         </li>
-        <li class="dropdown learn${controllerName == 'learn' ? ' active' : ''}">
+        <li class="dropdown learn${(controllerName in ['learn', 'tutorial', 'screencast']) ? ' active' : ''}">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                 <g:message code="layout.nav.learn"/>
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><g:link uri="/learn"><g:message code="layout.nav.learn.getstarted"/></g:link></li>
+                <li class="${actionName == 'gettingStarted' ? 'active' : ''}"><g:link uri="/learn"><g:message code="layout.nav.learn.getstarted"/></g:link></li>
                 <li><g:link uri="/Documentation"><g:message code="layout.nav.learn.documentation"/></g:link></li>
-                <li><g:link uri="/tutorials"><g:message code="layout.nav.learn.tutorials"/></g:link></li>
+                <li class="${controllerName == 'tutorial' ? 'active' : ''}"><g:link uri="/tutorials"><g:message code="layout.nav.learn.tutorials"/></g:link></li>
                 <li><g:link uri="/screencasts"><g:message code="layout.nav.learn.screencasts"/></g:link></li>
             </ul>
 

@@ -12,7 +12,7 @@
 
 <div id="content" class="content-aside" role="main">
     <g:render template="/learn/sideNav"/>
-    <div id="main" class="plugins">
+    <div id="main" class="boxWhite">
         <div class="alert alert-block margin-bottom-15">
             <p><g:message code="tutorial.list.submit.description" /></p>
             <p>

@@ -14,12 +14,12 @@
 
     <g:render template="/learn/sideNav"/>
 
-    <div id="main" class="plugins">
-        <section class="plugin">
+    <div id="main" class="plugins boxWhite">
+        <section class="plugin box">
             <article>
                 <header>
-                    <h3 style="padding: 5px 0;">
-                        <a href="/tutorial/${tutorialInstance?.id}">${tutorialInstance?.title?.encodeAsHTML()}</a>
+                    <h3 class="single">
+                        ${tutorialInstance?.title?.encodeAsHTML()}
                     </h3>
 
                     <p class="meta">

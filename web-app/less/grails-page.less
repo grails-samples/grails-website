@@ -569,8 +569,8 @@ ul.list-links {
 	}
 }
 
-#main.plugins {
-	section.plugin {
+#main.plugins, #main.boxWhite {
+	section.plugin, section.box {
 		position: relative;
 		article {
 			padding: 5px 0;
@@ -725,6 +725,24 @@ ul.list-links {
 			}
 		}
 	}
+}
+
+#main.boxWhite {
+    section.box {
+        article {
+            padding: 10px 20px;
+            header h3 {
+                margin-top: 3px;
+                margin-bottom: 3Px;
+            }
+            header h3.single {
+                margin-left: 0px;
+                font-weight: bold;
+                font-size: 20px;
+                padding: 5px 0;
+            }
+        }
+    }
 }
 
 .page-plugin {
@@ -1129,47 +1147,8 @@ a.like {
 
 .numbers {
 	.item {
-		position: relative;
-		padding: 10px 0;
-		@size: 30px;
-		padding-left: @size + 25px;
-		padding-right: 40px;
-		.number {
-			.border-radius(@size);
-			background: @grailsBlack;
-			color: @white;
-			position: absolute;
-			left: 10px;
-			top: 13px;
-			text-align: center;
-			line-height: @size;
-			font-size: 15px;
-			height: @size;
-			width: @size;
-		}
-		h3 {
-			margin: 0;
-			padding: 0;
-			line-height: 24px;
-			font-size: 16px;
-		}
-		p {
-			padding: 2px 0;
-			margin: 0;
-			&.links {
-				padding: 7px 0;
-			}
-		}
-		a.play {
-			color: @grailsBlack;
-			display: block;
-			text-align: left;
-			.border-radius(4px);
-			line-height: 22px;
-		}
-		h4 {
-			color: @grailsGreen;
-		}
+	    border-top: 1px solid @grailsGrayLight;
+	    padding: 10px 0;
 	}
 	
 	.colset2 {

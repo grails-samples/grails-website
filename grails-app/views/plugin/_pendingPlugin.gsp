@@ -1,4 +1,4 @@
-<section class="plugin">
+<section class="box">
     <article>
         <header>
             <h3><a href="/plugins/pending/${pluginPendingApprovalInstance?.id}">${pluginPendingApprovalInstance?.name}</a></h3>

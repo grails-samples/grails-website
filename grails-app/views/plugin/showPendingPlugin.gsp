@@ -16,16 +16,16 @@
         <g:render template="sideSubmission"/>
     </div>
 
-    <div id="main" class="plugins">
-        <section class="plugin">
+    <div id="main" class="boxWhite">
+        <section class="box">
             <article>
                 <header>
-                    <h3><a href="/plugins/pending/${pluginPendingApprovalInstance?.id}">${pluginPendingApprovalInstance?.name}</a></h3>
+                    <h3 class="single">${pluginPendingApprovalInstance?.name}</h3>
 
                     <p class="meta">
-                        version ${pluginPendingApprovalInstance?.versionNumber}
+                        <strong>version:</strong> ${pluginPendingApprovalInstance?.versionNumber}
                         <br/>
-                        approval status: <common:approvalStatus status="${pluginPendingApprovalInstance?.status}" />
+                        <strong>approval status:</strong> <common:approvalStatus status="${pluginPendingApprovalInstance?.status}" />
                         <br/>
                         submitted by <a href="#">${pluginPendingApprovalInstance?.submittedBy?.login}</a>
                         <prettytime:display date="${pluginPendingApprovalInstance?.dateCreated}"/>

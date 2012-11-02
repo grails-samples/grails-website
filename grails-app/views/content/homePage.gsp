@@ -77,10 +77,10 @@
     <h2><strong>What is Grails?</strong> </h2>
     <p><strong>Grails is an Open Source, full stack, web application framework for the JVM</strong>. It takes advantage of the <strong><a href="http://groovy.codehaus.org/">Groovy</a></strong> programming language and <strong>convention over configuration</strong> to provide a productive and stream-lined development experience. <g:link uri="/learn">Learn more</g:link></p>
     <div class="left">
-    <div id="#downloadNow" class="downloads">
+    <div id="#downloadNow" class="downloads downloads-small">
         <h2>Grab the latest and greatest release!</h2>
-        <g:render template="/download/downloadLatestButton"
-                  model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
+        <p>You can find other Grails releases and methods of installation on <g:link controller="download" action="index">the downloads page.</g:link></p>
+        <g:render template="/download/downloadLatestButton" model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
     </div>
 
         <h3>Latest News</h3>
