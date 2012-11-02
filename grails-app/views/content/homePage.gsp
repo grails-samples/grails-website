@@ -126,8 +126,8 @@
 
     <div class="col3">
         <h3>Community</h3>
-        <p>Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the latest news on the <a href="/blog">Grails blog</a>.</p>
-        <p>The whole Grails site is written in Grails 2.0.0 and is an open wiki, the <a href="http://github.com/grails/grails-samples/tree/master/grails.org">source code</a> for which is available from Github. Visit the Grails <a href="/Community">community pages</a> for more ways to participate.</p>
+        <p>Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the <a href="/news">latest news</a>.</p>
+        <p>This whole web site is written in Grails, the <a href="http://github.com/grails-samples/grails-website/tree/master">source code</a> for which is available from GitHub. Visit the Grails <a href="/community">community pages</a> for more ways to participate.</p>
     </div>
 </section>
 
