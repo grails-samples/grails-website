@@ -39,9 +39,8 @@
                     </shiro:lacksRole>
                 </shiro:isLoggedIn>
 
-                <cache:text id="${cacheKey}">
-                    <g:render template="/content/versionList" model="[versions: versions, authors: authors, wikiPage: wikiPage, update: updateElement]" />
-                </cache:text>
+                <cache:render key="${cacheKey}" template="/content/versionList"
+                                          model="[versions: versions, authors: authors, wikiPage: wikiPage, update: updateElement]" />
             </div>
             </g:if>
             <g:else>No Versions</g:else>
