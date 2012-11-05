@@ -3,7 +3,6 @@ package org.grails.community
 import org.grails.common.ApprovalStatus
 import org.grails.auth.User
 import org.joda.time.DateTime
-import pl.burningice.plugins.image.ast.DBImageContainer
 import org.grails.content.GenericApprovalResponse
 
 class Testimonial {
@@ -20,7 +19,9 @@ class Testimonial {
 
     static constraints = {
         title blank: false, maxSize: 50
-        status nullable: true
+        companyName nullable: true, maxSize: 255
+        body blank: false
+        status nullable: false
         submittedBy nullable: false
     }
 
