@@ -26,8 +26,10 @@ class WikiTagLib implements ApplicationContextAware  {
      * the {@code html} attribute, which should be HTML content; the {@code wikiText}
      * attribute, whose contents will be converted from wiki text to HTML before
      * shortening; or as the body of the tag (HTML markup).
-     * @attr html The HTML text to shorten.
-     * @attr wikiText The wiki text to convert to HTML and shorten.
+     * @attr html The HTML text to shorten. This is not encoded by the tag, so
+     * make sure any untrusted text is encoded first.
+     * @attr wikiText The wiki text to convert to HTML and shorten. Do *not*
+     * encode the text, as this is handled by the wiki engine.
      * @attr key A unique key for this fragment that can be used for caching.
      * @attr length REQUIRED The maximum length of the resulting content.
      * @attr camelCase Capitalises all the words in the content.
