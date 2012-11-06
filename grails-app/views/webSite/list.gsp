@@ -30,7 +30,7 @@
 
                         <h3><a href="#">
                             <wiki:shorten html="${webSiteInstance?.title?.encodeAsHTML()}" length="20" />
-                            <small><wiki:shorten key="${'webSite_' + webSiteInstance.id}" html="${webSiteInstance?.shortDescription}" length="50" /></small>
+                            <small><wiki:shorten key="${'webSite_' + webSiteInstance.id}" wikiText="${webSiteInstance?.shortDescription}" length="50" /></small>
                         </a></h3>
 
                         <div class="img" style="height: 130px; overflow: hidden;"><bi:hasImage bean="${webSiteInstance}">
