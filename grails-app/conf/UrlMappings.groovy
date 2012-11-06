@@ -142,6 +142,8 @@ class UrlMappings {
 
         "/search"(controller: "content", action: "search")
         "/upload/$id?"(controller: "content", action: "uploadImage")
+        "/addImage/$id?"(controller: "content", action: "addImage")
+
         "/register"(controller: "user", action: "register")
         "/user/create"(controller: "user", action: "createAccount")
         "/oauth/success"(controller: "shiroOAuth", action: "onSuccess")
@@ -179,7 +181,6 @@ class UrlMappings {
         /* ========================= COMMUNITY ======================= */
         "/community"(controller: "community", action: "index")
         "/community/websites"(controller: "webSite", action: "list")
-        "/community/testimonials"(controller: "community", action: "testimonials")
         "/community/contribute"(controller: "community", action: "contribute")
         "/community/mailingList"(controller: "community", action: "mailingList")
         "/community/twitter"(controller: "community", action: "twitter")
@@ -193,6 +194,13 @@ class UrlMappings {
         "/screencasts/add"(controller: "screencast", action: "create")
         "/screencasts/save"(controller: "screencast", action: "save")
         "/screencast/$id"(controller: "screencast", action: "show")
+
+        "/testimonials"(controller: "testimonial", action: "list")
+        "/testimonials/add"(controller: "testimonial", action: "create")
+        "/testimonials/save"(controller: "testimonial", action: "save")
+        "/testimonials/edit"(controller: "testimonial", action: "edit")
+        "/testimonials/update"(controller: "testimonial", action: "update")
+        "/testimonials/$id"(controller: "testimonial", action: "show")
 
 //        "/screencasts"(controller:"screencast", action:"list")
 //        "/screencasts/tags"(controller:"screencast", action:"browseTags")

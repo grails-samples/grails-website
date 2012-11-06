@@ -25,6 +25,8 @@ import org.grails.wiki.BaseWikiController
 import org.grails.wiki.WikiPage
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.multipart.MultipartFile
+import grails.converters.JSON
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 class ContentController extends BaseWikiController {
     static allowedMethods = [saveWikiPage: "POST", rollbackWikiVersion: "POST"]
@@ -467,46 +469,48 @@ class ContentController extends BaseWikiController {
     }
 
     def uploadImage() {
-        def message = null
         def uploadTypes = grailsApplication.config.wiki.supported.upload.types ?: []
+        def result = [success: true, error: '']
 
-        if (request.method == 'POST') {
-            MultipartFile file = request.getFile('image')
-            log.info "Uploading image, file: ${file.originalFilename} (${file.contentType})"
-            if (uploadTypes?.contains(file.contentType)) {
+        MultipartFile image = request.getFile('image')
+        String fileName = image.originalFilename
 
-                try {
-                    def newFilename = file.originalFilename.replaceAll(/\s+/, '_')
-                    def wikiImage = new WikiImage(params)
-                    wikiImage.name = getImageName(params.id, newFilename)
-                    if (wikiImage.save()) {
-                        imageUploadService.save(wikiImage)
+        if (uploadTypes?.contains(image.contentType)) {
 
-                        render view: "/common/iframeMessage", model: [
-                                pageId: "upload",
-                                frameSrc: g.createLink(controller: 'content', action: 'uploadImage', id: params.id),
-                                message: "Upload complete. Use the syntax !${wikiImage.name}! to refer to your file"]
+            try {
+                def wikiImage = new WikiImage()
 
-                        // Break out on successful upload.
-                        return
-                    }
-                    else {
-                        message = "Error uploading file! " +
-                                g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')
-                    }
+                wikiImage.name = getImageName(params.prefix, fileName)
+                wikiImage.image = image
+
+                if (wikiImage.save()) {
+                    imageUploadService.save(wikiImage)
+                    result.id = wikiImage.id
                 }
-                catch (Exception e) {
-                    log.error e.message, e
-                    message = "Error uploading file! Info: ${e.message}"
+                else {
+                    result.success = false
+                    result.error = "Error uploading ${fileName}! ${g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')}"
                 }
             }
-            else {
-                log.info "Bad file type, rendering error message to view"
-                message = "File type not in list of supported types: ${uploadTypes?.join(',')}"
+            catch (Exception e) {
+                log.error e.message
+                result.success = false
+                result.error = "Error uploading ${fileName}! Info: ${e.message}"
             }
         }
+        else {
+            result.success = false
+            result.error = "File type of ${fileName} is not in list of supported types: ${uploadTypes?.join(', ')}"
+        }
 
-        render view: "/common/uploadDialog", model: [category: params.id, message: message]
+        // needs to be text/html for IE
+        return render(text: result as JSON, contentType:'text/html')
+    }
+
+    // Injected into page via ajax so it can be added to wiki content
+    def addImage(String id) {
+        def wikiImage = WikiImage.get(id)
+        render(template: '/common/addImage', model: [wikiImage: wikiImage] )
     }
 
     /**
@@ -516,13 +520,14 @@ class ContentController extends BaseWikiController {
      */
     def showImage(String path) {
         def wikiImage = WikiImage.findByName(path)
+
         if (wikiImage) {
             // Copied and modified from BurningImageTagLib. The WikiImage
             // domain class has a generated property 'biImage' that contains
             // the attached images - one for each configured size. We use
             // the BI image to pass the required parameters to the BI
             // controller.
-            def size = "large"
+            def size = params.size ?: "large"
             def image = wikiImage.biImage[size]
             cache neverExpires: true
             forward controller: "dbContainerImage", action: "index", params: [
@@ -586,10 +591,12 @@ class ContentController extends BaseWikiController {
      * page (preferably the one the image is on!) and the original filename
      * of that image.
      */
-    protected String getImageName(String wikiPageId, String filename) {
+    protected String getImageName(String prefix, String fileName) {
+        fileName = fileName.replace(" ", "_")
+
         def b = new StringBuilder()
-        if (wikiPageId) b << wikiPageId << '/'
-        b << filename
+        if (prefix) b << prefix << '/'
+        b << fileName
         return b.toString()
     }
 }

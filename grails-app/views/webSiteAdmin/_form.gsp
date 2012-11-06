@@ -70,3 +70,5 @@
         <div class="hint">Accepted file types: png, gif, jpg</div>
     </div>
 </div>
+
+
