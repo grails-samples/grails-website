@@ -180,7 +180,6 @@ class UrlMappings {
 
         /* ========================= COMMUNITY ======================= */
         "/community"(controller: "community", action: "index")
-        "/community/websites"(controller: "webSite", action: "list")
         "/community/contribute"(controller: "community", action: "contribute")
         "/community/mailingList"(controller: "community", action: "mailingList")
         "/community/twitter"(controller: "community", action: "twitter")
