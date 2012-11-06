@@ -4,6 +4,10 @@ class TestimonialController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def legacyHome() {
+        redirect action: "list", params: params, permanent: true
+    }
+
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
 
