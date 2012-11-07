@@ -254,9 +254,7 @@
                 constraints(nullable: "false")
             }
 
-            column(name: "company_name", type: "varchar(255)") {
-                constraints(nullable: "false")
-            }
+            column(name: "company_name", type: "varchar(255)")
 
             column(name: "body", type: "longtext") {
                 constraints(nullable: "false")
