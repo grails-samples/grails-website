@@ -35,18 +35,15 @@ import javax.servlet.http.HttpServletRequest
 class UserControllerTests {
 
     void testRegisterGET() {
-        params.originalURI = "/foo/bar"
         params.more = "stuff"
 
         controller.register()
 
         assert view == "/user/register"
-        assert model.originalURI == "/foo/bar"
     }
 
     void testRegisterUserExists() {
         def user = new User(login: "fred").save(validate: false)
-        params.originalURI = "/foo/bar"
         params.login = user.login
         request.method = "POST"
 
@@ -54,11 +51,9 @@ class UserControllerTests {
 
         assert view == "/user/register"
         assert model.message == "auth.user.already.exists"
-        assert model.originalURI == "/foo/bar"
     }
 
     void testRegisterWithNonMatchingPasswords() {
-        params.originalURI = "/foo/bar"
         params.login = "fred"
         params.password = "one"
         params.password2 = "two"
@@ -67,7 +62,6 @@ class UserControllerTests {
         controller.register()
 
         assert view == "/user/register"
-        assert model.originalURI == "/foo/bar"
     }
 
     void testRegisterWithFormErrors() {
@@ -75,7 +69,6 @@ class UserControllerTests {
         new Role(name: Role.EDITOR).save(validate: false)
         new Role(name: Role.OBSERVER).save(validate: false)
 
-        params.originalURI = "/foo/bar"
         params.login = "fred"
         params.password = "one"
         params.password2 = "one"
@@ -86,14 +79,12 @@ class UserControllerTests {
 
         assert view == "/user/register"
         assert model.user.login == "fred"
-        assert model.originalURI == "/foo/bar"
     }
 
     void testRegisterAndRedirectToOriginalPage() {
         def secUtil = mockFor(SecurityUtils)
         secUtil.demand.static.getSubject {-> [login: {authToken -> true}] }
 
-        params.originalURI = "/foo/bar"
         params.login = "dilbert"
         params.password = "one"
         params.password2 = "one"
@@ -107,7 +98,6 @@ class UserControllerTests {
 
         controller.register()
 
-        assert response.redirectedUrl == params.originalURI
 
         secUtil.verify()
     }
@@ -150,9 +140,8 @@ class UserControllerTests {
         def webUtil = mockFor(WebUtils)
         webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
-        views['/user/_loginForm.gsp'] = 'login form ${message} ${originalURI} ${async}'
+        views['/user/_loginForm.gsp'] = 'login form ${message} ${async}'
 
-        params.originalURI = "/foo/bar"
         params.username = "fred"
         params.password = "letmein"
 
@@ -161,7 +150,7 @@ class UserControllerTests {
 
         controller.login()
 
-        assert response.text == "login form auth.invalid.login /foo/bar true"
+        assert response.text == "login form auth.invalid.login true"
 
         secUtil.verify()
         webUtil.verify()
@@ -176,17 +165,14 @@ class UserControllerTests {
         def webUtil = mockFor(WebUtils)
         webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
-        params.originalURI = "/foo/bar"
         params.username = "fred"
         params.password = "letmein"
 
         request.method = "POST"
-
         controller.login()
 
         def redirectUri = new URI(response.redirectedUrl)
         assert redirectUri.path == "/user/login"
-        assert redirectUri.query == "username=fred&originalURI=${params.originalURI}"
 
         secUtil.verify()
         webUtil.verify()
@@ -199,7 +185,7 @@ class UserControllerTests {
         def webUtil = mockFor(WebUtils)
         webUtil.demand.static.getSavedRequest { HttpServletRequest request -> return null }
 
-        params.originalURI = "/foo/bar?queryString"
+        params.targetUri= "/foo/bar?queryString"
         params.username ="fred"
         params.password = "letmein"
         request.method = "POST"
