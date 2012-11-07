@@ -18,8 +18,8 @@ class PluginController {
 
     def list() {
         try {
-            def maxResults = params.int("max") ?: 10
-            def offset = params.int("offset") ?: 0
+            def maxResults = params.int("max",10)
+            def offset = params.int("offset", 0)
 
             def plugins
             def pluginCount

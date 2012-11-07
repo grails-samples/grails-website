@@ -1,5 +1,7 @@
 package org.grails.plugin
 
+import org.grails.plugin.Plugin
+import org.grails.taggable.*
 import grails.test.ControllerUnitTestCase
 import grails.test.mixin.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
@@ -12,48 +14,26 @@ import static org.junit.Assert.*
  * @author Graeme Rocher
  */
 @TestFor(PluginController)
-@Mock([Plugin, WikiPage])
+@Mock([Plugin, WikiPage,org.grails.taggable.TagLink])
 class PluginControllerTests {
 
     void testShowPlugin() {
         Plugin p = new Plugin(name:'plugin', title:'My Plugin', documentationUrl:"http://grails.org/plugin/my",
                                 downloadUrl:"http://grails.org/my.zip", currentRelease:"1.0.0", authorEmail:"foo@bar.com")
-        p.save flush:true
+        p.save flush:true, validate:false
 
-        params.name = 'plugin'
+        controller.tagService = createMockTagService() 
+        def model = controller.show('plugin')
 
-        controller.show()
-
-        assertEquals p, model.plugin
+        assert p == model.plugin
     }
 
-    void testCreatePluginGET() {
-        params.title='My Plugin'
-
-        controller.createPlugin()
-
-        assert model.plugin
-        assertEquals 'My Plugin', model.plugin.title
+    private createMockTagService() {
+        def tagService = mockFor(TagService)
+        tagService.demand.getPluginTagArray {->[]}
+        return tagService.createMock()
     }
 
-    void testCreatePluginValidationSuccess() {
-        request.method = 'POST'
-        params.title='my plugin'
-        params.name='my-plugin'
-        params.authorEmail='blargh'
-        params.currentRelease='1.2'
-        params.downloadUrl='durl'
-        def control = mockFor(PluginService)
-
-        control.demand.initNewPlugin { arg1, arg2 -> }
-        control.demand.savePlugin { arg -> true }
-        controller.pluginService = control.createMock()
-
-        controller.createPlugin()
-
-        assert "/plugin/show?name=my-plugin" == response.redirectUrl
-    }
-    
     void testHomePopulatesFeaturedPluginsByDefault() {
         def plugins = [
             new Plugin(name:'not featured 1', featured:false),
@@ -63,14 +43,13 @@ class PluginControllerTests {
         ]*.save(validate:false, flush:true)
 
 
-        controller.metaClass.getCommentService = { -> [getLatestComments: { String type, num -> []}]}
-        
+        controller.tagService = createMockTagService()        
         controller.pluginService = new PluginService()
-        def model = controller.home()
+        def model = controller.list()
         
-        assertNotNull model.currentPlugins
-        assertEquals 2, model.currentPlugins.size()
-        assertTrue model.currentPlugins*.name.contains('featured 1')
+        assertNotNull model.plugins
+        assertEquals 2, model.plugins.size()
+        assertTrue model.plugins*.name.contains('featured 1')
     }
     
     void testHomePopulatesAllPlugins() {
@@ -81,13 +60,13 @@ class PluginControllerTests {
             new Plugin(name:'featured 2', featured: true)
         ]*.save(validate:false, flush:true)
         
-        params.category = 'all'
-        controller.metaClass.getCommentService = { -> [getLatestComments: { String type, num-> []}]}
+        params.filter = 'all'
+        controller.tagService = createMockTagService()        
         controller.pluginService = new PluginService()
-        def model = controller.home()
+        def model = controller.list()
         
-        assertNotNull model.currentPlugins
-        assertEquals 4, model.currentPlugins.size()
+        assert model.plugins != null
+        assert 4 == model.plugins.size()
     }
     
     void testHomePopulatesMostPopularPlugins() {
@@ -102,12 +81,12 @@ class PluginControllerTests {
             plugins << new Plugin(name:"number $i")
         }
         plugins*.save flush:true, validate:false
-        params.category= 'popular' 
-        controller.metaClass.getCommentService = { -> [getLatestComments: { String type, num-> []}]}
+        params.filter = 'popular'
+        controller.tagService = createMockTagService()        
         controller.pluginService = new PluginService()
-        def model = controller.home()
-        assertNotNull model.currentPlugins
-        assertEquals 5, model.currentPlugins.size()
+        def model = controller.list()
+        assert model.plugins != null
+        assert 10 == model.plugins.size()
         // assert that every rating is the same or less than the previous (sorted by popularity)
         def cur
         model.currentPlugins.each {
@@ -128,18 +107,18 @@ class PluginControllerTests {
             new Plugin(name:'first', lastReleased: new DateTime(2009, 01, 01, 10, 0)),
             new Plugin(name:'fourth', lastReleased: new DateTime(2007, 01, 01, 0, 0))
         ]*.save validate:false, flush:true
-        params.category= 'recentlyUpdated'
-        controller.metaClass.getCommentService = { -> [getLatestComments: { String type, num-> []}]}
+        params.filter = 'recentlyUpdated'
+        controller.tagService = createMockTagService()        
         controller.pluginService = new PluginService()
-        def model = controller.home()
+        def model = controller.list()
         
-        assert model.currentPlugins != null
-        assert model.currentPlugins.size() == 5
-        assert model.currentPlugins[0].name == 'first'
-        assert model.currentPlugins[1].name == 'second'
-        assert model.currentPlugins[2].name == 'third'
-        assert model.currentPlugins[3].name == 'fourth'
-        assert model.currentPlugins[4].name == 'fifth'
+        assert model.plugins != null
+        assert model.plugins.size() == 5
+        assert model.plugins[0].name == 'first'
+        assert model.plugins[1].name == 'second'
+        assert model.plugins[2].name == 'third'
+        assert model.plugins[3].name == 'fourth'
+        assert model.plugins[4].name == 'fifth'
     }
     
     // test order
