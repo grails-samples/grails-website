@@ -118,10 +118,10 @@ class RepositoryController {
                 // it's counter-intuitive for users.
                 if(pluginVersion == '[revision]' || pluginVersion == 'latest.release') {
                     // Use the most recent non-snapshot release.
-                    pluginVersion = findLatestNonSnapshotPluginRelease(plugin) ?: pluginVersion
+                    pluginVersion = findLatestNonSnapshotPluginRelease(plugin)?.releaseVersion ?: pluginVersion
                 } else if(pluginVersion == 'latest.integration') {
                     // Use the most recent release, including snapshots.
-                    pluginVersion = findLatestPluginRelease(plugin) ?: pluginVersion
+                    pluginVersion = findLatestPluginRelease(plugin)?.releaseVersion ?: pluginVersion
                 }
 
                 def snapshotVersion = pluginVersion
@@ -227,16 +227,16 @@ class RepositoryController {
      * Renders the plugin list as XML in a format compatible with all versions of Grails
      */
     def list() {
-        def content = cacheService.getPluginList()
+        def content = cacheService?.getPluginList()
         if (!content) {
             content = generatePluginListXml()
-            cacheService.putPluginList(content)
+            cacheService?.putPluginList(content)
         }
 
         // get the most recent plugin release and use it as the last modified date
-        def pr = PluginRelease.get(max:1, sort:'releaseDate', order:'desc')
+        def pr = PluginRelease.list(max:1, sort:'releaseDate', order:'desc')
         if(pr) {
-            lastModified pr.releaseDate.toDate()
+            lastModified pr[0].releaseDate.toDate()
         }
 
         render text: content, contentType: "text/xml"

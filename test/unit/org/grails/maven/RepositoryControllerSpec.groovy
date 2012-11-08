@@ -79,8 +79,9 @@ class RepositoryControllerSpec extends spock.lang.Specification{
 
     void "Test publish plugin without necessary files"() {
         when:"publish is called without files to upload"
-            params.plugin = "tomcat"
-            params.version = "1.0.0"
+            def cmd = new PublishPluginCommand(plugin:"tomcat", version:"1.0.0")
+            cmd.validate()
+            cmd.errors.rejectValue("xml", "bad.data")
             request.method = "POST"
             controller.publish()
 
@@ -195,7 +196,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
                             downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip",
                             documentationUrl:"http://grails.org/plugin/tomcat",
                             lastReleased: new DateTime(2010, 8, 11, 22, 30))
-        p.releases = [ new PluginRelease(plugin:p, releaseVersion:"1.0.0.BUILD-SNAPSHOT", releaseDate:new DateTime(2010, 8, 11, 22, 30), downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip")]
+        p.releases = [ new PluginRelease(isSnapshot:true, plugin:p, releaseVersion:"1.0.0.BUILD-SNAPSHOT", releaseDate:new DateTime(2010, 8, 11, 22, 30), downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip")]
         p.save(flush:true)
         assert !p.hasErrors()
         return p
