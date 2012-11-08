@@ -27,6 +27,7 @@
                 </g:hasErrors>
 
                 <g:form action="save" class="content-form">
+                    <input type="hidden" name="id" value="${screencastInstance.id}"></input>
                     <fieldset>
                         <div class="control-group ${hasErrors(bean: screencastInstance, field: 'title', 'error')}">
                             <label class="control-label" for="title"><g:message code="screencast.title" /></label>

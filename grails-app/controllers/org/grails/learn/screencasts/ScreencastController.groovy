@@ -4,10 +4,21 @@ import org.grails.common.ApprovalStatus
 
 class ScreencastController {
     def searchableService
+    def cacheService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
+    }
+
+    def edit(Long id) {
+        def s = Screencast.get(id)
+        if(s) {
+            render view:"create", model:[screencastInstance: s]
+        }
+        else {
+            render status:404
+        }
     }
 
     def list() {
@@ -32,20 +43,26 @@ class ScreencastController {
     }
 
     def save() {
-        def screencastInstance = new Screencast(params)
-        screencastInstance.status = ApprovalStatus.PENDING
-        screencastInstance.submittedBy = request.user
+        def screencast= params.id ? Screencast.get(params.id) : new Screencast()
+        if(screencast == null) screencast = new Screencast()
+        screencast.properties = params
+        screencast.status = ApprovalStatus.PENDING
+        screencast.submittedBy = request.user
 
         try {
             searchableService.stopMirroring()
-            if (!screencastInstance.hasErrors() && screencastInstance.save()) {
-                processTags screencastInstance, params.tags
-                screencastInstance.save flush: true
+            if (!screencast.hasErrors() && screencast.save()) {
+                processTags screencast, params.tags
+                def key = "screencast_${screencast.id}".toString()
+                cacheService?.removeWikiText(key)
+                cacheService?.removeShortenedWikiText(key)
+  
+                screencast.save flush: true
                 flash.message = "Your submission was successful. We will let you know when it is approved."
                 redirect(action: "list")
             }
             else {
-                render(view: "create", model: [screencastInstance: screencastInstance])
+                render(view: "create", model: [screencastInstance: screencast])
             }
         }
         catch (Exception ex) {

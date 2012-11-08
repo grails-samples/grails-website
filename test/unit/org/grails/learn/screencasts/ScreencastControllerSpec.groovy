@@ -9,18 +9,26 @@ import org.junit.*
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
-@TestMixin(GrailsUnitTestMixin)
-class ScreencastControllerSpec {
+@TestFor(ScreencastController)
+@Mock([Screencast])
+class ScreencastControllerSpec extends spock.lang.Specification{
 
-    void setUp() {
-        // Setup logic here
+    void "Test edit action returns 404 for non-existant screencast"() {
+        when:"the edit action is called"
+            controller.edit(10)
+        then:"A 404 is returned if the screencast doesn't exist"
+            assert response.status == 404
     }
 
-    void tearDown() {
-        // Tear down logic here
-    }
+    void "Test that the screencast is returned in the model from the edit action if it exists"() {
+        given:"An existing screencast"
+            def t = new Screencast(title:"blah").save(flush:true, validate:false)
 
-    void testSomething() {
-        fail "Implement me"
+        when:"The edit action is called"
+            controller.edit(t.id)
+
+        then:"The model is correct"
+            view == '/screencast/create'          
+            model.screencastInstance == t
     }
 }

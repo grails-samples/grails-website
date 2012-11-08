@@ -14,12 +14,18 @@
 
     <g:render template="/learn/sideNav"/>
 
-    <div id="main" class="plugins">
-        <section class="plugin">
+    <div id="main" class="screencasts boxWhite">
+        <section class="screencast box">
             <article>
                 <header>
                     <h3 style="padding: 5px 0;">
-                        <a href="/screencast/${screencastInstance?.id}">${screencastInstance?.title?.encodeAsHTML()}</a>
+                        ${screencastInstance?.title?.encodeAsHTML()}
+                        <g:if test="${request.user == screencastInstance.submittedBy}">
+                             <g:link title="Edit Screencast" class="actionIcon" action="edit" id="${screencastInstance?.id}">
+                                 <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit News" class="inlineIcon"/>
+                             </g:link>
+                        </g:if>                             
+   
                     </h3>
 
                     <p class="meta">
