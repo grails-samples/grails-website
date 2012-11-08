@@ -28,6 +28,10 @@
 
                 <g:form action="save" class="content-form">
                     <fieldset>
+                        <g:if test="${tutorialInstance?.id}">
+                            <input type="hidden" name="id" value="${tutorialInstance.id}"></input>
+                        </g:if>
+
                         <div class="control-group ${hasErrors(bean: tutorialInstance, field: 'title', 'error')}">
                             <label class="control-label" for="title"><g:message code="tutorial.title" /></label>
                             <div class="controls">

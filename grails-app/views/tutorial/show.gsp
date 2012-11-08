@@ -15,11 +15,18 @@
     <g:render template="/learn/sideNav"/>
 
     <div id="main" class="plugins boxWhite">
+   
         <section class="plugin box">
+
             <article>
                 <header>
                     <h3 class="single">
                         ${tutorialInstance?.title?.encodeAsHTML()}
+                        <g:if test="${request.user == tutorialInstance.submittedBy}">
+                             <g:link title="Edit Tutorial" class="actionIcon" action="edit" id="${tutorialInstance?.id}">
+                                 <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit News" class="inlineIcon"/>
+                             </g:link>
+                        </g:if>                             
                     </h3>
 
                     <p class="meta">
