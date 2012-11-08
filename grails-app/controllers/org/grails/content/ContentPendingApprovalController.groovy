@@ -1,7 +1,7 @@
 package org.grails.content
 
 import org.grails.common.*
-import org.grails.community.WebSite
+import org.grails.community.*
 import org.grails.learn.screencasts.Screencast
 import org.grails.learn.tutorials.Tutorial
 import org.grails.news.NewsItem
@@ -14,6 +14,7 @@ class ContentPendingApprovalController {
         pendingItems.addAll(Tutorial.pending.list())
         pendingItems.addAll(Screencast.pending.list())
         pendingItems.addAll(WebSite.pending.list())
+        pendingItems.addAll(Testimonial.pending.list())
         pendingItems = pendingItems.sort { it.dateCreated }
 
         [pendingItems: pendingItems]

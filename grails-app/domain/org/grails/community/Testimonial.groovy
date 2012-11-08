@@ -26,6 +26,12 @@ class Testimonial {
     }
 
     static namedQueries = {
+        pending {
+            eq 'status', ApprovalStatus.PENDING
+        }
+        approved {
+            eq "status", ApprovalStatus.APPROVED
+        }        
         nonFeaturedApproved {
             eq "featured", false
             eq "status", ApprovalStatus.APPROVED
