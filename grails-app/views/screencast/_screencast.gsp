@@ -1,4 +1,4 @@
-<section class="plugin">
+<section class="box">
     <article>
         <header>
             <h3 style="padding: 5px 0;">
