@@ -28,7 +28,7 @@
                     <article class="col${(idx % 3) + 1}">
                         <a href="#" class="like">+1</a>
 
-                        <h3><a href="#">
+                        <h3><a href="${createLink(action:'show', id:webSiteInstance.id)}">
                             <wiki:shorten html="${webSiteInstance?.title?.encodeAsHTML()}" length="20" />
                             <small><wiki:shorten key="${'webSite_' + webSiteInstance.id}" wikiText="${webSiteInstance?.shortDescription}" length="50" /></small>
                         </a></h3>

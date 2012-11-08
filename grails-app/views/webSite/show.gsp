@@ -6,6 +6,14 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
     <r:require modules="community"/>
+    <style type="text/css">
+        .actionIcon {
+            float:left;
+            position:relative;
+            right:20px;
+            bottom:10px;
+        }
+    </style>
 </head>
 
 <body>

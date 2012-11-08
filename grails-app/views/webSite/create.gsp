@@ -30,7 +30,7 @@
                 </g:hasErrors>
 
                 <g:uploadForm action="save" class="content-form padding-top">
-
+                    <input type="hidden" value="${webSiteInstance.id}" name="id" />
                     <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'title', 'error')}">
                         <label class="control-label" for="title">Title</label>
                         <div class="controls">

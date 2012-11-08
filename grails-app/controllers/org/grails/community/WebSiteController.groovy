@@ -4,14 +4,14 @@ import org.grails.common.ApprovalStatus
 
 class WebSiteController {
     def imageUploadService
-
+    def cacheService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    def index = {
+    def index() {
         redirect(action: "list", params: params)
     }
 
-    def list = {
+    def list() {
         def featuredWebSites = WebSite.featuredQuery.list()
         def webSites = WebSite.notFeaturedQuery.list()
         [
@@ -20,26 +20,33 @@ class WebSiteController {
         ]
     }
 
-    def create = {
+    def create() {
         def webSiteInstance = new WebSite()
         webSiteInstance.properties = params
         return [webSiteInstance: webSiteInstance]
     }
 
-    def save = {
-        def webSiteInstance = new WebSite(params)
-        webSiteInstance.submittedBy = request.user
-        if (!webSiteInstance.hasErrors() && validateAndSave(webSiteInstance)) {
-            webSiteInstance.save flush: true
+    def save() {
+        def website= params.id? WebSite.get(params.id) : new WebSite()
+        if(website == null) website = new WebSite()
+        website.properties = params
+        website.submittedBy = request.user
+        if (!website.hasErrors() && validateAndSave(website)) {
+            website.status = ApprovalStatus.PENDING
+            website.save flush: true
+            def key = "webSite_${website.id}".toString()
+            cacheService?.removeWikiText(key)
+            cacheService?.removeShortenedWikiText(key)
+  
             flash.message = "Your submission was successful. We will let you know when it is approved."
             redirect(action: "list")
         }
         else {
-            render(view: "create", model: [webSiteInstance: webSiteInstance])
+            render(view: "create", model: [webSiteInstance: website])
         }
     }
 
-    def show = {
+    def show() {
         def webSiteInstance = WebSite.get(params.id)
         if (!webSiteInstance) {
             redirect(action: "list")
@@ -49,45 +56,18 @@ class WebSiteController {
         }
     }
 
-    def edit = {
-        def webSiteInstance = WebSite.get(params.id)
-        if (!webSiteInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'webSite.label', default: 'WebSite'), params.id])}"
-            redirect(action: "list")
+    def edit(Long id) {
+        def website = WebSite.get(id)
+        if (!website) {
+            render status:404
         }
         else {
-            return [webSiteInstance: webSiteInstance]
+            render view:'create', model:[webSiteInstance: website]
         }
     }
 
-    def update = {
-        def webSiteInstance = WebSite.get(params.id)
-        if (webSiteInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (webSiteInstance.version > version) {
 
-                    webSiteInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'webSite.label', default: 'WebSite')] as Object[], "Another user has updated this WebSite while you were editing")
-                    render(view: "edit", model: [webSiteInstance: webSiteInstance])
-                    return
-                }
-            }
-            webSiteInstance.properties = params
-            if (!webSiteInstance.hasErrors() && webSiteInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'webSite.label', default: 'WebSite'), webSiteInstance.id])}"
-                redirect(action: "show", id: webSiteInstance.id)
-            }
-            else {
-                render(view: "edit", model: [webSiteInstance: webSiteInstance])
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'webSite.label', default: 'WebSite'), params.id])}"
-            redirect(action: "list")
-        }
-    }
-
-    def submissionReceived = {
+    def submissionReceived() {
         def webSiteInstance = WebSite.get(params.id)
         [webSiteInstance: webSiteInstance]
     }
