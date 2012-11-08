@@ -2,19 +2,20 @@ package org.grails.community
 
 import static org.junit.Assert.*
 import org.grails.UnitSpecHelper
-
+import org.grails.auth.*
+import grails.test.mixin.*
 /**
  * author: Eric Berry
  */
-
+@TestFor(WebSite)
+@Mock(User)
 class WebSiteSpec extends UnitSpecHelper {
 
     void "title constraints"() {
-        setup:
-        mockDomain(WebSite)
 
         when:
-        def website = new WebSite(title: title, description: "Description goes here", url: "http://google.com")
+        def user = new User(email:"foo@bar.com", login:"foo", password:"bar").save(flush:true, validate:false)
+        def website = new WebSite(title: title, description: "Description goes here", url: "http://google.com", submittedBy:user)
         website.validate()
 
         then:
@@ -29,11 +30,10 @@ class WebSiteSpec extends UnitSpecHelper {
     }
 
     void "description constraints"() {
-        setup:
-        mockDomain(WebSite)
 
         when:
-        def website = new WebSite(title: "This is a test", description: description, url: "http://google.com")
+        def user = new User(email:"foo@bar.com", login:"foo", password:"bar").save(flush:true, validate:false)
+        def website = new WebSite(title: "This is a test", description: description, url: "http://google.com", submittedBy:user)
         website.validate()
 
         then:
@@ -52,7 +52,8 @@ class WebSiteSpec extends UnitSpecHelper {
         mockDomain(WebSite)
 
         when:
-        def website = new WebSite(title: "This is a test", description: "Description goes here", url: url)
+        def user = new User(email:"foo@bar.com", login:"foo", password:"bar").save(flush:true, validate:false)       
+        def website = new WebSite(title: "This is a test", description: "Description goes here", url: url, submittedBy: user)
         website.validate()
 
         then:
