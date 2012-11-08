@@ -63,7 +63,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         else log.info "Not a new plugin release - won't tweet"
 
         // The master plugin list will need regenerating.
-        cacheService.removePluginList()
+        cacheService?.removePluginList()
     }
 
     /**
@@ -241,6 +241,7 @@ class PluginUpdater {
         // for snapshots where the version has already been published at least
         // once.
 //        def pr = PluginRelease.where { plugin == plugin && releaseVersion == version }.get()
+        println "SAVING PLUGIN RELEASE!!!"
         def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, version)
         if (!pr) {
             pr = new PluginRelease(
@@ -250,12 +251,12 @@ class PluginUpdater {
                     isSnapshot: isSnapshot)
         }
         pr.releaseDate = new DateTime()
-        pr.save(failOnError: true)
+        pr.save(failOnError: true, flush:true)
+        println "PLUGIN RELEASES = ${PluginRelease.count()}"
+        println "PLUGIN ${PluginRelease.findAllByPlugin(plugin)} - plugin = ${plugin}"
 
         // Clear out associated pending releases that were created on publish.
-        for (pendingRelease in pendingReleases) {
-            pendingRelease.delete()
-        }
+        PendingRelease.deleteAll(pendingReleases)
     }
 
     /**
@@ -279,12 +280,12 @@ class PluginUpdater {
             issuesUrl = pom.issueManagement.url.text()
         }
 
-        addAuthors xml.developers
-        addLicenses pom.licenses
-
         // Now do the same with the XML plugin descriptor to get the Grails
         // version range for the plugin.
         def xml = loadPluginXml()
+
+        addAuthors xml.developers
+        addLicenses pom.licenses
 
         plugin.grailsVersion = xml.@grailsVersion.text()
 
@@ -336,7 +337,7 @@ class PluginUpdater {
     }
 
     protected addAuthors(pomDevelopersXml) {
-        plugin.authors.clear()
+        plugin.authors?.clear()
         for (developer in pomDevelopersXml.developer) {
             def user = UserInfo.findOrCreateByEmail(email: license.name.text())
             if (!user.name) {
