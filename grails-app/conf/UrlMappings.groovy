@@ -192,6 +192,7 @@ class UrlMappings {
         "/screencasts"(controller: "screencast", action: "list")
         "/screencasts/add"(controller: "screencast", action: "create")
         "/screencasts/save"(controller: "screencast", action: "save")
+        "/screencast/search"(controller: "screencast", action: "search")
         "/screencast/$id"(controller: "screencast", action: "show")
         "/screencast/edit/$id"(controller: "screencast", action: "edit")
 

@@ -20,6 +20,7 @@
             </p>
         </div>
         <flash:message flash="${flash}" />
+        <g:render template="/common/searchBar" model="[type:'screencast']" />
         <g:render template="screencast" collection="${screencastInstanceList}" var="screencastInstance"/>
     </div>
 </div>

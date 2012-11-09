@@ -5,12 +5,16 @@ import org.grails.common.ApprovalStatus
 class ScreencastController {
     def searchableService
     def cacheService
+    def contentSearchService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
     }
 
+    def search(String q, int offset) {
+        render view:"list", model:[screencastInstanceList: contentSearchService.search(Screencast, q, offset)]
+    }
     def edit(Long id) {
         def s = Screencast.get(id)
         if(s) {
