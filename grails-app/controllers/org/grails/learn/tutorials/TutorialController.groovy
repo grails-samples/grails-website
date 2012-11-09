@@ -48,24 +48,35 @@ class TutorialController {
     }
 
     def save() {
-        def tutorialInstance = params.id ? Tutorial.get(params.id) : new Tutorial()
-        tutorialInstance.properties['title', 'description', 'url'] = params
-        tutorialInstance.status = ApprovalStatus.PENDING
-        tutorialInstance.submittedBy = request.user
-
-        try {
+        def tutorial= params.id ? Tutorial.get(params.id) : new Tutorial()
+        if(tutorial == null) tutorial = new Tutorial()
+        tutorial.properties['title', 'description', 'url'] = params
+        boolean isNew = !tutorial.isAttached()
+        if(isNew) {
+            tutorial.status = ApprovalStatus.PENDING
+            tutorial.submittedBy = request.user
+        }
+       try {
             searchableService.stopMirroring()
-            if (!tutorialInstance.hasErrors() && tutorialInstance.save()) {
-                processTags tutorialInstance, params.tags
-                tutorialInstance.save flush: true
-                def key = "tutorial_${tutorialInstance.id}".toString()
+            if (!tutorial.hasErrors() && tutorial.save()) {
+                processTags tutorial, params.tags
+                
+                tutorial.save flush: true
+
+                // Make sure user can edit tutorial they create
+                if(isNew) {
+                    request.user.addToPermissions("tutorial:edit,update:$tutorial.id")
+                    request.user.save()
+                }
+                
+                def key = "tutorial_${tutorial.id}".toString()
                 cacheService?.removeWikiText(key)
                 cacheService?.removeShortenedWikiText(key)
-                flash.message = "Your submission was successful. We will let you know when it is approved."
+                flash.message = isNew ? "Your submission was successful. We will let you know when it is approved." : "Tutorial Updated."
                 redirect(action: "list")
             }
             else {
-                render(view: "create", model: [tutorialInstance: tutorialInstance])
+                render(view: "create", model: [tutorialInstance: tutorial])
             }
         }
         catch (Exception ex) {

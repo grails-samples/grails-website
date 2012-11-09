@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <g:submitButton name="submit" value="Submit for Approval" class="btn"/>
+                            <g:submitButton name="submit" value="${ tutorialInstance?.id ? 'Update' :'Submit for Approval'}" class="btn"/>
                         </div>
                     </fieldset>
 
