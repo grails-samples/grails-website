@@ -239,6 +239,7 @@ class UrlMappings {
         "/tutorials/save"(controller: "tutorial", action: "save")
         "/tutorial/search"(controller:"tutorial", action:"search")
         "/tutorial/$id"(controller: "tutorial", action: "show")
+        "/tutorials/tag/$tag"(controller:"tutorial", action:"tagged")
 
 
         "/tutorial/edit/$id"(controller: "tutorial", action: "edit")

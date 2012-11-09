@@ -13,6 +13,11 @@ class TutorialController {
         redirect(action: "list", params: params)
     }
 
+    def tagged(String tag) {
+        def maxResults = params.int("max",10)
+        def offset = params.int("offset", 0)        
+        render view:"list", model:[tutorialInstanceList: Tutorial.findAllByTag(tag, [max: maxResults, offset: offset]), tutorialCount: Tutorial.countByTag(tag)]
+    }
     def search(String q, int offset) {
         render view:"list", model:[tutorialInstanceList: contentSearchService.search(Tutorial, q, offset)]
     }
