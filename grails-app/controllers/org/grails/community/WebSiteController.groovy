@@ -30,15 +30,27 @@ class WebSiteController {
         def website= params.id? WebSite.get(params.id) : new WebSite()
         if(website == null) website = new WebSite()
         website.properties = params
-        website.submittedBy = request.user
-        if (!website.hasErrors() && validateAndSave(website)) {
+
+        boolean isNew = !website.isAttached()
+        if(isNew) {
+            website.submittedBy = request.user
             website.status = ApprovalStatus.PENDING
+        }
+        
+        if (!website.hasErrors() && validateAndSave(website)) {
+
             website.save flush: true
+
+            if(isNew) {
+                request.user.addToPermissions("website:edit,update:$website.id")
+                request.user.save()
+            }
+  
             def key = "webSite_${website.id}".toString()
             cacheService?.removeWikiText(key)
             cacheService?.removeShortenedWikiText(key)
   
-            flash.message = "Your submission was successful. We will let you know when it is approved."
+            flash.message = isNew ? "Your submission was successful. We will let you know when it is approved." : "Website Updated"
             redirect(action: "list")
         }
         else {
