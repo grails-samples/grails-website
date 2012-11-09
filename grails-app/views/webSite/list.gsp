@@ -19,7 +19,7 @@
             <div class="alert alert-block margin-bottom-15">
                 <p><g:message code="website.list.submit.description" /></p>
                 <p>
-                    <g:link uri="/webSite/add" class="btn"><g:message code="website.list.submit.button" /></g:link>
+                    <g:link action="create" class="btn"><g:message code="website.list.submit.button" /></g:link>
                 </p>
             </div>            
             <flash:message flash="${flash}" />
@@ -43,7 +43,10 @@
                     </article>
                 </g:each>
             </div>
-
+            <section class="pager">
+                <g:paginate total="${websiteCount}" max="12" />
+            </section>
+  
         </section>
     </div>
 </div>
