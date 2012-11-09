@@ -7,7 +7,7 @@
             <p class="meta">
                 Tags :
                 <g:if test="${screencastInstance.tags.size() > 0}">
-                    <g:each in="${screencastInstance.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="#">${tag}</a></g:each>
+                    <g:each in="${screencastInstance.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><g:link action="tagged" params="[tag:tag]">${tag}</g:link></g:each>
                 </g:if>
                 <g:else>
                     none

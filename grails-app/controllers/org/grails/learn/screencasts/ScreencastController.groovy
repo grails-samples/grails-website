@@ -12,6 +12,11 @@ class ScreencastController {
         redirect(action: "list", params: params)
     }
 
+    def tagged(String tag) {
+        def maxResults = params.int("max",10)
+        def offset = params.int("offset", 0)        
+        render view:"list", model:[screencastInstanceList: Screencast.findAllByTag(tag, [max: maxResults, offset: offset]), screencastTotal: Screencast.countByTag(tag)]
+    }
     def search(String q, int offset) {
         render view:"list", model:[screencastInstanceList: contentSearchService.search(Screencast, q, offset)]
     }
