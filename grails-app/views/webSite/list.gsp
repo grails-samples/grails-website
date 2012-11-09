@@ -16,10 +16,13 @@
 
     <div id="main" class="websites">
         <section class="listing">
-            <article>
-                <flash:message flash="${flash}" />
-                <div><g:link action="create">Add Web Site</g:link></div>
-            </article>
+            <div class="alert alert-block margin-bottom-15">
+                <p><g:message code="website.list.submit.description" /></p>
+                <p>
+                    <g:link uri="/webSite/add" class="btn"><g:message code="website.list.submit.button" /></g:link>
+                </p>
+            </div>            
+            <flash:message flash="${flash}" />
 
             <g:render template="webSiteLarge" collection="${featuredWebSiteInstanceList}" var="webSiteInstance"/>
 
