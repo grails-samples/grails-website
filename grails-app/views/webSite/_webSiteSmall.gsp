@@ -1,5 +1,5 @@
 <article class="col1">
-    <a href="#" class="like">+1</a>
+    %{-- <a href="#" class="like">+1</a> --}%
 
     <h3><a href="#">Startoholics <small>social network for founders, startups, investors ...</small></a></h3>
 

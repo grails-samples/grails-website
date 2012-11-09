@@ -29,7 +29,7 @@
             <div class="colset3">
                 <g:each in="${webSiteInstanceList}" var="webSiteInstance" status="idx">
                     <article class="col${(idx % 3) + 1}">
-                        <a href="#" class="like">+1</a>
+                        %{-- <a href="#" class="like">+1</a> --}%
 
                         <h3><a href="${createLink(action:'show', id:webSiteInstance.id)}">
                             <wiki:shorten html="${webSiteInstance?.title?.encodeAsHTML()}" length="20" />

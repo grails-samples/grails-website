@@ -1,5 +1,5 @@
 <article>
-    <a href="#" class="like">+1</a>
+    %{-- <a href="#" class="like">+1</a> --}%
     <g:if test="${request.user == webSiteInstance.submittedBy}">
          <g:link title="Edit WebSite" class="actionIcon" action="edit" id="${webSiteInstance?.id}">
              <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit News" class="inlineIcon"/>
