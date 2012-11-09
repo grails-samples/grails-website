@@ -22,12 +22,14 @@ class TutorialController {
     }
 
     def list() {
-        def tutorialInstanceList = Tutorial.allQuery.list()
-        [tutorialInstanceList: tutorialInstanceList]
+        def maxResults = params.int("max",10)
+        def offset = params.int("offset", 0)
+        def tutorialInstanceList = Tutorial.allQuery.list(max: maxResults, offset: offset)
+        [tutorialInstanceList: tutorialInstanceList, tutorialCount: Tutorial.allQuery.count() ] 
     }
 
     def show() {
-        def tutorialInstance = Tutorial.get(params.id)
+        def tutorialInstance = Tutorial.approved.get(params.id)
         if (!tutorialInstance) {
             redirect(action: "list")
         }
