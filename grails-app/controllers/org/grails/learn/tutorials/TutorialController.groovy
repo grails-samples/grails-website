@@ -78,6 +78,7 @@ class TutorialController {
                 cacheService?.removeWikiText(key)
                 cacheService?.removeShortenedWikiText(key)
                 flash.message = isNew ? "Your submission was successful. We will let you know when it is approved." : "Tutorial Updated."
+                searchableService.index(tutorial)
                 redirect(action: "list")
             }
             else {

@@ -6,7 +6,8 @@ class ContentSearchService {
     def search(Class type, String q, offset) {
         if (q) {
             try {
-                return type.search(q, offset: offset)?.results
+                def searchResult = type.search(q, offset: offset)
+                return searchResult?.results
             }
             catch (SearchEngineQueryParseException ex) {
                 return []

@@ -63,6 +63,8 @@ class ScreencastController {
   
                 screencast.save flush: true
                 flash.message = "Your submission was successful. We will let you know when it is approved."
+                searchableService.index(screencast)
+                
                 redirect(action: "list")
             }
             else {

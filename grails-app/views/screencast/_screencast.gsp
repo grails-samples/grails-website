@@ -14,7 +14,9 @@
                 </g:else>
                 <br/>
                 submitted by <a href="#">${screencastInstance?.submittedBy?.login}</a>
-                <prettytime:display date="${screencastInstance?.dateCreated}"/>
+                <g:if test="${screencastInstance?.dateCreated}">
+                    <prettytime:display date="${screencastInstance?.dateCreated}"/>
+                </g:if>
             </p>
 
         </header>
