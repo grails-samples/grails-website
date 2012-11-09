@@ -14,7 +14,9 @@
                 </g:else>
                 <br/>
                 submitted by <a href="#">${tutorialInstance?.submittedBy?.login}</a>
-                <prettytime:display date="${tutorialInstance?.dateCreated}"/>
+                <g:if test="${tutorialInstance?.dateCreated}">
+                    <prettytime:display date="${tutorialInstance?.dateCreated}"/>
+                </g:if>
             </p>
 
         </header>

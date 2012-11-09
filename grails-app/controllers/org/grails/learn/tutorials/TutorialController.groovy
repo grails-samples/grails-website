@@ -6,10 +6,15 @@ import org.grails.learn.tutorials.Tutorial
 class TutorialController {
     def searchableService
     def cacheService
+    def contentSearchService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
+    }
+
+    def search(String q, int offset) {
+        render view:"list", model:[tutorialInstanceList: contentSearchService.search(Tutorial, q, offset)]
     }
 
     def legacyHome() {

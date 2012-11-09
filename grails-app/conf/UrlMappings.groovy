@@ -236,7 +236,9 @@ class UrlMappings {
         "/tutorials"(controller: "tutorial", action: "list")
         "/tutorials/add"(controller: "tutorial", action: "create")
         "/tutorials/save"(controller: "tutorial", action: "save")
+        "/tutorial/search"(controller:"tutorial", action:"search")
         "/tutorial/$id"(controller: "tutorial", action: "show")
+
 
         "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
 //        "/tutorials/$category"(controller: "tutorial", action: "list")

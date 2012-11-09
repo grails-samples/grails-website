@@ -20,6 +20,8 @@
             </p>
         </div>
         <flash:message flash="${flash}" />
+
+        <g:render template="/common/searchBar" model="[type:'tutorial']" />
         <g:render template="tutorial" collection="${tutorialInstanceList}" var="tutorialInstance"/>
     </div>
 </div>
