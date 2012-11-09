@@ -22,6 +22,10 @@
         <flash:message flash="${flash}" />
         <g:render template="/common/searchBar" model="[type:'screencast']" />
         <g:render template="screencast" collection="${screencastInstanceList}" var="screencastInstance"/>
+        <section class="pager">
+            <g:paginate total="${screencastTotal}" max="10" />
+        </section>
+    
     </div>
 </div>
 

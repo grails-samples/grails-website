@@ -26,12 +26,14 @@ class ScreencastController {
     }
 
     def list() {
-        def screencastInstanceList = Screencast.allQuery.list()
-        [screencastInstanceList: screencastInstanceList]
+        def maxResults = params.int("max",10)
+        def offset = params.int("offset", 0)
+        def screencastInstanceList = Screencast.allQuery.list(max: maxResults, offset: offset)
+        [screencastInstanceList: screencastInstanceList, screencastTotal: Screencast.allQuery.count()]
     }
 
     def show() {
-        def screencastInstance = Screencast.get(params.id)
+        def screencastInstance = Screencast.approved.get(params.id)
         if (!screencastInstance) {
             redirect(action: "list")
         }
