@@ -33,9 +33,11 @@
             <div class="item">
                 <h3><span class="number">${++step}.</span> What is Grails?</h3>
                 <p>Never heard of Grails? Heard of it but not sure what it is or does? Watch this short presentation for a quick overview.</p>
-                <p class="links"><a class="btn blueLight play" href="#modal-pres1" data-toggle="modal" data-backdrop="true">
-                    <g:message code="page.learn.play"/>
-                </a></p>
+                <p class="links">
+                    <a class="btn blueLight play" href="#modal-pres1" data-toggle="modal" data-backdrop="true">
+                        <g:message code="page.learn.play"/>
+                    </a>
+                </p>
             </div>
 <%--             <div class="item">
                 <span class="number">${++step}</span>
@@ -78,6 +80,16 @@
         </article>
     </div>
 
+</div>
+
+<div class="modal hide modal-fixed" id="modal-pres1">
+    <div class="head">
+        <h3>What is Grails!</h3>
+        <a class="close" data-dismiss="modal">×</a>
+    </div>
+    <div class="body">
+        <iframe width="660" height="450" scrolling="no" frameBorder="0" style="border:0px solid #333333;border-bottom-style:none"></iframe>
+    </div>
 </div>
 
 </body>
