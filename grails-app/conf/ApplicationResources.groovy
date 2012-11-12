@@ -49,7 +49,7 @@ modules = {
     }
 
     plugin {
-        dependsOn 'master', 'raty'
+        dependsOn 'master', 'raty', 'tagit'
 
     }
 
@@ -83,6 +83,13 @@ modules = {
 
     raty {
         resource "js/jquery.raty.min.js"
+    }
+
+    tagit {
+        dependsOn "jquery-ui"
+        resource "js/tag-it.js"
+        resource "css/jquery.tagit.css"
+        resource "css/tagit.ui-zendesk.css"
     }
     codeMirror {
         resource 'js/libs/codemirror/codemirror.js'

@@ -1,6 +1,8 @@
 package org.grails.plugin
 
 import grails.converters.*
+import grails.gorm.*
+import org.grails.taggable.*
 import org.apache.commons.codec.digest.DigestUtils
 import org.grails.tags.TagNotFoundException
 import org.grails.common.ApprovalStatus
@@ -16,6 +18,40 @@ class PluginController {
         redirect action: "list", permanent: true
     }
 
+    def addTag(String id, String tag) {
+        def p = Plugin.findByName(id)
+        if(p) {
+            if(request.method == "POST") {
+                p.addTag(tag)
+            }
+            def tags = p.tags.collect {
+                [  name: it]
+            }
+            def data = [ tagResults: tags ]
+            render data as JSON            
+        }
+        else {
+            render status: 404
+        }
+
+    }
+    def removeTag(String id, String tag) {
+        def p = Plugin.findByName(id)
+        if(p) {
+            if(request.method == "POST") {
+                p.removeTag(tag)
+            }
+            def tags = p.tags.collect {
+                [  name: it]
+            }
+            def data = [ tagResults: tags ]
+            render data as JSON            
+        }
+        else {
+            render status: 404
+        }
+
+    }    
     def list() {
         try {
             def maxResults = params.int("max",10)
@@ -32,8 +68,9 @@ class PluginController {
                 (plugins, pluginCount) = pluginService."list${filter.capitalize()}PluginsWithTotal"(max: maxResults, offset: offset)
             }
 
+            def allTags = new DetachedCriteria(org.grails.taggable.Tag).property("name").list()
             def tags = tagService.getPluginTagArray()
-            def model = [ tags: tags, plugins: plugins, pluginCount: pluginCount ]
+            def model = [ allTags:allTags, tags: tags, plugins: plugins, pluginCount: pluginCount ]
             if (filter) model["activeFilter"] = filter
             if (params.tag) model["activeTag"] = params.tag
             return model
@@ -55,7 +92,8 @@ class PluginController {
         }
 
         def tags = tagService.getPluginTagArray()
-        [ plugin: plugin, tags: tags ]
+        def allTags = new DetachedCriteria(org.grails.taggable.Tag).property("name").list()
+        [ plugin: plugin, tags: tags, allTags: allTags ]
     }
 
     def submitPlugin() {

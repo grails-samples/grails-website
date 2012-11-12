@@ -6,6 +6,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
     <r:require modules="plugin"/>
+    <g:render template="tagSetup" model="[allTags:allTags]" />
 </head>
 
 <body>
@@ -28,15 +29,8 @@
                         </g:if>
                     </h2>
                     <ul class="meta">
-                        <li>Tags :
-                        <g:if test="${plugin.tags}">
-                            <g:each in="${plugin.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if>
-                            <g:link controller="plugin" action="list" params="[tag: tag]">${tag}</g:link>
-                            </g:each>
-                        </g:if>
-                        <g:else>
-                            /
-                        </g:else>
+                        <li>
+                            <g:render template="pluginTags" model="[plugin:plugin]" />
                         </li>
                         <li>Current release : <strong>${plugin.currentRelease.encodeAsHTML()}</strong> • Grails version : ${plugin.grailsVersion.encodeAsHTML() ?: '*'}</li>
                         <li>Authors : <%= plugin.authors.collect { it.name.encodeAsHTML() }.join(', ') %></li>
@@ -113,6 +107,10 @@
                 </div>
             </article>
         </section>
+        <r:script>
+            tagsInitialized = true
+        </r:script>
+        
     </div>
 </div>
 

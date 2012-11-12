@@ -130,6 +130,8 @@ class UrlMappings {
             controller = "pluginTab"
         }
 
+        "/plugin/addTag"(controller:"plugin", action:"addTag") 
+        "/plugin/removeTag"(controller:"plugin", action:"removeTag") 
         "/wikiImage/$path**"(controller: "content", action: "showImage")
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
