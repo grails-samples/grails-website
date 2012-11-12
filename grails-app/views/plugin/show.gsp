@@ -55,7 +55,7 @@
                         </g:if>
                     </ul>
                     <div class="right">
-                        <plugin:rating averageRating="${plugin.avgRating ?: 0}" total="${plugin.ratingCount ?: 0}" />
+                       <g:render template="pluginRating" model="[plugin:plugin]" /> 
                         <g:if test="${plugin.usage>0}">
                             <p class="used">
                                 <strong><g:formatNumber number="${plugin.usage}" type="percent"/></strong> of Grails users
