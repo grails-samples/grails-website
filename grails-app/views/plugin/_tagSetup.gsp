@@ -26,5 +26,11 @@
             $.ajax({url:link, type:"POST",data: {tag: label, id: plugin}})
 
         }
-    }        
+    }    
+    var onTagClickFunction = function(event, tag) {
+            var label = pluginTags.tagit('tagLabel', tag)
+            var link = "/plugins/tag/" + label;
+
+            window.location = link;
+    }     
 </r:script>

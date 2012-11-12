@@ -7,6 +7,7 @@ Tags :
     pluginTags.tagit({
         onTagAdded: onTagAddedFunction,
         onTagRemoved: onTagRemovedFunction,
+        onTagClicked:onTagClickFunction,
         availableTags: tags
         
     });
