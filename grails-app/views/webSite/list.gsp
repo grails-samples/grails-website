@@ -6,6 +6,11 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta content="master" name="layout"/>
     <r:require modules="community"/>
+    <style type="text/css">
+        .colset3 {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,7 +19,7 @@
 
     <g:render template="/community/sideNav"/>
 
-    <div id="main" class="websites">
+    <div id="main" class="websites boxWhite">
         <section class="listing">
             <div class="alert alert-block margin-bottom-15">
                 <p><g:message code="website.list.submit.description" /></p>
@@ -23,7 +28,7 @@
                 </p>
             </div>            
             <flash:message flash="${flash}" />
-
+            <g:render template="/common/searchBar" model="[type:'website']" />
             <g:render template="webSiteLarge" collection="${featuredWebSiteInstanceList}" var="webSiteInstance"/>
 
             <div class="colset3">
@@ -44,7 +49,9 @@
                 </g:each>
             </div>
             <section class="pager">
-                <g:paginate total="${websiteCount}" max="12" />
+                <g:if test="${websiteCount}">
+                    <g:paginate total="${websiteCount}" max="12" />
+                </g:if>
             </section>
   
         </section>

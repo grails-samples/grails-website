@@ -5,6 +5,7 @@ import org.grails.common.ApprovalStatus
 class WebSiteController {
     def imageUploadService
     def cacheService
+    def contentSearchService
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -21,6 +22,10 @@ class WebSiteController {
                 webSiteInstanceList: webSites,
                 websiteCount: WebSite.notFeaturedQuery.count()
         ]
+    }
+
+    def search(String q, int offset) {
+        render view:"list", model:[webSiteInstanceList: contentSearchService.search(WebSite, q, offset)]
     }
 
     def create() {
