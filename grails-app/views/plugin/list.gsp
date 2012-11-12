@@ -63,7 +63,16 @@
                         </p>
 
                         <div class="right">
-                            <plugin:rating averageRating="${plugin.avgRating ?: 0}" total="${plugin.ratingCount ?: 0}" />
+                            <div id="pluginRating${plugin.id}" class="rating"></div>
+                            <div class="ratingCount">${plugin.ratingCount}</div>
+                            <r:script>
+                                $('#pluginRating${plugin.id}').raty({readOnly:${request.user == null}, score:${plugin.avgRating ?: 0}, click: function(score, evt) {
+                                   $.ajax( { url:"${createLink(controller:"rateable", action:'rate', id:plugin.id)}", type:"POST", 
+                                             data: {rating: score, type:"plugin"}
+                                    }) 
+                                }})
+                            </r:script>
+                            %{-- <plugin:rating averageRating="${plugin.avgRating ?: 0}" total="${plugin.ratingCount ?: 0}" /> --}%
                             <g:if test="${plugin.usage>0}">
                                 <p class="used">
                                     <strong><g:formatNumber number="${plugin.usage}" type="percent"/></strong> of Grails users

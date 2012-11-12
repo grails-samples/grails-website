@@ -49,7 +49,8 @@ modules = {
     }
 
     plugin {
-        dependsOn 'master'
+        dependsOn 'master', 'raty'
+
     }
 
     auth {
@@ -80,6 +81,9 @@ modules = {
         resource 'css/admin.css'
     }
 
+    raty {
+        resource "js/jquery.raty.min.js"
+    }
     codeMirror {
         resource 'js/libs/codemirror/codemirror.js'
         resource 'js/libs/codemirror/util/closetag.js'
