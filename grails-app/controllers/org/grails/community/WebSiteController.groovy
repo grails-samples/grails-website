@@ -69,7 +69,7 @@ class WebSiteController {
     def show() {
         def webSiteInstance = WebSite.get(params.id)
         if (!webSiteInstance) {
-            redirect(action: "list")
+            render status:404
         }
         else {
             [webSiteInstance: webSiteInstance]

@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Grails Admin</a>
+            <g:link controller="admin" class="brand">Grails Admin</g:link>
 
             <div class="nav-collapse">
                 <ul class="nav">

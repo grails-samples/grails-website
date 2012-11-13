@@ -70,14 +70,12 @@
             <tbody>
                 <g:each in="${recentWikiPages}" var="page">
                 <tr>
-                    <td><g:link controller="content" action="show" id="${page.title}">${page.title}</g:link></td>
+                    <td><g:link controller="wikiPage" action="show" id="${page.id}">${page.title}</g:link></td>
                     <td>${page.latestVersion.author.login}</td>
                     <td>${page.locked}</td>
                     <td>
-                           <g:link controller="contentPendingApproval" action="approve"
-                                    class="btn btn-primary"
-                                    value="Send Response to Submitter"
-                                    onclick="return confirm('Are you sure?');">Edit</g:link>
+                           <g:link controller="wikiPage" action="edit" id="${page.id}"
+                                    class="btn btn-primary">Edit</g:link>
 
                             <g:set var="latestVersionNumber" value="${page.latestVersion.number}" />
                             <g:if test="${latestVersionNumber}">
@@ -88,7 +86,7 @@
 
                             </g:if>
                                     
-                            <g:link controller="contentPendingApproval" action="reject" 
+                            <g:link controller="wikiPage" action="rollback"  id="${page.title}"
                                      class="btn btn-danger"
                                      value="Send Response to Submitter"
                                      onclick="return confirm('Are you sure?');">Rollback</g:link>

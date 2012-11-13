@@ -2,6 +2,7 @@ package org.grails.wiki
 
 class WikiPageAdminController {
 
+    static scaffold = WikiPage
     def index = {
         redirect(action: "list", params: params)
     }
