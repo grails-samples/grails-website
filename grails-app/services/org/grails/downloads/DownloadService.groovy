@@ -48,6 +48,19 @@ class DownloadService {
         return majorVersions.sort(new VersionComparator()).reverse()
     }
 
+    def listMajorVersionDownloads() {
+        def versions = Download.where { softwareName == "Grails" }.list()
+
+        def majorVersions = new HashSet(versions.size())
+        for (v in versions) {
+            def m = MAJOR_VERSION_PATTERN.matcher(v.softwareVersion)
+            if (m.matches()) majorVersions << v
+        }
+        def comparator = new VersionComparator()
+
+        return majorVersions.sort { a, b-> comparator.compare(a.softwareVersion, b.softwareVersion) }.reverse()
+    }
+
     def sortVersions(versions) {
         versions.sort(new VersionComparator())
     }
