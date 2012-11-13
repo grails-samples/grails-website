@@ -88,20 +88,24 @@
                     </g:if>
                 </p>
                 <div class="documentation">
+                     <g:link title="Edit Plugin Info" class="actionIcon" action="editPlugin" id="${plugin?.name}">
+                         <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit Plugin" class="inlineIcon"/>
+                     </g:link>
                     <section>
                     <h2>Description</h2>
-                    <wiki:text key="${'pluginInfo_' + plugin?.name}">${plugin?.summary}</wiki:text>
+                    <wiki:text key="${'pluginInfo_summary_' + plugin?.name}">${plugin?.summary}</wiki:text>
                     </section>
                     <g:if test="${plugin.installation?.body}">
                     <section>
                     <h2>Installation</h2>
-                    <wiki:text key="${'pluginInfo_install_' + plugin.name}">${plugin.installation.body}</wiki:text>
+                    <wiki:text key="${'plugin-' + plugin.name + '-installation'}">${plugin.installation.body}</wiki:text>
                     </section>
                     </g:if>
                     <g:if test="${plugin.description?.body}">
                     <section>
                     <h2>More Info</h2>
-                    <wiki:text key="${'pluginInfo_desc_' + plugin.name}">${plugin.description.body}</wiki:text>
+
+                    <wiki:text key="${'plugin-' + plugin.name + '-description'}">${plugin.description.body}</wiki:text>
                     </section>
                     </g:if>
                 </div>

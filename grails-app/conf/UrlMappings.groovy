@@ -88,6 +88,8 @@ class UrlMappings {
         "/plugins"(controller: "plugin", action: "list")
         "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
         "/plugins/tag/$tag"(controller: "plugin", action: "list")
+        "/plugin/edit/$id"(controller: "plugin", action:"editPlugin")
+        "/plugin/update/$id"(controller:"plugin", action:"updatePlugin")
         "/plugin/$id"(controller: "plugin") {
             // The PUT is legacy, but can't add it as a separate mapping.
             action = [ GET: "show", PUT: "apiUpdate" ]
@@ -112,7 +114,7 @@ class UrlMappings {
 //        "/plugin/list"(controller: "plugin", action:"list")
 //        "/plugin/create"(controller: "plugin", action:"createPlugin")
 //        "/plugin/delete/$name"(controller: "plugin", action:"deletePlugin")
-//        "/plugin/edit/$id"(controller: "plugin", action:"editPlugin")
+
 //        "/plugin/saveTab/$id"(controller: "plugin", action: "saveTab")
 //        "/plugin/addTag/$id"(controller: "plugin", action:"addTag")
 //        "/plugin/removeTag/$id"(controller: "plugin", action:"removeTag")

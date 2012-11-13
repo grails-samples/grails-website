@@ -13,6 +13,7 @@ class PluginController {
     def dateService
     def pluginService
     def tagService
+    def wikiPageService
 
     def legacyHome() {
         redirect action: "list", permanent: true
@@ -95,6 +96,47 @@ class PluginController {
         def allTags = new DetachedCriteria(org.grails.taggable.Tag).property("name").list()
         [ plugin: plugin, tags: tags, allTags: allTags ]
     }
+
+    def editPlugin(String id) {
+        show(id)
+    }
+
+    def updatePlugin(String id) {
+        def plugin = Plugin.findByName(id)
+        if(plugin && params['plugin']) {
+            plugin.properties['summary'] = params['plugin']
+            if(plugin.save()) {
+                def installation = params['plugin']['installation'] 
+                def description= params['plugin']['description'] 
+
+              def pluginTabInstallation = wikiPageService.createOrUpdatePluginTab(
+                "plugin-${id}-installation",
+                installation.body,
+                request.user,
+                params.long('plugin.installation.version'))
+
+              def pluginTabDescription = wikiPageService.createOrUpdatePluginTab(
+                "plugin-${id}-description",
+                description.body,
+                request.user,
+                params.long('plugin.description.version'))              
+              if(pluginTabInstallation.hasErrors() || pluginTabDescription.hasErrors()) {
+                render view:"editPlugin", model:show(id)
+              }
+              else {
+                redirect uri:"/plugin/$id" 
+              }
+            } 
+            else {
+                render view:"editPlugin", model:show(id)
+            }
+
+        }
+        else {
+            render status:404
+        }
+    }
+
 
     def submitPlugin() {
         def pluginPendingApproval = new PluginPendingApproval(

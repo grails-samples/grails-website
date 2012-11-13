@@ -97,7 +97,7 @@ class JSecurityAuthFilters {
         
         // Creating, modifying, or deleting a book requires the "Administrator"
         // role.
-        wikiEditing(controller: "(content|news|plugin)", action: "(editNews|createNews|markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|createPlugin|addTag|removeTag)") {
+        wikiEditing(controller: "(content|news|plugin)", action: "(editNews|createNews|markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|updatePlugin|createPlugin|addTag|removeTag)") {
             before = {
                 accessControl {
                     role("Editor") || role("Administrator")
