@@ -22,9 +22,12 @@
         <flash:message flash="${flash}" />
         <g:render template="/common/searchBar" model="[type:'screencast']" />
         <g:render template="screencast" collection="${screencastInstanceList}" var="screencastInstance"/>
-        <section class="pager">
-            <g:paginate total="${screencastTotal}" max="10" />
-        </section>
+        <g:if test="${screencastTotal}">
+            <section class="pager">
+                <g:paginate total="${screencastTotal}" max="10" />
+            </section>
+
+        </g:if>
     
     </div>
 </div>

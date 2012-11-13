@@ -23,9 +23,12 @@
 
         <g:render template="/common/searchBar" model="[type:'tutorial']" />
         <g:render template="tutorial" collection="${tutorialInstanceList}" var="tutorialInstance"/>
-        <section class="pager">
-            <g:paginate total="${tutorialCount}" max="10" />
-        </section>
+        <g:if test="${tutorialCount}">
+            <section class="pager">
+                <g:paginate total="${tutorialCount}" max="10" />
+            </section>
+
+        </g:if>
     
     </div>
 </div>
