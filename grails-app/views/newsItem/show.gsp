@@ -30,7 +30,7 @@
                  <ul class="wikiActionMenu">
                          <li>
                              <g:link title="Edit Page" class="actionIcon" action="edit" id="${newsItem?.id}">
-                                 <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit Page" class="inlineIcon"/>
+                                 <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit News" class="inlineIcon"/>
                              </g:link>
                          </li>
                  </ul>
