@@ -58,14 +58,16 @@
             </div> --%>
             <div class="item">
                 <h3><span class="number">${++step}.</span> Try a sample application</h3>
-                <p>Check out one of the available sample applications from Github.</p>
-                <p class="links"><a class="btn blueLight" href="https://github.com/grails-samples">Sample Applications</a></p>
+                <p>Download the introductory sample application from GitHub:</p>
+                <p class="links"><a class="btn blueLight" href="https://github.com/grails-samples/grails-petclinic/archive/master.zip">Sample Application</a></p>
+                <p>Simply unpack the zip file and run either <tt>./grailsw run-app</tt> (Unix-like systems) or <tt>grailsw run-app</tt> (from the command prompt on Windows) to have a running web application. You will need a Java SDK installed and the <tt>JAVA_HOME</tt> environment variable set for this to work.</p>
+                <p>You can find more sample Grails applications <a href="https://github.com/grails-samples">on GitHub</a>.</p>
             </div>
             <div class="item downloads">
                 <h3><span class="number">${++step}.</span> Download Grails</h3>
                 <p>Grab the latest stable release of Grails.</p>
                 <p><a href="${latestDownload.mirrors[0].urlString}" class="btn blue">Download Grails ${latestVersion}</a></p>
-                <p>You can find other Grails releases and methods of installation on the <g:link uri="/download">downloads page</g:link>.
+                <p>You can find other Grails releases and methods of installation on the <g:link uri="/download">downloads page</g:link>, for example installation via apt-get on <strong>Ubuntu</strong> or <a href="http://gvmtool.net/">the <strong>gvm</strong> tool.</p>
             </div>
             <div class="item">
                 <h3><span class="number">${++step}.</span> Installation</h3>
