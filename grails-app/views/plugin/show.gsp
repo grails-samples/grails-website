@@ -92,7 +92,7 @@
                          <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit Plugin" class="inlineIcon"/>
                      </g:link>
                     <section>
-                    <h2>Description</h2>
+                    <h2>Summary</h2>
                     <wiki:text key="${'pluginInfo_summary_' + plugin?.name}">${plugin?.summary}</wiki:text>
                     </section>
                     <g:if test="${plugin.installation?.body}">
@@ -103,7 +103,7 @@
                     </g:if>
                     <g:if test="${plugin.description?.body}">
                     <section>
-                    <h2>More Info</h2>
+                    <h2>Description</h2>
 
                     <wiki:text key="${'plugin-' + plugin.name + '-description'}">${plugin.description.body}</wiki:text>
                     </section>
