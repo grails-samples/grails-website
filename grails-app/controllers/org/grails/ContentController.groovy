@@ -78,9 +78,6 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def gettingStarted() {}
-
-
     protected static searchResultsGroupOrder = [
         (LuceneResource): "User Guide",
         (Plugin): "Plugins",
