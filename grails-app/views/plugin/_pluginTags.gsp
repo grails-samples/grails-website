@@ -11,7 +11,12 @@ Tags :
     /     
 </span>
 </g:else>
-<a href="#" id="plugin-tag-edit${plugin.id}"><img src="/img/edit-tag.png"  /></a>
+<g:if test="${request.user != null}">
+    <a href="#" id="plugin-tag-edit${plugin.id}"><img src="/img/edit-tag.png"  /></a>
+</g:if>
+<g:else>
+    <g:link controller="user" action="login" params="[targetUri:request.forwardURI]"><img src="/img/edit-tag.png"  /></g:link>
+</g:else>
 <ul id="pluginTags${plugin.id}" data-plugin="${plugin.name}" style="display:none;">
     <g:each in="${plugin.tags}" var="tag"><li data-plugin="${plugin.name}">${tag}</li></g:each>    
 </ul>
@@ -24,11 +29,14 @@ Tags :
         availableTags: tags
         
     });
-    $('#plugin-tag-edit${plugin.id}').click(function() {
-        $(this).hide()
-        $('#plugin-tags-${plugin.id}').hide()
-        $('#pluginTags${plugin.id}').show()
-        $('#pluginTags${plugin.id} input').focus()
-    })
+    <g:if test="${request.user != null}">
+        $('#plugin-tag-edit${plugin.id}').click(function() {
+            $(this).hide()
+            $('#plugin-tags-${plugin.id}').hide()
+            $('#pluginTags${plugin.id}').show()
+            $('#pluginTags${plugin.id} input').focus()
+        })
+
+    </g:if>
 </r:script>
 
