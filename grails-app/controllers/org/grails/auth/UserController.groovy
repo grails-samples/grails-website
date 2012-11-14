@@ -74,11 +74,12 @@ class UserController {
 
     def passwordReminder() {
         if(request.method == 'POST') {
-            def user = User.findByLogin(params.login)
+            def user = User.findByLoginOrEmail(params.login, params.login)
             if(user && user.login!='admin') {
                 def newPassword = randomPass()
                 user.password = DigestUtils.shaHex(newPassword)
                 user.save()
+                flash.message = "A password reminder was sent to your email address"
                 mailService.sendMail {
                     from "wiki@grails.org"
                     to user.email
