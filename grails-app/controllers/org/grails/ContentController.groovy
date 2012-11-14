@@ -488,7 +488,7 @@ class ContentController extends BaseWikiController {
                 else {
                     def existing = WikiImage.findByName(imageName)
                     if(existing) {
-                        result.error = "Image already exists, use !${fileName}! to embed. If the image is not correct, rename your image and try again."
+                        result.error = "Image already exists, use !${fileName}! to embed. If the image is not correct, rename your image and upload again."
                         result.id = existing.id
                     }
                     else {
