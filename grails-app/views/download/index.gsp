@@ -26,6 +26,12 @@
                 <p>You can install different versions of Grails using Ubuntu's package manager. <a id="ubuntuLink" href="#ubuntuInstall">Find out more.</a></p>
             </div>
         </aside>
+        <aside class="gvm">
+            <div>
+                <h3>Groovy enVironment Manager</h3>
+                <p>Use GVM to manage Grails installs and versions! <a id="gvmLink" href="http://gvmtool.net">Find out more.</a></p>
+            </div>
+        </aside>        
     </div>
     <div id="main">
         <g:render template="latestRelease" bean="${latestDownload}" var="latestDownload" />
