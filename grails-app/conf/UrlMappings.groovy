@@ -72,6 +72,7 @@ class UrlMappings {
         "/api/v1.0/plugin/status/$name/$version"(controller: "pendingRelease", action: "status")
 
         "/download"(controller: "download", action: "index")
+        "/download/ubuntu"(controller: "download", action: "ubuntu")
         "/downloads"(controller: "download", action: "index")
 
         // Legacy download links.

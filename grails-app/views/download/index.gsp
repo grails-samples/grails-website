@@ -23,7 +23,7 @@
         <aside class="ubuntu">
             <div>
                 <h3>Grails on Ubuntu</h3>
-                <p>You can install different versions of Grails using Ubuntu's package manager. <a id="ubuntuLink" href="#ubuntuInstall">Find out more.</a></p>
+                <p>You can install different versions of Grails using Ubuntu's package manager. <a id="ubuntuLink" href="/download/ubuntu">Find out more.</a></p>
             </div>
         </aside>
         <aside class="gvm">

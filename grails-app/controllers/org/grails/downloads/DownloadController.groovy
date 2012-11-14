@@ -19,6 +19,8 @@ class DownloadController {
         redirect action: "index", permanent: true
     }
 
+    def ubuntu() {}
+
     def index() {
         // Returns a map of major version string ("1.1", "2.0", etc.) to
         // download info for that major version. This download info takes
