@@ -3,8 +3,8 @@
 
 <div id="ratingCount${plugin.id}" class="ratingCount">${plugin.ratingCount}</div>
 <r:script>
-    
-    $('#pluginRating${plugin.id}').raty({path:'/img', readOnly:${plugin.userRating(request.user) ? true : false}, score:${plugin.avgRating ?: 0}, click: function(score, evt) {
+
+    $('#pluginRating${plugin.id}').raty({path:'/img', readOnly:${plugin.userRating(request.user) ? true : false}, score:${plugin.avgRating ?: 0}, half:true, halfShow:true, click: function(score, evt) {
 
         <g:if test="${request.user}">
            $.ajax( { url:"${createLink(controller:"rateable", action:'rate', id:plugin.id)}", type:"POST", 
