@@ -1,3 +1,4 @@
+<%@ page import="org.apache.shiro.SecurityUtils; org.grails.auth.Role" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -38,7 +39,7 @@
                         <li>License : <%= plugin.licenses.collect { '<a href="' + it.url.encodeAsHTML() + '">' + it.name + '</a>' }.join(',') %></li>
                         </g:if>
                         <g:if test="${plugin.organization}">
-                        <li>Organization : 
+                        <li>Organization :
                             <g:if test="${plugin.organizationUrl}">
                             <a href="${plugin.organizationUrl.encodeAsHTML()}">${plugin.organization.encodeAsHTML()}</a>
                             </g:if>
@@ -49,7 +50,7 @@
                         </g:if>
                     </ul>
                     <div class="right">
-                       <g:render template="pluginRating" model="[plugin:plugin]" /> 
+                       <g:render template="pluginRating" model="[plugin:plugin]" />
                         <g:if test="${plugin.usage>0}">
                             <p class="used">
                                 <strong><g:formatNumber number="${plugin.usage}" type="percent"/></strong> of Grails users
@@ -88,9 +89,11 @@
                     </g:if>
                 </p>
                 <div class="documentation">
-                     <g:link title="Edit Plugin Info" class="actionIcon" action="editPlugin" id="${plugin?.name}">
-                         <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit Plugin" class="inlineIcon"/>
-                     </g:link>
+                    <g:if test="${SecurityUtils.subject.hasRole(Role.ADMINISTRATOR) || SecurityUtils.subject.isPermitted('plugin:edit:'+plugin?.name)}">
+                        <g:link title="Edit Plugin Info" class="actionIcon" action="editPlugin" id="${plugin?.name}">
+                             <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit Plugin" class="inlineIcon"/>
+                         </g:link>
+                    </g:if>
                     <section>
                     <h2>Summary</h2>
                     <wiki:text key="${'pluginInfo_summary_' + plugin?.name}">${plugin?.summary}</wiki:text>
@@ -114,7 +117,7 @@
         <r:script>
             tagsInitialized = true
         </r:script>
-        
+
     </div>
 </div>
 

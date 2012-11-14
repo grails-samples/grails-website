@@ -140,7 +140,7 @@ class WebSiteAdminController {
         )
 
         if (!genericApprovalResponse.hasErrors() && genericApprovalResponse.save(flush: true)) {
-            if (genericApprovalResponseService.setDispositionOfPendingApproval(genericApprovalResponse)) {
+            if (genericApprovalResponseService.linkAndfirePendingApproval(genericApprovalResponse)) {
                 flash.message = "Response was submitted to ${genericApprovalResponse.submittedBy?.login} (${genericApprovalResponse.submittedBy?.email})"
             }
             else {

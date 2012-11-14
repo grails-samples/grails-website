@@ -24,7 +24,7 @@ class PluginService {
      * @param pluginPendingApprovalResponse
      * @return Boolean true if everything went well
      */
-//    def setDispositionOfPendingApproval(PluginPendingApprovalResponse pluginPendingApprovalResponse) {
+//    def linkAndfirePendingApproval(PluginPendingApprovalResponse pluginPendingApprovalResponse) {
 //        // Load it from ID so we don't have any oddities
 //        def pluginPendingApproval = PluginPendingApproval.findById(pluginPendingApprovalResponse?.pluginPendingApproval?.id)
 //        pluginPendingApproval.setDisposition(pluginPendingApprovalResponse)

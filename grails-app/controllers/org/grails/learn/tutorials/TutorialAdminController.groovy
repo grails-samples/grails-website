@@ -2,7 +2,6 @@ package org.grails.learn.tutorials
 
 import org.grails.common.ApprovalStatus
 import org.grails.content.GenericApprovalResponse
-import org.grails.learn.tutorials.Tutorial
 
 class TutorialAdminController {
     def searchableService
@@ -135,7 +134,7 @@ class TutorialAdminController {
         )
 
         if (!genericApprovalResponse.hasErrors() && genericApprovalResponse.save(flush: true)) {
-            if (genericApprovalResponseService.setDispositionOfPendingApproval(genericApprovalResponse)) {
+            if (genericApprovalResponseService.linkAndfirePendingApproval(genericApprovalResponse)) {
                 flash.message = "Response was submitted to ${genericApprovalResponse.submittedBy?.login} (${genericApprovalResponse.submittedBy?.email})"
             }
             else {

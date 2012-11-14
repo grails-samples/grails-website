@@ -73,6 +73,7 @@
         <g:form action="disposition">
             <fieldset>
                 <g:hiddenField name="id" value="${pluginPendingApproval.id}"/>
+                <g:hiddenField name="pluginName" value="${pluginPendingApproval.name}"/>
 
                 <div class="control-group">
                     <label class="control-label" for="status">Request has been:</label>
