@@ -38,7 +38,7 @@
 <body>
 
 <div id="banner">
-    <div class="fullStackFramework banner">
+     <div class="fullStackFramework banner">
         <div class="left">
             <h2>Grails Framework, Full stack</h2>
 
@@ -67,10 +67,72 @@
                 <p class="hide">Powered by Spring and designed for the JVM, Grails outperforms the competition. Dynamic, agile web development without compromises.</p>
             </li>
         </ul>
+    </div> 
+    
+    <div id="companiesBanner" class="companiesBanner banner">
+        <h2>Companies using Grails</h2>
+        <div class="companies">
+        
+            <div class="row">
+                <div class="span2">
+                     <a href="http://www.biglots.com/" >
+                        <r:img uri="/img/companies/biglots-logo.jpg" alt="Biglots logo" />
+                    </a>
+
+                </div>
+                <div class="span2">
+                     <a href="http://www.netflix.com/">
+                        <r:img uri="/img/companies/netflix-logo.jpg" alt="Netflix logo" />
+                    </a>
+
+                </div>            
+                <div class="span2">
+                     <a href="http://www.sky.com/">
+                        <r:img uri="/img/companies/sky-logo.jpg" alt="Sky logo" />
+                    </a>
+
+                </div> 
+                <div class="span2">
+                     <a href="http://www.espn.com/" >
+                        <r:img uri="/img/companies/espn-logo.jpg" alt="ESPN logo" />
+                    </a>
+
+                </div>                           
+
+            </div>
+            
+            <div class="row">
+                <div class="span2">
+                     <a href="http://www.linkedin.com/">
+                        <r:img uri="/img/companies/linkedin-logo.jpg" alt="LinkedIn logo"  />
+                    </a>
+
+                </div>                 
+   
+                <div class="span2">
+                     <a href="http://www.eharmony.com/">
+                        <r:img uri="/img/companies/eharmony-logo.png" alt="eHarmony logo"  />
+                    </a>
+
+                </div>            
+                <div class="span2">
+                     <a href="http://www.virtuwell.com/">
+                        <r:img uri="/img/companies/virtuwell-logo.jpg" alt="Virtuwell logo" />
+                    </a>
+
+                </div>   
+               <div class="span2">
+                     <a href="http://www.atlassian.com/">
+                        <r:img uri="/img/companies/atlassian-logo.png" alt="Atlassian logo" />
+                    </a>
+
+                </div>                          
+
+            </div>   
+        </div>
+     
     </div>
-    <%--
-    <div id="springoneBanner" class="banner"></div>
-    --%>
+    
 </div>
 
 <section class="section-1">
