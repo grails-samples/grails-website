@@ -1,7 +1,7 @@
 <head>
     <title><g:message code="wiki.edit.title" args="${[wikiPage?.title]}"/></title>
     <meta content="master" name="layout"/>
-    <r:require modules="content, codeMirror, fancyBox"/>
+    <r:require modules="content, codeMirror, fancyBox,imageUpload, wikiEditor"/>
 </head>
 
 <body>
@@ -15,6 +15,7 @@
             <h2><g:message code="wiki.edit.title" args="${[wikiPage?.title]}"/></h2>
             <p><g:message code="wiki.edit.description"/></p>
 
+            <wiki:uploadImages  />
             <g:render template="wikiForm"/>
         </article>
     </div>

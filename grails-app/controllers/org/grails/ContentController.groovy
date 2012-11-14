@@ -477,7 +477,8 @@ class ContentController extends BaseWikiController {
             try {
                 def wikiImage = new WikiImage()
 
-                wikiImage.name = getImageName(params.prefix, fileName)
+                def imageName = getImageName(params.prefix, fileName)
+                wikiImage.name = imageName
                 wikiImage.image = image
 
                 if (wikiImage.save()) {
@@ -485,8 +486,16 @@ class ContentController extends BaseWikiController {
                     result.id = wikiImage.id
                 }
                 else {
-                    result.success = false
-                    result.error = "Error uploading ${fileName}! ${g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')}"
+                    def existing = WikiImage.findByName(imageName)
+                    if(existing) {
+                        result.error = "Image already exists, use !${fileName}! to embed. If the image is not correct, rename your image and try again."
+                        result.id = existing.id
+                    }
+                    else {
+                        result.success = false
+                        result.error = "Error uploading ${fileName}! ${g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')}"
+
+                    }
                 }
             }
             catch (Exception e) {
