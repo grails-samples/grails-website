@@ -215,6 +215,149 @@ This is a test list:
                 faq: hibernateFaq,
                 screenshots: hibernateScreenshots,
                 licenses: [ apacheLicense, gpl3License ])
+
+
+        //Cache 
+       cacheInstallation(PluginTab, title: "plugin-cache-installation", body: "@grails install-plugin cache@")
+        cacheVersion(Version,
+                title:cacheInstallation.title,
+                body:cacheInstallation.body,
+                number: 0,
+                current:cacheInstallation,
+                author: admin)
+        
+        cacheDescription(PluginTab, title: "plugin-cache-description", body: "Cache Plugin.")
+        cdVersion(Version,
+                title: cacheDescription.title,
+                body: cacheDescription.body,
+                number: 0,
+                current: cacheDescription,
+                author: admin)
+        
+        cacheFaq(PluginTab, title: "plugin-cache-faq", body: "")
+        cfVersion(Version,
+                title: cacheFaq.title,
+                body: cacheFaq.body,
+                number: 0,
+                current: cacheFaq,
+                author: admin)
+        
+        cacheScreenshots(PluginTab, title: "plugin-cache-screenshots", body: "")
+        csVersion(Version,
+                title: cacheScreenshots.title,
+                body: cacheScreenshots.body,
+                number: 0,
+                current: cacheScreenshots,
+                author: admin)
+        
+        cache(Plugin,
+                name: "cache",
+                title: "Cache Plugin",
+                currentRelease: "1.3.4",
+                authors: [springSourceInfo],
+                organization: "SpringSource",
+                organizationUrl: "http://www.springsource.org/",
+                lastReleased: new DateTime(2011, 12, 31, 0, 0),
+                installation: cacheInstallation,
+                description: cacheDescription,
+                faq: cacheFaq,
+                screenshots: cacheScreenshots,
+                licenses: [ apacheLicense, gpl3License ])        
+
+
+        //Mail
+       mailInstallation(PluginTab, title: "plugin-mail-installation", body: "@grails install-plugin mail@")
+        mailVersion(Version,
+                title:mailInstallation.title,
+                body:mailInstallation.body,
+                number: 0,
+                current:mailInstallation,
+                author: admin)
+        
+        mailDescription(PluginTab, title: "plugin-mail-description", body: "mailPlugin.")
+        mdVersion(Version,
+                title: mailDescription.title,
+                body: mailDescription.body,
+                number: 0,
+                current: mailDescription,
+                author: admin)
+        
+        mailFaq(PluginTab, title: "plugin-mail-faq", body: "")
+        mfVersion(Version,
+                title: mailFaq.title,
+                body: mailFaq.body,
+                number: 0,
+                current: mailFaq,
+                author: admin)
+        
+        mailScreenshots(PluginTab, title: "plugin-mail-screenshots", body: "")
+        msVersion(Version,
+                title: mailScreenshots.title,
+                body: mailScreenshots.body,
+                number: 0,
+                current: mailScreenshots,
+                author: admin)
+        
+        mail(Plugin,
+                name: "mail",
+                title: "mailPlugin",
+                currentRelease: "1.3.4",
+                authors: [springSourceInfo],
+                organization: "SpringSource",
+                organizationUrl: "http://www.springsource.org/",
+                lastReleased: new DateTime(2011, 12, 31, 0, 0),
+                installation: mailInstallation,
+                description: mailDescription,
+                faq: mailFaq,
+                screenshots: mailScreenshots,
+                licenses: [ apacheLicense, gpl3License ])        
+
+       // Feeds
+       feedsInstallation(PluginTab, title: "plugin-feeds-installation", body: "@grails install-plugin feeds@")
+        feedsVersion(Version,
+                title:feedsInstallation.title,
+                body:feedsInstallation.body,
+                number: 0,
+                current:feedsInstallation,
+                author: admin)
+        
+        feedsDescription(PluginTab, title: "plugin-feeds-description", body: "Feeds Plugin.")
+        fdVersion(Version,
+                title: feedsDescription.title,
+                body: feedsDescription.body,
+                number: 0,
+                current: feedsDescription,
+                author: admin)
+        
+        feedsFaq(PluginTab, title: "plugin-feeds-faq", body: "")
+        ffVersion(Version,
+                title: feedsFaq.title,
+                body: feedsFaq.body,
+                number: 0,
+                current: feedsFaq,
+                author: admin)
+        
+        feedsScreenshots(PluginTab, title: "plugin-feeds-screenshots", body: "")
+        fsVersion(Version,
+                title: feedsScreenshots.title,
+                body: feedsScreenshots.body,
+                number: 0,
+                current: feedsScreenshots,
+                author: admin)
+        
+        feeds(Plugin,
+                name: "feeds",
+                title: "Feeds Plugin",
+                currentRelease: "1.3.4",
+                authors: [],
+                organization: "SpringSource",
+                organizationUrl: "http://www.springsource.org/",
+                lastReleased: new DateTime(2011, 12, 31, 0, 0),
+                installation: feedsInstallation,
+                description: feedsDescription,
+                faq: feedsFaq,
+                screenshots: feedsScreenshots,
+                licenses: [ apacheLicense, gpl3License ])  
         
         // Tomcat
         tomcatInstallation(PluginTab, title: "plugin-tomcat-installation", body: "@grails install-plugin tomcat@")
