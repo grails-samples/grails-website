@@ -16,7 +16,10 @@
 </h1>
 
 <flash:message flash="${flash}"/>
-
+<g:form url="[controller:'wikiPageAdmin', action:'search']">
+   <input name="q"></input>
+   <button class="btn btn-primary">Search</button>
+</g:form>
 <table class="table table-bordered table-striped">
     <thead>
     <tr>
