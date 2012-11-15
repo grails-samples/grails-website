@@ -1,0 +1,87 @@
+/* Navigation */
+#navigation {
+	background: url("@{imagesPath}/page/nav.png") no-repeat 0 0;
+	margin-bottom: 15px;
+	>ul {
+		#font > #family > .magra();
+		.clearfix();
+		list-style: 0 none;
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+		>li {
+			float: left;
+			background: url("@{imagesPath}/page/separatorNav.png") no-repeat right center;
+			padding: 6px 8px 6px 6px;
+			a {
+				display: block;
+				float: left;
+				@height: 30px;
+				height: @height;
+				line-height: @height;
+				.border-radius(@radius);
+				padding: 0 10px;
+				color: @white;
+				font-size: @baseFontSize * 1.1;
+				text-decoration: none;
+  
+				&:hover, &:active {
+					#textshadow > .blackSepcial();
+					#gradient >.vertical(@grailsGreen, @grailsGreenHover);
+					.box-shadow(inset 0 1px 0 0 @grailsGreenHighlight);
+					text-decoration: none;
+				}
+				&:active {
+					#gradient >.vertical(@grailsGreenHover, darken(@grailsGreen,5%));
+				}
+			}
+			&.active > a, &.open > a {
+                background: @grailsGreen;
+                #gradient >.vertical(@grailsGreen, @grailsGreenHover);
+                .box-shadow(inset 0 1px 0 0 @grailsGreenHighlight);
+                color: @white;
+                #textshadow > .blackSepcial();
+			}
+			&.last {
+				background: 0 none;
+			}
+            &.dropdown {
+                a.dropdown-toggle {
+                    padding-right: 30px;
+                    border: 0 none;
+                    position: relative;
+                    span.caret {
+                        .opacity(100);
+                        border-top-color: @white;
+                        top: 5px;
+                        right: 13px;
+                        position: absolute;
+                    }
+                }
+                #list>.round();
+                ul.dropdown-menu {
+                    .border-radius(0);
+                    top: 36px;
+                    border: 0 none;
+                    padding: 0;
+                    margin: 0;
+                    >li {
+                        a {
+                            display: block;
+                            padding: 5px 15px;
+                            color: @gray;
+                        }
+                        &.active a, a:hover {
+                            background: @grailsGrayWhite;
+                            color: @grayDarker;
+                        }
+                        border-bottom: 1px solid @grailsGrayLighter;
+                    }
+                    >li:last-child {
+                        border-bottom: 0 none;
+                    }
+                }
+            }
+		}
+	}
+}

@@ -7,6 +7,7 @@
     <feed:meta kind="rss" version="2.0" controller="blog" action="feed" params="[format: 'rss']"/>
     <feed:meta kind="atom" version="1.0" controller="blog" action="feed" params="[format: 'atom']"/>
 
+    <%--
     <script>
         var _state = 0, _banners, _containerBanner, _time = 10;
 
@@ -33,6 +34,7 @@
             setTimeout("tick()", _time * 1000);
         });
     </script>
+    --%>
 </head>
 
 <body>
@@ -139,31 +141,28 @@
     <h2><strong>What is Grails?</strong> </h2>
     <p><strong>Grails is an Open Source, full stack, web application framework for the JVM</strong>. It takes advantage of the <strong><a href="http://groovy.codehaus.org/">Groovy</a></strong> programming language and <strong>convention over configuration</strong> to provide a productive and stream-lined development experience. <g:link uri="/learn">Learn more</g:link></p>
     <div class="left">
-    <div id="#downloadNow" class="downloads downloads-small">
-        <h2>Grab the latest and greatest release!</h2>
-        <p>You can find other Grails releases and methods of installation on <g:link controller="download" action="index">the downloads page.</g:link></p>
-        <g:render template="/download/downloadLatestButton" model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
-    </div>
+        <div id="#downloadNow" class="downloads downloads-small">
+            <h2>Grab the latest and greatest release!</h2>
+            <p>You can find other Grails releases and methods of installation on <g:link controller="download" action="index">the downloads page.</g:link></p>
+            <g:render template="/download/downloadLatestButton" model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
+        </div>
 
-        <h3>Latest News</h3>
+        <h3 class="news-title">Latest News <small>(<g:link controller="newsItem">Read more</g:link>)</small></h3>
         <g:each in="${latestNews}" var="newsItem">
             <g:set var="cacheKey" value="${'news_' + newsItem.id}"/>
             <article class="news">
                 <h3><g:link controller="newsItem" action="show" id="${newsItem.id}">
-                    <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
+                    ${newsItem.title.encodeAsHTML()} <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
                         <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
-                    </time> ${newsItem.title.encodeAsHTML()}</g:link></h3>
+                    </time></g:link></h3>
                 <p>
                     <wiki:shorten key="${cacheKey}" wikiText="${newsItem.body}" length="200"/>
                     <g:link controller="newsItem" action="show" id="${newsItem.id}">Read more</g:link>
                 </p>
             </article>                        
         </g:each>
-        <g:link controller="newsItem">Read more news</g:link>
     </div>
-    <div id="homeRightPanel" class="right">
-
-        
+    <div class="right">
         <div class="twitter">
             <h2>@grailsframework</h2>
             <div id="jstwitter"></div>

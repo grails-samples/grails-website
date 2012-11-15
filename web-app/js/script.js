@@ -66,4 +66,12 @@ jQuery(function(){
 		});
 	}
 	$('.dropdown-toggle').dropdown();
+
+    if ($('form[name="plugin-search"]').length > 0) {
+        $('#search-button').click(function () {
+            $('form[name="plugin-search"]').submit();
+            return false;
+        });
+    }
+
 });

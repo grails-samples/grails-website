@@ -5,18 +5,20 @@
 
 <section class="downloads">
 
+    <a href="#" class="forkmeongithub">For me on github</a>
     <h2>Download latest release
         <small>(<g:formatDate format="dd MMM yyyy" date="${downloadDesc.releaseDate.toDate()}"/>)</small>
     </h2>
 
     <p>Download Grails now and follow the simple installation instructions to start writing amazing web applications in minutes.</p>
 
-    <p class="url">
-        <input type="text" readonly="readonly" value="${binary.mirrors[0].urlString}"/>
-    </p>
+    <div class="latest">
+        <p class="url">
+            <input type="text" readonly="readonly" value="${binary.mirrors[0].urlString}"/>
+        </p>
 
-    <g:render template="/download/downloadLatestButton" model="[downloadFile: binary, softwareVersion: downloadDesc.softwareVersion]"/>
-
+        <g:render template="/download/downloadLatestButton" model="[downloadFile: binary, softwareVersion: downloadDesc.softwareVersion]"/>
+    </div>
     <p class="links">
         <g:link url="${documentation.mirrors[0].urlString}" class="btn light">Documentation (zip)</g:link> |
         <g:link controller="learn" action="installation" class="btn light">Installation</g:link>

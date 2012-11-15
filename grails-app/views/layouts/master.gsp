@@ -25,7 +25,7 @@
     <r:require modules="master"/>
     <r:layoutResources/>
     <g:if test="${Environment.developmentMode}">
-    <g:external dir="js" file="less-1.3.0.min.js"/>
+        <g:external dir="js" file="less-1.3.0.min.js" />
     </g:if>
     <g:layoutHead/>
 </head>
@@ -54,7 +54,7 @@
             <div class="inputSearch">
                 <input name="q" type="search"/>
             </div>
-            <input type="submit" alt="Search" title="Search the whole site"/>
+            <input type="submit" title="Search the whole site"/>
             </g:form>
         </div>
     </header>

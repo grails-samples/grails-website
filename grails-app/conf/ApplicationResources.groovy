@@ -4,10 +4,10 @@ modules = {
 
     masterStyles {
         if (isDevMode()) {
-            resource url: 'less/style.less', attrs: [rel: 'stylesheet/less', type: 'css']
+            resource url: 'less/bootstrap.less', attrs: [rel: 'stylesheet/less', type: 'css']
         }
         else {
-            resource url: 'css/style.css'
+            resource url: 'css/bootstrap.css'
         }
     }
 
@@ -21,12 +21,6 @@ modules = {
     homepage {
         dependsOn 'master'
         resource 'js/twitter.js'
-        if (isDevMode()) {
-            resource url: 'less/homepage.less', attrs: [rel: 'stylesheet/less', type: 'css']
-        }
-        else {
-            resource 'css/homepage.css'
-        }        
     }
 
     learn {
@@ -37,16 +31,6 @@ modules = {
         dependsOn 'master'
     }
 
-    download {
-        dependsOn 'master'
-
-        if (isDevMode()) {
-            resource url: 'less/downloads.less', attrs: [rel: 'stylesheet/less', type: 'css']
-        }
-        else {
-            resource 'css/downloads.css'
-        }
-    }
 
     plugin {
         dependsOn 'master', 'raty', 'tagit'
@@ -117,16 +101,6 @@ modules = {
     
     diffmatch {
         resource url: 'js/diff_match_patch.js', disposition: 'head'
-    }
-
-    search {
-        dependsOn "master"
-        if (isDevMode()) {
-            resource url: 'less/search.less', attrs: [rel: 'stylesheet/less', type: 'css']
-        }
-        else {
-            resource 'css/search.css'
-        }        
     }
 
     fileUploader {

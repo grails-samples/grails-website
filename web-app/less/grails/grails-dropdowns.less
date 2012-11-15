@@ -6,29 +6,29 @@
 	cursor: pointer;
 
 	.dropdown-toggle, a.dropdown-toggle {
-	  *margin-bottom: -3px;
-	  border: 1px solid transparent;
-	  padding: 4px 4px;
-	  .border-radius(@radius);
-	  margin:0;
-	  text-decoration: none;
-	  &:hover {
-		color: @grailsBlack;
-		border-color: @grailsGrayLight;
-	  	background: rgba(255,255,255,.5);
-	  }
+        *margin-bottom: -3px;
+        border: 1px solid transparent;
+        padding: 4px;
+        .border-radius(@radius);
+        margin:0;
+        text-decoration: none;
+        &:hover {
+            color: @grailsBlack;
+            border-color: @grailsGrayLight;
+            background: rgba(255,255,255,.5);
+        }
 	}
 }
 
 .dropdown-full {
-	width: 100%;
-	@width: 585px;
+	@width: 200px;
+	width: @width;
 	margin: 5px 0;
 	.dropdown-toggle, a.dropdown-toggle {
 		width: @width - 20;
 		display: block;
 		padding: 5px 10px;
-		border: 1px solid #CCC;
+		border: 1px solid @grayLighter;
 		color: @grailsBlack;
 		position: relative;
 		color: @grailsBlack;
@@ -97,12 +97,12 @@
 }
 .dropdown-menu {
   position: absolute;
+  z-index: @zindexDropdown;
+  display: none;
   text-align: left;
   top: 100%;
   right: auto;
-  z-index: @zindexDropdown;
   float: left;
-  display: none;
   min-width: 160px;
   max-width: 220px;
   _width: 160px;
@@ -110,10 +110,7 @@
   margin: 0;
   list-style: none;
   background-color: @white;
-  border-color: @grailsGrayMedium;
-  border-color: rgba(0,0,0,.2);
-  border-style: solid;
-  border-width: 1px;
+  border: 1px solid rgba(0,0,0,.2);
   .border-radius(0 0 @radius @radius);
   .box-shadow(0 5px 10px rgba(0,0,0,.2));
   -webkit-background-clip: padding-box;

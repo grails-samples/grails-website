@@ -6,7 +6,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Search Results</title>
-    <r:require modules="search"/>
     <r:script type="text/javascript">
 $(document).ready(function() {
     $("#quickSearch input[name='q']").val('${query ?: ''}');
