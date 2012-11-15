@@ -56,6 +56,10 @@
                         </g:if>
                     </ul>
                 </header>
+                <g:if test="${flash.message}">
+                    <div class="alert alert-info">${flash.message}</div>
+                </g:if>                    
+                
                 <div class="documentation">
                     <p><g:message code="wiki.create.description"/></p>
                     <g:form class="wiki-form content-form" name="wiki-form" url="[action: 'updatePlugin', id: plugin?.name]"

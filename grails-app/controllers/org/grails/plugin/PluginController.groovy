@@ -109,23 +109,32 @@ class PluginController {
                 def installation = params['plugin']['installation'] 
                 def description= params['plugin']['description'] 
 
-              def pluginTabInstallation = wikiPageService.createOrUpdatePluginTab(
-                "plugin-${id}-installation",
-                installation.body,
-                request.user,
-                params.long('plugin.installation.version'))
+                try {
+                  def pluginTabInstallation = wikiPageService.createOrUpdatePluginTab(
+                    "plugin-${id}-installation",
+                    installation.body,
+                    request.user,
+                    params.long('plugin.installation.version'))
 
-              def pluginTabDescription = wikiPageService.createOrUpdatePluginTab(
-                "plugin-${id}-description",
-                description.body,
-                request.user,
-                params.long('plugin.description.version'))              
-              if(pluginTabInstallation.hasErrors() || pluginTabDescription.hasErrors()) {
-                render view:"editPlugin", model:show(id)
-              }
-              else {
-                redirect uri:"/plugin/$id" 
-              }
+                  def pluginTabDescription = wikiPageService.createOrUpdatePluginTab(
+                    "plugin-${id}-description",
+                    description.body,
+                    request.user,
+                    params.long('plugin.description.version'))              
+                    if(pluginTabInstallation.hasErrors() || pluginTabDescription.hasErrors()) {
+                        render view:"editPlugin", model:show(id)
+                    }
+                    else {
+                        redirect uri:"/plugin/$id" 
+                    }                  
+
+                }
+                catch( javax.persistence.OptimisticLockException e) {
+                    flash.message = e.message
+                    render view:"editPlugin", model:show(id)
+                    return
+                }
+     
             } 
             else {
                 render view:"editPlugin", model:show(id)

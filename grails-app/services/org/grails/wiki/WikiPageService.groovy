@@ -83,7 +83,7 @@ class WikiPageService {
     
     def updateContent(Content content, String body, User user, Long version) {
         if (content.version != version) {
-            throw new OptimisticLockException()
+            throw new OptimisticLockException("Content [${content.class.simpleName}:${content.id}] was updated by someone else. Version mismatch: Submitted version ($version), Content version (${content.version}).")
         }
         else if (content.body != body) {
             content.body = body
