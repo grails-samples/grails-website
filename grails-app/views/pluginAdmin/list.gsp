@@ -12,7 +12,7 @@
         ${flash.message}
     </div>
 </g:if>
-<g:form url="[controller:'pluginAdmin', action:'search']">
+<g:form method="GET" url="[controller:'pluginAdmin', action:'search']">
    <input name="q"></input>
    <button class="btn btn-primary">Search</button>
 </g:form>

@@ -16,7 +16,7 @@
 </h1>
 
 <flash:message flash="${flash}"/>
-<g:form url="[controller:'wikiPageAdmin', action:'search']">
+<g:form method="GET" url="[controller:'wikiPageAdmin', action:'search']">
    <input name="q"></input>
    <button class="btn btn-primary">Search</button>
 </g:form>
