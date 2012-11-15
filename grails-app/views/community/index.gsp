@@ -63,25 +63,8 @@
 
             <h3>Attend a Conference</h3>
 
-            <p>There are Groovy & Grails related conferences popping up all the time, below is a list of known event. If you know of or are organising a Groovy & Grails related conference, add it here:</p>
+            <p>There are Groovy & Grails related conferences popping up all the time, below is a list of known event. Checkout the <a href="http://lanyrd.com/topics/grails/">Lanyard list of upcoming events</a> or add your conference to the <a href="/Conferences">Conferences page</a></p>
 
-            <h4>Europe</h4>
-
-            <ul>
-                <li>Copenhagen, DK - GR8Conf Europe 2012, June 6-8</li>
-            </ul>
-
-            <h4>United States</h4>
-
-            <ul>
-                <li>Minneapolis, MN - GR8Conf US 2012, July 29-31</li>
-            </ul>
-
-            <h4>Asia</h4>
-
-            <ul>
-                <li>Pune, India - 4th IndicThreads.com Conference On Java 2009, December 11th-12th</li>
-            </ul>
 
         </article>
     </section>
