@@ -33,11 +33,19 @@
     </tr>
     <tr>
         <td class="show-label" nowrap="nowrap">Description</td>
-        <td class="show-value">${plugin?.description?.body}</td>
+        <td class="show-value">
+            <g:if test="${plugin.description}">
+               <g:link controller="pluginTab" action="show" id="${plugin.description.id}" class="btn btn-info">Show Description</g:link> 
+            </g:if>
+        </td>
     </tr>
     <tr>
         <td class="show-label" nowrap="nowrap">Installation</td>
-        <td class="show-value"><code>${plugin?.installation?.body}</code></td>
+        <td class="show-value">
+            <g:if test="${plugin.installation}">
+               <g:link controller="pluginTab" action="show" id="${plugin.installation.id}" class="btn btn-info">Show Installation</g:link> 
+            </g:if>            
+        </td>
     </tr>
     <tr>
         <td class="show-label" nowrap="nowrap">Dependency</td>
@@ -53,7 +61,11 @@
     </tr>
     <tr>
         <td class="show-label" nowrap="nowrap">FAQ</td>
-        <td class="show-value">${plugin?.faq?.body}</td>
+        <td class="show-value">
+            <g:if test="${plugin.faq}">
+               <g:link controller="pluginTab" action="show" id="${plugin.faq.id}" class="btn btn-info">Show FAQ</g:link> 
+            </g:if>                  
+        </td>
     </tr>
     <tr>
         <td class="show-label" nowrap="nowrap">Author</td>

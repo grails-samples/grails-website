@@ -129,10 +129,6 @@ class UrlMappings {
 //        "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
 //        "/plugins/tags"(controller: "plugin", action: "browseTags")
 
-        name pluginTab: "/plugin/$id/$action/$_ul" {
-            controller = "pluginTab"
-        }
-
         "/plugin/addTag"(controller:"plugin", action:"addTag") 
         "/plugin/removeTag"(controller:"plugin", action:"removeTag") 
         "/wikiImage/$path**"(controller: "content", action: "showImage")
