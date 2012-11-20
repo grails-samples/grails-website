@@ -7,16 +7,54 @@
     <meta content="master" name="layout"/>
     <r:require modules="learn"/>
     <r:script>
+        function loadPresentation(playerFrame) {
+            playerFrame.attr('src', 'http://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
+        }
+
+        function clearPresentation(playerFrame) {
+            playerFrame.attr('src', '');
+        }
+
         $(function(){
+            // Load SlideRocket presentation before its modal appears so that
+            // it seems to load faster for the user.
+            loadPresentation($(".modal iframe"));
+
             $(".modal").on('shown', function(){
+                // Cover the presentation until it has restarted.
+                var shadePane = $(this).find('#shadePane')
+                shadePane.show();
                 $('.modal-backdrop').addClass('dark');
-                $(this).find('iframe').attr('src', 'http://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
+
+                loadPresentation($(this).find('iframe'));
+
+                // Fade out the opaque pane hiding the presentation once
+                // it's likely the presentation has started.
+                shadePane.delay(500).fadeOut(200);
             });
+
             $(".modal").on('hide', function(){
-                $(this).find('iframe').attr('src', '');
+                clearPresentation($(this).find('iframe'));
             });
         });
     </r:script>
+    <style>
+    .modal .body {
+        width: 660px;
+        height: 450px;
+        position: relative;
+    }
+
+    #shadePane {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        background-color: white; 
+    }
+    </style>
 </head>
 
 <body>
@@ -90,7 +128,8 @@
         <a class="close" data-dismiss="modal">×</a>
     </div>
     <div class="body">
-        <iframe width="660" height="450" scrolling="no" frameBorder="0" style="border:0px solid #333333;border-bottom-style:none"></iframe>
+        <div id="shadePane">&nbsp;</div>
+        <iframe width="660" height="450" scrolling="no" frameBorder="0" style="border:0px solid #333333;border-bottom-style:none;"></iframe>
     </div>
 </div>
 
