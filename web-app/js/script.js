@@ -74,4 +74,49 @@ jQuery(function(){
         });
     }
 
+    $('div.fullStackFramework li').toggle(function () {
+        var thiz = $(this);
+        if(thiz.hasClass("focus")){
+            return;
+        }
+        var animOptions = {
+            width: "400px",
+            height: "200px",
+            lineHeight: "60px",
+            marginTop: '-10px'
+        };
+        thiz.addClass('focus');
+        $('div.fullStackFramework li:not(.focus)').animate({
+                    width: '0px',
+                    border: '0px'
+                }, 100, function () {
+                    $(this).hide();
+                    thiz.animate(animOptions, 100).find('a').animate(animOptions, 100, function () {
+                        thiz.find('p').fadeIn(100);
+                    });
+                });
+
+    }, function () {
+        var thiz = $(this);
+        if(!thiz.hasClass("focus")){
+            return;
+        }
+        var animOptions = {
+            width: "110px",
+            height: "110px",
+            lineHeight: "110px",
+            marginTop: '0px'
+        };
+        thiz.find('p').fadeOut(100,function () {
+            thiz.animate(animOptions, 100).find('a').animate(animOptions, 100, function () {
+                $('div.fullStackFramework li:not(.focus)').show().animate({
+                    width: '110px',
+                    border: '6px'
+                }, 100, function(){
+                    thiz.removeClass('focus');
+                });
+            });
+        });
+    });
+
 });

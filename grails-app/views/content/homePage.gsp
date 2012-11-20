@@ -54,19 +54,19 @@
         </div>
         <ul>
             <li>
-                <a href="#">rapid</a>
-
-                <p class="hide">Have your next Web project done in weeks instead of months. Grails delivers a new age of Java web application productivity.</p>
+                <a href="#">rapid
+                  <p class="hide">Have your next Web project done in weeks instead of months. Grails delivers a new age of Java web application productivity.</p>
+                </a>
             </li>
             <li>
-                <a href="#">dynamic</a>
-
-                <p class="hide">Get instant feedback, see instant results. Grails is the premier dynamic language web framework for the JVM.</p>
+                <a href="#">dynamic
+                  <p class="hide">Get instant feedback, see instant results. Grails is the premier dynamic language web framework for the JVM.</p>
+                </a>
             </li>
             <li>
-                <a href="#">robust</a>
-
-                <p class="hide">Powered by Spring and designed for the JVM, Grails outperforms the competition. Dynamic, agile web development without compromises.</p>
+                <a href="#">robust
+                  <p class="hide">Powered by Spring and designed for the JVM, Grails outperforms the competition. Dynamic, agile web development without compromises.</p>
+                </a>
             </li>
         </ul>
     </div> 
