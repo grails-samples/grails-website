@@ -609,37 +609,38 @@ ul.tagit {
 
     li.tagit-choice {
  	    border: 0 none;
- 		background-color: @grailsGrayLighter;
-        .border-radius(3px);
-        line-height: 18px;
-        a {
-            color:@grailsBlack
+      background-color: @grailsGrayLighter;
+      .border-radius(3px);
+      text-align: center;
+      margin-right: 15px;      
+      a {
+          color:@grailsBlack
+      }
+      a.tagit-close {
+        span.text-icon {          
+          float:right;
+          position: relative;
+          left:17px;
+ 				  color:@grailsBlack;
+ 			  }
+        &:hover {
+          color: @grailsBlue;
         }
- 		a.tagit-close {
- 			span.text-icon {
- 				color:@grailsBlack;
- 			}
-             &:hover {
-                 color: @grailsBlue;
-             }
- 		}
-         &:hover {
-             background-color: #C7D9E3;
-             a {
-                 color: @grailsBlue;
-             }
-             a.tagit-close {
-                span.text-icon {
+      }
+      &:hover {
+         background-color: #C7D9E3;
+         a {
+            color: @grailsBlue;
+         }
+         a.tagit-close {
+            span.text-icon {
                     color:@grailsBlue;
-                }
             }
          }
- 	}
+      }
+ 	  }
 }
 ul.tagit input[type="text"] {
     background: white;
     .box-shadow(0 0 0 black);
-}
-ul.tagit li.tagit-new {
-    padding: 0;
 }
