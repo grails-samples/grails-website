@@ -176,8 +176,6 @@ class UrlMappings {
         "/learn/IDE_setup"(controller:"learn", action:"ideSetup")
         "/learn/installation"(controller:"learn", action:"installation")
         "/learn/quickStart"(controller:"learn", action:"quickStart")
-        "/learn/screencasts"(controller:"learn", action:"screencasts")
-        "/learn/tutorials"(controller:"tutorial", action:"list")
 
         /* ========================= COMMUNITY ======================= */
         "/community"(controller: "community", action: "index")

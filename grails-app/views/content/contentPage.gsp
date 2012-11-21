@@ -1,5 +1,5 @@
 <head>
-    <title>${content?.title}</title>
+    <title>Wiki - ${content?.title}</title>
     <meta content="master" name="layout"/>
     <r:require modules="content"/>
 </head>

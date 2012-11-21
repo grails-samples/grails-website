@@ -1,5 +1,5 @@
 <head>
-  <title>Groovy/Grails Tool Suite</title>
+  <title>Welcome to GGTS</title>
   <meta name="layout" content="master">
   <style>
 #page iframe {

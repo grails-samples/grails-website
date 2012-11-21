@@ -14,9 +14,4 @@ class LearnController {
 
     def quickStart() { }
 
-    def screencasts() { }
-
-    def tutorials() {
-    }
-
 }

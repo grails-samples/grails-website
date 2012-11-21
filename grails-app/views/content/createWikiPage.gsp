@@ -1,5 +1,4 @@
 <%@ page import="org.grails.wiki.WikiPage" %>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title><g:message code="wiki.create.title" args="${[wikiPage?.title]}"/></title>
     <meta content="master" name="layout"/>
@@ -24,4 +23,3 @@
 </div>
 
 </body>
-</html>

@@ -8,8 +8,6 @@ class CommunityController {
 
     def websites() { }
 
-    def testimonials() { }
-
     def contribute() { }
 
     def mailingList() { }

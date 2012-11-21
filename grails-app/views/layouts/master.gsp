@@ -5,12 +5,14 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
-    <title><g:layoutTitle default="Grails - The search is over."/></title>
     <meta name="robots" content="NOODP">
     <meta name="description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">   
     <meta name="author" content="Grails community">
     <meta name="viewport" content="width=device-width">
+
+    <title><g:layoutTitle default="Grails - The search is over."/></title>
 
     <g:if test="${Environment.current != Environment.PRODUCTION}">
         <script>

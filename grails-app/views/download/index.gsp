@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-
-<html>
 <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title>Grails Downloads</title>
     <meta content="master" name="layout"/>
 </head>
 
@@ -81,4 +78,3 @@
     });
 </g:javascript>
 </body>
-</html>
