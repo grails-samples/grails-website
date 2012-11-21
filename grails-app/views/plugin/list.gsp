@@ -3,6 +3,8 @@
     <title>Grails Plugins</title>
     <r:require modules="plugin"/>
     <g:render template="tagSetup" model="[allTags:allTags]" />
+        
+    
 </head>
 
 <body>
@@ -14,7 +16,10 @@
         <g:render template="searchBar" />
     </div>
     <g:render template="sideNav" bean="${tags}" />
-
+    <!-- IMPORTANT: DO NOT delete the link below, it is commented out, but used for plugin resolution -->
+    <!-- <a href="http://plugins.grails.org/.plugin-meta">.plugin-meta</a> -->
+    <!-- <a href="http://grails.org/plugins/.plugin-meta">.plugin-meta</a> -->    
+    
     <section id="main" class="plugins">
 
         <g:if test="${home}">

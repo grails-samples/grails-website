@@ -67,7 +67,7 @@ class CacheService {
         return old
     }
 
-    def getPluginList() { pluginCache.get(PLUGIN_LIST_KEY)?.getValue() }
+    def getPluginList() { pluginCache.get(PLUGIN_LIST_KEY)?.get() }
 
     def putPluginList(content) {
         def old = pluginList
