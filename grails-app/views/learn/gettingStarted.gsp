@@ -16,7 +16,7 @@
             // it seems to load faster for the user.
             loadPresentation($(".modal iframe"));
 
-            $(".modal").on('shown', function(){
+            $(".modal").on('show', function(){
                 // Cover the presentation until it has restarted.
                 var shadePane = $(this).find('#shadePane')
                 shadePane.show();
@@ -26,7 +26,7 @@
 
                 // Fade out the opaque pane hiding the presentation once
                 // it's likely the presentation has started.
-                shadePane.delay(500).fadeOut(200);
+                shadePane.delay(1000).fadeOut(200);
             });
 
             $(".modal").on('hide', function(){
