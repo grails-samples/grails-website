@@ -262,13 +262,24 @@ databaseChangeLog = {
         }
     }
 
-            column(name: "submitted_by_id", type: "bigint") {
-                constraints(nullable: "false")
+    changeSet(author: "pledbrook", id: "AddPluginWikiPermissions") {
+        // Users that have permission to publish a plugin should also get the
+        // permission for editing the associated wiki page.
+        grailsChange {
+            change {
+                sql.eachRow("SELECT user_id, permissions_string FROM user_permissions WHERE permissions_string LIKE 'plugin:publish:%'") { row ->
+                    // For each record, insert a new one with the same user ID but a
+                    // 'plugin:edit:<name>' permission string instead of 'plugin:publish:...'
+                    def m = row.permissions_string =~ /^plugin:publish:(.+)$/
+                    if (m) {
+                        sql.executeInsert(
+                                "INSERT INTO user_permissions (user_id, permissions_string) VALUES (?, ?)",
+                                [ row.user_id, "plugin:edit:" + m[0][1] ])
+                    }
+                }
             }
 
-            column(name: "title", type: "varchar(50)") {
-                constraints(nullable: "false")
-            }
+            confirm "Added plugin:edit permissions to existing known plugin authors"
         }
     }
 }
