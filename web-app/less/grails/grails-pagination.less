@@ -1,7 +1,8 @@
 // Needed b/c I didn't want to override the pagination stuff
 .pager {
     background: transparent !important;
-    padding: 10px 0 !important;
+    padding: 20px 0 !important;
+    border-top: 4px solid @grailsGrayWhite;
 
     span.step {
         display: block;
@@ -12,29 +13,26 @@
     }
 
     span.currentStep {
-        margin: 2px 4px;
-        padding: 0 8px;
-        float: left;
-        display: block;
-        background: @white;
-        font-weight: bold;
+        .btn();
+        margin-right: 5px;
+        background: white;
+        color: @blue;
+        border: 1px solid @grayLighter;
         #textshadow > .white(0.8);
-        color: @grailsGray;
-        .border-radius(@radius);
     }
 
     a {
-        display: block;
-        float: left;
-        margin: 2px 4px;
-        padding: 0 8px;
+        .btn();
+        background-color: @grailsBlack;
+		color: @grailsBlack;
+        #gradient>.vertical(#e9eef0, #e5ebed);
         #textshadow > .white(0.8);
-        color: @grailsGray;
+        .box-shadow(inset 0 1px 0 rgba(255,255,255,.5));
+        border-color: #afc2cc;
+        margin-right: 5px;
         &:hover {
             color: @grailsBlack;
-            background: @white;
-            text-decoration: none;
-            .border-radius(@radius);
+            #gradient>.vertical(#e5ebed, #d4dee2);
         }
     }
 }

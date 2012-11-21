@@ -17,26 +17,26 @@
         <ul>
             <li>
                 <a href="/plugins">
-                    <g:img dir="../img/icons" file="plugin.png"/>
+                    <g:img dir="img/icons" file="plugin.png"/>
                     Plugins
                 </a>
             </li>
             <li <g:if test="${actionName == 'submitPlugin'}">class="active"</g:if>>
                 <a href="/plugins/submitPlugin">
-                    <g:img dir="../img/icons" file="submit.png"/>
+                    <g:img dir="img/icons" file="submit.png"/>
                     Submit a Plugin
                 </a>
             </li>
             <li
                 <g:if test="${['pendingPlugins', 'showPendingPlugin'].contains(actionName)}">class="active"</g:if>>
                 <a href="/plugins/pending">
-                    <g:img dir="../img/icons" file="pending.png"/>
+                    <g:img dir="img/icons" file="pending.png"/>
                     View Pending Plugins
                 </a>
             </li>
             <li>
                 <a href="/Creating+Plugins" target="_blank">
-                    <g:img dir="../img/icons" file="documentation.png"/>
+                    <g:img dir="img/icons" file="documentation.png"/>
                     Publishing Plugins Guide
                 </a>
             </li>

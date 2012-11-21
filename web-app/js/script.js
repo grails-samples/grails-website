@@ -119,4 +119,18 @@ jQuery(function(){
         });
     });
 
+    $(window).resize(function() {
+        if ($(window).width() > 980) {
+            if (!$("body").hasClass("fixed")) {
+                $("body").addClass("fixed");
+            }
+        } else {
+            if ($("body").hasClass("fixed")) {
+                $("body").removeClass("fixed");
+            }
+        }
+    });
+
+    $(window).resize();
+
 });

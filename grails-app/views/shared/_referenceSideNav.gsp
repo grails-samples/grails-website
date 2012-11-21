@@ -5,19 +5,19 @@
     <ul>
         <li>
             <a href="/Documentation">
-                <g:img dir="../img/icons" file="documentation.png" />
+                <g:img dir="img/icons" file="documentation.png" />
                 Documentation
             </a>
         </li>
         <li>
             <a href="/FAQ">
-                <g:img dir="../img/icons" file="faq.png" />
+                <g:img dir="img/icons" file="faq.png" />
                 FAQs
             </a>
         </li>
         <li>
             <a href="/Roadmap">
-                <g:img dir="../img/icons" file="roadmap.png" />
+                <g:img dir="img/icons" file="roadmap.png" />
                 Roadmap
             </a>
         </li>

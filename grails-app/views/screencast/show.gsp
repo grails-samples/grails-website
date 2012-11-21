@@ -25,7 +25,7 @@
                 <h3>
                     ${screencastInstance?.title?.encodeAsHTML()}
                     <g:if test="${screencastInstance?.isNew}">
-                        <g:img dir="../img/page" file="new.png" />
+                        <g:img dir="img/page" file="new.png" />
                     </g:if>
                 </h3>
 

@@ -10,7 +10,7 @@
     <meta name="robots" content="NOODP">
     <meta name="description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">   
     <meta name="author" content="Grails community">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><g:layoutTitle default="Grails - The search is over."/></title>
 
@@ -60,9 +60,11 @@
         <div id="quickSearch" role="search">
            <g:form name="globalSearchForm" controller="content" action="search" method="get">
             <div class="inputSearch">
-                <input name="q" type="text" />
+                <input name="q" type="text" placeholder="Search on grails.org" />
             </div>
-            <input type="submit" title="Search the whole site"/>
+           <button type="submit" title="Search the whole site" class="btn gray">
+               <i class="icon-search"></i>
+           </button>
             </g:form>
         </div>
     </header>
