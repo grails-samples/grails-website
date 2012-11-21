@@ -40,30 +40,7 @@
 
 <div id="banner">
 
-    <div id="skyBanner" class="sky caseStudy banner">
-        <p class="ico">
-            <g:img dir="img/banner/caseStudy" file="logo.png" />
-        </p>
-        <h2>Sky Video Gallery & Sky TV Guide</h2>
-        <p class="links">
-            <a href="http://video.sky.com">video.sky.com</a> &amp;
-            <a href="http://tv.sky.com">tv.sky.com</a>
-        </p>
-        <p class="desc">“Groovy is so much quicker and simpler to write code with, so we can get applications up and running faster,” Mullen confirms. “With Groovy and Grails we can create a new feature in a week, when before it could easily take a month or more.”</p>
-        <div class="screen">
-            <p class="extra">Sky Video</p>
-            <a href="http://video.sky.com">Companies using Grails</a>
-        </div>
-        <ul class="logos">
-            <li><a href="http://www.atlassian.com/fr/"><g:img dir="img/banner/caseStudy/logos" file="atlassian.png" title="Atlassian" /></a></li>
-            <li><a href="http://sky.com"><g:img dir="img/banner/caseStudy/logos" file="sky.png" title="Sky" /></a></li>
-            <li><a href="http://fr.linkedin.com/"><g:img dir="img/banner/caseStudy/logos" file="linkedin.png" title="Linkedin" /></a></li>
-            <li><a href="http://www.eharmony.com/"><g:img dir="img/banner/caseStudy/logos" file="eharmony.png" title="eHarmony" /></a></li>
-            <li><a href="http://espn.go.com/"><g:img dir="img/banner/caseStudy/logos" file="espn.png" title="ESPN" /></a></li>
-            <li><a href="https://www.virtuwell.com/"><g:img dir="img/banner/caseStudy/logos" file="virtuwell.png" title="Virtuwell" /></a></li>
-            <li><a href="https://netflix.com/"><g:img dir="img/banner/caseStudy/logos" file="netflix.png" title="NETFLIX" /></a></li>
-        </ul>
-    </div>
+
 
     <div class="fullStackFramework banner">
         <div class="left">
@@ -95,6 +72,31 @@
             </li>
         </ul>
     </div>
+    
+    <div id="skyBanner" class="sky caseStudy banner">
+        <p class="ico">
+            <g:img dir="img/banner/caseStudy" file="logo.png" />
+        </p>
+        <h2>Sky Video Gallery & Sky TV Guide</h2>
+        <p class="links">
+            <a href="http://video.sky.com">video.sky.com</a> &amp;
+            <a href="http://tv.sky.com">tv.sky.com</a>
+        </p>
+        <p class="desc">“Groovy is so much quicker and simpler to write code with, so we can get applications up and running faster,” Mullen confirms. “With Groovy and Grails we can create a new feature in a week, when before it could easily take a month or more.”</p>
+        <div class="screen">
+            <p class="extra">Sky Video</p>
+            <a href="http://video.sky.com">Companies using Grails</a>
+        </div>
+        <ul class="logos">
+            <li><a href="http://www.atlassian.com/"><g:img dir="img/banner/caseStudy/logos" file="atlassian.png" title="Atlassian" /></a></li>
+            <li><a href="http://sky.com"><g:img dir="img/banner/caseStudy/logos" file="sky.png" title="Sky" /></a></li>
+            <li><a href="http://www.linkedin.com/"><g:img dir="img/banner/caseStudy/logos" file="linkedin.png" title="Linkedin" /></a></li>
+            <li><a href="http://www.eharmony.com/"><g:img dir="img/banner/caseStudy/logos" file="eharmony.png" title="eHarmony" /></a></li>
+            <li><a href="http://espn.go.com/"><g:img dir="img/banner/caseStudy/logos" file="espn.png" title="ESPN" /></a></li>
+            <li><a href="https://www.virtuwell.com/"><g:img dir="img/banner/caseStudy/logos" file="virtuwell.png" title="Virtuwell" /></a></li>
+            <li><a href="https://netflix.com/"><g:img dir="img/banner/caseStudy/logos" file="netflix.png" title="NETFLIX" /></a></li>
+        </ul>
+    </div>    
 </div>
 
 <section class="section-1">
