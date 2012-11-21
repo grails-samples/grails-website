@@ -599,7 +599,7 @@ legend + .control-group {
 }
 
 
-ul.tagit {
+#content #main ul.tagit {
 	border-color: rgba(82,168,236,.8);
     outline: 0;
     outline: thin dotted \9; /* IE6-9 */
@@ -607,38 +607,43 @@ ul.tagit {
     margin: 5px 0;
     margin-bottom: 10px;
 
+    li.tagit-new {
+        padding: 0;
+        border: 0 none;
+    }
     li.tagit-choice {
- 	    border: 0 none;
-      background-color: @grailsGrayLighter;
-      .border-radius(3px);
-      text-align: center;
-      margin-right: 15px;      
-      a {
-          color:@grailsBlack
-      }
-      a.tagit-close {
-        span.text-icon {          
-          float:right;
-          position: relative;
-          left:17px;
- 				  color:@grailsBlack;
- 			  }
-        &:hover {
-          color: @grailsBlue;
+        border: 0 none;
+        position: relative;
+        padding: 2px 20px 2px 10px;
+        background-color: @grailsGrayLighter;
+        .border-radius(3px);
+        text-align: center;
+        a {
+            color:@grailsBlack
         }
-      }
-      &:hover {
-         background-color: #C7D9E3;
-         a {
-            color: @grailsBlue;
-         }
-         a.tagit-close {
+        a.tagit-close {
+            top: 12px;
+            right: 5px;
+            position: aboslute;
             span.text-icon {
-                    color:@grailsBlue;
+                color:@grailsBlack;
             }
-         }
-      }
- 	  }
+            &:hover {
+                color: @grailsBlue;
+            }
+        }
+        &:hover {
+            background-color: #C7D9E3;
+            a {
+                color: @grailsBlue;
+            }
+            a.tagit-close {
+                span.text-icon {
+                    color:@grailsBlue;
+                }
+            }
+        }
+    }
 }
 ul.tagit input[type="text"] {
     background: white;
