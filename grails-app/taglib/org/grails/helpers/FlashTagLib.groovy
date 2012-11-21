@@ -7,7 +7,7 @@ class FlashTagLib {
     def message = { attrs, body ->
         def bean = attrs.bean
         def flash = attrs.flash
-        def className = 'info'
+        def className = 'success'
         if (bean?.errors?.errorCount > 0) {
             className = 'error'
         }

@@ -10,7 +10,7 @@
 
     <g:render template="sideNav"/>
 
-    <div id="main">
+    <section id="main">
         <article>
             <div id="wikiLastUpdated">Last updated by ${latest?.author?.login}
                 <prettytime:display date="${wikiPage.lastUpdated}"/></div>
@@ -46,7 +46,7 @@
             <g:else>No Versions</g:else>
   
         </article>
-    </div>
+    </section>
 </div>
 
 </body>

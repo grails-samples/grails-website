@@ -1,4 +1,31 @@
 .section-1 {
+    .clearfix();
+    .border-radius(@radius);
+    background: @white;
+    margin-bottom: 20px;
+    padding: 15px;
+    padding-left: 25px;
+    .colset-2 {
+        .clearfix();
+    }
+
+    .left, .right {
+        padding-top: 10px;
+    }
+
+    .left {
+        float: left;
+        width: 610px;
+        padding: 10px;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 20px;
+    }
+    .right {
+        float: left;
+        width: 310px;
+    }
+
     .downloads {
         .border-radius(5px);
         position: relative;
@@ -28,7 +55,6 @@
             right: 20px;
             top:40px;
             .btn {
-                .border-radius(40px);
                 padding: 0 20px;
                 line-height: 37px;
                 width: 150px;
@@ -41,8 +67,10 @@
 
 .section-3 {
 	.clearfix();
-	margin-bottom: 10px;
-	padding: 10px 0;
+    border-bottom: 1px solid @grailsGrayMedium;
+    .box-shadow(0 1px 0 rgba(255,255,255,.7));
+	margin-bottom: 5px;
+	padding: 0px 0 20px;
 	.col1, .col2, .col3 {
 		float: left;
 		width: 30%;
@@ -63,4 +91,39 @@
 		color: @grailsGrayDark;
 		font-size: @baseFontSize + 7;
 	}
+}
+
+.news-title {
+    border-bottom: 1px solid #EEE;
+    margin-bottom: 10px;
+}
+
+article.news {
+    h3 {
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+        line-height: 20px;
+        a {
+            color: @grailsBlack;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    p {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    border-bottom: 1px solid #EEE;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    &.last {
+        border-bottom: 0 none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
 }

@@ -16,7 +16,7 @@
         <g:render template="sideSubmission"/>
     </div>
 
-    <div id="main" class="boxWhite">
+    <section id="main" class="items">
         <g:if test="${pluginPendingApprovalTotal == 0}">
             <div class="alert alert-block">
                 <p><strong>Woot!</strong><br />
@@ -26,7 +26,7 @@
         </g:if>
         <g:render template="pendingPlugin" collection="${pluginPendingApprovalList}"
                   var="pluginPendingApprovalInstance"/>
-    </div>
+    </section>
 
 </div>
 

@@ -7,25 +7,26 @@
     <feed:meta kind="rss" version="2.0" controller="blog" action="feed" params="[format: 'rss']"/>
     <feed:meta kind="atom" version="1.0" controller="blog" action="feed" params="[format: 'atom']"/>
 
-    <%--
     <script>
-        var _state = 0, _banners, _containerBanner, _time = 10;
 
+        var _state = 0, _banners, _containerBanner, _time = 10;
+        var _width;
         function tick() {
             if (_state == (_banners.length - 1))
                 _state = 0;
             else
                 _state++;
-            _containerBanner.animate({'left':-_state * 980}, 500);
+            _containerBanner.animate({'left':-_state * _width}, 500);
             setTimeout('tick()', _time * 1000);
         }
 
         $(function () {
+            _width =  $(".banner").width();
             _banners = $('div.banner').detach();
             _containerBanner = $('<div />')
                     .css('position', 'absolute')
                     .css('left', 0).css('top', 0)
-                    .width(980 * _banners.length);
+                    .width(_width * _banners.length);
             _containerBanner.append(_banners);
             $('div#banner').append(_containerBanner);
 
@@ -34,13 +35,39 @@
             setTimeout("tick()", _time * 1000);
         });
     </script>
-    --%>
+
 </head>
 
 <body>
 
 <div id="banner">
-     <div class="fullStackFramework banner">
+
+    <div id="skyBanner" class="sky caseStudy banner">
+        <p class="ico">
+            <g:img dir="img/banner/caseStudy" file="logo.png" />
+        </p>
+        <h2>Sky Video Gallery & Sky TV Guide</h2>
+        <p class="links">
+            <a href="http://video.sky.com">video.sky.com</a> &amp;
+            <a href="http://tv.sky.com">tv.sky.com</a>
+        </p>
+        <p class="desc">“Groovy is so much quicker and simpler to write code with, so we can get applications up and running faster,” Mullen confirms. “With Groovy and Grails we can create a new feature in a week, when before it could easily take a month or more.”</p>
+        <div class="screen">
+            <p class="extra">Sky Video</p>
+            <a href="http://video.sky.com">Companies using Grails</a>
+        </div>
+        <ul class="logos">
+            <li><a href="http://www.atlassian.com/fr/"><g:img dir="img/banner/caseStudy/logos" file="atlassian.png" title="Atlassian" /></a></li>
+            <li><a href="http://sky.com"><g:img dir="img/banner/caseStudy/logos" file="sky.png" title="Sky" /></a></li>
+            <li><a href="http://fr.linkedin.com/"><g:img dir="img/banner/caseStudy/logos" file="linkedin.png" title="Linkedin" /></a></li>
+            <li><a href="http://www.eharmony.com/"><g:img dir="img/banner/caseStudy/logos" file="eharmony.png" title="eHarmony" /></a></li>
+            <li><a href="http://espn.go.com/"><g:img dir="img/banner/caseStudy/logos" file="espn.png" title="ESPN" /></a></li>
+            <li><a href="https://www.virtuwell.com/"><g:img dir="img/banner/caseStudy/logos" file="virtuwell.png" title="Virtuwell" /></a></li>
+            <li><a href="https://netflix.com/"><g:img dir="img/banner/caseStudy/logos" file="netflix.png" title="NETFLIX" /></a></li>
+        </ul>
+    </div>
+
+    <div class="fullStackFramework banner">
         <div class="left">
             <h2>Grails Framework, Full stack</h2>
 
@@ -69,108 +96,46 @@
                 </a>
             </li>
         </ul>
-    </div> 
-    
-    <div id="companiesBanner" class="companiesBanner banner">
-        <h2>Companies using Grails</h2>
-        <div class="companies">
-        
-            <div class="row">
-                <div class="span2">
-                     <a href="http://www.biglots.com/" >
-                        <r:img uri="/img/companies/biglots-logo.jpg" alt="Biglots logo" />
-                    </a>
-
-                </div>
-                <div class="span2">
-                     <a href="http://www.netflix.com/">
-                        <r:img uri="/img/companies/netflix-logo.jpg" alt="Netflix logo" />
-                    </a>
-
-                </div>            
-                <div class="span2">
-                     <a href="http://www.sky.com/">
-                        <r:img uri="/img/companies/sky-logo.jpg" alt="Sky logo" />
-                    </a>
-
-                </div> 
-                <div class="span2">
-                     <a href="http://www.espn.com/" >
-                        <r:img uri="/img/companies/espn-logo.jpg" alt="ESPN logo" />
-                    </a>
-
-                </div>                           
-
-            </div>
-            
-            <div class="row">
-                <div class="span2">
-                     <a href="http://www.linkedin.com/">
-                        <r:img uri="/img/companies/linkedin-logo.jpg" alt="LinkedIn logo"  />
-                    </a>
-
-                </div>                 
-   
-                <div class="span2">
-                     <a href="http://www.eharmony.com/">
-                        <r:img uri="/img/companies/eharmony-logo.png" alt="eHarmony logo"  />
-                    </a>
-
-                </div>            
-                <div class="span2">
-                     <a href="http://www.virtuwell.com/">
-                        <r:img uri="/img/companies/virtuwell-logo.jpg" alt="Virtuwell logo" />
-                    </a>
-
-                </div>   
-               <div class="span2">
-                     <a href="http://www.atlassian.com/">
-                        <r:img uri="/img/companies/atlassian-logo.png" alt="Atlassian logo" />
-                    </a>
-
-                </div>                          
-
-            </div>   
-        </div>
-     
     </div>
-    
 </div>
 
 <section class="section-1">
     <h2><strong>What is Grails?</strong> </h2>
     <p><strong>Grails is an Open Source, full stack, web application framework for the JVM</strong>. It takes advantage of the <strong><a href="http://groovy.codehaus.org/">Groovy</a></strong> programming language and <strong>convention over configuration</strong> to provide a productive and stream-lined development experience. <g:link uri="/learn">Learn more</g:link></p>
-    <div class="left">
-        <div id="#downloadNow" class="downloads downloads-small">
-            <h2>Grab the latest and greatest release!</h2>
-            <p>You can find other Grails releases and methods of installation on <g:link controller="download" action="index">the downloads page.</g:link></p>
-            <g:render template="/download/downloadLatestButton" model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
-        </div>
+    <div class="colset-2">
+        <div class="left">
+            <div id="#downloadNow" class="downloads downloads-small">
+                <h2>Grab the latest and greatest release!</h2>
+                <p>You can find other Grails releases and methods of installation on <g:link controller="download" action="index">the downloads page.</g:link></p>
+                <g:render template="/download/downloadLatestButton" model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
+            </div>
 
-        <h3 class="news-title">Latest News <small>(<g:link controller="newsItem">Read more</g:link>)</small></h3>
-        <g:each in="${latestNews}" var="newsItem">
-            <g:set var="cacheKey" value="${'news_' + newsItem.id}"/>
-            <article class="news">
-                <h3><g:link controller="newsItem" action="show" id="${newsItem.id}">
-                    ${newsItem.title.encodeAsHTML()} <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
+            <h3 class="news-title">Latest News <small>(<g:link controller="newsItem">Read more</g:link>)</small></h3>
+            <g:each in="${latestNews}" var="newsItem">
+                <g:set var="cacheKey" value="${'news_' + newsItem.id}"/>
+                <article class="news">
+                    <h3><g:link controller="newsItem" action="show" id="${newsItem.id}">
+                        ${newsItem.title.encodeAsHTML()}</g:link></h3>
+                    <p class="date">Published on <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
                         <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
-                    </time></g:link></h3>
-                <p>
-                    <wiki:shorten key="${cacheKey}" wikiText="${newsItem.body}" length="200"/>
-                    <g:link controller="newsItem" action="show" id="${newsItem.id}">Read more</g:link>
-                </p>
-            </article>                        
-        </g:each>
-    </div>
-    <div class="right">
-        <div class="twitter">
-            <h2>@grailsframework</h2>
-            <div id="jstwitter"></div>
-            <p class="follow">
-                <a href="https://twitter.com/grailsframework" class="btn blue">Follow @grailsframework</a>
-            </p>
+                    </time></p>
+                    <p>
+                        <wiki:shorten key="${cacheKey}" wikiText="${newsItem.body}" length="200"/>
+                        <g:link controller="newsItem" action="show" id="${newsItem.id}">Read more</g:link>
+                    </p>
+                </article>
+            </g:each>
         </div>
-    </div>        
+        <div class="right">
+            <div class="twitter">
+                <h2>@grailsframework</h2>
+                <div id="jstwitter"></div>
+                <p class="follow">
+                    <a href="https://twitter.com/grailsframework" class="btn blue">Follow @grailsframework</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section class="section-3">

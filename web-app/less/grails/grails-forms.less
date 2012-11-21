@@ -597,3 +597,49 @@ legend + .control-group {
         .box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)");
     }
 }
+
+
+ul.tagit {
+	border-color: rgba(82,168,236,.8);
+    outline: 0;
+    outline: thin dotted \9; /* IE6-9 */
+    .box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)");
+    margin: 5px 0;
+    margin-bottom: 10px;
+
+    li.tagit-choice {
+ 	    border: 0 none;
+ 		background-color: @grailsGrayLighter;
+        .border-radius(3px);
+        line-height: 18px;
+        a {
+            color:@grailsBlack
+        }
+ 		a.tagit-close {
+ 			span.text-icon {
+ 				color:@grailsBlack;
+ 			}
+             &:hover {
+                 color: @grailsBlue;
+             }
+ 		}
+         &:hover {
+             background-color: #C7D9E3;
+             a {
+                 color: @grailsBlue;
+             }
+             a.tagit-close {
+                span.text-icon {
+                    color:@grailsBlue;
+                }
+            }
+         }
+ 	}
+}
+ul.tagit input[type="text"] {
+    background: white;
+    .box-shadow(0 0 0 black);
+}
+ul.tagit li.tagit-new {
+    padding: 0;
+}

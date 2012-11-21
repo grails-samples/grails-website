@@ -74,6 +74,8 @@ class PluginController {
             def model = [ allTags:allTags, tags: tags, plugins: plugins, pluginCount: pluginCount ]
             if (filter) model["activeFilter"] = filter
             if (params.tag) model["activeTag"] = params.tag
+
+            model["home"] = (filter == "featured" && !model["activeTag"])
             return model
         }
         catch (TagNotFoundException ex) {

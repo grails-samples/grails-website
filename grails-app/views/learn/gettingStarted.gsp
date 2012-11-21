@@ -63,8 +63,8 @@
 
     <g:render template="sideNav" />
 
-    <div id="main">
-        <article class="numbers">
+    <section id="main">
+        <article class="learngrails5steps">
             <h2>Learn Grails <small>in 5 easy steps</small></h2>
             <p>The following 5 steps will take you from knowing nothing about Grails to running a Grails application - all in a matter of minutes! And if you already have some knowledge of the framework, skip the steps you don't need.</p>
             <g:set var="step" value="${0}" />
@@ -118,7 +118,7 @@
                 <p class="links"><a class="btn blueLight" href="/latest/doc">Manual</a> <g:link class="btn blueLight" controller="tutorial" action="list">Tutorials</g:link></p>
             </div>
         </article>
-    </div>
+    </section>
 
 </div>
 

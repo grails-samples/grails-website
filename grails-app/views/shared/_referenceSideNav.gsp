@@ -3,9 +3,24 @@
     <h3><img src="${resource(dir: 'img/aside', file: 'reference.png')}" alt="" title=""/>Reference</h3>
 </g:if>
     <ul>
-        <li><a href="/Documentation">Documentation</a></li>
-        <li><a href="/FAQ">FAQs</a></li>
-        <li class="last"><a href="/Roadmap">Roadmap</a></li>
+        <li>
+            <a href="/Documentation">
+                <g:img dir="../img/icons" file="documentation.png" />
+                Documentation
+            </a>
+        </li>
+        <li>
+            <a href="/FAQ">
+                <g:img dir="../img/icons" file="faq.png" />
+                FAQs
+            </a>
+        </li>
+        <li>
+            <a href="/Roadmap">
+                <g:img dir="../img/icons" file="roadmap.png" />
+                Roadmap
+            </a>
+        </li>
     </ul>
 <g:if test="${!onlyLink}">
 </aside>

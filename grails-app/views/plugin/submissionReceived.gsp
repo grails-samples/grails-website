@@ -16,9 +16,9 @@
         <g:render template="sideSubmission" />
     </div>
 
-    <div id="main" class="plugins">
+    <section id="main">
 
-        <section class="previousRelease">
+        <article>
             <h3>Submit Plugin for Approval</h3>
 
             <g:if test="${flash.message}">
@@ -28,8 +28,8 @@
             <p>Thank you for submitting your plugin. We will get back to you within 24 hours with either an approval, or
             a rejection with an explanation.</p>
 
-        </section>
-    </div>
+        </article>
+    </section>
 
 </div>
 

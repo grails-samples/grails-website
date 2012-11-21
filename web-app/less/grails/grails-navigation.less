@@ -1,6 +1,9 @@
 /* Navigation */
 #navigation {
-	background: url("@{imagesPath}/page/nav.png") no-repeat 0 0;
+	//background: url("@{imagesPath}/page/nav.png") no-repeat 0 0;
+	#gradient >.vertical(#41484c, #31373a);
+    .border-radius(4px);
+
 	margin-bottom: 15px;
 	>ul {
 		#font > #family > .magra();
@@ -12,19 +15,21 @@
 		>li {
 			float: left;
 			background: url("@{imagesPath}/page/separatorNav.png") no-repeat right center;
-			padding: 6px 8px 6px 6px;
+			padding: 0 8px 0px 6px;
 			a {
 				display: block;
 				float: left;
-				@height: 30px;
+				@height: 34px;
 				height: @height;
 				line-height: @height;
-				.border-radius(@radius);
-				padding: 0 10px;
+				.border-radius(0);
+				padding: 5px 10px;
 				color: @white;
-				font-size: @baseFontSize * 1.1;
+				font-size: @baseFontSize + 1px;
+	            font-weight: normal;
 				text-decoration: none;
-  
+                #textshadow > .blackSepcial();
+
 				&:hover, &:active {
 					#textshadow > .blackSepcial();
 					#gradient >.vertical(@grailsGreen, @grailsGreenHover);
@@ -53,7 +58,7 @@
                     span.caret {
                         .opacity(100);
                         border-top-color: @white;
-                        top: 5px;
+                        top: 12px;
                         right: 13px;
                         position: absolute;
                     }
@@ -61,7 +66,7 @@
                 #list>.round();
                 ul.dropdown-menu {
                     .border-radius(0);
-                    top: 36px;
+                    top: 43px;
                     border: 0 none;
                     padding: 0;
                     margin: 0;

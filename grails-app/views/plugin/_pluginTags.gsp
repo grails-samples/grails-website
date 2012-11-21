@@ -9,10 +9,10 @@
 </span>
 
 <g:if test="${request.user != null}">
-    <a href="#" id="plugin-tag-edit${plugin.id}"><img src="/img/edit-tag.png"  /></a>
+    <a href="#" id="plugin-tag-edit${plugin.id}"><img src="/img/icons/edit-tag.png"  /></a>
 </g:if>
 <g:else>
-    <g:link controller="user" action="login" params="[targetUri:request.forwardURI]"><img src="/img/edit-tag.png"  /></g:link>
+    <g:link controller="user" action="login" params="[targetUri:request.forwardURI]"><img src="/img/icons/edit-tag.png"  /></g:link>
 </g:else>
 <ul id="pluginTags${plugin.id}" data-plugin="${plugin.name}" style="display:none;">
     <g:each in="${plugin.tags}" var="tag"><li data-plugin="${plugin.name}">${tag}</li></g:each>    

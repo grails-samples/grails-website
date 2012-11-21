@@ -46,7 +46,7 @@
             <div class="col-1">
                 <g:img dir="../img/download" file="ubuntu.png" />
                 <h3>Grails on <span class="ubuntu">Ubuntu</span></h3>
-                <p class="desc">You can install different versions of Grails using Ubuntu's package manager. <a href="/download/ubuntu">Find out more</a></p>
+                <p class="desc">Install different versions of Grails using Ubuntu's package manager. <a href="/download/ubuntu">Find out more</a></p>
             </div>
             <div class="col-2">
                 <g:img dir="../img/download" file="hudson.png" />
@@ -56,12 +56,12 @@
             <div class="col-3">
                 <g:img dir="../img/download" file="gvm.png" />
                 <h3>Groovy enVironment Manager</h3>
-                <p class="desc">Use GVM to manage Grails <br />installs and versions!<br /><a href="http://gvmtool.net/">Find out more</a>.</p>
+                <p class="desc">Use GVM to manage Grails <br />installs and versions! <a href="http://gvmtool.net/">Find out more</a>.</p>
             </div>
             <div class="col-4">
                 <g:img dir="../img/download" file="groovy.png" />
                 <h3>Groovy Language</h3>
-                <p class="desc">A dynamic language for <br />the Java platform.<br /><a href="http://groovy.codehaus.org/">Find out more</a></p>
+                <p class="desc">A dynamic language for <br />the Java platform. <a href="http://groovy.codehaus.org/">Find out more</a></p>
             </div>
         </section>
 

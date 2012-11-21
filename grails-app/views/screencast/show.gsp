@@ -14,53 +14,53 @@
 
     <g:render template="/learn/sideNav"/>
 
-    <div id="main" class="screencasts boxWhite">
-        <section class="screencast box">
-            <article>
-                <header>
-                    <h3 style="padding: 5px 0;">
-                        ${screencastInstance?.title?.encodeAsHTML()}
-                        <g:if test="${request.user == screencastInstance.submittedBy}">
-                             <g:link title="Edit Screencast" class="actionIcon" action="edit" id="${screencastInstance?.id}">
-                                 <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit News" class="inlineIcon"/>
-                             </g:link>
-                        </g:if>                             
-   
-                    </h3>
+    <section id="main" class="screencasts items">
 
-                    <p class="meta">
-                        Tags :
-                        <g:if test="${screencastInstance.tags.size() > 0}">
-                            <g:each in="${screencastInstance.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="#">${tag}</a></g:each>
-                        </g:if>
-                        <g:else>
-                            none
-                        </g:else>
-                        <br/>
-                        submitted by <a href="#">${screencastInstance?.submittedBy?.login}</a>
-                        <prettytime:display date="${screencastInstance?.dateCreated}"/>
-                    </p>
+        <g:if test="${request.user == screencastInstance.submittedBy}">
+            <div class="alert alert-info">
+                <i class="icon-edit"></i> You can
+                <g:link title="Edit Screencast" class="actionIcon" action="edit" id="${screencastInstance?.id}">
+                edit the content
+            </g:link> of the screencast.
+            </div>
+        </g:if>
+        <article class="item">
+            <header>
+                <h3>
+                    ${screencastInstance?.title?.encodeAsHTML()}
+                    <g:if test="${screencastInstance?.isNew}">
+                        <g:img dir="../img/page" file="new.png" />
+                    </g:if>
+                </h3>
 
-                </header>
+                <p class="meta">
+                    Tags :
+                    <g:if test="${screencastInstance.tags.size() > 0}">
+                        <g:each in="${screencastInstance.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><a href="#">${tag}</a></g:each>
+                    </g:if>
+                    <g:else>
+                        none
+                    </g:else>
+                    <br/>
+                    submitted by <a href="#">${screencastInstance?.submittedBy?.login}</a>
+                    <prettytime:display date="${screencastInstance?.dateCreated}"/>
+                </p>
 
-                <div class="video-container">
-                    <casts:embedPlayer screencast="${screencastInstance}" width="665" height="400" />
-                </div>
+            </header>
 
-                <div class="desc" style="padding-right: 10px;">
-                    <p><wiki:text key="${'screencast_' + screencastInstance.id}">${screencastInstance.description}</wiki:text></p>
-                </div>
+            <div class="video-container">
+                <casts:embedPlayer screencast="${screencastInstance}" width="665" height="400" />
+            </div>
 
-                <g:if test="${screencastInstance?.isNew}">
-                    <span class="status status-new">New</span>
-                </g:if>
+            <div class="desc" style="padding-right: 10px;">
+                <p><wiki:text key="${'screencast_' + screencastInstance.id}">${screencastInstance.description}</wiki:text></p>
+            </div>
 
-                <div class="disqus-container">
-                    <disqus:comments bean="${screencastInstance}"/>
-                </div>
-            </article>
-        </section>
-    </div>
+            <div class="disqus-container">
+                <disqus:comments bean="${screencastInstance}"/>
+            </div>
+        </article>
+    </section>
 </div>
 
 </body>

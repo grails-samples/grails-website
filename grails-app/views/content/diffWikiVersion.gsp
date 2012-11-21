@@ -10,7 +10,7 @@
 
     <g:render template="sideNav"/>
 
-    <div id="main">
+    <section id="main">
         <article>
             <g:render template="viewActions" model="[content: content]"/>
             
@@ -25,7 +25,7 @@
             </div>
 
         </article>
-    </div>
+    </section>
 </div>
 
 </body>

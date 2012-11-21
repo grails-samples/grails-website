@@ -3,7 +3,7 @@
 	margin-bottom: 20px;
 	overflow: hidden;
 	position: relative;
-	
+
 	.banner {
 		height: 298px;
 		position: relative;
@@ -31,6 +31,104 @@
 			padding-left:70px;
 		}
 	}
+
+    .caseStudy {
+        background: url("@{imagesPath}/banner/caseStudy/bg.png") no-repeat 0 0;
+
+        div.screen {
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 13px;
+            width: 350px;
+            height: 216px;
+            background: url("@{imagesPath}/banner/caseStudy/screen.png") no-repeat 0 0;
+            a {
+                display: block;
+                position: absolute;
+                left: 34px;
+                text-indent: -6000em;
+                top: 32px;
+                width: 304px;
+                height: 166px;
+                background: url("@{imagesPath}/banner/caseStudy/animation.gif") no-repeat 0 0;
+            }
+            p.extra {
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                color: #222;
+                width: 100px;
+                #textshadow > .white(.8);
+                left: 40px;
+                top: 10px;
+                font-size: 12px;
+                z-index: 1000;
+            }
+        }
+
+        p.ico {
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            font-weight: bold;
+            position: absolute;
+        }
+        h2 {
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            font-weight: bold;
+            position: absolute;
+            top: 30px;
+            left: 138px;
+            color: #FFF;
+        }
+        p.desc {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            font-family: Times,"Times New Roman", serif;
+            font-size: 17px;
+            color: #efefef;
+            font-style: italic;
+            top: 100px;
+            left: 95px;
+            width: 500px;
+        }
+        p.links {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 59px;
+            left: 138px;
+            color: #3bc1ff;
+            a {
+                color: #3bc1ff;
+            }
+        }
+        ul.logos {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            top: 248px;
+            left: 110px;
+            position: absolute;
+            li {
+                padding: 0 12px;
+                float: left;
+            }
+        }
+    }
+
+    .sky {
+        p.ico {
+            top: 34px;
+            left: 44px;
+        }
+    }
+
 	/* Banner full stack */
 	.fullStackFramework {
 		background: url("@{imagesPath}/page/light.png") no-repeat 0 bottom;

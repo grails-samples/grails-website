@@ -20,6 +20,12 @@
 
     <link rel="shortcut icon" href="${resource(dir: 'img', file: 'favicon.ico')}" type="image/x-icon">
 
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="${resource(dir: 'img', file: 'grails-icon-144x144.png')}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="${resource(dir: 'img', file: 'grails-icon-114x114.png')}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="${resource(dir: 'img', file: 'grails-icon-72x72.png')}">
+    <link rel="apple-touch-icon-precomposed" href="${resource(dir: 'img', file: 'grails-icon-57x57.png')}">
+
+
     <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
     <r:require modules="master"/>
@@ -52,7 +58,7 @@
         <div id="quickSearch" role="search">
            <g:form name="globalSearchForm" controller="content" action="search" method="get">
             <div class="inputSearch">
-                <input name="q" type="search"/>
+                <input name="q" type="text" />
             </div>
             <input type="submit" title="Search the whole site"/>
             </g:form>

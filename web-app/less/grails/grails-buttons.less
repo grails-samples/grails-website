@@ -8,41 +8,47 @@
 // Core
 .btn {
 	display: inline-block;
-	padding: 4px 12px 4px;
+	padding: 7px 12px 6px;
 	font-size: @baseFontSize;
 	line-height: @baseLineHeight - 5px;
 	text-decoration: none;
-	border: 0 none;
+	border: 1px solid #31373a;
 	color: @white;
 	text-align: center;
 	#textshadow > .black(0.2);
 	background-color: #4b8723;
-	#gradient>.vertical(#8f989d, #757c80);
-	.border-radius(3px);
+    #gradient >.vertical(#41484c, #31373a);
+	//#gradient>.vertical(#8f989d, #757c80);
+	.border-radius(6px);
 	cursor: pointer;
-	.box-shadow(0 0 0 black);
+    .box-shadow(inset 0 1px 0 rgba(255,255,255,.2));
 	.ie7-restore-left-whitespace();
 
 	&.primary {
-		background-color: #4b8723;
+		background-color: #41751e;
 		#gradient>.vertical(#4b8723, #41751e);
 	}
 
 	&.blue {
 		background-color: #28b5df;
 		#gradient>.vertical(#28b5df, #1b9ed5);
+        border-color: #1b9ed5;
 	}
 
 	&.light {
 		background-color: #e9eef0;
 		color: @grailsBlack;
+        border-color: #afc2cc;
 		#textshadow > .white(0.8);
 		#gradient>.vertical(#e9eef0, #e5ebed);
+        .box-shadow(inset 0 1px 0 rgba(255,255,255,.5));
 	}
 
 	&.blueLight {
 		background-color: #e9eef0;
 		color: @grailsBlack;
+        border-color: #c4ccce;
+        .box-shadow(inset 0 1px 0 rgba(255,255,255,.5));
 		#textshadow > .white(0.8);
 		#gradient>.vertical(#e9eef0, #e5ebed);
 		#font > #family > .sans-serif();
@@ -70,25 +76,21 @@ input.btn {
 .btn:hover, .btn.hover {
 	color: @white;
 	text-decoration: none;
-	#gradient>.vertical(#7b8286, #6c7377);
+    #gradient >.vertical(#5d6367, #4b5155);
 	
 	// transition is only when going to hover, otherwise the background
 	// behind the gradient (there for IE<=9 fallback) gets mismatched
 
 	&.primary {
-		#gradient>.vertical(#457c20, #356216);		
+		#gradient>.vertical(#457c20, #356216);
 	}
 
 	&.blue {
-		#gradient>.vertical(#1b9ed5, #1b9ed5);		
+		#gradient>.vertical(#1badeb, #1592c6);
+        border-color: #1b9ed5;
 	}
 
-	&.light {
-		#gradient>.vertical(#FFF, #FFF);	
-		color: @grailsBlack;	
-	}
-
-	&.blueLight {
+	&.blueLight, &.light {
 		color: @grailsBlack;
 		#gradient>.vertical(#e5ebed, #d4dee2);
 	}
@@ -104,7 +106,7 @@ input.btn {
 	background-image: none;
 	@shadow: inset 0 2px 4px rgba(0,0,0,.2);
 	.box-shadow(@shadow);
-	#gradient>.vertical(#8f989d, #8f989d);
+	#gradient>.vertical(#5d6367, #666b6e);
 	outline: 0;
 
 	&.primary {
@@ -165,8 +167,8 @@ input.btn {
 button.btn,
 input[type="submit"].btn {
   &::-moz-focus-inner {
-  padding: 0;
-    border: 0;
+    padding: 0;
+    //border: 0;
   }
 
   // IE7 has some default padding on button controls

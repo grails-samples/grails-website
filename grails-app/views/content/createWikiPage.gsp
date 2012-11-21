@@ -12,7 +12,7 @@
 
     <g:render template="sideNav"/>
 
-    <div id="main">
+    <section id="main">
         <article>
             <h2><g:message code="wiki.create.title" args="${[wikiPage?.title]}"/></h2>
 
@@ -20,7 +20,7 @@
 
             <g:render template="wikiForm"/>
         </article>
-    </div>
+    </section>
 </div>
 
 </body>

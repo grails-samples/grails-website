@@ -1,9 +1,7 @@
-<section class="search">
-    <form action="/${type}/search" name="${type}-search" method="GET">
-        <input type="search" id="q" name="q" value="${params.q?.encodeAsHTML()}" placeholder="Search for a ${type}"/>
-        <a href="#" id="search-button" class="zoom">Search</a>
-    </form>
-</section>
+<form class="search" action="/${type}/search" name="${type}-search" method="GET">
+    <input type="text" id="q" name="q" value="${params.q?.encodeAsHTML()}" placeholder="Search for a ${type}"/>
+    <a href="#" id="search-button" class="btn btn-search"><i class="icon-search icon-white"></i></a>
+</form>
 
 <script type="text/javascript">
     $(function () {

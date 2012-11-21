@@ -10,7 +10,7 @@
 
     <g:render template="sideNav"/>
 
-    <div id="main">
+    <section id="main">
         <article>
             <h2><g:message code="wiki.edit.title" args="${[wikiPage?.title]}"/></h2>
             <p><g:message code="wiki.edit.description"/></p>
@@ -18,7 +18,7 @@
             <wiki:uploadImages  />
             <g:render template="wikiForm"/>
         </article>
-    </div>
+    </section>
 </div>
 
 </body>

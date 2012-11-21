@@ -1,4 +1,3 @@
-
 <%@ page import="org.grails.community.Testimonial" %>
 <html>
 <head>
@@ -13,42 +12,40 @@
 <div id="content" class="content-aside" role="main">
     <g:render template="/community/sideNav"/>
 
-    <section id="main">
-     <article>
+    <div class="content-title">
+        <h1>Testimonials</h1>
+    </div>
 
-        <flash:message flash="${flash}" />
+    <section id="main" class="items testimonials">
 
-         <aside class="alert alert-block">
-             <p><g:message code="testimonial.list.submit.description" /></p>
-             <p>
-                 <g:link action="create" class="btn"><g:message code="testimonial.list.submit.button" /></g:link>
-             </p>
+        <flash:message flash="${flash}"/>
 
-         </aside>
+        <div class="alert alert-block">
+            <p>
+                <g:message code="testimonial.list.submit.description"/>
+                <g:link action="create"><g:message code="testimonial.list.submit.button"/></g:link>.
+            </p>
 
-         <h2>Testimonials</h2>
+        </div>
 
+        <g:each in="${featuredList}" var="testimonial">
+            <article class="item">
+                <g:render template="featuredTestimonial" model="['testimonial': testimonial]"/>
+            </article>
+        </g:each>
 
-         <g:each in="${featuredList}" var="testimonial">
-             <g:render template="featuredTestimonial" model="['testimonial': testimonial]" />
-         </g:each>
+        <g:each in="${nonFeaturedList}" var="testimonial" status="idx">
+            <article class="item col${(idx % 3) + 1}">
+                <g:render template="testimonial" model="['testimonial': testimonial]"/>
+            </article>
+        </g:each>
+        <div class="pagination">
+            <g:paginate total="${nonFeaturedTotal}"/>
+        </div>
 
-         <g:each in="${nonFeaturedList}" var="testimonial" status="idx">
-             <article class="col${(idx % 3) + 1}">
-                <g:render template="testimonial" model="['testimonial': testimonial]" />
-             </article>
-         </g:each>
-         <div class="pagination">
-             <g:paginate total="${nonFeaturedTotal}"/>
-         </div>
-
-     </article>
-</section>
-
-
+    </section>
 
 </div>
-
 
 </body>
 </html>

@@ -4,8 +4,6 @@
 .download {
     .clearfix();
     #main {
-        width: 980px;
-        float: right;
         section {
             .border-radius(@radius);
             background: @white;
@@ -67,7 +65,7 @@
             .previousSelect {
                 width: 100px;
                 position: absolute;
-                left: 750px;
+                right: 125px;
                 top: 16px;
             }
         }
@@ -103,7 +101,7 @@
                 position: absolute;
                 top: -10px;
                 right: -10px;
-                background: url("@{imagesPath}/fork-me.png") no-repeat 0 0;
+                background: url("@{imagesPath}/page/fork-me.png") no-repeat 0 0;
                 width: 141px;
                 height: 141px;
             }
@@ -137,16 +135,17 @@
             .latest {
                 position: relative;
                 margin-top: 15px;
+                margin-bottom: 5px;
                 height: 40px;
                 .buttons {
                     position: absolute;
                     margin: 0;
-                    left: 475px;
+                    left: 470px;
                     top: 0;
                     .btn {
                         padding: 0 20px;
                         line-height: 33px;
-                        .border-radius(40px);
+                        .border-radius(5px);
                         display: block;
                         border-right: 1px solid @grailsGreenDark;
                     }
