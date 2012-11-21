@@ -5,7 +5,7 @@
 
 <section class="downloads">
 
-    <a href="#" class="forkmeongithub">For me on github</a>
+    <a href="https://github.com/grails/grails-core" class="forkmeongithub">For me on github</a>
     <h2>Download latest release
         <small>(<g:formatDate format="dd MMM yyyy" date="${downloadDesc.releaseDate.toDate()}"/>)</small>
     </h2>
