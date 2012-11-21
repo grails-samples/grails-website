@@ -1,6 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
-    <title>Pending Grails Plugin: ${plugin.title.encodeAsHTML()}</title>
+    <title>Pending Grails Plugin: ${pluginPendingApprovalInstance?.name.encodeAsHTML()}</title>
     <r:require modules="plugin"/>
 </head>
 

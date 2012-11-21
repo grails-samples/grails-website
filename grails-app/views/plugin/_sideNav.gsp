@@ -25,8 +25,6 @@
                     <g:if test="${i == tags.size() - 1}"> last</g:if>
                 "><a href="/plugins/tag/${tag}">${tag.capitalize()}</a></li>
             </g:each>
-        </ul>
-        <ul>
             <g:each in="${tags[1]}" var="tag" status="i">
                 <li class="
                     <g:if test="${activeTag == tag}"> active</g:if>
