@@ -55,9 +55,9 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // with that too.
         def plugin = fetchOrCreatePluginInstance(event.name, event.version)
         pluginUpdater.updatePlugin(plugin)
+        pluginService.savePlugin plugin, true
 
         if (pluginUpdater.newVersion && !pluginUpdater.snapshot) {
-            pluginService.savePlugin plugin, true
             announceRelease plugin
         }
         else log.info "Not a new plugin release - won't tweet"
