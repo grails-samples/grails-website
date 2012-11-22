@@ -281,7 +281,7 @@ class PluginUpdater {
         // version range for the plugin.
         def xml = loadPluginXml()
 
-        addAuthors xml.developers
+        addAuthors pom.developers
         addLicenses pom.licenses
 
         plugin.grailsVersion = xml.@grailsVersion.text()
@@ -336,11 +336,11 @@ class PluginUpdater {
     protected addAuthors(pomDevelopersXml) {
         plugin.authors?.clear()
         for (developer in pomDevelopersXml.developer) {
-            def user = UserInfo.findOrCreateByEmail(email: license.name.text())
+            def user = UserInfo.findOrCreateWhere(email: developer.email.text())
             if (!user.name) {
                 user.name = developer.name.text()
-                user.save(failOnError: true)
             }
+            user.save(failOnError: true)
 
             plugin.addToAuthors(user)
         }
