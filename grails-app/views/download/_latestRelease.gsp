@@ -21,7 +21,7 @@
     </div>
     <p class="links">
         <g:link url="${documentation.mirrors[0].urlString}" class="btn light">Documentation (zip)</g:link> |
-        <g:link controller="learn" action="installation" class="btn light">Installation</g:link>
+        <a href="http://grails.org/doc/latest/guide/gettingStarted.html#requirements" class="btn light">Installation</a>
     </p>
 
 </section>
