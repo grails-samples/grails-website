@@ -54,11 +54,11 @@
                 <li class="spacing">&nbsp;</li>
                 <li><a href="/register">Create Account</a></li>
             </shiro:isNotLoggedIn>
-            <li class="spacing">&nbsp;</li>
-            <li>
-                <a href="http://www.springsource.org/" class="springSource">SpringSource</a>
-            </li>
         </ul>
+
+        <div class="spring">
+            <a href="http://www.springsource.org/" class="springSource">SpringSource</a>
+        </div>
 
         <div id="quickSearch" role="search">
            <g:form name="globalSearchForm" controller="content" action="search" method="get">
