@@ -111,7 +111,7 @@
             <div class="item">
                 <h3><span class="number">${++step}.</span> Manual & Tutorials</h3>
                 <p>Extend your knowledge via the great user guide and extensive tutorial selection.</p>
-                <p class="links"><a class="btn blueLight" href="/latest/doc">Manual</a> <g:link class="btn blueLight" controller="tutorial" action="list">Tutorials</g:link></p>
+                <p class="links"><a class="btn blueLight" href="/doc/latest">Manual</a> <g:link class="btn blueLight" controller="tutorial" action="list">Tutorials</g:link></p>
             </div>
         </article>
     </section>

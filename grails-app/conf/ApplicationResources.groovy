@@ -4,10 +4,10 @@ modules = {
 
     masterStyles {
         if (isDevMode()) {
-            resource url: 'less/bootstrap.less', attrs: [rel: 'stylesheet/less', type: 'css']
+            resource url: 'less/style.less', attrs: [rel: 'stylesheet/less', type: 'css']
         }
         else {
-            resource url: 'css/bootstrap.css'
+            resource url: 'css/style.css'
         }
     }
 

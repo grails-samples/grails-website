@@ -36,7 +36,6 @@
         });
         var timer;
         $('#pluginTags${plugin.id} input').blur(function(){
-        return false;
             $('#pluginTags${plugin.id} input').data("focus", "false");
             if (timer)
                 clearTimeout(timer);
