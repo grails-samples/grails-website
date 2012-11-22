@@ -53,7 +53,7 @@
             <li class="last <g:if test="${controllerName == 'newsItem'}">active</g:if>">
                 <a href="/news">
                     <g:img dir="img/icons" file="news.png" />
-                    Lastest news
+                    Latest news
                 </a>
             </li>
         </ul>
