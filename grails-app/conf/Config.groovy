@@ -234,21 +234,36 @@ grails.cache.config = {
     cache {
         name 'content'
         eternal false
-        overflowToDisk false
+        overflowToDisk true
+        timeToLiveSeconds 300
         maxElementsInMemory 10000
-        maxElementsOnDisk 10000000
+        maxElementsOnDisk 100000
     }
     cache {
         name 'wiki'
+        eternal false
+        overflowToDisk true
+        timeToLiveSeconds 300
+        maxElementsInMemory 10000
+        maxElementsOnDisk 100000
     }
     cache {
         name 'text'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
     }
     cache {
         name 'plugin'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
     }
     cache {
         name 'permissions'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
     }
 }
 
