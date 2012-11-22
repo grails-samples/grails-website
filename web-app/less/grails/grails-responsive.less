@@ -1,152 +1,18 @@
-@media (min-width: 1200px) {
-    #page, #banner .banner {
-    	width: 1200px;
-    }
-    .section-1 .right {
-        width: 410px;
-    }
-    .section-1 .left {
-        width: 720px;
-    }
-
-    .download #main section.cols4 {
-        div.col-1, div.col-2, div.col-3, div.col-4 {
-            width: 278px;
-            height: 150px;
-        }
-    }
-
-    #main.websites article div.content {
-        width: 660px;
-    }
-
-    .content-aside section#main {
-        width: 900px;
-        padding: 20px;
-    }
-
-    .content-aside .content-title {
-        width: 940px;
-    }
-
-    #banner .caseStudy p.desc {
-        width: 700px;
-    }
-    #navigation > ul > li a {
-        font-size: @baseFontSize + 1.5px;
-    }
-    .input-fullsize {
-        width: 880px;
-    }
-
-    #main.website .colset div.content {
-        width: 690px;
-    }
-}
-
-/*
-.download #main section.cols4 div.col-1 h3, .download #main section.cols4 div.col-2 h3, .download #main section.cols4 div.col-3 h3, .download #main section.cols4 div.col-4 h3
-*/
-
-/* Mobil */
-@media (max-width: 480px) {
-
-}
-
-/* Pad */
-@media (min-width: 768px) and (max-width: 979px) {
-    #page {
-        width: auto;
-    }
-    .download #main .downloads a.forkmeongithub {
-        width: 121px;
-        right: 0;
-    }
-    .download #main .downloads {
-        .border-radius(0);
-    }
-    .download #main section {
-        .border-radius(0);
+// Transition
+body.fixed {
+    #page, #banner .banner, .content-aside section#main, #main.website .colset div.content, #main.websites article div.content,
+        .section-1 .right, .section-1 .left, .content-aside .content-title {
+        @transition: width linear .2s;
+        .transition(@transition);
     }
     .download #main section.cols4 {
         div.col-1, div.col-2, div.col-3, div.col-4 {
-            width: 23%;
-            padding: 0 1%;
+            @transition: width linear .2s;
+            .transition(@transition);
         }
-        div.col-4 {
-            padding-right: 0;
-        }
-    }
-    #navigation {
-        .border-radius(0);
-    }
-    #footer {
-        padding-left: 10px;
-        ul.external-services {
-            right: 10px;
-        }
-    }
-    .content-aside {
-        background: white url("@{imagesPath}/aside/point.gif") repeat-y 30% 0;
-        .aside {
-            width: 30%;
-        }
-    }
-    .content-aside .content-title {
-        width: 70%;
-    }
-    .content-aside section#main {
-        width: 64%;
-        padding: 20px 3%;
-    }
-
-    #main.websites article {
-        min-height: 150px;
-        position: relative;
-        div.content {
-            width: auto;
-            float: none;
-            padding-left: 170px;
-        }
-        div.img {
-            position: absolute;
-            top: 25px;
-            left: 20px;
-        }
-    }
-
-    #main.website .colset div.content {
-        width: 60%;
-    }
-
-    .section-3 .col1, .section-3 .col2, .section-3 .col3 {
-        float: none;
-        width: auto;
-        padding: 0 2em;
-    }
-    .section-3 .col1, .section-3 .col2 {
-        padding-bottom: 10px;
-    }
-    #header #quickSearch, .section-1 .downloads {
-        display: none;
-    }
-    .section-1 .right {
-        width: 40%;
-        padding: 0;
-        padding-left: 4%;
-    }
-    .section-1 .left {
-        width: 56%;
-        padding: 0;
-    }
-
-    #header ul.topLinks {
-        right: 20px;
-    }
-    #header .springSource {
-        right: 20px;
-    }
-    #header h1#logo {
-        left: 10px;
     }
 }
+
+@import "responsive/grails-979px-max.less";
+//@import "responsive/grails-480px-max.less";
+@import "responsive/grails-1200px-min.less";

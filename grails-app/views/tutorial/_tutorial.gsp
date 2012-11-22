@@ -4,7 +4,7 @@
             <a href="/tutorial/${tutorialInstance?.id}">
                 ${tutorialInstance?.title?.encodeAsHTML()}
                 <g:if test="${tutorialInstance?.isNew}">
-                    <g:img dir="../img/page" file="new.png" />
+                    <g:img dir="img/page" file="new.png" />
                 </g:if>
             </a>
         </h3>

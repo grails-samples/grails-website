@@ -3,7 +3,7 @@
         <h3 style="padding: 5px 0;">
             <a href="/screencast/${screencastInstance?.id}">${screencastInstance?.title?.encodeAsHTML()}</a>
             <g:if test="${screencastInstance?.isNew}">
-                <g:img dir="../img/page" file="new.png" />
+                <g:img dir="img/page" file="new.png" />
             </g:if>
         </h3>
         <p class="meta">

@@ -26,7 +26,7 @@
                 <h3 class="single">
                     ${tutorialInstance?.title?.encodeAsHTML()}
                     <g:if test="${tutorialInstance?.isNew}">
-                        <g:img dir="../img/page" file="new.png" />
+                        <g:img dir="img/page" file="new.png" />
                     </g:if>
                 </h3>
 

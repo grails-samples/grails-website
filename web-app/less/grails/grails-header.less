@@ -23,53 +23,35 @@
 	}
 	#quickSearch {
 		position: absolute;
-		right: 5px;
-		top: 105px;
-	
-		&.active {
-			input[type=submit] {
-				background: url("@{imagesPath}/page/quickSearch.png") no-repeat right -30px;
-				&:hover {
-					background: url("@{imagesPath}/page/quickSearch.png") no-repeat right -30px;
-				}
-			}
-		}
-	
-		input[type=submit] {
-			background: url("@{imagesPath}/page/quickSearch.png") no-repeat right 0;
-			border: 0 none;
-			color: transparent;
-			display: block;
-			font-size: 0;
-			@height: 30px;
-			height: @height;
-			line-height: @height;
-			width: 34px;
-			text-indent: -6000em;
-			&:hover {
-				background: url("@{imagesPath}/page/quickSearch.png") no-repeat right -30px;
-			}
+		right: 0px;
+		top: 40px;
+        height: 50px;
+
+		button {
+		    padding: 7px 10px 4px;
+	        .border-radius(0 @radius @radius 0);
 		}
 		.inputSearch {
 			position: absolute;
 			overflow: hidden;
 			right: 31px;
 			width: 170px;
-			height: 30px;
-			background: url("@{imagesPath}/page/quickSearch.png") no-repeat right -60px;
+            height: 40px;
 			input {
+		        #gradient>.vertical(#f6f6f4, #f9f9f7);
+
 				position: absolute;
 				width: 155px;
-				top: 6px;
-				left: 5px;
-				border: 0 none;
-				background: @white;
+	            .border-radius(@radius 0 0 @radius);
+				top: 0px;
+	            font-size: 13px;
 				outline: 0 none;
-				.box-shadow(0 0 0 black);
+	            padding: 3px 5px;
 				margin: 0;
-				padding: 0;		
 				&:focus {
 					outline: none;
+                    #gradient>.vertical(#FFF, #FFF);
+                    border-color: #bebebc;
 				}
 			}
 		}
@@ -88,7 +70,7 @@
 		padding: 0;
 		list-style: 0 none;
 		list-style-type: none;
-		top: 6px;
+		top: 10px;
 		.clearfix();
 		right: 2px;
 		>li.active {
@@ -105,14 +87,12 @@
 				color: @grailsBlack;
 				font-size: @baseFontSize - 1;
 				text-decoration: none;
-				line-height: 26px;
+				line-height: 24px;
 				&:hover {
 					text-decoration: underline;
 				}
 			}
             a.login {
-/*                background: url("@{imagesPath}/icons/login.png") no-repeat 0 5px; */
-                padding-left: 18px;
             }
 			&.spacing {
 				padding-right: 5px;
@@ -156,6 +136,7 @@
 
 .springSource {
     display: block;
+    display: none;
     text-indent: -6000em;
     width: 179px;
     height: 36px;

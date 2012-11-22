@@ -14,7 +14,9 @@ $(document).ready(function() {
     </r:script>
 </head>
 <body>
-    <div id="main">
+
+<div id="content" class="content-single" role="main">
+    <section id="main" class="items search">
         <g:set var="haveQuery" value="${query}"/>
         <g:set var="resultCount" value="${searchResult?.results.inject(0) { tot, entry -> tot + entry.value.size() } }"/>
         <div class="title">
@@ -46,7 +48,7 @@ $(document).ready(function() {
                     <h3>${group.key}</h3>
 
                     <g:each var="result" in="${group.value}" status="index">
-                    <div class="result">
+                    <article class="item result">
 
                         <g:set var="className" value="${result.title?.encodeAsHTML()}"/>
 
@@ -57,30 +59,30 @@ $(document).ready(function() {
                                 link it properly to the Plugin domain.  Otherwise it gets treated like a normal WikiPage
                             --}%
                             <g:if test="${result instanceof Plugin}">
-                                <g:link uri="/plugin/${result.name}">${className}</g:link>
+                                <h4><g:link uri="/plugin/${result.name}">${className}</g:link></h4>
                                 <g:set var="desc" value="${result.summary ?: 'No description'}"/>
                             </g:if>
                             <g:elseif test="${result instanceof Content}">
-                                <g:link controller="content" id="${result.title}">${className}</g:link>
+                                <h4><g:link controller="content" id="${result.title}">${className}</g:link></h4>
                                 <g:set var="desc" value="${result.body}"/>
                             </g:elseif>
                             <g:elseif test="${result instanceof org.compass.core.lucene.LuceneResource}">
-                                <a href="${resource(dir: 'doc/latest', file: result.url[0].stringValue)}">${result.title[0].stringValue}</a>
-                                <g:set var="desc" value="${searchResult.highlights[index] ?: result.body[0].stringValue}"/>
+                                <h4><a href="${resource(dir: 'doc/latest', file: result.url[0].stringValue)}">${result.title[0].stringValue}</a>
+                                <g:set var="desc" value="${searchResult.highlights[index] ?: result.body[0].stringValue}"/></h4>
                             </g:elseif>
                             <g:else>
                                 <g:set var="itemName" value="${GrailsNameUtils.getShortName(result.class.name)}"/>
-                                <g:link controller="${GrailsNameUtils.getPropertyName(itemName)}"
-                                        action="show" id="${result.id}">${itemName} > ${className}</g:link>
+                                <h4><g:link controller="${GrailsNameUtils.getPropertyName(itemName)}"
+                                        action="show" id="${result.id}">${itemName} > ${className}</g:link></h4>
                                 <g:set var="desc" value="${result.description ?: 'No description'}"/>
                             </g:else>
                         </div>
 
                         <div class="desc">
-                            <text:summarize encodeAs="HTML" ><text:htmlToText><wiki:text>${desc}</wiki:text></text:htmlToText> </text:summarize>
+                            <text:summarize length="250" encodeAs="HTML" ><text:htmlToText><wiki:text>${desc}</wiki:text></text:htmlToText> </text:summarize>
                         </div>
 
-                    </div>
+                    </article>
                     </g:each>
                 </div>
                 </g:if>
@@ -98,6 +100,9 @@ $(document).ready(function() {
                 </div>
             </div>
         </g:elseif>
-    </div>
+    </section>
+
+</div>
+
 </body>
 </html>

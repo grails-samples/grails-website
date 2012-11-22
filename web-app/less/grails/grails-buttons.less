@@ -15,6 +15,8 @@
 	border: 1px solid #31373a;
 	color: @white;
 	text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
 	#textshadow > .black(0.2);
 	background-color: #4b8723;
     #gradient >.vertical(#41484c, #31373a);
@@ -22,7 +24,17 @@
 	.border-radius(6px);
 	cursor: pointer;
     .box-shadow(inset 0 1px 0 rgba(255,255,255,.2));
+    .ie7-restore-left-whitespace(); // Give IE7 some love
 	.ie7-restore-left-whitespace();
+
+    &.gray {
+		background-color: #e5e5e3;
+		color: #686868;
+        border-color: #b9b9b9;
+		#textshadow > .white(0.8);
+		#gradient>.vertical(#e5e4e3, #d7d6d4);
+        .box-shadow(inset 0 1px 0 #f1f0f0);
+    }
 
 	&.primary {
 		background-color: #41751e;
@@ -55,6 +67,17 @@
 	}
 }
 
+
+// Small
+.btn-small {
+  padding: 5px 9px;
+  font-size: @baseFontSize - 2px;
+  line-height: @baseLineHeight - 2px;
+}
+.btn-small [class^="icon-"] {
+  margin-top: -1px;
+}
+
 .alert-block {
     border: 1px solid #e5dfbf;
     .btn {
@@ -85,7 +108,7 @@ input.btn {
 		#gradient>.vertical(#457c20, #356216);
 	}
 
-	&.blue {
+	&.blue, btn-light {
 		#gradient>.vertical(#1badeb, #1592c6);
         border-color: #1b9ed5;
 	}
@@ -94,6 +117,12 @@ input.btn {
 		color: @grailsBlack;
 		#gradient>.vertical(#e5ebed, #d4dee2);
 	}
+
+    &.gray {
+        border-color: #b9b9b9;
+        #gradient>.vertical(#d9d8d6, #c5c3c0);
+     }
+
 }
 
 // Focus state for keyboard and accessibility
@@ -120,6 +149,11 @@ input.btn {
 		color: @grailsBlack;
 		#gradient>.vertical(#e9eef0, #e9eef0);
 	}
+
+    &.gray {
+        border-color: #b9b9b9;
+        #gradient>.vertical(#d9d8d6, #c5c3c0);
+     }
 }
 
 // Disabled state

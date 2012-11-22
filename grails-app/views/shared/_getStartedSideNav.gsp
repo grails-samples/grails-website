@@ -5,37 +5,37 @@
     <ul>
         <li<g:if test="${actionName == 'gettingStarted'}"> class="active"</g:if>>
             <a href="/start">
-                <g:img dir="../img/icons" file="grails.png" />
+                <g:img dir="img/icons" file="grails.png" />
                 Start with Grails!
             </a>
         </li>
         <li<g:if test="${content?.title == 'Installation'}"> class="active"</g:if>>
             <a href="/doc/latest/guide/gettingStarted.html#requirements">
-                <g:img dir="../img/icons" file="installation.png" />
+                <g:img dir="img/icons" file="installation.png" />
                 Installation
             </a>
         </li>
         <li<g:if test="${actionName == 'quickStart'}"> class="active"</g:if>>
             <a href="/doc/latest/guide/gettingStarted.html#creatingAnApplication">
-                <g:img dir="../img/icons" file="quickStart.png" />
+                <g:img dir="img/icons" file="quickStart.png" />
                 Quick Start
             </a>
         </li>
         <li<g:if test="${actionName == 'ideSetup'}"> class="active"</g:if>>
             <a href="/doc/latest/guide/gettingStarted.html#ide">
-                <g:img dir="../img/icons" file="idesetup.png" />
+                <g:img dir="img/icons" file="idesetup.png" />
                 IDE Setup
             </a>
         </li>
         <li<g:if test="${controllerName == 'tutorial'}"> class="active"</g:if>>
             <a href="/tutorials">
-                <g:img dir="../img/icons" file="tutorials.png" />
+                <g:img dir="img/icons" file="tutorials.png" />
                 Tutorials
             </a>
         </li>
         <li class="last<g:if test="${controllerName == 'screencast'}"> active</g:if>">
             <a href="/screencasts">
-                <g:img dir="../img/icons" file="screencast.png" />
+                <g:img dir="img/icons" file="screencast.png" />
                 Screencasts
             </a>
         </li>
