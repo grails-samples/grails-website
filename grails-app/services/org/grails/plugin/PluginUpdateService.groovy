@@ -241,7 +241,6 @@ class PluginUpdater {
         // for snapshots where the version has already been published at least
         // once.
 //        def pr = PluginRelease.where { plugin == plugin && releaseVersion == version }.get()
-        println "SAVING PLUGIN RELEASE!!!"
         def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, version)
         if (!pr) {
             pr = new PluginRelease(
