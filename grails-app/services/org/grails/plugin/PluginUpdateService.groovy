@@ -251,8 +251,6 @@ class PluginUpdater {
         }
         pr.releaseDate = new DateTime()
         pr.save(failOnError: true, flush:true)
-        println "PLUGIN RELEASES = ${PluginRelease.count()}"
-        println "PLUGIN ${PluginRelease.findAllByPlugin(plugin)} - plugin = ${plugin}"
 
         // Clear out associated pending releases that were created on publish.
         PendingRelease.deleteAll(pendingReleases)
