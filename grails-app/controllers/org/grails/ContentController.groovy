@@ -452,15 +452,15 @@ class ContentController extends BaseWikiController {
             def rightVersion = right.number
 
             if (left && right) {
-                render(view: "diffView", model: [content: page, message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()])
+                render(view: "diffWikiVersion", model: [content: page, message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()])
             }
             else {
-                render(view: "diffView", model: [message: "Version not found in diff"])
+                render(view: "diffWikiVersion", model: [message: "Version not found in diff"])
             }
 
         }
         else {
-            render(view: "diffView", model: [message: "Page not found to diff"])
+            render(view: "diffWikiVersion", model: [message: "Page not found to diff"])
         }
 
     }
