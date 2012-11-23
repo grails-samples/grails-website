@@ -118,10 +118,15 @@ class RepositoryController {
                 // it's counter-intuitive for users.
                 if(pluginVersion == '[revision]' || pluginVersion == 'latest.release') {
                     // Use the most recent non-snapshot release.
-                    pluginVersion = findLatestNonSnapshotPluginRelease(plugin)?.releaseVersion ?: pluginVersion
+                    pluginVersion = findLatestNonSnapshotPluginRelease(plugin)?.releaseVersion
                 } else if(pluginVersion == 'latest.integration') {
                     // Use the most recent release, including snapshots.
-                    pluginVersion = findLatestPluginRelease(plugin)?.releaseVersion ?: pluginVersion
+                    pluginVersion = findLatestPluginRelease(plugin)?.releaseVersion
+                }
+
+                if (!pluginVersion) {
+                    render status: 404, text: "Cannot find requested version of plugin ${plugin}"
+                    return
                 }
 
                 def snapshotVersion = pluginVersion
@@ -184,24 +189,14 @@ class RepositoryController {
         def query = PluginRelease.where {
             plugin.name == n && isSnapshot == false
         }
-        def latestPlugin = query.get(sort:'releaseDate', order:'desc', max: 1)
-        if (latestPlugin) {
-            return latestPlugin
-        } else {
-            throw new Exception("PluginRelease not found with Plugin name of $n")
-        }
+        return query.get(sort:'releaseDate', order:'desc', max: 1)
     }
     
     private findLatestPluginRelease(String n) {
         def query = PluginRelease.where {
             plugin.name == n && isSnapshot == false
         }
-        def latestPlugin = query.get(sort:'releaseDate', order:'desc', max: 1)
-        if (latestPlugin) {
-            return latestPlugin
-        } else {
-            throw new Exception("PluginRelease not found with Plugin name of $n")
-        }
+        return query.get(sort:'releaseDate', order:'desc', max: 1)
     }
 
     protected createPendingRelease(name, version, files) {
