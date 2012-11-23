@@ -59,11 +59,14 @@ class JSecurityAuthFilters {
     }    
 
     static filters = {
+
         def requiresPermissions = [
                 pluginTab: ["editWikiPage"],
                 tutorial: ["create", "edit", "save", "update"] as Set,
+                screencast: ["create", "edit", "save", "update"] as Set,
                 webSite: ["create", "edit", "save", "update"] as Set,
-                likeDislike: ["like", "dislike"] as Set ]
+                likeDislike: ["like", "dislike"] as Set
+        ]
         withPermissions(controller: "*", action: "*") {
             before = {
                 if (actionName in requiresPermissions[controllerName]) {
@@ -75,17 +78,48 @@ class JSecurityAuthFilters {
             }
         }
 
+        newsViewing(controller:'newsItem', action:"create") {
+            before = {
+                accessControl {
+                    role("Editor") || role("Administrator")                    
+                }
+            }
+        }
+        newsViewing(controller:'newsItem', action:"edit") {
+            before = {
+                accessControl {
+                    role("Administrator") || permission("news:edit:${params.id}")                  
+                }
+            }
+        }        
         // Ensure that all controllers and actions require an authenticated user,
         
         // Creating, modifying, or deleting a book requires the "Administrator"
         // role.
-        wikiEditing(controller: "(content|news|plugin)", action: "(editNews|createNews|markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|createPlugin|uploadImage|addTag|removeTag)") {
+        wikiEditing(controller: "(content|news)", action: "(editNews|createNews|markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|updatePlugin|createPlugin|addTag|removeTag)") {
             before = {
                 accessControl {
                     role("Editor") || role("Administrator")
                 }
             }
         }
+
+        wikiEditing(controller: "plugin", action: "(editPlugin|updatePlugin)") {
+            before = {
+                accessControl {
+                    role("Administrator") || permission("plugin:edit:${params.id}")
+                }
+            }
+        }
+
+
+        // used by wiki pages and testimonials
+        wikiImageUpload(controller: "content", action: "(uploadImage|addImage|showImage)") {
+            before = {
+                accessControl { true }
+            }
+        }
+
         jobPosting(controller:"(job|paypal)", action:"(delete|edit|update|editJobs|save|create|buy|success|cancel)") {
             before = {
                 accessControl {
@@ -108,6 +142,11 @@ class JSecurityAuthFilters {
             }
         }
         comments(controller:"commentable", action:"add") {
+            before = {
+                accessControl { true }
+            }
+        }
+        pluginSubmitting(controller:"plugin", action: "submitPlugin") {
             before = {
                 accessControl { true }
             }
@@ -143,11 +182,23 @@ class JSecurityAuthFilters {
             }
         }
 
-        pluginActivities(controller:"(tag|plugin|rateable)", action:"(update|postComment|autoCompleteNames|rate)") {
+        pluginActivities(controller:"(tag|plugin|rateable)", action:"(update|postComment|rate|addTag|removeTag)") {
             before = {
                 accessControl {
                     role("Editor") || role("Administrator")
                 }
+            }
+        }
+
+        testimonialSubmitting(controller: "testimonial", action: "(create|save)") {
+            before = {
+                accessControl { true }
+            }
+        }
+
+        testimonialEditing(controller: "testimonial", action: "edit") {
+            before = {
+                accessControl()
             }
         }
 
@@ -171,5 +222,7 @@ class JSecurityAuthFilters {
                 }
             }
         }
+
+
     }
 }

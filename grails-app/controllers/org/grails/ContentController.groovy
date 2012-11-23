@@ -6,40 +6,41 @@ import javax.persistence.OptimisticLockException
 import javax.servlet.ServletContext
 import javax.servlet.http.HttpServletResponse
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsHibernateUtil
 import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
 import org.compass.core.engine.SearchEngineQueryParseException
-import org.grails.blog.BlogEntry
+import org.compass.core.lucene.LuceneResource
+import org.grails.community.WebSite
 import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
+import org.grails.learn.tutorials.Tutorial
+import org.grails.news.NewsItem
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController
 import org.grails.plugin.PluginTab
-import org.grails.screencasts.Screencast
-import org.grails.tutorials.Tutorial
-import org.grails.websites.WebSite
 import org.grails.wiki.BaseWikiController
 import org.grails.wiki.WikiPage
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.multipart.MultipartFile
+import grails.converters.JSON
+import org.springframework.web.multipart.MultipartHttpServletRequest
 
 class ContentController extends BaseWikiController {
     static allowedMethods = [saveWikiPage: "POST", rollbackWikiVersion: "POST"]
 
     def searchableService
-    def screencastService
     def pluginService
+    def downloadService
     def dateService
-    def textCache
     def wikiPageService
     def grailsUrlMappingsHolder
     def imageUploadService
 
     def index() {
+
         def wikiPage = wikiPageService.getCachedOrReal(params.id)
         if (wikiPage?.instanceOf(PluginTab)) {
             def plugin = wikiPage.plugin
@@ -66,10 +67,10 @@ class ContentController extends BaseWikiController {
             // than in the view.
             def latestVersion = wikiPage.latestVersion
             if (request.xhr) {
-                render template:"wikiShow", model:[content:wikiPage, update:params._ul, latest:latestVersion]
+                render template: "wikiShow", model: [content: wikiPage, update: params._ul, latest: latestVersion]
             } else {
                 // disable comments
-                render view:"contentPage", model:[content:wikiPage, latest:latestVersion]
+                render view: "contentPage", model: [content: wikiPage, latest: latestVersion]
             }
         }
         else {
@@ -77,84 +78,106 @@ class ContentController extends BaseWikiController {
         }
     }
 
-    def gettingStarted() {}
+    protected static searchResultsGroupOrder = [
+        (LuceneResource): "User Guide",
+        (Plugin): "Plugins",
+        (WikiPage): "Wiki Pages",
+        (NewsItem): "News",
+        other: "Other" ]
+    
+    protected static hitHandler = { highlighter, index, sr ->
+        if (!sr.highlights) {
+            sr.highlights = [:]
+        }
+        
+        def result = sr.results[index]
+        if (result instanceof LuceneResource) {
+            sr.highlights[result.id[0].stringValue] = (highlighter.fragment("title") ?: highlighter.fragment("body"))
+        }
+    }
 
     def search() {
-        if(params.q) {
+        if (params.q) {
             def q = "+(${params.q}) -deprecated:true".toString()
             try {
                 def searchResult = searchableService.search(
                         q,
-                        classes: [WikiPage, Plugin, Screencast, WebSite, Tutorial],
                         offset: params.offset,
-                        escape:false)
+                        max: params.max,
+                        escape: false,
+                        withHighlighter: hitHandler)
                 flash.message = "Found $searchResult.total results!"
                 flash.next()
-                render view:"/searchable/index", model: [searchResult: searchResult]
+                render view: "/searchable/index", model: [query: params.q, searchResult: groupResultsByType(searchResult)]
             }
             catch (SearchEngineQueryParseException ex) {
-                render view: "/searchable/index", model: [parseException: true]
+                render view: "/searchable/index", model: [query: params.q, parseException: true]
             }
             catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
-                render view: "/searchable/index", model: [clauseException: true]
+                render view: "/searchable/index", model: [query: params.q, clauseException: true]
             }
         }
         else {
-            render(view:"homePage")
+            redirect action: "homePage"
         }
     }
 
     def latest() {
 
-         def engine = createWikiEngine()
+        def engine = createWikiEngine()
 
-         def feedOutput = {
+        def feedOutput = {
 
-            def top5 = WikiPage.listOrderByLastUpdated(order:'desc', max:5)
+            def top5 = WikiPage.listOrderByLastUpdated(order: 'desc', max: 5)
             title = "Grails.org Wiki Updates"
             link = "http://grails.org/wiki/latest?format=${request.format}"
             description = "Latest wiki updates Grails framework community"
 
-            for(item in top5) {
+            for (item in top5) {
                 entry(item.title) {
                     link = "http://grails.org/${item.title.encodeAsURL()}"
                     publishedDate = item.dateCreated?.toDate()
                     engine.render(item.body, context)
                 }
             }
-         }
+        }
 
         withFormat {
             html {
-                redirect(uri:"")
+                redirect(uri: "")
             }
             rss {
-                render(feedType:"rss",feedOutput)
+                render(feedType: "rss", feedOutput)
             }
             atom {
-                render(feedType:"atom", feedOutput)
+                render(feedType: "atom", feedOutput)
             }
         }
     }
 
     def previewWikiPage() {
+        def engine = createWikiEngine()
+        render(engine.render(params.body ?: 'Missing Content', context))
+    }
+
+    def previewWikiPageOld() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
-            // This is required for the 'page.properties = ...' call to work. 
+        if (page) {
+            // This is required for the 'page.properties = ...' call to work.
             page = GrailsHibernateUtil.unwrapIfProxy(page)
-            
+
             def engine = createWikiEngine()
             page.discard()
             page.properties = params
 
-            render( engine.render(page.body, context) )
+            render(engine.render(page.body, context))
         }
     }
 
     def postComment() {
         def content = Content.get(params.id)
         content.addComment(request.user, params.comment)
-        render(template:'/comments/comment', var:'comment', bean:content.comments[-1])
+        render(template: '/comments/comment', var: 'comment', bean: content.comments[-1])
     }
 
     def showWikiVersion() {
@@ -177,10 +200,10 @@ class ContentController extends BaseWikiController {
         }
 
         if (version) {
-            render(view:"showVersion", model:[content:version, update:params._ul])                    
+            render(view: "showVersion", model: [content: version, update: params._ul])
         }
         else {
-            render(view:"contentPage", model:[content:page])
+            render(view: "contentPage", model: [content: page])
         }
 
     }
@@ -188,15 +211,15 @@ class ContentController extends BaseWikiController {
     def markupWikiPage() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
 
-        if(page) {
-            render(template:"wikiFields", model:[wikiPage:page])
+        if (page) {
+            render(template: "wikiFields", model: [wikiPage: page])
         }
     }
 
     def infoWikiPage() {
-        def page = Content.findAllByTitle(params.id, [cache:true]).find { !it.instanceOf(Version) }
+        def page = Content.findAllByTitle(params.id, [cache: true]).find { !it.instanceOf(Version) }
 
-        if(page) {
+        if (page) {
 
             def pageVersions = Version.withCriteria {
                 projections {
@@ -207,49 +230,86 @@ class ContentController extends BaseWikiController {
                 order 'number', 'asc'
                 cache true
             }
-            def first = pageVersions ? Version.findByNumberAndCurrent(pageVersions[0][0], page, [cache:true]) : null
-            def last  = pageVersions ? Version.findByNumberAndCurrent(pageVersions[-1][0], page, [cache:true]) : null
+            def first = pageVersions ? Version.findByNumberAndCurrent(pageVersions[0][0], page, [cache: true]) : null
+            def last = pageVersions ? Version.findByNumberAndCurrent(pageVersions[-1][0], page, [cache: true]) : null
 
-            render(template:'wikiInfo',model:[first:first, last:last,wikiPage:page, 
-                                              versions:pageVersions.collect { it[0]}, 
-                                              authors:pageVersions.collect { it[1]}, 
-                                              update:params._ul])
+            return [first: first, last: last, wikiPage: page,
+                    versions: pageVersions.collect { it[0]},
+                    authors: pageVersions.collect { it[1]},
+                    update: params._ul]
+        }
+        else {
+            render status:404
         }
 
     }
 
     def editWikiPage() {
-        if(!params.id) {
-            render(template:"/shared/remoteError", model: [code:"page.id.missing"])
+        if (!params.id) {
+            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
+            return
         }
-        else {
-            // WikiPage.findAllByTitle should only return one record, but at this time
-            // (2010-06-24) it seems to be returning more on the grails.org server.
-            // This is to help determine whether that's what is in fact happening.
-            def pages = Content.findAllByTitle(params.id, [sort: "version", order: "desc"])
-            if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
-            def page = pages.find { !it.instanceOf(Version) }
 
-            render(template:"wikiEdit",model:[
-                    wikiPage:page,
-                    update: params._ul,
-//                    editFormName: params.editFormName,
-                    saveUri: page.instanceOf(PluginTab) ?
-                            g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
-                            g.createLink(action: "saveWikiPage", id: page.title)])
-        }
+        def pages = WikiPage.findAllByTitle(params.id, [sort: "version", order: "desc"])
+        if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
+        WikiPage page = pages.find { !it.instanceOf(Version) }
+
+        [wikiPage: page]
     }
+
+//    def editWikiPageOld() {
+//        if (!params.id) {
+//            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
+//        }
+//        else {
+//            // WikiPage.findAllByTitle should only return one record, but at this time
+//            // (2010-06-24) it seems to be returning more on the grails.org server.
+//            // This is to help determine whether that's what is in fact happening.
+//            def pages = Content.findAllByTitle(params.id, [sort: "version", order: "desc"])
+//            if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
+//            def page = pages.find { !it.instanceOf(Version) }
+//
+//            render(template: "wikiEdit", model: [
+//                    wikiPage: page,
+//                    update: params._ul,
+////                    editFormName: params.editFormName,
+//                    saveUri: page.instanceOf(PluginTab) ?
+//                        g.createLink(controller: "plugin", action: "saveTab", id: page.title, pluginId: page.plugin.id) :
+//                        g.createLink(action: "saveWikiPage", id: page.title)])
+//        }
+//    }
 
     def createWikiPage() {
-        if (params.xhr) {
-            return render(template:'wikiCreate', var:'pageName', bean:params.id)
+        def page = WikiPage.findByTitle(params.id)
+        if (page) {
+            redirect(action: 'editWikiPage', id: params.id)
+            return
         }
-        [pageName:params.id]
+
+        String body = "h1. ${params.id}\n\n"
+
+        page = WikiPage.findByTitle('Default Create Wiki Template')
+        if (page) {
+            body += page?.body
+        }
+        else {
+            log.warn "Wiki Page [Default Create Wiki Template] is missing"
+        }
+
+        def wikiPage = new WikiPage(title: params.id, body: body)
+        [wikiPage: wikiPage]
     }
+
+//    def createWikiPageOld() {
+//        if (params.xhr) {
+//            return render(template: 'wikiCreate', var: 'pageName', bean: params.id)
+//        }
+//        [pageName: params.id]
+//    }
 
     def saveWikiPage() {
         if (!params.id) {
-            render(template:"/shared/remoteError", model:[code:"page.id.missing"])
+            render(template: "/shared/remoteError", model: [code: "page.id.missing"])
         }
         else {
             try {
@@ -260,21 +320,31 @@ class ContentController extends BaseWikiController {
                         params.long('version'))
 
                 if (wikiPage.hasErrors()) {
-                    render(template: "wikiEdit", model: [
-                            wikiPage: new WikiPage(title: params.id, body: params.body)])
-                }
-                else {
-                    if (wikiPage.latestVersion.number == 0) {
-                        // It's a new page.
-                        redirect(uri:"/${wikiPage.title.encodeAsURL()}")
+                    if (params.id) {
+                        def pages = WikiPage.findAllByTitle(params.id, [sort: "version", order: "desc"])
+                        if (pages?.size() > 1) log.warn "[editWikiPage] Content.findAllByTitle() returned more than one record!"
+                        WikiPage page = pages.find { !it.instanceOf(Version) }
+                        render(view: "editWikiPage", model: [wikiPage: page])
                     }
                     else {
-                        render(template: "wikiShow", model: [
-                                content: wikiPage,
-                                message: "wiki.page.updated",
-                                update: params._ul,
-                                latest: wikiPage.latestVersion])
+                        render(view: "createWikiPage", model: [title: params.id, body: params.body])
                     }
+                }
+                else {
+                    flash.message = "Wiki Page has been updated successfully"
+                    redirect(uri: "/${wikiPage.title.encodeAsURL()}")
+// Why was this done?
+//                    if (wikiPage.latestVersion.number == 0) {
+//                        // It's a new page.
+//                        redirect(uri: "/${wikiPage.title.encodeAsURL()}")
+//                    }
+//                    else {
+//                        render(template: "wikiShow", model: [
+//                                content: wikiPage,
+//                                message: "wiki.page.updated",
+//                                update: params._ul,
+//                                latest: wikiPage.latestVersion])
+//                    }
                 }
             }
             catch (OptimisticLockException ex) {
@@ -288,15 +358,12 @@ class ContentController extends BaseWikiController {
     private evictFromCache(id, title) {
         cacheService.removeWikiText(title)
         cacheService.removeContent(title)
-        
-        if (id) {
-            textCache.remove 'versionList' + id
-        }
+        if (id) cacheService.removeCachedText('versionList' + id)
     }
 
     def rollbackWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
+        if (page) {
             def version = Version.findByCurrentAndNumber(page, params.number.toLong())
             def allVersions = Version.withCriteria {
                 projections {
@@ -308,42 +375,42 @@ class ContentController extends BaseWikiController {
                 cache true
             }
 
-            if(!version) {
-                render(template:"versionList", model:[
+            if (!version) {
+                render(template: "versionList", model: [
                         wikiPage: page,
                         versions: allVersions.collect { it[0] },
                         authors: allVersions.collect { it[1] },
-                        message:"wiki.version.not.found",
+                        message: "wiki.version.not.found",
                         update: params._ul])
             }
             else {
-                if(page.body == version.body) {
-                    render(template:"versionList", model:[
+                if (page.body == version.body) {
+                    render(template: "versionList", model: [
                             wikiPage: page,
                             versions: allVersions.collect { it[0] },
                             authors: allVersions.collect { it[1] },
-                            message:"Contents are identical, no need for rollback.",
+                            message: "Contents are identical, no need for rollback.",
                             update: params._ul])
                 }
                 else {
 
                     page.lock()
-                    page.version = page.version+1
+                    page.version = page.version + 1
                     page.body = version.body
                     page.save(flush: true, failOnError: true)
                     Version v = page.createVersion()
-                    v.author = request.user                        
+                    v.author = request.user
                     v.save(failOnError: true)
                     evictFromCache page.id, page.title
-                    
+
                     // Add the new version to the version list, otherwise it won't appear!
                     allVersions << [v.number, v.author]
 
-                    render(template:"versionList", model:[
+                    render(template: "versionList", model: [
                             wikiPage: page,
                             versions: allVersions.collect { it[0] },
                             authors: allVersions.collect { it[1] },
-                            message:"Page rolled back, a new version ${v.number} was created",
+                            message: "Page rolled back, a new version ${v.number} was created",
                             update: params._ul])
                 }
             }
@@ -356,13 +423,13 @@ class ContentController extends BaseWikiController {
     def diffWikiVersion() {
 
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
+        if (page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
             def rightVersion = params.diff.toLong()
             def right = Version.findByCurrentAndNumber(page, rightVersion)
-            if(left && right) {
-                return [message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1:right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()]
+            if (left && right) {
+                return [message: "Showing difference between version ${leftVersion} and ${rightVersion}", content: page,text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()]
             }
             else {
                 return [message: "Version not found in diff"]
@@ -370,75 +437,86 @@ class ContentController extends BaseWikiController {
 
         }
         else {
-            return [message: "Page not found to diff" ]
+            return [message: "Page not found to diff"]
         }
     }
 
     def previousWikiVersion() {
         def page = Content.findAllByTitle(params.id).find { !it.instanceOf(Version) }
-        if(page) {
+        if (page) {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
 
             List allVersions = Version.findAllByCurrent(page).sort { it.number }
-            def right = allVersions[allVersions.indexOf(left)-1]
+            def right = allVersions[allVersions.indexOf(left) - 1]
             def rightVersion = right.number
 
-            if(left && right) {
-                render(view:"diffView",model:[content:page,message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1:right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()])
+            if (left && right) {
+                render(view: "diffWikiVersion", model: [content: page, message: "Showing difference between version ${leftVersion} and ${rightVersion}", text1: right.body.encodeAsHTML(), text2: left.body.encodeAsHTML()])
             }
             else {
-                render(view:"diffView",model:[message: "Version not found in diff"])
+                render(view: "diffWikiVersion", model: [message: "Version not found in diff"])
             }
 
         }
         else {
-            render(view:"diffView",model: [message: "Page not found to diff" ] )
+            render(view: "diffWikiVersion", model: [message: "Page not found to diff"])
         }
 
     }
 
     def uploadImage() {
-        def message = null
         def uploadTypes = grailsApplication.config.wiki.supported.upload.types ?: []
+        def result = [success: true, error: '']
 
-        if (request.method == 'POST') {
-            MultipartFile file = request.getFile('image')
-            log.info "Uploading image, file: ${file.originalFilename} (${file.contentType})"
-            if (uploadTypes?.contains(file.contentType)) {
+        MultipartFile image = request.getFile('image')
+        String fileName = image.originalFilename
 
-                try {
-                    def newFilename = file.originalFilename.replaceAll(/\s+/, '_')
-                    def wikiImage = new WikiImage(params)
-                    wikiImage.name = getImageName(params.id, newFilename)
-                    if (wikiImage.save()) {
-                        imageUploadService.save(wikiImage)
+        if (uploadTypes?.contains(image.contentType)) {
 
-                        render view: "/common/iframeMessage", model: [
-                                pageId: "upload",
-                                frameSrc: g.createLink(controller: 'content', action: 'uploadImage', id: params.id),
-                                message: "Upload complete. Use the syntax !${wikiImage.name}! to refer to your file"]
+            try {
+                def wikiImage = new WikiImage()
 
-                        // Break out on successful upload.
-                        return
+                def imageName = getImageName(params.prefix, fileName)
+                wikiImage.name = imageName
+                wikiImage.image = image
+
+                if (wikiImage.save()) {
+                    imageUploadService.save(wikiImage)
+                    result.id = wikiImage.id
+                }
+                else {
+                    def existing = WikiImage.findByName(imageName)
+                    if(existing) {
+                        result.error = "Image already exists, use !${fileName}! to embed. If the image is not correct, rename your image and upload again."
+                        result.id = existing.id
                     }
                     else {
-                        message = "Error uploading file! " +
-                                g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')
+                        result.success = false
+                        result.error = "Error uploading ${fileName}! ${g.message(error: wikiImage.errors.fieldError, encodeAs: 'HTML')}"
+
                     }
                 }
-                catch (Exception e) {
-                    log.error e.message, e
-                    message = "Error uploading file! Info: ${e.message}"
-                }
             }
-            else {
-                log.info "Bad file type, rendering error message to view"
-                message = "File type not in list of supported types: ${uploadTypes?.join(',')}"
+            catch (Exception e) {
+                log.error e.message
+                result.success = false
+                result.error = "Error uploading ${fileName}! Info: ${e.message}"
             }
         }
+        else {
+            result.success = false
+            result.error = "File type of ${fileName} is not in list of supported types: ${uploadTypes?.join(', ')}"
+        }
 
-        render view: "/common/uploadDialog", model: [category: params.id, message: message]
+        // needs to be text/html for IE
+        return render(text: result as JSON, contentType:'text/html')
+    }
+
+    // Injected into page via ajax so it can be added to wiki content
+    def addImage(String id) {
+        def wikiImage = WikiImage.get(id)
+        render(template: '/common/addImage', model: [wikiImage: wikiImage] )
     }
 
     /**
@@ -448,19 +526,20 @@ class ContentController extends BaseWikiController {
      */
     def showImage(String path) {
         def wikiImage = WikiImage.findByName(path)
+
         if (wikiImage) {
             // Copied and modified from BurningImageTagLib. The WikiImage
             // domain class has a generated property 'biImage' that contains
             // the attached images - one for each configured size. We use
             // the BI image to pass the required parameters to the BI
             // controller.
-            def size = "large"
+            def size = params.size ?: "large"
             def image = wikiImage.biImage[size]
             cache neverExpires: true
             forward controller: "dbContainerImage", action: "index", params: [
                     imageId: image.ident(),
                     size: size,
-                    type: image.type ]
+                    type: image.type]
         }
         else {
             response.sendError 404
@@ -487,29 +566,30 @@ class ContentController extends BaseWikiController {
         // dialogs.
         redirect action: "index", id: params.id
     }
-    
+
     def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
-        def newsItems = BlogEntry.list(max:3, cache:true, order:"desc", sort:"dateCreated")
-
-        // make it easy to get the month and day
-        newsItems.each {
-            it.metaClass.getMonth = { ->
-                dateService.getMonthString(it.dateCreated)
-            }
-            it.metaClass.getDay = { ->
-                dateService.getDayOfMonth(it.dateCreated)
-            }
-        }
-        def latestScreencastId = screencastService.latestScreencastId
-        return [ newestPlugins: newestPlugins, 
-                 newsItems: newsItems,
-                 latestScreencastId: latestScreencastId ]
+        def (latestDownload, binaryFile) = downloadService.getLatestBinaryDownload()
+        def latestNews = org.grails.news.NewsItem.allApproved.list(max:3)
+        
+        
+        [newestPlugins: newestPlugins, latestDownload: latestDownload, latestBinary: binaryFile, latestNews: latestNews]
     }
 
     def screencastLegacy() {
         redirect controller: "screencast", action: "list", permanent: true
+    }
+
+    protected groupResultsByType(searchResult) {
+        def resultsAsList = searchResult.results
+        def resultsAsMap = searchResultsGroupOrder.collectEntries { key, value -> [value, []] }
+        for (r in resultsAsList) {
+            def group = searchResultsGroupOrder[r.getClass()] ?: "Other"
+            resultsAsMap[group] << r
+        }
+        searchResult.results = resultsAsMap 
+        return searchResult
     }
 
     /**
@@ -517,10 +597,12 @@ class ContentController extends BaseWikiController {
      * page (preferably the one the image is on!) and the original filename
      * of that image.
      */
-    protected String getImageName(String wikiPageId, String filename) {
+    protected String getImageName(String prefix, String fileName) {
+        fileName = fileName.replace(" ", "_")
+
         def b = new StringBuilder()
-        if (wikiPageId) b << wikiPageId << '/'
-        b << filename
+        if (prefix) b << prefix << '/'
+        b << fileName
         return b.toString()
     }
 }

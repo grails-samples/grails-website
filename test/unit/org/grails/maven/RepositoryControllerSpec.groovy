@@ -10,9 +10,9 @@ class RepositoryControllerSpec extends spock.lang.Specification{
 
 
     void "Test publish plugin invalid method"() {
-
         when:"The publish plugin action is called with invalid data"
             controller.publish()
+
         then:"Return a 405"
             response.status == 405
     }
@@ -20,6 +20,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
         when:"The publish plugin action is called with invalid data"
             request.method = "POST"
             controller.publish()
+
         then:"Return a 403"
             response.status == 400
     }
@@ -28,20 +29,22 @@ class RepositoryControllerSpec extends spock.lang.Specification{
         when:"An existing plugin is created"
             def tomcat = tomcatPlugin
             params.plugin = "tomcat"
-            params.version = "1.0.0"
+            params.version = "2.0.3"
             params.zip = "dummy"
             params.xml = "dummy"
             params.pom = "dummy"
 
         then:"The plugin release exists"
-            PluginRelease.count() == 2
+            PluginRelease.count() == 3
             PluginRelease.findByPluginAndReleaseVersion(tomcat, params.version) != null
+
         when:"publish is called"
             request.method = "POST"
             controller.publish()
+
         then:"The operation is forbidden because the plugin already exists"
             response.status == 403
-            response.text == 'Plugin [tomcat] already published for version [1.0.0]'
+            response.text == 'Plugin [tomcat] already published for version [2.0.3]'
     }
     
     void "Test that publishing a plugin with an existing release and snapshot version works"() {
@@ -76,8 +79,9 @@ class RepositoryControllerSpec extends spock.lang.Specification{
 
     void "Test publish plugin without necessary files"() {
         when:"publish is called without files to upload"
-            params.plugin = "tomcat"
-            params.version = "1.0.0"
+            def cmd = new PublishPluginCommand(plugin:"tomcat", version:"1.0.0")
+            cmd.validate()
+            cmd.errors.rejectValue("xml", "bad.data")
             request.method = "POST"
             controller.publish()
 
@@ -87,7 +91,6 @@ class RepositoryControllerSpec extends spock.lang.Specification{
     }
 
     void "Test that publishing a plugin with correct data triggers a spring event"() {
-        
         when:"publish is called with valid data"
             params.plugin = "tomcat"
             params.version = "1.0.0"
@@ -128,52 +131,57 @@ class RepositoryControllerSpec extends spock.lang.Specification{
     
     void "Test that maven direct URL is correct for LATEST_RELEASE"() {
         given:"An existing plugin"
-            def tomcat = tomcatPlugin             
+            def tomcat = tomcatPlugin
+
         when:"An artifact is requested for a given plugin"
             controller.artifact("grails-tomcat-[revision]","tomcat", "[revision]", "zip")
             
         then:"The produced URL is correct"    
-            response.redirectUrl == 'http://repo.grails.org/grails/plugins/org/grails/plugins/tomcat/1.0.1/tomcat-1.0.1.zip'
+            response.redirectUrl == 'http://repo.grails.org/grails/plugins/org/grails/plugins/tomcat/2.0.3/tomcat-2.0.3.zip'
         
         
     }
     
     void "Test that the plugin list generates XML in the right format"() {
         given:"A plugin with a release"
-	    def tomcat = tomcatPlugin            
+	        def tomcat = tomcatPlugin
+
         when:"The domain model is queried"
             def allPlugins = Plugin.list()
             
         then:"It is in the correct state"
             allPlugins.size() == 1
-            allPlugins[0].releases.size() == 2
+            allPlugins[0].releases.size() == 3
             
         when:"The plugin list is rendered"
             controller.metaClass.lastModified = {} // mock last modified method
             controller.list()
-        then:"The generated xml is correct"
-            response.xml.plugin.size() == 1
-            response.xml.plugin[0].@name == 'tomcat'
-            response.xml.plugin[0].'@latest-release' == '1.0.1'            
-            response.xml.plugin[0].release.size() == 2
-            response.xml.plugin[0].release[0].author.text() == 'SpringSource'
-            response.xml.plugin[0].release[0].authorEmail.text() == 'foo@bar.com'
-            response.xml.plugin[0].release[0].file.text() == "http://foo.com/tomcat-1.0.1.zip"
 
+        then:"The generated xml is correct"
+            def xml = response.xml
+            xml.plugin.size() == 1
+            xml.plugin[0].@name == 'tomcat'
+            xml.plugin[0].'@latest-release' == '2.0.3'
+            xml.plugin[0].release.size() == 3
+            xml.plugin[0].release[0].author.text() == 'SpringSource'
+            xml.plugin[0].release[0].authorEmail.text() == 'foo@bar.com'
     }
 
 
     Plugin getTomcatPlugin() {
         def p = new Plugin( name: "tomcat",
                             title: "Tomcat",
-                            currentRelease: "1.0.0",
+                            currentRelease: "2.0.3",
                             author: "SpringSource",
                             authorEmail:'foo@bar.com',
-                            downloadUrl:"http://foo.com/tomcat-1.0.zip",
+                            downloadUrl:"http://foo.com/tomcat-2.0.3.zip",
                             documentationUrl:"http://grails.org/plugin/tomcat",
-                            lastReleased: new DateTime(2010, 8, 11, 22, 30))
+                            lastReleased: new DateTime(2012, 3, 29, 22, 30))
+
         p.releases = [ new PluginRelease(plugin:p, releaseVersion:"1.0.0", releaseDate:new DateTime(2010, 8, 11, 22, 30), downloadUrl:"http://foo.com/tomcat-1.0.zip"), 
-                        new PluginRelease(plugin:p, releaseVersion:"1.0.1", releaseDate:new DateTime(2011, 8, 12, 23, 30), downloadUrl:"http://foo.com/tomcat-1.0.1.zip")]
+                       new PluginRelease(plugin:p, releaseVersion:"1.0.1", releaseDate:new DateTime(2011, 8, 12, 23, 30), downloadUrl:"http://foo.com/tomcat-1.0.1.zip"),
+                       new PluginRelease(plugin:p, releaseVersion:"2.0.3", releaseDate:new DateTime(2012, 3, 29, 22, 30), downloadUrl:"http://foo.com/tomcat-2.0.3.zip")]
+
         p.save(flush:true)
         assert !p.hasErrors()
         return p
@@ -188,7 +196,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
                             downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip",
                             documentationUrl:"http://grails.org/plugin/tomcat",
                             lastReleased: new DateTime(2010, 8, 11, 22, 30))
-        p.releases = [ new PluginRelease(plugin:p, releaseVersion:"1.0.0.BUILD-SNAPSHOT", releaseDate:new DateTime(2010, 8, 11, 22, 30), downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip")]
+        p.releases = [ new PluginRelease(isSnapshot:true, plugin:p, releaseVersion:"1.0.0.BUILD-SNAPSHOT", releaseDate:new DateTime(2010, 8, 11, 22, 30), downloadUrl:"http://foo.com/tomcat-1.0.0.BUILD-SNAPSHOT.zip")]
         p.save(flush:true)
         assert !p.hasErrors()
         return p

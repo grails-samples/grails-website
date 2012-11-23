@@ -1,19 +1,18 @@
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <head>
-      <title>Registration</title>
-      <meta content="subpage" name="layout" />
-      <style type="text/css">
-          #content-container {
-              height:700px;
-          }
+<head>
+    <meta content="master" name="layout"/>
+    <r:require modules="auth"/>
+</head>
+<body>
 
-      </style>
-  </head>
-  <body>
-        <div id="contentPane">
-            <g:render template="registerForm" model="${pageScope.getVariables()}" />
-        </div>
-  </body>
+<div class="socialConnect">
+    <a href="#" class="facebook">Facebook connect</a>
+    <a href="#" class="twitter">Twitter connect</a>
+</div>
+<div id="content" class="content-form-small" role="main">
+    <g:render template="registerForm" model="${pageScope.variables}"/>
+</div>
+
+</body>
 </html>

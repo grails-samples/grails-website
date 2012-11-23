@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="contentTitle">
-        <h1><wiki:shorten text="${g.layoutTitle(default:'')}" length="35" /></h1>
+        <h1><wiki:shorten html="${g.layoutTitle(default:'')}" length="35" /></h1>
     </div> 
             
     <div id="navMenu">

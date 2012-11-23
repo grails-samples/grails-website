@@ -1,0 +1,212 @@
+#banner {
+	height: 300px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	position: relative;
+
+	.banner {
+		height: 298px;
+		position: relative;
+		float: left;
+		width: 980px;
+	}
+	
+	/* Learn Grails ! */
+	.learnGrails {
+		background: @grailsGreen;
+	}
+	
+	.downloadGrails {
+		background: url("@{imagesPath}/page/bgblue.jpg") repeat 0 0;
+	}
+
+    .springone {
+        background: url("@{imagesPath}/banner/springone/bg.png") no-repeat 0 0;
+    }
+	
+	.companiesBanner {
+		
+		.companies {
+			background-color:white;
+			padding-left:70px;
+		}
+	}
+
+    .caseStudy {
+        background: url("@{imagesPath}/banner/caseStudy/bg.png") no-repeat 0 0;
+
+        div.screen {
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 13px;
+            width: 350px;
+            height: 216px;
+            background: url("@{imagesPath}/banner/caseStudy/screen.png") no-repeat 0 0;
+            a {
+                display: block;
+                position: absolute;
+                left: 34px;
+                text-indent: -6000em;
+                top: 32px;
+                width: 304px;
+                height: 166px;
+                background: url("@{imagesPath}/banner/caseStudy/animation.gif") no-repeat 0 0;
+            }
+            p.extra {
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                color: #222;
+                width: 100px;
+                #textshadow > .white(.8);
+                left: 40px;
+                top: 10px;
+                font-size: 12px;
+                z-index: 1000;
+            }
+        }
+
+        p.ico {
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            font-weight: bold;
+            position: absolute;
+        }
+        h2 {
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            font-weight: bold;
+            position: absolute;
+            top: 30px;
+            left: 138px;
+            color: #FFF;
+        }
+        p.desc {
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            font-family: Times,"Times New Roman", serif;
+            font-size: 17px;
+            color: #efefef;
+            font-style: italic;
+            top: 100px;
+            left: 95px;
+            width: 500px;
+        }
+        p.links {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            top: 59px;
+            left: 138px;
+            color: #3bc1ff;
+            a {
+                color: #3bc1ff;
+            }
+        }
+        ul.logos {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            top: 248px;
+            left: 110px;
+            position: absolute;
+            li {
+                padding: 0 12px;
+                float: left;
+            }
+        }
+    }
+
+    .sky {
+        p.ico {
+            top: 34px;
+            left: 44px;
+        }
+    }
+
+	/* Banner full stack */
+	.fullStackFramework {
+		background: url("@{imagesPath}/page/light.png") no-repeat 0 bottom;
+		border: 1px solid @grailsGrayMedium;
+		border-width: 1px 0;
+	
+		h2 {
+			margin: 0;
+			margin-bottom: 20px;
+			padding: 0;
+			text-indent: -6000em;
+			background: url("@{imagesPath}/banner/fullStackFramework/title.png") no-repeat 0 0;
+			width: 300px;
+			height: 71px;
+		}
+		
+		p {
+			#font #family .ptsans();
+			font-size: 18px;
+			margin-top: 10px;
+			margin-bottom: 15px;
+			strong {
+				color: @grailsBlue;
+				font-weight: normal;
+			}
+		}
+		
+		@size: 110px;
+
+		ul {
+			position: absolute;
+			top: 70px;
+			left: 460px;
+			list-style: 0 none;
+			list-style-type: none;
+			.clearfix();
+			li {
+				float: left;
+				padding: 10px 20px;
+				width: @size;
+				a {
+					border: 6px solid @grailsGrayLight;
+					height: @size;
+					width: @size;
+					.border-radius(@size / 2 + 5);
+					#font #family .ptsans();
+					font-size: 24px;
+					color: @grailsGrayMedium;
+					display: block;
+					float: left;
+					line-height: @size;
+					text-align: center;
+			
+					&:hover {
+						border-color: @grailsGreen;
+						color: @grailsGreen;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		
+		.left {
+			width: 400px;
+			position: absolute;
+			top: 40px;
+			left: 15px;
+		}
+		
+		.btn {
+			padding: 9px 20px;
+			margin-right: 5px;
+			font-size: 15px;
+			#font #family .sans-serif();
+			letter-spacing: 0;
+			
+			font-weight: normal;
+			.box-shadow(0 0 0 5px rgba(0,0,0,.1));
+		}
+	}
+}

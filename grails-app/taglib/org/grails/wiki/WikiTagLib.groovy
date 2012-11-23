@@ -1,8 +1,8 @@
 package org.grails.wiki
 
-import org.radeox.engine.context.BaseInitialRenderContext
 import org.grails.cache.CacheService
-import org.radeox.engine.context.BaseRenderContext
+import org.grails.common.Helpers
+import org.grails.wiki.HtmlShortener
 import org.springframework.context.ApplicationContextAware
 import org.springframework.context.ApplicationContext
 
@@ -21,26 +21,51 @@ class WikiTagLib implements ApplicationContextAware  {
     def wikiPageService
     ApplicationContext applicationContext
 
-	
+    /**
+     * Shortens HTML text to a set limit. The text can either be provided via
+     * the {@code html} attribute, which should be HTML content; the {@code wikiText}
+     * attribute, whose contents will be converted from wiki text to HTML before
+     * shortening; or as the body of the tag (HTML markup).
+     * @attr html The HTML text to shorten. This is not encoded by the tag, so
+     * make sure any untrusted text is encoded first.
+     * @attr wikiText The wiki text to convert to HTML and shorten. Do *not*
+     * encode the text, as this is handled by the wiki engine.
+     * @attr key A unique key for this fragment that can be used for caching.
+     * @attr length REQUIRED The maximum length of the resulting content.
+     * @attr camelCase Capitalises all the words in the content.
+     */
     def shorten = { attrs, body ->
-        def text = attrs.text
+        def text = attrs.html ?: wikiToHtml(attrs.wikiText?.toString()) ?: body()
+        def cacheKey = attrs.key
         def length = attrs.length?.toInteger() ?: 25
-        
-        if(text.length() > length) {
-            out << "${text[0..length]}..."
+        def camelCase = attrs.camelCase ? Boolean.valueOf(attrs.camelCase) : false
+        def ret = ""
+
+        // Returned cached content if it's available.
+        if (cacheKey) {
+            def content = cacheService.getShortenedWikiText(cacheKey)
+            if (content) {
+                out << content
+                return
+            }
         }
-        else {
-            out << text
+
+        // Shorten the text
+        def shortener = new HtmlShortener()
+        def content = shortener.shorten(text.toString(), length)
+
+        if (camelCase) {
+            content = Helpers.capitalizeWords(content)
         }
+
+        // Cache the content if a key is provided.
+        if (cacheKey) cacheService.putShortenedWikiText(cacheKey, content)
+
+        out << content
     }
 	
     def preview = { attrs, body ->
-        def engine = applicationContext.getBean('wikiEngine')
-        def context = applicationContext.getBean('wikiContext')
-
-        def content = body()
-        def text = engine.render(content.trim(), context)
-
+        def text = wikiToHtml(body().toString())
 
         if(text.size() > 150) {
             text = text.replaceAll(/<.+?>/, '').replaceAll(/<\/\S+?>/, '')
@@ -60,9 +85,6 @@ class WikiTagLib implements ApplicationContextAware  {
             out << cached            
         }
         else {
-            def engine = applicationContext.getBean('wikiEngine')
-            def context = applicationContext.getBean('wikiContext')
-
             def content 
             if(attrs.page) {
                 content = wikiPageService?.getCachedOrReal(attrs.page)?.body ?: ""
@@ -70,7 +92,8 @@ class WikiTagLib implements ApplicationContextAware  {
             else {
                 content  = body()
             }
-            def text = engine.render(content.trim(), context)
+
+            def text = wikiToHtml(content.toString())
             if(attrs.key) {
                 cacheService.putWikiText(attrs.key, text)
             }
@@ -97,9 +120,27 @@ class WikiTagLib implements ApplicationContextAware  {
         request[ROBOTS_ATTRIBUTE] = "noindex, nofollow"
     }
 
-    def editViewButton = { attrs, body ->
-        def displayLinks = attrs.containsKey("displayEditLinks") ? Boolean.valueOf(attrs.displayEditLinks) : true
-        out << render(template:"/content/editViewButton", model:[id:attrs.id, text:attrs.text, displayEditLinks: displayLinks, onComplete:attrs.onComplete ])
+    def uploadImages = {attrs ->
+       def prefix = attrs.prefix ?: ""
+
+       out << """
+          <div id="images-container">
+            ${g.hiddenField(name: "image.prefix", value: prefix)}
+            <div id="images"></div>
+            <div class="description" style="display:none">${g.message(code:'wikiImage.add.description')}</div>
+            <p class="spinner" style="display:none"><img src="${resource(dir:'img',file:'spinner.gif')}" alt="Loading" /></p>
+            <p><a class="btn upload-image">Upload image</a></p>
+            <div class="alert alert-error error" style="display:none"></div>
+        </div>
+       """
+    }
+
+    private wikiToHtml(String wikiText) {
+        if (!wikiText) return wikiText
+
+        def engine = applicationContext.getBean('wikiEngine')
+        def context = applicationContext.getBean('wikiContext')
+        return engine.render(wikiText.trim(), context)
     }
 
 }

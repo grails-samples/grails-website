@@ -1,0 +1,146 @@
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: @zindexModalBackdrop;
+	background-color: transparent;
+	// Fade for backdrop
+	&.fade { opacity: 0; }
+	&.dark {
+		background: rgba(0,0,0,.6);
+	}
+}
+
+.modal-buttons {
+	position: absolute;
+	width: auto;
+	top: 10px;
+	left: 0;
+	line-height: @baseLineHeight - 2;
+	z-index: @zindexModalBackdrop + 1;
+	.box-shadow(0 4px 7px rgba(0,0,0,.2));
+	.border-radius(@radius);
+	a {
+		border-style: solid;
+		border-color: #9bb0ba;
+		border-width: 1px 0;
+		border-right-width: 1px;
+		padding: 5px 15px;
+		background: white;
+		#gradient>.vertical(#f4f8f9, #dde5e9);
+		#textshadow > .white(0.8);
+		color: @grailsBlack;
+		float: left;
+		.box-shadow(inset 0 1px 0 0 white);
+		&.last {
+			.border-radius(0 @radius @radius 0);
+		}
+		&.first {
+			border-left-width: 1px;
+			.border-radius(@radius 0 0 @radius);
+		}
+		&:hover {
+			#gradient>.vertical(#FFF, #f4f8f9);
+		}
+		&:active {
+			#gradient>.vertical(#f4f8f9, #f4f8f9);
+			@shadow: inset 0 2px 4px rgba(0,0,0,.2);
+			.box-shadow(@shadow);
+		}
+	}
+}
+
+.modal {
+	position: absolute;
+	background: white;
+	.box-shadow(0 4px 7px rgba(0,0,0,.2));
+	.border-radius(@radius);
+	width: 510px;
+	.head {
+		padding: 10px 20px 5px;
+	}
+	.body {
+		padding: 0 20px 10px 20px;
+	}
+	top: 10px;
+	left: 0;
+	line-height: @baseLineHeight - 2;
+	z-index: @zindexModalBackdrop + 1;
+	
+	font-size: @baseFontSize - 2;
+	
+	p {
+		font-size: @baseFontSize - 2;
+		line-height: @baseLineHeight - 2;	
+	}
+	
+	pre {
+		line-height: 18px;
+		font-size: 12px;
+	}
+	
+	.close {
+		position: absolute;
+		right: 10px;
+		top: 4px;
+		font-weight: bold;
+		font-size: 16px;
+		cursor: pointer;
+		color: @grailsGrayLight;
+		&:hover {
+			color: @grailsGray;
+		}
+	}
+}
+
+.modal-buttons, .modal {
+	@extra: 12px;
+	.extra {
+		display: block;
+		position: absolute;
+		background-image: url("@{imagesPath}/page/arrowModal.png");
+		background-repeat: no-repeat;	
+		z-index: @zindexModalBackdrop + 1;
+	
+		&.right {
+			right: -12px;
+			top: 50px;
+			height: @extra * 2;
+			width: @extra;
+			background-position: 0 0;
+		}
+		&.left {
+			left: -12px;
+			top: 50px;
+			height: @extra * 2;
+			width: @extra;
+			background-position: -12px 0;
+		}
+		&.top {
+			left: 20px;
+			top: -12px;
+			height: @extra;
+			width: @extra * 2;
+			background-position: 0 -36px;
+		}	
+		&.bottom {
+			left: 20px;
+			bottom: -12px;
+			height: @extra;
+			width: @extra * 2;
+			background-position: 0 -24px;
+		}			
+	}
+	
+}
+
+.modal-fixed {
+	@width: 700px;
+	position: fixed;
+	left: 50%;
+	margin-left: -(@width / 2);
+	top: 50px;
+	width: @width;
+}

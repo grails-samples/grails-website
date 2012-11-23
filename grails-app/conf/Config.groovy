@@ -8,8 +8,17 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*"]
-grails.resources.adhoc.excludes = [ "**/*.swp" ]
-grails.resources.zip.excludes = ["/**/*.png","/**/*.gif","/**/*.jpg"]
+grails.resources.adhoc.excludes = [ "**/*.swp", "**/*.html" ]
+
+// Fixes reloading bug in Zipped Resources (GPZIPPEDRESOURCES-3) that means
+// that modifying LESS files has no impact on the running app. This also
+// fixes the exclusions for images (GPZIPPEDRESOURCES-1).
+grails.resources.mappers.zip.excludes = ["**/*.png","**/*.gif","**/*.jpg", "**/*.less"]
+
+// Don't cache LESS files. Since they are converted to CSS when the WAR is created,
+// this is fine - we don't need caching in dev mode.
+grails.resources.mappers.hashandcache.excludes = ['**/*.less']
+
 
 wiki.supported.upload.types = ['image/png','image/jpg','image/jpeg','image/gif']
 // location of plugins-list.xml
@@ -19,6 +28,8 @@ plugins.location = "http://plugins.grails.org"
 
 plugins.forum.mail.to = "plugins-announce@nowhere.net"
 plugins.forum.mail.from = "test@grails.org"
+
+grails.plugins.disqus.shortname = "grails"
 
 grails.mail.port = 3025
 
@@ -79,6 +90,9 @@ bi {
         images {
             large {
                 scale = [width: 600, height: 700, type: ScaleType.APPROXIMATE]
+            }
+            small {
+                scale = [width: 100, height: 100, type: ScaleType.APPROXIMATE]
             }
         }
         constraints {
@@ -203,13 +217,64 @@ springcache {
     }
 }
 
+/* Sample configuration for pushing plugins to a local Artifactory repository
+
+beans {
+    pluginDeployService {
+        releaseUrl = "http://localhost:8081/artifactory/plugins-releases-local/org/grails/plugins"
+        snapshotUrl = "http://localhost:8081/artifactory/plugins-snapshots-local/org/grails/plugins"
+        deployUsername = "admin"
+        deployPassword = "password"
+    }
+}
+
+*/
+
+grails.cache.config = {
+    cache {
+        name 'content'
+        eternal false
+        overflowToDisk true
+        timeToLiveSeconds 300
+        maxElementsInMemory 10000
+        maxElementsOnDisk 100000
+    }
+    cache {
+        name 'wiki'
+        eternal false
+        overflowToDisk true
+        timeToLiveSeconds 300
+        maxElementsInMemory 10000
+        maxElementsOnDisk 100000
+    }
+    cache {
+        name 'text'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
+    }
+    cache {
+        name 'plugin'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
+    }
+    cache {
+        name 'permissions'
+        eternal false
+        overflowToDisk false
+        maxElementsInMemory 10000
+    }
+}
+
 // Dummy Twitter settings.
-twitter4j.oauth.consumerKey="dummy"
-twitter4j.oauth.consumerSecret="notVerySecret"
+twitter4j.oauth.consumerKey="E1U4T7KgPdaGFagdpbdQ"
+twitter4j.oauth.consumerSecret="hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY"
 twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
 twitter4j.oauth.accessSecret="test"
 
 
+artifactRepository.url = "http://repo.grails.org/grails/plugins"
 rest.dateFormat = "yyyy-MM-dd"
 format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"

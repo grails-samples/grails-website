@@ -1,5 +1,6 @@
 import org.apache.commons.codec.digest.DigestUtils
 import org.grails.auth.*
+import org.grails.meta.UserInfo
 
 fixture {
     build {
@@ -12,7 +13,7 @@ fixture {
                 password: DigestUtils.shaHex("password"),
                 email: "peter@somewhere.net",
                 roles: [ observer, editor ],
-                permissions: ["plugin:publish:shiro"])
+                permissions: ["plugin:publish:shiro","plugin:edit:shiro"])
         
         dilbert(User,
                 login: "dilbert",
@@ -25,5 +26,26 @@ fixture {
                 password: DigestUtils.shaHex("spam"),
                 email: "spambot@spam.com",
                 roles: [ observer ])
+                
+        peterInfo(UserInfo,
+                name: "Peter Ledbrook",
+                email: "peter@somewhere.net",
+                user: peter)
+                
+        springSourceInfo(UserInfo,
+                name: "SpringSource",
+                email: "springsource@somewhere.net")
+                
+        gpcInfo(UserInfo,
+                name: "Grails Plugin Collective",
+                email: "gpc@somewhere.net")
+                
+        tedInfo(UserInfo,
+                name: "Ted Naleid",
+                email: "ted@somewhere.net")
+                
+        anonymousInfo(UserInfo,
+                name: "Anonymous",
+                email: "anonymous@somewhere.net")
     }
 }

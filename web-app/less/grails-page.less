@@ -1,0 +1,625 @@
+/* Override theme */
+@radius: 4px;
+body {
+	background: #ededeb url("@{imagesPath}/page/bg.png") repeat 0 0;
+	font-family: @grailsFontFamily;
+	font-size: @baseFontSize;
+}
+
+a{
+	color: @grailsBlue;
+	text-decoration: none;
+	&:hover {
+		color: @grailsBlue;
+	}
+}
+
+pre {
+	background: @grailsGrayWhite;
+	padding: 10px 20px;
+	span {
+		color: @grailsGreen;
+	}
+}
+
+::selection {
+	background: @grailsGreen;
+	color: @white;
+}
+
+::-moz-selection {
+	background: @grailsGreen;
+	color: @white;
+}
+
+h2 {
+	font-weight: normal;
+}
+
+#page {
+    width: 980px;
+	margin: 0 auto;
+	position: relative;
+    .margin-bottom-15 {
+        margin-bottom: 15px;
+    }
+    .padding-top {
+        padding-top: 10px;
+    }
+}
+
+/* Content Single */
+.content-single {
+    background: white;
+    .border-radius(5px);
+    #main {
+        padding: 15px 20px;
+    }
+}
+
+/* Content Aside */
+.content-aside {
+	@widthAside: 260px;
+    background: white;
+    .border-radius(5px);
+
+    .content-aside-title, .content-title {
+        position: relative;
+        background: white;
+        border-bottom: 1px solid #CCC;
+        .border-radius(@radius @radius 0 0);
+        .box-shadow(inset 0 1px 0 rgba(255,255,255,.8));
+        #gradient >.vertical(#F9F9F9, #EEE);
+        padding: 15px 0px 12px;
+        color: @grailsBlueDark;
+        h1 {
+            margin: 0;
+            padding: 0 20px;
+            line-height: 22px;
+            font-weight: normal;
+            font-size: 22px;
+            small {
+                color: #5e7682;
+                font-size: 14px;
+            }
+        }
+        form.search {
+            position: absolute;
+            right: 9px;
+            top: 9px;
+            background: 0 none;
+            padding: 0;
+            margin: 0;
+            border: 0 none;
+            input {
+                margin: 0;
+                display: block;
+                float: left;
+            }
+
+        }
+    }
+    .content-title {
+        float: right;
+        width: 720px;
+    }
+	.clearfix();
+	section#main {
+		width: 980px - @widthAside - 40px;
+		float: right;
+        padding: 15px 20px;
+	}
+	div#main {
+		width: 980px - 20px  - @widthAside;
+        padding: 10px;
+		float: right;
+		article {
+			.border-radius(@radius);
+			background: white;
+			margin-bottom: 15px;
+            padding: 0 10px;
+		}
+		.colset2 {
+			.clearfix();
+			article.col1 {
+				margin-right: 15px;
+			}
+			article {
+				padding: 22px 22px 10px;
+				float: left;
+				width: 300px;
+			}
+		}
+
+		.buttons {
+			margin: 1em 0;
+			.btn {
+				padding: 0 20px;
+				line-height: 37px;
+				.border-radius(40px);                                     
+				width: 150px;
+				border-right: 1px solid #356017;
+			}
+			
+		}
+	}
+	.aside {
+		width: @widthAside - 1;
+		float: left;
+        aside:first-child {
+            h3 {.border-radius(6px 0 0 0);}
+        }
+		aside {
+			margin: 0;
+			margin-bottom: 15px;
+			h3 {
+				position: relative;
+	            border-bottom: 1px solid #CCC;
+				margin: 0;
+				font-size: @baseFontSize;
+				line-height: 40px;
+				text-transform: uppercase;
+				padding-left: 10px;
+				#textshadow>.white(0.8);
+				img {
+					display: none;
+				}
+			}
+			ul {
+				margin: 0;
+				list-style: 0 none;
+				list-style-type: none;
+				li {
+					font-size: @baseFontSize;
+					border-bottom: 1px solid @grailsGrayLighter;
+					padding: 0;
+					&.last {
+						border-bottom: 0 none;
+					}
+					a {
+						color: @grailsGray;
+						display: block;
+						padding: 0 10px;
+						line-height: 36px;
+						background: @white url("@{imagesPath}/page/arrow.png") no-repeat 400 0;
+						text-decoration: none;
+						&:hover {
+		                    color: @grailsBlack;
+                            #textshadow > .white(0.8);
+                            .box-shadow(inset 0 1px 0 rgba(255,255,255,.5));
+							background: @grailsGrayWhite url("@{imagesPath}/page/arrow.png") no-repeat right 2px;
+						}
+					}
+					
+					&.active {
+						a {
+		                    color: @grailsBlack;
+                            #textshadow > .white(0.8);
+                            .box-shadow(inset 0 1px 0 rgba(255,255,255,.5));
+							background: @grailsGrayWhite url("@{imagesPath}/page/arrow.png") no-repeat right 2px;
+	                        font-weight: bold;
+						}
+					}
+
+                    &.instructions {
+                        padding-top: 8px;
+                    }
+
+                    p {
+                        padding: 0px 10px;
+                        font-size: 13px;
+                        line-height: 18px;
+                    }
+				}
+			}
+
+		}
+	}
+}
+
+ul.list-links {
+	li {
+		a {
+			color: @grailsBlack;
+			small {
+				color: @grayLight;
+			}
+			&:hover {
+				color: @grailsGreen;
+				small {
+					color: @grailsBlack;
+				}
+			}
+		}
+	}
+}
+
+.twitter {
+	margin-top: 20px;
+	padding: 5px 15px;
+	background: @grailsGrayWhite;
+	.border-radius(@radius);
+	position: relative;
+	font-size: @baseFontSize - 1;
+	h2 {
+		background: url("@{imagesPath}/twitter/bird.png") no-repeat 0 0;
+		width: 60px;
+		height: 35px;
+		text-indent: -6000em;
+		margin: 0;
+		padding: 0;
+		z-index: 1000;
+		position: absolute;
+		top: -28px;
+		left: 0;
+	}
+	h3 {
+		a {
+			color: @grailsBlueLight;
+			font-size: 22px;
+			font-weight: normal;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		margin: 0;
+		padding: 0;
+		padding-top: 10px;
+		line-height: 22px;
+	}
+	p {
+		padding: 0;
+		margin: 0;
+		line-height: @baseLineHeight - 3;
+		font-size: @baseFontSize - 1;
+	}
+	div.tweet {
+		border-top: 1px solid #f9f9f8;
+		border-bottom: 1px solid @grailsGrayLighter;
+		padding: 8px 0;
+		&.first {
+			border-top: 0;
+		}
+		&.last {
+			border-bottom: 0;
+		}
+		a {
+			color: @grailsBlue;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		.links {
+			color: @grailsGray;
+			font-size: @baseFontSize - 1;
+			a {
+				color: @grailsGray;
+				&:hover {
+					text-decoration: underline;
+					color: @grailsGreen;
+				}
+			}
+		}
+	}
+	
+	.follow {
+		padding-bottom: 8px;
+		padding-top: 2px;
+		text-align: center;
+		.btn {
+			text-transform: none;
+			#font #family .serif();
+			font-style: italic;
+			font-weight: normal;
+			font-size: @baseFontSize;
+			padding: 5px 15px;
+		}
+	}
+}
+
+
+
+.content-aside {
+    background: white url("@{imagesPath}/aside/point.gif") repeat-y 259px 0;
+    #main.with-banner {
+        span {
+            &.status {
+                display: block;
+                height: 53px;
+                width: 53px;
+                position: absolute;
+                right: -7px;
+                top: -7px;
+                text-indent: -6000em;
+                background-image: url("@{imagesPath}/plugin/status.png");
+                background-repeat: no-repeat;
+
+            }
+            &.status-new {
+                background-position: 0 0;
+            }
+            &.status-up {
+                background-position: 0 -53px;
+            }
+        }
+    }
+}
+
+a.like {
+	display: block;
+	float: left;
+	padding-right: 22px;
+	height: 16px;
+	overflow: hidden;
+	line-height: 16px;
+	color: @grailsGray;
+	font-size: 12px;
+	background: url("@{imagesPath}/page/like.png") no-repeat right 0;
+	&:hover{
+		color: #ce1121;
+		background: url("@{imagesPath}/page/like.png") no-repeat right -16px;
+		text-decoration: none;
+	}
+
+    &.with-ribbon {
+        margin-right: 30px;
+    }
+}
+
+.content-form-small {
+	background: @white;
+	.border-radius(@radius);
+	width: 310px;
+	margin: 0 auto;
+	padding: 10px 20px;
+
+    input.text {
+        width: 21em;
+    }
+
+    input#emailSubscribed {
+        float: left;
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+}
+
+.content-form {
+    div.confirm {
+        @decal: 9px;
+        padding-left: @decal;
+        margin-top: @decal;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        line-height: 20px;
+        background: @grailsGrayWhite;
+        .border-radius(@radius);
+        #textshadow > .white(1);
+    }
+}
+
+
+.learngrails5steps {
+	.item {
+	    border-top: 4px solid @grailsGrayWhite;
+	    padding: 15px 0;
+	}
+	
+	.colset2 {
+		padding-top: 10px;
+		.clearfix();
+		@width: 270px;
+		p { font-size: 13px;line-height:18px;}
+		.col1 {
+			float: left;
+			width: @width;
+		}
+		.col2 {
+			float: right;
+			width: @width;
+		}
+	}
+	
+}
+
+.socialConnect {
+    .clearfix();
+    width: 350px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    a {
+        display: block;
+        width: 170px;
+        height: 28px;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        text-indent: -6000em;
+        float: left;
+        background: url("@{imagesPath}/externalServices/connectwith.png") no-repeat 0 0;
+    }
+    a.facebook {
+        &:hover {
+            background-position: 0 -28px;
+        }
+        &:active {
+            background-position: 0 -56px;
+        }
+    }
+    a.twitter {
+        float: right;
+        background-position: -170px 0;
+        &:hover {
+            background-position: -170px -28px;
+        }
+        &:active {
+            background-position: -170px -56px;
+        }
+    }
+}
+
+.disqus-container {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+.video-container {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.wiki-links {
+    border-bottom: 1px solid #E8E8E6;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    ul {
+        margin: 0px;
+        list-style: none;
+        li {
+            font-size: 12px;
+            list-style: none;
+            display: inline;
+
+            a:hover {
+                text-decoration: none;
+            }
+        }
+    }
+}
+#wikiLastUpdated {
+    float: right;
+    font-size: 12px;
+    color: rgba(102, 102, 102, 0.79);
+}
+.wiki-form {
+    .CodeMirror {
+        border: 1px solid #eee;
+        width: 663px;
+    }
+    .CodeMirror-scroll {
+        height: auto;
+        overflow-y: hidden;
+        overflow-x: auto;
+        width: 100%;
+    }
+}
+
+form.search {
+    padding: 5px;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 0;
+    height: 38px;
+    background: #F9F9F9;
+    overflow: hidden;
+    .clearfix();
+    input {
+        float: left;
+        width: 202px;
+        .border-radius(3px 0 0 3px);
+        border-right: 0 none;
+    }
+    a.btn-search {
+        float: left;
+        width: 16px;
+        padding: 7px 10px 6px;
+        .border-radius(0 6px 6px 0);
+    }
+}
+
+#main.websites {
+    article {
+        position: relative;
+        padding: 25px 30px;
+        border-top: 4px solid @grailsGrayWhite;
+        margin: 0;
+        background: white;
+        .border-radius(@radius);
+        .clearfix();
+
+        a.like {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+        }
+
+        p.tags {
+            padding: 2px 0 5px 0;
+            a.btn {
+                font-size: 12px;
+                line-height: 12px;
+            }
+        }
+        
+        p.buttons {
+            padding-top: 10px;
+        }
+
+        h3 {
+            a {
+                color: @grailsBlack;
+                padding: 5px 0;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+        div.content {
+            display: block;
+            float: left;
+            width: 440px;
+            padding-left:25px;
+        }
+        div.img {
+            width: 150px;
+            float: left;
+            padding: 0;
+            padding-top: 5px;
+            .box-shadow(0 1px 5px #CCC);
+            img {
+                display: block;
+            }
+            a {
+                display: block;
+            }
+        }
+        h3 {
+            padding: 0;
+            margin: 0;
+            line-height: 26px;
+        }
+        p {
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
+
+#main.website {
+    h1 {
+        font-size: 22px;
+        line-height: 22px;
+        padding-top: 5px;
+    }
+    .colset {
+        padding-top: 20px;
+        padding-left: 10px;
+        .clearfix();
+        div.content {
+            display: block;
+            float: left;
+            width: 460px;
+            padding-left:25px;
+        }
+        div.img {
+            width: 150px;
+            float: left;
+            padding: 0;
+            padding-top: 5px;
+            .box-shadow(0 1px 5px #CCC);
+            a {
+                display: block;
+            }
+        }
+    }
+}

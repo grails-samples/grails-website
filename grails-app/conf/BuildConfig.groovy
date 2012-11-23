@@ -1,5 +1,4 @@
-grails.plugin.location.websites = "${basedir}/sections/grails-sites"
-grails.plugin.location.tutorials = "${basedir}/sections/tutorials"
+grails.plugin.location.like = "${basedir}/sections/like"
 
 grails.project.work.dir = "target/$grailsVersion"
 grails.project.test.reports.dir = "target/test-reports"
@@ -19,16 +18,17 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenLocal()
         mavenCentral()
-        mavenRepo "https://oss.sonatype.org/content/repositories/releases/" 
+        mavenRepo "https://oss.sonatype.org/content/repositories/releases/"
     }
 
     plugins {
-        compile ":burning-image:0.5.0",
-                ":commentable:0.7.6",
+        compile ":burning-image:0.5.1",
                 ":joda-time:1.3.1",
                 ":taggable:1.0.1"
 
-        compile ":rateable:0.7.1", {
+        compile ":rateable:0.7.1"
+
+        runtime ":grails-ui:1.2.3", {
             exclude "yui"
         }
 
@@ -38,35 +38,39 @@ grails.project.dependency.resolution = {
 
         runtime ":avatar:0.3",
                 ":rest-client-builder:1.0",
+                ":cache:1.0.1",
+                ":cache-ehcache:1.0.0",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.0",
+                ":disqus:0.1",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
                 ":hibernate:$grailsVersion",
-                ":jquery:1.6.1.1",
+                ":jquery:1.7.2",
+                ":jquery-ui:1.8.24",
                 ":mail:1.0",
                 ":pretty-time:0.3",
                 ":quartz:0.4.2",
-                ":resources:1.2-RC1",
-                ":screencasts:0.5.6",
-                ":searchable:0.6.3",
+                ":resources:1.2.RC2",
+                ":searchable:0.6.4",
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
-                ":simple-blog:0.1.5",
-                ":springcache:1.3.1",
                 ":spring-events:1.2",
-                ":yui:2.8.2.1",
                 ":zipped-resources:1.0"
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.2"
         }
         else {
             test    ":build-test-data:1.1.1",
-                    ":fixtures:1.1-SNAPSHOT"
+                    ":fixtures:1.2"
         }
+
+        compile ":cache:1.0.1",
+                ":platform-core:1.0.M6"
+        runtime ":cache-ehcache:1.0.0", { exclude "cache" }
         
         test    ":geb:0.6.0",
                 ":spock:0.6", {
@@ -77,9 +81,12 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+        build "org.lesscss:lesscss:1.3.0"
+
         compile "org.twitter4j:twitter4j-core:2.1.8",
                 "org.springframework:spring-context-support:3.0.3.RELEASE",
-                "org.jadira.usertype:usertype.jodatime:1.9"
+                "org.jadira.usertype:usertype.jodatime:1.9",
+                "org.jsoup:jsoup:1.6.3"
 
         test "org.codehaus.geb:geb-core:0.6.0",
              "org.gmock:gmock:0.8.1"
@@ -100,4 +107,5 @@ grails.project.dependency.resolution = {
 
 }
 
-grails.tomcat.jvmArgs = [ '-Xmx512m', '-XX:MaxPermSize=256m' ]
+grails.tomcat.jvmArgs = [ '-Xmx512m', '-XX:MaxPermSize=256m','-Dinitial.admin.password=changeit',
+        '-Dload.fixtures=1' ]

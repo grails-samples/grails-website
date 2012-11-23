@@ -11,7 +11,7 @@ import org.grails.content.*
 @Mock([Plugin, PluginRelease, PluginTab, User, Version])
 class PluginServiceSpec extends Specification {
     
-    
+    @Ignore // no longer used functionality, disabled but keeping test suite for additional methods
     void "Test populate plugin data from masters for new data"() {
    	setup:
 		service.metaClass.readPluginList = {->

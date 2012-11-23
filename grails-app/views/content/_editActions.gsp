@@ -39,7 +39,7 @@
         </li>
         <li>
             <g:remoteLink class="actionIcon" update="${updateElement}" action="index" id="${content?.title}" params="[_ul: updateElement]" method="GET" onLoaded="showCommentPost()">
-                <r:img uri="/images/icon-cancel.png" width="15" height="15" alt="Icon Cancel" class="inlineIcon" border="0"/>
+                <r:img uri="/img/famicons/cancel.png" width="15" height="15" alt="Icon Cancel" class="inlineIcon" border="0"/>
                 <span>Cancel</span>
             </g:remoteLink>
         </li>

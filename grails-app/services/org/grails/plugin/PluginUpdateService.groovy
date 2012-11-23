@@ -2,6 +2,7 @@ package org.grails.plugin
 
 import groovyx.net.http.HTTPBuilder
 import org.grails.auth.User
+import org.grails.meta.UserInfo
 import org.joda.time.DateTime
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
@@ -15,14 +16,6 @@ import org.springframework.transaction.annotation.Transactional
 class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     static transactional = false
 
-    private static final DEFAULT_REPOSITORIES = [
-            "http://plugins.grails.org",
-            "http://grails.org/plugins",
-            "http://repo.grails.org/grails/plugins/",
-            "http://repo.grails.org/grails/core/",
-            "http://svn.codehaus.org/grails/trunk/grails-plugins",
-            "http://repo1.maven.org/maven2/" ]
-
     protected int twitterLimit = 140
 
     def cacheService
@@ -31,8 +24,6 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     def mailService
     def grailsApplication
     def pluginService
-    def searchableService
-    def wikiPageService
 
     /**
      * <p>Triggered whenever something publishes a plugin update event to the Spring
@@ -46,9 +37,9 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         log.info "Updating information for plugin ${event.name}, version ${event.version}${event.snapshot ? ' (snapshot)' : ''}"
 
         // Check that the given repository URL is valid.
-        def baseUrl
+        def pluginUpdater
         try {
-            baseUrl = event.repoUrl.toURL()
+            pluginUpdater = new PluginUpdater(event.version, event.group, event.repoUrl?.toString(), event.snapshot)
         }
         catch (MalformedURLException ex) {
             // If the repository URL is invalid, there's no point processing
@@ -57,106 +48,22 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
             return
         }
 
-        // Rectify the URL if it doesn't have a trailing slash.
-        if (!baseUrl.path.endsWith('/')) {
-            baseUrl = new URL(baseUrl.toString() + '/')
-        }
-
-        log.debug "Base repository URL is ${baseUrl}"
+        log.debug "Base repository URL is ${pluginUpdater.baseUrl}"
 
         // We either need to create a new Plugin instance or update the
         // existing one. Since we already have the version, we can deal
         // with that too.
         def plugin = fetchOrCreatePluginInstance(event.name, event.version)
-        def isNewVersion = !plugin.id || plugin.currentRelease != event.version
-        if (!event.snapshot) {
-            plugin.currentRelease = event.version
-        }
+        pluginUpdater.updatePlugin(plugin)
+        pluginService.savePlugin plugin, true
 
-        // We may be looking at either a Maven or a Subversion repository,
-        // both of which have different directory structures. Here we test
-        // which type of repository we have.
-        def mavenUrl = new URL(baseUrl, "${event.group.replace('.', '/')}/${event.name}/${event.version}/")
-        def downloadFilename = "${event.name}-${event.version}.zip"
-        try {
-            log.debug "Trying Maven URL: ${mavenUrl}"
-            mavenUrl.text
-            baseUrl = mavenUrl
-        }
-        catch (FileNotFoundException ex) {
-            // 404 on the Maven URL, so use a Subversion repository URL instead.
-            baseUrl = new URL(baseUrl, "grails-${event.name}/tags/RELEASE_${event.version?.replace('.', '_')}/")
-            downloadFilename = "grails-" + downloadFilename
-        }
-
-        log.debug "Fetching plugin information from ${baseUrl}"
-
-        // Pull in the POM and parse it.
-        def parser = new XmlSlurper()
-        def pomUrl = new URL(baseUrl, "${event.name}-${event.version}.pom")
-        def xml = null
-        pomUrl.withReader("UTF-8") { reader ->
-            xml = parser.parse(reader)
-        }
-        
-        // Update the Plugin instance with the information from the POM.
-        plugin.groupId = xml.groupId.text()
-        plugin.title = xml.name.text()
-        plugin.summary = xml.description.text()
-        plugin.documentationUrl = xml.url.text()
-        plugin.author = xml.developers.developer[0].name.text()
-        plugin.authorEmail = xml.developers.developer[0].email.text()
-        plugin.organization = xml.organization.name.text()
-        plugin.organizationUrl = xml.organization.url.text()
-        plugin.scmUrl = xml.scm.url.text()
-        plugin.issuesUrl = xml.issueManagement.url.text()
-
-        addLicenses plugin, xml.licenses
-
-        // Now do the same with the XML plugin descriptor.
-        def descUrl = new URL(baseUrl, "${event.name}-${event.version}-plugin.xml")
-        descUrl.withReader("UTF-8") { reader ->
-            xml = parser.parse(reader)
-        }
-
-        plugin.grailsVersion = xml.@grailsVersion.text()
-
-        // Fetch any custom repositories that may be needed by this plugin.
-        def customRepoUrls = xml.repositories.repository.@url*.text().findAll { !(it in DEFAULT_REPOSITORIES) }
-        addCustomRepositories plugin, customRepoUrls
-
-        // Set the download URL for the plugin to the appropriate binary in the
-        // repository, whether it be a Maven or Subversion one.
-        plugin.downloadUrl = baseUrl.toURI().resolve(downloadFilename)
-
-        if (log.debugEnabled) {
-            log.debug """\
-                Updated plugin info:
-                  name         = ${plugin.name}
-                  version      = ${plugin.currentRelease}
-                  groupId      = ${plugin.groupId}
-                  title        = ${plugin.title}
-                  docs URL     = ${plugin.documentationUrl}
-                  author name  = ${plugin.author}
-                  author email = ${plugin.authorEmail}
-                """.stripIndent()
-        }
-
-        pluginService.savePlugin(plugin, true)
-
-        // Assuming the instance saved OK, we can announce the release if it's
-        // a new version.
-        if (isNewVersion && !event.snapshot) {
-            plugin.lastReleased = new DateTime()
-            def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, plugin.currentRelease)
-            if(pr == null) {
-                pr = new PluginRelease(plugin:plugin,releaseVersion:plugin.currentRelease, downloadUrl: plugin.downloadUrl) 
-                pr.save()
-            }
-            cacheService.removePluginList()
-            announceRelease(plugin)
+        if (pluginUpdater.newVersion && !pluginUpdater.snapshot) {
+            announceRelease plugin
         }
         else log.info "Not a new plugin release - won't tweet"
+
+        // The master plugin list will need regenerating.
+        cacheService?.removePluginList()
     }
 
     /**
@@ -182,9 +89,16 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     }
     
     void announceRelease(plugin, version = null) {
-        def pluginUrl = siteBaseUrl + "plugin/${plugin.name}"
-        announceOnPluginForum(plugin, version, pluginUrl)
-        tweetRelease(plugin, version, pluginUrl)
+        try {
+            def pluginUrl = siteBaseUrl + "plugin/${plugin.name}"
+            announceOnPluginForum(plugin, version, pluginUrl)
+            tweetRelease(plugin, version, pluginUrl)
+        }
+        catch (Exception ex) {
+            // Don't let an exception roll back changes the database. A user can
+            // do a --ping-only release to get the announcements if necessary.
+            log.error "Failed to announce plugin ${plugin.name} ${version}", ex
+        }
     }
     
     /**
@@ -225,30 +139,6 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         }
     }
 
-    protected addLicenses(plugin, pomLicensesXml) {
-        for (license in pomLicensesXml.license) {
-            def l = License.findOrSaveWhere(name: license.name.text(), url: license.url.text()).save()
-            if (!l.hasErrors()) plugin.addToLicenses(l)
-            else {
-                log.warn "Invalid license declared for plugin '${plugin.name}': " +
-                        "${license.name.text()}(${license.url.text()})"
-            }
-        }
-    }
-
-    protected addCustomRepositories(plugin, repoUrls) {
-        // No need to do anything if there the custom repositories
-        // haven't changed.
-        if (repoUrls == plugin.mavenRepositories) return
-
-        // Take the simple approach: clear the list and re-add
-        // all declared URLs.
-        if (plugin.mavenRepositories == null) plugin.mavenRepositories = []
-
-        plugin.mavenRepositories.clear()
-        plugin.mavenRepositories.addAll repoUrls
-    }
-
     private getSiteBaseUrl() {
         return normalize(grailsApplication.config?.grails?.serverURL ?: 'http://localhost:8080/')
     }
@@ -268,5 +158,253 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     private summarize(str, limit) {
         def chopPoint = limit.intdiv(2) - 2
         return str[0..<chopPoint] + "..." + str[(-chopPoint)..-1]
+    }
+}
+
+class PluginUpdater {
+
+    private static final DEFAULT_REPOSITORIES = [
+            "http://plugins.grails.org",
+            "http://grails.org/plugins",
+            "http://repo.grails.org/grails/plugins/",
+            "http://repo.grails.org/grails/core/",
+            "http://svn.codehaus.org/grails/trunk/grails-plugins",
+            "http://repo1.maven.org/maven2/" ]
+
+    private plugin
+    private String groupId
+    private String version
+    private boolean isSnapshot
+    private URL baseUrl
+
+    private boolean isNewVersion
+    private URL baseDownloadUrl
+    private String filename
+    private String extension
+    private pom
+
+    PluginUpdater(String version, String groupId, String baseUrl, boolean isSnapshot) throws MalformedURLException {
+        this.version = version
+        this.groupId = groupId
+        this.isSnapshot = isSnapshot
+        this.baseUrl = validateAndFixUrl(baseUrl)
+    }
+
+    def getPlugin() { return plugin }
+    URL getBaseUrl() { return baseUrl }
+    boolean isSnapshot() { return isSnapshot }
+
+    boolean isNewVersion() {
+        checkForPlugin()
+        return isNewVersion
+    }
+
+    void updatePlugin(plugin) {
+        this.plugin = plugin
+        isNewVersion = !plugin.id || plugin.currentRelease != version
+
+        // Work out what the base URL is for accessing the plugin's binary
+        // package, POM, and XML descriptor.
+        evaluateDownloadInfo()
+
+        // We need to extract various bits of info from the POM, but right
+        // now we need it to find out what the file extension is for this
+        // plugin. "jar" for binary plugins, "zip" for source ones.
+        pom = loadPom()
+        filename = filename + "." + pom.packaging.text()
+
+        saveRelease()
+
+        if (!isSnapshot) {
+            // Only update the plugin portal page with the new info if this
+            // is a non-snapshot release.
+            updatePluginProperties()
+        }
+    }
+
+    protected void saveRelease() {
+        // Check whether there are any pending releases. If yes and the most
+        // recent one failed, we shouldn't add a PluginRelease record.
+        /*
+        def pendingReleases = PendingRelease.where {
+            pluginName == plugin.name && pluginVersion == version
+        }.list(sort: "dateCreated", order: "asc")
+        */
+        def pendingReleases = PendingRelease.findAllByPluginNameAndPluginVersion(plugin.name, version, [sort: "dateCreated", order: "asc"])
+
+        if (pendingReleases && pendingReleases[-1].status != ReleaseStatus.COMPLETED) {
+            throw new RuntimeException("Cannot create release for plugin '${plugin.name}' " +
+                    "version '${version}' as the deployment status is ${pendingReleases[-1].status}")
+        }
+
+        // Now create or update the plugin release. Updates are only applicable
+        // for snapshots where the version has already been published at least
+        // once.
+//        def pr = PluginRelease.where { plugin == plugin && releaseVersion == version }.get()
+        def pr = PluginRelease.findByPluginAndReleaseVersion(plugin, version)
+        if (!pr) {
+            pr = new PluginRelease(
+                    plugin: plugin,
+                    releaseVersion: version,
+                    downloadUrl: baseDownloadUrl.toURI().resolve(filename).toString(),
+                    isSnapshot: isSnapshot)
+        }
+        pr.releaseDate = new DateTime()
+        pr.save(failOnError: true, flush:true)
+
+        // Clear out associated pending releases that were created on publish.
+        PendingRelease.deleteAll(pendingReleases)
+    }
+
+    /**
+     * Update the plugin's properties in the database, so that its portal page
+     * displays the latest information.
+     */
+    protected void updatePluginProperties() {
+        // Update the current release version of the plugin first.
+        plugin.currentRelease = version
+        plugin.lastReleased = new DateTime()
+
+        // Update the Plugin instance with the information from the POM.
+        plugin.with {
+            groupId = pom.groupId.text()
+            title = pom.name.text()
+            summary = pom.description.text()
+            documentationUrl = pom.url.text()
+            organization = pom.organization.name.text()
+            organizationUrl = pom.organization.url.text()
+            scmUrl = pom.scm.url.text()
+            issuesUrl = pom.issueManagement.url.text()
+        }
+
+        // Now do the same with the XML plugin descriptor to get the Grails
+        // version range for the plugin.
+        def xml = loadPluginXml()
+
+        addAuthors pom.developers
+        addLicenses pom.licenses
+
+        plugin.grailsVersion = xml.@grailsVersion.text()
+
+        // Fetch any custom repositories that may be needed by this plugin.
+        def customRepoUrls = xml.repositories.repository.@url*.text().findAll { !(it in DEFAULT_REPOSITORIES) }
+        addCustomRepositories customRepoUrls
+
+        // Set the download URL for the plugin to the appropriate binary in the
+        // repository, whether it be a Maven or Subversion one.
+        plugin.downloadUrl = baseDownloadUrl.toURI().resolve(filename).toString()
+
+        if (log.debugEnabled) {
+            log.debug """\
+                Updated plugin info:
+                  name          = ${plugin.name}
+                  version       = ${plugin.currentRelease}
+                  groupId       = ${plugin.groupId}
+                  title         = ${plugin.title}
+                  docs URL      = ${plugin.documentationUrl}
+                  author names  = ${plugin.authors.collect {it.name}.join(', ')}
+                  author emails = ${plugin.authors.collect {it.email}.join(', ')}
+                """.stripIndent()
+        }
+    }
+
+    /**
+     * Returns a tuple of the base URL for the plugin version, and the filename
+     * of the binary (minus its extension since we don't know whether it's a JAR
+     * or zip at this point). Requires internet access since it needs to check
+     * the existence of paths in the repository to determine whether it's a
+     * Maven-compatible one or a legacy Subversion one.
+     */
+    protected void evaluateDownloadInfo() {
+        // We may be looking at either a Maven or a Subversion repository,
+        // both of which have different directory structures. Here we test
+        // which type of repository we have.
+        def mavenUrl = new URL(baseUrl, "${groupId.replace('.', '/')}/${plugin.name}/${version}/")
+        filename = "${plugin.name}-${version}"
+        try {
+            log.debug "Trying Maven URL: ${mavenUrl}"
+            mavenUrl.text
+            baseDownloadUrl = mavenUrl
+        }
+        catch (FileNotFoundException ex) {
+            // 404 on the Maven URL, so use a Subversion repository URL instead.
+            baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/")
+            filename = "grails-" + filename
+        }
+    }
+
+    protected addAuthors(pomDevelopersXml) {
+        plugin.authors?.clear()
+        for (developer in pomDevelopersXml.developer) {
+            def user = UserInfo.findOrCreateWhere(email: developer.email.text())
+            if (!user.name) {
+                user.name = developer.name.text()
+            }
+            user.save(failOnError: true)
+
+            plugin.addToAuthors(user)
+        }
+    }
+
+    protected addLicenses(pomLicensesXml) {
+        for (license in pomLicensesXml.license) {
+            def l = License.findOrSaveWhere(name: license.name.text(), url: license.url.text()).save()
+            if (!l.hasErrors()) plugin.addToLicenses(l)
+            else {
+                log.warn "Invalid license declared for plugin '${plugin.name}': " +
+                        "${license.name.text()}(${license.url.text()})"
+            }
+        }
+    }
+
+    protected addCustomRepositories(repoUrls) {
+        // No need to do anything if there the custom repositories
+        // haven't changed.
+        if (repoUrls == plugin.mavenRepositories) return
+
+        // Take the simple approach: clear the list and re-add
+        // all declared URLs.
+        if (plugin.mavenRepositories == null) plugin.mavenRepositories = []
+
+        plugin.mavenRepositories.clear()
+        plugin.mavenRepositories.addAll repoUrls
+    }
+
+    /**
+     * Reads the POM for the given plugin & version from the given URL and
+     * returns the slurped content, i.e. a GPath result.
+     */
+    protected loadPom() {
+        def pomUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}.pom")
+        return pomUrl.withReader("UTF-8") { reader ->
+             new XmlSlurper().parse(reader)
+        }
+    }
+
+    /**
+     * Reads the XML plugin descriptor for the given plugin & version from the
+     * given URL and returns the slurped content, i.e. it's a GPath result.
+     */
+    protected loadPluginXml() {
+        def descUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}-plugin.xml")
+        return descUrl.withReader("UTF-8") { reader ->
+            new XmlSlurper().parse(reader)
+        }
+    }
+
+    private validateAndFixUrl(String url) throws MalformedURLException {
+        // Check that the given repository URL is valid. May throw an exception!
+        def tmpUrl = url.toURL()
+
+        // Rectify the URL if it doesn't have a trailing slash.
+        if (!tmpUrl.path.endsWith('/')) {
+            tmpUrl = new URL(tmpUrl.toString() + '/')
+        }
+
+        return tmpUrl
+    }
+
+    private checkForPlugin() {
+        if (!plugin) throw new IllegalStateException("You must call setPlugin() before using this method.")
     }
 }

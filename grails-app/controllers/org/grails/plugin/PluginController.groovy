@@ -1,107 +1,231 @@
 package org.grails.plugin
 
-import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
-import org.joda.time.format.ISODateTimeFormat
-
-import grails.converters.JSON
-import grails.converters.XML
-import grails.plugin.springcache.annotations.*
-
-import javax.persistence.OptimisticLockException
-import javax.servlet.http.HttpServletResponse
-
-import org.apache.commons.codec.digest.DigestUtils
-import org.apache.shiro.SecurityUtils
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
-import org.codehaus.groovy.grails.web.servlet.HttpHeaders
-import org.compass.core.engine.SearchEngineQueryParseException
-import org.grails.auth.Role
-import org.grails.comments.*
+import grails.converters.*
+import grails.gorm.*
 import org.grails.taggable.*
+import org.apache.commons.codec.digest.DigestUtils
 import org.grails.tags.TagNotFoundException
-import org.grails.wiki.BaseWikiController
-import org.springframework.web.context.request.RequestContextHolder
+import org.grails.common.ApprovalStatus
+import org.compass.core.engine.SearchEngineQueryParseException
 
-class PluginController extends BaseWikiController {
+class PluginController {
 
-    static String HOME_WIKI = 'PluginHome'
-    static int PORTAL_MAX_RESULTS = 5
-    static int PORTAL_MIN_RATINGS = 1
-    
-    static defaultAction = "home"
-
-    static allowedMethods = [
-            apiList:   'GET',
-            apiShow:   'GET',
-            apiUpdate: 'PUT']
-    
-    def taggableService
-    def wikiPageService
-    def pluginService
     def dateService
-
-    def home() {
-        withFormat {
-            html {
-                def fetchInstalled = params.category == "installed"
-                def pluginData = listPlugins(PORTAL_MAX_RESULTS, "featured")
-                if (fetchInstalled && !pluginData.currentPlugins) {
-                    pluginData.message = "Not enough data has been collected yet. This will start working once enough people have adopted Grails 2."
-                }
-                return pluginData
-            }
-            json {
-                forward action: "apiList"
-            }
-            xml {
-                forward action: "apiList"
-            }
-        }
-    }
-
+    def pluginService
+    def tagService
+    def wikiPageService
 
     def legacyHome() {
-        redirect action: "home", permanent: true
+        redirect action: "list", permanent: true
     }
 
-    def browseByName = {
-        params.sort = "name"
-        params.order = "asc"
+    def addTag(String id, String tag) {
+        def p = Plugin.findByName(id)
+        if(p) {
+            if(request.method == "POST") {
+                p.addTag(tag)
+            }
+            def tags = p.tags.collect {
+                [  name: it]
+            }
+            def data = [ tagResults: tags ]
+            render data as JSON            
+        }
+        else {
+            render status: 404
+        }
 
-        def (currentPlugins, totalPlugins) = pluginService.listAllPluginsWithTotal(params)
-        currentPlugins = currentPlugins.groupBy { it.name ? it.name[0].toUpperCase() : 'A' }
+    }
+    def removeTag(String id, String tag) {
+        def p = Plugin.findByName(id)
+        if(p) {
+            if(request.method == "POST") {
+                p.removeTag(tag)
+            }
+            def tags = p.tags.collect {
+                [  name: it]
+            }
+            def data = [ tagResults: tags ]
+            render data as JSON            
+        }
+        else {
+            render status: 404
+        }
 
-        return [currentPlugins: currentPlugins, totalPlugins: totalPlugins]
+    }    
+    def list() {
+        try {
+            def maxResults = params.int("max",10)
+            def offset = params.int("offset", 0)
+
+            def plugins
+            def pluginCount
+            def filter = params.filter?.toString() ?: "featured"
+            if (params.tag) {
+                filter = "all"
+                (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tag, max: maxResults, offset: offset)
+            }
+            else {
+                (plugins, pluginCount) = pluginService."list${filter.capitalize()}PluginsWithTotal"(max: maxResults, offset: offset)
+            }
+
+            def allTags = new DetachedCriteria(org.grails.taggable.Tag).property("name").list()
+            def tags = tagService.getPluginTagArray()
+            def model = [ allTags:allTags, tags: tags, plugins: plugins, pluginCount: pluginCount ]
+            if (filter) model["activeFilter"] = filter
+            if (params.tag) model["activeTag"] = params.tag
+
+            model["home"] = (filter == "featured" && !model["activeTag"])
+            return model
+        }
+        catch (TagNotFoundException ex) {
+            flash.message = "Tag not found"
+            redirect action: "list"
+        }
     }
 
-    def forum = {}
+    def show(String id) {
+        def plugin = Plugin.findByName(id)
 
-    def all = {
-        render view:"home", model:[
-                originAction:"all",
-                pluginList:Plugin.list(max:10, offset: params.offset?.toInteger(), cache:true, sort:"name") ]
-    }
-
-    def list = {
-        redirect action: "browseByName", params: params, permanent: true
-    }
-
-    def show = {
-        def plugin = byName(params)
+        // Redirect to the list page if the plugin doesn't exist
         if (!plugin) {
-            return redirect(action:'createPlugin', params:params)
+            flash.message = "Plugin not found"
+            redirect action: 'list'
+            return
         }
 
-        def userRating
-        if (request.user) {
-            userRating = plugin.userRating(request.user)
-        }
-
-        // TODO: figure out why plugin.ratings.size() is always 1
-        render view:'showPlugin', model:[plugin:plugin, userRating: userRating]
+        def tags = tagService.getPluginTagArray()
+        def allTags = new DetachedCriteria(org.grails.taggable.Tag).property("name").list()
+        [ plugin: plugin, tags: tags, allTags: allTags ]
     }
+
+    def editPlugin(String id) {
+        show(id)
+    }
+
+    def updatePlugin(String id) {
+        def plugin = Plugin.findByName(id)
+        if(plugin && params['plugin']) {
+            plugin.properties['summary'] = params['plugin']
+            if(plugin.save()) {
+                def installation = params['plugin']['installation'] 
+                def description= params['plugin']['description'] 
+
+                try {
+                  def pluginTabInstallation = wikiPageService.createOrUpdatePluginTab(
+                    "plugin-${id}-installation",
+                    installation.body,
+                    request.user,
+                    params.long('plugin.installation.version'))
+
+                  def pluginTabDescription = wikiPageService.createOrUpdatePluginTab(
+                    "plugin-${id}-description",
+                    description.body,
+                    request.user,
+                    params.long('plugin.description.version'))              
+                    if(pluginTabInstallation.hasErrors() || pluginTabDescription.hasErrors()) {
+                        render view:"editPlugin", model:show(id)
+                    }
+                    else {
+                        redirect uri:"/plugin/$id" 
+                    }                  
+
+                }
+                catch( javax.persistence.OptimisticLockException e) {
+                    flash.message = e.message
+                    render view:"editPlugin", model:show(id)
+                    return
+                }
+     
+            } 
+            else {
+                render view:"editPlugin", model:show(id)
+            }
+
+        }
+        else {
+            render status:404
+        }
+    }
+
+
+    def submitPlugin() {
+        def pluginPendingApproval = new PluginPendingApproval(
+            submittedBy: request.user,
+            status: ApprovalStatus.PENDING
+        )
+        if (request.method == "POST") {
+            pluginPendingApproval.name = params.name
+            pluginPendingApproval.scmUrl = params.scmUrl
+            pluginPendingApproval.versionNumber = params.versionNumber
+            pluginPendingApproval.notes = params.notes
+
+            pluginPendingApproval.validate()
+            println "PPA: ${pluginPendingApproval.inspect()}"
+
+            if (!pluginPendingApproval.hasErrors() && pluginPendingApproval.save(flush:true)) {
+                flash.message = "Your plugin has been submitted for approval"
+                redirect url: "/plugins/pending/${pluginPendingApproval?.id}"
+            } else {
+                flash.message = "Please correct the fields below"
+                flash.next()
+            }
+        }
+        [pluginPendingApproval: pluginPendingApproval]
+    }
+
+    def submissionReceived() {
+    }
+
+    def pendingPlugins() {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def tags = tagService.getPluginTagArray()
+        [
+                tags: tags,
+                pluginPendingApprovalList: PluginPendingApproval.pending.list(params),
+                pluginPendingApprovalTotal: PluginPendingApproval.pending.count()
+        ]
+    }
+
+    def showPendingPlugin() {
+        def pluginPendingApprovalInstance = PluginPendingApproval.get(params.id)
+        if (!pluginPendingApprovalInstance) {
+            redirect action: 'pendingPlugins'
+        }
+
+        [pluginPendingApprovalInstance: pluginPendingApprovalInstance]
+    }
+
+    def search() {
+        if (params.q) {
+            def tags = tagService.getPluginTagArray()
+            try {
+                def searchResult = Plugin.search(params.q, offset: params.offset)
+                searchResult.results = searchResult.results.findAll{it}.unique { it.title }
+
+                flash.message = "Found $searchResult.total results!"
+                flash.next()
+                render view: "list", model: [
+                        query: params.q,
+                        tags: tags,
+                        searchResult: searchResult, 
+                        plugins: searchResult.results, 
+                        pluginCount: searchResult.total,
+                        otherParams: [q: params.q] ]
+            }
+            catch (SearchEngineQueryParseException ex) {
+                render view: "list", model: [tags: tags, parseException: true]
+            }
+            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
+                render view: "list", model: [tags: tags, clauseException: true]
+            }
+        }
+        else {
+            redirect action: "list"
+        }
+    }
+
+    //---- REST API --------------------------------------
 
     /**
      * Display all plugins or subset of using preferred content type. Only
@@ -127,11 +251,12 @@ class PluginController extends BaseWikiController {
     def apiShow() {
         if(params.name && params.version) {
             def p = params.name
-            def v = params.v
+            def v = params.version
             def release = PluginRelease.where {
                 plugin.name == p && releaseVersion == v 
-            }
-            if(release.exists()) {
+            }.get()
+
+            if (release) {
                 def plugin = transformPluginRelease(release)
                 withFormat {
                     json {
@@ -143,7 +268,7 @@ class PluginController extends BaseWikiController {
                 }
             }
             else {
-                render status:404
+                response.sendError 404
             }
         }
         else {
@@ -172,9 +297,8 @@ class PluginController extends BaseWikiController {
      * from the POM and plugin descriptor stored in the repository.
      */
     def apiUpdate() {
-
         // Start by getting the named plugin if it exists.
-        def plugin = Plugin.findByName(params.name)
+        def plugin = Plugin.findByName(params.id)
 
         // Check the payload. There should be a 'url' parameter containing
         // the location of the repository to which the plugin was deployed.
@@ -217,211 +341,6 @@ class PluginController extends BaseWikiController {
             }
             return
         }
-    }
-
-    def editPlugin = {
-        def plugin = Plugin.get(params.id)
-        if(plugin) {
-            if(request.method == 'POST') {
-                // Update the plugin's properties, but exclude 'zombie'
-                // because only an administrator can set that.
-                bindData plugin, params, [include: Plugin.WHITE_LIST]
-                setRepositoryUrlsFromString plugin, params.mavenRepositoryUrls
-
-                if (!plugin.validate()) {
-                    return render(view:'editPlugin', model: [plugin:plugin])
-                }
-
-                // Update 'zombie' if we have an administrator. Same with 'featured'
-                // and 'official'.
-                if (SecurityUtils.subject.hasRole(Role.ADMINISTRATOR)) {
-                    plugin.featured = params.featured ?: false
-                    plugin.official = params.official ?: false
-                    plugin.zombie = params.zombie ?: false
-                }
-                
-                pluginService.savePlugin(plugin)
-                redirect(action:'show', params:[name:plugin.name])
-            } else {
-                return render(view:'editPlugin', model: [plugin:plugin])
-            }
-        } else {
-            response.sendError 404
-        }
-    }
-
-    def createPlugin = {
-        // just in case this was an ad hoc creation where the user logged in during the creation...
-        if (params.name) params.name = params.name - '?action=login'
-        def plugin = new Plugin(params)
-        setRepositoryUrlsFromString plugin, params.mavenRepositoryUrls
-
-        if(request.method == 'POST') {
-            pluginService.initNewPlugin(plugin, request.user)
-            
-            if (pluginService.savePlugin(plugin)) {
-                redirect(action:'show', params: [name:plugin.name])
-            } else {
-                render(view:'createPlugin', model:[plugin:plugin])
-            }
-        } else {
-            render(view:'createPlugin', model:[plugin:plugin])
-        }
-    }
-
-    def deletePlugin = {
-        def plugin = byName(params)
-        log.warn "Deleting Plugin: $plugin"
-        plugin.delete()
-        redirect(view:'index')
-    }
-
-    def search = {
-        if(params.q) {
-            try {
-                def searchResult = Plugin.search(params.q, offset: params.offset)
-                searchResult.results = searchResult.results.findAll{it}.unique { it.title }
-                flash.message = "Found $searchResult.total results!"
-                flash.next()
-                render view: "searchResults", model: [searchResult: searchResult]
-            }
-            catch (SearchEngineQueryParseException ex) {
-                render view: "searchResults", model: [parseException: true]
-            }
-            catch (org.apache.lucene.search.BooleanQuery.TooManyClauses ex) {
-                render view: "searchResults", model: [clauseException: true]
-            }
-        }
-        else {
-            redirect(action:'home')
-        }
-   }
-
-    def latest() {
-
-        def feedOutput = {
-
-            def (top5, total) = pluginService.listRecentlyUpdatedPluginsWithTotal(max: 5)
-            title = "Grails New Plugins Feed"
-            link = "http://grails.org/Plugins"
-            description = "New and recently updated Grails Plugins"
-
-            for(item in top5) {
-                entry(item.title) {
-                    link = "http://grails.org/plugin/${item.name.encodeAsURL()}"
-                    author = item.author
-                    publishedDate = item.lastUpdated?.toDate()
-                    item.summary
-                }
-            }
-        }
-
-        withFormat {
-            html {
-                redirect action: "home"
-            }
-            rss {
-                render feedType: "rss", feedOutput
-            }
-            atom {
-                render feedType: "atom", feedOutput
-            }
-        }
-
-    }
-
-    def saveTab = {
-        if (!params.id) {
-            render template: "/shared/remoteError", model: [code: "page.id.missing"]
-        }
-        else {
-            try {
-                PluginTab pluginTab = wikiPageService.createOrUpdatePluginTab(
-                        params.id.decodeURL(),
-                        params.body,
-                        request.user,
-                        params.long('version'))
-
-                if (pluginTab.hasErrors()) {
-                    render(template: "/content/wikiEdit", model: [
-                            wikiPage: pluginTab,
-                            update: params.update,
-                            editFormName: params.editFormName,
-                            saveUri: g.createLink(action: "saveTab", id: pluginTab.title)])
-                }
-                else {
-                    render(template: "/content/wikiShow", model: [
-                            content: pluginTab,
-                            message: "wiki.page.updated",
-                            update: params.update,
-                            latest: pluginTab.latestVersion])
-                }
-            }
-            catch (OptimisticLockException ex) {
-                def pluginTab = new PluginTab(title: params.id.decodeURL(), body: params.body)
-                render(template: "/content/wikiEdit", model: [
-                        wikiPage: pluginTab,
-                        update: params.update,
-                        editFormName: params.editFormName,
-                        saveUri: g.createLink(action: "saveTab", id: pluginTab.title),
-                        error: "page.optimistic.locking.failure"])
-            }
-        }
-    }
-
-    def postComment = {
-        def plugin = Plugin.get(params.id)
-        plugin.addComment(request.user, params.comment)
-        pluginService.savePlugin(plugin)
-        return render(template:'/comments/comment', var:'comment', bean:plugin.comments[-1])
-    }
-
-    def addTag = {
-        def plugin = Plugin.get(params.id)
-        params.newTag.trim().split(',').each { newTag ->
-            plugin.addTag(newTag.trim())
-        }
-        pluginService.savePlugin(plugin)
-        render(template:'tags', var:'plugin', bean:plugin)
-    }
-
-    def removeTag = {
-        def plugin = Plugin.get(params.id)
-        plugin.removeTag(params.tagName)
-        pluginService.savePlugin(plugin)
-        render(template:'tags', var:'plugin', bean:plugin)
-    }
-
-    def showTag = {
-        redirect action: "browseByTag", params: params, permanent: true
-    }
-
-    def browseByTag = {
-        try {
-            def maxResults = params.int('max') ?: 10
-            def offset = params.int('offset') ?: 0
-            def (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tagName, max: maxResults, offset: offset)
-            return [currentPlugins: plugins, totalPlugins: pluginCount, tagName:params.tagName, max: maxResults, offset: offset]
-        }
-        catch (TagNotFoundException ex) {
-            render view: "tagNotFound", model: [tagName: ex.tagName ?: '', msgCode: ex.code]
-        }
-    }
-
-    /**
-     * Displays a cloud of all the tags attached to plugins.
-     */
-    def browseTags = {
-        // Get hold of all the plugin tags. This service method returns a map of tag
-        // names to counts, i.e. how many plugins have been tagged with each tag.
-        def allPluginTags = taggableService.getTagCounts("plugin").sort()
-        [tags: allPluginTags]
-    }
-
-    def showComment = {
-        def link = CommentLink.findByCommentAndType(Comment.get(params.id), 'plugin', [cache:true])
-        def plugin = Plugin.get(link.commentRef)
-        redirect(action:'show', params:[name:plugin.name], fragment:"comment_${params.id}")
     }
 
     protected listPlugins(defaultMax, defaultCategory) {
@@ -472,21 +391,6 @@ class PluginController extends BaseWikiController {
         }
     }
 
-    protected setRepositoryUrlsFromString(plugin, String commaSeparatedUrls) {
-        commaSeparatedUrls = commaSeparatedUrls?.trim()
-        def urls = !commaSeparatedUrls ? [] : (commaSeparatedUrls.split(/\s*,\s*/) as List)
-
-        // Take the simple approach: clear the list and re-add
-        // all declared URLs.
-        if (plugin.mavenRepositories == null) {
-            plugin.mavenRepositories = urls
-        }
-        else {
-            plugin.mavenRepositories.clear()
-            plugin.mavenRepositories.addAll urls
-        }
-    }
-
     protected transformPlugins(plugins, category = null) {
         def map = [ pluginList: plugins ? plugins.collect { p -> transformPlugin(p) } : [] ]
         if (category) map.category = category
@@ -498,8 +402,10 @@ class PluginController extends BaseWikiController {
                 name: plugin.name,
                 version: plugin.currentRelease,
                 title: plugin.title,
-                author: plugin.author,
-                authorEmailMd5: DigestUtils.md5Hex(plugin.authorEmail),
+                // These two for backwards compatibility
+                author: plugin.authors[0].name,
+                authorEmailMd5: DigestUtils.md5Hex(plugin.authors[0].email),
+                authorList: plugin.authors.collect { [name: it.name, email: DigestUtils.md5Hex(it.email)] },
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,
@@ -546,18 +452,14 @@ class PluginController extends BaseWikiController {
         }
     }
 
-    protected byTitle(params) {
-        Plugin.findByTitle(params.title.replaceAll('\\+', ' '), [cache:true])
-    }
-
     protected byName(params) {
         Plugin.createCriteria().get {
             eq 'name', params.name
             join 'description'
-            join 'installation'            
-            join 'faq'                        
-            join 'screenshots'        
-            maxResults 1    
+            join 'installation'
+            join 'faq'
+            join 'screenshots'
+            maxResults 1
             cache true
         }
     }

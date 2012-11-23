@@ -1,13 +1,12 @@
 package org.grails.plugin
 
+import grails.plugin.cache.CacheEvict
 import org.grails.auth.User
 import org.grails.content.Version
-import org.joda.time.DateTime
-import org.grails.tags.TagNotFoundException
 import org.grails.taggable.Tag
 import org.grails.taggable.TagLink
+import org.grails.tags.TagNotFoundException
 import org.joda.time.DateTime
-import grails.plugin.springcache.annotations.*
 
 class PluginService {
 
@@ -17,6 +16,33 @@ class PluginService {
     def grailsApplication
     def searchableService
     def wikiPageService
+    def mailService
+
+    /**
+     * Update the status of the Plugin Pending Approval to that of the Response and then
+     * send an email to the user with the response provided.
+     * @param pluginPendingApprovalResponse
+     * @return Boolean true if everything went well
+     */
+//    def linkAndfirePendingApproval(PluginPendingApprovalResponse pluginPendingApprovalResponse) {
+//        // Load it from ID so we don't have any oddities
+//        def pluginPendingApproval = PluginPendingApproval.findById(pluginPendingApprovalResponse?.pluginPendingApproval?.id)
+//        pluginPendingApproval.setDisposition(pluginPendingApprovalResponse)
+//
+//        // Send email to the user
+//        def mailConfig = grailsApplication.config.plugins.forum.mail
+//        def toAddress = mailConfig.to
+//        def fromAddress = mailConfig.from
+//
+//        mailService.sendMail {
+//            to toAddress
+//            from fromAddress
+//            subject "${pluginPendingApproval.name} has been ${pluginPendingApprovalResponse.status}"
+//            text pluginPendingApprovalResponse.responseText
+//        }
+//
+//        return true
+//    }
     
     def popularPlugins(minRatings, max = DEFAULT_MAX) {
         def ratingsComparator = new PluginComparator()
@@ -86,6 +112,12 @@ class PluginService {
         if (links) {
             result << Plugin.withCriteria {
                 inList 'id', links*.tagRef
+                if (args.sort) {
+                    order args.sort, args.order ?: "asc"
+                }
+                else {
+                    order "lastReleased", "desc"
+                }
             }
 
             result << TagLink.countByTagAndType(tag, 'plugin')
@@ -269,7 +301,7 @@ class PluginService {
         case "newest":
             return [sort: "dateCreated", order: "desc"] 
 
-        case "recentlyUpdate":
+        case "recentlyUpdated":
             return [sort: "lastReleased", order: "desc"] 
 
         default:
@@ -344,7 +376,7 @@ class PluginVersion implements Comparable {
             else result = 0
         }
         result
-    }   
+    }
 }
 
 // sorts by averageRating, then number of votes

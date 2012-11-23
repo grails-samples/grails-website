@@ -3,6 +3,8 @@ package org.grails.wiki
 import java.util.concurrent.ConcurrentLinkedQueue
 import javax.persistence.OptimisticLockException
 
+import grails.plugin.cache.Cacheable
+import grails.plugin.cache.CacheEvict
 import org.grails.auth.User
 import org.grails.content.Content
 import org.grails.content.Version
@@ -15,16 +17,11 @@ class WikiPageService {
 
     def cacheService
     def searchableService
-    def textCache
     def wikiPageUpdates = new ConcurrentLinkedQueue<WikiPageUpdateEvent>()
     
-    def getCachedOrReal(id) {
-         def wikiPage = cacheService.getContent(id)
-            if(!wikiPage) {
-                wikiPage = Content.findAllByTitle(id, [cache:true]).find { !it.instanceOf(Version) }
-                if(wikiPage) cacheService.putContent(id, wikiPage)
-            }
-         return wikiPage
+    @Cacheable("content")
+    def getCachedOrReal(String id) {
+        return Content.findAllByTitle(id).find { !it.instanceOf(Version) }
     }
 
     def pageChanged(id) {
@@ -32,6 +29,7 @@ class WikiPageService {
         cacheService.removeContent(id)
     }
     
+    @CacheEvict(value="content", key="#title")
     WikiPage createOrUpdateWikiPage(String title, String body, User user, Long version = null) {
         def page = WikiPage.findByTitle(title)
         if (page) {
@@ -43,6 +41,7 @@ class WikiPageService {
         }
     }
     
+    @CacheEvict(value="content", key="#title")
     PluginTab createOrUpdatePluginTab(String title, String body, User user, Long version = null) {
         try {
             searchableService.stopMirroring()
@@ -84,15 +83,13 @@ class WikiPageService {
     
     def updateContent(Content content, String body, User user, Long version) {
         if (content.version != version) {
-            throw new OptimisticLockException()
+            throw new OptimisticLockException("Content [${content.class.simpleName}:${content.id}] was updated by someone else. Version mismatch: Submitted version ($version), Content version (${content.version}).")
         }
         else if (content.body != body) {
             content.body = body
             content.lock()
             content.version = content.version + 1
             content.save(flush: true, failOnError: true)
-            // refresh the textCache
-            textCache.flush()
 
             if (!content.hasErrors()) {
                 Version v = content.createVersion()
@@ -108,12 +105,14 @@ class WikiPageService {
         return content
     }
 
+    def Version latestVersion(Content content) {
+
+    }
+
     private evictFromCache(id, title) {
         cacheService.removeWikiText(title)
         cacheService.removeContent(title)
         
-        if (id) {
-            textCache.remove 'versionList' + id
-        }
+        if (id) cacheService.removeCachedText('versionList' + id)
     }
 }

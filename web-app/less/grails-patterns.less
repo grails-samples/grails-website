@@ -1,0 +1,70 @@
+#textshadow {
+	.white(@alpha:0.6) {
+		text-shadow: 0 1px 0 rgba(255,255,255,@alpha);
+	}
+	.black(@alpha:0.6) {
+		text-shadow: 0 1px 0 rgba(0,0,0,@alpha);
+	}
+	.blackSepcial(@alpha:0.8) {
+		text-shadow: 0 -1px 0 rgba(0,0,0,@alpha);
+	}
+}
+
+#font {
+	#family {
+		.ptsans() {
+			font-family: "PT Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+		.magra() {
+			font-family: 'Magra', sans-serif
+		}		
+	}
+}
+
+#hoverState {
+	.aHover() {
+		color: @grailsBlack;
+		text-decoration: none;
+        &:hover {
+		    text-decoration: underline;
+        }
+	}
+}
+
+
+#list {
+    .round {
+        li {
+            padding: 0;
+            margin: 0;
+            line-height: 20px;
+            border: 0 none;
+            float: none;
+            height: auto;
+            @shadow: inset 0 0 0 black;
+            .box-shadow(@shadow);
+            a {
+                padding: 0;
+                margin: 0;
+                border: 0 none;
+                float: none;
+                height: auto;
+                line-height: 20px;
+                color: @grailsBlack;
+                border: 0 none;
+                text-shadow: 0 0 0 black;
+                cursor: pointer;
+                &:hover {
+                    background: 0 none;
+                    border: 0 none;
+                    .box-shadow(@shadow);
+                    color: @grailsGreen;
+                }
+            }
+            &.active a {
+                color: @grailsGreen;
+            }
+        }
+
+    }
+}

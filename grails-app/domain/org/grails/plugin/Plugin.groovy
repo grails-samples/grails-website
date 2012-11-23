@@ -1,9 +1,9 @@
 package org.grails.plugin
 
+import org.grails.meta.UserInfo
 import org.grails.taggable.Tag
 import org.grails.taggable.Taggable
 import org.grails.taggable.TagLink
-import org.grails.comments.Commentable
 import org.grails.rateable.Rateable
 
 import org.joda.time.DateTime
@@ -11,7 +11,7 @@ import org.joda.time.DateTime
 /*
  * author: Matthew Taylor
  */
-class Plugin implements Taggable, Commentable, Rateable {
+class Plugin implements Taggable, Rateable {
     static final WHITE_LIST = [
             "title",
             "groupId",
@@ -60,14 +60,14 @@ class Plugin implements Taggable, Commentable, Rateable {
     Boolean featured = false
     boolean zombie = false
     BigDecimal usage
-    Number avgRating
     DateTime dateCreated
     DateTime lastUpdated
     DateTime lastReleased = new DateTime()
 
+    List authors
     List mavenRepositories
 
-    static hasMany = [licenses: License, mavenRepositories: String, releases: PluginRelease]
+    static hasMany = [licenses: License, mavenRepositories: String, authors: UserInfo, releases: PluginRelease]
 
     static searchable = {
         only = [
@@ -75,7 +75,7 @@ class Plugin implements Taggable, Commentable, Rateable {
             'installation','description','faq','screenshots', 'tags',
             'featured', 'official', 'organization'
         ]
-        title boost: 2.0
+        title boost: 5.0
         description component: true
         installation component: true
         faq component: true
@@ -87,11 +87,14 @@ class Plugin implements Taggable, Commentable, Rateable {
         downloadUrl index: "no", store: "yes"
         scmUrl index: "no", store: "yes"
         issuesUrl index: "no", store: "yes"
+        avgRating index: "not_analyzed", store: "yes"
+        ratingCount index: "not_analyzed", store: "yes"
         tags component: true
     }
 
     static transients = [
             'avgRating',
+            'ratingCount',
             'fisheye',
             'tags',
             'dependencyDeclation',
@@ -108,6 +111,7 @@ class Plugin implements Taggable, Commentable, Rateable {
         faq nullable: true
         screenshots nullable: true
         author nullable: true
+        authorEmail nullable: true
         organization nullable: true
         organizationUrl nullable: true
         scmUrl nullable: true, blank: true
@@ -154,6 +158,15 @@ class Plugin implements Taggable, Commentable, Rateable {
         }
     }
 
+    Double getAvgRating() {
+        // Dynamic call to method added by Rateable plugin.
+        return averageRating
+    }
+
+    Integer getRatingCount() {
+        return totalRatings
+    }
+
     def onAddComment = { comment ->
         cacheService.flushWikiCache()
     }
@@ -162,7 +175,18 @@ class Plugin implements Taggable, Commentable, Rateable {
         pluginService.compareVersions(currentRelease, version) > 0
     }
 
+    def isScmGitHub() {
+        if (!scmUrl) return false
+        def pattern = ~/.*github.*/
+        def matches = pattern.matcher(scmUrl).matches()
+        return matches
+    }
+
     String toString() {
         "$name : $title"
+    }
+
+    static Collection<Tag> getAllTags() {
+        TagLink.findAllByType('Plugin')
     }
 }

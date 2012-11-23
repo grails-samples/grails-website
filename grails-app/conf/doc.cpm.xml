@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.2//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.2.dtd">
+
+<compass-core-mapping>
+  <resource alias="doc">
+    <resource-id name="id" />
+    <resource-property name="title" store="yes" index="analyzed" boost="10.0"/>
+    <resource-property name="url" store="yes" index="not_analyzed" />
+    <resource-property name="body" store="compress" index="analyzed" boost="2.0" />
+  </resource>
+</compass-core-mapping>
+

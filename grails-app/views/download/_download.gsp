@@ -7,7 +7,7 @@
     <li><a href="${binDownload?.releaseNotes}">Release Notes</a></li>
 </ul>
 
-<cache:text id="${'downloadPage_'+binDownload?.softwareVersion}">
+<cache:block key="${'downloadPage_'+binDownload?.softwareVersion}">
     <table class="download-table">
         <tr><th>Distribution</th><th>Mirror</th></tr>
         <g:each var="file" in="${binDownload?.files}">
@@ -52,4 +52,4 @@
         </g:if>
     </table>
 
-</cache:text>
+</cache:block>

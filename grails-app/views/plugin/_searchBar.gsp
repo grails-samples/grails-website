@@ -1,7 +1,6 @@
-<div class="searchBox">
-    <g:form name="pluginSearch" action="search" method="GET">
-        <input class="searchInput" type="text" name="q" value="${q?.encodeAsHTML()}"/>
-        <input class="searchButton" type="image" src="${resource(dir:'images/new/plugins/Buttons', file:'search_btn.png')}" value="Search"/>
-        or <g:link action="browseTags">browse tags</g:link>
-    </g:form>
-</div>
+<form class="search" action="/plugins/search" name="plugin-search" method="GET">
+    <input type="text" id="q" name="q" value="${params.q?.encodeAsHTML()}" placeholder="Search for a plugin"/>
+    <a href="#" id="search-button" class="btn btn-search">
+        <i class="icon-search icon-white"></i>
+    </a>
+</form>

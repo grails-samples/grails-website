@@ -1,0 +1,219 @@
+// BUTTON STYLES
+// -------------
+
+
+// Base styles
+// --------------------------------------------------
+
+// Core
+.btn {
+	display: inline-block;
+	padding: 7px 12px 6px;
+	font-size: @baseFontSize;
+	line-height: @baseLineHeight - 5px;
+	text-decoration: none;
+	border: 1px solid #31373a;
+	color: @white;
+	text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+	#textshadow > .black(0.2);
+	background-color: #4b8723;
+    #gradient >.vertical(#41484c, #31373a);
+	//#gradient>.vertical(#8f989d, #757c80);
+	.border-radius(6px);
+	cursor: pointer;
+    .box-shadow(inset 0 1px 0 rgba(255,255,255,.2));
+    .ie7-restore-left-whitespace(); // Give IE7 some love
+	.ie7-restore-left-whitespace();
+
+    &.gray {
+		background-color: #e5e5e3;
+		color: #686868;
+        border-color: #b9b9b9;
+		#textshadow > .white(0.8);
+		#gradient>.vertical(#e5e4e3, #d7d6d4);
+        .box-shadow(inset 0 1px 0 #f1f0f0);
+    }
+
+	&.primary {
+		background-color: #41751e;
+		#gradient>.vertical(#4b8723, #41751e);
+	}
+
+	&.blue {
+		background-color: #28b5df;
+		#gradient>.vertical(#28b5df, #1b9ed5);
+        border-color: #1b9ed5;
+	}
+
+	&.light {
+		background-color: #e9eef0;
+		color: @grailsBlack;
+        border-color: #afc2cc;
+		#textshadow > .white(0.8);
+		#gradient>.vertical(#e9eef0, #e5ebed);
+        .box-shadow(inset 0 1px 0 rgba(255,255,255,.5));
+	}
+
+	&.blueLight {
+		background-color: #e9eef0;
+		color: @grailsBlack;
+        border-color: #c4ccce;
+        .box-shadow(inset 0 1px 0 rgba(255,255,255,.5));
+		#textshadow > .white(0.8);
+		#gradient>.vertical(#e9eef0, #e5ebed);
+		#font > #family > .sans-serif();
+	}
+}
+
+
+// Small
+.btn-small {
+  padding: 5px 9px;
+  font-size: @baseFontSize - 2px;
+  line-height: @baseLineHeight - 2px;
+}
+.btn-small [class^="icon-"] {
+  margin-top: -1px;
+}
+
+.alert-block {
+    border: 1px solid #e5dfbf;
+    .btn {
+	    #gradient>.vertical(#bf9752, #99702f);
+    }
+    .btn:hover {
+	    #gradient>.vertical(#99702f, #815d25);
+    }
+    .btn:active {
+
+    }
+}
+
+input.btn {
+	margin-bottom: 4px;
+}
+
+// Hover state
+.btn:hover, .btn.hover {
+	color: @white;
+	text-decoration: none;
+    #gradient >.vertical(#5d6367, #4b5155);
+	
+	// transition is only when going to hover, otherwise the background
+	// behind the gradient (there for IE<=9 fallback) gets mismatched
+
+	&.primary {
+		#gradient>.vertical(#457c20, #356216);
+	}
+
+	&.blue, btn-light {
+		#gradient>.vertical(#1badeb, #1592c6);
+        border-color: #1b9ed5;
+	}
+
+	&.blueLight, &.light {
+		color: @grailsBlack;
+		#gradient>.vertical(#e5ebed, #d4dee2);
+	}
+
+    &.gray {
+        border-color: #b9b9b9;
+        #gradient>.vertical(#d9d8d6, #c5c3c0);
+     }
+
+}
+
+// Focus state for keyboard and accessibility
+.btn:focus {
+	.tab-focus();
+}
+
+// Active state
+.btn.active, .btn:active {
+	background-image: none;
+	@shadow: inset 0 2px 4px rgba(0,0,0,.2);
+	.box-shadow(@shadow);
+	#gradient>.vertical(#5d6367, #666b6e);
+	outline: 0;
+
+	&.primary {
+		#gradient>.vertical(#4b8723, #4b8723);
+	}
+	
+	&.blue {
+		#gradient>.vertical(#28b5df, #28b5df);
+	}
+	&.light {
+		color: @grailsBlack;
+		#gradient>.vertical(#e9eef0, #e9eef0);
+	}
+
+    &.gray {
+        border-color: #b9b9b9;
+        #gradient>.vertical(#d9d8d6, #c5c3c0);
+     }
+}
+
+// Disabled state
+.btn.disabled, .btn[disabled] {
+	cursor: default;
+	background-image: none;
+	background-color: darken(@white, 10%);
+	.opacity(65);
+	.box-shadow(none);
+}
+
+
+// Button Sizes
+// --------------------------------------------------
+
+// Large
+.btn-large {
+	padding: 8px 20px;
+	font-size: @baseFontSize + 1px;
+	line-height: normal;
+	.border-radius(20px);
+}
+
+// Alternate buttons
+// --------------------------------------------------
+
+// Set text color
+// -------------------------
+.btn-primary, .btn-primary:hover, .btn-warning, .btn-warning:hover, .btn-danger, .btn-danger:hover, .btn-success, .btn-success:hover, .btn-info, .btn-info:hover {
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  color: @white
+}
+// Provide *some* extra contrast for those who can get it
+.btn-primary.active,
+.btn-warning.active,
+.btn-danger.active,
+.btn-success.active,
+.btn-info.active {
+  color: rgba(255,255,255,.75);
+}
+
+// Cross-browser Jank
+// --------------------------------------------------
+
+button.btn,
+input[type="submit"].btn {
+  &::-moz-focus-inner {
+    padding: 0;
+    //border: 0;
+  }
+
+  // IE7 has some default padding on button controls
+  *padding-top: 2px;
+  *padding-bottom: 2px;
+  &.large {
+    *padding-top: 7px;
+    *padding-bottom: 7px;
+  }
+  &.small {
+    *padding-top: 3px;
+    *padding-bottom: 3px;
+  }
+}

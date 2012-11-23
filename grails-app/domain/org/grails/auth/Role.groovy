@@ -23,5 +23,14 @@ class Role {
         name
     }
 
+    boolean equals(Object o) {
+        if(o instanceof Role) {
+            return this.name == o.name
+        }
+        return false
+    }
 
+    int hashCode() {
+        name.hashCode()
+    }
 }

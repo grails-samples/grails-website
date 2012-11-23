@@ -1,20 +1,18 @@
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <head>
-      <title>Login Page</title>
-      <meta content="subpage" name="layout" />
-      <style type="text/css">
-          #content-container {
-              height:700px;
-          }
+<head>
+    <meta content="master" name="layout"/>
+    <r:require modules="auth"/>
+</head>
+<body>
 
-      </style>
-      
-  </head>
-  <body>
-        <div id="contentPane">
-            <g:render template="loginForm" model="${pageScope.variables}" />
-        </div>
-  </body>
+<div class="socialConnect">
+    <oauth:connect provider="facebook" class="facebook">Facebook connect</oauth:connect>
+    <oauth:connect provider="twitter" class="twitter">Twitter connect</oauth:connect>
+</div>
+<div id="content" class="content-form-small" role="main">
+    <g:render template="loginForm" model="${pageScope.variables}"/>
+</div>
+
+</body>
 </html>

@@ -1,23 +1,28 @@
 package org.grails.maven
 
 import groovy.xml.MarkupBuilder
+import grails.plugin.cache.CacheEvict
 import org.grails.plugin.*
 
 import org.springframework.context.ApplicationEvent
+
 /**
  * 
- * Responsible for adapting Grails repository conventions onto a Maven compatible repository. Currently this is hard coded to http://repo.grails.org/grails/plugins.
- * Also handles deployment of plugins using the publish action.
+ * Responsible for adapting Grails repository conventions onto a Maven compatible repository.
+ * Defaults to http://repo.grails.org/grails/plugins. Also handles deployment of plugins using
+ * the publish action.
  * 
  * @author Graeme Rocher
  */
 class RepositoryController {
 
     def cacheService
+    def grailsApplication
     
     /**
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
      */
+    @CacheEvict("pluginMetaList")
     def publish(PublishPluginCommand cmd) {
         log.debug "Got publish request for method ${request.method}"
         boolean isBrowserRequest = params.format == 'html'
@@ -39,20 +44,18 @@ class RepositoryController {
                 }
             }
             else {
-
                 log.info "Publishing plugin [$p] with version [$v]"
+
+                // We disallow re-publication of non-snapshot releases, so find
+                // out whether this version has been published before.
                 def existing = PluginRelease.where {
-                    plugin.name == p && releaseVersion == v
+                    plugin.name == p && releaseVersion == v && isSnapshot == false
                 }
 
-                if(!existing.exists() || v.endsWith("-SNAPSHOT")) {
-                    log.debug "Plugin [$p:$v] does not existing. Creating pending release..."
-                    def pendingRelease = new PendingRelease(pluginName:p, pluginVersion:v, zip:cmd.zip, pom:cmd.pom, xml:cmd.xml)
-                    assert pendingRelease.save(flush:true) // assertion should never fail due to prior validation in command object                        
+                if (!existing.exists()) {
+                    log.debug "Plugin [$p:$v] does not exist or is snapshot. Creating pending release..."
+                    createPendingRelease p, v, cmd
 
-
-                    log.debug "Triggering plugin publish event for plugin [$p:$v]"
-                    publishEvent(new PluginPublishEvent(pendingRelease))
                     if(isBrowserRequest) {
                         return [message:"Plugin published."]
                     }
@@ -78,7 +81,7 @@ class RepositoryController {
     }
 
 
-    def pluginMeta() {	
+    def pluginMeta() {
         render '<a href="http://plugins.grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a><a href="http://grails.org/plugins/.plugin-meta/plugins-list.xml">plugins-list.xml</a>'
     }
 
@@ -108,18 +111,28 @@ class RepositoryController {
                     type = "-plugin$type"
                 }
 
-                if(pluginVersion == '[revision]' || pluginVersion == 'latest.release' || pluginVersion == 'latest.integration') {
-                    // calculate latest
-                    def pr = findPluginRelease(plugin)
-                    if(pr) {
-                        pluginVersion = pr.releaseVersion
-                    }
+                // WARNING These aliases work on the basis of release date, not
+                // version, so if a developer publishes an older version after a
+                // newer one, the older one takes precedence as the 'latest' release.
+                // This pretty much matches the old svn.codehaus.org behaviour, but
+                // it's counter-intuitive for users.
+                if(pluginVersion == '[revision]' || pluginVersion == 'latest.release') {
+                    // Use the most recent non-snapshot release.
+                    pluginVersion = findLatestNonSnapshotPluginRelease(plugin)?.releaseVersion
+                } else if(pluginVersion == 'latest.integration') {
+                    // Use the most recent release, including snapshots.
+                    pluginVersion = findLatestPluginRelease(plugin)?.releaseVersion
+                }
+
+                if (!pluginVersion) {
+                    render status: 404, text: "Cannot find requested version of plugin ${plugin}"
+                    return
                 }
 
                 def snapshotVersion = pluginVersion
                 if(snapshotVersion.endsWith("-SNAPSHOT")) {
                     // need to calculate actual version from maven metadata
-                    def parent = new URL("http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/maven-metadata.xml")
+                    def parent = new URL("${repoUrl}/org/grails/plugins/$plugin/$pluginVersion/maven-metadata.xml")
                     try {
                         def metadata = parent.newReader(connectTimeout: 10000, useCaches: false).withReader { new XmlSlurper().parse(it) }
                         def timestamp = metadata.versioning.snapshot.timestamp.text()
@@ -134,7 +147,7 @@ class RepositoryController {
                     }
                     
                 }
-                url = "http://repo.grails.org/grails/plugins/org/grails/plugins/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"                
+                url = "${repoUrl}/org/grails/plugins/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"                
                 cacheService?.putContent(key, url)
             }
             
@@ -145,7 +158,6 @@ class RepositoryController {
         }
     }
     
-    def grailsLinkGenerator
     def listLatest(String plugin) {
         String key = "artifact:list:latest:$plugin"
         def content = cacheService?.getContent(key)
@@ -153,7 +165,7 @@ class RepositoryController {
             render content
         }
         else {
-            def pr = findPluginRelease(plugin)
+            def pr = findLatestNonSnapshotPluginRelease(plugin)
             if(pr) {
 
                 content = g.render( template:"listLatest", model: [plugin:plugin,release:pr, fullName:"$plugin-$pr.releaseVersion"] )
@@ -168,12 +180,40 @@ class RepositoryController {
         
     }
     
-    private findPluginRelease(String n) {
-         return PluginRelease.where {
-            plugin.name == n
-         }.max(1)
-          .order("releaseDate", "desc")
-          .find()
+    protected getRepoUrl() {
+        def repoUrl = grailsApplication.config.artifactRepository.url ?: "http://repo.grails.org/grails/plugins"
+        return repoUrl.endsWith("/") ? repoUrl[0..-2] : repoUrl
+    }
+    
+    private findLatestNonSnapshotPluginRelease(String n) {
+        def query = PluginRelease.where {
+            plugin.name == n && isSnapshot == false
+        }
+        return query.get(sort:'releaseDate', order:'desc', max: 1)
+    }
+    
+    private findLatestPluginRelease(String n) {
+        def query = PluginRelease.where {
+            plugin.name == n && isSnapshot == false
+        }
+        return query.get(sort:'releaseDate', order:'desc', max: 1)
+    }
+
+    protected createPendingRelease(name, version, files) {
+        // First remove any existing pending entries for this plugin.
+        def pendingRelease = PendingRelease.where { pluginName == name && pluginVersion == version }.get()
+        if (pendingRelease) pendingRelease.delete()
+
+        pendingRelease = new PendingRelease(
+                pluginName: name,
+                pluginVersion: version,
+                zip: files.zip,
+                pom: files.pom,
+                xml: files.xml).save(flush: true)
+        assert pendingRelease // assertion should never fail due to prior validation in command object
+
+        log.debug "Triggering plugin publish event for plugin [$name:$version]"
+        publishEvent(new PluginPublishEvent(pendingRelease))
     }
     
     def pluginService
@@ -182,16 +222,16 @@ class RepositoryController {
      * Renders the plugin list as XML in a format compatible with all versions of Grails
      */
     def list() {
-        def content = cacheService.getPluginList()
+        def content = cacheService?.getPluginList()
         if (!content) {
             content = generatePluginListXml()
-            cacheService.putPluginList(content)
+            cacheService?.putPluginList(content)
         }
 
         // get the most recent plugin release and use it as the last modified date
         def pr = PluginRelease.list(max:1, sort:'releaseDate', order:'desc')
         if(pr) {
-            lastModified pr.releaseDate[0].toDate()
+            lastModified pr[0].releaseDate.toDate()
         }
 
         render text: content, contentType: "text/xml"

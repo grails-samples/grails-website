@@ -23,7 +23,7 @@ class UserServiceSpec extends Specification {
         def userService = new UserService()
 
         when:
-        def permissions = userService.permissionsForUser("geoff")
+        def permissions = userService.permissionsForUser(User.findByLogin("geoff"))
 
         then:
         permissions.size() == 4
@@ -44,7 +44,7 @@ class UserServiceSpec extends Specification {
         def userService = new UserService()
 
         when:
-        def permissions = userService.permissionsForUser("geoff")
+        def permissions = userService.permissionsForUser(User.findByLogin("geoff"))
 
         then:
         permissions.size() == 0

@@ -1,0 +1,18 @@
+// Transition
+body.fixed {
+    #page, #banner .banner, .content-aside section#main, #main.website .colset div.content, #main.websites article div.content,
+        .section-1 .right, .section-1 .left, .content-aside .content-title {
+        @transition: width linear .2s;
+        .transition(@transition);
+    }
+    .download #main section.cols4 {
+        div.col-1, div.col-2, div.col-3, div.col-4 {
+            @transition: width linear .2s;
+            .transition(@transition);
+        }
+    }
+}
+
+@import "responsive/grails-979px-max.less";
+//@import "responsive/grails-480px-max.less";
+@import "responsive/grails-1200px-min.less";

@@ -1,0 +1,168 @@
+// Variables
+@radius: 3px;
+
+.download {
+    .clearfix();
+    #main {
+        section {
+            .border-radius(@radius);
+            background: @white;
+            padding: 10px 20px;
+            margin-bottom: 15px;
+        }
+        section.cols4 {
+            padding: 10px 0;
+            .clearfix();
+            div.col-1, div.col-2, div.col-3, div.col-4 {
+                text-align: center;
+                float: left;
+                width: 223px;
+                padding: 10px 10px;
+                border-right: 1px solid @grailsGrayLighter;
+                h3 {
+                    #font > #family > .ptsans();
+                    font-size: 18px;
+                    line-height: 20px;
+                    padding-top: 8px;
+                }
+            }
+            div.col-1 {
+                width: 228px;
+            }
+            div.col-4 {
+                border-right: 0 none
+            }
+        }
+
+        section.archives {
+            h3 {
+                margin-bottom: 0px;
+            }
+            div.release {
+                margin-top: 4px;
+                .table {
+                    margin-bottom: 12px;
+                    margin-top: 0;
+                }
+            }
+        }
+
+        section.previousRelease {
+            display: none;
+
+            position: relative;
+            padding: 15px 20px;
+            h3 {
+                margin: 0;
+                padding: 0;
+                line-height: 22px;
+            }
+            p {
+                padding: 0;
+                margin: 0;
+            }
+            .previousSelect {
+                width: 100px;
+                position: absolute;
+                right: 125px;
+                top: 16px;
+            }
+        }
+
+        div.release {
+            h4 {
+                padding: 4px 8px;
+            }
+            background: @grailsGrayWhite repeat 0 0;
+            margin-top: 15px;
+            .table {
+                margin-bottom: 0;
+                th, td {
+                    padding: 4px 8px;
+                    small {
+                        color: @grailsGrayMedium;
+                    }
+                }
+                td.align-center {
+                    text-align: center;
+                }
+            }
+        }
+
+
+        .downloads {
+            position: relative;
+            background: url("@{imagesPath}/page/bgblue.png") repeat 0 0;
+            padding: 20px 30px;
+            color: @grailsBlueDark;
+            a.forkmeongithub {
+                text-indent: -6000em;
+                position: absolute;
+                top: -10px;
+                right: -10px;
+                background: url("@{imagesPath}/page/fork-me.png") no-repeat 0 0;
+                width: 141px;
+                height: 141px;
+            }
+            h2 {
+                font-weight: normal;
+                font-size: 22px;
+                line-height: 25px;
+                padding-bottom: 5px;
+                margin: 0;
+                color: #334c58;
+                small {
+                    font-size: 14px;
+                }
+            }
+            p.url {
+                padding: 0 0 1px 0;
+                input {
+                    .border-radius(@radius);
+                    display: block;
+                    background: @white;
+                    border: 1px solid #acbac0;
+                    color: @grailsGray;
+                    width: 450px;
+                    padding: 5px 6px;
+                    margin: 5px 0;
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+            .latest {
+                position: relative;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                height: 40px;
+                .buttons {
+                    position: absolute;
+                    margin: 0;
+                    left: 470px;
+                    top: 0;
+                    .btn {
+                        padding: 0 20px;
+                        line-height: 33px;
+                        .border-radius(5px);
+                        display: block;
+                        border-right: 1px solid @grailsGreenDark;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.js {
+    #main {
+        section.previousRelease {
+            display: block;
+
+        }
+        section.archives {
+            display: none;
+        }
+    }
+
+}

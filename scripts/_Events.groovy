@@ -1,3 +1,28 @@
+import org.lesscss.LessCompiler
+
+eventCreateWarStart = { name, stagingDir ->
+    compileLessCss name, stagingDir
+}
+
+void compileLessCss(name, stagingDir) {
+    // Instantiate the LESS compiler
+    def lessCompiler = new LessCompiler()
+
+    // Compile all top-level LESS files into CSS output files. A top-level
+    // LESS file is identified as one whose name does not begin with 'grails-'
+    // or 'bootstrap-'
+    event "StatusUpdate", [ "LESS CSS: compiling .less files ..." ]
+
+    def lessFiles = new File(stagingDir, "less").listFiles({ dir, fname ->
+        fname.endsWith(".less") && !(fname.startsWith("bootstrap-") || fname.startsWith("grails-"))
+    } as FilenameFilter)
+
+    for (lessFile in lessFiles) {
+        lessCompiler.compile(lessFile, new File(stagingDir, "css/${lessFile.name - '.less'}.css"))
+    }
+    event "StatusUpdate", [ "LESS CSS: compilation done" ]
+}
+
 def classExcludePatterns = [
     'BuildConfig*',
     'grails/buildtestdata/**',

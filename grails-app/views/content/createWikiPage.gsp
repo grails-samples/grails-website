@@ -1,10 +1,25 @@
 <%@ page import="org.grails.wiki.WikiPage" %>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Create Page</title>
-    <meta content="subpage" name="layout" />
+    <title><g:message code="wiki.create.title" args="${[wikiPage?.title]}"/></title>
+    <meta content="master" name="layout"/>
+    <r:require modules="content, codeMirror, fancyBox"/>
 </head>
+
 <body>
-    <g:render template='wikiCreate' var="pageName" bean="${pageName}"/>
+
+<div id="content" class="content-aside" role="main">
+
+    <g:render template="sideNav"/>
+
+    <section id="main">
+        <article>
+            <h2><g:message code="wiki.create.title" args="${[wikiPage?.title]}"/></h2>
+
+            <p><g:message code="wiki.create.description"/></p>
+
+            <g:render template="wikiForm"/>
+        </article>
+    </section>
+</div>
+
 </body>
-</html>

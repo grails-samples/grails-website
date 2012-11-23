@@ -20,16 +20,16 @@ class PluginDeployServiceSpec extends spock.lang.Specification {
             service.deployRelease(pr)
 
         then:"The release was deployed"
-            PendingRelease.count() == 0
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.md5",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.sha1",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.md5",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.sha1",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.md5",_)
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.sha1",_)
+            PendingRelease.findByPluginNameAndPluginVersion("tomcat", "1.0.0").status == ReleaseStatus.COMPLETED
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip",_) >> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.md5",_) >> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.sha1",_)>> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom",_)>> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.md5",_)>> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.sha1",_)>> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml",_)>> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.md5",_)>> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.sha1",_)>> [status:200]
 
     }
 }

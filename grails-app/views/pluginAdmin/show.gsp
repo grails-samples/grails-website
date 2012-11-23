@@ -1,198 +1,127 @@
-
-<%@ page import="org.grails.plugin.Plugin" %>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="layout" content="main" />
-        <title>Show Plugin</title>
-    </head>
-    <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">Plugin List</g:link></span>
-            <span class="menuButton"><g:link class="create" action="create">New Plugin</g:link></span>
-        </div>
-        <div class="body">
-            <h1>Show Plugin</h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <div class="dialog">
-                <table>
-                    <tbody>
+<head>
+    <meta name="layout" content="admin"/>
+</head>
 
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Id:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'id')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Name:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'name')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Description:</td>
-                            
-                            <td valign="top" class="value"><g:link controller="wikiPage" action="show" id="${pluginInstance?.description?.id}">${pluginInstance?.description?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Installation:</td>
-                            
-                            <td valign="top" class="value"><g:link controller="wikiPage" action="show" id="${pluginInstance?.installation?.id}">${pluginInstance?.installation?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Faq:</td>
-                            
-                            <td valign="top" class="value"><g:link controller="wikiPage" action="show" id="${pluginInstance?.faq?.id}">${pluginInstance?.faq?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Screenshots:</td>
-                            
-                            <td valign="top" class="value"><g:link controller="wikiPage" action="show" id="${pluginInstance?.screenshots?.id}">${pluginInstance?.screenshots?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Author:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'author')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Grails Version:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'grailsVersion')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Last Released:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'lastReleased')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Current Release:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'currentRelease')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Author Email:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'authorEmail')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Date Created:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'dateCreated')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Documentation Url:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'documentationUrl')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Download Url:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'downloadUrl')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Featured:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'featured')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Last Updated:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'lastUpdated')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Official:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'official')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Title:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'title')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Avg Rating:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'avgRating')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Cache Service:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'cacheService')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Fisheye:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'fisheye')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">On Add Comment:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'onAddComment')}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name">Plugin Service:</td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean:pluginInstance, field:'pluginService')}</td>
-                            
-                        </tr>
-                    
-                    </tbody>
-                </table>
-            </div>
-            <div class="buttons">
-                <g:form>
-                    <input type="hidden" name="id" value="${pluginInstance?.id}" />
-                    <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
-                </g:form>
-            </div>
-        </div>
-    </body>
+<body>
+
+<h1 class="page-header">
+    ${plugin.title}
+    <span class="pull-right">
+        <g:form>
+            <g:hiddenField name="id" value="${plugin?.id}"/>
+            <g:link class="btn" action="list">Plugin List</g:link>
+            <g:actionSubmit class="btn btn-info" action="edit" value="Edit"/>
+        </g:form>
+    </span>
+</h1>
+
+<g:if test="${flash.message}">
+    <div class="alert alert-info">${flash.message}</div>
+</g:if>
+
+<table class="table table-bordered table-striped">
+    <tbody>
+
+    <tr>
+        <td class="show-label" nowrap="nowrap" style="width: 150px;">ID</td>
+        <td class="show-value">${fieldValue(bean: plugin, field: "id")}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Name</td>
+        <td class="show-value">${fieldValue(bean: plugin, field: "name")}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Title</td>
+        <td class="show-value">${fieldValue(bean: plugin, field: "title")}</td>
+    </tr> 
+    <tr>
+        <td class="show-label" nowrap="nowrap">Summary</td>
+        <td class="show-value">${fieldValue(bean: plugin, field: "summary")}</td>
+    </tr>           
+    <tr>
+        <td class="show-label" nowrap="nowrap">Description</td>
+        <td class="show-value">
+            <g:if test="${plugin.description}">
+               <g:link controller="pluginTab" action="show" id="${plugin.description.id}" class="btn btn-info">Show Description</g:link> 
+            </g:if>
+        </td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Installation</td>
+        <td class="show-value">
+            <g:if test="${plugin.installation}">
+               <g:link controller="pluginTab" action="show" id="${plugin.installation.id}" class="btn btn-info">Show Installation</g:link> 
+            </g:if>            
+        </td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Dependency</td>
+        <td class="show-value"><code>${plugin?.defaultDependencyScope} ${plugin?.dependencyDeclaration}</code></td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Last Released</td>
+        <td class="show-value">${plugin?.lastReleased}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Current Release</td>
+        <td class="show-value">${plugin?.currentRelease}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">FAQ</td>
+        <td class="show-value">
+            <g:if test="${plugin.faq}">
+               <g:link controller="pluginTab" action="show" id="${plugin.faq.id}" class="btn btn-info">Show FAQ</g:link> 
+            </g:if>                  
+        </td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Author</td>
+        <td class="show-value">
+            ${plugin?.author}
+            <g:if test="${plugin?.authorEmail}">(<a
+                    href="mailto:${plugin?.authorEmail}">${plugin?.authorEmail}</a>)</g:if>
+        </td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Grails Version</td>
+        <td class="show-value">${plugin?.grailsVersion}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Date Created</td>
+        <td class="show-value">${plugin?.dateCreated}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Last Updated</td>
+        <td class="show-value">${plugin?.lastUpdated}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Documentation URL</td>
+        <td class="show-value">${plugin?.documentationUrl}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Download URL</td>
+        <td class="show-value">${plugin?.downloadUrl}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Featured?</td>
+        <td class="show-value">${plugin?.featured}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Official?</td>
+        <td class="show-value">${plugin?.official}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">Avg Rating</td>
+        <td class="show-value">${plugin?.avgRating}</td>
+    </tr>
+    <tr>
+        <td class="show-label" nowrap="nowrap">FishEye</td>
+        <td class="show-value">${plugin?.fisheye}</td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
 </html>

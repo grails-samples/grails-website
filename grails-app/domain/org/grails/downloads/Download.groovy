@@ -8,8 +8,9 @@ class Download implements Serializable{
     DateTime releaseDate = new DateTime()                    
     String softwareName
     String softwareVersion
-    int downloadCount
+    int downloadCount // This is no longer needed.
     Boolean betaRelease = false
+    Boolean latestRelease = false
 
     List files
     static hasMany = [files:DownloadFile]   
@@ -23,10 +24,16 @@ class Download implements Serializable{
     static constraints = {
         softwareName blank:false
         softwareVersion blank:false
-        downloadCount min:0
+        downloadCount nullable: true
+        releaseDate blank:false
+        latestRelease nullable:true
     }
 
     static mapping = {
         downloadCount column: '`count`'
+    }
+
+    def String toString() {
+        "${softwareName} ${softwareVersion}"
     }
 }

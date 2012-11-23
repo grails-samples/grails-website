@@ -59,7 +59,7 @@ fixture {
                 name: "shiro",
                 title: "Apache Shiro Plugin",
                 currentRelease: "1.1-SNAPSHOT",
-                author: "Peter Ledbrook",
+                authors: [peterInfo],
                 organization: "KataSoft",
                 summary: "Integrates the Apache Shiro security framework into your Grails applications.",
                 lastReleased: new DateTime(2009, 12, 10, 10, 00),
@@ -106,7 +106,7 @@ fixture {
                 name: "fixtures",
                 title: "Fixtures Plugin",
                 currentRelease: "1.0.1",
-                author: "Grails Plugin Collective",
+                authors: [gpcInfo],
                 summary: "Declare sample data using a Spring Bean DSL like syntax and load it form anywhere in your application: tests, BootStrap, controllers, in fact anyhere. Also integrates with Build Test Data plugin.",
                 lastReleased: new DateTime(2011, 5, 5, 17, 11),
                 installation: fixturesInstallation,
@@ -151,7 +151,7 @@ fixture {
                 name: "build-test-data",
                 title: "Build Test Data Plugin",
                 currentRelease: "1.2",
-                author: "Ted Naleid",
+                authors: [tedInfo],
                 summary: """\
 This plugin allows the user to easily create testing data through the use of a "build" method that is added to all Domain Classes. The build method inspects all of the constraints and creates default values for those required properties.
 
@@ -206,7 +206,7 @@ This is a test list:
                 name: "hibernate",
                 title: "Hibernate ORM Plugin",
                 currentRelease: "1.3.4",
-                author: "SpringSource",
+                authors: [springSourceInfo],
                 organization: "SpringSource",
                 organizationUrl: "http://www.springsource.org/",
                 lastReleased: new DateTime(2011, 12, 31, 0, 0),
@@ -215,6 +215,149 @@ This is a test list:
                 faq: hibernateFaq,
                 screenshots: hibernateScreenshots,
                 licenses: [ apacheLicense, gpl3License ])
+
+
+        //Cache 
+       cacheInstallation(PluginTab, title: "plugin-cache-installation", body: "@grails install-plugin cache@")
+        cacheVersion(Version,
+                title:cacheInstallation.title,
+                body:cacheInstallation.body,
+                number: 0,
+                current:cacheInstallation,
+                author: admin)
+        
+        cacheDescription(PluginTab, title: "plugin-cache-description", body: "Cache Plugin.")
+        cdVersion(Version,
+                title: cacheDescription.title,
+                body: cacheDescription.body,
+                number: 0,
+                current: cacheDescription,
+                author: admin)
+        
+        cacheFaq(PluginTab, title: "plugin-cache-faq", body: "")
+        cfVersion(Version,
+                title: cacheFaq.title,
+                body: cacheFaq.body,
+                number: 0,
+                current: cacheFaq,
+                author: admin)
+        
+        cacheScreenshots(PluginTab, title: "plugin-cache-screenshots", body: "")
+        csVersion(Version,
+                title: cacheScreenshots.title,
+                body: cacheScreenshots.body,
+                number: 0,
+                current: cacheScreenshots,
+                author: admin)
+        
+        cache(Plugin,
+                name: "cache",
+                title: "Cache Plugin",
+                currentRelease: "1.3.4",
+                authors: [springSourceInfo],
+                organization: "SpringSource",
+                organizationUrl: "http://www.springsource.org/",
+                lastReleased: new DateTime(2011, 12, 31, 0, 0),
+                installation: cacheInstallation,
+                description: cacheDescription,
+                faq: cacheFaq,
+                screenshots: cacheScreenshots,
+                licenses: [ apacheLicense, gpl3License ])        
+
+
+        //Mail
+       mailInstallation(PluginTab, title: "plugin-mail-installation", body: "@grails install-plugin mail@")
+        mailVersion(Version,
+                title:mailInstallation.title,
+                body:mailInstallation.body,
+                number: 0,
+                current:mailInstallation,
+                author: admin)
+        
+        mailDescription(PluginTab, title: "plugin-mail-description", body: "mailPlugin.")
+        mdVersion(Version,
+                title: mailDescription.title,
+                body: mailDescription.body,
+                number: 0,
+                current: mailDescription,
+                author: admin)
+        
+        mailFaq(PluginTab, title: "plugin-mail-faq", body: "")
+        mfVersion(Version,
+                title: mailFaq.title,
+                body: mailFaq.body,
+                number: 0,
+                current: mailFaq,
+                author: admin)
+        
+        mailScreenshots(PluginTab, title: "plugin-mail-screenshots", body: "")
+        msVersion(Version,
+                title: mailScreenshots.title,
+                body: mailScreenshots.body,
+                number: 0,
+                current: mailScreenshots,
+                author: admin)
+        
+        mail(Plugin,
+                name: "mail",
+                title: "mailPlugin",
+                currentRelease: "1.3.4",
+                authors: [springSourceInfo],
+                organization: "SpringSource",
+                organizationUrl: "http://www.springsource.org/",
+                lastReleased: new DateTime(2011, 12, 31, 0, 0),
+                installation: mailInstallation,
+                description: mailDescription,
+                faq: mailFaq,
+                screenshots: mailScreenshots,
+                licenses: [ apacheLicense, gpl3License ])        
+
+       // Feeds
+       feedsInstallation(PluginTab, title: "plugin-feeds-installation", body: "@grails install-plugin feeds@")
+        feedsVersion(Version,
+                title:feedsInstallation.title,
+                body:feedsInstallation.body,
+                number: 0,
+                current:feedsInstallation,
+                author: admin)
+        
+        feedsDescription(PluginTab, title: "plugin-feeds-description", body: "Feeds Plugin.")
+        fdVersion(Version,
+                title: feedsDescription.title,
+                body: feedsDescription.body,
+                number: 0,
+                current: feedsDescription,
+                author: admin)
+        
+        feedsFaq(PluginTab, title: "plugin-feeds-faq", body: "")
+        ffVersion(Version,
+                title: feedsFaq.title,
+                body: feedsFaq.body,
+                number: 0,
+                current: feedsFaq,
+                author: admin)
+        
+        feedsScreenshots(PluginTab, title: "plugin-feeds-screenshots", body: "")
+        fsVersion(Version,
+                title: feedsScreenshots.title,
+                body: feedsScreenshots.body,
+                number: 0,
+                current: feedsScreenshots,
+                author: admin)
+        
+        feeds(Plugin,
+                name: "feeds",
+                title: "Feeds Plugin",
+                currentRelease: "1.3.4",
+                authors: [],
+                organization: "SpringSource",
+                organizationUrl: "http://www.springsource.org/",
+                lastReleased: new DateTime(2011, 12, 31, 0, 0),
+                installation: feedsInstallation,
+                description: feedsDescription,
+                faq: feedsFaq,
+                screenshots: feedsScreenshots,
+                licenses: [ apacheLicense, gpl3License ])  
         
         // Tomcat
         tomcatInstallation(PluginTab, title: "plugin-tomcat-installation", body: "@grails install-plugin tomcat@")
@@ -253,7 +396,7 @@ This is a test list:
                 name: "tomcat",
                 title: "Tomcat",
                 currentRelease: "1.3.4",
-                author: "SpringSource",
+                authors: [springSourceInfo],
                 lastReleased: new DateTime(2010, 8, 11, 22, 30),
                 installation: tomcatInstallation,
                 description: tomcatDescription,
@@ -299,8 +442,8 @@ This is a test list:
                 title: "GWT Integration",
                 currentRelease: "0.2.3-SNAPSHOT",
                 grailsVersion: "1.1 > *",
-                author: "Peter Ledbrook",
                 lastReleased: new DateTime(2010, 8, 10, 14, 21),
+                authors: [peterInfo, anonymousInfo],
                 installation: gwtInstallation,
                 description: gwtDescription,
                 faq: gwtFaq,
@@ -351,6 +494,7 @@ This is a test list:
                 scmUrl: "https://github.com/grails-plugins/grails-gemfire",
                 documentationUrl: "http://grails-plugins.github.com/grails-gemfire/",
                 lastReleased: new DateTime(2011, 3, 7, 8, 30),
+                authors: [springSourceInfo],
                 installation: gemfireInstallation,
                 description: gemfireDescription,
                 faq: gemfireFaq,
@@ -396,6 +540,7 @@ This is a test list:
                 summary: "Allows you to write your tests using Spock instead of JUnit.",
                 currentRelease: "1.0",
                 grailsVersion: "1.3 > *",
+                authors: [gpcInfo],
                 featured: true,
                 issuesUrl: "http://jira.grails.org/browse/GPSPOCK",
                 scmUrl: "https://github.com/grails-plugins/grails-spock",

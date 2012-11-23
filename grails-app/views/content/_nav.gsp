@@ -15,7 +15,7 @@
                             </plugin:isAvailable>
 	                </ul>
 	                </li>
-	                <li id="reference" class="header"><a href="http://grails.org/doc/latest">Reference</a>
+	                <li id="reference" class="header"><a href="/doc/latest">Reference</a>
 	                <ul>
 	                    <li><g:link controller="content" id="Documentation">Documentation</g:link></li>
 	                    <li><g:link controller="content" id="FAQ">FAQs</g:link></li>

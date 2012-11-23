@@ -5,6 +5,7 @@ import org.grails.plugin.*
 import org.springframework.context.ApplicationEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.client.ResourceAccessException
 import grails.plugins.rest.client.*
 /**
  * Responsible for taking a PendingRelease and publishing it to Artifactory
@@ -13,6 +14,7 @@ import grails.plugins.rest.client.*
  */
 class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
 
+    int retryCount = 3
     String releaseUrl = "http://repo.grails.org/grails/plugins-releases-local/org/grails/plugins"
     String snapshotUrl = "http://repo.grails.org/grails/plugins-snapshots-local/org/grails/plugins"
     String deployUsername = System.getProperty("artifactory.user")
@@ -23,7 +25,7 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
     void onApplicationEvent(PluginPublishEvent event) {
         PendingRelease pendingRelease = event.source
         log.debug "Received plugin publish event for pending release [$event.source]"        
-        deployRelease(pendingRelease)
+        deployRelease pendingRelease
     }
     
     /**
@@ -36,45 +38,90 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
         def url = pendingRelease.pluginVersion.endsWith("-SNAPSHOT") ? snapshotUrl : releaseUrl
         log.info "Deploying plugin [$pendingRelease.pluginName] with version [$pendingRelease.pluginVersion] to URL $url"
 
-        deployArtifact(rest, url, pendingRelease, "zip")
-        deployArtifact(rest, url, pendingRelease, "pom")
-        deployArtifact(rest, url, pendingRelease, "xml")
-
-        pendingRelease.delete flush:true
+        try {
+            deployArtifact(rest, url, pendingRelease, "zip")
+            deployArtifact(rest, url, pendingRelease, "pom")
+            deployArtifact(rest, url, pendingRelease, "xml")
+            
+            completeRelease pendingRelease
+        }
+        catch (Exception ex) {
+            log.error "Failed to deploy plugin to artifact repository: ${ex.message}"
+            failRelease pendingRelease
+        }
     }
 
     protected deployArtifact(rest,baseUrl, pendingRelease, type) {
-        
-            def p = pendingRelease.pluginName
-            def v = pendingRelease.pluginVersion
-            def ext = type == 'xml' ? '-plugin.xml' : ".$type"
-            def uri = "$baseUrl/$p/$v/$p-${v}$ext"
-            log.info "Uploading $type to Artifactory URL $uri"
-            
-            def resp = rest.put(uri) {
-                auth deployUsername, deployPassword
-                body pendingRelease[type]
+    
+        def p = pendingRelease.pluginName
+        def v = pendingRelease.pluginVersion
+        def ext = type == 'xml' ? '-plugin.xml' : ".$type"
+        def content = pendingRelease[type]
+
+        putFileWithRetry "$baseUrl/$p/$v/$p-${v}$ext", content
+        putFileWithRetry "$baseUrl/$p/$v/$p-${v}${ext}.md5", DigestUtils.md5Hex(content)
+        putFileWithRetry "$baseUrl/$p/$v/$p-${v}${ext}.sha1", DigestUtils.shaHex(content)
+    }
+
+    /**
+     * Performs a PUT of the given content to the specified URI, retrying the PUT if
+     * it fails due to network timeouts or similar. If the PUT succeeds, this method
+     * returns {@code true}, otherwise {@code false}.
+     */
+    protected putFileWithRetry(uri, content) {
+        for (int i in 0..<retryCount) {
+            try {
+                putFile(uri, content)
+                return
             }
-
-            log.debug "Received artifactory response: ${resp?.text}"
-
-            uri = "$baseUrl/$p/$v/$p-${v}${ext}.md5"
-
-            log.debug "Uploading MD5 checksum $uri"
-            resp = rest.put(uri) {
-                auth deployUsername, deployPassword
-                body DigestUtils.md5Hex(pendingRelease[type])
+            catch (ResourceAccessException ex) {
+                log.debug "PUT failed on try ${i + 1}"
             }
+        }
 
-            log.debug "Received artifactory response: ${resp?.text}"
-            uri = "$baseUrl/$p/$v/$p-${v}${ext}.sha1"
+        log.warn "All PUT attempts failed for ${uri}"
+        throw new RuntimeException("All PUT attempts failed for ${uri}")
+    }
 
-            log.debug "Uploading SHA1 checksum $uri"
-            resp = rest.put(uri) {
-                auth deployUsername, deployPassword
-                body DigestUtils.shaHex(pendingRelease[type])
-            }
+    /**
+     * Performs a PUT of the given content to the specified URI. If the PUT succeeds,
+     * this method returns {@code true}, otherwise {@code false}. Success is defined
+     * as an HTTP response less than 400.
+     */
+    protected putFile(uri, content) {
+        log.debug "Uploading file to $uri"
 
-            log.debug "Received artifactory response: ${resp?.text}"
+        def resp = rest.put(uri) {
+            auth deployUsername, deployPassword
+            body content
+        }
+
+        log.debug "Received artifactory response: ${resp?.text}"
+        if (resp.status >= 400) {
+            throw new RuntimeException("Artifact repository returned ${resp.status} status code")
+        }
+    }
+
+    protected completeRelease(pendingRelease) {
+        saveRelease pendingRelease, ReleaseStatus.COMPLETED
+    }
+
+    protected failRelease(pendingRelease) {
+        saveRelease pendingRelease, ReleaseStatus.FAILED
+    }
+
+    protected saveRelease(pendingRelease, status) {
+        if (pendingRelease.id) {
+            pendingRelease = PendingRelease.get(pendingRelease.id)
+            pendingRelease.status = status
+        }
+        else {
+            pendingRelease = new PendingRelease(
+                    pluginName: pendingRelease.pluginName,
+                    pluginVersion: pendingRelease.pluginVersion,
+                    status: status)
+        }
+
+        pendingRelease.save(failOnError: true)
     }
 }

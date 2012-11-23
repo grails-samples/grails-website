@@ -12,7 +12,7 @@ import org.grails.content.*
 import grails.plugin.mail.*
 
 @TestFor(PluginUpdateService)
-@Mock([Plugin, PluginTab, PluginRelease, User, Version, PluginService])
+@Mock([Plugin, PluginTab, PluginRelease, User, Version, PluginService, PendingRelease])
 class PluginUpdateServiceSpec extends Specification {
 
     void setup() {
@@ -35,7 +35,6 @@ class PluginUpdateServiceSpec extends Specification {
 		service.grailsApplication = app
 		def wikiPageService = new WikiPageService(searchableService:searchableService)
 		service.pluginService = new PluginService(grailsApplication:app, wikiPageService: wikiPageService, searchableService: searchableService )
-		service.wikiPageService = wikiPageService
 		service.mailService = mailService
 		def event = new PluginUpdateEvent(this,"tomcat","1.0.0", "org.grails.plugins", false, new URI("http://repo.grails.org/grails/plugins/") )
 		URL.metaClass.withReader = { String encoding, Closure callable ->
@@ -53,12 +52,13 @@ class PluginUpdateServiceSpec extends Specification {
 
 	when:"The model is queried"
 		def p = Plugin.findByName("tomcat")
+		def releases = PluginRelease.list()
 		
 	then:"The plugin data is correctly populated"
 		p.name == "tomcat"
 		p.currentRelease == "1.0.0"
-		p.releases.size() == 1
-		p.releases.iterator().next().releaseVersion == "1.0.0"
+		releases.size() == 1
+		releases.iterator().next().releaseVersion == "1.0.0"
     } 
 
     def "Tweeting releases"() {

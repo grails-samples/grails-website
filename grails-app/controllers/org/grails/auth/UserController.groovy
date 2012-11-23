@@ -20,10 +20,10 @@ import org.grails.meta.UserInfo
 class UserController {
     private static final String ACCOUNT_SESSION_KEY = "accountCommand"
 
-    def scaffold = User
+    static scaffold = User
 
-    def mailService
-    def userService
+    transient mailService
+    transient userService
 
     def show() {
         if (!params.id) {
@@ -46,6 +46,13 @@ class UserController {
 
         [userInstance: user]
     }
+    
+    def search(String q) {
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def results = User.findAllByLoginLike("%$q%", params)
+        def total = User.countByLoginLike("%$q%")
+        render view:'list', model:[userInstanceList:results, userInstanceTotal:total]
+    }
 
     def update(Long id) {
         def user = User.get(id)
@@ -67,11 +74,12 @@ class UserController {
 
     def passwordReminder() {
         if(request.method == 'POST') {
-            def user = User.findByLogin(params.login)
+            def user = User.findByLoginOrEmail(params.login, params.login)
             if(user && user.login!='admin') {
                 def newPassword = randomPass()
                 user.password = DigestUtils.shaHex(newPassword)
                 user.save()
+                flash.message = "A password reminder was sent to your email address"
                 mailService.sendMail {
                     from "wiki@grails.org"
                     to user.email
@@ -91,15 +99,19 @@ class UserController {
         def userInfo = UserInfo.findByUser(user)
         if (request.method == 'POST') {
             if (!userInfo) userInfo = new UserInfo(user: user)
-            userInfo.properties = params
+            bindData userInfo, params, [include: ["email", "name", "emailSubscribed"]]
             userInfo.save()
             if (params.password) {
                 user.password = DigestUtils.shaHex(params.password) 
                 user.save()
             }
-        }
-        return [user: user, userInfo: userInfo]
 
+            flash.message = "Settings changed"
+            redirect action: "profile"
+        }
+        else {
+            return [user: user, userInfo: userInfo]
+        }
     }
 
     def register(){
@@ -189,7 +201,7 @@ class UserController {
 
         try {
             def userId = userService.loginUser(cmd.login, cmd.password)
-            forward controller: "shiroOAuth", action: "linkAccount", params: [userId: userId]
+            forwardToShiroLinkAccount userId
         }
         catch (AuthenticationException ex) {
             cmd.errors.reject "auth.invalid.login", "Username or password is invalid"
@@ -205,7 +217,7 @@ class UserController {
         if (!handleCommandForLinkingAccounts(cmd)) return
 
         def user = userService.createUser(cmd.login, cmd.email)
-        forward controller: "shiroOAuth", action: "linkAccount", params: [userId: user.id]
+        forwardToShiroLinkAccount user.id
     }
 
     def logout() {
@@ -238,6 +250,9 @@ class UserController {
 
                 log.info "Redirecting to '${targetUri}'."
                 redirect(uri: targetUri)
+            } catch(org.apache.shiro.authc.DisabledAccountException ex) {
+                flash.message = "Your account has been disabled"
+                redirect(action: 'login', params: [ username: params.username, targetUri:params.targetUri ])
             } catch (AuthenticationException ex){
                 log.info "Authentication failure for user '${params.username}'."
                 if(request.xhr) {
@@ -278,6 +293,21 @@ class UserController {
     }
 
     /**
+     * Forward the current request to the ShiroOAuthController in order to
+     * link the user with the given ID to the current OAuth principal. This
+     * also ensures that the {@code targetUri} parameter is appropriately
+     * set.
+     */
+    protected forwardToShiroLinkAccount(userId) {
+        def newParams = [userId: userId]
+        if (!session["targetUri"]) {
+            newParams["targetUri"] = "/"
+        }
+
+        forward controller: "shiroOAuth", action: "linkAccount", params: newParams
+    }
+
+    /**
      * Puts the given command object in the session and redirects to the page
      * asking the user for an account to link to.
      */
@@ -294,15 +324,7 @@ class UserController {
     protected setPermissionsFromString(user, String newlineSeparatedPermissions) {
         newlineSeparatedPermissions = newlineSeparatedPermissions?.trim()
         def perms = !newlineSeparatedPermissions ? [] : (newlineSeparatedPermissions.split(/\s*[\n;]\s*/) as List)
-
-        // Take the simple approach: clear the list and re-add all declared permissions.
-        if (user.permissions == null) {
-            user.permissions = perms
-        }
-        else {
-            user.permissions.clear()
-            user.permissions.addAll perms
-        }
+        userService.updateUserPemissions(user, perms)
     }
 }
 

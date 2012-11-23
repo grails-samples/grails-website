@@ -247,7 +247,7 @@ class ImageFilter  extends RegexTokenFilter {
     public void handleMatch(StringBuffer buffer, MatchResult result, FilterContext context) {
 
         def img = result.group(1)
-        def path = context.renderContext.get(GrailsWikiEngine.CONTEXT_PATH) ?: "."
+        def path = context.renderContext.get(GrailsWikiEngine.CONTEXT_PATH) ?: ""
                     
 
         def image = img.startsWith("http:") ? img :  "$path/wikiImage/$img"

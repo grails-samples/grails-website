@@ -122,7 +122,7 @@ hello world!
 
 an again!
 '''
-        assertEquals '''<img border="0" class="center" src="./wikiImage/image.jpg"></img><p class="paragraph"/>hello world!<p class="paragraph"/>an again!
+        assertEquals '''<img border="0" class="center" src="/wikiImage/image.jpg"></img><p class="paragraph"/>hello world!<p class="paragraph"/>an again!
 ''', engine.render(text, context)
     }
 }

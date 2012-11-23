@@ -4,11 +4,11 @@ package org.grails.plugin
  * Stores details of software licenses.
  */
 class License {
-	String name
-	String url
+    String name
+    String url
 
-	static constraints = {
-		name blank: false
-		url url: true
-	}
+    static constraints = {
+        name blank: false
+        url url: true
+    }
 }

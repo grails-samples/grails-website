@@ -4,6 +4,9 @@ import org.grails.content.Version
 
 class WikiPageController {
 
+    def scaffold = WikiPage
+    def cacheService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -18,7 +21,7 @@ class WikiPageController {
     def create() {
         def wikiPageInstance = new WikiPage()
         wikiPageInstance.properties = params
-        return [wikiPageInstance: wikiPageInstance]
+        [wikiPageInstance: wikiPageInstance]
     }
 
     def save() {
@@ -53,6 +56,48 @@ class WikiPageController {
             return [wikiPageInstance: wikiPageInstance]
         }
     }
+
+    def rollback(String id) {
+        def page = WikiPage.findByTitle(id)
+        if (page) {
+            def latestVersion = page.latestVersion
+            def number = latestVersion.number-1
+
+            def previousVersion
+
+            while(number > -1)  {
+                previousVersion = Version.findByCurrentAndNumber(page, latestVersion.number-1)   
+                if(previousVersion) break;
+                number = number - 1
+            }
+             
+            if(previousVersion) {
+                    page.lock()
+                    page.version = page.version + 1
+                    page.body = previousVersion.body
+                    page.save(flush: true, failOnError: true)
+                    Version v = page.createVersion()
+                    v.author = request.user
+                    v.save(failOnError: true)
+                    evictFromCache page.id, page.title    
+                    flash.message = "Rolled back to previous version"
+                    redirect action:"show", id:page.id
+            }
+            else {
+                flash.message = "No previous version to rollback to"
+                redirect action:"show", id:page.id
+            }
+        }
+        else {
+            render status:404
+        }
+    }
+
+    private evictFromCache(id, title) {
+        cacheService.removeWikiText(title)
+        cacheService.removeContent(title)
+        if (id) cacheService.removeCachedText('versionList' + id)
+    }    
 
     def update() {
         def wikiPageInstance = WikiPage.get(params.id)
@@ -90,7 +135,7 @@ class WikiPageController {
                 versions*.delete()
                 wikiPageInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), params.id])}"
-                redirect action: "all"
+                redirect action: "list"
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), params.id])}"
@@ -99,7 +144,7 @@ class WikiPageController {
         }
         else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), params.id])}"
-            redirect action: "all"
+            redirect action: "list"
         }
     }
 

@@ -1,23 +1,23 @@
-<div id="viewLinks" class="wikiLinks">
+<div id="viewLinks" class="wiki-links">
     <g:set var="updateElement" value="${update ?: 'contentPane'}"/>
 
     <ul class="wikiActionMenu">
         <g:if test="${content?.locked}">
-            <li>LOCKED</li>
+            <li>
+                <r:img border="0" uri="/img/famicons/lock.png" width="16" height="16" alt="Page Locked" class="inlineIcon"/>
+            </li>
         </g:if>
         <g:else>
             <li>
-                <g:remoteLink class="actionIcon" action="editWikiPage" id="${content?.title}" update="${updateElement}" params="[_ul: updateElement]" method="GET" onLoaded="hideCommentPost()">
-                    <r:img border="0" uri="/images/icon-edit.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0"/>
-                    <span>Edit</span>
-                </g:remoteLink>
+                <g:link title="Edit Page" class="actionIcon" action="editWikiPage" id="${content?.title}">
+                    <r:img border="0" uri="/img/famicons/page_edit.png" width="16" height="16" alt="Edit Page" class="inlineIcon"/>
+                </g:link>
             </li>
         </g:else>
         <li>
-            <g:remoteLink class="actionIcon" action="infoWikiPage" id="${content?.title}" update="${updateElement}" params="[_ul: updateElement]" method="GET">
-                <r:img border="0" uri="/images/icon-info.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0"/>
-                <span>View Info</span>
-            </g:remoteLink>
+            <g:link title="Revision History" class="actionIcon" action="infoWikiPage" id="${content?.title}">
+                <r:img border="0" uri="/img/famicons/time.png" width="16" height="16" alt="Revision History" class="inlineIcon"/>
+            </g:link>
         </li>
     </ul>
 </div>

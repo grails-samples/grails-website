@@ -8,13 +8,21 @@ class WikiPage extends Content {
 
     boolean deprecated
     String deprecatedUri
-	
-    static searchable = [only: ['body', 'title', 'deprecated']]
+
+    static searchable = {
+        only = ['body', 'title', 'deprecated']
+        title boost: 2.0
+    }
+
     static transients = ['cacheService']
     static constraints = {
         title(blank:false, matches:/[^\/\\]+/)
         body(blank:true)
         deprecatedUri(nullable: true, blank: true)
+    }
+
+    static mapping = {
+        body type: 'text'
     }
 
     def onAddComment = { comment ->

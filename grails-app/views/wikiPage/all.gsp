@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
 <head>
     <title>All Wiki Pages</title>
     <meta content="subpage" name="layout"/>

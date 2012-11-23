@@ -1,0 +1,146 @@
+/* Header */
+#header{
+	height: 100px;
+	position: relative;
+	background: url("@{imagesPath}/page/light.png") no-repeat 0 0;
+	h1#logo {
+		width: 190px;
+		height: 39px;
+		margin: 0;
+		position: absolute;
+		top: 29px;
+		left: 0;
+		padding: 0;
+		a {
+			background: url("@{imagesPath}/grails.png") no-repeat 0 0;
+			display: block;
+			width: 190px;
+			height: 39px;
+			margin: 0;
+			padding: 0;
+			text-indent: -6000em;
+		}
+	}
+	#quickSearch {
+		position: absolute;
+		right: 0px;
+		top: 40px;
+        height: 50px;
+
+		button {
+		    padding: 7px 10px 4px;
+	        .border-radius(0 @radius @radius 0);
+		}
+		.inputSearch {
+			position: absolute;
+			overflow: hidden;
+			right: 31px;
+			width: 170px;
+            height: 40px;
+			input {
+		        #gradient>.vertical(#f6f6f4, #f9f9f7);
+
+				position: absolute;
+				width: 155px;
+	            .border-radius(@radius 0 0 @radius);
+				top: 0px;
+	            font-size: 13px;
+				outline: 0 none;
+	            padding: 3px 5px;
+				margin: 0;
+				&:focus {
+					outline: none;
+                    #gradient>.vertical(#FFF, #FFF);
+                    border-color: #bebebc;
+				}
+			}
+		}
+	}
+	.spring {
+		position: absolute;
+        padding-right: 20px;
+        right: 215px;
+        top: 37px;
+        border-right: 1px solid @grailsGrayLight;
+	}
+	ul.topLinks {
+		margin: 0;
+		position: absolute;
+		width: 400px;
+		text-align: right;
+		padding: 0;
+		list-style: 0 none;
+		list-style-type: none;
+		top: 10px;
+		.clearfix();
+		right: 2px;
+		>li.active {
+			a {
+				color: @grailsGreen;
+				text-decoration: underline;
+			}
+		}
+		>li {
+			margin: 0;
+			padding: 0;
+			float: right;
+			a {
+				color: @grailsBlack;
+				font-size: @baseFontSize - 1;
+				text-decoration: none;
+				line-height: 24px;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+            a.login {
+            }
+			&.spacing {
+				padding-right: 5px;
+				border-right: 1px solid @grailsGrayLight;		
+				margin-right: 10px;
+			}
+            &.current-user {
+                color: @grailsBlack;
+                font-size: @baseFontSize - 1;
+                text-decoration: none;
+                line-height: 26px;
+                margin: 0px;
+
+                img {
+                    position: relative;
+                    top: 5px;
+                }
+            }
+			a.dropdown-toggle {
+				line-height: 14px;
+				text-decoration: none;
+				b.caret {
+					margin-top: 5px;	
+					border-top-color: @grailsBlack;
+				}
+				&:hover {
+					text-decoration: none;
+				}
+			}
+			ul.dropdown-menu {
+				li a {
+					padding: 0 10px;
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+.springSource {
+    display: block;
+    text-indent: -6000em;
+    width: 169px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    background: url("@{imagesPath}/springsource.png") no-repeat 0 0;
+}

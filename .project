@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>site</name>
+	<name>site-new</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -22,7 +22,7 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.springsource.sts.grails.core.nature</nature>
+		<nature>org.grails.ide.eclipse.core.nature</nature>
 		<nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
@@ -32,7 +32,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>/Users/pledbrook/dev/projects/git/grails-website/plugins</location>
+			<location>/Users/pledbrook/dev/projects/git/grails-website-new/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>

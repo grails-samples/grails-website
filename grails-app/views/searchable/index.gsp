@@ -4,25 +4,25 @@
 <%@ page import="org.springframework.util.ClassUtils" %>
 <html>
 <head>
-    <meta content="subpage" name="layout"/>
+    <meta content="master" name="layout"/>
     <title>Search Results</title>
-    <script type="text/javascript">
-        var focusQueryInput = function() {
-            document.getElementById("q").focus();
-        }
-    </script>
-    <link rel="stylesheet" href="${createLinkTo(dir: 'css', file: 'search.css')}"/>
+    <r:script type="text/javascript">
+$(document).ready(function() {
+    $("#quickSearch input[name='q']").val('${query ?: ''}');
+    $("#quickSearch input[name='q']").focus();
+});
+    </r:script>
 </head>
-<body onload="focusQueryInput();">
-<div id="header">
-    <div id="main">
-        <g:set var="haveQuery" value="${params.q?.trim()}"/>
-        <g:set var="haveResults" value="${searchResult?.results}"/>
-        <g:set var="query" value="${params.q?.encodeAsHTML()}"/>
+<body>
+
+<div id="content" class="content-single" role="main">
+    <section id="main" class="items search">
+        <g:set var="haveQuery" value="${query}"/>
+        <g:set var="resultCount" value="${searchResult?.results.inject(0) { tot, entry -> tot + entry.value.size() } }"/>
         <div class="title">
             <span>
-                <g:if test="${haveQuery && haveResults}">
-                    Showing <strong>${searchResult.offset + 1}</strong> - <strong>${searchResult.results.size() + searchResult.offset}</strong> of <strong>${searchResult.total}</strong>
+                <g:if test="${haveQuery && resultCount}">
+                    Showing <strong>${searchResult.offset + 1}</strong> - <strong>${resultCount + searchResult.offset}</strong> of <strong>${searchResult.total}</strong>
                     results for <strong>${query}</strong>
                 </g:if>
                 <g:else>
@@ -37,13 +37,18 @@
         <g:elseif test="${clauseException}">
             <p>Your query - <strong>${query}</strong> - cannot be handled, sorry. Be more restrictive with your wildcards, like '*'.</p>
         </g:elseif>
-        <g:elseif test="${haveQuery && !haveResults}">
+        <g:elseif test="${haveQuery && !resultCount}">
             <p>Nothing matched your query - <strong>${query}</strong></p>
         </g:elseif>
-        <g:elseif test="${haveResults}">
+        <g:elseif test="${resultCount}">
             <div id="results" class="results">
-                <g:each var="result" in="${searchResult.results}" status="index">
-                    <div class="result">
+                <g:each var="group" in="${searchResult.results}">
+                <g:if test="${group.value?.size()}">
+                <div class="resultGroup">
+                    <h3>${group.key}</h3>
+
+                    <g:each var="result" in="${group.value}" status="index">
+                    <article class="item result">
 
                         <g:set var="className" value="${result.title?.encodeAsHTML()}"/>
 
@@ -54,41 +59,50 @@
                                 link it properly to the Plugin domain.  Otherwise it gets treated like a normal WikiPage
                             --}%
                             <g:if test="${result instanceof Plugin}">
-                                <g:link controller="plugin" action="show" params="${[name:result.name]}">Plugin > ${className}</g:link>
+                                <h4><g:link uri="/plugin/${result.name}">${className}</g:link></h4>
                                 <g:set var="desc" value="${result.summary ?: 'No description'}"/>
                             </g:if>
                             <g:elseif test="${result instanceof Content}">
-                                <g:link controller="content" id="${result.title}">Wiki page > ${className}</g:link>
+                                <h4><g:link controller="content" id="${result.title}">${className}</g:link></h4>
                                 <g:set var="desc" value="${result.body}"/>
+                            </g:elseif>
+                            <g:elseif test="${result instanceof org.compass.core.lucene.LuceneResource}">
+                                <h4><a href="${resource(dir: 'doc/latest', file: result.url[0].stringValue)}">${result.title[0].stringValue}</a>
+                                <g:set var="desc" value="${searchResult.highlights[index] ?: result.body[0].stringValue}"/></h4>
                             </g:elseif>
                             <g:else>
                                 <g:set var="itemName" value="${GrailsNameUtils.getShortName(result.class.name)}"/>
-                                <g:link controller="${GrailsNameUtils.getPropertyName(itemName)}"
-                                        action="show" id="${result.id}">${itemName} > ${className}</g:link>
+                                <h4><g:link controller="${GrailsNameUtils.getPropertyName(itemName)}"
+                                        action="show" id="${result.id}">${itemName} > ${className}</g:link></h4>
                                 <g:set var="desc" value="${result.description ?: 'No description'}"/>
                             </g:else>
                         </div>
 
                         <div class="desc">
-                            <text:summarize encodeAs="HTML" ><text:htmlToText><wiki:text>${desc}</wiki:text></text:htmlToText> </text:summarize>
+                            <text:summarize length="250" encodeAs="HTML" ><text:htmlToText><wiki:text>${desc}</wiki:text></text:htmlToText> </text:summarize>
                         </div>
 
-                    </div>
+                    </article>
+                    </g:each>
+                </div>
+                </g:if>
                 </g:each>
             </div>
 
             <div>
-                <div class="paging">
-                    <g:if test="${haveResults}">
-                        Page:
+                <div class="pager">
+                    <g:if test="${resultCount}">
                         <g:set var="totalPages" value="${Math.ceil(searchResult.total / searchResult.max)}"/>
-                        <g:if test="${totalPages == 1}"><span class="currentStep">1</span></g:if>
-                        <g:else><g:paginate controller="content" action="search" params="[q: params.q]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/></g:else>
+                        <g:if test="${totalPages > 1}">
+                        <g:paginate controller="content" action="search" params="[q: query]" total="${searchResult.total}" prev="&lt; previous" next="next &gt;"/>
+                        </g:if>
                     </g:if>
                 </div>
             </div>
         </g:elseif>
-    </div>
+    </section>
+
 </div>
+
 </body>
 </html>
