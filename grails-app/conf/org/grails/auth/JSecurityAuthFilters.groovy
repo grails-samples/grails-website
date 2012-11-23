@@ -63,7 +63,6 @@ class JSecurityAuthFilters {
         def requiresPermissions = [
                 pluginTab: ["editWikiPage"],
                 tutorial: ["create", "edit", "save", "update"] as Set,
-                testimonial: ["create", "edit", "save", "update"] as Set,
                 screencast: ["create", "edit", "save", "update"] as Set,
                 webSite: ["create", "edit", "save", "update"] as Set,
                 likeDislike: ["like", "dislike"] as Set
