@@ -12,7 +12,7 @@
 
 
     <div class="content-title">
-        <h1>Site using Grails</h1>
+        <h1>Sites using Grails</h1>
         <g:render template="/common/searchBar" model="[type:'website']" />
     </div>
 
