@@ -1,5 +1,5 @@
 <aside id="community">
-    <h3><img src="${resource(dir: "img/aside", file: "community.png")}" alt="" title=""/>Community</h3>
+    <h3>Community</h3>
     <ul>
         <li<g:if test="${actionName == 'websites'}"> class="active"</g:if>>
             <a href="/websites">Sites using Grails</a></li>
