@@ -71,11 +71,11 @@
                 </div>
             </div>
             <p class="buttons">
-                <g:if test="${plugin.scmUrl}">
-                    <a href="${plugin.scmUrl.encodeAsHTML()}" target="_blank" class="btn blueLight source"><span class="ico"></span>Source</a>
-                </g:if>
                 <g:if test="${plugin.documentationUrl}">
                     <a href="${plugin.documentationUrl.encodeAsHTML()}" target="_blank" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
+                </g:if>
+                <g:if test="${plugin.scmUrl}">
+                    <a href="${plugin.scmUrl.encodeAsHTML()}" target="_blank" class="btn blueLight source"><span class="ico"></span>Source</a>
                 </g:if>
                 <g:if test="${plugin.issuesUrl}">
                     <a href="${plugin.issuesUrl.encodeAsHTML()}" target="_blank" class="btn blueLight issues"><span class="ico"></span>Issues</a>

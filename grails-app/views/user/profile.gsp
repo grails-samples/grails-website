@@ -20,7 +20,7 @@
 
             <div class="inputForm">
                 <p><span class="label"><label for="email">Email address:</label></span>
-                    <g:textField name="password" value="${userInfo?.email}" style="width: 21em;" ></g:textField>
+                    <g:textField name="email" value="${userInfo?.email}" style="width: 21em;" ></g:textField>
                 </p>
             </div>
 

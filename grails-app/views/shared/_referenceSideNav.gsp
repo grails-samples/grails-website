@@ -1,6 +1,6 @@
 <g:if test="${!onlyLink}">
 <aside id="reference">
-    <h3><img src="${resource(dir: 'img/aside', file: 'reference.png')}" alt="" title=""/>Reference</h3>
+    <h3>Reference</h3>
 </g:if>
     <ul>
         <li>
