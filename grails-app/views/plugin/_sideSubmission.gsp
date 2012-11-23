@@ -1,6 +1,6 @@
 <section class="aside">
-    <aside id="reference">
-        <h3><img src="${resource(dir: 'img/aside', file: 'reference.png')}" alt="" title=""/>Instructions</h3>
+    <aside id="instructions">
+        <h3>Instructions</h3>
         <ul>
             <li class="instructions">
                 <p>
@@ -12,8 +12,8 @@
             </li>
         </ul>
     </aside>
-    <aside id="reference">
-        <h3><img src="${resource(dir: 'img/aside', file: 'reference.png')}" alt="" title=""/>Links</h3>
+    <aside id="links">
+        <h3>Links</h3>
         <ul>
             <li>
                 <a href="/plugins">

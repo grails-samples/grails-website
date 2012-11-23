@@ -1,6 +1,6 @@
 <g:if test="${!onlyLink}">
 <aside id="getStarted">
-    <h3><img src="${resource(dir: 'img/aside', file: 'getStarted.png')}" alt="" title=""/>Get Started</h3>
+    <h3>Get Started</h3>
 </g:if>
     <ul>
         <li<g:if test="${actionName == 'gettingStarted'}"> class="active"</g:if>>
