@@ -15,7 +15,7 @@ class WebSiteController {
     def list() {
         def maxResults = params.int("max",12)
         def offset = params.int("offset", 0) 
-        def featuredWebSites = WebSite.featuredQuery.list()
+        def featuredWebSites = offset > 0 ? [] : WebSite.featuredQuery.list()
         def webSites = WebSite.notFeaturedQuery.list(offset:offset, max:maxResults)
         [
                 featuredWebSiteInstanceList: featuredWebSites,
