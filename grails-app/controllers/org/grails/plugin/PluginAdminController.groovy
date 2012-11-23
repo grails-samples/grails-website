@@ -26,4 +26,44 @@ class PluginAdminController {
         }
     }
 
+    def searchableService
+    def update(Long id, Long version) {
+
+        def p = Plugin.get(id)
+        println "updating plugin $p"
+        if (!p) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: '${domainClass.propertyName}.label', default: 'Plugin'), id])
+            redirect(action: "list")
+            return
+        }
+
+        if (version != null) {
+            if (p.version > version) {
+                println "VERSION MISMATCH"
+                p.errors.rejectValue("version", "default.optimistic.locking.failure",
+                          [message(code: '${domainClass.propertyName}.label', default: 'Plugin')] as Object[],
+                          "Another user has updated this Plugin while you were editing")
+                render(view: "edit", model: [pluginInstance: p])
+                return
+            }
+        }
+
+        p.properties = params
+
+        try {
+            searchableService.stopMirroring()
+            if (!p.save(flush: true)) {
+                println "VALIDATION ERRORS ${p.errors}"
+                render(view: "edit", model: [pluginInstance: p])
+                return
+            }
+            println "SAVED!"
+        }
+        finally {
+             searchableService.startMirroring()
+
+        }
+            flash.message = message(code: 'default.updated.message', args: [message(code: '${domainClass.propertyName}.label', default: 'Plugin'), p.id])
+        redirect(action: "show", id: p.id)
+    }
 }

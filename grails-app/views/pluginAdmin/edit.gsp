@@ -8,9 +8,9 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">Plugin List</g:link></span>
-            <span class="menuButton"><g:link class="create" action="create">New Plugin</g:link></span>
+            <span class="menuButton"><a class="btn info home" href="${resource(dir:'')}">Home</a></span>
+            <span class="menuButton"><g:link class="list btn info" action="list">Plugin List</g:link></span>
+            <span class="menuButton"><g:link class="create btn info" action="create">New Plugin</g:link></span>
         </div>
         <div class="body">
             <h1>Edit Plugin</h1>
@@ -26,7 +26,7 @@
                 <input type="hidden" name="id" value="${pluginInstance?.id}" />
                 <input type="hidden" name="version" value="${pluginInstance?.version}" />
                 <div class="dialog">
-                    <table>
+                    <table class="table table-bordered table-striped">
                         <tbody>
                         
                             <tr class="prop">
@@ -37,6 +37,25 @@
                                     <input type="text" id="name" name="name" value="${fieldValue(bean:pluginInstance,field:'name')}"/>
                                 </td>
                             </tr> 
+                  
+                            <tr class="prop">
+                                <td valign="top" class="title">
+                                    <label for="title">Title:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:pluginInstance,field:'title','errors')}">
+                                    <input type="text" id="title" name="title" value="${fieldValue(bean:pluginInstance,field:'title')}"/>
+                                </td>
+                            </tr> 
+                  
+                            <tr class="prop">
+                                <td valign="top" class="summary">
+                                    <label for="summary">Summary:</label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean:pluginInstance,field:'summary','errors')}">
+                                    <input type="text" id="summary" name="summary" value="${fieldValue(bean:pluginInstance,field:'summary')}"/>
+                                </td>
+                            </tr> 
+                                                                            
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
@@ -111,8 +130,8 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" value="Update" /></span>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
+                    <span class="button"><g:actionSubmit class="save btn" value="Update" /></span>
+                    <span class="button"><g:actionSubmit class="delete btn" onclick="return confirm('Are you sure?');" value="Delete" /></span>
                 </div>
             </g:form>
         </div>

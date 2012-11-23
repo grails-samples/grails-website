@@ -32,6 +32,14 @@
         <td class="show-value">${fieldValue(bean: plugin, field: "name")}</td>
     </tr>
     <tr>
+        <td class="show-label" nowrap="nowrap">Title</td>
+        <td class="show-value">${fieldValue(bean: plugin, field: "title")}</td>
+    </tr> 
+    <tr>
+        <td class="show-label" nowrap="nowrap">Summary</td>
+        <td class="show-value">${fieldValue(bean: plugin, field: "summary")}</td>
+    </tr>           
+    <tr>
         <td class="show-label" nowrap="nowrap">Description</td>
         <td class="show-value">
             <g:if test="${plugin.description}">
