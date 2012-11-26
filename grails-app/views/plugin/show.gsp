@@ -26,7 +26,12 @@
                     <li>
                         <g:render template="pluginTags" model="[plugin:plugin]" />
                     </li>
-                    <li>Current release : <strong>${plugin.currentRelease.encodeAsHTML()}</strong> • Grails version : ${plugin.grailsVersion.encodeAsHTML() ?: '*'}</li>
+                    <li>
+                        Current release : <strong>${plugin.currentRelease.encodeAsHTML()}</strong>
+                        (<joda:format pattern="dd-MMMMM-yyyy" value="${plugin.lastReleased}" />)
+                        •
+                        Grails version : ${plugin.grailsVersion.encodeAsHTML() ?: '*'}
+                    </li>
                 </ul>
                 <ul class="meta">
                     <li>Authors : <%= plugin.authors.collect { it.name.encodeAsHTML() }.join(', ') %></li>
