@@ -22,6 +22,8 @@
                     <br/>
                     <strong>approval status:</strong> <common:approvalStatus status="${pluginPendingApprovalInstance?.status}" />
                     <br/>
+                    <strong>source:</strong> <a href="${pluginPendingApprovalInstance?.scmUrl}">${pluginPendingApprovalInstance?.scmUrl}</a>
+                    <br/>                    
                     submitted by <a href="#">${pluginPendingApprovalInstance?.submittedBy?.login}</a>
                     <prettytime:display date="${pluginPendingApprovalInstance?.dateCreated}"/>
                 </p>
