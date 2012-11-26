@@ -51,7 +51,7 @@
                 <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'url', 'error')}">
                     <label class="control-label" for="url"><g:message code="website.url" /></label>
                     <div class="controls">
-                        <g:textField required="required" name="url" value="${webSiteInstance?.url}" class="input-fullsize"/>
+                        <g:field type="url" required="required" name="url" value="${webSiteInstance?.url}" class="input-fullsize"/>
                     </div>
                 </div>
 
