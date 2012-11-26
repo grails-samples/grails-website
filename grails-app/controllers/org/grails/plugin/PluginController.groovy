@@ -161,7 +161,6 @@ class PluginController {
             pluginPendingApproval.notes = params.notes
 
             pluginPendingApproval.validate()
-            println "PPA: ${pluginPendingApproval.inspect()}"
 
             if (!pluginPendingApproval.hasErrors() && pluginPendingApproval.save(flush:true)) {
                 flash.message = "Your plugin has been submitted for approval"
