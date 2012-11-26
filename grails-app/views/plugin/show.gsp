@@ -27,10 +27,11 @@
                         <g:render template="pluginTags" model="[plugin:plugin]" />
                     </li>
                     <li>
-                        Current release : <strong>${plugin.currentRelease.encodeAsHTML()}</strong>
-                        (<joda:format pattern="dd-MMMMM-yyyy" value="${plugin.lastReleased}" />)
-                        •
-                        Grails version : ${plugin.grailsVersion.encodeAsHTML() ?: '*'}
+                        Latest : <strong>${plugin.currentRelease}</strong>                            
+                    </li>
+                    <li>Last Updated: <strong><joda:format pattern="dd MMMMM yyyy" value="${plugin.lastReleased}" /></strong></li>
+                    <li>
+                        Grails version : ${plugin.grailsVersion ?: '*'}
                     </li>
                 </ul>
                 <ul class="meta">
