@@ -35,10 +35,10 @@
         </g:if>
 
         <g:if test="${query}">
-            <g:if test="${searchResult}">
+            <g:if test="${searchResult.results}">
             <p>
                 Showing <strong>${searchResult.offset + 1}</strong> - <strong>${searchResult.results.size() + searchResult.offset}</strong> of <strong>${searchResult.total}</strong>
-                results for <strong>${query}</strong>
+                result${searchResult.results.size() > 1 ? 's' : ''} for <strong>${query}</strong>
             </p>
             </g:if>
             <g:elseif test="${parseException}">
