@@ -29,7 +29,7 @@ class WebSite implements Taggable {
         title blank: false, maxSize: 50
         shortDescription blank: false, nullable: true, maxSize: 150
         description blank: false, maxSize: 5000
-        url blank: false
+        url blank: false, url: true
         submittedBy nullable: false
     }
 

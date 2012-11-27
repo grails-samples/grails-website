@@ -60,12 +60,12 @@ class WebSiteSpec extends UnitSpecHelper {
         website.hasErrors() == !valid
 
         where:
-        url               | valid
-        "foo.bar"         | true
-        "http://foo.bar"  | true
-        "https://foo.bar" | true
-        ""                | false
-        null              | false
+        url                  | valid
+        "grails.com"         | false
+        "http://grails.com"  | true
+        "https://grails.com" | true
+        ""                   | false
+        null                 | false
     }
 
 }
