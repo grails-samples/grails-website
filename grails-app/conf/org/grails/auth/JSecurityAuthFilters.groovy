@@ -114,7 +114,12 @@ class JSecurityAuthFilters {
 
 
         // used by wiki pages and testimonials
-        wikiImageUpload(controller: "content", action: "(uploadImage|addImage|showImage)") {
+        wikiImageShow(controller: "content", action: "showImage") {
+            before = {
+               return true
+            }
+        }
+        wikiImageUpload(controller: "content", action: "(uploadImage|addImage)") {
             before = {
                 accessControl { true }
             }
