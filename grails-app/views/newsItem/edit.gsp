@@ -24,7 +24,7 @@
 
 
 
-            <g:form action="update" class="content-form">
+            <g:form url="[action:'edit', id:newsItem.id]" class="content-form">
                 <input type="hidden" name="id" value="${newsItem.id}"></input>
                 <fieldset>
                     <div class="control-group ${hasErrors(bean: newsItem, field: 'title', 'error')}">

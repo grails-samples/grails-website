@@ -69,10 +69,25 @@ class NewsItemController {
     }
     
     def edit( Long id) {
-        def newsItem = show(id)
-        
-        if(newsItem) {
-            render view:"edit", model: newsItem
-        }        
+        if(request.method == 'GET') {
+            def newsItem = show(id)
+            
+            if(newsItem) {
+                render view:"edit", model: newsItem
+            } 
+        }
+        else {
+            def n = NewsItem.get(id)
+
+            n.properties =  params['title', 'body', 'status'] 
+            if(n.save()) {
+                redirect action:'show', id:id
+            }
+            else {
+                render view:"edit", model: newsItem
+            }
+
+        }
+               
     }
 }
