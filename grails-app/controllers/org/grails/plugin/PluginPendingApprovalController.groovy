@@ -28,7 +28,7 @@ class PluginPendingApprovalController {
         }
     }
 
-    def disposition = {
+    def disposition() {
         def pluginPendingApprovalInstance = PluginPendingApproval.get(params.id)
 
         def user = pluginPendingApprovalInstance.submittedBy

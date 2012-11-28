@@ -17,7 +17,7 @@ class PluginPendingApproval {
     DateTime dateCreated
 
     static constraints = {
-        name blank: false, unique: 'versionNumber'
+        name blank: false, unique: 'versionNumber', matches:/\S+/
         versionNumber blank: false
         scmUrl blank: false
         status blank: false
