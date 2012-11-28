@@ -44,47 +44,60 @@ class PluginAdminController {
 
                                     def existing = PluginTab.findByTitle(key)
                                     if(existing && existing.version == 0) {
-                                        existing.delete()
+                                        existing.body = p.description.body
+                                        p.description = existing
+                                        p.save()
                                     } 
-                                    p.description.title = key
-                                    p.description.save(flush:true)
-                                    pluginUpdated = true
+                                    else {
+                                        p.description.title = key
+                                        p.description.save(flush:true)
+                                        pluginUpdated = true                                        
+                                    }
                                 }
                                 if(p.installation.title != "plugin-${p.name}-installation".toString()) {
 
                                     def key = "plugin-${p.name}-installation"
-
                                     def existing = PluginTab.findByTitle(key)
                                     if(existing && existing.version == 0) {
-                                        existing.delete()
+                                        existing.body = p.installation.body
+                                        p.installation = existing
+                                        p.save()
                                     } 
-                                    p.description.title = key
-                                    p.description.save()
-                                    pluginUpdated = true
+                                    else {
+                                        p.installation.title = key
+                                        p.installation.save(flush:true)
+                                        pluginUpdated = true                                        
+                                    }
                                 }
                                 if(p.faq.title != "plugin-${p.name}-faq".toString()) {
 
                                     def key = "plugin-${p.name}-faq"
-
                                     def existing = PluginTab.findByTitle(key)
                                     if(existing && existing.version == 0) {
-                                        existing.delete()
+                                        existing.body = p.faq.body
+                                        p.faq= existing
+                                        p.save()
                                     } 
-                                    p.description.title = key
-                                    p.description.save()
-                                    pluginUpdated = true
+                                    else {
+                                        p.faq.title = key
+                                        p.faq.save(flush:true)
+                                        pluginUpdated = true                                        
+                                    }
                                 }
                                 if(p.screenshots.title != "plugin-${p.name}-screenshots".toString()) {
 
                                     def key = "plugin-${p.name}-screenshots"
-
                                     def existing = PluginTab.findByTitle(key)
                                     if(existing && existing.version == 0) {
-                                        existing.delete()
+                                        existing.body = p.screenshots.body
+                                        p.screenshots= existing
+                                        p.save()
                                     } 
-                                    p.description.title = key
-                                    p.description.save()
-                                    pluginUpdated = true
+                                    else {
+                                        p.screenshots.title = key
+                                        p.screenshots.save(flush:true)
+                                        pluginUpdated = true                                        
+                                    }
                                 }                                                
                                 if(pluginUpdated) {
                                     log.info "plugin $p.name updated"
