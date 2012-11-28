@@ -26,6 +26,92 @@ class PluginAdminController {
         }
     }
 
+    // One time use data migration action
+    def fixTabs() {
+        Thread.start {
+            try {
+                Plugin.withTransaction { status ->
+                    Plugin.withNewSession { session ->
+                        def total = Plugin.count()
+                        def offset = 0
+
+                        while(offset < total) {
+                            def plugins = Plugin.list(offset:offset, max:10)
+                            for(p in plugins) {
+                                boolean pluginUpdated = false
+                                if(p.description.title != "plugin-${p.name}-description".toString()) {
+                                    def key = "plugin-${p.name}-description"
+
+                                    def existing = PluginTab.findByTitle(key)
+                                    if(existing && existing.version == 0) {
+                                        existing.delete()
+                                    } 
+                                    p.description.title = key
+                                    p.description.save(flush:true)
+                                    pluginUpdated = true
+                                }
+                                if(p.installation.title != "plugin-${p.name}-installation".toString()) {
+
+                                    def key = "plugin-${p.name}-installation"
+
+                                    def existing = PluginTab.findByTitle(key)
+                                    if(existing && existing.version == 0) {
+                                        existing.delete()
+                                    } 
+                                    p.description.title = key
+                                    p.description.save()
+                                    pluginUpdated = true
+                                }
+                                if(p.faq.title != "plugin-${p.name}-faq".toString()) {
+
+                                    def key = "plugin-${p.name}-faq"
+
+                                    def existing = PluginTab.findByTitle(key)
+                                    if(existing && existing.version == 0) {
+                                        existing.delete()
+                                    } 
+                                    p.description.title = key
+                                    p.description.save()
+                                    pluginUpdated = true
+                                }
+                                if(p.screenshots.title != "plugin-${p.name}-screenshots".toString()) {
+
+                                    def key = "plugin-${p.name}-screenshots"
+
+                                    def existing = PluginTab.findByTitle(key)
+                                    if(existing && existing.version == 0) {
+                                        existing.delete()
+                                    } 
+                                    p.description.title = key
+                                    p.description.save()
+                                    pluginUpdated = true
+                                }                                                
+                                if(pluginUpdated) {
+                                    log.info "plugin $p.name updated"
+                                }
+                                else {
+                                    log.info "Plugin $p.name is up-to-date"
+                                }
+                            }
+                            offset += 10
+                            session.flush()
+                            session.clear()
+                        }
+
+                    }
+                    
+                }
+
+            }
+            catch(e) {
+                println "ERROR OCCURED ${e.message}"
+            }
+        }
+       
+
+        render "Thread started."
+    }
+
     def searchableService
     def update(Long id, Long version) {
 
