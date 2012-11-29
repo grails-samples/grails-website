@@ -13,7 +13,7 @@ fixture {
                 password: DigestUtils.shaHex("password"),
                 email: "peter@somewhere.net",
                 roles: [ observer, editor ],
-                permissions: ["plugin:publish:shiro","plugin:edit:shiro"])
+                permissions: ["plugin:publish:shiro","plugin:edit:shiro","plugin:publish:foo-bar","plugin:edit:foo-bar"])
         
         dilbert(User,
                 login: "dilbert",
