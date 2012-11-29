@@ -217,18 +217,18 @@ springcache {
     }
 }
 
-/* Sample configuration for pushing plugins to a local Artifactory repository
+artifactRepository.url = "http://repo.grails.org/grails/plugins"
+// artifactRepository.url = "http://localhost:8085/artifactory/plugins-release-local/"
+// beans {
+//     pluginDeployService {
+//         releaseUrl = "http://localhost:8085/artifactory/plugins-release-local/org/grails/plugins"
+//         snapshotUrl = "http://localhost:8085/artifactory/plugins-snapshot-local/org/grails/plugins"
+//         deployUsername = "admin"
+//         deployPassword = "password"
+//     }
+// }
 
-beans {
-    pluginDeployService {
-        releaseUrl = "http://localhost:8081/artifactory/plugins-releases-local/org/grails/plugins"
-        snapshotUrl = "http://localhost:8081/artifactory/plugins-snapshots-local/org/grails/plugins"
-        deployUsername = "admin"
-        deployPassword = "password"
-    }
-}
 
-*/
 
 grails.cache.config = {
     cache {
@@ -274,7 +274,7 @@ twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
 twitter4j.oauth.accessSecret="test"
 
 
-artifactRepository.url = "http://repo.grails.org/grails/plugins"
+
 rest.dateFormat = "yyyy-MM-dd"
 format.date = 'MMM d, yyyy'
 screencasts.page.layout="subpage"
@@ -307,10 +307,5 @@ log4j = {
             'org.codehaus.groovy.grails.plugins', // plugins
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework'
-            
-    //debug 'grails.app.services'
-    //debug 'grails.app.controllers'
-    //debug 'org.grails.auth'
-    //trace 'org.apache.shiro'
-    //debug 'org.codehaus.groovy.grails.web.mapping'
+
 }
