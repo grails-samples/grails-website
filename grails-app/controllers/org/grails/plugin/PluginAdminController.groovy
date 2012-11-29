@@ -27,103 +27,49 @@ class PluginAdminController {
     }
 
     // One time use data migration action
+    def dataSource
     def fixTabs() {
-        Thread.start {
-            try {
-                Plugin.withTransaction { status ->
-                    Plugin.withNewSession { session ->
-                        def total = Plugin.count()
-                        def offset = 0
+        def sql = new groovy.sql.Sql(dataSource)
 
-                        while(offset < total) {
-                            def plugins = Plugin.list(offset:offset, max:10)
-                            for(p in plugins) {
-                                boolean pluginUpdated = false
-                                if(p.description.title != "plugin-${p.name}-description".toString()) {
-                                    def key = "plugin-${p.name}-description".toString()
+        sql.withTransaction {
+            sql.eachRow("select * from plugin") { row ->
 
-                                    def existing = PluginTab.where { title == key }.find()
-                                    if(existing && existing.version == 0) {
-                                        existing.body = p.description.body
-                                        p.description = existing
-                                        p.save()
-                                    } 
-                                    else {
-                                        p.description.title = key
-                                        p.description.save(flush:true)
-                                        pluginUpdated = true                                        
-                                    }
-                                }
-                                if(p.installation.title != "plugin-${p.name}-installation".toString()) {
+                def descId = row.description_id
+                def installId = row.installation_id
+                def faqId = row.faq_id
+                def screenshotsId = row.screenshots_id
 
-                                    def key = "plugin-${p.name}-installation".toString()
-                                    def existing = PluginTab.where { title == key }.find()
-                                    if(existing && existing.version == 0) {
-                                        existing.body = p.installation.body
-                                        p.installation = existing
-                                        p.save()
-                                    } 
-                                    else {
-                                        p.installation.title = key
-                                        p.installation.save(flush:true)
-                                        pluginUpdated = true                                        
-                                    }
-                                }
-                                if(p.faq.title != "plugin-${p.name}-faq".toString()) {
+                def currentId = descId
+                def name = row.name
 
-                                    def key = "plugin-${p.name}-faq".toString()
-                                    def existing = PluginTab.where { title == key }.find()
-                                    if(existing && existing.version == 0) {
-                                        existing.body = p.faq.body
-                                        p.faq= existing
-                                        p.save()
-                                    } 
-                                    else {
-                                        p.faq.title = key
-                                        p.faq.save(flush:true)
-                                        pluginUpdated = true                                        
-                                    }
-                                }
-                                if(p.screenshots.title != "plugin-${p.name}-screenshots".toString()) {
-
-                                    def key = "plugin-${p.name}-screenshots".toString()
-                                    def existing = PluginTab.where { title == key }.find()
-                                    if(existing && existing.version == 0) {
-                                        existing.body = p.screenshots.body
-                                        p.screenshots= existing
-                                        p.save()
-                                    } 
-                                    else {
-                                        p.screenshots.title = key
-                                        p.screenshots.save(flush:true)
-                                        pluginUpdated = true                                        
-                                    }
-                                }                                                
-                                if(pluginUpdated) {
-                                    log.info "plugin $p.name updated"
-                                }
-                                else {
-                                    log.info "Plugin $p.name is up-to-date"
-                                }
-                            }
-                            offset += 10
-                            session.flush()
-                            session.clear()
-                        }
-
-                    }
-                    
-                }
-
+                updateTab(sql, descId, "description", name, row.id )
+                updateTab(sql, installId, "installation", name, row.id )
+                updateTab(sql, faqId, "faq", name, row.id )
+                updateTab(sql, screenshotsId, "screenshots", name, row.id )
             }
-            catch(e) {
-                log.error "${e.class.name}, Message: ${e.message}", e
-            }
+
+
         }
-       
-
-        render "Thread started."
+        render "Done."
     }
+
+    private updateTab(sql, id, type, pluginName, pluginId) {
+        def key = "plugin-$pluginName-$type".toString()
+        def current = sql.firstRow("select * from content where class = ? and id = ?", ["org.grails.plugin.PluginTab", id])
+        def existing = sql.firstRow("select * from content where class = ? and title = ?", ["org.grails.plugin.PluginTab", key])
+
+        
+        if(current.title != key) {
+            if(existing) {
+                sql.executeUpdate "update plugin set "+type+"_id = ? where id = ?", [existing.id, pluginId]
+                sql.executeUpdate "update content set body = ? where id = ?", [current.body, existing.id]
+            }
+            else {
+                sql.executeUpdate "update content set title = ? where class = ? and id = ?", [key, "org.grails.plugin.PluginTab", id]    
+            }                    
+        }        
+    }
+
 
     def searchableService
     def update(Long id, Long version) {
