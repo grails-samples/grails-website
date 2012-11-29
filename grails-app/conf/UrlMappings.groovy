@@ -101,6 +101,15 @@ class UrlMappings {
                 id notEqual: "tag"
             }
         }
+        "/plugins/$id"(controller: "plugin") {
+            // The PUT is legacy, but can't add it as a separate mapping.
+            action = [ GET: "show", PUT: "apiUpdate" ]
+            parseRequest = true
+
+            constraints {
+                id notEqual: "tag"
+            }
+        }        
 //        "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
 //        "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
         "/plugins/pending"(controller: "plugin", action: "pendingPlugins")

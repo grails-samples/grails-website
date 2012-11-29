@@ -56,6 +56,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         def plugin = fetchOrCreatePluginInstance(event.name, event.version)
         pluginUpdater.updatePlugin(plugin)
         pluginService.savePlugin plugin, true
+        pluginUpdater.saveRelease()
 
         if (pluginUpdater.newVersion && !pluginUpdater.snapshot) {
             announceRelease plugin
@@ -83,6 +84,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
             plugin = new Plugin(name: pluginName, currentRelease: version, downloadUrl: "not provided")
 
             pluginService.initNewPlugin(plugin, User.findByLogin("admin"))
+
         }
 
         return plugin
@@ -213,7 +215,7 @@ class PluginUpdater {
         pom = loadPom()
         filename = filename + "." + pom.packaging.text()
 
-        saveRelease()
+       
 
         if (!isSnapshot) {
             // Only update the plugin portal page with the new info if this
@@ -222,7 +224,7 @@ class PluginUpdater {
         }
     }
 
-    protected void saveRelease() {
+    void saveRelease() {
         // Check whether there are any pending releases. If yes and the most
         // recent one failed, we shouldn't add a PluginRelease record.
         /*

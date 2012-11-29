@@ -69,6 +69,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plugins <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><g:link controller="pluginAdmin" action="list">Plugin List</g:link></li>
+                            <li><g:link controller="pendingRelease" action="list">Pending Releases</g:link></li>
                             <li><g:link controller="pluginPendingApproval" action="list">Approval Queue</g:link></li>
                         </ul>
                     </li>
