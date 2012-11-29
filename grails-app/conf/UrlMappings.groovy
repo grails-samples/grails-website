@@ -223,7 +223,8 @@ class UrlMappings {
 //        "/screencast/edit/$id"(controller:"screencast", action:"edit") {
 //            constraints { id matches: /\d+/ }
 //        }
-//        "/screencast/feed"(controller:"screencast", action:"feed")
+        "/screencast/feed"(controller:"screencast", action:"feed")
+        "/screencasts/feed"(controller:"screencast", action:"feed")
 //        "/screencast/add"(controller:"screencast", action:"create")
 //        "/screencast/show/$id"(controller:"screencast", action:"show") {
 //            constraints { id matches: /\d+/ }

@@ -12,6 +12,45 @@ class ScreencastController {
         redirect(action: "list", params: params)
     }
 
+    def feed() {
+        boolean renderFeed = true
+        plugin.isNotAvailable(name:"feeds") {
+            renderFeed = false
+        }
+        
+        if(renderFeed) {
+            def screencasts = Screencast.list( offset: params.offset?: 0,max:10, cache:true, sort:"dateCreated", order:"desc" )
+            def feedOutput = {
+                title = g.message(code:"screencasts.rss.feed.title", 'default':'Screencasts List')
+                link = g.createLink(absolute:true, controller:"screencast", action:'feed', params:[format:request.format])
+                description = g.message(code:"screencasts.rss.feed.description", 'default':'Latest Screencasts')
+                
+                for(s in screencasts) {
+                    entry(s.title) {
+                        link = g.createLink(absolute:true, controller:"screencast", action:"show", id:s.id)
+                        s.description
+                    }
+                }
+            }
+
+            withFormat {
+                rss {
+                    render(feedType:"rss", feedOutput)          
+                }
+                atom {
+                    render(feedType:"atom", feedOutput)                 
+                }
+                html {
+                    render(feedType:"rss", feedOutput)                  
+                }
+            }
+                
+        }
+        else {
+            response.sendError 404
+        }
+    }    
+
     def tagged(String tag) {
         def maxResults = params.int("max",10)
         def offset = params.int("offset", 0)        
