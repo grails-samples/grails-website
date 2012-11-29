@@ -21,4 +21,8 @@ class CommonTagLib {
         out << "<span class=\"${type} ${type}-${labelClass}\">${status.toString()}</span>"
     }
 
+    def control = { attrs, body ->
+        out << g.render(template:'/common/inputControl', model:[field: attrs.field, bean: attrs.bean, title:attrs.title, desc:attrs.desc, body: body()])
+    }
+    
 }
