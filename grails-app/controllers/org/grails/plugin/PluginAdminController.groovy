@@ -117,7 +117,7 @@ class PluginAdminController {
 
             }
             catch(e) {
-                println "ERROR OCCURED ${e.message}"
+                log.error "${e.class.name}, Message: ${e.message}", e
             }
         }
        
