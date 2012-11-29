@@ -40,9 +40,9 @@ class PluginAdminController {
                             for(p in plugins) {
                                 boolean pluginUpdated = false
                                 if(p.description.title != "plugin-${p.name}-description".toString()) {
-                                    def key = "plugin-${p.name}-description"
+                                    def key = "plugin-${p.name}-description".toString()
 
-                                    def existing = PluginTab.findByTitle(key)
+                                    def existing = PluginTab.where { title == key }.find()
                                     if(existing && existing.version == 0) {
                                         existing.body = p.description.body
                                         p.description = existing
@@ -56,8 +56,8 @@ class PluginAdminController {
                                 }
                                 if(p.installation.title != "plugin-${p.name}-installation".toString()) {
 
-                                    def key = "plugin-${p.name}-installation"
-                                    def existing = PluginTab.findByTitle(key)
+                                    def key = "plugin-${p.name}-installation".toString()
+                                    def existing = PluginTab.where { title == key }.find()
                                     if(existing && existing.version == 0) {
                                         existing.body = p.installation.body
                                         p.installation = existing
@@ -71,8 +71,8 @@ class PluginAdminController {
                                 }
                                 if(p.faq.title != "plugin-${p.name}-faq".toString()) {
 
-                                    def key = "plugin-${p.name}-faq"
-                                    def existing = PluginTab.findByTitle(key)
+                                    def key = "plugin-${p.name}-faq".toString()
+                                    def existing = PluginTab.where { title == key }.find()
                                     if(existing && existing.version == 0) {
                                         existing.body = p.faq.body
                                         p.faq= existing
@@ -86,8 +86,8 @@ class PluginAdminController {
                                 }
                                 if(p.screenshots.title != "plugin-${p.name}-screenshots".toString()) {
 
-                                    def key = "plugin-${p.name}-screenshots"
-                                    def existing = PluginTab.findByTitle(key)
+                                    def key = "plugin-${p.name}-screenshots".toString()
+                                    def existing = PluginTab.where { title == key }.find()
                                     if(existing && existing.version == 0) {
                                         existing.body = p.screenshots.body
                                         p.screenshots= existing

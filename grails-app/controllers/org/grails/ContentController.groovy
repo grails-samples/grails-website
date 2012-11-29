@@ -56,7 +56,7 @@ class ContentController extends BaseWikiController {
                 redirect controller: "plugin", action: "show", params: [name: wikiPage.plugin.name], permanent: true
             }
         }
-        else if (wikiPage) {
+        else if (wikiPage?.instanceOf(WikiPage)) {
             // Permanent redirect for deprecated pages that have an alternative URL.
             if (wikiPage.deprecated && wikiPage.deprecatedUri) {
                 redirect uri: wikiPage.deprecatedUri, permanent: true
