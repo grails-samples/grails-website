@@ -298,12 +298,14 @@ class PluginController {
     def apiUpdate() {
         // Start by getting the named plugin if it exists.
         def plugin = Plugin.findByName(params.id)
+        log.debug "Updating plugin [$plugin] via API"
 
         // Check the payload. There should be a 'url' parameter containing
         // the location of the repository to which the plugin was deployed.
         // If the parameter doesn't exist or it's not a URL, we return a 400.
         def data = JSON.parse(request)
         if (!data.url) {
+            log.debug "No repsitory URL provided for plugin [$plugin]"
             render contentType: "application/json", status: 400, {
                 message = "No repository URI provided"
             }
@@ -314,6 +316,7 @@ class PluginController {
             def uri = new URI(data.url)
 
             if (!uri.absolute) {
+                log.debug "Relative repository URI not supported: ${uri} for plugin [$plugin]"
                 render contentType: "application/json", status: 400, {
                     message = "Relative repository URI not supported: ${uri}"
                 }
@@ -321,6 +324,7 @@ class PluginController {
             }
 
             // Default to it not being a snapshot release if 'isSnapshot' is not provided.
+            log.debug "Publishing plugin update event for plugin [$plugin}"
             publishEvent(new PluginUpdateEvent(this, data.name, data.version, data.group, data.isSnapshot ?: false, uri))
 
             render contentType: "application/json", {
