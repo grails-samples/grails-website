@@ -50,12 +50,16 @@
         <td class="show-label" nowrap="nowrap">Description</td>
         <td class="show-value">${fieldValue(bean: screencastInstance, field: "description")}</td>
     </tr>
-    <tr>
-        <td class="show-label" nowrap="nowrap">Preview</td>
-        <td class="show-value">
-            <casts:embedPlayer screencast="${screencastInstance}" width="400" height="300" />
-        </td>
-    </tr>
+    <g:if test="${screencastInstance.videoHost}">
+        
+        <tr>
+            <td class="show-label" nowrap="nowrap">Preview</td>
+            <td class="show-value">
+                
+                <casts:embedPlayer screencast="${screencastInstance}" width="400" height="300" />
+            </td>
+        </tr>
+    </g:if>
     <tr>
         <td class="show-label" nowrap="nowrap">Tags</td>
         <td class="show-value">
