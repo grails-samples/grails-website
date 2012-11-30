@@ -282,4 +282,8 @@ databaseChangeLog = {
             confirm "Added plugin:edit permissions to existing known plugin authors"
         }
     }
+
+    changeSet(author: "grocher", id: "DropAuthorEmailNotNullConstraint") {
+        dropNotNullConstraint(columnDataType: "varchar(255)", columnName: "author_email", tableName: "plugin")
+    }    
 }
