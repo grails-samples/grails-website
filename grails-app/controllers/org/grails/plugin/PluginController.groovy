@@ -64,7 +64,7 @@ class PluginController {
             def filter = params.filter?.toString() ?: "featured"
             if (params.tag) {
                 filter = "all"
-                (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tag, max: maxResults, offset: offset)
+                (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tag, max: maxResults, offset: offset, sort:'name')
             }
             else {
                 (plugins, pluginCount) = pluginService."list${filter.capitalize()}PluginsWithTotal"(max: maxResults, offset: offset)
