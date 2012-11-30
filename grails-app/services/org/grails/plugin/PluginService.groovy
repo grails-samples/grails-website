@@ -60,6 +60,7 @@ class PluginService {
     }
     
     def listAllPluginsWithTotal(Map args = [max: 200]) {
+        args.sort = "name"
         return [ Plugin.list(args), Plugin.count() ]
     }
 
