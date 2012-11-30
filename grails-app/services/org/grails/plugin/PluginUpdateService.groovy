@@ -54,14 +54,23 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // existing one. Since we already have the version, we can deal
         // with that too.
         def plugin = fetchOrCreatePluginInstance(event.name, event.version)
-        pluginUpdater.updatePlugin(plugin)
-        pluginService.savePlugin plugin, true
-        pluginUpdater.saveRelease()
+        Plugin.withSession { session ->
+            try {
+                session.flushMode = org.hibernate.FlushMode.MANUAL
+                pluginUpdater.updatePlugin(plugin)
+                pluginService.savePlugin plugin, true
+                pluginUpdater.saveRelease()
 
-        if (pluginUpdater.newVersion && !pluginUpdater.snapshot) {
-            announceRelease plugin
+                if (pluginUpdater.newVersion && !pluginUpdater.snapshot) {
+                    announceRelease plugin
+                }
+                else log.info "Not a new plugin release - won't tweet"
+
+            }
+            finally {
+                session.flushMode = org.hibernate.FlushMode.AUTO
+            }
         }
-        else log.info "Not a new plugin release - won't tweet"
 
         // The master plugin list will need regenerating.
         cacheService?.removePluginList()
@@ -255,7 +264,12 @@ class PluginUpdater {
         pr.save(failOnError: true, flush:true)
 
         // Clear out associated pending releases that were created on publish.
-        PendingRelease.deleteAll(pendingReleases)
+        PluginRelease.withSession { session ->
+            session.flushMode = org.hibernate.FlushMode.AUTO
+            PendingRelease.deleteAll(pendingReleases)
+            session.flushMode = org.hibernate.FlushMode.MANUAL
+        }
+        
     }
 
     /**
