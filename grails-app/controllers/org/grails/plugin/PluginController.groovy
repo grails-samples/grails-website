@@ -14,6 +14,7 @@ class PluginController {
     def pluginService
     def tagService
     def wikiPageService
+    def cacheService
 
     def legacyHome() {
         redirect action: "list", permanent: true
@@ -130,6 +131,7 @@ class PluginController {
                         redirect uri:"/plugin/$id" 
                     }                  
 
+                    cacheService?.removeWikiText('pluginInfo_summary_' + plugin?.name)
                 }
                 catch( javax.persistence.OptimisticLockException e) {
                     flash.message = e.message
