@@ -16,8 +16,8 @@ class ContentPendingApprovalController {
         pendingItems.addAll(WebSite.pending.list())
         pendingItems.addAll(Testimonial.pending.list())
         pendingItems = pendingItems.sort { it.dateCreated }
-
-        [pendingItems: pendingItems]
+        def pendingPlugins = org.grails.plugin.PluginPendingApproval.pending.list()
+        [pendingItems: pendingItems, pendingPlugins:pendingPlugins]
     }
     
     def approve(Long id, String type) {

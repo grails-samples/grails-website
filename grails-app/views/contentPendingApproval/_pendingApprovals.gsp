@@ -29,5 +29,17 @@
             </td>
         </tr>
         </g:each>
+        <g:each in="${pendingPlugins}" var="plugin">
+        <tr>
+            <td><g:link controller="pluginPendingApproval" action="show" id="${plugin.id}">${plugin.name}</g:link></td>
+            <td><common:approvalStatus status="${plugin.status}" type="badge" /></td>
+            <td>Plugin</td>
+            <td>
+                   <g:link controller="pluginPendingApproval" action="show" id="${plugin.id}"
+                            class="btn btn-primary">View</g:link>
+                            
+            </td>
+        </tr>
+        </g:each>        
     </tbody>
 </table>
