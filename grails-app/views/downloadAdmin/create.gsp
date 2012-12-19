@@ -6,7 +6,7 @@
 <body>
 
 <h1 class="page-header">
-    Create Download
+    Create Grails Release
     <span class="pull-right">
         <g:link class="btn" action="list">Download List</g:link>
     </span>
@@ -22,10 +22,10 @@
     </div>
 </g:hasErrors>
 
-<g:form action="save" class="form-horizontal">
+<g:form action="saveRelease" class="form-horizontal">
     <fieldset>
 
-        <g:render template="form" bean="${downloadInstance}" />
+        <g:render template="form" bean="${releaseInfo}" />
 
         <div class="form-actions">
             <g:submitButton name="create" class="btn btn-primary" value="Create" />
