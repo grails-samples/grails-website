@@ -19,6 +19,35 @@ class PluginUpdateServiceSpec extends Specification {
         service.twitterLimit = 80
     }
 
+    def "Test that updating authors from POM data works correctly"() {
+        given:"A plugin updater and a POM"
+            def updater = new PluginUpdater("1.0", "com.mycompany", "http://foobar.com", false)
+            updater.@plugin = new Plugin()
+            def xml = new XmlSlurper().parseText("""\
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns='http://maven.apache.org/POM/4.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'>
+  <developers>
+    <developer>
+      <name>Graeme Rocher</name>
+      <email>123@springsource.com</email>
+    </developer>
+    <developer>
+      <name>Graeme Rocher</name>
+      <email>123@vmware.com</email>
+    </developer>
+  </developers>
+</project>
+                """)
+
+        when:"The authors are updated from the POM xml"
+            mockDomain(org.grails.meta.UserInfo)
+            updater.addAuthors(xml.developers)
+
+        then:"The authors are populated correctly"
+            updater.@plugin.authors.size() == 1
+            updater.@plugin.authors[0].name == "Graeme Rocher"
+            updater.@plugin.authors[0].email == "123@springsource.com"
+    }
 
     def "Test plugin update event processing"() {
 	given:"A plugin update event"

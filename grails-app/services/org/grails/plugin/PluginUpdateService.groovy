@@ -352,13 +352,16 @@ class PluginUpdater {
     protected addAuthors(pomDevelopersXml) {
         plugin.authors?.clear()
         for (developer in pomDevelopersXml.developer) {
-            def user = UserInfo.findOrCreateWhere(email: developer.email.text())
+            def email = developer.email.text()
+
+            def user = email ? UserInfo.findOrCreateWhere(email: email) : new UserInfo()
             if (!user.name) {
                 user.name = developer.name.text()
             }
             user.save(failOnError: true)
-
-            plugin.addToAuthors(user)
+            def existing = plugin.authors?.find { it.name == user.name}
+            if(!existing)
+                plugin.addToAuthors(user)
         }
     }
 
