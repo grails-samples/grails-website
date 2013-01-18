@@ -4,7 +4,6 @@
             <g:link uri="/"><g:message code="layout.nav.home"/></g:link>
         </li>
         <li class="learn${(controllerName in ['learn', 'tutorial', 'screencast']) ? ' active' : ''}">
-            </a>
             <g:link uri="/learn">
                 <g:message code="layout.nav.learn"/>
             </g:link>
