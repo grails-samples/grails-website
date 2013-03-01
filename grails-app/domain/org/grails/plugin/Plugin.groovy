@@ -89,6 +89,7 @@ class Plugin implements Taggable, Rateable {
         issuesUrl index: "no", store: "yes"
         avgRating index: "not_analyzed", store: "yes"
         ratingCount index: "not_analyzed", store: "yes"
+        lastReleased index: "no", store: "yes"
         tags component: true
     }
 
