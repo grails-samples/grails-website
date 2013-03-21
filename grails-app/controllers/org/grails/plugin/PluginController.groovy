@@ -307,7 +307,7 @@ class PluginController {
         // If the parameter doesn't exist or it's not a URL, we return a 400.
         def data = JSON.parse(request)
         if (!data.url) {
-            log.debug "No repsitory URL provided for plugin [$plugin]"
+            log.debug "No repository URL provided for plugin [$plugin]"
             render contentType: "application/json", status: 400, {
                 message = "No repository URI provided"
             }
