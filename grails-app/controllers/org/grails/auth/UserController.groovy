@@ -93,6 +93,24 @@ class UserController {
         }
     }
 
+    def loginReminder() {
+        if(request.method == 'POST') {
+            def user = User.findByEmail(params.email)
+            if(user && user.login!='admin') {
+                flash.message = "A login reminder was sent to your email address"
+                mailService.sendMail {
+                    from "wiki@grails.org"
+                    to user.email
+                    title "Grails.org login reminder"
+                    body "Please login with the following Username: ${user.login}"
+                }
+            }
+            else {
+                flash.message = "Email not found"
+            }
+        }
+    }
+
     def profile() {
         def userId = SecurityUtils.subject.principals.oneByType(Number)
         def user = User.get(userId)
@@ -227,7 +245,8 @@ class UserController {
 
     def login() {
         if(request.method == 'POST') {
-            def authToken = new UsernamePasswordToken(params.login, params.password)
+            def user = User.findByLoginOrEmail(params.login, params.login)
+            def authToken = new UsernamePasswordToken(user?.login, params.password)
 
             // Support for "remember me"
             if (params.rememberMe) {

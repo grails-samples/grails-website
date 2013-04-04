@@ -165,6 +165,7 @@ class UrlMappings {
         "/login"(controller: "user", action: "login")
         "/unauthorized"(controller: "user", action: "unauthorized")
         "/reminder"(controller: "user", action: "passwordReminder")
+        "/loginReminder"(controller: "user", action: "loginReminder")
         "/profile"(controller: "user", action: "profile")
         "/logout"(controller: "user", action: "logout")
         "/edit/$id"(controller: "content", action: "editWikiPage")
