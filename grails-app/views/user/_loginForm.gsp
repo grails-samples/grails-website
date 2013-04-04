@@ -5,7 +5,7 @@
 
     <h2>Log in</h2>
     <p>
-        <label for="login_field">Login or Email</label>
+        <label for="login_field">Login or Email <a href="/loginReminder">(forgot login)</a></label>
         <input class="text" id="login_field" name="login" tabindex="1" type="text" />
     </p>
 
