@@ -50,4 +50,8 @@ class PluginPendingApproval {
     def getIsNew() {
         (dateCreated > (new DateTime() - Days.days(14)))
     }
+
+    String toString() {
+        "PluginPendingApproval : $name ($id)"
+    }
 }
