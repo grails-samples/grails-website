@@ -10,11 +10,13 @@ import org.compass.core.engine.SearchEngineQueryParseException
 
 class PluginController {
 
+    def grailsApplication
     def dateService
     def pluginService
     def tagService
     def wikiPageService
     def cacheService
+    def mailService
 
     def legacyHome() {
         redirect action: "list", permanent: true
@@ -166,7 +168,20 @@ class PluginController {
 
             if (!pluginPendingApproval.hasErrors() && pluginPendingApproval.save(flush:true)) {
                 flash.message = "Your plugin has been submitted for approval"
-                redirect url: "/plugins/pending/${pluginPendingApproval?.id}"
+
+                def pendingUrl = "/plugins/pending/${pluginPendingApproval?.id}"
+
+                def mailConfig = grailsApplication.config.plugins.forum.mail
+                mailService.sendMail {
+                    to mailConfig.to
+                    from mailConfig.from
+                    subject "Plugin pending approval: ${pluginPendingApproval.name}"
+                    text """There is a new plugin pending approval: ${pluginPendingApproval.name}.
+
+Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
+                }
+
+                redirect url: pendingUrl
             } else {
                 flash.message = "Please correct the fields below"
                 flash.next()
