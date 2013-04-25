@@ -19,7 +19,7 @@
                         <g:each var="download" in="${groupedDownloads[majorVersion]}">
                             <tr>
                                 <td>${download.download.softwareVersion}</td>
-                                <td class="span2 align-center"><g:formatDate date="${download.download?.releaseDate?.toDate()}" format="y/MM/d" /></td>
+                                <td class="span2 align-center"><g:formatDate date="${download.download?.releaseDate?.toDate()}" format="yyyy-MM-dd" /></td>
                                 <td class="span2 align-center"><a href="${download.download?.releaseNotes}">Release Notes</a></td>
                                 <td class="span2 align-center"><a href="${download.binary[0].mirrors[0].urlString}">Binary</a></td>
                                 <td class="span2 align-center">
