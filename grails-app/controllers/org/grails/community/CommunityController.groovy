@@ -8,7 +8,9 @@ class CommunityController {
 
     def websites() { }
 
-    def contribute() { }
+    def contribute() { 
+        forward controller:"content", action:"index", id:"Contribute"
+    }
 
     def mailingList() { }
 
