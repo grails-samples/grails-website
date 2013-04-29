@@ -73,8 +73,9 @@ grails.project.dependency.resolution = {
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
         
         test    ":geb:0.6.0",
-                ":spock:0.6", {
+                ":spock:0.7", {
             excludes 'xml-apis'
+            exclude "spock-grails-support"
         }
 
         build   ":tomcat:$grailsVersion"
@@ -100,6 +101,7 @@ grails.project.dependency.resolution = {
             excludes "xml-apis", "commons-logging"
         }
 
+        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
         if (Environment.current == Environment.DEVELOPMENT) {
             runtime "org.grails:grails-test:$grailsVersion"
         }
