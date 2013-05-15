@@ -20,7 +20,7 @@
                     </g:link>
                 </li>
                 <li>
-                    <g:link url="http://www.vmware.com/products/application-platform/vfabric.html">
+                    <g:link url="http://gopivotal.com/pivotal-products/open-source-software">
                         <g:message code="layout.nav.services.products"/>
                     </g:link>
                 </li>
@@ -35,7 +35,7 @@
                     </g:link>
                 </li>
                 <li>
-                    <g:link url="http://mylearn.vmware.com/mgrreg/courses.cfm?ui=www_edu&a=one&id_subject=18353">
+                    <g:link url="http://www.springsource.com/training">
                         <g:message code="layout.nav.services.training"/>
                     </g:link>
                 </li>

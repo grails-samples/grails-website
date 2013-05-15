@@ -28,7 +28,7 @@
         <ul>
             <li>Local deployment via Grails run-app command</li>
             <li>Support for all the most common Java EE application servers</li>
-            <li>Advanced support for VMware vFabric tc Server</li>
+            <li>Advanced support for vFabric tc Server</li>
             <li>Full IDE integration for Cloud Foundry, including real debugging in the cloud</li>
         </ul>
 

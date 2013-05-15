@@ -57,7 +57,7 @@
         </ul>
 
         <div class="spring">
-            <a href="http://www.springsource.org/" class="springSource">SpringSource</a>
+            <a href="http://www.gopivotal.com/" class="springSource">Pivotal</a>
         </div>
 
         <div id="quickSearch" role="search">
@@ -82,12 +82,12 @@
         </div>
 
         <div class="copyright">
-            Copyright 2009 - 2012 SpringSource.<br/>
+            Copyright © 2013 GoPivotal, Inc. All rights reserved.<br/>
             All Rights Reserved.
         </div>
         <ul class="privacy">
-            <li><a href="http://www.vmware.com/help/legal.html">Terms of Use</a></li>
-            <li class="last"><a href="http://www.vmware.com/help/privacy.html">Privacy</a></li>
+            <li><a href="http://www.gopivotal.com/privacy-policy">Terms of Use</a></li>
+            <li class="last"><a href="http://www.gopivotal.com/privacy-policy">Privacy</a></li>
         </ul>
         <ul class="external-services">
             <li class="last"><a class="artifactory" href="http://www.jfrog.com/">Artifactory</a></li>
