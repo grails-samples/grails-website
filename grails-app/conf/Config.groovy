@@ -268,12 +268,10 @@ grails.cache.config = {
 }
 
 // Dummy Twitter settings.
-twitter4j.oauth.consumerKey="E1U4T7KgPdaGFagdpbdQ"
-twitter4j.oauth.consumerSecret="hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY"
-twitter4j.oauth.accessKey="ksdfhkasfjhksdfjhklsad"
-twitter4j.oauth.accessSecret="test"
-
-
+twitter.consumerKey="E1U4T7KgPdaGFagdpbdQ"
+twitter.consumerSecret="hUseBLu9jcGPEdvaco2c0yAA9tIQDZS34QsTG0GsY"
+twitter.accessKey="ksdfhkasfjhksdfjhklsad"
+twitter.accessSecret="test"
 
 rest.dateFormat = "yyyy-MM-dd"
 format.date = 'MMM d, yyyy'

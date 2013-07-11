@@ -1,11 +1,11 @@
 import org.apache.shiro.authc.credential.Sha1CredentialsMatcher
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.grails.auth.ShiroUserBean
-import org.grails.content.notifications.ContentAlertStack
 import org.grails.wiki.GrailsWikiEngineFactoryBean
 import org.radeox.engine.context.BaseInitialRenderContext
-import org.springframework.cache.ehcache.EhCacheFactoryBean
-
+import org.springframework.social.connect.support.ConnectionFactoryRegistry
+import org.springframework.social.twitter.api.impl.TwitterTemplate
+import org.springframework.social.twitter.connect.TwitterConnectionFactory
 // Place your Spring DSL code here
 beans = {
     currentUser(ShiroUserBean)
@@ -23,4 +23,6 @@ beans = {
         contextPath = config.grails.serverURL ?: ""
         context = wikiContext
     }
+
+    twitterApi(TwitterTemplate, '${twitter.consumerKey}', '${twitter.consumerSecret}', '${twitter.accessToken}', '${twitter.accessSecret}')
 }
