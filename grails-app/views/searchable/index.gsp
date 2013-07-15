@@ -23,7 +23,7 @@ $(document).ready(function() {
             <span>
                 <g:if test="${haveQuery && resultCount}">
                     Showing <strong>${searchResult.offset + 1}</strong> - <strong>${resultCount + searchResult.offset}</strong> of <strong>${searchResult.total}</strong>
-                    results for <strong>${query}</strong>
+                    results for <strong>${query?.encodeAsHTML()}</strong>
                 </g:if>
                 <g:else>
                     &nbsp;
@@ -32,13 +32,13 @@ $(document).ready(function() {
         </div>
 
         <g:if test="${parseException}">
-            <p>Your query - <strong>${query}</strong> - is not valid.</p>
+            <p>Your query - <strong>${query?.encodeAsHTML()}</strong> - is not valid.</p>
         </g:if>
         <g:elseif test="${clauseException}">
-            <p>Your query - <strong>${query}</strong> - cannot be handled, sorry. Be more restrictive with your wildcards, like '*'.</p>
+            <p>Your query - <strong>${query?.encodeAsHTML()}</strong> - cannot be handled, sorry. Be more restrictive with your wildcards, like '*'.</p>
         </g:elseif>
         <g:elseif test="${haveQuery && !resultCount}">
-            <p>Nothing matched your query - <strong>${query}</strong></p>
+            <p>Nothing matched your query - <strong>${query?.encodeAsHTML()}</strong></p>
         </g:elseif>
         <g:elseif test="${resultCount}">
             <div id="results" class="results">
