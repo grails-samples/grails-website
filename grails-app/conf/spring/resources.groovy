@@ -24,5 +24,9 @@ beans = {
         context = wikiContext
     }
 
-    twitterApi(TwitterTemplate, '${twitter.consumerKey}', '${twitter.consumerSecret}', '${twitter.accessToken}', '${twitter.accessSecret}')
+    def consumerKey = application.config.twitter.consumerKey
+    def consumerSecret = application.config.twitter.consumerSecret
+    def accessKey = application.config.twitter.accessKey
+    def accessSecret = application.config.twitter.accessSecret
+    twitterApi(TwitterTemplate, consumerKey.toString(), consumerSecret.toString(), accessKey.toString(),  accessSecret.toString())
 }
