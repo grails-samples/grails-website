@@ -4,6 +4,13 @@ grails.project.work.dir = "target/$grailsVersion"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.plugins.dir = "plugins"
 
+grails.project.dependency.resolver="maven"
+grails.project.fork = [
+   test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true], // configure settings for the test-app JVM
+   run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256], // configure settings for the run-app JVM
+   war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256], // configure settings for the run-war JVM
+   console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]// configure settings for the Console UI JVM
+]
 grails.project.dependency.resolution = {
     inherits "global", {
         excludes "xml-apis", "commons-digester", "ehcache"
@@ -46,7 +53,7 @@ grails.project.dependency.resolution = {
                 ":disqus:0.1",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
-                ":hibernate:$grailsVersion",
+                ":hibernate:3.6.10.M3",
                 ":jquery:1.7.2",
                 ":jquery-ui:1.8.24",
                 ":mail:1.0",
@@ -57,7 +64,9 @@ grails.project.dependency.resolution = {
                 ":shiro:1.2.0-SNAPSHOT",
                 ":shiro-oauth:0.2",
                 ":spring-events:1.2",
-                ":zipped-resources:1.0"
+                ":zipped-resources:1.0", {
+                    exclude 'spring-test'
+                }
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
@@ -78,14 +87,16 @@ grails.project.dependency.resolution = {
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:$grailsVersion"
+        build   ":tomcat:7.0.40.1"
+        compile ":scaffolding:1.0.0"
     }
 
     dependencies {
         build "org.lesscss:lesscss:1.3.0"
 
+        compile "org.grails:grails-gdoc-engine:1.0.1"
         compile "org.twitter4j:twitter4j-core:2.1.8",
-                "org.springframework:spring-context-support:3.0.3.RELEASE",
+                "org.springframework:spring-context-support:3.2.2.RELEASE",
                 "org.jadira.usertype:usertype.jodatime:1.9",
                 "org.jsoup:jsoup:1.6.3"
 

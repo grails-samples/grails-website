@@ -4,7 +4,7 @@ import grails.plugin.spock.IntegrationSpec
 
 import spock.lang.Ignore
 import spock.lang.Specification
-
+import org.joda.time.DateTime
 /**
  * Integration tests for {@link PluginService}.
  */
@@ -17,67 +17,67 @@ class PluginServiceSpec extends IntegrationSpec {
         plugins << Plugin.build(
                 name: "gwt",
                 currentRelease: "0.6",
-                lastReleased: now.updated(year: 2007, month: 5, date: 12))
+                lastReleased: new DateTime( now.updated(year: 2007, month: 5, date: 12).time ) )
         plugins << Plugin.build(
                 name: "shiro",
                 currentRelease: "1.1-SNAPSHOT",
-                lastReleased: now.updated(year: 2007, month: 3, date: 5),
+                lastReleased: new DateTime( now.updated(year: 2007, month: 3, date: 5).time ),
                 featured: true)
         plugins << Plugin.build(
                 name: "spring-security-core",
                 currentRelease: "1.0.1", 
-                lastReleased: now.updated(year: 2010, month: 4, date: 22),
+                lastReleased: new DateTime( now.updated(year: 2010, month: 4, date: 22).time ),
                 official: true)
         plugins << Plugin.build(
                 name: "fixtures",
                 currentRelease: "1.0",
-                lastReleased: now.updated(year: 2009, month: 11, date: 13))
+                lastReleased: new DateTime( now.updated(year: 2009, month: 11, date: 13).time ))
         plugins << Plugin.build(
                 name: "build-test-data",
                 currentRelease: "1.0.1",
-                lastReleased: now.updated(year: 2009, month: 9, date: 12))
+                lastReleased: new DateTime( now.updated(year: 2009, month: 9, date: 12).time ))
         plugins << Plugin.build(
                 name: "spock",
                 currentRelease: "0.5-SNAPSHOT",
-                lastReleased: now.updated(year: 2010, month: 4, date: 5),
+                lastReleased: new DateTime( now.updated(year: 2010, month: 4, date: 5).time ),
                 featured: true)
         plugins << Plugin.build(
                 name: "grails-ui",
                 currentRelease: "0.1.1",
-                lastReleased: now.updated(year: 2009, month: 1, date: 30),
+                lastReleased: new DateTime( now.updated(year: 2009, month: 1, date: 30).time ),
                 official: true)
         plugins << Plugin.build(
                 name: "commentable",
                 currentRelease: "0.6.2",
-                lastReleased: now.updated(year: 2008, month: 9, date: 12))
+                lastReleased: new DateTime( now.updated(year: 2008, month: 9, date: 12).time ))
         plugins << Plugin.build(
                 name: "rateable",
                 currentRelease: "0.7.5",
-                lastReleased: now.updated(year: 2008, month: 9, date: 13))
+                lastReleased: new DateTime( now.updated(year: 2008, month: 9, date: 13).time ))
         plugins << Plugin.build(
                 name: "taggable",
                 currentRelease: "0.3.5-SNAPSHOT",
-                lastReleased: now.updated(year: 2008, month: 8, date: 13))
+                lastReleased: new DateTime( now.updated(year: 2008, month: 8, date: 13).time ))
         plugins << Plugin.build(
                 name: "rendering",
                 currentRelease: "1.0",
-                lastReleased: now.updated(year: 2010, month: 7, date: 27),
+                lastReleased: new DateTime( now.updated(year: 2010, month: 7, date: 27).time ),
                 featured: true)
         plugins << Plugin.build(
                 name: "hibernate",
                 currentRelease: "1.3.4",
-                lastReleased: now.updated(year: 2007, month: 12, date: 3),
+                lastReleased: new DateTime( now.updated(year: 2007, month: 12, date: 3).time ),
                 featured: true,
                 official: true)
         plugins << Plugin.build(
                 name: "tomcat",
                 currentRelease: "1.3.4",
-                lastReleased: now.updated(year: 2009, month: 10, date: 1),
+                lastReleased: new DateTime( now.updated(year: 2009, month: 10, date: 1).time ),
                 official: true)
         plugins << Plugin.build(
                 name: "webflow",
                 currentRelease: "1.0-SNAPSHOT",
-                lastReleased: now.updated(year: 2009, month: 2, date: 15),
+                lastReleased: new DateTime( now.updated(year: 2009, month: 2, date: 15).time ),
                 official: true)
 
         // The 'dateCreated' field is automatically initialised when a

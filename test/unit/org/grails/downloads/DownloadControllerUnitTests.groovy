@@ -6,7 +6,7 @@ import grails.test.mixin.*
 
 import static org.junit.Assert.*
 @TestFor(DownloadController)
-@Mock([Download, VersionOrder])
+@Mock([DownloadFile, Download, VersionOrder])
 class DownloadControllerUnitTests {
     void testLatest() {
 
