@@ -41,14 +41,14 @@
 
         <section class="cols4">
             <div class="col-1">
-                <g:img dir="img/download" file="hudson.png" />
-                <h3>Grails Development Builds</h3>
-                <p class="desc">Build application and continuous integration server at <a href="http://hudson.grails.org">hudson.grails.org</a></p>
-            </div>
-            <div class="col-2">
                 <g:img dir="img/download" file="gvm.png" />
                 <h3>Groovy enVironment Manager</h3>
                 <p class="desc">Use GVM to manage Grails <br />installs and versions! <a href="http://gvmtool.net/">Find out more</a>.</p>
+            </div>
+            <div class="col-2">
+                <g:img dir="img/download" file="hudson.png" />
+                <h3>Grails Development Builds</h3>
+                <p class="desc">Build application and continuous integration server at <a href="http://hudson.grails.org">hudson.grails.org</a></p>
             </div>
             <div class="col-3">
                 <g:img dir="img/download" file="groovy.png" />
