@@ -95,18 +95,7 @@
                         <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
                     </p>
                 </div>
-
-                <p class="buttons">
-                    <g:if test="${plugin.documentationUrl}">
-                        <a href="${plugin.documentationUrl}" class="btn blueLight doc"><span class="ico"></span>Documentation</a>
-                    </g:if>
-                    <g:if test="${plugin.scmUrl}">
-                        <a href="${plugin.scmUrl}" class="btn blueLight source"><span class="ico"></span>Source</a>
-                    </g:if>
-                    <g:if test="${plugin.issuesUrl}">
-                        <a href="${plugin.issuesUrl}" class="btn blueLight issues"><span class="ico"></span>Issues</a>
-                    </g:if>
-                </p>
+                <tmpl:pluginButtons plugin="${plugin}" />
             </article>
             <!--<span class="status status-new">New</span>-->
         </g:each>
