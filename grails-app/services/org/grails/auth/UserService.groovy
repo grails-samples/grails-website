@@ -2,6 +2,7 @@ package org.grails.auth
 
 import grails.plugin.cache.Cacheable
 import grails.plugin.cache.CacheEvict
+import org.apache.commons.lang.RandomStringUtils
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
@@ -46,9 +47,11 @@ class UserService {
      * user can't be created.
      */
     def createUser(login, email, password = null) {
+        if (!password) password = RandomStringUtils.randomAscii(30)
+
         def user = new User(
                 login: login,
-                password: password ? DigestUtils.shaHex(password) : "** none **",
+                password: DigestUtils.shaHex(password),
                 email: email)
                 .addToRoles(Role.findByName(Role.EDITOR))
                 .addToRoles(Role.findByName(Role.OBSERVER))

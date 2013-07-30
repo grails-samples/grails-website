@@ -55,7 +55,7 @@ grails.project.dependency.resolution = {
                 ":resources:1.2.RC2",
                 ":searchable:0.6.4",
                 ":shiro:1.2.0-SNAPSHOT",
-                ":shiro-oauth:0.2",
+                ":shiro-oauth:0.3-SNAPSHOT",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0"
 

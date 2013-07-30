@@ -3,6 +3,7 @@ package org.grails.auth
 import grails.validation.Validateable
 
 import org.apache.commons.codec.digest.DigestUtils
+import org.apache.commons.lang.RandomStringUtils
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.authc.AuthenticationException
@@ -218,8 +219,7 @@ class UserController {
         if (!handleCommandForLinkingAccounts(cmd)) return
 
         try {
-            def userId = userService.loginUser(cmd.login, cmd.password)
-            forwardToShiroLinkAccount userId
+            forwardToShiroLinkAccount cmd.login, cmd.password
         }
         catch (AuthenticationException ex) {
             cmd.errors.reject "auth.invalid.login", "Username or password is invalid"
@@ -234,8 +234,9 @@ class UserController {
     def createAccount(NewAccountCommand cmd) {
         if (!handleCommandForLinkingAccounts(cmd)) return
 
-        def user = userService.createUser(cmd.login, cmd.email)
-        forwardToShiroLinkAccount user.id
+        def password = RandomStringUtils.randomAscii(30)
+        def user = userService.createUser(cmd.login, cmd.email, password)
+        forwardToShiroLinkAccount cmd.login, password
     }
 
     def logout() {
@@ -317,8 +318,8 @@ class UserController {
      * also ensures that the {@code targetUri} parameter is appropriately
      * set.
      */
-    protected forwardToShiroLinkAccount(userId) {
-        def newParams = [userId: userId]
+    protected forwardToShiroLinkAccount(username, password) {
+        def newParams = [username: username, password: password]
         if (!session["targetUri"]) {
             newParams["targetUri"] = "/"
         }
