@@ -70,11 +70,11 @@
                             <g:render template="pluginTags" model="[plugin:plugin]" />
                         </li>
                         <li>
-                            Latest : <strong>${plugin.currentRelease}</strong>                            
+                            Latest: <strong>${plugin.currentRelease}</strong>                            
                         </li>
                         <li>Last Updated: <strong><joda:format pattern="dd MMMMM yyyy" value="${plugin.lastUpdated}" /></strong></li>
                         <li>
-                            Grails version : ${plugin.grailsVersion ?: '*'}
+                            Grails version: ${plugin.grailsVersion ?: '*'}
                         </li>
                     </ul>
 

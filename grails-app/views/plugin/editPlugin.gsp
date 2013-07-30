@@ -35,13 +35,13 @@
                     <li>
                         <g:render template="pluginTags" model="[plugin:plugin]" />
                     </li>
-                    <li>Current release : <strong>${plugin.currentRelease.encodeAsHTML()}</strong> • Grails version : ${plugin.grailsVersion.encodeAsHTML() ?: '*'}</li>
-                    <li>Authors : <%= plugin.authors.collect { it.name.encodeAsHTML() }.join(', ') %></li>
+                    <li>Current release: <strong>${plugin.currentRelease.encodeAsHTML()}</strong> • Grails version: ${plugin.grailsVersion.encodeAsHTML() ?: '*'}</li>
+                    <li>Authors: <%= plugin.authors.collect { it.name.encodeAsHTML() }.join(', ') %></li>
                     <g:if test="${plugin.licenses}">
-                        <li>License : <%= plugin.licenses.collect { '<a href="' + it.url.encodeAsHTML() + '">' + it.name + '</a>' }.join(',') %></li>
+                        <li>License: <%= plugin.licenses.collect { '<a href="' + it.url.encodeAsHTML() + '">' + it.name + '</a>' }.join(',') %></li>
                     </g:if>
                     <g:if test="${plugin.organization}">
-                        <li>Organization :
+                        <li>Organization:
                             <g:if test="${plugin.organizationUrl}">
                                 <a href="${plugin.organizationUrl.encodeAsHTML()}">${plugin.organization.encodeAsHTML()}</a>
                             </g:if>
@@ -69,10 +69,10 @@
             </header>
             <div class="desc">
                 <div class="code">
-                    <strong>Dependency :</strong>
+                    <strong>Dependency:</strong>
                     <pre>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</pre>
                     <g:if test="${plugin.customRepositoriesDeclaration}">
-                        <strong>Custom repositories :</strong>
+                        <strong>Custom repositories:</strong>
                         <pre>${plugin.customRepositoriesDeclaration.encodeAsHTML()}</pre>
                     </g:if>
                 </div>
