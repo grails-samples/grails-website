@@ -47,7 +47,7 @@
             <shiro:isLoggedIn>
                 <li><a href="/logout">Logout</a></li>
                 <li class="spacing">&nbsp;</li>
-                <li class="current-user"><g:link uri="/profile">${user?.email}</g:link></li>
+                <li class="current-user"><g:link uri="/profile"><b>${user?.login}</b> (${user?.email})</g:link></li>
             </shiro:isLoggedIn>
             <shiro:isNotLoggedIn>
                 <li><a href="/login?targetUri=${request.forwardURI}" class="login">Login</a></li>
