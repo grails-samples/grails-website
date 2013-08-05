@@ -72,7 +72,7 @@
                         <li>
                             Latest: <strong>${plugin.currentRelease}</strong>                            
                         </li>
-                        <li>Last Updated: <strong><joda:format pattern="dd MMMMM yyyy" value="${plugin.lastUpdated}" /></strong></li>
+                        <li>Last Updated: <strong><joda:format pattern="dd MMMMM yyyy" value="${plugin.lastReleased}" /></strong></li>
                         <li>
                             Grails version: ${plugin.grailsVersion ?: '*'}
                         </li>
