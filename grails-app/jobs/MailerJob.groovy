@@ -60,7 +60,7 @@ class MailerJob {
                             if (titleParts[1] ==~ /\d+/) wikiType = titleParts[0]
                             else wikiType = titleParts[-1]
                             
-                            myTitle = "${plugin.title} (${wikiType[0].toUpperCase() + wikiType[1..-1]} tab)"
+                            myTitle = "${plugin.title} (${wikiType[0].toUpperCase() + wikiType[1..-1]} section)"
                         }
 
                         def pageVersions = Version.findAllByCurrent(content, [sort:'number',order:'desc', max:1, cache:true])
@@ -79,7 +79,7 @@ class MailerJob {
 
                             for (email in emails) {
                                 mailService?.sendMail {
-                                    title "Grails > ${myTitle}"
+                                    title "[grails.org] ${myTitle} updated"
                                     from "wiki@grails.org"
                                     replyTo "wiki@grails.org"
                                     to email
