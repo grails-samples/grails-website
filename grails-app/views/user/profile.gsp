@@ -38,7 +38,7 @@
             </div>
 
             <div class="formButtons" style="margin-top:50px;">
-                <g:submitButton name="Submit" value="Update"/>
+                <g:submitButton class="btn blueLight" name="Submit" value="Update"/>
             </div>
         </g:form>
     </div>
