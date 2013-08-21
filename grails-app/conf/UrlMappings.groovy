@@ -2,6 +2,12 @@ import grails.util.Environment
 
 class UrlMappings {
     static mappings = {
+
+        if (Environment.current == Environment.DEVELOPMENT ||
+            Environment.current == Environment.TEST) {
+            '/greenmail'(controller: 'greenmail', action: 'list')
+        }
+
         "/Home?"(controller: "content", action: "homePage")
         "/$id"(controller: "content", action: "index") {
             constraints {
