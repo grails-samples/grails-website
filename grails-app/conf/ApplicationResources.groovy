@@ -12,7 +12,7 @@ modules = {
     }
 
     master {
-        dependsOn 'jquery', 'masterStyles'
+        dependsOn 'jquery', 'masterStyles', 'fontAwesome'
         resource 'js/libs/bootstrap/bootstrap.js'
         resource url: 'js/libs/modernizr-2.5.3-respond-1.1.0.min.js', disposition: 'head'
         resource 'js/script.js'
@@ -34,7 +34,6 @@ modules = {
 
     plugin {
         dependsOn 'master', 'raty', 'tagit'
-
     }
 
     auth {
@@ -92,6 +91,10 @@ modules = {
         resource 'fancybox/jquery.mousewheel-3.0.6.pack.js'
         resource 'fancybox/jquery.fancybox.css'
         resource 'fancybox/jquery.fancybox.js'
+    }
+
+    fontAwesome {
+        resource 'font-awesome/css/font-awesome.min.css'
     }
 
     errors {
