@@ -58,6 +58,7 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
                 load("videohosts")
                 load("wiki")
                 load("downloads")
+                load("testimonials")
             }
         }
 
