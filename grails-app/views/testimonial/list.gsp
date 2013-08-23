@@ -38,10 +38,11 @@
                 <g:render template="testimonial" model="['testimonial': testimonial]"/>
             </article>
         </g:each>
-        <div class="pagination">
-            <g:paginate total="${nonFeaturedTotal}"/>
+        <div class="pager">
+            <div class="pagination">
+                <g:paginate total="${nonFeaturedTotal}"/>
+            </div>
         </div>
-
     </section>
 
 </div>
