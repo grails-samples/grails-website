@@ -9,7 +9,7 @@
             </a>
         </h3>
         <p class="meta">
-            <g:message code="tutorial.tags" /> :
+            <g:message code="tutorial.tags" />:
             <g:if test="${tutorialInstance.tags.size() > 0}">
                 <g:each in="${tutorialInstance.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><g:link action="tagged" params="[tag:tag]">${tag}</g:link></g:each>
             </g:if>
@@ -17,7 +17,7 @@
                 <g:message code="tutorial.tags.empty" />
             </g:else>
             <br/>
-            <g:message code="tutorial.submitted.by" /> <a href="#">${tutorialInstance?.submittedBy?.login}</a>
+            <g:message code="tutorial.submitted.by" /> ${tutorialInstance?.submittedBy?.login}
             <g:if test="${tutorialInstance?.dateCreated}">
                 <prettytime:display date="${tutorialInstance?.dateCreated}"/>
             </g:if>
