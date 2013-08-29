@@ -7,7 +7,7 @@
             </g:if>
         </h3>
         <p class="meta">
-            Tags :
+            Tags:
             <g:if test="${screencastInstance.tags.size() > 0}">
                 <g:each in="${screencastInstance.tags}" var="tag" status="i"><g:if test="${i > 0}">, </g:if><g:link action="tagged" params="[tag:tag]">${tag}</g:link></g:each>
             </g:if>
@@ -15,7 +15,7 @@
                 none
             </g:else>
             <br/>
-            submitted by <a href="#">${screencastInstance?.submittedBy?.login}</a>
+            submitted by ${screencastInstance?.submittedBy?.login}
             <g:if test="${screencastInstance?.dateCreated}">
                 <prettytime:display date="${screencastInstance?.dateCreated}"/>
             </g:if>
