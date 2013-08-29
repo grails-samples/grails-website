@@ -17,7 +17,7 @@
                 <g:message code="tutorial.tags.empty" />
             </g:else>
             <br/>
-            <g:message code="tutorial.submitted.by" />${tutorialInstance?.submittedBy?.login}
+            <g:message code="tutorial.submitted.by" /> ${tutorialInstance?.submittedBy?.login}
             <g:if test="${tutorialInstance?.dateCreated}">
                 <prettytime:display date="${tutorialInstance?.dateCreated}"/>
             </g:if>

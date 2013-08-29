@@ -55,10 +55,16 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
             println "Loading fixture data"
             fixtureLoader.with {
                 load("users").load("plugins").load("tags", "ratings")
-                load("videohosts")
-                load("wiki")
-                load("downloads")
-                load("testimonials")
+                [
+                    'videohosts',
+                    'wiki',
+                    'downloads',
+                    'testimonials',
+                    'screencasts',
+                    'tutorials'
+                ].each {
+                    load(it)
+                }
             }
         }
 
