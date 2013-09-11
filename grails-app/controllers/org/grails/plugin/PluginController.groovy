@@ -214,9 +214,10 @@ Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
 
     def search() {
         if (params.q) {
+            def q = "${params.q} -zombie:true".toString()
             def tags = tagService.getPluginTagArray()
             try {
-                def searchResult = Plugin.search(params.q, offset: params.offset)
+                def searchResult = Plugin.search(q, offset: params.offset)
                 searchResult.results = searchResult.results.findAll{it}.unique { it.title }
 
                 flash.message = "Found $searchResult.total results!"
