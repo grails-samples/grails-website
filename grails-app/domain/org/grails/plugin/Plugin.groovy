@@ -73,7 +73,7 @@ class Plugin implements Taggable, Rateable {
         only = [
             'name', 'title', 'summary', 'author', 'authorEmail',
             'installation','description','faq','screenshots', 'tags',
-            'featured', 'official', 'organization'
+            'featured', 'official', 'organization', 'zombie'
         ]
         title boost: 5.0
         description component: true
