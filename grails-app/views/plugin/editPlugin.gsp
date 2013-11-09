@@ -1,3 +1,4 @@
+<%@ page import="org.grails.plugin.Plugin" %>
 <head>
     <meta content="master" name="layout"/>
     <title>Edit Plugin: ${plugin.title.encodeAsHTML()}</title>
@@ -70,7 +71,7 @@
             <div class="desc">
                 <div class="code">
                     <strong>Dependency:</strong>
-                    <pre>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</pre>
+                    <pre>${plugin.defaultDependencyScope.encodeAsHTML()} "${plugin.dependencyDeclaration.encodeAsHTML()}"</pre>
                     <g:if test="${plugin.customRepositoriesDeclaration}">
                         <strong>Custom repositories:</strong>
                         <pre>${plugin.customRepositoriesDeclaration.encodeAsHTML()}</pre>
@@ -101,6 +102,13 @@
                                 <g:hiddenField name="plugin.installation.version" value="${plugin?.installation?.version}"/>
                                 <g:textArea cols="30" rows="20" name="plugin.installation.body"
                                             value="${plugin?.installation.body}" class="codeEditor input-medium"/>
+                            </div>
+                        </div>
+
+                        <h2>Default dependency scope</h2>
+                        <div class="control-group ${hasErrors(bean: plugin.defaultDependencyScope, field: 'body', 'error')}">
+                            <div class="controls">
+                                <g:select name="plugin.defaultDependencyScope" from="${Plugin.DEFAULT_SCOPE_WHITE_LIST}" value="${plugin?.defaultDependencyScope}" />
                             </div>
                         </div>
 

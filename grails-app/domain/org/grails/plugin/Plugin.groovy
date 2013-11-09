@@ -28,6 +28,7 @@ class Plugin implements Taggable, Rateable {
 
     static final DEFAULT_GROUP = "org.grails.plugins"
     static final DEFAULT_SCOPE = "compile"
+    static final DEFAULT_SCOPE_WHITE_LIST = ["compile", "provided", "test", "runtime", "system"]
     static final WIKIS = ['installation','description','faq','screenshots']
     static final VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
 
@@ -121,6 +122,9 @@ class Plugin implements Taggable, Rateable {
         lastReleased nullable:true
         currentRelease blank: false, matches: VERSION_PATTERN
         usage nullable: true
+        defaultDependencyScope validator: {
+            DEFAULT_SCOPE_WHITE_LIST.contains(it)
+        }
     }
 
     static mapping = {

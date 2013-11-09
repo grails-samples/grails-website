@@ -69,7 +69,7 @@
             <div class="desc">
                 <div class="code">
                     <strong>Dependency:</strong>
-                    <pre>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</pre>
+                    <pre>${plugin.defaultDependencyScope.encodeAsHTML()} "${plugin.dependencyDeclaration.encodeAsHTML()}"</pre>
                     <g:if test="${plugin.customRepositoriesDeclaration}">
                         <strong>Custom repositories:</strong>
                         <pre>${plugin.customRepositoriesDeclaration.encodeAsHTML()}</pre>
