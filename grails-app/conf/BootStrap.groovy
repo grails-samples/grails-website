@@ -91,6 +91,7 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
         // Editor can edit pages, add screencasts, etc.
         def editor = Role.findByName(Role.EDITOR) ?: new Role(name: Role.EDITOR).save(failOnError: true)
         safelyAddPermission editor, "pluginTab:editWikiPage"
+        safelyAddPermission editor, "screencast:create,edit,save,update"
         safelyAddPermission editor, "tutorial:create,edit,save,update"
         safelyAddPermission editor, "webSite:create,edit,save,update"
         safelyAddPermission editor, "likeDislike:like,dislike"
