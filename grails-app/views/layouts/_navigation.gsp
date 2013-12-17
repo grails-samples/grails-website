@@ -40,7 +40,7 @@
                     </g:link>
                 </li>
                 <li>
-                    <g:link url="http://www.springsource.org">
+                    <g:link url="http://spring.io/">
                         <g:message code="layout.nav.services.about"/>
                     </g:link>
                 </li>
