@@ -26,7 +26,7 @@
     <div class="desc">
         <p><wiki:shorten key="${'screencast_' + screencastInstance.id}" wikiText="${screencastInstance?.description}" length="250"/>
             <g:if test="${screencastInstance?.description?.length() > 250}">
-                <a href="/tutorial/${screencastInstance?.id}">read more</a>
+                <a href="/screencast/${screencastInstance?.id}">(read more)</a>
             </g:if>
         </p>
     </div>
