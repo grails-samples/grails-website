@@ -12,16 +12,6 @@ import spock.lang.Specification
 class PluginPortalRestSpec extends Specification {
     def http = new HTTPBuilder("http://localhost:8080")
     
-    def setupSpec() {
-        def http = new HTTPBuilder("http://localhost:8080")
-        http.post path: "/test/fixtures/load", query: [file: "plugins"], body: ""
-    }
-
-    def cleanupSpec() {
-        def http = new HTTPBuilder("http://localhost:8080")
-        http.post path: "/test/fixtures/unload", body: ""
-    }
-
     def "Test updating plugin info via a 'ping'"() {
         given:
         http.handler.success = { it.statusLine.statusCode }

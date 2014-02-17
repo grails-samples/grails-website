@@ -5,15 +5,6 @@ import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 
 class PluginPortalFunctionalSpec extends GebReportingSpec {
-    def setupSpec() {
-        def http = new HTTPBuilder("http://localhost:8080")
-        http.post path: "/test/fixtures/load", query: [file: "plugins"], body: ""
-    }
-
-    def cleanupSpec() {
-        def http = new HTTPBuilder("http://localhost:8080")
-        http.post path: "/test/fixtures/unload", body: ""
-    }
 
     def "Test plugin portal home page"() {
         when: "we go to the plugin portal home page"
