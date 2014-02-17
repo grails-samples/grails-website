@@ -37,8 +37,7 @@ grails.project.dependency.resolution = {
 
         runtime ":avatar:0.3",
                 ":rest-client-builder:2.0.1",
-                ":cache:1.1.1",
-                ":cache-ehcache:1.0.0",
+                ":cache:1.1.1",                
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.3.8",
@@ -74,11 +73,11 @@ grails.project.dependency.resolution = {
                     ":fixtures:1.2"
         }
 
-        compile ":cache:1.0.1",
-                ":platform-core:1.0.M6"
+        compile ":platform-core:1.0.M6"
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
         
-        test    ":geb:0.6.0", {
+
+        test ":geb:0.9.2", {
             excludes 'xml-apis'
             exclude "spock-grails-support"
         }
@@ -99,7 +98,7 @@ grails.project.dependency.resolution = {
         compile "org.apache.shiro:shiro-core:1.2.2"
         runtime 'org.apache.lucene:lucene-snowball:2.4.1'
 
-        test "org.codehaus.geb:geb-core:0.6.0",
+        test "org.gebish:geb-core:0.9.2",
              "org.gmock:gmock:0.8.1"
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
@@ -110,6 +109,8 @@ grails.project.dependency.resolution = {
         test    "net.sourceforge.htmlunit:htmlunit:2.8", {
             excludes "xml-apis", "commons-logging"
         }
+
+        test 'org.gebish:geb-spock:0.9.2'
 
         test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
         if (Environment.current == Environment.DEVELOPMENT) {
