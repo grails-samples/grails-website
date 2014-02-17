@@ -77,4 +77,18 @@ class PluginTests {
 
         assertEquals "fisheyeUrl/grails-kevin", p.fisheye
     }
+
+    // the scope must be whitelisted:
+    void testDefaultDepencyScope() {
+        mockForConstraintsTests(Plugin)
+
+        def plugin = new Plugin()
+        plugin.defaultDependencyScope = "invalid"
+        plugin.validate()
+        assertEquals "validator", plugin.errors["defaultDependencyScope"]
+
+        plugin.defaultDependencyScope = Plugin.DEFAULT_SCOPE_WHITE_LIST.first()
+        plugin.validate()
+        assertNull plugin.errors["defaultDependencyScope"]
+    }
 }
