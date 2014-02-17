@@ -4,6 +4,13 @@ grails.project.work.dir = "target/$grailsVersion"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.plugins.dir = "plugins"
 
+grails.project.dependency.resolver="maven"
+grails.project.fork = [
+   // test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true], // configure settings for the test-app JVM
+   run: [maxMemory: 1024, minMemory: 256, debug: false, maxPerm: 256], // configure settings for the run-app JVM
+   war: [maxMemory: 1024, minMemory: 256, debug: false, maxPerm: 256], // configure settings for the run-war JVM
+   console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]// configure settings for the Console UI JVM
+]
 grails.project.dependency.resolution = {
     inherits "global", {
         excludes "xml-apis", "commons-digester", "ehcache"
@@ -17,7 +24,7 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsCentral()
         mavenLocal()
-        mavenCentral()
+        mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "https://oss.sonatype.org/content/repositories/releases/"
     }
 
@@ -28,36 +35,35 @@ grails.project.dependency.resolution = {
 
         compile ":rateable:0.7.1"
 
-        runtime ":grails-ui:1.2.3", {
-            exclude "yui"
-        }
-
-        runtime ":grails-ui:1.2.3", {
-            exclude "yui"
-        }
-
         runtime ":avatar:0.3",
-                ":rest-client-builder:1.0",
-                ":cache:1.0.1",
+                ":rest-client-builder:2.0.1",
+                ":cache:1.1.1",
                 ":cache-ehcache:1.0.0",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
-                ":database-migration:1.0",
+                ":database-migration:1.3.8",
                 ":disqus:0.1",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
-                ":hibernate:$grailsVersion",
+                ":hibernate:3.6.10.8",
                 ":jquery:1.7.2",
                 ":jquery-ui:1.8.24",
                 ":mail:1.0",
                 ":pretty-time:0.3",
-                ":quartz:0.4.2",
-                ":resources:1.2.RC2",
-                ":searchable:0.6.4",
-                ":shiro:1.2.0-SNAPSHOT",
-                ":shiro-oauth:0.2",
+                ":quartz:1.0.1",
+                ":resources:1.2.1",
+                ":searchable:0.6.6",
+                ":shiro:1.2.0",                
                 ":spring-events:1.2",
-                ":zipped-resources:1.0"
+                ":zipped-resources:1.0", {
+                    exclude 'spring-test'
+                }
+
+        runtime ":shiro-oauth:0.2", {
+            excludes 'shiro-core'
+        }
+
+
 
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:1.1.1",
@@ -72,22 +78,26 @@ grails.project.dependency.resolution = {
                 ":platform-core:1.0.M6"
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
         
-        test    ":geb:0.6.0",
-                ":spock:0.7", {
+        test    ":geb:0.6.0", {
             excludes 'xml-apis'
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:$grailsVersion"
+        build   ":tomcat:7.0.50.1"
+        compile ":scaffolding:1.0.0"
     }
 
     dependencies {
         build "org.lesscss:lesscss:1.3.0"
 
+        compile "org.grails:grails-gdoc-engine:1.0.1"
         compile "org.springframework.social:spring-social-twitter:1.0.5.RELEASE",
-                "org.springframework:spring-context-support:3.0.3.RELEASE",
+                "org.springframework:spring-context-support:3.2.7.RELEASE",
                 "org.jadira.usertype:usertype.jodatime:1.9",
                 "org.jsoup:jsoup:1.6.3"
+
+        compile "org.apache.shiro:shiro-core:1.2.2"
+        runtime 'org.apache.lucene:lucene-snowball:2.4.1'
 
         test "org.codehaus.geb:geb-core:0.6.0",
              "org.gmock:gmock:0.8.1"

@@ -14,7 +14,7 @@ import static org.junit.Assert.*
  * @author Graeme Rocher
  */
 @TestFor(PluginController)
-@Mock([Plugin, WikiPage,org.grails.taggable.TagLink])
+@Mock([Plugin, WikiPage,Tag, org.grails.taggable.TagLink])
 class PluginControllerTests {
 
     void testShowPlugin() {

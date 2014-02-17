@@ -11,17 +11,16 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenLocal()
         mavenCentral()
-        ebr()
     }
     dependencies {
         compile "org.apache.shiro:shiro-core:1.1.0",
-                "org.springframework.security:org.springframework.security.core:3.0.4.RELEASE", {
+                'org.springframework.security:spring-security-core:3.0.8.RELEASE', {
             export = false
             transitive = false
         }
     }
     plugins {
-        runtime ":release:1.0.0.RC3", {
+        runtime ":release:3.0.1", {
             export = false
         }
     }
