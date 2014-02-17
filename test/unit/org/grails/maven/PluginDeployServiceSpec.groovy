@@ -3,6 +3,7 @@ package org.grails.maven
 import grails.test.mixin.*
 import grails.plugins.rest.client.*
 import org.grails.plugin.*
+import org.springframework.http.*
 @TestFor(PluginDeployService)
 @Mock(PendingRelease)
 class PluginDeployServiceSpec extends spock.lang.Specification {
@@ -21,15 +22,15 @@ class PluginDeployServiceSpec extends spock.lang.Specification {
 
         then:"The release was deployed"
             PendingRelease.findByPluginNameAndPluginVersion("tomcat", "1.0.0").status == ReleaseStatus.COMPLETED
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip",_) >> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.md5",_) >> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.sha1",_)>> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom",_)>> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.md5",_)>> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.sha1",_)>> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml",_)>> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.md5",_)>> [status:200]
-            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.sha1",_)>> [status:200]
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip",_) >> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.md5",_) >> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.zip.sha1",_)>> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom",_)>> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.md5",_)>> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0.pom.sha1",_)>> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml",_)>> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.md5",_)>> new RestResponse(new ResponseEntity(HttpStatus.OK))
+            1 * mockRest.put("$service.releaseUrl/tomcat/1.0.0/tomcat-1.0.0-plugin.xml.sha1",_)>> new RestResponse(new ResponseEntity(HttpStatus.OK))
 
     }
 }
