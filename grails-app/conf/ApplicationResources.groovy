@@ -20,7 +20,6 @@ modules = {
 
     homepage {
         dependsOn 'master'
-        resource 'js/twitter.js'
     }
 
     learn {
