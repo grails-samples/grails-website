@@ -8,8 +8,8 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*"]
-grails.resources.adhoc.excludes = [ "**/*.swp", "**/*.html", '/WEB-INF/**' ]
-
+grails.resources.adhoc.includes = ['/images/**', '/css/**', '/js/**']
+grails.resources.adhoc.excludes = [ "**/*.swp", "**/*.html", '**/WEB-INF/**', '**/META-INF/**', '**/*.class', '**/*.jar', '**/*.properties', '**/*.groovy', '**/*.gsp', '**/*.java']
 
 // Fixes reloading bug in Zipped Resources (GPZIPPEDRESOURCES-3) that means
 // that modifying LESS files has no impact on the running app. This also
