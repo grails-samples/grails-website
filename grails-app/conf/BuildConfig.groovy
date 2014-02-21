@@ -52,11 +52,13 @@ grails.project.dependency.resolution = {
                 ":quartz:1.0.1",
                 ":resources:1.2.1",
                 ":searchable:0.6.6",
-                ":shiro:1.2.0",                
                 ":spring-events:1.2",
                 ":zipped-resources:1.0", {
                     exclude 'spring-test'
                 }
+        runtime ":shiro:1.2.0", {
+            exclude 'org.opensymphony.quartz:quartz'
+        }  
 
         runtime ":shiro-oauth:0.2", {
             excludes 'shiro-core'
