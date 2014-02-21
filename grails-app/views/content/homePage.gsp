@@ -140,13 +140,13 @@
                 </p>
             </div>
             <h3 class="news-title" style="margin-top:67px">Training Events</h3>
-            <div class='PivotalAdBannerDiv' style="margin-left:100px;"></div>
+            <div class='PivotalAdBannerDiv'></div>
             <r:script>
             (function() {
                 var s = document.createElement('script');
                 s.type = 'text/javascript';
                 s.async = true;
-                s.src = 'http://bserv.cfapps.io/gb/groovy.codehaus.org';
+                s.src = 'http://bserv.cfapps.io/gb/www.grails.org';
                 var x = document.getElementsByTagName('script')[0];
                 x.parentNode.insertBefore(s, x);
             })();
