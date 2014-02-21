@@ -10,9 +10,10 @@ import spock.lang.*
 import grails.plugin.searchable.*
 import org.grails.content.*
 import grails.plugin.mail.*
+import org.grails.meta.UserInfo
 
 @TestFor(PluginUpdateService)
-@Mock([Plugin, PluginTab, PluginRelease, User, Version, PluginService, PendingRelease])
+@Mock([Plugin, PluginTab, PluginRelease, UserInfo, User, Version, PluginService, PendingRelease])
 class PluginUpdateServiceSpec extends Specification {
 
     void setup() {

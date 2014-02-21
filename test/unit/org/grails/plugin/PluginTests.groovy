@@ -27,7 +27,7 @@ class PluginTests {
             def plugin = new Plugin(
                 name:'plugin1',
                 title: 'stuff',
-                authorEmail: 'email', documentationUrl: '', downloadUrl: '',
+                authorEmail: 'email', documentationUrl: 'http://documentationUrl', downloadUrl: 'http://downloadUrl',
                 currentRelease: version
             )
             def result = plugin.validate()

@@ -127,7 +127,7 @@ class WikiPageControllerTests {
         request.method = 'POST'
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/wikiPage/all'
+        assert response.redirectedUrl == '/wikiPage/list'
 
         response.reset()
 
@@ -144,6 +144,6 @@ class WikiPageControllerTests {
 
         assert WikiPage.count() == 0
         assert WikiPage.get(wikiPage.id) == null
-        assert response.redirectedUrl == '/wikiPage/all'
+        assert response.redirectedUrl == '/wikiPage/list'
     }
 }

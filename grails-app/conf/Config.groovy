@@ -308,3 +308,6 @@ log4j = {
             'org.springframework'
 
 }
+
+// databinding config
+grails.databinding.convertEmptyStringsToNull=false
