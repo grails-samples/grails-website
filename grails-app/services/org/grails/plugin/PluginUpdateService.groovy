@@ -56,7 +56,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         def plugin = fetchOrCreatePluginInstance(event.name, event.version)
         Plugin.withSession { session ->
             try {
-                session.flushMode = org.hibernate.FlushMode.MANUAL
+                session.flushMode = javax.persistence.FlushModeType.COMMIT
                 pluginUpdater.updatePlugin(plugin)
                 pluginService.savePlugin plugin, true
                 pluginUpdater.saveRelease()
@@ -68,7 +68,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
             }
             finally {
-                session.flushMode = org.hibernate.FlushMode.AUTO
+                session.flushMode = javax.persistence.FlushModeType.AUTO
             }
         }
 
@@ -265,9 +265,9 @@ class PluginUpdater {
 
         // Clear out associated pending releases that were created on publish.
         PluginRelease.withSession { session ->
-            session.flushMode = org.hibernate.FlushMode.AUTO
+            session.flushMode = javax.persistence.FlushModeType.AUTO
             PendingRelease.deleteAll(pendingReleases)
-            session.flushMode = org.hibernate.FlushMode.MANUAL
+            session.flushMode = javax.persistence.FlushModeType.COMMIT
         }
         
     }
