@@ -18,6 +18,8 @@ class PluginUpdateServiceSpec extends Specification {
 
     void setup() {
         service.twitterLimit = 80
+        config.grails.databinding.convertEmptyStringsToNull=false
+        applicationContext.grailsWebDataBinder.convertEmptyStringsToNull=false
     }
 
     def "Test that updating authors from POM data works correctly"() {
@@ -58,8 +60,7 @@ class PluginUpdateServiceSpec extends Specification {
 		shorten.shortenUrl(_) >> "http://grai.ls/abcd"
 		SearchableService searchableService = Mock()
 		MailService mailService = Mock()
-		GrailsApplication app = Mock()
-		app.getConfig() >> new ConfigObject()
+		GrailsApplication app = grailsApplication
 		service.twitterService = twitter
 		service.shortenService = shorten 
 		service.grailsApplication = app
