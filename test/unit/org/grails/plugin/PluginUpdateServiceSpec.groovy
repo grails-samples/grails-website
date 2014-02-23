@@ -3,6 +3,7 @@ package org.grails.plugin
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import grails.plugin.spock.UnitSpec
 import grails.test.mixin.*
+import grails.test.mixin.web.ControllerUnitTestMixin
 import org.grails.plugin.*
 import org.grails.auth.*
 import org.grails.wiki.*
@@ -13,6 +14,7 @@ import grails.plugin.mail.*
 import org.grails.meta.UserInfo
 
 @TestFor(PluginUpdateService)
+@TestMixin(ControllerUnitTestMixin)
 @Mock([Plugin, PluginTab, PluginRelease, UserInfo, User, Version, PluginService, PendingRelease])
 class PluginUpdateServiceSpec extends Specification {
 
