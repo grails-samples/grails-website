@@ -30,9 +30,9 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             def tomcat = tomcatPlugin
             params.plugin = "tomcat"
             params.version = "2.0.3"
-            params.zip = "dummy"
-            params.xml = "dummy"
-            params.pom = "dummy"
+            params.zip = "dummy".bytes
+            params.xml = "dummy".bytes
+            params.pom = "dummy".bytes
 
         then:"The plugin release exists"
             PluginRelease.count() == 3
@@ -43,8 +43,8 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             controller.publish()
 
         then:"The operation is forbidden because the plugin already exists"
-            response.status == 403
             response.text == 'Plugin [tomcat] already published for version [2.0.3]'
+            response.status == 403
     }
     
     void "Test that publishing a plugin with an existing release and snapshot version works"() {
@@ -52,9 +52,9 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             def tomcat = tomcatPluginSnapshot
             params.plugin = "tomcat"
             params.version = "1.0.0.BUILD-SNAPSHOT"
-            params.zip = "dummy"
-            params.xml = "dummy"
-            params.pom = "dummy"
+            params.zip = "dummy".bytes
+            params.xml = "dummy".bytes
+            params.pom = "dummy".bytes
 
         then:"The plugin release exists"
             PluginRelease.count() == 1
@@ -67,10 +67,10 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             }            
             controller.publish()
         then:"The operation is forbidden because the plugin already exists"
+            response.text == "Published"
             event != null
             event.source instanceof PendingRelease
             response.status == 200
-            response.text == "Published"
             
             PluginRelease.count() == 1
             PluginRelease.findByPluginAndReleaseVersion(tomcat, params.version) != null
@@ -94,9 +94,9 @@ class RepositoryControllerSpec extends spock.lang.Specification{
         when:"publish is called with valid data"
             params.plugin = "tomcat"
             params.version = "1.0.0"
-            params.zip = "dummy"
-            params.xml = "dummy"
-            params.pom = "dummy"
+            params.zip = "dummy".bytes
+            params.xml = "dummy".bytes
+            params.pom = "dummy".bytes
             def event
             controller.metaClass.publishEvent = {
                 event = it
@@ -105,11 +105,11 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             controller.publish()
 
         then:"The pending release is created and event published"
+            response.text == "Published"
             PendingRelease.count() == 1
             event != null
             event.source instanceof PendingRelease
             response.status == 200
-            response.text == "Published"
     }
 
     // http://localhost:8080/maven/grails-acegi/tags/RELEASE_0_1/grails-acegi-0.1.zip
