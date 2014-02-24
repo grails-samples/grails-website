@@ -93,7 +93,7 @@ class UrlMappings {
 
 
         /* ========================= PLUGINS ======================= */
-        "/plugins"(controller: "plugin", action: "list")
+        name pluginList: "/plugins"(controller: "plugin", action: "list")
         "/plugins/feed"(controller: "plugin", action: "feed")
         "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
         "/plugins/tag/$tag"(controller: "plugin", action: "list")

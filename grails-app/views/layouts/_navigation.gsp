@@ -53,7 +53,7 @@
             <g:link controller="download" action="index"><g:message code="layout.nav.downloads"/></g:link>
         </li>
         <li${controllerName == 'plugin' ? ' class="active"' : ''}>
-            <g:link controller="plugin" action="list"><g:message code="layout.nav.plugins"/></g:link>
+            <g:link mapping="pluginList"><g:message code="layout.nav.plugins"/></g:link>
         </li>
         <shiro:hasRole name="Administrator">
         <li><g:link uri="/admin/"><g:message code="layout.nav.admin"/></g:link></li>
