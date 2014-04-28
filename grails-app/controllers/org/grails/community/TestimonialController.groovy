@@ -10,9 +10,9 @@ class TestimonialController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-
+        def offset = params.int('offset', 0)
         def featuredList =  Testimonial.featuredApproved().list()
-        def nonFeaturedList =  Testimonial.nonFeaturedApproved().list(max: params.max)
+        def nonFeaturedList =  Testimonial.nonFeaturedApproved().list(max: params.max, offset: offset)
         def nonFeaturedTotal = Testimonial.nonFeaturedApproved().count()
 
         [featuredList: featuredList, nonFeaturedList: nonFeaturedList, nonFeaturedTotal: nonFeaturedTotal]
