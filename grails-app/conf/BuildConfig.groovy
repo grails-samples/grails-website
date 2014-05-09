@@ -40,18 +40,18 @@ grails.project.dependency.resolution = {
                 ":cache:1.1.1",                
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
-                ":database-migration:1.3.8",
+                ":database-migration:1.4.0",
                 ":disqus:0.1",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
-                ":hibernate:3.6.10.8",
+                ":hibernate:3.6.10.14",
                 ":jquery:1.7.2",
                 ":jquery-ui:1.8.24",
-                ":mail:1.0",
+                ":mail:1.0.5",
                 ":pretty-time:0.3",
                 ":quartz:1.0.1",
-                ":resources:1.2.6",
-                ":searchable:0.6.6",
+                ":resources:1.2.8",
+                ":searchable:0.6.7",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0", {
                     exclude 'spring-test'
@@ -67,11 +67,11 @@ grails.project.dependency.resolution = {
 
 
         if (Environment.current == Environment.DEVELOPMENT) {
-            compile ":build-test-data:1.1.1",
+            compile ":build-test-data:2.1.2",
                     ":fixtures:1.2"
         }
         else {
-            test    ":build-test-data:1.1.1",
+            test    ":build-test-data:2.1.2",
                     ":fixtures:1.2"
         }
 
@@ -84,8 +84,8 @@ grails.project.dependency.resolution = {
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:7.0.50.1"
-        compile ":scaffolding:1.0.0"
+        build   ":tomcat:7.0.52.1"
+        compile ":scaffolding:2.0.3"
     }
 
     dependencies {
@@ -93,28 +93,32 @@ grails.project.dependency.resolution = {
 
         compile "org.grails:grails-gdoc-engine:1.0.1"
         compile "org.springframework.social:spring-social-twitter:1.0.5.RELEASE",
-                "org.springframework:spring-context-support:3.2.7.RELEASE",
+                "org.springframework:spring-context-support:3.2.8.RELEASE",
                 "org.jadira.usertype:usertype.jodatime:1.9",
-                "org.jsoup:jsoup:1.6.3"
+                "org.jsoup:jsoup:1.7.3"
+
+        compile('org.apache.lucene:lucene-highlighter:2.4.1',
+                'org.apache.lucene:lucene-analyzers:2.4.1',
+                'org.apache.lucene:lucene-queries:2.4.1',
+                'org.apache.lucene:lucene-snowball:2.4.1',
+                'org.apache.lucene:lucene-spellchecker:2.4.1')
 
         compile "org.apache.shiro:shiro-core:1.2.2"
-        runtime 'org.apache.lucene:lucene-snowball:2.4.1'
 
         test "org.gebish:geb-core:0.9.2",
-             "org.gmock:gmock:0.8.1"
+             "org.gmock:gmock:0.8.3"
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy"
         }
-        test    "org.seleniumhq.selenium:selenium-htmlunit-driver:2.0a7", {
+        test    "org.seleniumhq.selenium:selenium-htmlunit-driver:2.41.0", {
             excludes "htmlunit", "xml-apis"
         }
-        test    "net.sourceforge.htmlunit:htmlunit:2.8", {
+        test    "net.sourceforge.htmlunit:htmlunit:2.13", {
             excludes "xml-apis", "commons-logging"
         }
 
         test 'org.gebish:geb-spock:0.9.2'
 
-        test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
         if (Environment.current == Environment.DEVELOPMENT) {
             runtime "org.grails:grails-test:$grailsVersion"
         }
