@@ -1,0 +1,9 @@
+---
+applications:
+- name: grailsorg-dev
+  memory: 2G
+  instances: 1
+  path: target/site-2.3.0.war
+  timeout: 120
+env:
+  JAVA_OPTS: -Dinitial.admin.password=verysecure -Dload.fixtures=true
