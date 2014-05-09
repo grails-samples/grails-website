@@ -28,6 +28,7 @@ grails.project.dependency.resolution = {
         mavenLocal()
         mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "https://oss.sonatype.org/content/repositories/releases/"
+        mavenRepo "http://repo.spring.io/milestone"
     }
 
     plugins {
@@ -124,6 +125,9 @@ grails.project.dependency.resolution = {
         if (Environment.current == Environment.DEVELOPMENT) {
             runtime "org.grails:grails-test:$grailsVersion"
         }
+
+        compile "org.springframework.cloud:cloudfoundry-connector:0.9.10.RELEASE"
+        compile "org.springframework.cloud:spring-service-connector:0.9.10.RELEASE"
     }
 
 }
