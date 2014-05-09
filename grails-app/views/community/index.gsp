@@ -25,7 +25,7 @@
             <h3>Communicate</h3>
 
             <ul>
-                <li>Take part in the <a href="/Mailing+lists" class="pageLink">Mailing lists</a> or <a href="/Forums" class="pageLink">Forums</a></li>
+                <li>Take part on <a href="http://stackoverflow.com/questions/tagged/grails" class="pageLink">StackOverflow</a> or the <a href="http://groups.google.com/d/forum/grails-dev-discuss" class="pageLink">Google Group</a></li>
                 <li>Get onto the #grails IRC channel on irc.freenode.net</li>
                 <li>Join one of the <a href="/User+Groups" class="pageLink">User Groups</a></li>
                 <li>Meet up at a <a href="/Hackergartens" class="pageLink">Hackergarten</a></li>

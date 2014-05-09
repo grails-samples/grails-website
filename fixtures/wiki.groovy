@@ -69,7 +69,7 @@ h2. Keep up to date
 
 h2. Communicate
 
-* Take part in the [Mailing lists] or [Forums]
+* Take part on [StackOverflow|http://stackoverflow.com/questions/tagged/grails] and the [Google Group|http://groups.google.com/d/forum/grails-dev-discuss]
 * Get onto the #grails IRC channel on irc.freenode.net
 * Join one of the [User Groups]
 * Meet up at a [Hackergarten|Hackergartens]
