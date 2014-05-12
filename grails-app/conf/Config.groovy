@@ -134,16 +134,6 @@ searchable {
     }
 }
 
-security.shiro.filter.config = """\
-[main]
-myAuth = org.grails.auth.RestBasicAuthFilter
-myAuth.applicationName = grails.org
-
-[urls]
-/plugin/** = myAuth[PUT]
-/api/v1.0/publish/** = myAuth[POST]
-"""
-
 oauth {
     providers {
         twitter {
@@ -183,6 +173,13 @@ security {
     shiro {
         oauth {
             linkAccountUrl = "/oauth/linkaccount"
+        }
+        filter {
+            basicAppName='grails.org'
+            filterChainDefinitions = """
+/plugin/** = authcBasic[PUT]
+/api/v1.0/publish/** = authcBasic[POST]
+"""
         }
     }
 }

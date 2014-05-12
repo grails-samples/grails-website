@@ -16,6 +16,10 @@ beans = {
         storedCredentialsHexEncoded = true
     }
 
+    authcBasicFilter(org.grails.auth.RestBasicAuthFilter) {
+        applicationName = 'grails.org'
+    }
+
     wikiContext(BaseInitialRenderContext)
     wikiEngine(GrailsWikiEngineFactoryBean) {
         cacheService = ref('cacheService')
