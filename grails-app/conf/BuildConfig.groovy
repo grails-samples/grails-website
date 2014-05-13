@@ -115,8 +115,8 @@ grails.project.dependency.resolution = {
 
         test "org.gebish:geb-core:0.9.2",
              "org.gmock:gmock:0.8.3"
-        test    "org.codehaus.groovy.modules.http-builder:http-builder:0.5.0", {
-            excludes "commons-logging", "httpclient", "xml-apis", "groovy"
+        test    "org.codehaus.groovy.modules.http-builder:http-builder:0.7.1", {
+            excludes "commons-logging", "httpclient", "xml-apis", "groovy", "groovy-all"
         }
         test    "org.seleniumhq.selenium:selenium-htmlunit-driver:2.41.0", {
             excludes "htmlunit", "xml-apis"
