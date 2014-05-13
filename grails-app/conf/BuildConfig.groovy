@@ -44,7 +44,7 @@ grails.project.dependency.resolution = {
         }
 
         runtime ":avatar:0.3",
-                ":rest-client-builder:2.0.1",
+                ":rest-client-builder:2.0.2",
                 ":cache:1.1.1",                
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
