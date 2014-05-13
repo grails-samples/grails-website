@@ -16,6 +16,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
     
     void "Test publish plugin invalid method"() {
         when:"The publish plugin action is called with invalid data"
+            request.method = 'PUT'
             controller.publish()
 
         then:"Return a 405"
