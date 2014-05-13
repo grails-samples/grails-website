@@ -52,7 +52,7 @@ class RepositoryController {
                     plugin.name == p && releaseVersion == v && isSnapshot == false
                 }
 
-                if (!existing.exists()) {
+                if (!existing.list()) {
                     log.debug "Plugin [$p:$v] does not exist or is snapshot. Creating pending release..."
                     createPendingRelease p, v, cmd
 
