@@ -19,9 +19,4 @@ grails.project.dependency.resolution = {
             transitive = false
         }
     }
-    plugins {
-        runtime ":release:3.0.1", {
-            export = false
-        }
-    }
 }
