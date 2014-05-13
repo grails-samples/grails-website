@@ -6,4 +6,4 @@ applications:
   path: target/site-2.3.0.war
   timeout: 120
 env:
-  JAVA_OPTS: -Dinitial.admin.password=verysecure -Dload.fixtures=true
+  JAVA_OPTS: -Dinitial.admin.password=verysecure -Dload.fixtures=true -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US
