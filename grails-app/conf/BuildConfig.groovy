@@ -2,7 +2,7 @@ grails.plugin.location.like = "${basedir}/sections/like"
 
 grails.project.work.dir = "target/$grailsVersion"
 grails.project.test.reports.dir = "target/test-reports"
-grails.project.plugins.dir = "plugins"
+grails.project.plugins.dir = "target/plugins"
 
 grails.project.work.dir = "target/work"
 
