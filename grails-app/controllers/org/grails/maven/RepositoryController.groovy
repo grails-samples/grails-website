@@ -194,7 +194,7 @@ class RepositoryController {
     
     private findLatestPluginRelease(String n) {
         def query = PluginRelease.where {
-            plugin.name == n && isSnapshot == false
+            plugin.name == n
         }
         return query.get(sort:'releaseDate', order:'desc', max: 1)
     }
