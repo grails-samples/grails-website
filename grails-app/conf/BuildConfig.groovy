@@ -33,7 +33,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":burning-image:0.5.1",
-                ":joda-time:1.3.1",
+                ":joda-time:1.4",
                 ":taggable:1.1.0"
 
         compile ":rateable:0.7.1", {
