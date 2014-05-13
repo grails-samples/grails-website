@@ -16,7 +16,7 @@ class PluginRelease {
     static belongsTo = [plugin:Plugin]
     
     static constraints = {
-        releaseDate nullable:false
+        releaseDate bindable:true, nullable:false
         releaseVersion blank:false
         downloadUrl blank:false
         isSnapshot()
