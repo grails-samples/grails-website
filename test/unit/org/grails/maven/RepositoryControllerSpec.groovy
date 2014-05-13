@@ -1,6 +1,8 @@
 package org.grails.maven
 
+import grails.plugin.jodatime.simpledatastore.SimpleMapJodaTimeMarshaller
 import grails.test.mixin.*
+
 import org.grails.plugin.*
 import org.joda.time.DateTime
 
@@ -8,7 +10,10 @@ import org.joda.time.DateTime
 @Mock([Plugin, PluginRelease, PendingRelease])
 class RepositoryControllerSpec extends spock.lang.Specification{
 
-
+    void setupSpec() {
+        SimpleMapJodaTimeMarshaller.initialize()
+    }
+    
     void "Test publish plugin invalid method"() {
         when:"The publish plugin action is called with invalid data"
             controller.publish()
