@@ -31,6 +31,10 @@ class RepositoryControllerSpec extends spock.lang.Specification{
     }
 
     void "Test that publishing a plugin with an existing release works"() {
+        given:
+            controller.metaClass.publishEvent = { PluginPublishEvent event ->
+                
+            }
         when:"An existing plugin is created"
             def tomcat = tomcatPlugin
             params.plugin = "tomcat"
