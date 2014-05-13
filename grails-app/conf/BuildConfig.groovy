@@ -116,13 +116,13 @@ grails.project.dependency.resolution = {
         test "org.gebish:geb-core:0.9.2",
              "org.gmock:gmock:0.8.3"
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.7.1", {
-            excludes "commons-logging", "httpclient", "xml-apis", "groovy", "groovy-all"
+            excludes "commons-logging", "httpclient", "xml-apis", "groovy", "groovy-all", "xercesImpl", "nekohtml"
         }
         test    "org.seleniumhq.selenium:selenium-htmlunit-driver:2.41.0", {
             excludes "htmlunit", "xml-apis"
         }
         test    "net.sourceforge.htmlunit:htmlunit:2.13", {
-            excludes "xml-apis", "commons-logging"
+            excludes "xml-apis", "commons-logging", "xercesImpl"
         }
 
         test 'org.gebish:geb-spock:0.9.2'
