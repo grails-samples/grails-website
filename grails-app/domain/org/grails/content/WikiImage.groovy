@@ -2,7 +2,7 @@ package org.grails.content
 
 import pl.burningice.plugins.image.ast.DBImageContainer
 
-@DBImageContainer()
+@DBImageContainer(field='image')
 class WikiImage {
     String name
 
