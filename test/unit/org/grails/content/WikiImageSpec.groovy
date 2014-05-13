@@ -1,9 +1,8 @@
 package org.grails.content
 
-import spock.lang.*
-import grails.plugin.spock.*
+import spock.lang.Specification
 
-class WikiImageSpec extends UnitSpec {
+class WikiImageSpec extends Specification {
 
     def "feature method"() {
 

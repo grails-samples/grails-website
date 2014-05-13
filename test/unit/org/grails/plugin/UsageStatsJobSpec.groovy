@@ -1,9 +1,8 @@
 package org.grails.plugin
 
-import spock.lang.*
-import grails.plugin.spock.*
+import spock.lang.Specification
 
-class UsageStatsJobSpec extends UnitSpec {
+class UsageStatsJobSpec extends Specification {
 
     def "feature method"() {
 

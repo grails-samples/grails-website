@@ -1,17 +1,18 @@
 package org.grails.plugin
 
-import org.codehaus.groovy.grails.commons.GrailsApplication
-import grails.plugin.spock.UnitSpec
+import grails.plugin.mail.*
+import grails.plugin.searchable.*
 import grails.test.mixin.*
 import grails.test.mixin.web.ControllerUnitTestMixin
-import org.grails.plugin.*
+
+import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.grails.auth.*
-import org.grails.wiki.*
-import spock.lang.*
-import grails.plugin.searchable.*
 import org.grails.content.*
-import grails.plugin.mail.*
 import org.grails.meta.UserInfo
+import org.grails.wiki.*
+
+import spock.lang.Specification
+
 
 @TestFor(PluginUpdateService)
 @TestMixin(ControllerUnitTestMixin)

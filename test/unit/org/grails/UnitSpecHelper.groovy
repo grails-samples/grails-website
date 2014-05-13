@@ -1,12 +1,13 @@
 package org.grails
 
-import grails.plugin.spock.UnitSpec
+import spock.lang.Specification
+
 
 /*
  * author: Eric Berry
  */
 
-class UnitSpecHelper extends UnitSpec {
+class UnitSpecHelper extends Specification {
 
     String word(len) {
         def word = ''

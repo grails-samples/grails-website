@@ -1,11 +1,13 @@
 package org.grails.plugin
 
-import grails.plugin.spock.IntegrationSpec
+
 import grails.test.mixin.*
-import spock.lang.Ignore
-import spock.lang.Specification
+
 import org.grails.auth.*
 import org.grails.content.*
+
+import spock.lang.Ignore
+import spock.lang.Specification
 
 @TestFor(PluginService)
 @Mock([Plugin, PluginRelease, PluginTab, User, Version])
