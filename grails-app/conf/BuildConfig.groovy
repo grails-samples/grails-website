@@ -131,8 +131,8 @@ grails.project.dependency.resolution = {
             runtime "org.grails:grails-test:$grailsVersion"
         }
 
-        compile "org.springframework.cloud:cloudfoundry-connector:0.9.9.RELEASE"
-        compile "org.springframework.cloud:spring-service-connector:0.9.9.RELEASE"
+        compile "org.springframework.cloud:cloudfoundry-connector:0.9.10.RELEASE"
+        compile "org.springframework.cloud:spring-service-connector:0.9.10.RELEASE"
     }
 
 }
