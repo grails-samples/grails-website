@@ -45,14 +45,14 @@ grails.project.dependency.resolution = {
 
         runtime ":avatar:0.3",
                 ":rest-client-builder:2.0.2",
-                ":cache:1.1.1",                
+                ":cache:1.1.6",                
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.4.0",
-                ":disqus:0.1",
+                ":disqus:0.2-SNAPSHOT",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
-                ":hibernate:3.6.10.14",
+                ":hibernate:3.6.10.15",
                 ":jquery:1.7.2",
                 ":jquery-ui:1.8.24",
                 ":mail:1.0.5",
@@ -87,12 +87,12 @@ grails.project.dependency.resolution = {
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
         
 
-        test ":geb:0.9.2", {
+        test ":geb:0.9.3", {
             excludes 'xml-apis'
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:7.0.52.1"
+        build   ":tomcat:7.0.54"
         compile ":scaffolding:2.0.3"
     }
 
@@ -125,7 +125,7 @@ grails.project.dependency.resolution = {
             excludes "xml-apis", "commons-logging", "xercesImpl"
         }
 
-        test 'org.gebish:geb-spock:0.9.2'
+        test 'org.gebish:geb-spock:0.9.3'
 
         if (Environment.current == Environment.DEVELOPMENT) {
             runtime "org.grails:grails-test:$grailsVersion"
