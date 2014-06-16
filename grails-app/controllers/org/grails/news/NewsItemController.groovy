@@ -16,7 +16,8 @@ class NewsItemController {
             return [newsItem: template]
         }
         else {
-            def newsItem = new NewsItem( params['title', 'body', 'status'] )
+            def newsItem = new NewsItem()
+            newsItem.properties['title', 'body', 'status'] = params
             newsItem.author = request.user
             if(!newsItem.validate()) {
                 flash.newsItem = newsItem
