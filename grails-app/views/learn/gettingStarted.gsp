@@ -4,7 +4,13 @@
     <r:require modules="learn"/>
     <r:script>
         function loadPresentation(playerFrame) {
-            playerFrame.attr('src', 'http://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
+            if(document.location.protocol == 'https:') {
+                playerFrame.attr('src', 'https://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
+            }
+            else {
+                playerFrame.attr('src', 'http://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
+            }
+            
         }
 
         function clearPresentation(playerFrame) {
