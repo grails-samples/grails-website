@@ -19,7 +19,7 @@
                 <h1>
                     ${plugin?.title?.encodeAsHTML()}
                     <g:if test="${plugin.official}">
-                        <small>supported by SpringSource</small>
+                        <small>supported by Pivotal</small>
                     </g:if>
                 </h1>
                 <ul class="meta">

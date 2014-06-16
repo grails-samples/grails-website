@@ -62,7 +62,7 @@
                         </g:link>
                     </h3>
                     <g:if test="${plugin.official}">
-                        <p><small>supported by SpringSource</small></p>
+                        <p><small>supported by Pivotal</small></p>
                     </g:if>
 
                     <ul class="meta">
