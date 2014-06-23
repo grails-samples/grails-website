@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="admin" />
         <title>Admin: Edit Rating</title>
     </head>
     <body>
@@ -27,7 +27,7 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="raterClass">Rater Class:</label>
@@ -35,8 +35,8 @@
                                 <td valign="top" class="value ${hasErrors(bean:ratingInstance,field:'raterClass','errors')}">
                                     <input type="text" id="raterClass" name="raterClass" value="${fieldValue(bean:ratingInstance,field:'raterClass')}"/>
                                 </td>
-                            </tr> 
-                        
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="raterId">Rater Id:</label>
@@ -44,8 +44,8 @@
                                 <td valign="top" class="value ${hasErrors(bean:ratingInstance,field:'raterId','errors')}">
                                     <input type="text" id="raterId" name="raterId" value="${fieldValue(bean:ratingInstance,field:'raterId')}" />
                                 </td>
-                            </tr> 
-                        
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="dateCreated">Date Created:</label>
@@ -53,8 +53,8 @@
                                 <td valign="top" class="value ${hasErrors(bean:ratingInstance,field:'dateCreated','errors')}">
                                     <g:datePicker name="dateCreated" value="${ratingInstance?.dateCreated}" ></g:datePicker>
                                 </td>
-                            </tr> 
-                        
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="lastUpdated">Last Updated:</label>
@@ -62,8 +62,8 @@
                                 <td valign="top" class="value ${hasErrors(bean:ratingInstance,field:'lastUpdated','errors')}">
                                     <g:datePicker name="lastUpdated" value="${ratingInstance?.lastUpdated}" ></g:datePicker>
                                 </td>
-                            </tr> 
-                        
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="stars">Stars:</label>
@@ -71,17 +71,17 @@
                                 <td valign="top" class="value ${hasErrors(bean:ratingInstance,field:'stars','errors')}">
                                     <input type="text" id="stars" name="stars" value="${fieldValue(bean:ratingInstance,field:'stars')}" />
                                 </td>
-                            </tr> 
-                        
+                            </tr>
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="rater">Rater:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:ratingInstance,field:'rater','errors')}">
-                                    
+
                                 </td>
-                            </tr> 
-                        
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>

@@ -41,8 +41,8 @@
     </label>
 
     <div class="controls">
-        <g:textArea name="permissions" cols="40" rows="7" value="${userInstance?.permissions.join('\n')}" /> (Separated by new lines or semi-colons)
-        
+        <g:textArea name="permissions" cols="40" rows="7" value="${userInstance?.permissions?.join('\n')}" /> (Separated by new lines or semi-colons)
+
     </div>
 </div>
 
@@ -56,4 +56,3 @@
         <g:select name="roles" from="${org.grails.auth.Role.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.roles*.id}" class="many-to-many"/>
     </div>
 </div>
-
