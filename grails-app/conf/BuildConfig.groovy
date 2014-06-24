@@ -15,12 +15,12 @@ grails.project.fork = [
 ]
 grails.project.dependency.resolution = {
     inherits "global", {
-        excludes "xml-apis", "commons-digester", "ehcache"
+        excludes "xml-apis", "commons-digester", "ehcache", 'cglib'
     }
 
     log "warn"
 
-    repositories {        
+    repositories {
         inherit false
         grailsPlugins()
         grailsHome()
@@ -44,8 +44,8 @@ grails.project.dependency.resolution = {
         }
 
         runtime ":avatar:0.3",
-                ":rest-client-builder:2.0.2",
-                ":cache:1.1.6",                
+                ":rest-client-builder:2.0.3",
+                ":cache:1.1.7",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.4.0",
@@ -62,11 +62,11 @@ grails.project.dependency.resolution = {
                 ":searchable:0.6.7",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0", {
-                    exclude 'spring-test'
+                    excludes 'spring-test', 'cglib'
                 }
         runtime ":shiro:1.2.0", {
             exclude 'org.opensymphony.quartz:quartz'
-        }  
+        }
 
         runtime ":shiro-oauth:0.2", {
             excludes 'shiro-core'
@@ -85,7 +85,7 @@ grails.project.dependency.resolution = {
 
         compile ":platform-core:1.0.M6"
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
-        
+
 
         test ":geb:0.9.3", {
             excludes 'xml-apis'

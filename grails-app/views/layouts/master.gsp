@@ -8,10 +8,10 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8">
     <meta name="robots" content="NOODP">
-    <meta name="description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">   
+    <meta name="description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">
     <meta name="author" content="Grails community">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <r:require modules="master"/>
     <title><g:layoutTitle default="Grails - The search is over."/></title>
 
     <g:if test="${Environment.current != Environment.PRODUCTION}">
@@ -30,7 +30,7 @@
 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
-    <r:require modules="master"/>
+
     <r:layoutResources/>
     <g:if test="${Environment.developmentMode}">
         <g:external dir="js" file="less-1.3.0.min.js" />

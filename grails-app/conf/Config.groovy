@@ -216,15 +216,15 @@ springcache {
 }
 
 artifactRepository.url = "http://repo.grails.org/grails/plugins"
-// artifactRepository.url = "http://localhost:8085/artifactory/plugins-release-local/"
-// beans {
-//     pluginDeployService {
-//         releaseUrl = "http://localhost:8085/artifactory/plugins-release-local/org/grails/plugins"
-//         snapshotUrl = "http://localhost:8085/artifactory/plugins-snapshot-local/org/grails/plugins"
-//         deployUsername = "admin"
-//         deployPassword = "password"
-//     }
-// }
+/*artifactRepository.url = "http://localhost:8085/artifactory/plugins-release-local/"
+ beans {
+     pluginDeployService {
+         releaseUrl = "http://localhost:8085/artifactory/plugins-release-local/org/grails/plugins"
+         snapshotUrl = "http://localhost:8085/artifactory/plugins-snapshot-local/org/grails/plugins"
+         deployUsername = "admin"
+         deployPassword = "password"
+     }
+}*/
 
 
 
