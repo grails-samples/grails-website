@@ -137,5 +137,4 @@ grails.project.dependency.resolution = {
 
 }
 
-grails.tomcat.jvmArgs = [ '-Xmx512m', '-XX:MaxPermSize=256m','-Dinitial.admin.password=changeit',
-        '-Dload.fixtures=1' ]
+grails.project.fork.war.jvmArgs = [ '-Dinitial.admin.password=changeit', '-Dload.fixtures=1' ]
