@@ -58,8 +58,8 @@ class UrlMappings {
         // clients that still use those.
         "/plugins/.plugin-meta/plugins-list.xml"(controller:"repository", action:"list")
         "/plugins/.plugin-meta"(controller:"repository", action:"pluginMeta")
-        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
-        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName.${type}"(controller:"repository", action:"artifact", populateVersion)
+        "/plugins/grails-$plugin/tags/RELEASE_$version/$fullName(.${type})"(controller:"repository", action:"artifact", populateVersion)
+        "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName(.${type})"(controller:"repository", action:"artifact", populateVersion)
         "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest")
 
         "/api/v1.0/downloads"(controller: "download", action: "apiList")
@@ -116,7 +116,7 @@ class UrlMappings {
             constraints {
                 id notEqual: "tag"
             }
-        }        
+        }
 //        "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
 //        "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
         "/plugins/pending"(controller: "plugin", action: "pendingPlugins")
@@ -146,8 +146,8 @@ class UrlMappings {
 //        "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
 //        "/plugins/tags"(controller: "plugin", action: "browseTags")
 
-        "/plugin/addTag"(controller:"plugin", action:"addTag") 
-        "/plugin/removeTag"(controller:"plugin", action:"removeTag") 
+        "/plugin/addTag"(controller:"plugin", action:"addTag")
+        "/plugin/removeTag"(controller:"plugin", action:"removeTag")
         "/wikiImage/$path**"(controller: "content", action: "showImage")
         "/content/postComment/$id"(controller: "content", action:"postComment")
 
@@ -251,7 +251,7 @@ class UrlMappings {
         "/website/edit/$id"(controller: "webSite", action: "edit")
         "/website/update/$id"(controller: "webSite", action: "update")
 
-        "/dynamicImage/${imageId}-${size}.${type}"(controller: "dbContainerImage", action: "index")
+        "/dynamicImage/${imageId}-${size}(.${type})"(controller: "dbContainerImage", action: "index")
 
         "/Tutorials"(controller: "tutorial", action: "legacyHome")
         "/tutorials"(controller: "tutorial", action: "list")
