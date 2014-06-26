@@ -49,7 +49,7 @@ grails.project.dependency.resolution = {
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.4.0",
-                ":disqus:0.2-SNAPSHOT",
+                ":disqus:0.2",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
                 ":hibernate:3.6.10.15",
