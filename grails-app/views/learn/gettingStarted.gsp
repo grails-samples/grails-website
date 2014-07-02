@@ -5,12 +5,12 @@
     <r:script>
         function loadPresentation(playerFrame) {
             if(document.location.protocol == 'https:') {
-                playerFrame.attr('src', 'https://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
+                playerFrame.attr('src', 'https://app.sliderocket.com:443/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
             }
             else {
                 playerFrame.attr('src', 'http://app.sliderocket.com:80/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
             }
-            
+
         }
 
         function clearPresentation(playerFrame) {
@@ -54,7 +54,7 @@
         width: 100%;
         height: 100%;
         z-index: 100;
-        background-color: white; 
+        background-color: white;
     }
     </style>
 </head>
