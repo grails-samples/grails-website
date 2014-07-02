@@ -123,7 +123,7 @@ fi
 if [ -z "$STARTER_CONF" ]; then
     STARTER_CONF="$GRAILS_HOME/conf/groovy-starter.conf"
 fi
-STARTER_CLASSPATH="wrapper/grails-wrapper-runtime-2.3.9.jar:wrapper:."
+STARTER_CLASSPATH="wrapper/grails-wrapper-runtime-2.3.11.jar:wrapper:."
 
 # Allow access to Cocoa classes on OS X
 if $darwin; then
@@ -191,7 +191,7 @@ if $mingw ; then
 fi
 
 if [ -z "$GRAILS_AGENT_CACHE_DIR" ]; then
-    GRAILS_AGENT_CACHE_DIR=~/.grails/2.3.9/
+    GRAILS_AGENT_CACHE_DIR=~/.grails/2.3.11/
 fi
 SPRINGLOADED_PARAMS=profile=grails\;cacheDir=$GRAILS_AGENT_CACHE_DIR
 if [ ! -d "$GRAILS_AGENT_CACHE_DIR" ]; then
