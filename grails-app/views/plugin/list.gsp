@@ -3,8 +3,8 @@
     <title>Grails Plugins</title>
     <r:require modules="plugin"/>
     <g:render template="tagSetup" model="[allTags:allTags]" />
-        
-    
+
+
 </head>
 
 <body>
@@ -18,8 +18,8 @@
     <g:render template="sideNav" bean="${tags}" />
     <!-- IMPORTANT: DO NOT delete the link below, it is commented out, but used for plugin resolution -->
     <!-- <a href="http://plugins.grails.org/.plugin-meta">.plugin-meta</a> -->
-    <!-- <a href="http://grails.org/plugins/.plugin-meta">.plugin-meta</a> -->    
-    
+    <!-- <a href="http://grails.org/plugins/.plugin-meta">.plugin-meta</a> -->
+
     <section id="main" class="plugins">
 
         <g:if test="${home}">
@@ -70,7 +70,7 @@
                             <g:render template="pluginTags" model="[plugin:plugin]" />
                         </li>
                         <li>
-                            Latest: <strong>${plugin.currentRelease}</strong>                            
+                            Latest: <strong>${plugin.currentRelease}</strong>
                         </li>
                         <li>Last Updated: <strong><joda:format pattern="dd MMMMM yyyy" value="${plugin.lastReleased}" /></strong></li>
                         <li>
@@ -106,7 +106,7 @@
                 if (activeTag) otherParams.tag = activeTag
                 if (activeFilter) otherParams.filter = activeFilter
             %>
-            <g:paginate total="${pluginCount}" max="10" params="${otherParams}" />
+            <g:paginate mapping="pluginList" total="${pluginCount}" max="10" params="${otherParams}" />
         </section>
         <r:script>
             tagsInitialized = true
