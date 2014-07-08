@@ -9,7 +9,7 @@
 .wiki-form  .CodeMirror {
         border: 1px solid #eee;
         width: 563px;
-    
+        height: 200px;
 }
 
 
@@ -150,7 +150,7 @@
         <r:script>
             tagsInitialized = true
         </r:script>
-        
+
     </section>
 </div>
 
