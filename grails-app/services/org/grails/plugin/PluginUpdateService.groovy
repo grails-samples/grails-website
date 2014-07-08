@@ -54,7 +54,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         // existing one. Since we already have the version, we can deal
         // with that too.
         def plugin = fetchOrCreatePluginInstance(event.name, event.version)
-        Plugin.withSession { session ->
+        Plugin.withDatastoreSession { session ->
             try {
                 session.flushMode = javax.persistence.FlushModeType.COMMIT
                 pluginUpdater.updatePlugin(plugin)
@@ -98,7 +98,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         return plugin
     }
-    
+
     void announceRelease(plugin, version = null) {
         try {
             def pluginUrl = siteBaseUrl + "plugin/${plugin.name}"
@@ -111,7 +111,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
             log.error "Failed to announce plugin ${plugin.name} ${version}", ex
         }
     }
-    
+
     /**
      * Sends a tweet to @grailsplugins with details of the new release.
      * @param plugin A plugin instance with 'name', 'title' and 'currentRelease'
@@ -124,7 +124,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
 
         // Check that the message with standard URL does not exceed the
         // Twitter length limit.
-        
+
 	if (exceedsTwitterLimit(msg, url)) url = shortenUrl(url)
 
         // If the message length is still over the Twitter length, we must summarize
@@ -133,15 +133,15 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         if (exceedsTwitterLimit(msg, url)) msg = summarize(msg, twitterLimit - url.size())
 
         log.info "Tweeting the plugin release. Message: $msg"
-	
+
         twitterService.updateStatus(msg + url)
     }
-    
+
     void announceOnPluginForum(plugin, version, url) {
         def mailConfig = grailsApplication.config.plugins.forum.mail
         def toAddress = mailConfig.to
         def fromAddress = mailConfig.from
-        
+
         mailService.sendMail {
             to toAddress
             from fromAddress
@@ -224,7 +224,7 @@ class PluginUpdater {
         pom = loadPom()
         filename = filename + "." + pom.packaging.text()
 
-       
+
 
         if (!isSnapshot) {
             // Only update the plugin portal page with the new info if this
@@ -264,12 +264,12 @@ class PluginUpdater {
         pr.save(failOnError: true, flush:true)
 
         // Clear out associated pending releases that were created on publish.
-        PluginRelease.withSession { session ->
+        PluginRelease.withDatastoreSession { session ->
             session.flushMode = javax.persistence.FlushModeType.AUTO
             PendingRelease.deleteAll(pendingReleases)
             session.flushMode = javax.persistence.FlushModeType.COMMIT
         }
-        
+
     }
 
     /**
