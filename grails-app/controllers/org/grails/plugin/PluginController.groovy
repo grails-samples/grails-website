@@ -32,7 +32,7 @@ class PluginController {
                 [  name: it]
             }
             def data = [ tagResults: tags ]
-            render data as JSON            
+            render data as JSON
         }
         else {
             render status: 404
@@ -49,13 +49,13 @@ class PluginController {
                 [  name: it]
             }
             def data = [ tagResults: tags ]
-            render data as JSON            
+            render data as JSON
         }
         else {
             render status: 404
         }
 
-    }    
+    }
     def list() {
         try {
             def maxResults = params.int("max",10)
@@ -111,8 +111,8 @@ class PluginController {
         if(plugin && params['plugin']) {
             plugin.properties['summary', 'defaultDependencyScope'] = params['plugin']
             if(plugin.save()) {
-                def installation = params['plugin']['installation'] 
-                def description= params['plugin']['description'] 
+                def installation = params['plugin']['installation']
+                def description= params['plugin']['description']
 
                 try {
                   def pluginTabInstallation = wikiPageService.createOrUpdatePluginTab(
@@ -125,13 +125,13 @@ class PluginController {
                     "plugin-${id}-description",
                     description.body,
                     request.user,
-                    params.long('plugin.description.version'))              
+                    params.long('plugin.description.version'))
                     if(pluginTabInstallation.hasErrors() || pluginTabDescription.hasErrors()) {
                         render view:"editPlugin", model:show(id)
                     }
                     else {
-                        redirect uri:"/plugin/$id" 
-                    }                  
+                        redirect uri:"/plugin/$id"
+                    }
 
                     cacheService?.removeWikiText('pluginInfo_summary_' + plugin?.name)
                 }
@@ -140,8 +140,8 @@ class PluginController {
                     render view:"editPlugin", model:show(id)
                     return
                 }
-     
-            } 
+
+            }
             else {
                 render view:"editPlugin", model:show(id)
             }
@@ -225,8 +225,8 @@ Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
                 render view: "list", model: [
                         query: params.q,
                         tags: tags,
-                        searchResult: searchResult, 
-                        plugins: searchResult.results, 
+                        searchResult: searchResult,
+                        plugins: searchResult.results,
                         pluginCount: searchResult.total,
                         otherParams: [q: params.q] ]
             }
@@ -304,14 +304,14 @@ Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
             def p = params.name
             def v = params.version
             def release = PluginRelease.where {
-                plugin.name == p && releaseVersion == v 
+                plugin.name == p && releaseVersion == v
             }.get()
 
             if (release) {
                 def plugin = transformPluginRelease(release)
                 withFormat {
                     json {
-                        render plugin as JSON        
+                        render plugin as JSON
                     }
                     xml {
                         renderMapAsXml plugin, "plugin"
@@ -410,7 +410,7 @@ Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
             queryParams.max = defaultMax
             params.max = defaultMax
         }
-        
+
         log.debug "[listPlugins] Parameters: $params"
 
         def category = params.remove('category') ?: defaultCategory
@@ -449,7 +449,7 @@ Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
     protected transformPlugins(plugins, category = null) {
         def map = [ pluginList: plugins ? plugins.collect { p -> transformPlugin(p) } : [] ]
         if (category) map.category = category
-        return map 
+        return map
     }
 
     protected transformPlugin(plugin) {
@@ -459,8 +459,8 @@ Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
                 title: plugin.title,
                 // These two for backwards compatibility
                 author: plugin.authors[0].name,
-                authorEmailMd5: DigestUtils.md5Hex(plugin.authors[0].email),
-                authorList: plugin.authors.collect { [name: it.name, email: DigestUtils.md5Hex(it.email)] },
+                authorEmailMd5: DigestUtils.md5Hex(plugin.authors[0].email ?: ""),
+                authorList: plugin.authors.collect { [name: it.name, email: DigestUtils.md5Hex(it.email ?: "")] },
                 description: plugin.summary,
                 grailsVersion: plugin.grailsVersion,
                 documentation: plugin.documentationUrl,
@@ -470,7 +470,7 @@ Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
                 file: plugin.downloadUrl,
                 rating: plugin.avgRating,
                 zombie: plugin.zombie ]
-            
+
         if (plugin.issuesUrl) pluginMap.issues = plugin.issuesUrl
         if (plugin.scmUrl) pluginMap.scm = plugin.scmUrl
 
