@@ -158,18 +158,18 @@
 <section class="section-3">
     <div class="col1">
         <h3>Training</h3>
-        <p><a href="http://www.springsource.com/training">SpringSource University</a> provides a comprehensive education and certification program for SpringSource software products as well as Spring, Groovy, Grails, and Apache Open Source technologies.</p>
+        <p><a href="http://www.gopivotal.com/training">Pivotal Training</a> provides a comprehensive education and certification program for Pivotal software products as well as Spring, Groovy, Grails, and Apache Open Source technologies.</p>
         <p>We offer both public and customized private training and have trained over 4,000 people. Whichever course you decide to take, you are guaranteed to experience what many before you refer to as “The best Enterprise Software Class I have ever attended”.</p>
     </div>
     <div class="col2">
         <h3>Support &amp; services</h3>
-        <p>SpringSource enterprise software and <a href="http://www.springsource.com/services/enterprisesupport">support subscriptions</a> are the way to get developer and production support for Grails and other SpringSource software products and certified versions of our Open Source technologies including patches, updates, security fixes, and legal indemnification.</p>
-        <p><a href="http://www.springsource.com/groovy-grails-consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of SpringSource’s Grails technology experts.</p>
+        <p>Pivotal <a href="http://www.gopivotal.com/support/oss">support subscriptions</a> are the way to get developer and production support for Grails and other Pivotal software products and certified versions of our Open Source technologies including patches, updates, security fixes, and legal indemnification.</p>
+        <p><a href="http://www.gopivotal.com/contact/spring-consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of Pivotal's Grails technology experts.</p>
     </div>
 
     <div class="col3">
         <h3>Community</h3>
-        <p>Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="/Mailing+lists">mailing lists</a> or <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble forums</a> or catch-up on the <a href="/news">latest news</a>.</p>
+        <p>Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="/Mailing+lists">mailing lists</a> or <a href="http://stackoverflow.com/tags/grails">Stack Overflow</a> or catch-up on the <a href="/news">latest news</a>.</p>
         <p>This whole web site is written in Grails, the <a href="http://github.com/grails-samples/grails-website/tree/master">source code</a> for which is available from GitHub. Visit the Grails <a href="/community">community pages</a> for more ways to participate.</p>
     </div>
 </section>

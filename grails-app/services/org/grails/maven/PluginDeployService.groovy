@@ -24,10 +24,10 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
     @Transactional
     void onApplicationEvent(PluginPublishEvent event) {
         PendingRelease pendingRelease = event.source
-        log.debug "Received plugin publish event for pending release [$event.source]"        
+        log.debug "Received plugin publish event for pending release [$event.source]"
         deployRelease pendingRelease
     }
-    
+
     /**
      * Takes a PendingRelease and deploys it to Artifactory. The release is deleted is successful.
      *
@@ -42,17 +42,17 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
             deployArtifact(rest, url, pendingRelease, "zip")
             deployArtifact(rest, url, pendingRelease, "pom")
             deployArtifact(rest, url, pendingRelease, "xml")
-            
+
             completeRelease pendingRelease
         }
         catch (Exception ex) {
-            log.error "Failed to deploy plugin to artifact repository: ${ex.message}"
+            log.error "Failed to deploy plugin to artifact repository: ${ex.message}", ex
             failRelease pendingRelease
         }
     }
 
     protected deployArtifact(rest,baseUrl, pendingRelease, type) {
-    
+
         def p = pendingRelease.pluginName
         def v = pendingRelease.pluginVersion
         def ext = type == 'xml' ? '-plugin.xml' : ".$type"

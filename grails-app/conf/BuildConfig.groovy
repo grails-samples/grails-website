@@ -15,12 +15,12 @@ grails.project.fork = [
 ]
 grails.project.dependency.resolution = {
     inherits "global", {
-        excludes "xml-apis", "commons-digester", "ehcache"
+        excludes "xml-apis", "commons-digester", "ehcache", 'cglib'
     }
 
     log "warn"
 
-    repositories {        
+    repositories {
         inherit false
         grailsPlugins()
         grailsHome()
@@ -33,7 +33,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":burning-image:0.5.1",
-                ":joda-time:1.4",
+                ":joda-time:1.5",
                 ":taggable:1.1.0"
 
         compile ":rateable:0.7.1", {
@@ -44,15 +44,15 @@ grails.project.dependency.resolution = {
         }
 
         runtime ":avatar:0.3",
-                ":rest-client-builder:2.0.2",
-                ":cache:1.1.1",                
+                ":rest-client-builder:2.0.3",
+                ":cache:1.1.7",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.4.0",
-                ":disqus:0.1",
+                ":disqus:0.2",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
-                ":hibernate:3.6.10.14",
+                ":hibernate:3.6.10.15",
                 ":jquery:1.7.2",
                 ":jquery-ui:1.8.24",
                 ":mail:1.0.5",
@@ -62,11 +62,11 @@ grails.project.dependency.resolution = {
                 ":searchable:0.6.7",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0", {
-                    exclude 'spring-test'
+                    excludes 'spring-test', 'cglib'
                 }
         runtime ":shiro:1.2.0", {
             exclude 'org.opensymphony.quartz:quartz'
-        }  
+        }
 
         runtime ":shiro-oauth:0.2", {
             excludes 'shiro-core'
@@ -85,14 +85,14 @@ grails.project.dependency.resolution = {
 
         compile ":platform-core:1.0.M6"
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
-        
 
-        test ":geb:0.9.2", {
+
+        test ":geb:0.9.3", {
             excludes 'xml-apis'
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:7.0.52.1"
+        build   ":tomcat:7.0.54"
         compile ":scaffolding:2.0.3"
     }
 
@@ -125,7 +125,7 @@ grails.project.dependency.resolution = {
             excludes "xml-apis", "commons-logging", "xercesImpl"
         }
 
-        test 'org.gebish:geb-spock:0.9.2'
+        test 'org.gebish:geb-spock:0.9.3'
 
         if (Environment.current == Environment.DEVELOPMENT) {
             runtime "org.grails:grails-test:$grailsVersion"
@@ -137,5 +137,4 @@ grails.project.dependency.resolution = {
 
 }
 
-grails.tomcat.jvmArgs = [ '-Xmx512m', '-XX:MaxPermSize=256m','-Dinitial.admin.password=changeit',
-        '-Dload.fixtures=1' ]
+grails.project.fork.war.jvmArgs = [ '-Dinitial.admin.password=changeit', '-Dload.fixtures=1' ]

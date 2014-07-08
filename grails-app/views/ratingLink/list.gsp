@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="admin" />
         <title>Admin: Rating List</title>
     </head>
     <body>
@@ -19,25 +19,25 @@
                 <table>
                     <thead>
                         <tr>
-                        
+
                    	        <g:sortableColumn property="id" title="Id" />
-                        
+
                    	        <td>Plugin</td>
 
                    	        <th>Rating</th>
-                   	    
+
                         </tr>
                     </thead>
                     <tbody>
                     <g:each in="${ratingLinks}" status="i" var="ratingLink">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
+
                             <td><g:link action="edit" id="${ratingLink.rating.id}">${fieldValue(bean:ratingLink, field:'id')}</g:link></td>
-                        
+
                             <td><g:link controller='plugin' action='show' params="${[name:ratingLink.plugin.name]}">${ratingLink.plugin.title}</g:link></td>
-                        
+
                             <td>${fieldValue(bean:ratingLink, field:'rating')}</td>
-                        
+
                         </tr>
                     </g:each>
                     </tbody>

@@ -54,7 +54,7 @@ grails.views.default.codec="none" // none, html, base64
 grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 grails.app.context = "/"
-
+grails.scaffolding.templates.domainSuffix="Instance"
 // enabled native2ascii conversion of i18n properties files
 grails.enable.native2ascii = true
 
@@ -102,7 +102,7 @@ bi {
             contentType = ['image/gif', 'image/png', 'image/jpeg']
         }
     }
-    
+
 }
 
 
@@ -216,15 +216,15 @@ springcache {
 }
 
 artifactRepository.url = "http://repo.grails.org/grails/plugins"
-// artifactRepository.url = "http://localhost:8085/artifactory/plugins-release-local/"
-// beans {
-//     pluginDeployService {
-//         releaseUrl = "http://localhost:8085/artifactory/plugins-release-local/org/grails/plugins"
-//         snapshotUrl = "http://localhost:8085/artifactory/plugins-snapshot-local/org/grails/plugins"
-//         deployUsername = "admin"
-//         deployPassword = "password"
-//     }
-// }
+/*artifactRepository.url = "http://localhost:8085/artifactory/plugins-release-local/"
+ beans {
+     pluginDeployService {
+         releaseUrl = "http://localhost:8085/artifactory/plugins-release-local/org/grails/plugins"
+         snapshotUrl = "http://localhost:8085/artifactory/plugins-snapshot-local/org/grails/plugins"
+         deployUsername = "admin"
+         deployPassword = "password"
+     }
+}*/
 
 
 
@@ -295,7 +295,7 @@ log4j = {
     off     'grails.app.service.org.grails.plugin.resource'
 
     error   'org.hibernate'
-    
+
     warn    'org.codehaus.groovy.grails.web.servlet',
             'org.codehaus.groovy.grails.web.pages', //  GSP
             'org.codehaus.groovy.grails.web.sitemesh', //  layouts
