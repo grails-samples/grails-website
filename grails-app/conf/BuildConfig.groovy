@@ -67,6 +67,7 @@ grails.project.dependency.resolution = {
         runtime ":shiro:1.2.0", {
             exclude 'org.opensymphony.quartz:quartz'
         }
+        runtime ":oauth:2.1.0"
 
         runtime ":shiro-oauth:0.2", {
             excludes 'shiro-core'
