@@ -149,7 +149,7 @@ class PluginService {
         Plugin.WIKIS.each { wiki ->
             def body = ''
             if (wiki == 'installation') {
-                body = "{code}grails install-plugin ${plugin.name}{code}"
+                body = "{code}compile ':${plugin.name}:${plugin.version}'{code}"
             }
 
             // Saves don't cascade from the plugin to the wiki pages, so
