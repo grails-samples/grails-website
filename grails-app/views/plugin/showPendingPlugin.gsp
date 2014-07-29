@@ -33,7 +33,7 @@
                 <p>${pluginPendingApprovalInstance?.notes}</p>
             </div>
             <div class="disqus-container">
-                <disqus:comments bean="${pluginPendingApprovalInstance}" />
+                <disqus:comments bean="${pluginPendingApprovalInstance}"  url="${createLink(uri:request.forwardURI, absolute:true)}"/>
             </div>
         </article>
         <g:if test="${pluginPendingApprovalInstance?.isNew}">

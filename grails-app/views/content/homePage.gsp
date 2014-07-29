@@ -77,6 +77,10 @@
             </li>
         </ul>
     </div>
+
+    <div id="springoneBanner" class="banner">
+        <a href="http://springone2gx.com"><g:img dir="img/banner" file="springone2gx2014_banner_1200x300.png" /></a>
+    </div>
     
     <div id="skyBanner" class="sky caseStudy banner">
         <p class="ico">

@@ -55,7 +55,7 @@
                    target="_blank">${tutorialInstance?.url?.encodeAsHTML()}</a>
             </p>
             <div class="disqus-container">
-                <disqus:comments bean="${tutorialInstance}"/>
+                <disqus:comments bean="${tutorialInstance}"  url="${createLink(uri:request.forwardURI, absolute:true)}"/>
             </div>
         </article>
     </section>

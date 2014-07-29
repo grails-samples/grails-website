@@ -113,7 +113,7 @@
     <div class="span8">
         <h3 class="page-header">Disqus Thread</h3>
         <div style="padding: 0 20px;">
-            <disqus:comments bean="${pluginPendingApproval}" />
+            <disqus:comments bean="${pluginPendingApproval}"  url="${createLink(uri:request.forwardURI, absolute:true)}"/>
         </div>
     </div>
 </div>

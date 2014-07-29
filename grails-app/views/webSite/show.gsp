@@ -50,7 +50,7 @@
         </div>
 
         <div class="disqus-container">
-            <disqus:comments bean="${webSiteInstance}"/>
+            <disqus:comments bean="${webSiteInstance}" url="${createLink(uri:request.forwardURI, absolute:true)}"/>
         </div>
     </section>
 </div>

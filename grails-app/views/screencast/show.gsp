@@ -53,7 +53,7 @@
             </div>
 
             <div class="disqus-container">
-                <disqus:comments bean="${screencastInstance}"/>
+                <disqus:comments bean="${screencastInstance}"  url="${createLink(uri:request.forwardURI, absolute:true)}"/>
             </div>
         </article>
     </section>

@@ -56,7 +56,7 @@
 
             
             <div class="disqus-container">
-                <disqus:comments bean="${newsItem}"/>
+                <disqus:comments bean="${newsItem}" url="${createLink(uri:request.forwardURI, absolute:true)}"/>
             </div>
         </article>
     </section>
