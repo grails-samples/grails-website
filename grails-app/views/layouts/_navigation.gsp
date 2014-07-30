@@ -20,7 +20,7 @@
                     </g:link>
                 </li>
                 <li>
-                    <g:link url="http://gopivotal.com/oss">
+                    <g:link url="http://pivotal.io/oss">
                         <g:message code="layout.nav.services.products"/>
                     </g:link>
                 </li>
@@ -30,17 +30,17 @@
                 </li>
                 --%>
                 <li>
-                    <g:link url="http://www.gopivotal.com/contact/spring-consulting">
+                    <g:link url="http://www.pivotal.io/contact/spring-consulting">
                         <g:message code="layout.nav.services.consulting"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link url="http://www.gopivotal.com/training">
+                    <g:link url="http://www.pivotal.io/training">
                         <g:message code="layout.nav.services.training"/>
                     </g:link>
                 </li>
                 <li>
-                    <g:link url="http://gopivotal.com/">
+                    <g:link url="http://pivotal.io/">
                         <g:message code="layout.nav.services.about"/>
                     </g:link>
                 </li>

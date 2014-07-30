@@ -162,13 +162,13 @@
 <section class="section-3">
     <div class="col1">
         <h3>Training</h3>
-        <p><a href="http://www.gopivotal.com/training">Pivotal Training</a> provides a comprehensive education and certification program for Pivotal software products as well as Spring, Groovy, Grails, and Apache Open Source technologies.</p>
+        <p><a href="http://www.pivotal.io/training">Pivotal Training</a> provides a comprehensive education and certification program for Pivotal software products as well as Spring, Groovy, Grails, and Apache Open Source technologies.</p>
         <p>We offer both public and customized private training and have trained over 4,000 people. Whichever course you decide to take, you are guaranteed to experience what many before you refer to as “The best Enterprise Software Class I have ever attended”.</p>
     </div>
     <div class="col2">
         <h3>Support &amp; services</h3>
-        <p>Pivotal <a href="http://www.gopivotal.com/support/oss">support subscriptions</a> are the way to get developer and production support for Grails and other Pivotal software products and certified versions of our Open Source technologies including patches, updates, security fixes, and legal indemnification.</p>
-        <p><a href="http://www.gopivotal.com/contact/spring-consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of Pivotal's Grails technology experts.</p>
+        <p>Pivotal <a href="http://www.pivotal.io/support/oss">support subscriptions</a> are the way to get developer and production support for Grails and other Pivotal software products and certified versions of our Open Source technologies including patches, updates, security fixes, and legal indemnification.</p>
+        <p><a href="http://www.pivotal.io/contact/spring-consulting">Consulting services</a> are available to companies that wish to leverage the knowledge and expertise of Pivotal's Grails technology experts.</p>
     </div>
 
     <div class="col3">
