@@ -550,6 +550,6 @@ This is a test list:
                 description: spockDescription,
                 faq: spockFaq,
                 screenshots: spockScreenshots,
-                mavenRepositories: ["http://m2repo.spockframework.org/snapshots", "http://repo.grails.org/spock"])
+                mavenRepositories: ["http://m2repo.spockframework.org/snapshots", "https://grails.artifactoryonline.com/spock"])
     }
 }

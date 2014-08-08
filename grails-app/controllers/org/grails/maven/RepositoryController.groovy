@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationEvent
 /**
  * 
  * Responsible for adapting Grails repository conventions onto a Maven compatible repository.
- * Defaults to http://repo.grails.org/grails/plugins. Also handles deployment of plugins using
+ * Defaults to https://grails.artifactoryonline.com/grails/plugins. Also handles deployment of plugins using
  * the publish action.
  * 
  * @author Graeme Rocher
@@ -92,7 +92,7 @@ class RepositoryController {
      *
      * Becomes
      *
-     * http://repo.grails.org/grails/plugins/org/grails/plugins/heroku/1.0-SNAPSHOT/heroku-1.0-SNAPSHOT.zip
+     * https://grails.artifactoryonline.com/grails/plugins/org/grails/plugins/heroku/1.0-SNAPSHOT/heroku-1.0-SNAPSHOT.zip
      *
      */
     def artifact(String fullName, String plugin, String pluginVersion, String type) {       
@@ -181,7 +181,7 @@ class RepositoryController {
     }
     
     protected getRepoUrl() {
-        def repoUrl = grailsApplication.config.artifactRepository.url ?: "http://repo.grails.org/grails/plugins"
+        def repoUrl = grailsApplication.config.artifactRepository.url ?: "https://grails.artifactoryonline.com/grails/plugins"
         return repoUrl.endsWith("/") ? repoUrl[0..-2] : repoUrl
     }
     

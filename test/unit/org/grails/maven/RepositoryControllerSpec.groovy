@@ -136,7 +136,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             controller.artifact("grails-cloud-foundry-0.1","cloud-foundry", "1.0", "zip")
             
         then:"The produced URL is correct"    
-            response.redirectUrl == 'http://repo.grails.org/grails/plugins/org/grails/plugins/cloud-foundry/1.0/cloud-foundry-1.0.zip'
+            response.redirectUrl == 'https://grails.artifactoryonline.com/grails/plugins/org/grails/plugins/cloud-foundry/1.0/cloud-foundry-1.0.zip'
     }
     
     void "Test that maven direct URL is correct for LATEST_RELEASE"() {
@@ -147,7 +147,7 @@ class RepositoryControllerSpec extends spock.lang.Specification{
             controller.artifact("grails-tomcat-[revision]","tomcat", "[revision]", "zip")
             
         then:"The produced URL is correct"    
-            response.redirectUrl == 'http://repo.grails.org/grails/plugins/org/grails/plugins/tomcat/2.0.3/tomcat-2.0.3.zip'
+            response.redirectUrl == 'https://grails.artifactoryonline.com/grails/plugins/org/grails/plugins/tomcat/2.0.3/tomcat-2.0.3.zip'
         
         
     }

@@ -15,8 +15,8 @@ import grails.plugins.rest.client.*
 class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
 
     int retryCount = 3
-    String releaseUrl = "http://repo.grails.org/grails/plugins-releases-local/org/grails/plugins"
-    String snapshotUrl = "http://repo.grails.org/grails/plugins-snapshots-local/org/grails/plugins"
+    String releaseUrl = "https://grails.artifactoryonline.com/grails/plugins-releases-local/org/grails/plugins"
+    String snapshotUrl = "https://grails.artifactoryonline.com/grails/plugins-snapshots-local/org/grails/plugins"
     String deployUsername = System.getProperty("artifactory.user")
     String deployPassword = System.getProperty("artifactory.pass")
     RestBuilder rest = new RestBuilder(connectTimeout:1000, readTimeout:10000)
