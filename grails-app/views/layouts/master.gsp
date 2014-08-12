@@ -28,8 +28,8 @@
     <link rel="apple-touch-icon-precomposed" href="${resource(dir: 'img', file: 'grails-icon-57x57.png')}">
 
 
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
 
     <r:layoutResources/>
     <g:if test="${Environment.developmentMode}">
