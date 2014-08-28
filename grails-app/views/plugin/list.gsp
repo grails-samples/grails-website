@@ -106,7 +106,12 @@
                 if (activeTag) otherParams.tag = activeTag
                 if (activeFilter) otherParams.filter = activeFilter
             %>
-            <g:paginate mapping="pluginList" total="${pluginCount}" max="10" params="${otherParams}" />
+            <g:if test="${actionName == 'search'}">
+                <g:paginate total="${pluginCount}" max="10" params="${otherParams}" />
+            </g:if>
+            <g:else>
+                <g:paginate mapping="pluginList" total="${pluginCount}" max="10" params="${otherParams}" />
+            </g:else>
         </section>
         <r:script>
             tagsInitialized = true
