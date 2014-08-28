@@ -70,7 +70,7 @@ class PluginUpdateServiceSpec extends Specification {
 		def wikiPageService = new WikiPageService(searchableService:searchableService)
 		service.pluginService = new PluginService(grailsApplication:app, wikiPageService: wikiPageService, searchableService: searchableService )
 		service.mailService = mailService
-		def event = new PluginUpdateEvent(this,"tomcat","1.0.0", "org.grails.plugins", false, new URI("https://grails.artifactoryonline.com/grails/plugins/") )
+		def event = new PluginUpdateEvent(this,"tomcat","1.0.0", "org.grails.plugins", false, new URI("https://repo.grails.org/grails/plugins/") )
 		URL.metaClass.withReader = { String encoding, Closure callable ->
 			def f = delegate.toString().endsWith("pom") ? "tomcat.pom" : "tomcat-plugin.xml"
 

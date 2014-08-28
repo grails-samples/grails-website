@@ -179,8 +179,8 @@ class PluginUpdater {
             "http://grails.org/plugins",
             "http://repo.grails.org/grails/plugins/",
             "http://repo.grails.org/grails/core/",
-            "https://grails.artifactoryonline.com/grails/plugins/",
-            "https://grails.artifactoryonline.com/grails/core/",
+            "https://repo.grails.org/grails/plugins/",
+            "https://repo.grails.org/grails/core/",
             "http://svn.codehaus.org/grails/trunk/grails-plugins",
             "http://repo1.maven.org/maven2/" ]
 

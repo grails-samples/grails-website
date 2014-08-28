@@ -215,7 +215,7 @@ springcache {
     }
 }
 
-artifactRepository.url = "https://grails.artifactoryonline.com/grails/plugins"
+artifactRepository.url = "https://repo.grails.org/grails/plugins"
 /*artifactRepository.url = "http://localhost:8085/artifactory/plugins-release-local/"
  beans {
      pluginDeployService {

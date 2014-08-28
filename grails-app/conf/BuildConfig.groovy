@@ -26,7 +26,7 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsCentral()
         mavenLocal()
-        mavenRepo "https://grails.artifactoryonline.com/grails/core"
+        mavenRepo "https://repo.grails.org/grails/core"
         mavenRepo "https://oss.sonatype.org/content/repositories/releases/"
         mavenRepo "http://repo.spring.io/milestone"
     }
