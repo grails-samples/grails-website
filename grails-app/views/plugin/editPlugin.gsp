@@ -6,13 +6,11 @@
     <r:require modules="content, codeMirror, fancyBox"/>
     <g:render template="tagSetup" model="[allTags:allTags]" />
     <style type="text/css">
-.wiki-form  .CodeMirror {
-        border: 1px solid #eee;
-        width: 563px;
-        height: 200px;
-}
-
-
+        .wiki-form  .CodeMirror {
+            border: 1px solid #eee;
+            width: 563px;
+            height: 100%;
+        }
     </style>
 </head>
 

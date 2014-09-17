@@ -3770,7 +3770,7 @@ article.news.last {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#99702f', endColorstr='#815d25', GradientType=0);
 }
 input.btn {
-  margin-bottom: 4px;
+  margin-bottom: 0px;
 }
 .btn:hover,
 .btn.hover {
