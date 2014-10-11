@@ -7,7 +7,7 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
-grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*", "/less/*", "/fancybox/*", "/images/*", "/font-awesome/*"]
+grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*", "/less/*", "/fancybox/*", "/images/*", "/font-awesome/*", "/plugins/*"]
 grails.resources.adhoc.includes = ['/images/**', '/css/**', '/js/**', '/less/**', '/fancybox/**', '/images/**', '/font-awesome/**', '/plugins/**']
 grails.resources.adhoc.excludes = [ "**/*.swp", "**/*.html", '**/WEB-INF/**', '**/META-INF/**', '**/*.class', '**/*.jar', '**/*.properties', '**/*.groovy', '**/*.gsp', '**/*.java']
 
