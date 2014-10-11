@@ -13,6 +13,12 @@ grails.project.fork = [
    war: [maxMemory: 1024, minMemory: 256, debug: false, maxPerm: 256], // configure settings for the run-war JVM
    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]// configure settings for the Console UI JVM
 ]
+
+if (System.getProperty("grails.debug")) {
+   grails.project.fork.war += [debug: true]
+   println "Using debug for run-war"
+}
+
 grails.project.dependency.resolution = {
     inherits "global", {
         excludes "xml-apis", "commons-digester", "ehcache", 'cglib'
