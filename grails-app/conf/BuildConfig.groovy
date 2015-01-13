@@ -66,8 +66,8 @@ grails.project.dependency.resolution = {
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
                 ":hibernate:3.6.10.18",
-                ":jquery:1.7.2",
-                ":jquery-ui:1.8.24",
+                ":jquery:1.11.1",
+                ":jquery-ui:1.10.4",
                 ":mail:1.0.7",
                 ":pretty-time:0.3",
                 ":quartz:1.0.1",
@@ -80,34 +80,33 @@ grails.project.dependency.resolution = {
         runtime ":shiro:1.2.0", {
             exclude 'org.opensymphony.quartz:quartz'
         }
-        runtime ":oauth:2.1.0"
+        runtime ":oauth:2.6.1"
 
         runtime ":shiro-oauth:0.2", {
             excludes 'shiro-core'
         }
 
 
-
         if (Environment.current == Environment.DEVELOPMENT) {
-            compile ":build-test-data:2.1.2",
-                    ":fixtures:1.2"
+            compile ":build-test-data:2.2.2",
+                    ":fixtures:1.3"
         }
         else {
-            test    ":build-test-data:2.1.2",
-                    ":fixtures:1.2"
+            test    ":build-test-data:2.2.2",
+                    ":fixtures:1.3"
         }
 
         compile ":platform-core:1.0.M6"
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
 
 
-        test ":geb:0.9.3", {
+        test ":geb:0.10.0", {
             excludes 'xml-apis'
             exclude "spock-grails-support"
         }
 
         build   ":tomcat:7.0.55"
-        compile ":scaffolding:2.0.3"
+        compile ":scaffolding:2.1.2"
     }
 
     dependencies {
@@ -115,7 +114,7 @@ grails.project.dependency.resolution = {
 
         compile "org.grails:grails-gdoc-engine:1.0.1"
         compile "org.springframework.social:spring-social-twitter:1.0.5.RELEASE",
-                "org.springframework:spring-context-support:3.2.8.RELEASE",
+                "org.springframework:spring-context-support:$springVersion",
                 "org.jadira.usertype:usertype.jodatime:1.9",
                 "org.jsoup:jsoup:1.7.3"
 
@@ -127,7 +126,7 @@ grails.project.dependency.resolution = {
 
         compile "org.apache.shiro:shiro-core:1.2.2"
 
-        test "org.gebish:geb-core:0.9.2",
+        test "org.gebish:geb-core:0.10.0",
              "org.gmock:gmock:0.8.3"
         test    "org.codehaus.groovy.modules.http-builder:http-builder:0.7.1", {
             excludes "commons-logging", "httpclient", "xml-apis", "groovy", "groovy-all", "xercesImpl", "nekohtml"
@@ -139,7 +138,7 @@ grails.project.dependency.resolution = {
             excludes "xml-apis", "commons-logging", "xercesImpl"
         }
 
-        test 'org.gebish:geb-spock:0.9.3'
+        test 'org.gebish:geb-spock:0.10.0'
 
         if (Environment.current == Environment.DEVELOPMENT) {
             runtime "org.grails:grails-test:$grailsVersion"
@@ -147,6 +146,8 @@ grails.project.dependency.resolution = {
 
         compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.0.RELEASE"
         compile "org.springframework.cloud:spring-cloud-spring-service-connector:1.1.0.RELEASE"
+
+        test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
     }
 
 }
