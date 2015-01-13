@@ -57,21 +57,21 @@ grails.project.dependency.resolution = {
 
         runtime ":avatar:0.3",
                 ":rest-client-builder:2.0.3",
-                ":cache:1.1.7",
+                ":cache:1.1.8",
                 ":cache-headers:1.1.5",
                 ":cached-resources:1.0",
                 ":database-migration:1.4.0",
                 ":disqus:0.2",
                 ":feeds:1.5",
                 ":greenmail:1.2.2",
-                ":hibernate:3.6.10.15",
+                ":hibernate:3.6.10.18",
                 ":jquery:1.7.2",
                 ":jquery-ui:1.8.24",
-                ":mail:1.0.5",
+                ":mail:1.0.7",
                 ":pretty-time:0.3",
                 ":quartz:1.0.1",
                 ":resources:1.2.13",
-                ":searchable:0.6.7",
+                ":searchable:0.6.9",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0", {
                     excludes 'spring-test', 'cglib'
@@ -105,7 +105,7 @@ grails.project.dependency.resolution = {
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:7.0.54"
+        build   ":tomcat:7.0.55"
         compile ":scaffolding:2.0.3"
     }
 
@@ -144,8 +144,8 @@ grails.project.dependency.resolution = {
             runtime "org.grails:grails-test:$grailsVersion"
         }
 
-        compile "org.springframework.cloud:cloudfoundry-connector:0.9.10.RELEASE"
-        compile "org.springframework.cloud:spring-service-connector:0.9.10.RELEASE"
+        compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.1.0.RELEASE"
+        compile "org.springframework.cloud:spring-cloud-spring-service-connector:1.1.0.RELEASE"
     }
 
 }
