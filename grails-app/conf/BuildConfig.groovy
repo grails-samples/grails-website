@@ -19,6 +19,7 @@ grails.project.fork = [
 
 if (System.getProperty("grails.debug")) {
    grails.project.fork.war += [debug: true]
+   grails.project.fork.run += [debug: true]
    println "Using debug for run-war"
 }
 
