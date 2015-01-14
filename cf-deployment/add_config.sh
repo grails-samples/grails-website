@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -d WEB-INF ]; then
-   zip -r ../target/site-2.3.0.war WEB-INF
+   zip -r ../target/site-*.war WEB-INF
 else
    mkdir -p WEB-INF/classes
    echo 'grails.serverURL="http://plugins-grails-org-dev.cfapps.io/"' > WEB-INF/classes/site-config.groovy
