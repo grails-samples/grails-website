@@ -3,7 +3,7 @@ applications:
 - name: grailsorg-dev
   memory: 2G
   instances: 1
-  path: target/site-2.3.0.war
+  path: target/site-2.3.3.war
   timeout: 120
   buildpack: https://github.com/cloudfoundry/java-buildpack.git
 env:
