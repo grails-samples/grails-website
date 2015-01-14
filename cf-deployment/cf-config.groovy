@@ -6,7 +6,7 @@ try {
   cloud = new CloudFactory().cloud
 } catch(e) {}
 
-grails.serverURL = "http://grailsorg-dev.cfapps.io/"
+grails.serverURL = "http://plugins-grails-org-dev.cfapps.io/"
 
 // configure sendgrid SMTP sender
 grails {

@@ -1,6 +1,6 @@
 ---
 applications:
-- name: grailsorg-dev
+- name: plugins-grails-org-dev
   memory: 2G
   instances: 1
   path: target/site-2.3.4.war
