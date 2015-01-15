@@ -5,6 +5,6 @@ applications:
   instances: 1
   path: target/site-2.3.4.war
   timeout: 120
-  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git#v2.6
 env:
   JAVA_OPTS: -Dinitial.admin.password=verysecure -Dload.fixtures=true -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US
