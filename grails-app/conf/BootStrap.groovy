@@ -22,6 +22,10 @@ class BootStrap {
     def searchableService
 
     def init = { servletContext ->
+        User.withNewTransaction { doInit() }
+    }
+
+    void doInit() {
         def (adminRole, editorRole, observerRole) = setUpRoles()
         
         def admin = User.findByLogin("admin")
