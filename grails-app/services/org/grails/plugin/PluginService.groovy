@@ -48,7 +48,7 @@ class PluginService {
         def ratingsComparator = new PluginComparator()
         Plugin.list(cache:true, maxResults:max).findAll {
             it.ratings.size() >= minRatings
-        }.sort(ratingsComparator).reverse()
+        }.sort(false, ratingsComparator).reverse()
     }
     
     def newestPlugins(max = DEFAULT_MAX) {

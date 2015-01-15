@@ -447,7 +447,7 @@ class ContentController extends BaseWikiController {
             def leftVersion = params.number.toLong()
             def left = Version.findByCurrentAndNumber(page, leftVersion)
 
-            List allVersions = Version.findAllByCurrent(page).sort { it.number }
+            List allVersions = Version.findAllByCurrent(page).sort(false) { it.number }
             def right = allVersions[allVersions.indexOf(left) - 1]
             def rightVersion = right.number
 

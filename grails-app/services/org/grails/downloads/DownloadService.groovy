@@ -45,7 +45,7 @@ class DownloadService {
             if (m.matches()) majorVersions << m[0][1]
         }
 
-        return majorVersions.sort(new VersionComparator()).reverse()
+        return majorVersions.sort(false, new VersionComparator()).reverse()
     }
 
     def listMajorVersionDownloads() {
@@ -58,11 +58,11 @@ class DownloadService {
         }
         def comparator = new VersionComparator()
 
-        return majorVersions.sort { a, b-> comparator.compare(a.softwareVersion, b.softwareVersion) }.reverse()
+        return majorVersions.sort(false) { a, b-> comparator.compare(a.softwareVersion, b.softwareVersion) }.reverse()
     }
 
     def sortVersions(versions) {
-        versions.sort(new VersionComparator())
+        versions.sort(false, new VersionComparator())
     }
 
     /**

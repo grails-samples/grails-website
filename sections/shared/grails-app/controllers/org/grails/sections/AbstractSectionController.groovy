@@ -123,7 +123,7 @@ abstract class AbstractSectionController {
         // Get hold of all the tags for this artifact. The service method returns
         // a map of tag names to counts, i.e. how many artifacts have been tagged
         // with each tag.
-        def allTags = taggableService.getTagCounts(propertyName).sort()
+        def allTags = taggableService.getTagCounts(propertyName).sort(false)
         [tags: allTags]
     }
 
