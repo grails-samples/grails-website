@@ -1,6 +1,6 @@
 package org.grails.plugin
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.util.Holders
 import org.grails.wiki.WikiPage
 import org.grails.content.Version
 import org.grails.auth.User

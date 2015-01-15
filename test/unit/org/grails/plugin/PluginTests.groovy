@@ -5,7 +5,7 @@ package org.grails.plugin
 
 import grails.test.GrailsUnitTestCase
 import org.grails.rateable.Rating
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.util.Holders
 import grails.test.mixin.*
 
 import static org.junit.Assert.*

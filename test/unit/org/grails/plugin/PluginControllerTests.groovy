@@ -4,7 +4,7 @@ import org.grails.plugin.Plugin
 import org.grails.taggable.*
 import grails.test.ControllerUnitTestCase
 import grails.test.mixin.*
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.util.Holders
 import org.grails.wiki.WikiPage
 import org.joda.time.DateTime
 

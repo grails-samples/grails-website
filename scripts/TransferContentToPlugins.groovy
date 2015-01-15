@@ -1,7 +1,7 @@
 import org.springframework.orm.hibernate3.SessionHolder
 import org.springframework.orm.hibernate3.SessionFactoryUtils
 import org.springframework.transaction.support.TransactionSynchronizationManager
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import grails.util.Holders
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import grails.util.*
 
@@ -174,7 +174,7 @@ transition."""
 
     // add a comment to the original content object before locking it
     text = """This wiki page has been locked because another page outdates it.  Please see the new plugin page \
-for "${c.title}" [here|${ConfigurationHolder.config.grails.serverURL}/plugin/${p.name}]."""
+for "${c.title}" [here|${Holders.config.grails.serverURL}/plugin/${p.name}]."""
     addComment(text, c, adminUser)
 */
     println "handling images..."
