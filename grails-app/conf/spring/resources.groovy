@@ -1,5 +1,4 @@
 import org.apache.shiro.authc.credential.Sha1CredentialsMatcher
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.grails.auth.ShiroUserBean
 import org.grails.wiki.GrailsWikiEngineFactoryBean
 import org.radeox.engine.context.BaseInitialRenderContext
@@ -23,8 +22,7 @@ beans = {
     wikiContext(BaseInitialRenderContext)
     wikiEngine(GrailsWikiEngineFactoryBean) {
         cacheService = ref('cacheService')
-        def config = ConfigurationHolder.getConfig()
-        contextPath = config.grails.serverURL ?: ""
+        contextPath = application.config.grails.serverURL ?: ""
         context = wikiContext
     }
 
