@@ -2865,9 +2865,9 @@ a.like.with-ribbon {
   width: 663px;
 }
 .wiki-form .CodeMirror-scroll {
-  height: auto;
-  overflow-y: hidden;
-  overflow-x: auto;
+  height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
   width: 100%;
 }
 article.news {
