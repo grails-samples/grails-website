@@ -42,47 +42,48 @@ grails.project.dependency.resolution = {
         mavenRepo "https://repo.grails.org/grails/core"
         mavenRepo "https://oss.sonatype.org/content/repositories/releases/"
         mavenRepo "http://repo.spring.io/milestone"
+        mavenRepo "https://repository.jboss.org/maven2/"
     }
 
     plugins {
-        compile ":burning-image:0.5.1",
+        compile ":burning-image:0.5.2",
                 ":joda-time:1.5",
                 ":taggable:1.1.0"
 
         compile ":rateable:0.7.1", {
             excludes 'yui', 'svn'
         }
-        compile ":yui:2.8.2", {
+        compile ":yui:2.8.2.1", {
             excludes 'svn'
         }
 
-        runtime ":avatar:0.3",
+        runtime ":avatar:0.6.3",
                 ":rest-client-builder:2.0.3",
                 ":cache:1.1.8",
-                ":cache-headers:1.1.5",
+                ":cache-headers:1.1.7",
                 ":cached-resources:1.0",
                 ":database-migration:1.4.0",
-                ":disqus:0.2",
-                ":feeds:1.5",
-                ":greenmail:1.2.2",
+                ":disqus:0.3",
+                ":feeds:1.6",
+                ":greenmail:1.3.4",
                 ":hibernate:3.6.10.18",
                 ":jquery:1.11.1",
                 ":jquery-ui:1.10.4",
                 ":mail:1.0.7",
-                ":pretty-time:0.3",
-                ":quartz:1.0.1",
+                ":pretty-time:2.1.3.Final-1.0.1",
+                ":quartz:1.0.2",
                 ":resources:1.2.14",
                 ":searchable:0.6.9",
                 ":spring-events:1.2",
                 ":zipped-resources:1.0", {
                     excludes 'spring-test', 'cglib'
                 }
-        runtime ":shiro:1.2.0", {
+        runtime ":shiro:1.2.1", {
             exclude 'org.opensymphony.quartz:quartz'
         }
         runtime ":oauth:2.6.1"
 
-        runtime ":shiro-oauth:0.2", {
+        runtime ":shiro-oauth:0.3", {
             excludes 'shiro-core'
         }
 
@@ -96,8 +97,8 @@ grails.project.dependency.resolution = {
                     ":fixtures:1.3"
         }
 
-        compile ":platform-core:1.0.M6"
-        runtime ":cache-ehcache:1.0.0", { exclude "cache" }
+        compile ":platform-core:1.0.0"
+        runtime ":cache-ehcache:1.0.4", { exclude "cache" }
 
 
         test ":geb:0.10.0", {
