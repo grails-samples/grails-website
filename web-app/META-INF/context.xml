@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context contextPath="" cacheMaxSize="10240" cacheTTL="5000" cachingAllowed="true" swallowOutput="false">
-    <ResourceLink name="jdbc/grailsSiteDS" global="jdbc/grailsSiteDS" type="javax.sql.DataSource"/>
+<Context contextPath="">
+    <JarScanner scanClassPath="false" scanAllFiles="false" scanAllDirectories="false"/>
 </Context>
