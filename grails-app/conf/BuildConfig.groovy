@@ -106,7 +106,7 @@ grails.project.dependency.resolution = {
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:7.0.55"
+        build   ":tomcat:8.0.15"
         compile ":scaffolding:2.1.2"
     }
 
