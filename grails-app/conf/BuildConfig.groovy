@@ -98,7 +98,7 @@ grails.project.dependency.resolution = {
         }
 
         compile ":platform-core:1.0.0"
-        runtime ":cache-ehcache:1.0.4", { exclude "cache" }
+        runtime ":cache-ehcache:1.0.0", { exclude "cache" }
 
 
         test ":geb:0.10.0", {
