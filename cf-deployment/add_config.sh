@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$( dirname "${BASH_SOURCE[0]}")"
 if [ -d WEB-INF ]; then
    zip -r ../target/site-*.war WEB-INF
 else
