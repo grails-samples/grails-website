@@ -9,7 +9,7 @@ class UrlMappings {
         }
 
         "/Home?"(controller: "content", action: "homePage")
-        "/$id"(controller: "content", action: "index") {
+        "/content/$id"(controller: "content", action: "index") {
             constraints {
                 id notEqual: "dbconsole"
             }
