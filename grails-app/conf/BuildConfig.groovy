@@ -149,6 +149,8 @@ grails.project.dependency.resolution = {
         compile "org.springframework.cloud:spring-cloud-spring-service-connector:1.1.0.RELEASE"
 
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+
+        compile 'org.ajoberstar:grgit:0.4.0'
     }
 
 }
