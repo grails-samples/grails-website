@@ -61,7 +61,6 @@ grails.project.dependency.resolution = {
                 ":rest-client-builder:2.0.3",
                 ":cache:1.1.8",
                 ":cache-headers:1.1.7",
-                ":cached-resources:1.0",
                 ":database-migration:1.4.0",
                 ":disqus:0.3",
                 ":feeds:1.6",
@@ -72,12 +71,9 @@ grails.project.dependency.resolution = {
                 ":mail:1.0.7",
                 ":pretty-time:2.1.3.Final-1.0.1",
                 ":quartz:1.0.2",
-                ":resources:1.2.14",
                 ":searchable:0.6.9",
-                ":spring-events:1.2",
-                ":zipped-resources:1.0", {
-                    excludes 'spring-test', 'cglib'
-                }
+                ":spring-events:1.2"
+                
         runtime ":shiro:1.2.1", {
             exclude 'org.opensymphony.quartz:quartz'
         }
@@ -87,7 +83,8 @@ grails.project.dependency.resolution = {
             excludes 'shiro-core'
         }
 
-
+        compile ":asset-pipeline:2.1.0"
+        
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:2.2.3-SNAPSHOT",
                     ":fixtures:1.3"
