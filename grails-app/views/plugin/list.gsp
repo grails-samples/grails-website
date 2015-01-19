@@ -113,9 +113,9 @@
                 <g:paginate mapping="pluginList" total="${pluginCount}" max="10" params="${otherParams}" />
             </g:else>
         </section>
-        <r:script>
+        <asset:script>
             tagsInitialized = true
-        </r:script>
+        </asset:script>
     </section>
 </div>
 

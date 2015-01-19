@@ -2,7 +2,7 @@
     <meta content="master" name="layout"/>
     <title>Getting Started with Grails</title>
     <r:require modules="learn"/>
-    <r:script>
+    <asset:script>
         function loadPresentation(playerFrame) {
             if(window.location.href.indexOf("http://")>-1) {
                 playerFrame.attr('src', 'http://app.sliderocket.com/app/fullplayer.aspx?id=A0F94305-C30B-9EE9-2A1D-EB45AFEB183C');
@@ -38,7 +38,7 @@
                 clearPresentation($(this).find('iframe'));
             });
         });
-    </r:script>
+    </asset:script>
     <style>
     .modal .body {
         width: 660px;

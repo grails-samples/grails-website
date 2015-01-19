@@ -20,7 +20,7 @@
     <div id="release_container" class="release hide"></div>
 </section>
 
-<r:script>
+<asset:script>
 $(function() {
     $('.release_option').click(function() {
         $("#current_download").text($(this).text());
@@ -36,4 +36,4 @@ $(function() {
         }
     });
 });
-</r:script>
+</asset:script>

@@ -1,4 +1,4 @@
-<r:script>
+<asset:script>
     var tagsInitialized = false;
     var tags = [
         ${allTags.collect { "\"$it\""}.join(',')}
@@ -33,4 +33,4 @@
 
             window.location = link;
     }     
-</r:script>
+</asset:script>

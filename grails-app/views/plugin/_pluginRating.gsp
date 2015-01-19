@@ -2,7 +2,7 @@
 <div id="ratingCount${plugin.id}" class="ratingCount">${plugin.ratingCount} vote${plugin.ratingCount > 1 ? 's':''}</div>
 <div id="pluginRating${plugin.id}" class="rating"></div>
 
-<r:script>
+<asset:script>
 
     $('#pluginRating${plugin.id}').raty({path:'/img', readOnly:${plugin.userRating(request.user) ? true : false}, score:${plugin.avgRating ?: 0}, half:true, halfShow:true, click: function(score, evt) {
 
@@ -19,4 +19,4 @@
             window.location = "${createLink(controller:"user", action:"login", params:[targetUri:request.forwardURI])}";
         </g:else>
     }})
-</r:script>
+</asset:script>

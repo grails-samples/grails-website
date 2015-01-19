@@ -129,7 +129,7 @@
                     </fieldset>
 
                 </g:form>
-                <r:script>
+                <asset:script>
                     $(function () {
                         $('textarea').each(function(e) {
                             var myCodeMirror = CodeMirror.fromTextArea(this, {
@@ -142,12 +142,12 @@
                         })
 
                     });
-                </r:script>
+                </asset:script>
            </div>
         </article>
-        <r:script>
+        <asset:script>
             tagsInitialized = true
-        </r:script>
+        </asset:script>
 
     </section>
 </div>

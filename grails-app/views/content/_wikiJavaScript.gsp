@@ -1,4 +1,4 @@
-<r:script type="text/javascript">
+<asset:script type="text/javascript">
     var dmp = new diff_match_patch();
 
     function hideCommentPost() {
@@ -29,4 +29,4 @@
     function showPreview() {
         myYUI.appear('previewContainer')
     }
-</r:script>
+</asset:script>

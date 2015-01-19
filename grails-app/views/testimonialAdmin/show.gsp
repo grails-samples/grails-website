@@ -173,7 +173,7 @@
     </fieldset>
 </g:form>
 
-<r:script>
+<asset:script>
     $(function () {
         // Show preview of wiki content
         $('.preview').click(function() {
@@ -200,7 +200,7 @@
             return false;
         });
     });
-</r:script>
+</asset:script>
 
 </body>
 </html>

@@ -31,7 +31,7 @@
 </body>
 </html>
 
-<r:script type="text/javascript">
+<asset:script type="text/javascript">
 
     var dmp = new diff_match_patch();
 
@@ -52,7 +52,7 @@
 
     $(document).ready(showDiff)
 
-</r:script>
+</asset:script>
 
 
 

@@ -6,12 +6,12 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Search Results</title>
-    <r:script type="text/javascript">
+    <asset:script type="text/javascript">
 $(document).ready(function() {
     $("#quickSearch input[name='q']").val('${query.encodeAsJavaScript() ?: ''}');
     $("#quickSearch input[name='q']").focus();
 });
-    </r:script>
+    </asset:script>
 </head>
 <body>
 

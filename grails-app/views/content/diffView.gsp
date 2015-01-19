@@ -3,7 +3,7 @@
     <title>${content?.title}</title>
     <meta content="subpage" name="layout" />
 
-    <r:script type="text/javascript">
+    <asset:script type="text/javascript">
         var dmp = new diff_match_patch();
 
         function showDiff() {
@@ -21,7 +21,7 @@
             myYUI.appear('diffOutputDiv')
         }
 
-    </r:script>
+    </asset:script>
 </head>
 <body>
     <div id="contentPane">
@@ -40,9 +40,9 @@
         <div id="diffOutputDiv"></div>
 
         <g:render template="/common/messages_effects" model="${pageScope.getVariables()}" />
-        <r:script type="text/javascript">
+        <asset:script type="text/javascript">
             showDiff()
-        </r:script>
+        </asset:script>
     </div>
 </body>
 </html>

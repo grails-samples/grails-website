@@ -54,7 +54,7 @@
     <g:paginate total="${wikiPageInstanceTotal}"/>
 </div>
 
-<r:script>
+<asset:script>
     $(function () {
         // Redirect to the create wiki page
         $('#create-page').click(function() {
@@ -93,7 +93,7 @@
             return false;
         });
     });
-</r:script>
+</asset:script>
 
 </body>
 </html>

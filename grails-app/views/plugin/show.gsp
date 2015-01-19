@@ -104,9 +104,9 @@
                 </g:if>
             </div>
         </article>
-        <r:script>
+        <asset:script>
             tagsInitialized = true
-        </r:script>
+        </asset:script>
 
     </section>
 </div>

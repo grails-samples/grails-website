@@ -145,7 +145,7 @@
             </div>
             <h3 class="news-title" style="margin-top:67px">Training Events</h3>
             <div class='PivotalAdBannerDiv'></div>
-            <r:script>
+            <asset:script>
             (function() {
                 var s = document.createElement('script');
                 s.type = 'text/javascript';
@@ -154,7 +154,7 @@
                 var x = document.getElementsByTagName('script')[0];
                 x.parentNode.insertBefore(s, x);
             })();
-            </r:script>            
+            </asset:script>            
         </div>
     </div>
 </section>

@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<r:script>
+<asset:script>
 $(function() {
     CodeMirror.defineMode("gsp", function(config, parserConfig) {
         var gspOverlay = {
@@ -42,4 +42,4 @@ $(function() {
         wordWrap: true
     });
 })
-</r:script>
+</asset:script>

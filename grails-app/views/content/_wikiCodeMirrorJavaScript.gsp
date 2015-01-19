@@ -1,4 +1,4 @@
-<r:script>
+<asset:script>
     $(function () {
         var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('wikiPageBody'), {
             lineNumbers: true,
@@ -31,4 +31,4 @@
             return false;
         });
     });
-</r:script>
+</asset:script>

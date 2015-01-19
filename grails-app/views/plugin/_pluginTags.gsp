@@ -17,7 +17,7 @@
 <ul id="pluginTags${plugin.id}" data-plugin="${plugin.name}" style="display:none;">
     <g:each in="${plugin.tags}" var="tag"><li data-plugin="${plugin.name}">${tag}</li></g:each>    
 </ul>
-<r:script>
+<asset:script>
     var pluginTags = $('#pluginTags${plugin.id}')
     pluginTags.tagit({
         onTagAdded: onTagAddedFunction,
@@ -63,5 +63,5 @@
         });
 
     </g:if>
-</r:script>
+</asset:script>
 
