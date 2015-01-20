@@ -109,8 +109,6 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        build "org.lesscss:lesscss:1.3.0"
-
         compile "org.grails:grails-gdoc-engine:1.0.1"
         compile "org.springframework.social:spring-social-twitter:1.0.5.RELEASE",
                 "org.springframework:spring-context-support:$springVersion",
