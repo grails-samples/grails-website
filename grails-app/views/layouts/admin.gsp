@@ -7,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <r:require modules="admin"/>
-    <r:external uri="/img/favicon.ico"/>
-    <r:layoutResources/>
+    <asset:stylesheet src="admin"/>
+    <asset:javascript src="admin"/>
 
+    <link rel="shortcut icon" href="${resource(dir: 'img', file: 'favicon.ico')}" type="image/x-icon">
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -96,7 +96,7 @@
     <g:layoutBody/>
 </div>
 
-<r:layoutResources/>
+<asset:deferredScripts/>
 
 <script type="text/javascript">
     $(function() {

@@ -11,7 +11,7 @@
         }
 
       </style>
-      <r:layoutResources/>
+      <asset:deferredScripts/>
   </head>
 
   <body>
@@ -47,6 +47,6 @@
         }
         </script>
     </div>
-    <r:layoutResources/>
+    <asset:deferredScripts/>
   </body>
 </html>
