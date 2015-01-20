@@ -2,7 +2,7 @@
     <div align="center">
         <div class="innerFooter">
             <a href="http://www.jfrog.org/">
-                <r:img uri="/images/artifactory-logo.png" class="artifactory" alt="Artifactory logo" title="In association with JFrog"/>
+                <asset:image href="artifactory-logo.png" class="artifactory" alt="Artifactory logo" title="In association with JFrog"/>
             </a>
 	
             <a href="http://twitter.com/grailsframework"><div class="twitter"></div></a>

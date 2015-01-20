@@ -9,7 +9,7 @@
 <div id="contentArea">
 	
 	<div id="pluginsLogo">
-		<a href="http://grails.org"><r:img uri="/images/new/plugins/plugins_topnav2.png" border="0"/></a>			
+		<a href="http://grails.org"><asset:image href="new/plugins/plugins_topnav2.png" border="0"/></a>			
 	</div>	
 	
     <div id="pluginMenu">

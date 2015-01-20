@@ -6,13 +6,13 @@
     <ul class="wikiActionMenu">
         <li>
             <g:remoteLink class="actionIcon" action="editWikiPage" id="${wikiPage?.title}" update="${updateElement}" params="[_ul: updateElement]" method="GET" onLoaded="hideCommentPost()">
-                <r:img border="0" uri="/images/icon-edit.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
+                <asset:image border="0" href="icon-edit.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
                 <span>Edit</span>
             </g:remoteLink>
         </li>
         <li>
             <g:remoteLink class="actionIcon" action="index" id="${wikiPage?.title}" update="${updateElement}" params="[_ul: updateElement]" method="GET" onLoaded="showCommentPost()">
-                <r:img uri="/images/icon-info.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
+                <asset:image href="icon-info.png" width="15" height="15" alt="Icon Edit" class="inlineIcon" border="0" />
                 <span>View Page</span>
             </g:remoteLink>
         </li>
