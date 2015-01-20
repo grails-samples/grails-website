@@ -1,9 +1,5 @@
 <%@ page import="org.grails.community.Testimonial" %>
 
-<r:require modules="codeMirror, fancyBox, imageUpload, wikiEditor" />
-
-
-
 <div class="control-group">
     <label class="control-label">Submitter</label>
 

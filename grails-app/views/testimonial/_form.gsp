@@ -1,7 +1,5 @@
 <%@ page import="org.grails.community.Testimonial" %>
 
-<r:require modules="codeMirror, fancyBox, imageUpload, wikiEditor" />
-
 <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'title', 'error')} required">
         <label class="control-label" for="title">
             <g:message code="testimonial.title.label" default="Title" />

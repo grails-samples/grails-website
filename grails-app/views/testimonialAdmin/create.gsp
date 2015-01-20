@@ -7,6 +7,11 @@
     <meta name="layout" content="admin"/>
     <g:set var="entityName" value="${message(code: 'testimonial.label', default: 'Testimonial')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
+    <asset:stylesheet src="codeMirror.css"/>
+    <asset:stylesheet src="fancyBox.css"/>
+    <asset:javascript src="fancyBox.js"/>
+    <asset:javascript src="imageUpload.js"/>
+    <asset:javascript src="wikiEditor.js"/>
 </head>
 
 <body>
