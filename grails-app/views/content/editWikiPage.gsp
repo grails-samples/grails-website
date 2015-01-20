@@ -1,7 +1,12 @@
 <head>
     <title><g:message code="wiki.edit.title" args="${[wikiPage?.title]}"/></title>
     <meta content="master" name="layout"/>
-    <r:require modules="content, codeMirror, fancyBox,imageUpload, wikiEditor"/>
+    <asset:stylesheet src="codeMirror"/>
+    <asset:javascript src="codeMirror"/>
+    <asset:stylesheet src="fancyBox"/>
+    <asset:javascript src="fancyBox"/>
+    <asset:javascript src="imageUpload"/>
+    <asset:javascript src="wikiEditor"/>
 </head>
 
 <body>

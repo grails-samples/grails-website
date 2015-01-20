@@ -1,7 +1,11 @@
 <head>
     <title><g:message code="wiki.edit.title" args="${[content?.title]}"/></title>
     <meta content="master" name="layout"/>
-    <r:require modules="content, codeMirror, fancyBox, diffmatch"/>
+    <asset:stylesheet src="codeMirror"/>
+    <asset:javascript src="codeMirror"/>
+    <asset:stylesheet src="fancyBox"/>
+    <asset:javascript src="fancyBox"/>
+    <asset:javascript src="diff_match_patch"/>
 </head>
 
 <body>

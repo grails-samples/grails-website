@@ -8,8 +8,8 @@
     <meta name="layout" content="admin"/>
     <g:set var="entityName" value="${message(code: 'testimonial.label', default: 'Testimonial')}"/>
     <title><g:message code="default.show.label" args="[entityName]"/></title>
-    <r:require modules="fancyBox"/>
-
+    <asset:stylesheet src="fancyBox"/>
+    <asset:javascript src="fancyBox"/>
 </head>
 
 <body>

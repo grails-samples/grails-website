@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Grails Communication Channels</title>
-    <r:require modules="community"/>
 </head>
 
 <body>

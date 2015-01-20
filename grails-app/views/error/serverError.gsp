@@ -2,7 +2,7 @@
 <head>
     <title>Grails.org Error</title>
     <meta content="master" name="layout" />
-    <r:require modules="errors"/>
+    <asset:stylesheet src="errors"/>
 </head>
   
 <body>

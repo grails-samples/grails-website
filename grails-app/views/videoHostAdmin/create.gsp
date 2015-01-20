@@ -3,7 +3,8 @@
 <head>
     <title>Add Video Host</title>
     <meta name="layout" content="admin"/>
-    <r:require modules="codeMirror"/>
+    <asset:stylesheet src="codeMirror"/>
+    <asset:javascript src="codeMirror"/>
     <style type="text/css">
         .CodeMirror {
             border: 1px solid #eee;

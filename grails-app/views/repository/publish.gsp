@@ -2,7 +2,8 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Publish Plugin</title>
-    <r:require modules="plugin"/>
+    <asset:stylesheet src="plugin"/>
+    <asset:javascript src="plugin"/>
 </head>
 
 <body>

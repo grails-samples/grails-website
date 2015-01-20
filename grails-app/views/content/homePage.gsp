@@ -1,6 +1,5 @@
 <head>
     <meta content="master" name="layout"/>
-    <r:require modules="homepage"/>
 
     <%-- RSS feeds --%>
     <link rel="alternate" type="application/rss+xml" title="Wiki Updates RSS 2.0" href="/wiki/latest?format=rss"/>

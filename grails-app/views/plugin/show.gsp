@@ -2,7 +2,8 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Grails Plugin: ${plugin.title.encodeAsHTML()}</title>
-    <r:require modules="plugin"/>
+    <asset:stylesheet src="plugin"/>
+    <asset:javascript src="plugin"/>
     <g:render template="tagSetup" model="[allTags:allTags]" />
 </head>
 

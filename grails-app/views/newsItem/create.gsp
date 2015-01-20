@@ -1,9 +1,11 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Submit a Grails News Item</title>
-    <r:require modules="content, codeMirror, fancyBox"/>
+    <asset:stylesheet src="codeMirror"/>
+    <asset:javascript src="codeMirror"/>
+    <asset:stylesheet src="fancyBox"/>
+    <asset:javascript src="fancyBox"/>
 </head>
-
 <body>
 
 <div id="content" class="content-aside" role="main">

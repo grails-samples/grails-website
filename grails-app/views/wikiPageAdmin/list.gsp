@@ -3,7 +3,8 @@
 <head>
     <title>Wiki Page List</title>
     <meta name="layout" content="admin"/>
-    <r:require modules="fancyBox"/>
+    <asset:stylesheet src="fancyBox.css"/>
+    <asset:javascript src="fancyBox.js"/>
 </head>
 <body>
 

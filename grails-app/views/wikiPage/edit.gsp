@@ -7,7 +7,10 @@
     <meta name="layout" content="admin"/>
     <g:set var="entityName" value="${message(code: 'wikiPage.label', default: 'WikiPage')}"/>
     <title><g:message code="default.edit.label" args="[entityName]"/></title>
-    <r:require modules="codeMirror, fancyBox"/>
+    <asset:stylesheet src="codeMirror.css"/>
+    <asset:javascript src="codeMirror.js"/>
+    <asset:stylesheet src="fancyBox.css"/>
+    <asset:javascript src="fancyBox.js"/>    
 </head>
 
 <body>

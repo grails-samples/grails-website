@@ -1,7 +1,8 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Submit a Grails Plugin for Approval</title>
-    <r:require modules="plugin"/>
+    <asset:stylesheet src="plugin"/>
+    <asset:javascript src="plugin"/>
 </head>
 
 <body>

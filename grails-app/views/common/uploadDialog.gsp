@@ -3,8 +3,7 @@
   <head>
       <title>Upload dialog</title>
 
-      <r:require modules="upload"/>
-      <asset:deferredScripts/>
+      <asset:javascript src="imageUpload"/>
 
       <style type="text/css">
         body {

@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>The Grails Community</title>
-    <r:require modules="community"/>
 </head>
 
 <body>

@@ -1,7 +1,6 @@
 <head>
     <title>Wiki - ${content?.title}</title>
     <meta content="master" name="layout"/>
-    <r:require modules="content"/>
 </head>
 
 <body>

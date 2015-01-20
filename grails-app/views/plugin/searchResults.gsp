@@ -1,7 +1,8 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Grails Plugin Search Results</title>
-    <r:require modules="plugin"/>
+    <asset:stylesheet src="plugin"/>
+    <asset:javascript src="plugin"/>
 </head>
 
 <body>

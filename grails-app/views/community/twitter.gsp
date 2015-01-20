@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Grails on Twitter</title>
-    <r:require modules="community"/>
 </head>
 
 <body>

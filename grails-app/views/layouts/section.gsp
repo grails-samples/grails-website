@@ -1,7 +1,6 @@
 <g:applyLayout name="master">
 <head>
     <title><g:layoutTitle/></title>
-    <r:require modules="section"/>
     <g:layoutHead />
 </head>
 <body>

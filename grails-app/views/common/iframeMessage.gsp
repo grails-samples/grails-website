@@ -2,7 +2,7 @@
 <html>
   <head>
       <title>Message</title>
-      <r:require modules="upload"/>
+      <asset:javascript src="imageUpload"/>
       <style type="text/css">
         #message {
             font-size: 0.9em;
@@ -11,7 +11,6 @@
         }
 
       </style>
-      <asset:deferredScripts/>
   </head>
 
   <body>

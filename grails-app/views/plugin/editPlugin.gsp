@@ -2,8 +2,12 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Edit Plugin: ${plugin.title.encodeAsHTML()}</title>
-    <r:require modules="plugin"/>
-    <r:require modules="content, codeMirror, fancyBox"/>
+    <asset:stylesheet src="codeMirror"/>
+    <asset:javascript src="codeMirror"/>
+    <asset:stylesheet src="fancyBox"/>
+    <asset:javascript src="fancyBox"/>
+    <asset:stylesheet src="plugin"/>
+    <asset:javascript src="plugin"/>
     <g:render template="tagSetup" model="[allTags:allTags]" />
     <style type="text/css">
         .wiki-form  .CodeMirror {
