@@ -293,3 +293,6 @@ log4j = {
 
 // databinding config
 grails.databinding.convertEmptyStringsToNull=false
+
+// exclude some assets from default precompilation, these assets get included
+grails.assets.excludes = ['**/bootstrap/**', '**/font-awesome/**', '**/grails-*.less', '**/responsive/**', '**/libs/**', '**/fancybox/**']
