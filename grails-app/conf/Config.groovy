@@ -7,19 +7,6 @@ grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appN
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
-grails.resources.adhoc.patterns = ["/images/*", "/css/*", "/js/*", "/less/*", "/fancybox/*", "/images/*", "/font-awesome/*"]
-grails.resources.adhoc.includes = ['/images/**', '/css/**', '/js/**', '/less/**', '/fancybox/**', '/images/**', '/font-awesome/**', '/plugins/**']
-grails.resources.adhoc.excludes = [ "**/*.swp", '**/WEB-INF/**', '**/META-INF/**', '**/*.class', '**/*.jar', '**/*.properties', '**/*.groovy', '**/*.gsp', '**/*.java']
-
-// Fixes reloading bug in Zipped Resources (GPZIPPEDRESOURCES-3) that means
-// that modifying LESS files has no impact on the running app. This also
-// fixes the exclusions for images (GPZIPPEDRESOURCES-1).
-grails.resources.mappers.zip.excludes = ["**/*.png","**/*.gif","**/*.jpg", "**/*.less"]
-
-// Don't cache LESS files. Since they are converted to CSS when the WAR is created,
-// this is fine - we don't need caching in dev mode.
-grails.resources.mappers.hashandcache.excludes = ['**/*.less']
-
 
 wiki.supported.upload.types = ['image/png','image/jpg','image/jpeg','image/gif']
 // location of plugins-list.xml
@@ -292,8 +279,6 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 
 // log4j configuration
 log4j = {
-    off     'grails.app.service.org.grails.plugin.resource'
-
     error   'org.hibernate'
 
     warn    'org.codehaus.groovy.grails.web.servlet',
