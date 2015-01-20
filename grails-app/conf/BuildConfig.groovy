@@ -84,6 +84,7 @@ grails.project.dependency.resolution = {
         }
 
         compile ":asset-pipeline:2.1.0"
+        compile ":less-asset-pipeline:2.0.8"
         
         if (Environment.current == Environment.DEVELOPMENT) {
             compile ":build-test-data:2.2.3-SNAPSHOT",
