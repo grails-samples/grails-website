@@ -32,9 +32,6 @@
     <link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
 
-    <g:if test="${Environment.developmentMode}">
-        <g:external dir="js" file="less-1.3.0.min.js" />
-    </g:if>
     <g:layoutHead/>
 </head>
 
