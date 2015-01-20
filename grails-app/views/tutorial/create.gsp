@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Submit a Grails Tutorial</title>
-    <r:require modules="learn"/>
 </head>
 
 <body>

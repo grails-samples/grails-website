@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Grails Screencasts</title>
-    <r:require modules="learn"/>
 </head>
 
 <body>

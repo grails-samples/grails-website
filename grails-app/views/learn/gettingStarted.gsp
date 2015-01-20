@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Getting Started with Grails</title>
-    <r:require modules="learn"/>
     <asset:script>
         function loadPresentation(playerFrame) {
             if(window.location.href.indexOf("http://")>-1) {

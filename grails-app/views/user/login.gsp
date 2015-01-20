@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta content="master" name="layout"/>
-    <r:require modules="auth"/>
 </head>
 <body>
 

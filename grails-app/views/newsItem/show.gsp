@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Grails News: ${newsItem?.title?.encodeAsHTML()}</title>
-    <r:require modules="content"/>
 </head>
 
 <body>

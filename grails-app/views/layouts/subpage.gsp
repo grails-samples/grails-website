@@ -1,7 +1,6 @@
 <g:applyLayout name="main">
 <head>
     <title><g:layoutTitle/></title>
-    <r:require modules="subpage"/>
     <g:layoutHead />
 
     <g:render template="/common/messages_effects" model="${pageScope.getVariables()}"/>

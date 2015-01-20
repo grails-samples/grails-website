@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Web Site Submission Received</title>
-    <r:require modules="community"/>
 </head>
 
 <body>

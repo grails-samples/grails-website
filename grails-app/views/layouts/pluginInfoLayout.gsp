@@ -1,8 +1,6 @@
 <g:applyLayout name="main">
 <head>
     <title><g:layoutTitle /></title>
-    <r:require modules="pluginInfo"/>
-
     <content tag="pageCss">
         <g:pageProperty name="page.pageCss" />
     </content>

@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Web Sites Using Grails</title>
-    <r:require modules="community"/>
 </head>
 
 <body>

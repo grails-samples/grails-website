@@ -1,7 +1,6 @@
 <html>
 <head>
     <meta name="layout" content="master">
-    <r:require modules="auth"/>
 </head>
 
 <body>

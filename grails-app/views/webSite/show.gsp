@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Web Site: ${webSiteInstance.title.encodeAsHTML()}</title>
-    <r:require modules="community"/>
     <style type="text/css">
         .actionIcon {
             float:left;

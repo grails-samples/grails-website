@@ -1,8 +1,6 @@
 <g:applyLayout name="pluginInfoLayout">
 <head>
     <title><g:layoutTitle default="Plugin - ${plugin.title}" /></title>
-    <r:require modules="pluginDetails"/>
-
     <g:layoutHead />
 
     <g:render template="../content/wikiJavaScript"/>    

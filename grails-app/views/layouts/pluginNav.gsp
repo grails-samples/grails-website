@@ -3,7 +3,6 @@
     <content tag="pageCss">
         <g:pageProperty name="page.pageCss"/>
     </content>
-    <r:require modules="pluginNav"/>
 </head>
 <body>
 <div id="contentArea">

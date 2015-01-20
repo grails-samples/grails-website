@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Grails Tutorial: ${tutorialInstance.title.encodeAsHTML()}</title>
-    <r:require modules="learn"/>
 </head>
 
 <body>

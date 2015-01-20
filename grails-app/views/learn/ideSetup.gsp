@@ -1,7 +1,6 @@
 <head>
     <meta content="master" name="layout"/>
     <title>Setting up an IDE for Grails</title>
-    <r:require modules="learn"/>
 </head>
 
 <body>
