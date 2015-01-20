@@ -67,7 +67,7 @@ $(document).ready(function() {
                                 <g:set var="desc" value="${result.body}"/>
                             </g:elseif>
                             <g:elseif test="${result instanceof org.compass.core.lucene.LuceneResource}">
-                                <h4><a href="${resource(dir: 'doc/latest', file: result.url[0].stringValue)}">${result.title[0].stringValue}</a>
+                                <h4><a href="${createLink(uri: "/doc/latest/${result.url[0].stringValue}")}">${result.title[0].stringValue}</a>
                                 <g:set var="desc" value="${searchResult.highlights[index] ?: result.body[0].stringValue}"/></h4>
                             </g:elseif>
                             <g:else>

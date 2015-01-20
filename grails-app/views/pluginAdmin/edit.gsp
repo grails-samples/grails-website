@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="btn info home" href="${resource(dir:'')}">Home</a></span>
+            <span class="menuButton"><a class="btn info home" href="${createLink(uri:'/')}">Home</a></span>
             <span class="menuButton"><g:link class="list btn info" action="list">Plugin List</g:link></span>
             <span class="menuButton"><g:link class="create btn info" action="create">New Plugin</g:link></span>
         </div>
