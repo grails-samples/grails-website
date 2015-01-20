@@ -19,4 +19,7 @@ div.hint {
 }
 .pagination .prevLink {
     border-left: 1px solid #DDD !important;
-}
+}/*
+*= require bootstrap.css
+*= require bootstrap-responsive.css
+*/
