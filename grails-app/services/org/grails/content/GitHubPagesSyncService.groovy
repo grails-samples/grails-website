@@ -12,9 +12,8 @@ import org.springframework.context.ApplicationListener
 import org.springframework.context.event.ApplicationContextEvent
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.ContextStoppedEvent
-import org.springframework.web.context.ServletContextAware
 
-class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEvent>, ServletContextAware {
+class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEvent> {
     static transactional=false
     
     String originUrl = "https://github.com/grails/grails-static-website"
@@ -30,6 +29,9 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
     
     void checkoutPages() {
         log.info "Checking out $originUrl to $rootDir"
+        if(!rootDir.exists()) {
+            rootDir.mkdirs()
+        }
         File gitDir = new File(rootDir, ".git")
         boolean firstCheckout=false
         if(!gitDir.exists()) {
@@ -50,13 +52,6 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
         }
     }
     
-    @Override
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext
-        def rootPath = servletContext.getRealPath("/")
-        rootDir = new File(rootPath)
-        
-    }
     
     private synchronized void updateLoop() {
         loopRunning = true
@@ -76,6 +71,9 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
     @Override
     public void onApplicationEvent(ApplicationContextEvent event) {
         if(event instanceof ContextRefreshedEvent && !loopRunning) {
+            if(rootDir==null) {
+                rootDir=new File(System.getProperty("user.home"), ".grails-static-website")
+            }
             requestCheckoutPages()
             Thread.startDaemon("GitHubPagesSyncService-Thread") {
                 updateLoop()
