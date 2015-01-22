@@ -3,7 +3,7 @@ applications:
 - name: plugins-grails-org-dev
   memory: 2G
   instances: 1
-  path: target/site-2.3.4.war
+  path: target/grails-website.war
   timeout: 120
   buildpack: https://github.com/grails-samples/java-buildpack.git#grails-website
 env:

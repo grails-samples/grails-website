@@ -7,7 +7,7 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.work.dir = "target/work"
 grails.project.target.level = 1.7
 grails.project.source.level = 1.7
-//grails.project.war.file = "target/${appName}-${appVersion}.war"
+grails.project.war.file = "target/grails-website.war"
 grails.project.plugins.dir = "target/plugins"
 
 grails.project.fork = [

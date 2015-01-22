@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$( dirname "${BASH_SOURCE[0]}")"
 if [ -d WEB-INF ]; then
-   zip -r ../target/site-*.war WEB-INF
+   zip -r ../target/grails-website.war WEB-INF
 else
    mkdir -p WEB-INF/classes
    echo 'grails.serverURL="http://staging.grails.org/"' > WEB-INF/classes/site-config.groovy
