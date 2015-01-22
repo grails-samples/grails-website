@@ -8,7 +8,7 @@ class UrlMappings {
             '/greenmail'(controller: 'greenmail', action: 'list')
         }
 
-        "/Home?"(controller: "content", action: "homePage")
+        "/Home"(controller: "content", action: "homePage")
         "/content/$id"(controller: "content", action: "index") {
             constraints {
                 id notEqual: "dbconsole"
