@@ -86,14 +86,8 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:2.1.0"
         compile ":less-asset-pipeline:2.0.8"
         
-        if (Environment.current == Environment.DEVELOPMENT) {
-            compile ":build-test-data:2.2.3-SNAPSHOT",
-                    ":fixtures:1.3"
-        }
-        else {
-            test    ":build-test-data:2.2.3-SNAPSHOT",
-                    ":fixtures:1.3"
-        }
+        String build_test_data_scope = (Environment.current == Environment.DEVELOPMENT) ? "compile" : "test"
+        "$build_test_data_scope" ":build-test-data:2.2.3", ":fixtures:1.3"
 
         compile ":platform-core:1.0.0"
         runtime ":cache-ehcache:1.0.0", { exclude "cache" }
