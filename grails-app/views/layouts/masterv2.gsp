@@ -38,39 +38,6 @@
 <body>
 
 <div id="page">
-    <header id="header" role="banner">
-        <h1 id="logo"><a href="/">Grails 2.0</a></h1>
-        <ul class="topLinks nav pills">
-            <shiro:isLoggedIn>
-                <li><a href="/logout">Logout</a></li>
-                <li class="spacing">&nbsp;</li>
-                <li class="current-user"><g:link uri="/profile"><b>${user?.login}</b> (${user?.email})</g:link></li>
-            </shiro:isLoggedIn>
-            <shiro:isNotLoggedIn>
-                <li><a href="/login?targetUri=${request.forwardURI}" class="login">Login</a></li>
-                <li class="spacing">&nbsp;</li>
-                <li><a href="/register">Create Account</a></li>
-            </shiro:isNotLoggedIn>
-        </ul>
-
-        <div class="spring">
-            <a href="http://www.pivotal.io/" class="springSource">Pivotal</a>
-        </div>
-
-        <div id="quickSearch" role="search">
-           <g:form name="globalSearchForm" controller="content" action="search" method="get">
-            <div class="inputSearch">
-                <input name="q" type="text" placeholder="Search on grails.org" />
-            </div>
-           <button type="submit" title="Search the whole site" class="btn gray">
-               <i class="icon-search"></i>
-           </button>
-            </g:form>
-        </div>
-    </header>
-
-    <g:render template="/layouts/navigation" />
-
     <g:layoutBody/>
 
     <footer id="footer" role="contentinfo">
