@@ -53,10 +53,6 @@
             </shiro:isNotLoggedIn>
         </ul>
 
-        <div class="spring">
-            <a href="http://www.pivotal.io/" class="springSource">Pivotal</a>
-        </div>
-
         <div id="quickSearch" role="search">
            <g:form name="globalSearchForm" controller="content" action="search" method="get">
             <div class="inputSearch">
