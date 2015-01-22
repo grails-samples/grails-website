@@ -152,3 +152,8 @@ grails.project.dependency.resolution = {
 }
 
 grails.project.fork.war.jvmArgs = [ '-Dinitial.admin.password=changeit', '-Dload.fixtures=1' ]
+
+// make sure ~/.grails-static-website directory exists since META-INF/context.xml references it
+new File(System.getProperty("user.home"), ".grails-static-website").mkdir()
+
+
