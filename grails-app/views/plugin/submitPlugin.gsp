@@ -1,5 +1,5 @@
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Submit a Grails Plugin for Approval</title>
     <asset:stylesheet src="plugin"/>
     <asset:javascript src="plugin"/>

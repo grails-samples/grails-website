@@ -1,6 +1,6 @@
 <%@ page import="org.apache.shiro.SecurityUtils; org.grails.auth.Role" %>
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Grails Plugin: ${plugin.title.encodeAsHTML()}</title>
     <asset:stylesheet src="plugin"/>
     <asset:javascript src="plugin"/>

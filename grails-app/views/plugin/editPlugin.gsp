@@ -1,6 +1,6 @@
 <%@ page import="org.grails.plugin.Plugin" %>
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Edit Plugin: ${plugin.title.encodeAsHTML()}</title>
     <asset:stylesheet src="codeMirror"/>
     <asset:javascript src="codeMirror"/>
