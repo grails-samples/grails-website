@@ -54,3 +54,5 @@ dataSource {
        defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
     }
 }
+
+grails.plugin.excludes = ['javaBuildpackAutoReconfiguration']
