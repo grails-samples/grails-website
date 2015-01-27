@@ -1,4 +1,4 @@
-grails.plugin.location.like = "${basedir}/sub-plugins/like"
+grails.plugin.location.like = "${basedir}/inline-plugins/like"
 
 grails.servlet.version = "3.0" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
