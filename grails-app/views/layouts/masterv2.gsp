@@ -1,20 +1,7 @@
-<%@page import="grails.util.Environment" %>
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
-<head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8">
-    <meta name="robots" content="NOODP">
-    <meta name="description" content="Grails is a high-productivity web framework based on the Groovy language that embraces the coding by convention paradigm, but is designed specifically for the Java platform.">
-    <meta name="author" content="Grails community">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%@page import="grails.util.Environment" 
+%><g:set var="titlepart"><g:layoutTitle default="Grails - The search is over."/></g:set><g:set var="headpart"> 
     <asset:javascript src="master.js"/>
     <asset:stylesheet src="master.css"/>
-    <title><g:layoutTitle default="Grails - The search is over."/></title>
-
     <g:if test="${Environment.current != Environment.PRODUCTION}">
         <script>
             var disqus_developer = 1;
@@ -33,11 +20,7 @@
     <link href='https://fonts.googleapis.com/css?family=Magra:400' rel='stylesheet' type='text/css'>
 
     <g:layoutHead/>
-</head>
-
-<body>
-
-<div id="page">
+</g:set><g:set var="bodypart">
     <g:layoutBody/>
 
     <footer id="footer" role="contentinfo">
@@ -57,23 +40,8 @@
             <li class="last"><a class="artifactory" href="http://www.jfrog.com/">Artifactory</a></li>
         </ul>
     </footer>
-
-</div>
-
+</g:set><g:set var="bodyendpart">
 <asset:deferredScripts/>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-2728886-12']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 <script type="text/javascript">
 (function() {
   var didInit = false;
@@ -96,8 +64,4 @@
   document.getElementsByTagName('head')[0].appendChild(s);
 })();
 </script>
-
-<!-- Copyright 2009 - 2012 SpringSource -->
-
-</body>
-</html>
+</g:set><stemplate:render template="/templates/plugins.html" parts="[head: headpart, title: titlepart, maincontent: bodypart, bodyend: bodyendpart]" />
