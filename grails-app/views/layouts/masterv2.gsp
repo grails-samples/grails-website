@@ -21,6 +21,7 @@
 
     <g:layoutHead/>
 </g:set><g:set var="bodypart">
+<div id="page">
     <g:layoutBody/>
 
     <footer id="footer" role="contentinfo">
@@ -40,6 +41,7 @@
             <li class="last"><a class="artifactory" href="http://www.jfrog.com/">Artifactory</a></li>
         </ul>
     </footer>
+</div>
 </g:set><g:set var="bodyendpart">
 <asset:deferredScripts/>
 <script type="text/javascript">
