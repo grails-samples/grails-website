@@ -9,7 +9,7 @@
         *margin-bottom: -3px;
         border: 1px solid transparent;
         padding: 4px;
-        .border-radius(@radius);
+        border-radius: @radius;
         margin:0;
         text-decoration: none;
         &:hover {
@@ -111,7 +111,7 @@
   list-style: none;
   background-color: @white;
   border: 1px solid rgba(0,0,0,.2);
-  .border-radius(0 0 @radius @radius);
+  border-radius: 0 0 @radius @radius;
   .box-shadow(0 5px 10px rgba(0,0,0,.2));
   -webkit-background-clip: padding-box;
      -moz-background-clip: padding;
@@ -166,5 +166,5 @@
 }
 .typeahead {
   margin-top: 2px;
-  .border-radius(4px);
+  border-radius: 4px;
 }

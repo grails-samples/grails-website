@@ -51,7 +51,7 @@ h2 {
 /* Content Single */
 .content-single {
     background: white;
-    .border-radius(5px);
+    border-radius: 5px;
     #main {
         padding: 15px 20px;
     }
@@ -61,13 +61,13 @@ h2 {
 .content-aside {
 	@widthAside: 260px;
     background: white;
-    .border-radius(5px);
+    border-radius: 5px;
 
     .content-aside-title, .content-title {
         position: relative;
         background: white;
         border-bottom: 1px solid #CCC;
-        .border-radius(@radius @radius 0 0);
+        border-radius: @radius @radius 0 0;
         .box-shadow(inset 0 1px 0 rgba(255,255,255,.8));
         #gradient >.vertical(#F9F9F9, #EEE);
         padding: 15px 0px 12px;
@@ -114,7 +114,7 @@ h2 {
         padding: 10px;
 		float: right;
 		article {
-			.border-radius(@radius);
+			border-radius: @radius;
 			background: white;
 			margin-bottom: 15px;
             padding: 0 10px;
@@ -136,7 +136,7 @@ h2 {
 			.btn {
 				padding: 0 20px;
 				line-height: 37px;
-				.border-radius(40px);                                     
+				border-radius: 40px;                                     
 				width: 150px;
 				border-right: 1px solid #356017;
 			}
@@ -147,7 +147,7 @@ h2 {
 		width: @widthAside - 1;
 		float: left;
         aside:first-child {
-            h3 {.border-radius(6px 0 0 0);}
+            h3 {border-radius: 6px 0 0 0;}
         }
 		aside {
 			margin: 0;
@@ -238,7 +238,7 @@ ul.list-links {
 	margin-top: 20px;
 	padding: 5px 15px;
 	background: @grailsGrayWhite;
-	.border-radius(@radius);
+	border-radius: @radius;
 	position: relative;
 	font-size: @baseFontSize - 1;
 	h2 {
@@ -369,7 +369,7 @@ a.like {
 
 .content-form-small {
 	background: @white;
-	.border-radius(@radius);
+	border-radius: @radius;
 	width: 310px;
 	margin: 0 auto;
 	padding: 10px 20px;
@@ -394,7 +394,7 @@ a.like {
         padding-bottom: 5px;
         line-height: 20px;
         background: @grailsGrayWhite;
-        .border-radius(@radius);
+        border-radius: @radius;
         #textshadow > .white(1);
     }
 }
@@ -516,14 +516,14 @@ form.search {
     input {
         float: left;
         width: 202px;
-        .border-radius(3px 0 0 3px);
+        border-radius: 3px 0 0 3px;
         border-right: 0 none;
     }
     a.btn-search {
         float: left;
         width: 16px;
         padding: 7px 10px 6px;
-        .border-radius(0 6px 6px 0);
+        border-radius: 0 6px 6px 0;
     }
 }
 
@@ -534,7 +534,7 @@ form.search {
         border-top: 4px solid @grailsGrayWhite;
         margin: 0;
         background: white;
-        .border-radius(@radius);
+        border-radius: @radius;
         .clearfix();
 
         a.like {
