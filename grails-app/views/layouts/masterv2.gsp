@@ -24,7 +24,7 @@
 <div id="page">
     <g:layoutBody/>
 
-    <footer id="footer" role="contentinfo">
+    <footer id="plugins-footer" role="contentinfo">
         <div class="buildWithGrails">
             Built with Grails <g:meta name="app.grails.version" />
         </div>

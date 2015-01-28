@@ -1,4 +1,4 @@
-<div id="footer">
+<div id="plugins-footer">
     <div align="center">
         <div class="innerFooter">
             <a href="http://www.jfrog.org/">
