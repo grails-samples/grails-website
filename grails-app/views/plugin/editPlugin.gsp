@@ -36,7 +36,7 @@
                 </h1>
                 <ul class="meta">
                     <li>
-                        <g:render template="pluginTags" model="[plugin:plugin]" />
+                        <g:render template="pluginTags" model="[plugin:plugin, enableEdit:true]" />
                     </li>
                     <li>Current release: <strong>${plugin.currentRelease.encodeAsHTML()}</strong> • Grails version: ${plugin.grailsVersion.encodeAsHTML() ?: '*'}</li>
                     <li>Authors: <%= plugin.authors.collect { it.name.encodeAsHTML() }.join(', ') %></li>
