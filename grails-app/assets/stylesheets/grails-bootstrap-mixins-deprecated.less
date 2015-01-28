@@ -1,0 +1,91 @@
+// FONTS
+// --------------------------------------------------
+
+#font {
+  #family {
+    .serif() {
+      font-family: @serifFontFamily;
+    }
+    .sans-serif() {
+      font-family: @sansFontFamily;
+    }
+    .monospace() {
+      font-family: @monoFontFamily;
+    }
+  }
+  .shorthand(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
+    font-size: @size;
+    font-weight: @weight;
+    line-height: @lineHeight;
+  }
+  .serif(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
+    #font > #family > .serif;
+    #font > .shorthand(@size, @weight, @lineHeight);
+  }
+  .sans-serif(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
+    #font > #family > .sans-serif;
+    #font > .shorthand(@size, @weight, @lineHeight);
+  }
+  .monospace(@size: @baseFontSize, @weight: normal, @lineHeight: @baseLineHeight) {
+    #font > #family > .monospace;
+    #font > .shorthand(@size, @weight, @lineHeight);
+  }
+}
+
+// IE7 inline-block
+// ----------------
+.ie7-inline-block() {
+  *display: inline; /* IE7 inline-block hack */
+  *zoom: 1;
+}
+
+// IE7 likes to collapse whitespace on either side of the inline-block elements.
+// Ems because we're attempting to match the width of a space character. Left
+// version is for form buttons, which typically come after other elements, and
+// right version is for icons, which come before. Applying both is ok, but it will
+// mean that space between those elements will be .6em (~2 space characters) in IE7,
+// instead of the 1 space in other browsers.
+.ie7-restore-left-whitespace() {
+  *margin-left: .3em;
+
+  &:first-child {
+    *margin-left: 0;
+  }
+}
+
+.ie7-restore-right-whitespace() {
+  *margin-right: .3em;
+
+  &:last-child {
+    *margin-left: 0;
+  }
+}
+
+
+// Mixin for form field states
+.formFieldState(@textColor: #555, @borderColor: #ccc, @backgroundColor: #f5f5f5) {
+  // Set the text color
+  > label,
+  .help-block,
+  .help-inline {
+    color: @textColor;
+  }
+  // Style inputs accordingly
+  input,
+  select,
+  textarea {
+    color: @textColor;
+    border-color: @borderColor;
+    &:focus {
+      border-color: darken(@borderColor, 10%);
+      .box-shadow(0 0 6px lighten(@borderColor, 20%));
+    }
+  }
+  // Give a small background color for input-prepend/-append
+  .input-prepend .add-on,
+  .input-append .add-on {
+    color: @textColor;
+    background-color: @backgroundColor;
+    border-color: @textColor;
+  }
+}
