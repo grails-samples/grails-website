@@ -6,8 +6,8 @@
     <asset:javascript src="codeMirror"/>
     <asset:stylesheet src="fancyBox"/>
     <asset:javascript src="fancyBox"/>
-    <asset:stylesheet src="plugin"/>
-    <asset:javascript src="plugin"/>
+    <asset:stylesheet src="plugin-edit"/>
+    <asset:javascript src="plugin-edit"/>
     <g:render template="tagSetup" model="[allTags:allTags]" />
     <style type="text/css">
         .wiki-form  .CodeMirror {

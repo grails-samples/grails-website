@@ -8,6 +8,7 @@
     </g:else>
 </span>
 
+<g:if test="${enableEdit}">
 <g:if test="${request.user != null}">
     <a href="#" id="plugin-tag-edit${plugin.id}"><img src="/img/icons/edit-tag.png"  /></a>
 </g:if>
@@ -64,4 +65,4 @@
 
     </g:if>
 </asset:script>
-
+</g:if>
