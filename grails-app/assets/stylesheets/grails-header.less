@@ -63,77 +63,78 @@
         top: 37px;
         border-right: none;
 	}
-	ul.topLinks {
+}
+
+
+ul.topLinks {
+	margin: 15px 15px 0 0;
+	float: right;
+	text-align: right;
+	padding: 0;
+	list-style: 0 none;
+	list-style-type: none;
+	.clearfix();
+	>li.active {
+		a {
+			color: @grailsGreen;
+			text-decoration: underline;
+		}
+	}
+	>li {
 		margin: 0;
-		position: absolute;
-		width: 400px;
-		text-align: right;
 		padding: 0;
-		list-style: 0 none;
-		list-style-type: none;
-		top: 10px;
-		.clearfix();
-		right: 2px;
-		>li.active {
-			a {
-				color: @grailsGreen;
+		float: right;
+		a {
+			color: @grailsBlack;
+			font-size: @baseFontSize - 1;
+			text-decoration: none;
+			line-height: 24px;
+			padding: 0;
+			&:hover {
 				text-decoration: underline;
 			}
 		}
-		>li {
-			margin: 0;
-			padding: 0;
-			float: right;
-			a {
-				color: @grailsBlack;
-				font-size: @baseFontSize - 1;
-				text-decoration: none;
-				line-height: 24px;
-				&:hover {
-					text-decoration: underline;
-				}
-			}
-            a.login {
-            }
-			&.spacing {
-				padding-right: 5px;
-				border-right: 1px solid @grailsGrayLight;		
-				margin-right: 10px;
-			}
-            &.current-user {
-                color: @grailsBlack;
-                font-size: @baseFontSize - 1;
-                text-decoration: none;
-                line-height: 26px;
-                margin: 0px;
+        a.login {
+        }
+		&.spacing {
+			padding-right: 5px;
+			border-right: 1px solid @grailsGrayLight;		
+			margin-right: 10px;
+		}
+        &.current-user {
+            color: @grailsBlack;
+            font-size: @baseFontSize - 1;
+            text-decoration: none;
+            line-height: 26px;
+            margin: 0px;
 
-                img {
-                    position: relative;
-                    top: 5px;
-                }
+            img {
+                position: relative;
+                top: 5px;
             }
-			a.dropdown-toggle {
-				line-height: 14px;
+        }
+		a.dropdown-toggle {
+			line-height: 14px;
+			text-decoration: none;
+			b.caret {
+				margin-top: 5px;	
+				border-top-color: @grailsBlack;
+			}
+			&:hover {
 				text-decoration: none;
-				b.caret {
-					margin-top: 5px;	
-					border-top-color: @grailsBlack;
-				}
+			}
+		}
+		ul.dropdown-menu {
+			li a {
+				padding: 0 10px;
 				&:hover {
 					text-decoration: none;
-				}
-			}
-			ul.dropdown-menu {
-				li a {
-					padding: 0 10px;
-					&:hover {
-						text-decoration: none;
-					}
 				}
 			}
 		}
 	}
 }
+
 
 .springSource {
     display: block;

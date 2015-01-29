@@ -11,10 +11,21 @@
 <body>
 
 <div id="content" class="content-aside" role="main">
-
     <div class="content-aside-title">
-        <h1>Plugins <small>You can find out about all the publicly available Grails plugins.</small></h1>
+        <h1 id="logo">Plugins <small>You can find out about all the publicly available Grails plugins.</small></h1>
         <g:render template="searchBar" />
+        <ul class="topLinks nav pills">
+            <shiro:isLoggedIn>
+                <li><a href="/logout">Logout</a></li>
+                <li class="spacing">&nbsp;</li>
+                <li class="current-user"><g:link uri="/profile"><b>${user?.login}</b> (${user?.email})</g:link></li>
+            </shiro:isLoggedIn>
+            <shiro:isNotLoggedIn>
+                <li><a href="/login?targetUri=${request.forwardURI}" class="login">Login</a></li>
+                <li class="spacing">&nbsp;</li>
+                <li><a href="/register">Create Account</a></li>
+            </shiro:isNotLoggedIn>
+        </ul>        
     </div>
     <g:render template="sideNav" bean="${tags}" />
     <!-- IMPORTANT: DO NOT delete the link below, it is commented out, but used for plugin resolution -->
