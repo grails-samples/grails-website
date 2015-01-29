@@ -28,18 +28,6 @@
         <div class="buildWithGrails">
             Built with Grails <g:meta name="app.grails.version" />
         </div>
-
-        <div class="copyright">
-            Copyright © 2015 the Grails project All rights reserved.<br/>
-            All Rights Reserved.
-        </div>
-        <ul class="privacy">
-            <li><a href="http://www.pivotal.io/privacy-policy">Terms of Use</a></li>
-            <li class="last"><a href="http://www.pivotal.io/privacy-policy">Privacy</a></li>
-        </ul>
-        <ul class="external-services">
-            <li class="last"><a class="artifactory" href="http://www.jfrog.com/">Artifactory</a></li>
-        </ul>
     </footer>
 </div>
 </g:set><g:set var="bodyendpart">
