@@ -93,7 +93,7 @@
                     <fieldset>
                         <h2>Summary</h2>
                         <div class="control-group ${hasErrors(bean: plugin.summary, field: 'body', 'error')}">
-                            <div class="controls">
+                            <div class="controls" id="container-plugin-summary">
                                 <g:textField name="plugin.summary" value="${plugin.summary}" />
                             </div>
                         </div>
