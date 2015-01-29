@@ -18,7 +18,7 @@
             <li <g:if test="${activeFilter == 'popular'}">class="active"</g:if>><a href="/plugins?filter=popular"><g:img dir="img" file="star-on.png" /> Popular</a></li>
             <li <g:if test="${activeFilter == 'recentlyUpdated'}">class="active"</g:if>><a href="/plugins?filter=recentlyUpdated"><g:img dir="img/plugin" file="recentlyUpdated.png" /> Recently Updated</a></li>
             <li <g:if test="${activeFilter == 'newest'}">class="active"</g:if>><a href="/plugins?filter=newest"><g:img dir="img/plugin" file="newest.png" /> Newest</a></li>
-            <li class="last<g:if test="${activeFilter == 'supported'}"> active</g:if>"><a href="/plugins?filter=supported"><g:img dir="img/plugin" file="supported.png" /> Supported by Pivotal</a></li>
+            <li class="last<g:if test="${activeFilter == 'supported'}"> active</g:if>"><a href="/plugins?filter=supported"><g:img dir="img/plugin" file="supported.png" /> Plugin Collection</a></li>
             <li>
                 <a href="/plugins/pending">
                     <g:img dir="img/icons" file="pending.png"/>

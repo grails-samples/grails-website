@@ -31,7 +31,7 @@
                 <h1>
                     ${plugin?.title?.encodeAsHTML()}
                     <g:if test="${plugin.official}">
-                        <small>supported by SpringSource</small>
+                        <small>Plugin Collection</small>
                     </g:if>
                 </h1>
                 <ul class="meta">

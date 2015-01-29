@@ -63,7 +63,7 @@
                         </g:link>
                     </h3>
                     <g:if test="${plugin.official}">
-                        <p><small>supported by Pivotal</small></p>
+                        <p><small>Plugin Collection</small></p>
                     </g:if>
 
                     <ul class="meta">
