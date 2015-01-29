@@ -1,5 +1,5 @@
 <div class="aside">
-    <g:if test="${!(actionName == "list")}">
+    <g:if test="${!(actionName == "list" || actionName == "search")}">
         <aside class="search">
             <g:render template="searchBar" />
         </aside>
