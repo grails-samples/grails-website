@@ -9,7 +9,7 @@
             <p>
             <a href="http://www.pivotal.io/privacy-policy">Terms of Use</a>
             <a href="http://www.pivotal.io/privacy-policy">Privacy</a>
-            &nbsp;&nbsp;&nbsp;&nbsp;&copy; Copyright © 2014 Pivotal Software, Inc. All rights reserved..<br/>All Rights Reserved.
+            &nbsp;&nbsp;&nbsp;&nbsp;&copy; Copyright © 2015 the Grails project All rights reserved..<br/>All Rights Reserved.
             </p>
         </div><!-- innerFooter -->
     </div><!-- center -->

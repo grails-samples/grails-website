@@ -30,7 +30,7 @@
         </div>
 
         <div class="copyright">
-            Copyright © 2014 Pivotal Software, Inc. All rights reserved.<br/>
+            Copyright © 2015 the Grails project All rights reserved.<br/>
             All Rights Reserved.
         </div>
         <ul class="privacy">
