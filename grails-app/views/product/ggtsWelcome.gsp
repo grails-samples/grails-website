@@ -1,6 +1,6 @@
 <head>
   <title>Welcome to GGTS</title>
-  <meta name="layout" content="master">
+  <meta name="layout" content="masterv2">
   <style>
 #page iframe {
   height: 0;

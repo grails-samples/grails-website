@@ -1,5 +1,5 @@
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Submit a Web Site Using Grails</title>
 </head>
 

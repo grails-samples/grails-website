@@ -1,5 +1,5 @@
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Web Site: ${webSiteInstance.title.encodeAsHTML()}</title>
     <style type="text/css">
         .actionIcon {

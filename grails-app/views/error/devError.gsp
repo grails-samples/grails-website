@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Grails Runtime Exception</title>
-  <meta name="layout" content="master">
+  <meta name="layout" content="masterv2">
   <asset:stylesheet src="errors"/>
 </head>
 <body>

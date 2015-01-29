@@ -1,5 +1,5 @@
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Submit a Grails News Item</title>
     <asset:stylesheet src="codeMirror"/>
     <asset:javascript src="codeMirror"/>

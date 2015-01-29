@@ -4,7 +4,7 @@
 <%@ page import="org.springframework.util.ClassUtils" %>
 <html>
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Search Results</title>
     <asset:script type="text/javascript">
 $(document).ready(function() {

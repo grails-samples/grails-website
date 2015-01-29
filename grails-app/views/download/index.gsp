@@ -1,6 +1,6 @@
 <head>
     <title>Grails Downloads</title>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
 </head>
 
 <body>

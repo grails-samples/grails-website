@@ -1,6 +1,6 @@
 <head>
     <title>Groovy/Grails Tool Suite</title>
-    <meta name="layout" content="master">
+    <meta name="layout" content="masterv2">
 </head>
 <body>
 

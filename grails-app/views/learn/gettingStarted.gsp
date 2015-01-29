@@ -1,5 +1,5 @@
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Getting Started with Grails</title>
     <asset:script>
         function loadPresentation(playerFrame) {

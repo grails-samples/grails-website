@@ -1,6 +1,6 @@
 <html>
   <head>
-      <meta content="master" name="layout" />
+      <meta content="masterv2" name="layout" />
   </head>
   <body>
         <div id="contentPane">

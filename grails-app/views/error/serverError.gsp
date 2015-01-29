@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Grails.org Error</title>
-    <meta content="master" name="layout" />
+    <meta content="masterv2" name="layout" />
     <asset:stylesheet src="errors"/>
 </head>
   

@@ -1,6 +1,6 @@
 <%@ page import="org.grails.wiki.WikiPage" %>
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <title>Publish Plugin</title>
     <asset:stylesheet src="plugin"/>
     <asset:javascript src="plugin"/>

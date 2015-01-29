@@ -1,7 +1,7 @@
 <%@ page import="org.grails.community.Testimonial" %>
 <html>
 <head>
-    <meta name="layout" content="master"/>
+    <meta name="layout" content="masterv2"/>
     <g:set var="entityName" value="${message(code: 'testimonial.label', default: 'Testimonial')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
 </head>

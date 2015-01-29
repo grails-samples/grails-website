@@ -1,7 +1,7 @@
 <%@ page import="org.grails.wiki.WikiPage" %>
 <head>
     <title><g:message code="wiki.create.title" args="${[wikiPage?.title]}"/></title>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
     <asset:stylesheet src="codeMirror"/>
     <asset:javascript src="codeMirror"/>
     <asset:stylesheet src="fancyBox"/>

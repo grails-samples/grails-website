@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Login Page</title>
-  <meta content="master" name="layout" />
+  <meta content="masterv2" name="layout" />
   <style type="text/css">
 /*
 #content-container {

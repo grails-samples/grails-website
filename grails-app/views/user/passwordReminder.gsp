@@ -1,6 +1,6 @@
 <html>
 <head>
-    <meta name="layout" content="master">
+    <meta name="layout" content="masterv2">
 </head>
 
 <body>

@@ -1,5 +1,5 @@
 <head>
-    <meta content="master" name="layout"/>
+    <meta content="masterv2" name="layout"/>
 
     <%-- RSS feeds --%>
     <link rel="alternate" type="application/rss+xml" title="Wiki Updates RSS 2.0" href="/wiki/latest?format=rss"/>
