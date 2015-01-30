@@ -23,7 +23,7 @@ fixture {
                 url: "http://www.gnu.org/licenses/gpl.txt")
         
         // First Shiro
-        shiroInstallation(PluginTab, title: "plugin-shiro-installation", body: "@grails install-plugin shiro@")
+        shiroInstallation(PluginTab, title: "plugin-shiro-installation", body: "{code}grails install-plugin shiro{code}")
         siVersion(Version,
                 title: shiroInstallation.title,
                 body: shiroInstallation.body,
@@ -70,7 +70,7 @@ fixture {
                 licenses: [ apacheLicense ])
         
         // Fixtures
-        fixturesInstallation(PluginTab, title: "plugin-fixtures-installation", body: "@grails install-plugin fixtures@")
+        fixturesInstallation(PluginTab, title: "plugin-fixtures-installation", body: "{code}grails install-plugin fixtures{code}")
         fiVersion(Version,
                 title: fixturesInstallation.title,
                 body: fixturesInstallation.body,
@@ -115,7 +115,7 @@ fixture {
                 screenshots: fixturesScreenshots)
         
         // Build Test Data
-        btdInstallation(PluginTab, title: "plugin-build-test-data-installation", body: "@grails install-plugin build-test-data@")
+        btdInstallation(PluginTab, title: "plugin-build-test-data-installation", body: "{code}grails install-plugin build-test-data{code}")
         btddVersion(Version,
                 title: btdInstallation.title,
                 body: btdInstallation.body,
@@ -170,7 +170,7 @@ This is a test list:
                 screenshots: btdScreenshots)
         
         // Hibernate
-        hibernateInstallation(PluginTab, title: "plugin-hibernate-installation", body: "@grails install-plugin hibernate@")
+        hibernateInstallation(PluginTab, title: "plugin-hibernate-installation", body: "{code}grails install-plugin hibernate{code}")
         hiVersion(Version,
                 title: hibernateInstallation.title,
                 body: hibernateInstallation.body,
@@ -218,7 +218,7 @@ This is a test list:
 
 
         //Cache 
-       cacheInstallation(PluginTab, title: "plugin-cache-installation", body: "@grails install-plugin cache@")
+       cacheInstallation(PluginTab, title: "plugin-cache-installation", body: "{code}grails install-plugin cache{code}")
         cacheVersion(Version,
                 title:cacheInstallation.title,
                 body:cacheInstallation.body,
@@ -266,7 +266,7 @@ This is a test list:
 
 
         //Mail
-       mailInstallation(PluginTab, title: "plugin-mail-installation", body: "@grails install-plugin mail@")
+       mailInstallation(PluginTab, title: "plugin-mail-installation", body: "{code}grails install-plugin mail{code}")
         mailVersion(Version,
                 title:mailInstallation.title,
                 body:mailInstallation.body,
@@ -313,7 +313,7 @@ This is a test list:
                 licenses: [ apacheLicense, gpl3License ])        
 
        // Feeds
-       feedsInstallation(PluginTab, title: "plugin-feeds-installation", body: "@grails install-plugin feeds@")
+       feedsInstallation(PluginTab, title: "plugin-feeds-installation", body: "{code}grails install-plugin feeds{code}")
         feedsVersion(Version,
                 title:feedsInstallation.title,
                 body:feedsInstallation.body,
@@ -360,7 +360,7 @@ This is a test list:
                 licenses: [ apacheLicense, gpl3License ])  
         
         // Tomcat
-        tomcatInstallation(PluginTab, title: "plugin-tomcat-installation", body: "@grails install-plugin tomcat@")
+        tomcatInstallation(PluginTab, title: "plugin-tomcat-installation", body: "{code}grails install-plugin tomcat{code}")
         tiVersion(Version,
                 title: tomcatInstallation.title,
                 body: tomcatInstallation.body,
@@ -405,7 +405,7 @@ This is a test list:
                 usage: 0.6)
         
         // GWT
-        gwtInstallation(PluginTab, title: "plugin-gwt-installation", body: "@grails install-plugin gwt@")
+        gwtInstallation(PluginTab, title: "plugin-gwt-installation", body: "{code}grails install-plugin gwt{code}")
         gwtiVersion(Version,
                 title: gwtInstallation.title,
                 body: gwtInstallation.body,
@@ -451,7 +451,7 @@ This is a test list:
                 usage: 0.3)
         
         // Gemfire
-        gemfireInstallation(PluginTab, title: "plugin-gemfire-installation", body: "@grails install-plugin gemfire@")
+        gemfireInstallation(PluginTab, title: "plugin-gemfire-installation", body: "{code}grails install-plugin gemfire{code}")
         gfiVersion(Version,
                 title: gemfireInstallation.title,
                 body: gemfireInstallation.body,
@@ -501,7 +501,7 @@ This is a test list:
                 screenshots: gemfireScreenshots)
 
         // Spock
-        spockInstallation(PluginTab, title: "plugin-spock-installation", body: "@grails install-plugin spock@")
+        spockInstallation(PluginTab, title: "plugin-spock-installation", body: "{code}grails install-plugin spock{code}")
         gfiVersion(Version,
                 title: spockInstallation.title,
                 body: spockInstallation.body,
