@@ -25,7 +25,7 @@
     <g:render template="sideNav"/>
 
     <section id="main" class="plugin">
-
+        <g:render template="loginBar" />
         <article class="plugin">
             <header>
                 <h1>
