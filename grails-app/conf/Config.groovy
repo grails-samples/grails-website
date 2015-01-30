@@ -4,6 +4,12 @@ import pl.burningice.plugins.image.engines.scale.ScaleType
 // config files can either be Java properties files or ConfigSlurper scripts
 grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appName}-config.groovy" ]
 
+// local file for storing API keys at dev time
+def localUserConfig = new File(System.getProperty("user.home"), ".grails-website-config.groovy")
+if(localUserConfig.exists()) {
+    grails.config.locations << localUserConfig.toURI().toURL()
+}
+
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
@@ -296,3 +302,6 @@ grails.databinding.convertEmptyStringsToNull=false
 
 // exclude some assets from default precompilation, these assets get included
 grails.assets.excludes = ['**/bootstrap/**', '**/font-awesome/**', '**/grails-*.less', '**/responsive/**', '**/libs/**', '**/fancybox/**']
+
+// read-only token for Github API access, no GH oauth scopes should be granted to the token
+githubApiReadOnlyToken = ''
