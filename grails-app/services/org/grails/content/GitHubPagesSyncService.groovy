@@ -18,6 +18,7 @@ import org.springframework.context.event.ContextStoppedEvent
 
 class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEvent> {
     static transactional=false
+
     
     @Value('${githubApiReadOnlyToken:}')
     String githubApiReadOnlyToken
@@ -31,6 +32,8 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
     File rootDir
     boolean loopRunning = false
     AtomicBoolean updateRequested = new AtomicBoolean(false)
+    long pollIntervalMillis = 25000L
+    long updateLoopSleepMillis = 5000L
     
     synchronized void requestCheckoutPages() {
         updateRequested.set(true)
@@ -67,6 +70,7 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
     protected void pullAndReset(Grgit grgit) {
         grgit.pull(rebase: true)
         String startPoint = "origin/${originBranch}".toString()
+        log.info("Pulling from Github and resetting to $startPoint")
         grgit.reset(commit: startPoint, mode: ResetOp.Mode.HARD)
     }
     
@@ -107,16 +111,18 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
     
     private synchronized void updateLoop() {
         loopRunning = true
+        long lastPollMillis = 0
         while(loopRunning && !Thread.currentThread().isInterrupted()) {
-            if(updateRequested.get()) {
+            if(updateRequested.get() || (pollIntervalMillis > 0 && System.currentTimeMillis() - lastPollMillis > pollIntervalMillis)) {
                 updateRequested.set(false)
                 try {
                     checkoutPages()
                 } catch (Exception e) {
                     log.error("Error in checking out pages", e)
                 }
+                lastPollMillis = System.currentTimeMillis()
             }
-            wait(5000L)
+            wait(updateLoopSleepMillis)
         }
     }
     
