@@ -181,7 +181,7 @@
             $.ajax({
                 type    : "POST",
                 cache   : false,
-                url     : "/previewWikiPage",
+                url     : "/wiki/preview",
                 data    : { body: body },
                 success : function(data) {
                     $.fancybox(data, {

@@ -12,7 +12,7 @@
             $.ajax({
                 type    : "POST",
                 cache   : false,
-                url     : "/previewWikiPage",
+                url     : "/wiki/preview",
                 data    : { body: myCodeMirror.getValue() },
                 success : function(data) {
                     $.fancybox(data, {

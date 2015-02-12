@@ -17,7 +17,7 @@ $(document).ready(function() {
         $.ajax({
             type    : "POST",
             cache   : false,
-            url     : "/previewWikiPage",
+            url     : "/wiki/preview",
             data    : { body: editor.getValue() },
             success : function(data) {
                 $.fancybox(data, {
