@@ -58,9 +58,6 @@ class UrlMappings {
         "/plugins/grails-$plugin/tags/LATEST_RELEASE/$fullName(.${type})"(controller:"repository", action:"artifact", populateVersion)
         "/plugins/grails-$plugin/tags/LATEST_RELEASE"(controller:"repository", action:"listLatest")
 
-        "/api/v1.0/downloads"(controller: "download", action: "apiList")
-        "/api/v1.0/download/$version"(controller: "download", action: "apiShow")
-
         "/api/v1.0/publish"(controller:"repository", action:"publish")
         "/api/v1.0/publish/$plugin/$version"(controller:"repository", action:"publish")
         "/api/v1.0/plugins/$category?"(controller: "plugin", action: "apiList")
@@ -74,15 +71,15 @@ class UrlMappings {
         }
         "/api/v1.0/plugin/status/$name/$version"(controller: "pendingRelease", action: "status")
 
-        "/download"(controller: "download", action: "index")
-        "/download/ubuntu"(controller: "download", action: "ubuntu")
-        "/downloads"(controller: "download", action: "index")
+        "/download"(redirect: '/download.html')
+        "/download/ubuntu"(redirect: '/download.html')
+        "/downloads"(redirect: '/download.html')
 
         // Legacy download links.
-        "/Download"(controller: "download", action: "legacyHome")
-        "/download/file"(controller: "download", action: "downloadFile")
-        "/download/url"(controller: "download", action: "showUrl")
-        "/download/archive/$id"(controller: "download", action: "archive")
+        "/Download"(redirect: '/download.html')
+        "/download/file"(redirect: '/download.html')
+        "/download/url"(redirect: '/download.html')
+        "/download/archive/$id"(redirect: '/download.html')
 
         "/wiki/latest"(controller: "content", action: "latest")
         "/auth/$action"(controller: "auth")

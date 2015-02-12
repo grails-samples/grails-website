@@ -104,7 +104,7 @@
             <div class="item downloads">
                 <h3><span class="number">${++step}.</span> Download Grails</h3>
                 <p>Grab the latest stable release of Grails.</p>
-                <p><a href="${latestDownload.mirrors[0].urlString}" class="btn blue">Download Grails ${latestVersion}</a></p>
+                <p><a href="/download.html" class="btn blue">Download Grails</a></p>
                 <p>You can find other Grails releases and methods of installation on the <g:link uri="/download">downloads page</g:link>, for example installation via apt-get on <strong>Ubuntu</strong> or <a href="http://gvmtool.net/">the <strong>gvm</strong> tool.</a></p>
             </div>
             <div class="item">

@@ -58,9 +58,6 @@ environments {
     test {
         searchable.compassConnection = "ram://test-index"
     }
-    development {
-        download.versions = ["1.4 beta", "1.3", "1.2"]
-    }
 }
 
 
@@ -186,7 +183,6 @@ springcache {
         overflowToDisk = false
     }
     caches {
-
         contentCache {
             // set any properties unique to this cache
             timeToLive = 300
@@ -194,12 +190,6 @@ springcache {
             overflowToDisk = false
         }
         pluginCache {
-            // set any properties unique to this cache
-            timeToLive = 300
-            diskPersistent = false
-            overflowToDisk = false
-        }
-        downloadCache {
             // set any properties unique to this cache
             timeToLive = 300
             diskPersistent = false
@@ -218,8 +208,6 @@ artifactRepository.url = "https://repo.grails.org/grails/plugins"
          deployPassword = "password"
      }
 }*/
-
-
 
 grails.cache.config = {
     cache {

@@ -12,7 +12,6 @@ import org.grails.*
 import org.grails.auth.Role
 import org.grails.auth.User
 import org.grails.content.Version
-import org.grails.downloads.Mirror
 import org.grails.plugin.Plugin
 import org.jsoup.Jsoup
 
@@ -27,7 +26,7 @@ class BootStrap {
 
     void doInit() {
         def (adminRole, editorRole, observerRole) = setUpRoles()
-        
+
         def admin = User.findByLogin("admin")
         if (!admin) {
             def password = Environment.current != Environment.PRODUCTION ? "changeit" : System.getProperty("initial.admin.password")
@@ -53,9 +52,9 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
                  .addToRoles(observerRole)
                  .save(flush:true, failOnError: true)
         }
-        
+
         // Load dev data to make it easier to work on the application.
-        if ((System.getProperty("load.fixtures") 
+        if ((System.getProperty("load.fixtures")
             || Environment.current == Environment.DEVELOPMENT
             || Environment.current == Environment.TEST) && User.count() < 2) {
             println "Loading fixture data"
@@ -64,7 +63,6 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
                 [
                     'videohosts',
                     'wiki',
-                    'downloads',
                     'testimonials',
                     'screencasts',
                     'tutorials'

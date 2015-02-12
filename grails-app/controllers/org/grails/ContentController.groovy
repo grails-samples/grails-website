@@ -33,7 +33,6 @@ class ContentController extends BaseWikiController {
 
     def searchableService
     def pluginService
-    def downloadService
     def dateService
     def wikiPageService
     def grailsUrlMappingsHolder
@@ -84,12 +83,12 @@ class ContentController extends BaseWikiController {
         (WikiPage): "Wiki Pages",
         (NewsItem): "News",
         other: "Other" ]
-    
+
     protected static hitHandler = { highlighter, index, sr ->
         if (!sr.highlights) {
             sr.highlights = [:]
         }
-        
+
         def result = sr.results[index]
         if (result instanceof LuceneResource) {
             sr.highlights[result.id[0].stringValue] = (highlighter.fragment("title") ?: highlighter.fragment("body"))
@@ -570,11 +569,10 @@ class ContentController extends BaseWikiController {
     def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
-        def (latestDownload, binaryFile) = downloadService.getLatestBinaryDownload()
         def latestNews = org.grails.news.NewsItem.allApproved.list(max:3)
-        
-        
-        [newestPlugins: newestPlugins, latestDownload: latestDownload, latestBinary: binaryFile, latestNews: latestNews]
+
+
+        [newestPlugins: newestPlugins, latestNews: latestNews]
     }
 
     def screencastLegacy() {
@@ -588,7 +586,7 @@ class ContentController extends BaseWikiController {
             def group = searchResultsGroupOrder[r.getClass()] ?: "Other"
             resultsAsMap[group] << r
         }
-        searchResult.results = resultsAsMap 
+        searchResult.results = resultsAsMap
         return searchResult
     }
 

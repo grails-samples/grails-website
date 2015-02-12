@@ -80,7 +80,7 @@
     <div id="springoneBanner" class="banner">
         <a href="http://springone2gx.com"><g:img dir="img/banner" file="springone2gx2014_banner_1200x300.png" /></a>
     </div>
-    
+
     <div id="skyBanner" class="sky caseStudy banner">
         <p class="ico">
             <g:img dir="img/banner/caseStudy" file="logo.png" />
@@ -104,7 +104,7 @@
             <li><a href="https://www.virtuwell.com/"><g:img dir="img/banner/caseStudy/logos" file="virtuwell.png" title="Virtuwell" /></a></li>
             <li><a href="https://netflix.com/"><g:img dir="img/banner/caseStudy/logos" file="netflix.png" title="NETFLIX" /></a></li>
         </ul>
-    </div>    
+    </div>
 </div>
 
 <section class="section-1">
@@ -115,7 +115,6 @@
             <div id="#downloadNow" class="downloads downloads-small">
                 <h2>Grab the latest and greatest release!</h2>
                 <p>You can find other Grails releases and methods of installation on <g:link controller="download" action="index">the downloads page.</g:link></p>
-                <g:render template="/download/downloadLatestButton" model="[downloadFile: latestBinary, softwareVersion: latestDownload.softwareVersion]"/>
             </div>
 
             <h3 class="news-title">Latest News <small>(<g:link controller="newsItem">Read more</g:link>)</small></h3>
@@ -153,7 +152,7 @@
                 var x = document.getElementsByTagName('script')[0];
                 x.parentNode.insertBefore(s, x);
             })();
-            </asset:script>            
+            </asset:script>
         </div>
     </div>
 </section>
