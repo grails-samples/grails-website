@@ -46,7 +46,7 @@ class GrailsWikiEngine extends BaseRenderEngine implements WikiRenderEngine{
     protected void init() {
       if (null == fp) {
           FilterPipe localFP = new FilterPipe(initialContext);
-          
+
 
             def filters = [
                             ParamFilter,
@@ -116,16 +116,16 @@ class GrailsWikiEngine extends BaseRenderEngine implements WikiRenderEngine{
 			else {
 				WikiPage page =  Environment.current == Environment.PRODUCTION ?
 			 						  WikiPage.findByTitle(name, [cache:true]) :
-									  WikiPage.findByTitle(name)				
-									
+									  WikiPage.findByTitle(name)
+
 				if(page) {
 					existingPages.put(page.title, page.title)
 				}
-            	return page != null				
+            	return page != null
 			}
-			
-		
-    
+
+
+
 
 
         }
@@ -158,7 +158,7 @@ class GrailsWikiEngine extends BaseRenderEngine implements WikiRenderEngine{
             buffer <<  "<a href=\"${decoded}\" class=\"pageLink\">${view}</a>"
         }
         else if(i>-1) {
-            appendLink(buffer,URLEncoder.encode(decoded[0..i-1],'utf-8'),view, decoded[i+1..-1])            
+            appendLink(buffer,URLEncoder.encode(decoded[0..i-1],'utf-8'),view, decoded[i+1..-1])
         }
         else {
             buffer <<  "<a href=\"$contextPath/$name\" class=\"pageLink\">$view</a>"
@@ -169,7 +169,7 @@ class GrailsWikiEngine extends BaseRenderEngine implements WikiRenderEngine{
     public void appendCreateLink(StringBuffer buffer, String name, String view) {
         def contextPath = initialContext.get(CONTEXT_PATH)
         contextPath = contextPath ?: "."
-        
+
         buffer <<  "<a href=\"$contextPath/create/$name\" class=\"createPageLink\">$view (+)</a>"
     }
 
@@ -248,9 +248,9 @@ class ImageFilter  extends RegexTokenFilter {
 
         def img = result.group(1)
         def path = context.renderContext.get(GrailsWikiEngine.CONTEXT_PATH) ?: ""
-                    
 
-        def image = img.startsWith("http:") ? img :  "$path/wikiImage/$img"
+
+        def image = img.startsWith("http:") ? img :  "$path/wiki/wikiImage/$img"
 
         buffer << "<img border=\"0\" class=\"center\" src=\"$image\"></img>"
     }
@@ -262,11 +262,11 @@ class LinkTestFilter extends RegexTokenFilter {
         super(/\[(.*?)\]/)
     }
 
-    
+
     public void handleMatch(StringBuffer buffer, MatchResult matchResult, FilterContext filterContext) {
         def engine = filterContext.getRenderContext().getRenderEngine()
 
-        
+
         if(engine instanceof WikiRenderEngine) {
             GrailsWikiEngine wikiEngine = engine
 
