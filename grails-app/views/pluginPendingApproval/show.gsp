@@ -76,8 +76,8 @@
                 <g:hiddenField name="pluginName" value="${pluginPendingApproval.name}"/>
 
                 <div class="control-group">
-                    <label class="control-label" for="status">Request has been:</label>
-                    <div class="controls">
+                    <label class="col-sm-2 control-label" for="status">Request has been:</label>
+                    <div class="col-sm-10">
                         <select name="status" id="status">
                             <option value=""></option>
                             <option value="${ApprovalStatus.APPROVED}">APPROVED</option>
@@ -87,8 +87,8 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="responseText">Response (for email):</label>
-                    <div class="controls">
+                    <label class="col-sm-2 control-label" for="responseText">Response (for email):</label>
+                    <div class="col-sm-10">
                         <textarea cols="50" rows="10" style="width: 99%;" name="responseText" id="responseText" required="required"></textarea>
                         <p>
                             <g:each in="${defaultResponses}" var="resp" status="i">

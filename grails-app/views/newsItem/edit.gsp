@@ -31,15 +31,15 @@
                 <input type="hidden" name="id" value="${newsItem.id}"></input>
                 <fieldset>
                     <div class="control-group ${hasErrors(bean: newsItem, field: 'title', 'error')}">
-                        <label class="control-label" for="title"><g:message code="news.title" /></label>
-                        <div class="controls">
+                        <label class="col-sm-2 control-label" for="title"><g:message code="news.title" /></label>
+                        <div class="col-sm-10">
                             <g:textField name="title" value="${newsItem?.title}" required="required" class="input-fullsize"/>
                         </div>
                     </div>
 
                     <div class="control-group ${hasErrors(bean: newsItem, field: 'body', 'error')}">
-                        <label class="control-label" for="body"><g:message code="news.body" /></label>
-                        <div class="controls">
+                        <label class="col-sm-2 control-label" for="body"><g:message code="news.body" /></label>
+                        <div class="col-sm-10">
                             <g:textArea cols="30" rows="10" name="body" id="wikiPageBody" value="${newsItem?.body}" class="input-fullsize"/>
                         </div>
                     </div>

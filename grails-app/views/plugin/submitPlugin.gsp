@@ -29,7 +29,7 @@
                 <div class="control-group ${hasErrors(bean: pluginPendingApproval, field: 'name', 'error')}">
                     <label for="name">Plugin Name <small>(whatever you passed to the create-plugin command)</small></label>
 
-                    <div class="controls">
+                    <div class="col-sm-10">
                         <g:textField name="name" value="${params.name}" required="required" class="input-fullsize"/>
                         <g:if test="${pluginPendingApproval.errors.getFieldErrorCount('name') > 0}">
                             <p class="error-block">${pluginPendingApproval.errors.getFieldError('name').defaultMessage}</p>
@@ -39,7 +39,7 @@
 
                 <div class="control-group ${hasErrors(bean: pluginPendingApproval, field: 'versionNumber', 'error')}">
                     <label for="versionNumber">Version Number <small>(example: 0.0.1)</small></label>
-                    <div class="controls">
+                    <div class="col-sm-10">
                         <g:textField name="versionNumber" value="${params.versionNumber}" required="required" class="input-fullsize"/>
                         <g:if test="${pluginPendingApproval.errors.getFieldErrorCount('versionNumber') > 0}">
                             <p class="help-block">${pluginPendingApproval.errors.getFieldError('versionNumber').defaultMessage}</p>
@@ -50,7 +50,7 @@
 
                 <div class="control-group ${hasErrors(bean: pluginPendingApproval, field: 'scmUrl', 'error')}">
                     <label for="scmUrl">Repository URL <small>(for example, http://www.github.com/grails/grails-core)</small></label>
-                    <div class="controls">
+                    <div class="col-sm-10">
                         <g:textField name="scmUrl" value="${params.scmUrl}" required="required" class="input-fullsize"/>
                         <g:if test="${pluginPendingApproval.errors.getFieldErrorCount('scmUrl') > 0}">
                             <p class="error-block">${pluginPendingApproval.errors.getFieldError('scmUrl').defaultMessage}</p>
@@ -61,7 +61,7 @@
                 <div class="control-group">
                     <label for="notes">Plugin Description</label>
 
-                    <div class="controls">
+                    <div class="col-sm-10">
                         <g:textArea rows="8" cols="60" name="notes" value="${params.notes}" required="required" class="input-fullsize"></g:textArea>
                     </div>
                 </div>

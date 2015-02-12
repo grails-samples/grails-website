@@ -112,9 +112,9 @@
         <g:hiddenField name="id" value="${webSiteInstance.id}"/>
 
         <div class="control-group">
-            <label class="control-label" for="status">Request has been:</label>
+            <label class="col-sm-2 control-label" for="status">Request has been:</label>
 
-            <div class="controls">
+            <div class="col-sm-10">
                 <select name="status" id="status">
                     <option value=""></option>
                     <option value="${ApprovalStatus.APPROVED}">APPROVED</option>
@@ -124,17 +124,17 @@
         </div>
 
         <div class="control-group">
-            <label class="control-label" for="responseText">Response (for email):</label>
+            <label class="col-sm-2 control-label" for="responseText">Response (for email):</label>
 
-            <div class="controls">
+            <div class="col-sm-10">
                 <textarea cols="50" rows="10" style="width: 99%;" name="responseText" id="responseText"></textarea>
             </div>
         </div>
 
         <div class="control-group">
-            <label class="control-label" for="featured">Is Featured?</label>
+            <label class="col-sm-2 control-label" for="featured">Is Featured?</label>
 
-            <div class="controls">
+            <div class="col-sm-10">
                 <label class="checkbox" for="featured">
                     <g:checkBox name="featured" value="${webSiteInstance?.featured}"/>
                     Check this box if the website is featured on the <a href="/websites"

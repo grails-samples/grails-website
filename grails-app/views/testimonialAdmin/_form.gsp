@@ -1,9 +1,9 @@
 <%@ page import="org.grails.community.Testimonial" %>
 
 <div class="control-group">
-    <label class="control-label">Submitter</label>
+    <label class="col-sm-2 control-label">Submitter</label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <label class="checkbox" style="padding-left: 0px;">
             <g:link controller="user" action="show" id="${testimonialInstance?.submittedBy?.id}">
                 <avatar:gravatar email="${testimonialInstance?.submittedBy?.email}"
@@ -14,26 +14,26 @@
 </div>
 
 <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'title', 'error')}">
-    <label class="control-label" for="title">Title</label>
+    <label class="col-sm-2 control-label" for="title">Title</label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <g:textField name="title" value="${testimonialInstance?.title}" class="input-xxlarge"/>
     </div>
 </div>
 
 
 <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'companyName', 'error')}">
-    <label class="control-label" for="title">Company Name</label>
+    <label class="col-sm-2 control-label" for="title">Company Name</label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <g:textField name="companyName" value="${testimonialInstance?.companyName}" class="input-xxlarge"/>
     </div>
 </div>
 
 <div class="control-group ${hasErrors(bean: testimonialInstance, field: 'featured', 'error')}">
-    <label class="control-label" for="featured">Is Featured?</label>
+    <label class="col-sm-2 control-label" for="featured">Is Featured?</label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <label class="checkbox" for="featured">
             <g:checkBox name="featured" value="${testimonialInstance?.featured}"/>
             Check this box if the testimonial is featured on the <a href="/community/testimonial"

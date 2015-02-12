@@ -41,22 +41,22 @@
 
 
 <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'title', 'error')}">
-    <label class="control-label" for="title">
+    <label class="col-sm-2 control-label" for="title">
         <g:message code="wikiPage.title.label" default="Title"/>
     </label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <g:textField name="title" pattern="${wikiPageInstance.constraints.title.matches}" required="" value="${wikiPageInstance?.title}"/>
     </div>
 </div>
 
 
 <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'body', 'error')}">
-    <label class="control-label" for="body">
+    <label class="col-sm-2 control-label" for="body">
         <g:message code="wikiPage.body.label" default="Body"/>
     </label>
 
-    <div class="controls">
+    <div class="col-sm-10">
                <g:textArea cols="30" rows="20" id="wikiPageBody" name="body"
                             value="${wikiPageInstance?.body}" class="input-fullsize"/>
     </div>
@@ -64,44 +64,44 @@
 
 
 <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'locked', 'error')}">
-    <label class="control-label" for="locked">
+    <label class="col-sm-2 control-label" for="locked">
         <g:message code="wikiPage.locked.label" default="Locked"/>
     </label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
     </div>
 </div>
 
 
 <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'deprecatedUri', 'error')}">
-    <label class="control-label" for="deprecatedUri">
+    <label class="col-sm-2 control-label" for="deprecatedUri">
         <g:message code="wikiPage.deprecatedUri.label" default="Deprecated Uri"/>
     </label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <g:textField name="deprecatedUri" value="${wikiPageInstance?.deprecatedUri}"/>
     </div>
 </div>
 
 
 <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'deprecated', 'error')}">
-    <label class="control-label" for="deprecated">
+    <label class="col-sm-2 control-label" for="deprecated">
         <g:message code="wikiPage.deprecated.label" default="Deprecated"/>
     </label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         <g:checkBox name="deprecated" value="${wikiPageInstance?.deprecated}" />
     </div>
 </div>
 
 
 <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'versions', 'error')}">
-    <label class="control-label" for="versions">
+    <label class="col-sm-2 control-label" for="versions">
         <g:message code="wikiPage.versions.label" default="Versions"/>
     </label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         
 <ul class="one-to-many">
 <g:each in="${wikiPageInstance?.versions?}" var="v">

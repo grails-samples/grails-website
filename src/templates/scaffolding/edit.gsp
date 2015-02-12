@@ -48,11 +48,11 @@ props.each { p ->
     if (display) { %>
 
 <div class="control-group \${hasErrors(bean: ${propertyName}, field: '${p.name}', 'error')}">
-    <label class="control-label" for="${p.name}">
+    <label class="col-sm-2 control-label" for="${p.name}">
         <g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}"/>
     </label>
 
-    <div class="controls">
+    <div class="col-sm-10">
         ${renderEditor(p)}
     </div>
 </div>

@@ -7,7 +7,7 @@
     <fieldset>
 
         <div class="control-group ${hasErrors(bean: wikiPage, field: 'body', 'error')}">
-            <div class="controls">
+            <div class="col-sm-10">
                 <g:textArea cols="30" rows="20" id="wikiPageBody" name="body"
                             value="${wikiPage?.body}" class="wiki input-fullsize"/>
             </div>

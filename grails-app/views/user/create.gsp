@@ -34,11 +34,11 @@
     
 
     <div class="control-group ${hasErrors(bean: userInstance, field: 'email', 'error')}">
-        <label class="control-label" for="email">
+        <label class="col-sm-2 control-label" for="email">
             <g:message code="user.email.label" default="Email"/>
         </label>
 
-        <div class="controls">
+        <div class="col-sm-10">
             <g:field type="email" name="email" required="" value="${userInstance?.email}"/>
         </div>
     </div>
@@ -46,11 +46,11 @@
     
 
     <div class="control-group ${hasErrors(bean: userInstance, field: 'login', 'error')}">
-        <label class="control-label" for="login">
+        <label class="col-sm-2 control-label" for="login">
             <g:message code="user.login.label" default="Login"/>
         </label>
 
-        <div class="controls">
+        <div class="col-sm-10">
             <g:textField name="login" maxlength="15" required="" value="${userInstance?.login}"/>
         </div>
     </div>
