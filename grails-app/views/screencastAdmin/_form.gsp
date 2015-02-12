@@ -28,7 +28,7 @@
     <label class="col-sm-2 control-label" for="title">Title</label>
 
     <div class="col-sm-10">
-        <g:textField name="title" value="${screencastInstance?.title}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="title" value="${screencastInstance?.title}" />
     </div>
 </div>
 
@@ -36,8 +36,8 @@
     <label class="col-sm-2 control-label" for="description">Description</label>
 
     <div class="col-sm-10">
-        <g:textArea cols="30" rows="5" name="description" value="${screencastInstance?.description}"
-                    class="input-xxlarge"/>
+        <g:textArea class="form-control input-xxlarge" cols="30" rows="5" name="description" value="${screencastInstance?.description}"
+                    />
     </div>
 </div>
 
@@ -45,7 +45,7 @@
     <label class="col-sm-2 control-label" for="videoId">Video ID</label>
 
     <div class="col-sm-10">
-        <g:select name="videoHost.id" from="${org.grails.learn.screencasts.VideoHost.list()}"
+        <g:select class="form-control" name="videoHost.id" from="${org.grails.learn.screencasts.VideoHost.list()}"
                   value="${screencastInstance?.videoHost?.id}" optionKey="id" optionValue="name" />
         <g:textField name="videoId" value="${screencastInstance?.videoId}" class="input-xlarge"/>
     </div>
@@ -55,7 +55,7 @@
     <label class="col-sm-2 control-label" for="tags">Tags</label>
 
     <div class="col-sm-10">
-        <g:textField name="tags" value="${screencastInstance?.tags?.join(', ')}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="tags" value="${screencastInstance?.tags?.join(', ')}" />
         <div class="hint">Examples: introduction, security, screencast</div>
     </div>
 </div>

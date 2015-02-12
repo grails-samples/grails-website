@@ -33,14 +33,14 @@
                     <div class="control-group ${hasErrors(bean: newsItem, field: 'title', 'error')}">
                         <label class="col-sm-2 control-label" for="title"><g:message code="news.title" /></label>
                         <div class="col-sm-10">
-                            <g:textField name="title" value="${newsItem?.title}" required="required" class="input-fullsize"/>
+                            <g:textField class="form-control input-fullsize" name="title" value="${newsItem?.title}" required="required" />
                         </div>
                     </div>
 
                     <div class="control-group ${hasErrors(bean: newsItem, field: 'body', 'error')}">
                         <label class="col-sm-2 control-label" for="body"><g:message code="news.body" /></label>
                         <div class="col-sm-10">
-                            <g:textArea cols="30" rows="10" name="body" id="wikiPageBody" value="${newsItem?.body}" class="input-fullsize"/>
+                            <g:textArea class="form-control input-fullsize" cols="30" rows="10" name="body" id="wikiPageBody" value="${newsItem?.body}" />
                         </div>
                     </div>
 

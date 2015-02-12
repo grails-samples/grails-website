@@ -9,7 +9,7 @@
     </label>
 
     <div class="col-sm-10">
-        <g:field type="email" name="email" required="" value="${userInstance?.email}"/>
+        <g:field class="form-control" type="email" name="email" required="" value="${userInstance?.email}"/>
     </div>
 </div>
 
@@ -20,7 +20,7 @@
     </label>
 
     <div class="col-sm-10">
-        <g:textField name="login" maxlength="15" required="" value="${userInstance?.login}"/>
+        <g:textField class="form-control" name="login" maxlength="15" required="" value="${userInstance?.login}"/>
     </div>
 </div>
 
@@ -30,7 +30,7 @@
         <g:message code="user.enabled.label" default="Enabled"/>
     </label>
 
-    <div class="col-sm-10">
+    <div class="col-sm-10><div class="checkbox">
         <g:checkBox name="enabled" value="${userInstance?.enabled}"/>
     </div>
 </div>
@@ -41,7 +41,7 @@
     </label>
 
     <div class="col-sm-10">
-        <g:textArea name="permissions" cols="40" rows="7" value="${userInstance?.permissions?.join('\n')}" /> (Separated by new lines or semi-colons)
+        <g:textArea class="form-control" name="permissions" cols="40" rows="7" value="${userInstance?.permissions?.join('\n')}" /> (Separated by new lines or semi-colons)
 
     </div>
 </div>
@@ -53,6 +53,6 @@
     </label>
 
     <div class="col-sm-10">
-        <g:select name="roles" from="${org.grails.auth.Role.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.roles*.id}" class="many-to-many"/>
+        <g:select class="form-control many-to-many" name="roles" from="${org.grails.auth.Role.list()}" multiple="multiple" optionKey="id" size="5" value="${userInstance?.roles*.id}" />
     </div>
 </div>

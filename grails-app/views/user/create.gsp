@@ -39,7 +39,7 @@
         </label>
 
         <div class="col-sm-10">
-            <g:field type="email" name="email" required="" value="${userInstance?.email}"/>
+            <g:field class="form-control" type="email" name="email" required="" value="${userInstance?.email}"/>
         </div>
     </div>
 
@@ -51,7 +51,7 @@
         </label>
 
         <div class="col-sm-10">
-            <g:textField name="login" maxlength="15" required="" value="${userInstance?.login}"/>
+            <g:textField class="form-control" name="login" maxlength="15" required="" value="${userInstance?.login}"/>
         </div>
     </div>
 

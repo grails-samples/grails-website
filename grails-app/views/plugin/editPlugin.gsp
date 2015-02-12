@@ -101,7 +101,7 @@
                         <h2>Installation</h2>
                         <div class="control-group ${hasErrors(bean: plugin.installation, field: 'body', 'error')}">
                             <div class="col-sm-10">
-                                <g:hiddenField name="plugin.installation.version" value="${plugin?.installation?.version}"/>
+                                <g:hiddenField class="form-control" name="plugin.installation.version" value="${plugin?.installation?.version}"/>
                                 <g:textArea cols="30" rows="20" name="plugin.installation.body"
                                             value="${plugin?.installation.body}" class="codeEditor input-medium"/>
                             </div>
@@ -110,14 +110,14 @@
                         <h2>Default dependency scope</h2>
                         <div class="control-group ${hasErrors(bean: plugin.defaultDependencyScope, field: 'body', 'error')}">
                             <div class="col-sm-10">
-                                <g:select name="plugin.defaultDependencyScope" from="${Plugin.DEFAULT_SCOPE_WHITE_LIST}" value="${plugin?.defaultDependencyScope}" />
+                                <g:select class="form-control" name="plugin.defaultDependencyScope" from="${Plugin.DEFAULT_SCOPE_WHITE_LIST}" value="${plugin?.defaultDependencyScope}" />
                             </div>
                         </div>
 
                         <h2>Description</h2>
                         <div class="control-group ${hasErrors(bean: plugin.description, field: 'body', 'error')}">
                             <div class="col-sm-10">
-                                <g:hiddenField name="plugin.description.version" value="${plugin?.description?.version}"/>
+                                <g:hiddenField class="form-control" name="plugin.description.version" value="${plugin?.description?.version}"/>
                                 <g:textArea cols="30" rows="20" name="plugin.description.body"
                                             value="${plugin?.description.body}" class="codeEditor input-medium"/>
                             </div>

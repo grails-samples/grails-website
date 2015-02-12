@@ -7,7 +7,7 @@
         </label>
 
         <div class="col-sm-10">
-            <g:textField name="title" maxlength="50" required="" value="${testimonialInstance?.title}"/>
+            <g:textField class="form-control" name="title" maxlength="50" required="" value="${testimonialInstance?.title}"/>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
         </label>
 
         <div class="col-sm-10">
-            <g:textField name="companyName" value="${testimonialInstance?.companyName}"/>
+            <g:textField class="form-control" name="companyName" value="${testimonialInstance?.companyName}"/>
         </div>
     </div>
 

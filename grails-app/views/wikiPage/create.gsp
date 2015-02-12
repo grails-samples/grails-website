@@ -43,7 +43,7 @@
         </label>
 
         <div class="col-sm-10">
-            <g:textField name="title" pattern="${wikiPageInstance.constraints.title.matches}" required="" value="${wikiPageInstance?.title}"/>
+            <g:textField class="form-control" name="title" pattern="${wikiPageInstance.constraints.title.matches}" required="" value="${wikiPageInstance?.title}"/>
         </div>
     </div>
 
@@ -55,8 +55,8 @@
         </label>
 
         <div class="col-sm-10">
-                          <g:textArea cols="30" rows="20" id="wikiPageBody" name="body"
-                            value="${wikiPageInstance?.body}" class="input-fullsize"/>
+                          <g:textArea class="form-control input-fullsize" cols="30" rows="20" id="wikiPageBody" name="body"
+                            value="${wikiPageInstance?.body}" />
         </div>
     </div>
 
@@ -67,7 +67,7 @@
             <g:message code="wikiPage.locked.label" default="Locked"/>
         </label>
 
-        <div class="col-sm-10">
+        <div class="col-sm-10><div class="checkbox">
             <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
         </div>
     </div>
@@ -80,7 +80,7 @@
         </label>
 
         <div class="col-sm-10">
-            <g:textField name="deprecatedUri" value="${wikiPageInstance?.deprecatedUri}"/>
+            <g:textField class="form-control" name="deprecatedUri" value="${wikiPageInstance?.deprecatedUri}"/>
         </div>
     </div>
 
@@ -91,7 +91,7 @@
             <g:message code="wikiPage.deprecated.label" default="Deprecated"/>
         </label>
 
-        <div class="col-sm-10">
+        <div class="col-sm-10><div class="checkbox">
             <g:checkBox name="deprecated" value="${wikiPageInstance?.deprecated}" />
         </div>
     </div>

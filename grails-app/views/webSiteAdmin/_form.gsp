@@ -28,7 +28,7 @@
     <label class="col-sm-2 control-label" for="title">Title</label>
 
     <div class="col-sm-10">
-        <g:textField name="title" value="${webSiteInstance?.title}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="title" value="${webSiteInstance?.title}" />
     </div>
 </div>
 
@@ -36,8 +36,8 @@
     <label class="col-sm-2 control-label" for="description">Description</label>
 
     <div class="col-sm-10">
-        <g:textArea cols="30" rows="5" name="description" value="${webSiteInstance?.description}"
-                    class="input-xxlarge"/>
+        <g:textArea class="form-control input-xxlarge" cols="30" rows="5" name="description" value="${webSiteInstance?.description}"
+                    />
     </div>
 </div>
 
@@ -45,7 +45,7 @@
     <label class="col-sm-2 control-label" for="url">URL</label>
 
     <div class="col-sm-10">
-        <g:textField name="url" value="${webSiteInstance?.url}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="url" value="${webSiteInstance?.url}" />
     </div>
 </div>
 

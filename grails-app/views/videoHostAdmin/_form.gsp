@@ -2,7 +2,7 @@
     <label class="col-sm-2 control-label" for="name">Name</label>
 
     <div class="col-sm-10">
-        <g:textField name="name" value="${videoHostInstance?.name}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="name" value="${videoHostInstance?.name}" />
     </div>
 </div>
 
@@ -10,7 +10,7 @@
     <label class="col-sm-2 control-label" for="embedTemplate">HTML Template</label>
 
     <div class="col-sm-10">
-        <g:textArea cols="50" rows="15" class="CodeMirror CodeMirror-scroll" id="embedTemplate" name="embedTemplate" value="${videoHostInstance?.embedTemplate}"/>
+        <g:textArea class="form-control CodeMirror CodeMirror-scroll" cols="50" rows="15"  id="embedTemplate" name="embedTemplate" value="${videoHostInstance?.embedTemplate}"/>
 
         <div class="hint">${"\${videoId}"}, ${"\${width}"} and ${"\${height}"} should appear in the template</div>
     </div>

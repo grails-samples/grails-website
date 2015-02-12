@@ -28,7 +28,7 @@
     <label class="col-sm-2 control-label" for="title">Title</label>
 
     <div class="col-sm-10">
-        <g:textField name="title" value="${tutorialInstance?.title}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="title" value="${tutorialInstance?.title}" />
     </div>
 </div>
 
@@ -36,8 +36,8 @@
     <label class="col-sm-2 control-label" for="description">Description</label>
 
     <div class="col-sm-10">
-        <g:textArea cols="30" rows="5" name="description" value="${tutorialInstance?.description}"
-                    class="input-xxlarge"/>
+        <g:textArea class="form-control input-xxlarge" cols="30" rows="5" name="description" value="${tutorialInstance?.description}"
+                    />
     </div>
 </div>
 
@@ -45,7 +45,7 @@
     <label class="col-sm-2 control-label" for="url">URL</label>
 
     <div class="col-sm-10">
-        <g:textField name="url" value="${tutorialInstance?.url}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="url" value="${tutorialInstance?.url}" />
     </div>
 </div>
 
@@ -53,7 +53,7 @@
     <label class="col-sm-2 control-label" for="tags">Tags</label>
 
     <div class="col-sm-10">
-        <g:textField name="tags" value="${tutorialInstance?.tags?.join(', ')}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="tags" value="${tutorialInstance?.tags?.join(', ')}" />
         <div class="hint">Examples: introduction, security, screencast</div>
     </div>
 </div>

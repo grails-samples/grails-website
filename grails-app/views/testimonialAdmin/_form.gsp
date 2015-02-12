@@ -17,7 +17,7 @@
     <label class="col-sm-2 control-label" for="title">Title</label>
 
     <div class="col-sm-10">
-        <g:textField name="title" value="${testimonialInstance?.title}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="title" value="${testimonialInstance?.title}" />
     </div>
 </div>
 
@@ -26,7 +26,7 @@
     <label class="col-sm-2 control-label" for="title">Company Name</label>
 
     <div class="col-sm-10">
-        <g:textField name="companyName" value="${testimonialInstance?.companyName}" class="input-xxlarge"/>
+        <g:textField class="form-control input-xxlarge" name="companyName" value="${testimonialInstance?.companyName}" />
     </div>
 </div>
 

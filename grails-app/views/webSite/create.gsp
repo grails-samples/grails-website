@@ -28,7 +28,7 @@
                 <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'title', 'error')}">
                     <label class="col-sm-2 control-label" for="title"><g:message code="website.title" /></label>
                     <div class="col-sm-10">
-                        <g:textField required="required" name="title" value="${webSiteInstance?.title}" class="input-fullsize"/>
+                        <g:textField class="form-control input-fullsize" required="required" name="title" value="${webSiteInstance?.title}" />
                     </div>
                 </div>
 
@@ -36,21 +36,21 @@
                 <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'shortDescription', 'error')}">
                     <label class="col-sm-2 control-label" for="shortDescription"><g:message code="website.description.short" /></label>
                     <div class="col-sm-10">
-                        <g:textField name="shortDescription" value="${webSiteInstance?.shortDescription}" class="input-fullsize"/>
+                        <g:textField class="form-control input-fullsize" name="shortDescription" value="${webSiteInstance?.shortDescription}" />
                     </div>
                 </div>
 
                 <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'url', 'error')}">
                     <label class="col-sm-2 control-label" for="description"><g:message code="website.description" /></label>
                     <div class="col-sm-10">
-                        <g:textArea required="required" cols="30" rows="4" name="description" value="${webSiteInstance?.description}" class="input-fullsize"/>
+                        <g:textArea class="form-control input-fullsize" required="required" cols="30" rows="4" name="description" value="${webSiteInstance?.description}" />
                     </div>
                 </div>
 
                 <div class="control-group ${hasErrors(bean: webSiteInstance, field: 'url', 'error')}">
                     <label class="col-sm-2 control-label" for="url"><g:message code="website.url" /></label>
                     <div class="col-sm-10">
-                        <g:field type="url" required="required" name="url" value="${webSiteInstance?.url}" class="input-fullsize"/>
+                        <g:field class="form-control input-fullsize" type="url" required="required" name="url" value="${webSiteInstance?.url}" />
                     </div>
                 </div>
 
