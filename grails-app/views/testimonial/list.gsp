@@ -34,10 +34,12 @@
         </g:each>
 
         <g:each in="${nonFeaturedList}" var="testimonial" status="idx">
-            <article class="item col${(idx % 3) + 1}">
+        	<g:if test="${idx % 3 == 0}"><g:if test="${idx > 0}"></div></g:if><div class="row"></g:if>
+            <article class="item col-md-4">
                 <g:render template="testimonial" model="['testimonial': testimonial]"/>
             </article>
         </g:each>
+        </div>        
         <div class="pager">
             <div class="pagination">
                 <g:paginate total="${nonFeaturedTotal}"/>
