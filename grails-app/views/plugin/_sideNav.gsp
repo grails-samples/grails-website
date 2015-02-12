@@ -1,9 +1,4 @@
 <div class="aside">
-    <g:if test="${!(actionName == "list" || actionName == "search")}">
-        <aside class="search">
-            <g:render template="searchBar" />
-        </aside>
-    </g:if>
     <aside class="filters">
         <h3>Filters<g:if test="${activeFilter != 'all'}">&nbsp;&nbsp;&nbsp;<a style="font-size: smaller;" href="/plugins?filter=all">clear filter</a></g:if></h3>
         <ul>

@@ -10,9 +10,13 @@
 <body>
 
 <div id="content" class="content-aside" role="main">
+    <div class="content-aside-title">
+        <h1 id="logo">Plugins <small>You can find out about all the publicly available Grails plugins.</small></h1>
+        <g:render template="searchBar" />
+        <g:render template="loginBar" />
+    </div>
     <g:render template="sideNav"/>
     <section id="main" class="plugin">
-        <g:render template="loginBar" />
         <article class="plugin">
             <header>
                 <h1>
