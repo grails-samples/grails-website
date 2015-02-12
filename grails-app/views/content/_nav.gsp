@@ -1,6 +1,6 @@
 	<div id="search">
-	    <!-- <g:form method="GET" url="[controller:'content', action:'search']" name="searchForm">
-	        <input type="text" accessKey="s" name="q" ${params.q ? 'value="' + params.q + '"' : ''}/></g:form> -->
+	    <%-- <g:form method="GET" url="[controller:'content', action:'search']" name="searchForm">
+	        <input type="text" accessKey="s" name="q" ${params.q ? 'value="' + params.q + '"' : ''}/></g:form> --%>
 	</div><!-- search -->
 	<div id="nav">
 	            <ul>
