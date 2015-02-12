@@ -1,4 +1,4 @@
 <div id="previewContainer" class="previewPane" style="display:none;">
-    <div id="closePreview"><a href="#" onclick="hidePreview();"><asset:image class="inlineIcon" width="15" height="15" border="0" alt="Icon Cancel" href="famicons/cancel.png"/> Close</a></div>
+    <div id="closePreview"><a href="#" onclick="hidePreview();"><asset:image class="inlineIcon" width="15" height="15" border="0" alt="Icon Cancel" src="famicons/cancel.png"/> Close</a></div>
     <div id="previewPane" style="margin:10px; "></div>
 </div>
