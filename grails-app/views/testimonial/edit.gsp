@@ -38,14 +38,14 @@
 
                   <g:render template="form" model="model" />
 
-                <div class="form-actions">
+                <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
                     <g:submitButton name="update" class="btn btn-primary"
                                     value="Update"/>
 
                 <a class="btn preview">Preview</a>
 
 
-            </div>
+            </div></div>
             </fieldset>
             </g:form>
 

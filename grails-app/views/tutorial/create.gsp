@@ -57,9 +57,9 @@
                         </div>
                     </div>
 
-                    <div class="form-actions">
+                    <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
                         <g:submitButton name="submit" value="${ tutorialInstance?.id ? 'Update' :'Submit for Approval'}" class="btn"/>
-                    </div>
+                    </div></div>
                 </fieldset>
 
             </g:form>

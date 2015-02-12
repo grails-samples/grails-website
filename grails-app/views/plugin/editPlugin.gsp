@@ -124,11 +124,11 @@
                         </div>
 
 
-                          <div class="form-actions">
+                          <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
 
                             <g:submitButton name="updatePlugin" class="btn btn-primary" value="Update"/>
                             <g:link class="btn" uri="/plugin/${plugin.name}">Cancel</g:link>
-                        </div>
+                        </div></div>
 
                     </fieldset>
 

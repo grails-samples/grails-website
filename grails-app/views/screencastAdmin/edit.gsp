@@ -23,12 +23,12 @@
 
         <g:render template="form"/>
 
-        <div class="form-actions">
+        <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
             <g:submitButton name="update" class="btn btn-primary" value="Update"/>
             <g:actionSubmit class="btn btn-danger" action="delete" value="Delete"
                             onclick="return confirm('Are you sure?');"/>
             <g:link class="btn" action="list">Cancel</g:link>
-        </div>
+        </div></div>
 
     </fieldset>
 </g:form>

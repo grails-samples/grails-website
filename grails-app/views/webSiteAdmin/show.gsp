@@ -143,11 +143,11 @@
             </div>
         </div>
 
-        <div class="form-actions">
+        <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
             <g:submitButton id="submit-btn" name="submit" class="btn btn-primary"
                             value="Send Response to Submitter"
                             onclick="return confirm('Are you sure?');"/>
-        </div>
+        </div></div>
     </fieldset>
 </g:form>
 

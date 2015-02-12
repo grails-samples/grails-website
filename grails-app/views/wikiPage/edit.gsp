@@ -10,7 +10,7 @@
     <asset:stylesheet src="codeMirror.css"/>
     <asset:javascript src="codeMirror.js"/>
     <asset:stylesheet src="fancyBox.css"/>
-    <asset:javascript src="fancyBox.js"/>    
+    <asset:javascript src="fancyBox.js"/>
 </head>
 
 <body>
@@ -46,7 +46,7 @@
     </label>
 
     <div class="col-sm-10">
-        <g:textField name="title" pattern="${wikiPageInstance.constraints.title.matches}" required="" value="${wikiPageInstance?.title}"/>
+        <g:textField class="form-control" name="title" pattern="${wikiPageInstance.constraints.title.matches}" required="" value="${wikiPageInstance?.title}"/>
     </div>
 </div>
 
@@ -58,7 +58,7 @@
 
     <div class="col-sm-10">
                <g:textArea cols="30" rows="20" id="wikiPageBody" name="body"
-                            value="${wikiPageInstance?.body}" class="input-fullsize"/>
+                            value="${wikiPageInstance?.body}" class="form-control input-fullsize"/>
     </div>
 </div>
 
@@ -68,8 +68,10 @@
         <g:message code="wikiPage.locked.label" default="Locked"/>
     </label>
 
-    <div class="col-sm-10">
-        <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
+        </div>
     </div>
 </div>
 
@@ -91,7 +93,7 @@
     </label>
 
     <div class="col-sm-10">
-        <g:checkBox name="deprecated" value="${wikiPageInstance?.deprecated}" />
+        <g:checkBox class="checkbox" name="deprecated" value="${wikiPageInstance?.deprecated}" />
     </div>
 </div>
 
@@ -102,7 +104,7 @@
     </label>
 
     <div class="col-sm-10">
-        
+
 <ul class="one-to-many">
 <g:each in="${wikiPageInstance?.versions?}" var="v">
     <li><g:link controller="version" action="show" id="${v.id}">${v?.encodeAsHTML()}</g:link></li>
@@ -116,13 +118,15 @@
 </div>
 
 
-<div class="form-actions">
-    <g:submitButton name="update" class="btn btn-primary"
-                    value="${message(code: 'default.button.update.label', default: 'Update')}"/>
-    <g:actionSubmit class="btn btn-danger" action="delete"
-                    value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                    onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-    <g:link class="btn" action="list">Cancel</g:link>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <g:submitButton name="update" class="btn btn-primary"
+                      value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+      <g:actionSubmit class="btn btn-danger" action="delete"
+                      value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+                      onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+      <g:link class="btn" action="list">Cancel</g:link>
+    </div>
 </div>
 
 </g:form>

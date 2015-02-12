@@ -13,13 +13,13 @@
             </div>
         </div>
 
-        <div class="form-actions">
+        <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
             <span class="pull-right">
                 <a href="/${wikiPage?.title}" class="btn">Cancel</a>
             </span>
             <g:submitButton name="submit" value="Save Changes" class="btn"/>
             <a class="btn preview">Preview</a>
-        </div>
+        </div></div>
     </fieldset>
 
 </g:form>

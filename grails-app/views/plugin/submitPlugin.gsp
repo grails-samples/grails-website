@@ -71,9 +71,9 @@
                     documented, which includes a full description and usage.</em>
                 </p>
 
-                <div class="form-actions">
+                <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
                     <g:submitButton name="submit" value="Submit for Approval" class="btn"/>
-                </div>
+                </div></div>
 
             </g:form>
         </article>

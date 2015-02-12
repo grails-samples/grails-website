@@ -59,14 +59,14 @@ props.each { p ->
 <% }
 } %>
 
-<div class="form-actions">
+<div class="form-group"><div class="col-sm-offset-2 col-sm-10">
     <g:actionSubmit action="update" class="btn btn-primary"
                     value="\${message(code: 'default.button.update.label', default: 'Update')}"/>
     <g:actionSubmit class="btn btn-danger" action="delete"
                     value="\${message(code: 'default.button.delete.label', default: 'Delete')}"
                     onclick="return confirm('\${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
     <g:link class="btn" action="list">Cancel</g:link>
-</div>
+</div></div>
 
 </g:form>
 
