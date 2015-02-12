@@ -73,7 +73,7 @@ grails.project.dependency.resolution = {
                 ":quartz:1.0.2",
                 ":searchable:0.6.9",
                 ":spring-events:1.2"
-                
+
         runtime ":shiro:1.2.1", {
             exclude 'org.opensymphony.quartz:quartz'
         }
@@ -85,7 +85,7 @@ grails.project.dependency.resolution = {
 
         compile ":asset-pipeline:2.1.0"
         compile ":less-asset-pipeline:2.0.8"
-        
+
         String build_test_data_scope = (Environment.current == Environment.DEVELOPMENT) ? "compile" : "test"
         "$build_test_data_scope" ":build-test-data:2.2.3", ":fixtures:1.3"
 
@@ -147,9 +147,9 @@ grails.project.dependency.resolution = {
 
 }
 
-grails.project.fork.war.jvmArgs = [ '-Dinitial.admin.password=changeit', '-Dload.fixtures=1' ]
+if(!System.getProperty('nofixtures')) {
+  grails.project.fork.war.jvmArgs = [ '-Dinitial.admin.password=changeit', '-Dload.fixtures=1' ]
+}
 
 // make sure ~/.grails-static-website directory exists since META-INF/context.xml references it
 new File(System.getProperty("user.home"), ".grails-static-website").mkdir()
-
-
