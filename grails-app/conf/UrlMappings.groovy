@@ -8,12 +8,8 @@ class UrlMappings {
             '/greenmail'(controller: 'greenmail', action: 'list')
         }
 
-        "/Home"(controller: "content", action: "homePage")
-        "/content/$id"(controller: "content", action: "index") {
-            constraints {
-                id notEqual: "dbconsole"
-            }
-        }
+        "/wiki/Home"(controller: "content", action: "homePage")
+        "/wiki/$id"(controller: "content", action: "index")
 
         "/ggts"(controller: "product", action: "legacyggts")
         "/products/$action"(controller: "product")
@@ -148,19 +144,20 @@ class UrlMappings {
 
         "/plugin/addTag"(controller:"plugin", action:"addTag")
         "/plugin/removeTag"(controller:"plugin", action:"removeTag")
-        "/wikiImage/$path**"(controller: "content", action: "showImage")
-        "/content/postComment/$id"(controller: "content", action:"postComment")
+        "/wiki/wikiImage/$path**"(controller: "content", action: "showImage")
+        "/wiki/content/postComment/$id"(controller: "content", action:"postComment")
 
         "/blog/delete/$id"(controller: 'blogEntry', action:'delete')
         "/blog"(controller:"blog", action:"list")
         "/Grails+Screencasts"(controller: "content", action: "screencastLegacy")
+        "/wiki/Grails+Screencasts"(controller: "content", action: "screencastLegacy")
 
         "/rateable/rate/$id"(controller: "rateable", action:"rate")
         "/tag/autoCompleteNames"(controller:'tag', action:'autoCompleteNames')
 
-        "/search"(controller: "content", action: "search")
-        "/upload/$id?"(controller: "content", action: "uploadImage")
-        "/addImage/$id?"(controller: "content", action: "addImage")
+        "/wiki/search"(controller: "content", action: "search")
+        "/wiki/upload/$id?"(controller: "content", action: "uploadImage")
+        "/wiki/addImage/$id?"(controller: "content", action: "addImage")
 
         "/register"(controller: "user", action: "register")
         "/user/create"(controller: "user", action: "createAccount")
@@ -175,18 +172,18 @@ class UrlMappings {
         "/loginReminder"(controller: "user", action: "loginReminder")
         "/profile"(controller: "user", action: "profile")
         "/logout"(controller: "user", action: "logout")
-        "/edit/$id"(controller: "content", action: "editWikiPage")
-        "/save/$id"(controller: "content", action: "saveWikiPage")
-        "/previewWikiPage"(controller: "content", action: "previewWikiPage")
-        "/create/$id"(controller: "content", action: "createWikiPage")
-        "/info/$id"(controller: "content", action: "infoWikiPage")
-        "/markup/$id"(controller: "content", action: "markupWikiPage")
-        "/version/$id/$number"(controller: "content", action: "showWikiVersion") {
+        "/wiki/edit/$id"(controller: "content", action: "editWikiPage")
+        "/wiki/save/$id"(controller: "content", action: "saveWikiPage")
+        "/wiki/preview"(controller: "content", action: "previewWikiPage")
+        "/wiki//create/$id"(controller: "content", action: "createWikiPage")
+        "/wiki/info/$id"(controller: "content", action: "infoWikiPage")
+        "/wiki/markup/$id"(controller: "content", action: "markupWikiPage")
+        "/wiki/version/$id/$number"(controller: "content", action: "showWikiVersion") {
             constraints { number matches: /\d+/ }
         }
-        "/rollback/$id/$number"(controller: "content", action: "rollbackWikiVersion")
-        "/diff/$id/$number/$diff"(controller: "content", action: "diffWikiVersion")
-        "/previous/$id/$number"(controller: "content", action: "previousWikiVersion")
+        "/wiki/rollback/$id/$number"(controller: "content", action: "rollbackWikiVersion")
+        "/wiki/diff/$id/$number/$diff"(controller: "content", action: "diffWikiVersion")
+        "/wiki/previous/$id/$number"(controller: "content", action: "previousWikiVersion")
 
 
         /* ========================= LEARN ======================= */
