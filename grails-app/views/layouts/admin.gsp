@@ -21,18 +21,19 @@
 
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <g:link controller="admin" class="brand">Grails Admin</g:link>
-
-            <div class="nav-collapse">
-                <ul class="nav">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <g:link controller="admin" class="navbar-brand">Grails Admin</g:link>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        	<ul class="nav navbar-nav">
                     <li <g:if test="${controllerName == 'user'}">class="active"</g:if>>
                         <g:link controller="user" action="list">Users</g:link></li>
 
@@ -73,14 +74,13 @@
                     <li><g:link uri="/">Back to site</g:link></li>
                 </ul>
 
-                <p class="navbar-text pull-right">
+                <p class="nav navbar-text navbar-right">
                     Logged in as ${user?.login} | <g:link controller="user" action="logout">logout</g:link>
-                </p>
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
-</div>
-
+                </p>        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
 <div class="container">
     <g:layoutBody/>
 </div>

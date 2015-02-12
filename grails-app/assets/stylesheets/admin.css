@@ -1,9 +1,6 @@
 body {
     padding-top: 35px;
 }
-div.container {
-    margin-top:30px;
-}
 div.hint {
     color: #969696;
     font-style: italic;
@@ -19,7 +16,7 @@ div.hint {
 }
 .pagination .prevLink {
     border-left: 1px solid #DDD !important;
-}/*
-*= require bootstrap.css
-*= require bootstrap-responsive.css
+}
+/*
+*= require bootstrap/bootstrap.css
 */
