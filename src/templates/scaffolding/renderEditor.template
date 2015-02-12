@@ -185,14 +185,14 @@ private renderNumberEditor(domainClass, property) {
 
 private renderBooleanEditor(domainClass, property) {
     if (!cp) {
-        return "<g:checkBox name=\"${property.name}\" value=\"\${${domainInstance}?.${property.name}}\" />"
+        return "<div class=\"checkbox\"><label><g:checkBox name=\"${property.name}\" value=\"\${${domainInstance}?.${property.name}}\" /></label></div>"
     } else {
-        def sb = new StringBuilder("<g:checkBox name=\"${property.name}\" ")
+        def sb = new StringBuilder("<div class=\"checkbox\"><label><g:checkBox name=\"${property.name}\" ")
         if (cp.widget) sb << "widget=\"${cp.widget}\" ";
         cp.attributes.each { k, v ->
             sb << "${k}=\"${v}\" "
         }
-        sb << "value=\"\${${domainInstance}?.${property.name}}\" />"
+        sb << "value=\"\${${domainInstance}?.${property.name}}\" /></label></div>"
         return sb.toString()
     }
 }

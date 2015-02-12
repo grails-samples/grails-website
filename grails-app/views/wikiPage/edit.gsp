@@ -68,9 +68,11 @@
         <g:message code="wikiPage.locked.label" default="Locked"/>
     </label>
 
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-10">
         <div class="checkbox">
-          <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
+          <label>
+            <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
+          </label>
         </div>
     </div>
 </div>
@@ -93,7 +95,11 @@
     </label>
 
     <div class="col-sm-10">
-        <g:checkBox class="form-control checkbox"  name="deprecated" value="${wikiPageInstance?.deprecated}" />
+        <div class="checkbox">
+          <label>
+            <g:checkBox name="deprecated" value="${wikiPageInstance?.deprecated}" />
+          </label>
+        </div>
     </div>
 </div>
 

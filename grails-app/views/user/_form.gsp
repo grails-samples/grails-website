@@ -24,14 +24,17 @@
     </div>
 </div>
 
-
 <div class="control-group ${hasErrors(bean: userInstance, field: 'enabled', 'error')}">
     <label class="col-sm-2 control-label" for="enabled">
         <g:message code="user.enabled.label" default="Enabled"/>
     </label>
 
-    <div class="col-sm-10><div class="checkbox">
-        <g:checkBox name="enabled" value="${userInstance?.enabled}"/>
+    <div class="col-sm-10">
+        <div class="checkbox">
+          <label>
+            <g:checkBox name="enabled" value="${userInstance?.enabled}"/>
+          </label>
+        </div>
     </div>
 </div>
 
@@ -41,7 +44,7 @@
     </label>
 
     <div class="col-sm-10">
-        <g:textArea class="form-control" name="permissions" cols="40" rows="7" value="${userInstance?.permissions?.join('\n')}" /> (Separated by new lines or semi-colons)
+        <g:textArea class="form-control" name="permissions" rows="7" value="${userInstance?.permissions?.join('\n')}" /> (Separated by new lines or semi-colons)
 
     </div>
 </div>

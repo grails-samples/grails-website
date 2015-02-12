@@ -10,7 +10,7 @@
     <asset:stylesheet src="codeMirror.css"/>
     <asset:javascript src="codeMirror.js"/>
     <asset:stylesheet src="fancyBox.css"/>
-    <asset:javascript src="fancyBox.js"/>    
+    <asset:javascript src="fancyBox.js"/>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
 <g:form action="save" class="form-horizontal" >
 <fieldset>
 
-    
+
 
     <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'title', 'error')}">
         <label class="col-sm-2 control-label" for="title">
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'body', 'error')}">
         <label class="col-sm-2 control-label" for="body">
@@ -60,19 +60,21 @@
         </div>
     </div>
 
-    
+
 
     <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'locked', 'error')}">
         <label class="col-sm-2 control-label" for="locked">
             <g:message code="wikiPage.locked.label" default="Locked"/>
         </label>
 
-        <div class="col-sm-10><div class="checkbox">
-            <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
+        <div class="col-sm-10>
+          <div class="checkbox">
+              <label>
+                <g:checkBox name="locked" value="${wikiPageInstance?.locked}" />
+              </label>
+          </div>
         </div>
     </div>
-
-    
 
     <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'deprecatedUri', 'error')}">
         <label class="col-sm-2 control-label" for="deprecatedUri">
@@ -84,7 +86,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="control-group ${hasErrors(bean: wikiPageInstance, field: 'deprecated', 'error')}">
         <label class="col-sm-2 control-label" for="deprecated">
@@ -96,7 +98,7 @@
         </div>
     </div>
 
-    
+
 
     <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
         <g:submitButton name="create" class="btn btn-primary"
