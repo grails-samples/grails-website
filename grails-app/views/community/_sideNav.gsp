@@ -44,12 +44,6 @@
                     Mailing Lists
                 </a>
             </li>
-            <li>
-                <a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">
-                    <g:img dir="img/icons" file="nabble.png" />
-                    Nabble Forums
-                </a>
-            </li>
             <li class="last <g:if test="${controllerName == 'newsItem'}">active</g:if>">
                 <a href="/news">
                     <g:img dir="img/icons" file="news.png" />

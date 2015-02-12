@@ -1,7 +1,7 @@
 	<div id="search">
 	    <!-- <g:form method="GET" url="[controller:'content', action:'search']" name="searchForm">
 	        <input type="text" accessKey="s" name="q" ${params.q ? 'value="' + params.q + '"' : ''}/></g:form> -->
-	</div><!-- search -->	 
+	</div><!-- search -->
 	<div id="nav">
 	            <ul>
 	                <li id="start" class="header"><g:link uri="/start">Get Started</g:link>
@@ -26,15 +26,14 @@
 	                <ul>
 	                    <li><g:link controller="webSite" action="list">Sites using Grails</g:link></li>
 	                    <plugin:isAvailable name="jobs">
-	                        <li><g:link controller="job" action="list">Job Listings</g:link></li>    
+	                        <li><g:link controller="job" action="list">Job Listings</g:link></li>
 	                    </plugin:isAvailable>
 	                    <li><g:link controller="content" id="Testimonials">Testimonials</g:link></li>
 	                    <li><g:link controller="content" id="Contribute">Contribute</g:link></li>
 	                    <li><a href="http://jira.grails.org/browse/GRAILS">Issue Tracker</a></li>
-	                    <li><a href="http://github.com/grails/grails-core/">Source code</a></li>	
+	                    <li><a href="http://github.com/grails/grails-core/">Source code</a></li>
 	                    <li><g:link controller="content" id="Plugins">Plugins</g:link></li>
 	                    <li><g:link controller="content" id="Mailing lists">Mailing Lists</g:link></li>
-						<li><a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble Forums</a></li>
 						<li><a href="http://webchat.freenode.net/?channels=grails">IRC Webchat</a></li>
                         <li>&nbsp;</li>
                         <li>Find us on:<br />
@@ -46,5 +45,4 @@
 	                </li>
 	    <!--			<li><a href="">Weblog</a></li>-->
 	            </ul>
-	</div><!-- / nav -->	
-
+	</div><!-- / nav -->

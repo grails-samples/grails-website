@@ -12,6 +12,5 @@
         <li><a href="/plugins">Plugins</a></li>
         <li<g:if test="${actionName == 'mailingList'}"> class="active"</g:if>>
             <a href="/community/mailingList">Mailing Lists</a></li>
-        <li class="last"><a href="http://grails.1312388.n4.nabble.com/Grails-user-f1312389.html">Nabble Forums</a></li>
     </ul>
 </aside>
