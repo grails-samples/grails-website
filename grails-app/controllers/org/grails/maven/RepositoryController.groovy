@@ -18,6 +18,7 @@ class RepositoryController {
 
     def cacheService
     def grailsApplication
+    def pluginDeployService
     
     /**
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
@@ -130,9 +131,11 @@ class RepositoryController {
                 }
 
                 def snapshotVersion = pluginVersion
-                if(snapshotVersion.endsWith("-SNAPSHOT")) {
+                def isSnapshot = snapshotVersion.endsWith("-SNAPSHOT")
+                String repoUrl = pluginDeployService.getRepositoryUrl(isSnapshot)
+                if(isSnapshot) {
                     // need to calculate actual version from maven metadata
-                    def parent = new URL("${repoUrl}/org/grails/plugins/$plugin/$pluginVersion/maven-metadata.xml")
+                    def parent = new URL("${repoUrl}/$plugin/$pluginVersion/maven-metadata.xml")
                     try {
                         def metadata = parent.newReader(connectTimeout: 10000, useCaches: false).withReader { new XmlSlurper().parse(it) }
                         def timestamp = metadata.versioning.snapshot.timestamp.text()
@@ -147,8 +150,10 @@ class RepositoryController {
                     }
                     
                 }
-                url = "${repoUrl}/org/grails/plugins/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"                
-                cacheService?.putContent(key, url)
+                url = "${repoUrl}/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"
+                if(!isSnapshot) {
+                    cacheService?.putContent(key, url)
+                }
             }
             
             redirect url:url
@@ -178,11 +183,6 @@ class RepositoryController {
             
         }
         
-    }
-    
-    protected getRepoUrl() {
-        def repoUrl = grailsApplication.config.artifactRepository.url ?: "https://repo.grails.org/grails/plugins"
-        return repoUrl.endsWith("/") ? repoUrl[0..-2] : repoUrl
     }
     
     private findLatestNonSnapshotPluginRelease(String n) {

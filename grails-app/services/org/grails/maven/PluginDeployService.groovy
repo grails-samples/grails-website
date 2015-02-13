@@ -27,6 +27,10 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
         log.debug "Received plugin publish event for pending release [$event.source]"
         deployRelease pendingRelease
     }
+    
+    public String getRepositoryUrl(boolean isSnapshot) {
+        return isSnapshot ? snapshotUrl : releaseUrl
+    }
 
     /**
      * Takes a PendingRelease and deploys it to Artifactory. The release is deleted is successful.
@@ -35,7 +39,7 @@ class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
      *
      */
     def deployRelease(PendingRelease pendingRelease) {
-        def url = pendingRelease.pluginVersion.endsWith("-SNAPSHOT") ? snapshotUrl : releaseUrl
+        def url = getRepositoryUrl(pendingRelease.pluginVersion.endsWith("-SNAPSHOT"))
         log.info "Deploying plugin [$pendingRelease.pluginName] with version [$pendingRelease.pluginVersion] to URL $url"
 
         try {
