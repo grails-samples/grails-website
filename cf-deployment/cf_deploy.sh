@@ -7,4 +7,5 @@ grails war --non-interactive
 cd -
 ./add_config.sh
 cd ..
+cf target -s development
 cf push
