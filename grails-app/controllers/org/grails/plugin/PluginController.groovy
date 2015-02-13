@@ -109,7 +109,7 @@ class PluginController {
     def updatePlugin(String id) {
         def plugin = Plugin.findByName(id)
         if(plugin && params['plugin']) {
-            plugin.properties['summary', 'defaultDependencyScope'] = params['plugin']
+            bindData(plugin, params, [include: ['summary', 'defaultDependencyScope']], 'plugin')
             if(plugin.save()) {
                 def installation = params['plugin']['installation']
                 def description= params['plugin']['description']

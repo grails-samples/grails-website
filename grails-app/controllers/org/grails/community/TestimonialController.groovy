@@ -20,7 +20,7 @@ class TestimonialController {
 
     def create = {
         def testimonialInstance = new Testimonial()
-        testimonialInstance.properties = params
+        bindData(testimonialInstance, params)
         return [testimonialInstance: testimonialInstance]
     }
 

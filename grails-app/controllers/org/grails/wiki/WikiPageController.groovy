@@ -20,7 +20,7 @@ class WikiPageController {
 
     def create() {
         def wikiPageInstance = new WikiPage()
-        wikiPageInstance.properties = params
+        bindData(wikiPageInstance, params)
         [wikiPageInstance: wikiPageInstance]
     }
 
@@ -111,7 +111,7 @@ class WikiPageController {
                     return
                 }
             }
-            wikiPageInstance.properties = params
+            bindData(wikiPageInstance, params)
             if (!wikiPageInstance.hasErrors() && wikiPageInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'wikiPage.label', default: 'WikiPage'), wikiPageInstance.id])}"
                 redirect action: "show", id: wikiPageInstance.id

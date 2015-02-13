@@ -15,7 +15,7 @@ class TutorialController {
 
     def tagged(String tag) {
         def maxResults = params.int("max",10)
-        def offset = params.int("offset", 0)        
+        def offset = params.int("offset", 0)
         render view:"list", model:[tutorialInstanceList: Tutorial.findAllByTag(tag, [max: maxResults, offset: offset]), tutorialCount: Tutorial.countByTag(tag)]
     }
     def search(String q, int offset) {
@@ -30,7 +30,7 @@ class TutorialController {
         def maxResults = params.int("max",10)
         def offset = params.int("offset", 0)
         def tutorialInstanceList = Tutorial.allQuery.list(max: maxResults, offset: offset)
-        [tutorialInstanceList: tutorialInstanceList, tutorialCount: Tutorial.allQuery.count() ] 
+        [tutorialInstanceList: tutorialInstanceList, tutorialCount: Tutorial.allQuery.count() ]
     }
 
     def show() {
@@ -55,14 +55,14 @@ class TutorialController {
 
     def create() {
         def tutorialInstance = new Tutorial()
-        tutorialInstance.properties = params
+        bindData(tutorialInstance, params)
         return [tutorialInstance: tutorialInstance]
     }
 
     def save() {
         def tutorial= params.id ? Tutorial.get(params.id) : new Tutorial()
         if(tutorial == null) tutorial = new Tutorial()
-        tutorial.properties['title', 'description', 'url'] = params
+        bindData(tutorial, params, [include: ['title', 'description', 'url']])
         boolean isNew = !tutorial.isAttached()
         if(isNew) {
             tutorial.status = ApprovalStatus.PENDING
@@ -72,7 +72,7 @@ class TutorialController {
             searchableService.stopMirroring()
             if (!tutorial.hasErrors() && tutorial.save()) {
                 processTags tutorial, params.tags
-                
+
                 tutorial.save flush: true
 
                 // Make sure user can edit tutorial they create
@@ -80,7 +80,7 @@ class TutorialController {
                     request.user.addToPermissions("tutorial:edit,update:$tutorial.id")
                     request.user.save()
                 }
-                
+
                 def key = "tutorial_${tutorial.id}".toString()
                 cacheService?.removeWikiText(key)
                 cacheService?.removeShortenedWikiText(key)

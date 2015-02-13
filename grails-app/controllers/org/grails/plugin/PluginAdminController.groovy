@@ -93,7 +93,7 @@ class PluginAdminController {
             }
         }
 
-        p.properties = params
+        bindData(p, params)
 
         try {
             searchableService.stopMirroring()

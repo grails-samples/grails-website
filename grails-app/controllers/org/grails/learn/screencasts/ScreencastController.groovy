@@ -88,14 +88,14 @@ class ScreencastController {
 
     def create() {
         def screencastInstance = new Screencast()
-        screencastInstance.properties = params
+        bindData(screencastInstance, params)
         return [screencastInstance: screencastInstance]
     }
 
     def save() {
         def screencast= params.id ? Screencast.get(params.id) : new Screencast()
         if(screencast == null) screencast = new Screencast()
-        screencast.properties = params
+        bindData(screencast, params)
         screencast.status = ApprovalStatus.PENDING
         screencast.submittedBy = request.user
 

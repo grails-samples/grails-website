@@ -65,7 +65,7 @@ class RatingLinkController {
                     return
                 }
             }
-            ratingInstance.properties = params
+            bindData(ratingInstance, params)
             if(!ratingInstance.hasErrors() && ratingInstance.save()) {
                 flash.message = "Rating ${params.id} updated"
                 redirect(action:list)

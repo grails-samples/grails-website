@@ -24,7 +24,7 @@ class WebSiteAdminController {
 
     def create = {
         def webSiteInstance = new WebSite()
-        webSiteInstance.properties = params
+        bindData(webSiteInstance, params)
         if (!webSiteInstance?.submittedBy) {
             webSiteInstance.submittedBy = request.user
         }
@@ -82,7 +82,7 @@ class WebSiteAdminController {
     def update = {
         def webSiteInstance = WebSite.get(params.id)
         if (webSiteInstance) {
-            webSiteInstance.properties = params
+            bindData(webSiteInstance, params)
 
             try {
                 searchableService.stopMirroring()

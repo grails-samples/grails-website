@@ -12,7 +12,7 @@ class VideoHostAdminController {
 
     def create() {
         def videoHostInstance = new VideoHost()
-        videoHostInstance.properties = params
+        bindData(videoHostInstance, params)
         [videoHostInstance: videoHostInstance]
     }
 
@@ -52,7 +52,7 @@ class VideoHostAdminController {
     def update() {
         def videoHostInstance = VideoHost.get(params.id)
         if (videoHostInstance) {
-            videoHostInstance.properties = params
+            bindData(videoHostInstance, params)
             if (!videoHostInstance.hasErrors() && videoHostInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.created.message', args: ['Video Host', videoHostInstance.id])}"
                 redirect(action: "show", id: videoHostInstance.id)

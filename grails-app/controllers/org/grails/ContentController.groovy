@@ -167,7 +167,7 @@ class ContentController extends BaseWikiController {
 
             def engine = createWikiEngine()
             page.discard()
-            page.properties = params
+            bindData(page, params)
 
             render(engine.render(page.body, context))
         }

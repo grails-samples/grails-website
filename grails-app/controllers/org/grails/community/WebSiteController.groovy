@@ -30,14 +30,14 @@ class WebSiteController {
 
     def create() {
         def webSiteInstance = new WebSite()
-        webSiteInstance.properties = params
+        bindData(webSiteInstance, params)
         return [webSiteInstance: webSiteInstance]
     }
 
     def save() {
         def website= params.id? WebSite.get(params.id) : new WebSite()
         if(website == null) website = new WebSite()
-        website.properties = params
+        bindData(website, params)
 
         boolean isNew = !website.isAttached()
         if(isNew) {

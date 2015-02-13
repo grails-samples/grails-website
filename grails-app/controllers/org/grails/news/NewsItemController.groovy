@@ -6,10 +6,10 @@ import org.grails.wiki.WikiPage
 
 class NewsItemController {
 
-    def index() { 
+    def index() {
         render view:'list', model:[newsItems: NewsItem.approved.list(max:10, sort:'dateCreated', order:'desc')]
     }
-    
+
     def create() {
         if(request.method == "GET") {
             def template =  flash.newsItem ?: new NewsItem( body: WikiPage.findByTitle('Default Create Wiki Template')?.body )
@@ -17,7 +17,7 @@ class NewsItemController {
         }
         else {
             def newsItem = new NewsItem()
-            newsItem.properties['title', 'body', 'status'] = params
+            bindData(newsItem, params, [include: ['title', 'body', 'status']])
             newsItem.author = request.user
             if(!newsItem.validate()) {
                 flash.newsItem = newsItem
@@ -29,7 +29,7 @@ class NewsItemController {
                 }
                 else {
 
-                    flash.message = "Your news post has been submitted to the administrators for approval"                    
+                    flash.message = "Your news post has been submitted to the administrators for approval"
                 }
 
                 newsItem.save(flush:true)
@@ -40,12 +40,12 @@ class NewsItemController {
 
         }
     }
-    
+
     def show(Long id) {
         def newsItem =  NewsItem.get(id)
         if(newsItem != null) {
             if(newsItem.status == ApprovalStatus.APPROVED || (request.user != null && newsItem.author == request.user)) {
-                return [newsItem: newsItem]                            
+                return [newsItem: newsItem]
             }
             else {
                 render status: 404
@@ -68,19 +68,19 @@ class NewsItemController {
             response.sendError 404
         }
     }
-    
+
     def edit( Long id) {
         if(request.method == 'GET') {
             def newsItem = show(id)
-            
+
             if(newsItem) {
                 render view:"edit", model: newsItem
-            } 
+            }
         }
         else {
             def n = NewsItem.get(id)
 
-            n.properties =  params['title', 'body', 'status'] 
+            bindData(n, params, [include: ['title', 'body', 'status']])
             if(n.save()) {
                 redirect action:'show', id:id
             }
@@ -89,6 +89,6 @@ class NewsItemController {
             }
 
         }
-               
+
     }
 }

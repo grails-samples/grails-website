@@ -13,7 +13,7 @@ class TagController {
 
     def list = {
         def tagInstance = new Tag()
-        tagInstance.properties = params
+        bindData(tagInstance, params)
 
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         [ tagInstanceList: Tag.list( params ), tagInstanceTotal: Tag.count(), tagInstance: tagInstance ]
@@ -75,7 +75,7 @@ class TagController {
                     return
                 }
             }
-            tagInstance.properties = params
+            bindData(tagInstance, params)
             if(!tagInstance.hasErrors() && tagInstance.save()) {
                 flash.message = "Tag ${params.id} updated"
                 redirect(action:show,id:tagInstance.id)
@@ -92,7 +92,7 @@ class TagController {
 
     def create = {
         def tagInstance = new Tag()
-        tagInstance.properties = params
+        bindData(tagInstance, params)
         return ['tagInstance':tagInstance]
     }
 

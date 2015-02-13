@@ -20,7 +20,7 @@ class TestimonialAdminController {
 
     def create = {
         def testimonialInstance = new Testimonial()
-        testimonialInstance.properties = params
+        bindData(testimonialInstance, params)
         return [testimonialInstance: testimonialInstance]
     }
 
@@ -100,7 +100,7 @@ class TestimonialAdminController {
                     return
                 }
             }
-            testimonialInstance.properties = params
+            bindData(testimonialInstance, params)
             if (!testimonialInstance.hasErrors() && testimonialInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'testimonial.label', default: 'Testimonial'), testimonialInstance.id])}"
                 redirect(action: "show", id: testimonialInstance.id)

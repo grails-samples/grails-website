@@ -20,7 +20,7 @@ class ScreencastAdminController {
 
     def create = {
         def screencastInstance = new Screencast()
-        screencastInstance.properties = params
+        bindData(screencastInstance, params)
         if (!screencastInstance?.submittedBy) {
             screencastInstance.submittedBy = request.user
         }
@@ -81,7 +81,7 @@ class ScreencastAdminController {
     def update = {
         def screencastInstance = Screencast.get(params.id)
         if (screencastInstance) {
-            screencastInstance.properties = params
+            bindData(screencastInstance, params)
 
             try {
                 searchableService.stopMirroring()

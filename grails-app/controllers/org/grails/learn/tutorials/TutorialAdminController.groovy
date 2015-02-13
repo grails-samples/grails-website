@@ -20,7 +20,7 @@ class TutorialAdminController {
 
     def create = {
         def tutorialInstance = new Tutorial()
-        tutorialInstance.properties = params
+        bindData(tutorialInstance, params)
         if (!tutorialInstance?.submittedBy) {
             tutorialInstance.submittedBy = request.user
         }
@@ -81,7 +81,7 @@ class TutorialAdminController {
     def update = {
         def tutorialInstance = Tutorial.get(params.id)
         if (tutorialInstance) {
-            tutorialInstance.properties = params
+            bindData(tutorialInstance, params)
 
             try {
                 searchableService.stopMirroring()
