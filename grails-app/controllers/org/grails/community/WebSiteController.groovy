@@ -25,7 +25,7 @@ class WebSiteController {
     }
 
     def search(String q, int offset) {
-        render view:"list", model:[webSiteInstanceList: contentSearchService.search(WebSite, q, offset)]
+        render view:"list", model:[webSiteInstanceList: contentSearchService.search(WebSite, q, offset, [reload: true])]
     }
 
     def create() {

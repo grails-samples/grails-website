@@ -3,10 +3,10 @@ import org.compass.core.engine.SearchEngineQueryParseException
 
 class ContentSearchService {
 
-    def search(Class type, String q, offset) {
+    def search(Class type, String q, offset, Map extraOptions = [:]) {
         if (q) {
             try {
-                def searchResult = type.search(q, offset: offset)
+                def searchResult = type.search(q, [offset: offset] + extraOptions)
                 return searchResult?.results
             }
             catch (SearchEngineQueryParseException ex) {
