@@ -12,6 +12,7 @@ package org.grails.plugin
  * </ul>
  */
 class TwitterService {
+    static transactional = false
     def twitterApi
 
     /**
