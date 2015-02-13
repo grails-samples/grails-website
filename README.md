@@ -13,7 +13,7 @@ Once you have cloned the repository, you can immediately try it out with
 
 Ignore the warnings about not finding the site-config.groovy files - they are expected.
 
-The above command starts the application in the development environment with some sample data. Note that the application depends on quite a few plugins so you will have to wait for those to be downloaded and installed. Also be aware that the plugins are installed in a sub-directory of the project called `plugins`. 
+The above command starts the application in the development environment with some sample data. Note that the application depends on quite a few plugins so you will have to wait for those to be downloaded and installed. Also be aware that the plugins are installed in a sub-directory of the project called `plugins`.
 
 The default development and test environments are configured to use an in-memory H2 database, as you can see if you take a look at the [DataSource.groovy](https://github.com/grails-samples/grails-website/blob/master/grails-app/conf/DataSource.groovy) file. The sample data comes from [some fixtures](https://github.com/grails-samples/grails-website/tree/master/fixtures/) that are loaded by [BootStrap.groovy](https://github.com/grails-samples/grails-website/blob/master/grails-app/conf/BootStrap.groovy). If you want to add or otherwise modify the sample data, simply modify the fixtures! Note that these fixtures require the [Fixtures plugin](http://grails.org/plugin/fixtures).
 
@@ -25,7 +25,7 @@ The production environment uses a MySQL database, for which you need to configur
 
     dataSource {
         pooled = true
-        driverClassName = "com.mysql.jdbc.Driver"       
+        driverClassName = "com.mysql.jdbc.Driver"
         url = "jdbc:mysql://localhost/grails"
         username = "root"
         password = ""
@@ -35,7 +35,7 @@ The production environment uses a MySQL database, for which you need to configur
 You don't have to use the credentials and database name specified above, but make sure that the database you specify exists because it won't be created automatically! Also note that the `dbCreate` setting is important as we want to disable Hibernate's automatic schema creation.
 
 You'll then want to make sure the database migration plugin's autorun feature is enabled in your 'site-config.groovy' file so that the necessary tables are created in your database:
-    
+
     grails.plugin.databasemigration.updateOnStart = true
 
 With the data source configured you can just start the application:
@@ -48,7 +48,7 @@ Once you have started the application using the above command line, you can subs
 
     ./grailsw run-app
 
-or 
+or
 
     ./grailsw prod run-app
 
@@ -60,6 +60,53 @@ If you make any changes to the domain model, such as adding or removing domain c
 
 More to come...
 
-## Testing
+## Testing plugin publishing locally
 
-Documentation to follow.
+### Setting up local test environment
+
+Add these release plugin settings to ~/.grails/settings.groovy
+```
+grails.project.portal.my.url = "http://localhost:8080/plugin/"
+grails.project.portal.my.username = "admin"
+grails.project.portal.my.password = "changeit"
+
+grails.project.repos.myRepo.url = "http://localhost:8080/plugins"
+grails.project.repos.myRepo.type = "grailsCentral"
+grails.project.repos.myRepo.username = "admin"
+grails.project.repos.myRepo.password = "changeit"
+grails.project.repos.myRepo.portal = "my"
+```
+
+Download Artifactory zip from http://www.jfrog.com/open-source/ and unzip it to some location.
+Modify tomcat/conf/server.xml file before starting Artifactory. Change the port from 8081 to 8085 .
+```
+        <Connector port="8085"/>
+```
+Then start Artifactory.
+```
+./bin/artifactory.sh start
+```
+
+Add a file site-config.groovy to the grails-website directory with this content:
+```
+grails.serverURL='http://localhost:8080'
+beans {
+     pluginDeployService {
+         releaseUrl = "http://localhost:8085/artifactory/plugins-release-local/org/grails/plugins"
+         snapshotUrl = "http://localhost:8085/artifactory/plugins-snapshot-local/org/grails/plugins"
+         deployUsername = "admin"
+         deployPassword = "password"
+     }
+}
+```
+
+### Testing plugin publishing
+
+Start grails-website with run-app:
+```grails run-app```
+
+Start artifactory if it's not already running:
+```ARTIFACTORY_INSTALL_DIR/bin/artifactory.sh start```
+
+Publish some plugin (f.e. mail) that already exists in the repository (so that it's already approved):
+```grails publish-plugin --repository=myRepo --portal=my --stacktrace```
