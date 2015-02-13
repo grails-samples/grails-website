@@ -42,7 +42,7 @@
         </div>        
         <div class="pager">
             <div class="pagination">
-                <g:paginate total="${nonFeaturedTotal}"/>
+                <g:paginate total="${nonFeaturedTotal}" max="12"/>
             </div>
         </div>
     </section>

@@ -9,7 +9,7 @@ class TestimonialController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        params.max = Math.min(params.max ? params.int('max') : 12, 100)
         def offset = params.int('offset', 0)
         def featuredList =  Testimonial.featuredApproved().list()
         def nonFeaturedList =  Testimonial.nonFeaturedApproved().list(max: params.max, offset: offset)
