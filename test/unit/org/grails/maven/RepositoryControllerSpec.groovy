@@ -14,6 +14,10 @@ class RepositoryControllerSpec extends spock.lang.Specification{
         SimpleMapJodaTimeMarshaller.initialize()
     }
     
+    void setup() {
+        controller.pluginDeployService = [getRepositoryUrl: { boolean isSnapshot ->  "https://repo.grails.org/grails/plugins/org/grails/plugins"}]
+    }
+    
     void "Test publish plugin invalid method"() {
         when:"The publish plugin action is called with invalid data"
             request.method = 'PUT'
