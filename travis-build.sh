@@ -1,5 +1,5 @@
 #!/bin/bash -xe
-deploy_to_cf {
+deploy_to_cf() {
   CF_SPACE=$1
   if [ -d "cf-deployment-$CF_SPACE" ]; then
     (cd "cf-deployment-$CF_SPACE" && zip -r ../target/grails-website.war * )
