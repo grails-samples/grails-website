@@ -1,0 +1,35 @@
+file("cf-deploy.gradle.properties").withInputStream { input ->
+    def p = new Properties()
+    p.load(input)
+    p.each { k, v -> project.ext.set(k, v) }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.cloudfoundry', name: 'cf-gradle-plugin', version: '1.1.1'
+    }
+}
+
+apply plugin: 'cloudfoundry'
+
+boolean productionEnv = project.hasProperty('prod')
+
+cloudfoundry {
+    application = 'plugins-grails-org-' + (productionEnv ? 'prod' : 'dev')
+    target = 'https://api.run.pivotal.io'
+    organization = 'grails-org'
+    space = productionEnv ? 'production' : 'development'
+    file = file("target/grails-website.war")
+    buildpack = "https://github.com/grails-samples/java-buildpack.git#grails-website"
+    env = [
+        "JAVA_OPTS": "-Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US"
+    ]
+    mergeEnv = true
+    healthCheckTimeout = 120
+    memory = 2048
+    instances = 1
+    variants = ['-blue', '-green']
+}

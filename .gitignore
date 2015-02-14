@@ -20,3 +20,7 @@ target
 .DS_Store
 .classpath
 .project
+cf-deploy.gradle.properties
+.gradle
+/cf-deployment-production
+
