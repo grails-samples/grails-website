@@ -35,7 +35,8 @@ cloudfoundry {
     memory = 2048
     instances = 1
     variants = ['-blue', '-green']
-
+    domain = 'grails.org'
+    host = productionEnv ? 'prod' : 'staging'
     services {
       "db-grails-org-${cfEnvLabel}" {
         label = 'cleardb'
