@@ -1,0 +1,17 @@
+#!/bin/sh
+PASSPHRASE_VAR="$1"
+if [ -z "$PASSPHRASE_VAR" ]; then
+    >&2 echo "Must specify passphrase env var as first parameter"
+    exit 1
+fi
+ENCRYPT_PASSPHRASE="$(eval "echo \$$PASSPHRASE_VAR")"
+if [ -z "$ENCRYPT_PASSPHRASE" ]; then
+    >&2 echo "invalid passphrase in env $PASSPHRASE_VAR"
+    exit 1
+fi
+if [ "$2" = "-d" ]; then
+  GPG_OPTS="-q"
+else
+  GPG_OPTS="--cipher-algo AES256 --symmetric"
+fi
+gpg --batch --yes --passphrase "${ENCRYPT_PASSPHRASE}" $GPG_OPTS
