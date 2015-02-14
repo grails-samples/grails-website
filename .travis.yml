@@ -1,9 +1,9 @@
 language: groovy
 jdk:
 - openjdk7
-before_script:
-- rm -rf target
 script: "./travis-build.sh"
 env:
   global:
-    secure: NbmlUtXZdc6c48RfvgWrdl0R9PG4mJBziYQ9vfwqIZI9vDfH7nZ+LSLlJgQpgBp/VTi7VPCulUqlZWz8OLJIQ5E9k+iRhgSI2eiBszQjytFl55yQLTcwK+Yy88gDk8tB2uRbAuAR1xMcfgMVREGpuebeqw7zz66Q149xPGl+cAY=
+  - TERM=dumb
+  - GRADLE_OPTS="-Xmx768m -Xms256m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled"
+  - secure: NbmlUtXZdc6c48RfvgWrdl0R9PG4mJBziYQ9vfwqIZI9vDfH7nZ+LSLlJgQpgBp/VTi7VPCulUqlZWz8OLJIQ5E9k+iRhgSI2eiBszQjytFl55yQLTcwK+Yy88gDk8tB2uRbAuAR1xMcfgMVREGpuebeqw7zz66Q149xPGl+cAY=
