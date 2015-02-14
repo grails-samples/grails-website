@@ -15,10 +15,13 @@ buildscript {
 
 apply plugin: 'cloudfoundry'
 
-boolean productionEnv = project.hasProperty('prod')
+ext {
+  productionEnv = project.hasProperty('prod')
+  cfEnvLabel = productionEnv ? 'prod' : 'dev'
+}
 
 cloudfoundry {
-    application = 'plugins-grails-org-' + (productionEnv ? 'prod' : 'dev')
+    application = "plugins-grails-org-${cfEnvLabel}"
     target = 'https://api.run.pivotal.io'
     organization = 'grails-org'
     space = productionEnv ? 'production' : 'development'
@@ -32,4 +35,17 @@ cloudfoundry {
     memory = 2048
     instances = 1
     variants = ['-blue', '-green']
+
+    services {
+      "db-grails-org-${cfEnvLabel}" {
+        label = 'cleardb'
+        plan = 'boost'
+        bind = true
+      }
+      "sendgrid-grails-org-${cfEnvLabel}" {
+        label = 'sendgrid'
+        plan = 'free'
+        bind = true
+      }
+    }
 }
