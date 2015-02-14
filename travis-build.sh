@@ -17,5 +17,18 @@ if [[ $TRAVIS_BRANCH == master && $TRAVIS_REPO_SLUG == "grails-samples/grails-we
   if [ -d "cf-deployment-$CF_SPACE" ]; then
     (cd "cf-deployment-$CF_SPACE" && zip -r ../target/grails-website.war * )
   fi
-  gradle -b cf-deploy.gradle $DEPLOY_ARGS cfPush
+  gradle_cf_deploy="gradle -b cf-deploy.gradle $DEPLOY_ARGS"
+  $gradle_cf_deploy cfDeploy
+  GIT_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
+  CF_DEPLOY_IN_COMMIT=1
+  echo "$GIT_COMMIT_MSG" | grep '\[cf-deploy\]' || CF_DEPLOY_IN_COMMIT=0
+  if [[ $CF_SPACE != production || $CF_DEPLOY_IN_COMMIT -eq 1 ]]; then
+    # swap blue/green after successful deployment and undeploy other
+    $gradle_cf_deploy cfSwapDeployed cfUndeploy
+  else
+    echo "Using blue-green deployment. Deployed to either one. NOT ACTIVATED BY DEFAULT to the default route!"
+    echo -e "You should manually swap the active route with this command in your local build environment:\n$gradle_cf_deploy cfSwapDeployed cfUndeploy"
+    echo "You must specify cfUsername and cfPassword in the cf-deploy.gradle.properties file in that case."
+    echo "If you are unable to do this, push another commit with [cf-deploy] in the commit message and tag it with the production tag prod_"
+  fi
 fi
