@@ -29,19 +29,15 @@ deploy_to_cf() {
 ./grailsw refresh-dependencies --non-interactive
 ./grailsw compile --non-interactive
 ./grailsw test-app :unit --non-interactive
+
 if [[ ( $TRAVIS_BRANCH == master || $TRAVIS_TAG == prod_* ) && $TRAVIS_REPO_SLUG == "grails-samples/grails-website"
     && $TRAVIS_PULL_REQUEST == 'false' ]]; then
-  DEPLOY_ARGS=""
   ./grailsw war --non-interactive
-  # make backup of war file
-  cp target/grails-website.war{,.orig}
   ./travis-decrypt-files.sh
-  # always deploy to development first
-  deploy_to_cf development
-  # restore original war file after deployment
-  cp target/grails-website.war{.orig,}
   # push to production if commit is tagged with tag starting with prod_
   if [[ $TRAVIS_TAG == prod_* ]]; then
     deploy_to_cf production
+  else
+    deploy_to_cf development
   fi
 fi
