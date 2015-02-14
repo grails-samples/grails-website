@@ -32,7 +32,7 @@ cloudfoundry {
     ]
     mergeEnv = true
     healthCheckTimeout = 120
-    memory = 2048
+    memory = 1500
     instances = 1
     variants = ['-blue', '-green']
     domain = 'grails.org'
