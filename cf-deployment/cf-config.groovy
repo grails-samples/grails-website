@@ -1,26 +1,29 @@
-/*
-import org.springframework.cloud.CloudFactory
-
 def cloud
-
 try {
-  cloud = new CloudFactory().cloud
-} catch(e) {}
-
-
-// configure sendgrid SMTP sender
-grails {
-   mail {
-     def smtpServiceInfo = cloud.getServiceInfo('sendgrid')
-     host = "smtp.sendgrid.net"
-     port = 587
-     username = smtpServiceInfo.userName
-     password = smtpServiceInfo.password
-     props = ["mail.smtp.starttls.enable":"true", 
-              "mail.smtp.port":"587"]
-   }
+  cloud = Class.forName("org.springframework.cloud.CloudFactory").newInstance().cloud
+} catch(e) {
 }
-*/
+if(cloud) {
+  def smtpServiceInfo = cloud.getServiceInfos().find { it.class.name == "org.springframework.cloud.service.common.SmtpServiceInfo" }
+  if(smtpServiceInfo) {
+    // configure sendgrid SMTP sender
+    grails {
+       mail {
+         host = "smtp.sendgrid.net"
+         port = 587
+         username = smtpServiceInfo.userName
+         password = smtpServiceInfo.password
+         props = ["mail.smtp.starttls.enable":"true",
+                  "mail.smtp.port":"587",
+                  "mail.smtp.from":"noreply@grails.org"]
+         'default' {
+           from = "noreply@grails.org"
+         }
+       }
+    }
+  }
+}
+
 grails.serverURL = "http://staging.grails.org/"
 
 dataSource {
