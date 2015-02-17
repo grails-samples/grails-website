@@ -81,7 +81,7 @@ class UserController {
                 user.save()
                 flash.message = "A password reminder was sent to your email address"
                 mailService.sendMail {
-                    from "wiki@grails.org"
+                    from "noreply@grails.org"
                     to user.email
                     title "Grails.org password reset"
                     body "Your password has been reset. Please login with the following password: ${newPassword}"
@@ -99,7 +99,7 @@ class UserController {
             if(user && user.login!='admin') {
                 flash.message = "A login reminder was sent to your email address"
                 mailService.sendMail {
-                    from "wiki@grails.org"
+                    from "noreply@grails.org"
                     to user.email
                     title "Grails.org login reminder"
                     body "Please login with the following Username: ${user.login}"

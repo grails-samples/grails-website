@@ -80,8 +80,8 @@ class MailerJob {
                             for (email in emails) {
                                 mailService?.sendMail {
                                     title "[grails.org] ${myTitle} updated"
-                                    from "wiki@grails.org"
-                                    replyTo "wiki@grails.org"
+                                    from "noreply@grails.org"
+                                    replyTo "noreply@grails.org"
                                     to email
                                     html text
                                 }
