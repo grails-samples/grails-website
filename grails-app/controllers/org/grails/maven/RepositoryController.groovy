@@ -7,11 +7,11 @@ import org.grails.plugin.*
 import org.springframework.context.ApplicationEvent
 
 /**
- * 
+ *
  * Responsible for adapting Grails repository conventions onto a Maven compatible repository.
  * Defaults to https://repo.grails.org/grails/plugins. Also handles deployment of plugins using
  * the publish action.
- * 
+ *
  * @author Graeme Rocher
  */
 class RepositoryController {
@@ -19,9 +19,9 @@ class RepositoryController {
     def cacheService
     def grailsApplication
     def pluginDeployService
-    
+
     /**
-     * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom" 
+     * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom"
      */
     @CacheEvict("pluginMetaList")
     def publish(PublishPluginCommand cmd) {
@@ -83,7 +83,7 @@ class RepositoryController {
 
 
     def pluginMeta() {
-        render '<a href="http://plugins.grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a><a href="http://grails.org/plugins/.plugin-meta/plugins-list.xml">plugins-list.xml</a>'
+        render '<a href="http://plugins.grails.org/.plugin-meta/plugins-list.xml">plugins-list.xml</a><a href="https://grails.org/plugins/.plugin-meta/plugins-list.xml">plugins-list.xml</a>'
     }
 
     /**
@@ -96,7 +96,7 @@ class RepositoryController {
      * https://repo.grails.org/grails/plugins/org/grails/plugins/heroku/1.0-SNAPSHOT/heroku-1.0-SNAPSHOT.zip
      *
      */
-    def artifact(String fullName, String plugin, String pluginVersion, String type) {       
+    def artifact(String fullName, String plugin, String pluginVersion, String type) {
         if(plugin && pluginVersion && type) {
             type = getCorrectType(fullName, type)
 
@@ -145,24 +145,24 @@ class RepositoryController {
                             snapshotVersion = "$snapshotVersion-$timestamp-$buildNo"
                         }
                     }
-                    catch(e) {                        
+                    catch(e) {
                         log.debug "Failed to parse maven metadata for $plugin: $e.message"
                     }
-                    
+
                 }
                 url = "${repoUrl}/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"
                 if(!isSnapshot) {
                     cacheService?.putContent(key, url)
                 }
             }
-            
+
             redirect url:url
-        
+
         } else {
             render status:404
         }
     }
-    
+
     def listLatest(String plugin) {
         String key = "artifact:list:latest:$plugin"
         def content = cacheService?.getContent(key)
@@ -180,18 +180,18 @@ class RepositoryController {
             else {
                 render status: 404
             }
-            
+
         }
-        
+
     }
-    
+
     private findLatestNonSnapshotPluginRelease(String n) {
         def query = PluginRelease.where {
             plugin.name == n && isSnapshot == false
         }
         return query.get(sort:'releaseDate', order:'desc', max: 1)
     }
-    
+
     private findLatestPluginRelease(String n) {
         def query = PluginRelease.where {
             plugin.name == n
@@ -215,9 +215,9 @@ class RepositoryController {
         log.debug "Triggering plugin publish event for plugin [$name:$version]"
         publishEvent(new PluginPublishEvent(pendingRelease))
     }
-    
+
     def pluginService
-    
+
     /**
      * Renders the plugin list as XML in a format compatible with all versions of Grails
      */
@@ -244,11 +244,11 @@ class RepositoryController {
         new MarkupBuilder(writer).plugins {
 
             Plugin.withSession { session ->
-                
+
                 while(total > offset) {
-                    def allPlugins = Plugin.list(fetch:[releases:'select'], offset:offset, max:10)                    
+                    def allPlugins = Plugin.list(fetch:[releases:'select'], offset:offset, max:10)
                     if(!allPlugins) break
-                    
+
                     for(p in allPlugins) {
                         def latest = p.releases.max { it.releaseDate }
                         plugin(name:p.name, 'latest-release':latest?.releaseVersion) {
@@ -265,12 +265,12 @@ class RepositoryController {
                         }
                     }
                     offset += 10
-                    session.clear()                        
+                    session.clear()
                 }
-                
+
 
             }
-                
+
         }
 
         return writer.toString()

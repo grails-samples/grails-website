@@ -34,7 +34,7 @@ class MailerJob {
                 def emails = UserInfo.executeQuery(
                         "select ui.user.email from UserInfo as ui where ui.emailSubscribed = ?",
                         [true])
-                
+
                 def classLoader = getClass().classLoader
                 while (pageUpdate) {
                     log.info "Mailing changes about '${pageUpdate.title}'"
@@ -45,21 +45,21 @@ class MailerJob {
                     if(content != null) {
                         def text = new StringBuilder()
                         def titleUrlEscaped = pageUpdate.title.encodeAsURL()
-                        def url = "http://grails.org/${titleUrlEscaped}"
+                        def url = "https://grails.org/wiki/${titleUrlEscaped}"
                         def myTitle = pageUpdate.title
                         // make some alterations to the email if this wiki is a part of a plugin
                         if (content.instanceOf(PluginTab)) {
                             def plugin = content.plugin
-                            url = "http://grails.org/plugin/${plugin.name}"
+                            url = "https://grails.org/plugin/${plugin.name}"
                             def titleParts = content.title.split('-')
-                            
+
                             // The plugin tab type is encoded in the page title in different
                             // ways depending on when the page was created. The old style is
                             // '$wikiType-nnn, whereas the new style is 'plugin-$pluginName-$wikiType'.
                             def wikiType
                             if (titleParts[1] ==~ /\d+/) wikiType = titleParts[0]
                             else wikiType = titleParts[-1]
-                            
+
                             myTitle = "${plugin.title} (${wikiType[0].toUpperCase() + wikiType[1..-1]} section)"
                         }
 
@@ -67,12 +67,12 @@ class MailerJob {
 
                         if (pageVersions) {
                             def version = pageVersions[-1] //last version
-                            text << "<div>To unsubscribe from receiving these emails go to <a href=\"http://grails.org/profile\">http://grails.org/profile</a>, login and uncheck the 'Receive E-mail Updates for Content Changes?' box. </div><br><br>"
+                            text << "<div>To unsubscribe from receiving these emails go to <a href=\"https://grails.org/profile\">https://grails.org/profile</a>, login and uncheck the 'Receive E-mail Updates for Content Changes?' box. </div><br><br>"
                             text << '<div style="color:black;"><br><br>'
                             text << "Page <a href=\"${url}\">${myTitle}<a/> <br><br>"
                             text << "</div>"
                             text << '<div style="color:black;"><br><br>'
-                            text << "Edited by <b>${version.author?.login}</b>. <a href=\"http://grails.org/previous/${titleUrlEscaped}/${version.number}\">View change</a> <br><br>"
+                            text << "Edited by <b>${version.author?.login}</b>. <a href=\"https://grails.org/wiki/previous/${titleUrlEscaped}/${version.number}\">View change</a> <br><br>"
                             text << "</div>"
     //                        text << engine.render(content.body, context)
                             text = text.toString()
@@ -85,15 +85,15 @@ class MailerJob {
                                     to email
                                     html text
                                 }
-                            }                        
+                            }
                         }
-                            
+
                     }
-                        
+
                     pageUpdate = wikiPageUpdates.poll()
                     Content.withSession { session -> session.clear() }
                 }
-            }        
+            }
         }
         finally {
             DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP.get().clear()

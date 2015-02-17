@@ -238,12 +238,12 @@ class PluginController {
 
             def (top5, total) = pluginService.listRecentlyUpdatedPluginsWithTotal(max: 5)
             title = "Grails New Plugins Feed"
-            link = "http://grails.org/plugins"
+            link = "https://grails.org/plugins"
             description = "New and recently updated Grails Plugins"
 
             for(item in top5) {
                 entry(item.title) {
-                    link = "http://grails.org/plugin/${item.name.encodeAsURL()}"
+                    link = "https://grails.org/plugin/${item.name.encodeAsURL()}"
                     author = item.author
                     publishedDate = item.lastUpdated?.toDate()
                     item.summary

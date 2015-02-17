@@ -19,7 +19,7 @@
     <g:render template="sideNav" bean="${tags}" />
     <!-- IMPORTANT: DO NOT delete the link below, it is commented out, but used for plugin resolution -->
     <!-- <a href="http://plugins.grails.org/.plugin-meta">.plugin-meta</a> -->
-    <!-- <a href="http://grails.org/plugins/.plugin-meta">.plugin-meta</a> -->
+    <!-- <a href="https://grails.org/plugins/.plugin-meta">.plugin-meta</a> -->
 
     <section id="main" class="plugins">
 
