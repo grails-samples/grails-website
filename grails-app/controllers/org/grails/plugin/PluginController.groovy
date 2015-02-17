@@ -171,16 +171,6 @@ class PluginController {
 
                 def pendingUrl = "/plugins/pending/${pluginPendingApproval?.id}"
 
-                def mailConfig = grailsApplication.config.plugins.forum.mail
-                mailService.sendMail {
-                    to mailConfig.to
-                    from mailConfig.from
-                    subject "Plugin pending approval: ${pluginPendingApproval.name}"
-                    text """There is a new plugin pending approval: ${pluginPendingApproval.name}.
-
-Please go to http://www.grails.org${pendingUrl} to discuss this plugin."""
-                }
-
                 redirect url: pendingUrl
             } else {
                 flash.message = "Please correct the fields below"

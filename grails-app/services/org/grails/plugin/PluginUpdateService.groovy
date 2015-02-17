@@ -102,7 +102,6 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     void announceRelease(plugin, version = null) {
         try {
             def pluginUrl = siteBaseUrl + "plugin/${plugin.name}"
-            announceOnPluginForum(plugin, version, pluginUrl)
             tweetRelease(plugin, version, pluginUrl)
         }
         catch (Exception ex) {
@@ -135,19 +134,6 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         log.info "Tweeting the plugin release. Message: $msg"
 
         twitterService.updateStatus(msg + url)
-    }
-
-    void announceOnPluginForum(plugin, version, url) {
-        def mailConfig = grailsApplication.config.plugins.forum.mail
-        def toAddress = mailConfig.to
-        def fromAddress = mailConfig.from
-
-        mailService.sendMail {
-            to toAddress
-            from fromAddress
-            subject "${plugin.title} ${version ?: plugin.currentRelease} released"
-            html view: "/mail/pluginRelease", model: [plugin: plugin, version: version, url: url]
-        }
     }
 
     private getSiteBaseUrl() {
