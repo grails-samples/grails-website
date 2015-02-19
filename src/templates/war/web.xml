@@ -31,7 +31,7 @@
     </filter>
 
     <filter>
-      <filter-name>ExpiresFilter</filter-name>
+      <filter-name>ExpiresFilter-2min</filter-name>
       <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
       <init-param>
         <param-name>ExpiresDefault</param-name>
@@ -39,13 +39,43 @@
       </init-param>
     </filter>
 
+    <filter>
+      <filter-name>ExpiresFilter-10min</filter-name>
+      <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
+      <init-param>
+        <param-name>ExpiresDefault</param-name>
+        <param-value>access plus 10 minutes</param-value>
+      </init-param>
+    </filter>
+
     <filter-mapping>
-      <filter-name>ExpiresFilter</filter-name>
+      <filter-name>ExpiresFilter-2min</filter-name>
       <url-pattern>*.html</url-pattern>
     </filter-mapping>
+
     <filter-mapping>
-      <filter-name>ExpiresFilter</filter-name>
+      <filter-name>ExpiresFilter-10min</filter-name>
       <url-pattern>/font/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+      <filter-name>ExpiresFilter-10min</filter-name>
+      <url-pattern>/fonts/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+      <filter-name>ExpiresFilter-10min</filter-name>
+      <url-pattern>/css/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+      <filter-name>ExpiresFilter-10min</filter-name>
+      <url-pattern>/images/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+      <filter-name>ExpiresFilter-10min</filter-name>
+      <url-pattern>/img/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+      <filter-name>ExpiresFilter-10min</filter-name>
+      <url-pattern>/js/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
