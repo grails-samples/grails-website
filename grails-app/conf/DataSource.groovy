@@ -16,6 +16,10 @@ hibernate {
     
     cache.use_minimal_puts=false
     cache.provider_configuration_file_resource_path='/ehcache-hibernate.xml'
+    
+    default_batch_fetch_size=32
+    jdbc.batch_size=32
+    jdbc.fetch_size=256
 }
 
 // environment specific settings
