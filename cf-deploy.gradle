@@ -18,6 +18,7 @@ apply plugin: 'cloudfoundry'
 ext {
   productionEnv = project.hasProperty('prod')
   cfEnvLabel = productionEnv ? 'prod' : 'dev'
+  cfDefaultDomain = 'cfapps.io'
 }
 
 cloudfoundry {
@@ -50,3 +51,18 @@ cloudfoundry {
       }
     }
 }
+
+// current cfDeploy task doesn't allow 2 domains, this is a workaround for that limitation
+class CustomBlueGreenDeploymentTask extends org.cloudfoundry.gradle.tasks.DeployCloudFoundryTask {
+  List<String> getAllUris() {
+    List<String> customAllUris = []
+    customAllUris.addAll(super.getAllUris())
+    if(project.cloudfoundry.domain && project.cloudfoundry.host && project.cloudfoundry.currentVariant) {
+      customAllUris << "${project.cloudfoundry.host}${project.cloudfoundry.currentVariant}.${project.ext.cfDefaultDomain}".toString()
+    }
+    customAllUris
+  }
+}
+
+// replace cfDeploy task with our custom one
+tasks.replace("cfDeploy", CustomBlueGreenDeploymentTask)
