@@ -29,7 +29,7 @@ cloudfoundry {
     file = file("target/grails-website.war")
     buildpack = "https://github.com/grails-samples/java-buildpack.git#grails-website"
     env = [
-        "JAVA_OPTS": "-Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US -Daccess.logging.enabled=false"
+        "JAVA_OPTS": "-Xverify:none -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US -Daccess.logging.enabled=false -Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000"
     ]
     mergeEnv = true
     healthCheckTimeout = 120
