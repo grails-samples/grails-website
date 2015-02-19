@@ -1,6 +1,8 @@
 import grails.util.Environment
 
 class UrlMappings {
+    static excludes = ["/images/**", "/css/**", "/js/**", "/img/**", "/font/**", "/fonts/**", "/*.html"]
+
     static mappings = {
 
         if (Environment.current == Environment.DEVELOPMENT ||
