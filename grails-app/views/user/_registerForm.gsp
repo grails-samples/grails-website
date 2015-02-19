@@ -39,12 +39,12 @@
 </g:set>
 
 <g:if test="${true == async}">
-    <g:formRemote name="register" url="[controller:'user',action:'register']" update="contentPane">
+    <g:formRemote name="register" url="[controller:'user',action:'register',absolute:true]" update="contentPane">
         ${formBody}
     </g:formRemote>
 </g:if>
 <g:else>
-    <g:form name="register" url="[controller:'user',action:'register']" update="contentPane">
+    <g:form name="register" url="[controller:'user',action:'register',absolute:true]" update="contentPane">
         ${formBody}
     </g:form>
 </g:else>
