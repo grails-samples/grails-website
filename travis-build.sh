@@ -1,4 +1,9 @@
 #!/bin/bash -xe
+# Travis CI build script that deploys to Pivotal Webservices CloudFoundry
+#
+# testing locally:
+# TRAVIS_BRANCH=master TRAVIS_REPO_SLUG=grails-samples/grails-website TRAVIS_PULL_REQUEST=false ./travis-build.sh
+#
 deploy_to_cf() {
   CF_SPACE=$1
   if [ -d "cf-deployment-$CF_SPACE" ]; then
@@ -33,7 +38,9 @@ deploy_to_cf() {
 if [[ ( $TRAVIS_BRANCH == master || $TRAVIS_TAG == prod_* ) && $TRAVIS_REPO_SLUG == "grails-samples/grails-website"
     && $TRAVIS_PULL_REQUEST == 'false' ]]; then
   ./grailsw war --non-interactive
-  ./travis-decrypt-files.sh
+  if [ -n "$CF_FILES_CRYPT_KEY" ]; then
+    ./travis-decrypt-files.sh
+  fi
   # push to production if commit is tagged with tag starting with prod_
   if [[ $TRAVIS_TAG == prod_* ]]; then
     deploy_to_cf production
