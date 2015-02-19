@@ -89,6 +89,6 @@ class CacheService {
     protected getPluginCache() { return grailsCacheManager.getCache(PLUGIN_CACHE) }
 
     // Workaround for GPCACHEREDIS-1.
-    protected wikiKey(String key) { return "wiki##${key}" }
-    protected wikiShortKey(String key) { return "shortenedwiki##${key}" }
+    protected String wikiKey(String key) { return "wiki##${key}" }
+    protected String wikiShortKey(String key) { return "shortenedwiki##${key}" }
 }
