@@ -58,7 +58,7 @@ class CustomBlueGreenDeploymentTask extends org.cloudfoundry.gradle.tasks.Deploy
     List<String> customAllUris = []
     customAllUris.addAll(super.getAllUris())
     if(project.cloudfoundry.domain && project.cloudfoundry.host && project.cloudfoundry.currentVariant) {
-      customAllUris << "${project.cloudfoundry.host}${project.cloudfoundry.currentVariant}.${project.ext.cfDefaultDomain}".toString()
+      customAllUris << "${project.cloudfoundry.application}${project.cloudfoundry.currentVariant}.${project.ext.cfDefaultDomain}".toString()
     }
     customAllUris
   }
