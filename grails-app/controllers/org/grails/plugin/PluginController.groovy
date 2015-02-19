@@ -64,9 +64,10 @@ class PluginController {
             def plugins
             def pluginCount
             def filter = params.filter?.toString() ?: "featured"
-            if (params.tag) {
+            String tag = params.tag?.toString()?.trim()
+            if (tag) {
                 filter = "all"
-                (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(params.tag, max: maxResults, offset: offset)
+                (plugins, pluginCount) = pluginService.listPluginsByTagWithTotal(tag, max: maxResults, offset: offset)
             }
             else {
                 (plugins, pluginCount) = pluginService."list${filter.capitalize()}PluginsWithTotal"(max: maxResults, offset: offset)
@@ -76,7 +77,7 @@ class PluginController {
             def tags = tagService.getPluginTagArray()
             def model = [ allTags:allTags, tags: tags, plugins: plugins, pluginCount: pluginCount ]
             if (filter) model["activeFilter"] = filter
-            if (params.tag) model["activeTag"] = params.tag
+            if (tag) model["activeTag"] = tag
 
             model["home"] = (filter == "featured" && !model["activeTag"])
             return model

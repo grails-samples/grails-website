@@ -86,6 +86,8 @@ class UrlMappings {
 
 
         /* ========================= PLUGINS ======================= */
+        "/Plugins"(redirect: '/plugins')
+        "/plugins/tag"(redirect: '/plugins')
         name pluginList: "/plugins"(controller: "plugin", action: "list")
         "/plugins/feed"(controller: "plugin", action: "feed")
         "/plugins/submitPlugin"(controller: "plugin", action: "submitPlugin")
