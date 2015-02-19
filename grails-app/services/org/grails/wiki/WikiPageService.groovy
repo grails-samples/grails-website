@@ -23,10 +23,10 @@ class WikiPageService {
     def searchableService
     def wikiPageUpdates = new ConcurrentLinkedQueue<WikiPageUpdateEvent>()
     
-    @Cacheable("content")
+    @Cacheable(value="content", key="#title")
     @NotTransactional
-    def getCachedOrReal(String id) {
-        return Content.findAllByTitle(id).find { !it.instanceOf(Version) }
+    def getCachedOrReal(String title) {
+        return Content.findAllByTitle(title).find { !it.instanceOf(Version) }
     }
 
     @NotTransactional
