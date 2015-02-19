@@ -24,6 +24,10 @@ class Testimonial {
         status nullable: false
         submittedBy nullable: false
     }
+    
+    static mapping = {
+        cache true
+    }
 
     static namedQueries = {
         pending {

@@ -24,5 +24,9 @@ class UserInfo {
         email nullable: true, email: true
         name nullable: true
     }
+    
+    static mapping = {
+        cache true
+    }
 
 }

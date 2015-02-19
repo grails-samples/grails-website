@@ -11,6 +11,7 @@ class WikiImage {
     }
 
     static mapping = {
+        cache true
         name index: true
         image fetch: "join"
     }

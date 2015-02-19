@@ -17,5 +17,9 @@ class GenericApprovalResponse {
         whatType blank: false
         status blank: false
     }
+    
+    static mapping = {
+        cache true
+    }
 
 }

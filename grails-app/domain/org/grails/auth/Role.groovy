@@ -18,6 +18,10 @@ class Role {
     static constraints = {
         name blank: false, unique: true
     }
+    
+    static mapping = {
+        cache true
+    }
 
     String toString() {
         name

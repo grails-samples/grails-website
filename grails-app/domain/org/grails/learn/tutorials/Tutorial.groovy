@@ -30,6 +30,10 @@ class Tutorial implements Taggable {
         status nullable: true
         submittedBy nullable: false
     }
+    
+    static mapping = {
+        cache true
+    }
 
     static hasMany = [genericApprovalResponses: GenericApprovalResponse]
 

@@ -100,6 +100,10 @@ class WebSite implements Taggable {
             order "popularity.netLiked", "desc"
         }
     }
+    
+    static mapping = {
+        cache true
+    }
 
     Collection<Tag> getTags() {
         if (!id) {

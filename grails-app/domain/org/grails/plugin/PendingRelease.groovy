@@ -22,6 +22,10 @@ class PendingRelease {
         pom nullable: true, size:0..500000 // 500kb
         xml nullable: true, size:0..500000 // 500kb
     }
+    
+    static mapping = {
+        cache false
+    }
 
     String toString() { "$pluginName:$pluginVersion" }
 }

@@ -27,6 +27,7 @@ class PluginPendingApproval {
 
     static mapping = {
         notes type: 'text'
+        cache true
     }
 
     static namedQueries = {

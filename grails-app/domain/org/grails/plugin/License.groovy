@@ -11,4 +11,8 @@ class License {
         name blank: false
         url url: true
     }
+    
+    static mapping = {
+        cache true
+    }
 }

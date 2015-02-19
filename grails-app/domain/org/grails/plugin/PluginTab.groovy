@@ -14,6 +14,10 @@ class PluginTab extends Content {
         only = ['title', 'body']
     }
     
+    static mapping = {
+        cache 'nonstrict-read-write'
+    }
+    
     Plugin getPlugin() {
         return Plugin."findBy${capitalize(PluginService.extractTabName(title))}"(this)
     }

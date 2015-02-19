@@ -22,6 +22,7 @@ class WikiPage extends Content {
     }
 
     static mapping = {
+        cache 'nonstrict-read-write'
         body type: 'text'
     }
 

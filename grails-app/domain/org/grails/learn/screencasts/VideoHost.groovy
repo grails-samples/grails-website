@@ -10,6 +10,10 @@ class VideoHost {
     }
 
     static transients = ['dependentScreencasts']
+    
+    static mapping = {
+        cache true
+    }
 
     def List<Screencast> getDependentScreencasts() {
         Screencast.where { videoHost == this }.list()

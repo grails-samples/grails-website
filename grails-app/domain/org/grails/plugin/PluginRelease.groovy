@@ -23,6 +23,7 @@ class PluginRelease {
     }
 
     static mapping = {
+        cache true
         version false        
     }
 }
