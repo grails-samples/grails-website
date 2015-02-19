@@ -13,7 +13,7 @@ import grails.plugins.rest.client.*
  * @author Graeme Rocher
  */
 class PluginDeployService implements ApplicationListener<PluginPublishEvent>{
-
+    static transactional = false
     int retryCount = 3
     String releaseUrl = "https://repo.grails.org/grails/plugins-releases-local/org/grails/plugins"
     String snapshotUrl = "https://repo.grails.org/grails/plugins-snapshots-local/org/grails/plugins"

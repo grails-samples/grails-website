@@ -6,6 +6,7 @@ import org.grails.plugin.Plugin
  * author: Matthew Taylor
  */
 class TagService {
+    static transactional = false
 
     def removeEmptyTags() {
         def emptyTags = []

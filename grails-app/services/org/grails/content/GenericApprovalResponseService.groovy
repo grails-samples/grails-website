@@ -3,6 +3,7 @@ package org.grails.content
 import grails.events.Listener
 
 class GenericApprovalResponseService {
+    static transactional = false
     def grailsApplication
     def mailService
 

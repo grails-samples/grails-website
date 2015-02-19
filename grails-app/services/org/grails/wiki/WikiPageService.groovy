@@ -1,10 +1,14 @@
 package org.grails.wiki
 
 import java.util.concurrent.ConcurrentLinkedQueue
+
 import javax.persistence.OptimisticLockException
 
 import grails.plugin.cache.Cacheable
 import grails.plugin.cache.CacheEvict
+import grails.transaction.NotTransactional;
+import grails.transaction.Transactional;
+
 import org.grails.auth.User
 import org.grails.content.Content
 import org.grails.content.Version
@@ -13,17 +17,19 @@ import org.grails.plugin.PluginTab
 /*
  * author: Matthew Taylor
  */
+@Transactional
 class WikiPageService {
-
     def cacheService
     def searchableService
     def wikiPageUpdates = new ConcurrentLinkedQueue<WikiPageUpdateEvent>()
     
     @Cacheable("content")
+    @NotTransactional
     def getCachedOrReal(String id) {
         return Content.findAllByTitle(id).find { !it.instanceOf(Version) }
     }
 
+    @NotTransactional
     def pageChanged(id) {
         id = id.decodeURL()
         cacheService.removeContent(id)
@@ -67,7 +73,7 @@ class WikiPageService {
         }
     }
     
-    def createContent(Content content, User user) {
+    protected def createContent(Content content, User user) {
         if (content.locked == null) content.locked = false
         content.save(flush:true)
         if (!content.hasErrors()) {
@@ -81,7 +87,7 @@ class WikiPageService {
         return content
     }
     
-    def updateContent(Content content, String body, User user, Long version) {
+    protected def updateContent(Content content, String body, User user, Long version) {
         if (content.version != version) {
             throw new OptimisticLockException("Content [${content.class.simpleName}:${content.id}] was updated by someone else. Version mismatch: Submitted version ($version), Content version (${content.version}).")
         }
