@@ -292,3 +292,6 @@ grails.assets.excludes = ['**/bootstrap/**', '**/font-awesome/**', '**/grails-*.
 
 // read-only token for Github API access, no GH oauth scopes should be granted to the token
 githubApiReadOnlyToken = ''
+
+// cache queries by default
+grails.hibernate.cache.queries = true
