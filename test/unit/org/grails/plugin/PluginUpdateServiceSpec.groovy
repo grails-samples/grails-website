@@ -67,7 +67,7 @@ class PluginUpdateServiceSpec extends Specification {
 		service.twitterService = twitter
 		service.shortenService = shorten 
 		service.grailsApplication = app
-		def wikiPageService = new WikiPageService(searchableService:searchableService)
+		def wikiPageService = new WikiPageService(searchableService:searchableService, transactionManager: applicationContext.transactionManager)
 		service.pluginService = new PluginService(grailsApplication:app, wikiPageService: wikiPageService, searchableService: searchableService )
 		service.mailService = mailService
 		def event = new PluginUpdateEvent(this,"tomcat","1.0.0", "org.grails.plugins", false, new URI("https://repo.grails.org/grails/plugins/") )
