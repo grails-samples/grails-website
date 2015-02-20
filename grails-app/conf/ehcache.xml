@@ -9,5 +9,13 @@
         diskPersistent="false"
         memoryStoreEvictionPolicy="LRU"
         />       
-
+    <cache name="plugin"
+        maxElementsInMemory="300"
+        eternal="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="600"
+        overflowToDisk="false"
+        diskPersistent="false"
+        memoryStoreEvictionPolicy="LRU"
+        />
 </ehcache>
