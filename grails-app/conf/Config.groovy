@@ -100,7 +100,19 @@ searchable {
     compassConnection = null
     compassSettings = [
             'compass.engine.analyzer.default.type': "Snowball",
-            'compass.engine.analyzer.default.name': "English"]
+            'compass.engine.analyzer.default.name': "English",
+            'compass.engine.optimizer.schedule.period': '300',
+            'compass.engine.mergeFactor':'1000',
+            'compass.engine.maxBufferedDocs':'1000',
+            'compass.engine.ramBufferSize': '128',
+            'compass.engine.useCompoundFile': 'false',
+            'compass.transaction.processor': 'read_committed',
+            'compass.transaction.processor.read_committed.concurrentOperations': 'false',
+            'compass.transaction.lockTimeout': '30',
+            'compass.transaction.lockPollInterval': '500',
+            'compass.transaction.readCommitted.translog.connection': 'ram://'
+            ]
+
     defaultExcludedProperties = ["password"]
     defaultFormats = [:]
     defaultMethodOptions = [
