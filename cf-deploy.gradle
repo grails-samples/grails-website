@@ -66,3 +66,59 @@ class CustomBlueGreenDeploymentTask extends org.cloudfoundry.gradle.tasks.Deploy
 
 // replace cfDeploy task with our custom one
 tasks.replace("cfDeploy", CustomBlueGreenDeploymentTask)
+
+import org.cloudfoundry.client.lib.domain.CloudApplication
+@Mixin(org.cloudfoundry.gradle.tasks.DeployCloudFoundryHelper)
+class AliasMappingsTask extends org.cloudfoundry.gradle.tasks.AbstractMapCloudFoundryTask {
+    List<String> aliasRoutes = []
+    boolean returnAliasRoutes = false
+
+    AliasMappingsTask() {
+        super()
+        description = 'Adds route aliases to active route'
+    }
+
+    List<String> getAllUris() {
+      returnAliasRoutes ? aliasRoutes : super.getAllUris()
+    }
+
+    @TaskAction
+    void updateAliasUris() {
+        if(!aliasRoutes) {
+          return
+        }
+        returnAliasRoutes = false
+        withCloudFoundryClient {
+            validateVariantsForDeploy()
+
+            List<CloudApplication> apps = client.applications
+
+            List<String> mappedAppVariants = findMappedVariants(application, apps)
+            List<String> unmappedAppVariants = findUnmappedVariants(application, apps)
+
+            returnAliasRoutes = true
+
+            if (mappedAppVariants) {
+                log "Mapping URIs ${allUris} for ${mappedAppVariants}"
+            }
+            if (unmappedAppVariants) {
+                log "Unmapping URIs ${allUris} for ${unmappedAppVariants}"
+            }
+
+            withApplication {
+                mappedAppVariants.each { appName ->
+                    project.cloudfoundry.application = appName
+                    mapUrisToApplication()
+                }
+                unmappedAppVariants.each { appName ->
+                    project.cloudfoundry.application = appName
+                    unmapUrisFromApplication()
+                }
+            }
+        }
+    }
+}
+
+tasks.create("cfUpdateAliases", AliasMappingsTask) {
+  aliasRoutes = productionEnv ? ['www.grails.org', 'grails.org'] : ['www-dev.grails.org', 'dev.grails.org']
+}
