@@ -21,11 +21,11 @@ deploy_to_cf() {
   echo "$GIT_COMMIT_MSG" | grep '\[cf-deploy\]' || CF_DEPLOY_IN_COMMIT=0
   if [[ $CF_SPACE != production || $CF_DEPLOY_IN_COMMIT -eq 1 ]]; then
     # swap blue/green after successful deployment and undeploy other
-    $gradle_cf_deploy cfSwapDeployed cfUndeploy
+    ./cf-swap-blue-green.sh $DEPLOY_ARGS
   else
     set +x
     echo "Using blue-green deployment. Deployed to either one. NOT ACTIVATED BY DEFAULT to the default route!"
-    echo -e "You should manually swap the active route with this command in your local build environment:\n$gradle_cf_deploy cfSwapDeployed cfUndeploy"
+    echo -e "You should manually swap the active route with this command in your local build environment:\n./cf-swap-blue-green.sh $DEPLOY_ARGS"
     echo "You must specify cfUsername and cfPassword in the cf-deploy.gradle.properties file in that case."
     echo "If you are unable to do this, push another commit with [cf-deploy] in the commit message and tag it with the production tag prod_"
   fi
