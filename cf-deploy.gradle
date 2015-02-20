@@ -126,5 +126,5 @@ class AliasMappingsTask extends org.cloudfoundry.gradle.tasks.AbstractMapCloudFo
 
 tasks.create("cfUpdateAliases", AliasMappingsTask) {
   def plainAppNameRoute = "${project.cloudfoundry.application}.${project.ext.cfDefaultDomain}".toString()
-  aliasRoutes = productionEnv ? ['www.grails.org', 'grails.org', plainAppNameRoute] : ['www-dev.grails.org', 'dev.grails.org', plainAppNameRoute]
+  aliasRoutes = productionEnv ? ['www.grails.org', 'grails.org', 'plugins.grails.org', plainAppNameRoute] : ['www-dev.grails.org', 'dev.grails.org', plainAppNameRoute]
 }
