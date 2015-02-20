@@ -285,5 +285,19 @@ databaseChangeLog = {
 
     changeSet(author: "grocher", id: "DropAuthorEmailNotNullConstraint") {
         dropNotNullConstraint(columnDataType: "varchar(255)", columnName: "author_email", tableName: "plugin")
-    }    
+    }
+
+    changeSet(author: "lhotari", id: "RatingLinkIndex") {
+        createIndex(indexName: "rating_link_ref", tableName: "rating_link") {
+            column(name: "rating_ref")
+            column(name: "type")
+        }
+    }
+
+    changeSet(author: "lhotari", id: "TagLinksIndex") {
+        createIndex(indexName: "tag_links_ref", tableName: "tag_links") {
+            column(name: "tag_ref")
+            column(name: "type")
+        }
+    }
 }
