@@ -97,7 +97,7 @@ bi {
 
 
 searchable {
-    compassConnection = null
+    compassConnection = new File(System.getProperty("user.home"), ".grails-website-searchable-index").absolutePath
     compassSettings = [
             'compass.engine.analyzer.default.type': "Snowball",
             'compass.engine.analyzer.default.name': "English",
