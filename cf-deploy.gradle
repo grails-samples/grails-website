@@ -49,6 +49,11 @@ cloudfoundry {
         plan = 'free'
         bind = true
       }
+      "newrelic-grails-org-${cfEnvLabel}" {
+        label = 'newrelic'
+        plan = 'standard'
+        bind = true
+      }
     }
 }
 
