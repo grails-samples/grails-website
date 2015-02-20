@@ -19,6 +19,8 @@ ext {
   productionEnv = project.hasProperty('prod')
   cfEnvLabel = productionEnv ? 'prod' : 'dev'
   cfDefaultDomain = 'cfapps.io'
+  // used for setting Server.Service.Connector.proxyName system property
+  connectorProxyName = productionEnv ? 'grails.org' : 'staging.grails.org'
 }
 
 cloudfoundry {
@@ -29,7 +31,7 @@ cloudfoundry {
     file = file("target/grails-website.war")
     buildpack = "https://github.com/grails-samples/java-buildpack.git#grails-website"
     env = [
-        "JAVA_OPTS": "-Xverify:none -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US -Daccess.logging.enabled=false -Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000"
+        "JAVA_OPTS": "-Xverify:none -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US -Daccess.logging.enabled=false -Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000 -DServer.Service.Connector.proxyName=${connectorProxyName}"
     ]
     mergeEnv = true
     healthCheckTimeout = 180
