@@ -1,9 +1,10 @@
 package org.grails.maven
 
-import groovy.xml.MarkupBuilder
 import grails.plugin.cache.CacheEvict
-import org.grails.plugin.*
+import groovy.xml.MarkupBuilder
 
+import org.codehaus.groovy.grails.web.pages.FastStringWriter
+import org.grails.plugin.*
 import org.springframework.context.ApplicationEvent
 
 /**
@@ -224,8 +225,13 @@ class RepositoryController {
     def list() {
         def content = cacheService?.getPluginList()
         if (!content) {
-            content = generatePluginListXml()
-            cacheService?.putPluginList(content)
+            synchronized(this) {
+                content = cacheService?.getPluginList()
+                if(!content) {
+                    content = generatePluginListXml()
+                    cacheService?.putPluginList(content)
+                }
+            }
         }
 
         // get the most recent plugin release and use it as the last modified date
@@ -233,6 +239,8 @@ class RepositoryController {
         if(pr) {
             lastModified pr[0].releaseDate.toDate()
         }
+        
+        response.setHeader('Cache-Control', 'public, max-age=120')
 
         render text: content, contentType: "text/xml"
     }
@@ -240,7 +248,7 @@ class RepositoryController {
     private String generatePluginListXml() {
         final total = Plugin.count()
         int offset = 0
-        def writer = new StringWriter(1600000)
+        def writer = new FastStringWriter()
         new MarkupBuilder(writer).plugins {
 
             Plugin.withSession { session ->
