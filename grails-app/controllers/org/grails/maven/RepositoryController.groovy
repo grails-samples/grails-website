@@ -152,9 +152,7 @@ class RepositoryController {
 
                 }
                 url = "${repoUrl}/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"
-                if(!isSnapshot) {
-                    cacheService?.putContent(key, url)
-                }
+                cacheService?.putContent(key, url)
             }
 
             redirect url:url
