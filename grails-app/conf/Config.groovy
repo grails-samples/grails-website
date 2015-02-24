@@ -1,3 +1,4 @@
+import grails.util.Environment
 import pl.burningice.plugins.image.engines.scale.ScaleType
 
 // locations to search for config files that get merged into the main config
