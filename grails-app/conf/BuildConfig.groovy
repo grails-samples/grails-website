@@ -1,5 +1,7 @@
 grails.plugin.location.like = "${basedir}/inline-plugins/like"
 
+grails.plugin.location.'dev-session-cookie' = "${basedir}/inline-plugins/dev-session-cookie"
+
 grails.servlet.version = "3.0" // Change depending on target container compliance (2.5 or 3.0)
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
