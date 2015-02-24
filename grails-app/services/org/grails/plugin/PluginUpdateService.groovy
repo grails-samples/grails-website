@@ -1,6 +1,7 @@
 package org.grails.plugin
 
-import groovyx.net.http.HTTPBuilder
+import groovy.util.slurpersupport.GPathResult
+
 import org.grails.auth.User
 import org.grails.meta.UserInfo
 import org.joda.time.DateTime
@@ -180,7 +181,8 @@ class PluginUpdater {
     private URL baseDownloadUrl
     private String filename
     private String extension
-    private pom
+    private GPathResult pom
+    private URL pomUrl
 
     PluginUpdater(String version, String groupId, String baseUrl, boolean isSnapshot) throws MalformedURLException {
         this.version = version
@@ -209,10 +211,12 @@ class PluginUpdater {
         // We need to extract various bits of info from the POM, but right
         // now we need it to find out what the file extension is for this
         // plugin. "jar" for binary plugins, "zip" for source ones.
-        pom = loadPom()
-        filename = filename + "." + pom.packaging.text()
-
-
+        try {
+            pom = loadPom()
+        } catch (Exception e) {
+            log.error("Error loading pom ${pomUrl}", e)
+        }
+        filename = filename + "." + (pom ? pom.packaging.text() : 'zip')
 
         if (!isSnapshot) {
             // Only update the plugin portal page with the new info if this
@@ -269,24 +273,28 @@ class PluginUpdater {
         plugin.currentRelease = version
         plugin.lastReleased = new DateTime()
 
-        // Update the Plugin instance with the information from the POM.
-        plugin.with {
-            groupId = pom.groupId.text()
-            title = pom.name.text()
-            summary = pom.description.text()
-            documentationUrl = pom.url.text()
-            organization = pom.organization.name.text()
-            organizationUrl = pom.organization.url.text()
-            scmUrl = pom.scm.url.text()
-            issuesUrl = pom.issueManagement.url.text()
+        if(pom) {
+            // Update the Plugin instance with the information from the POM.
+            plugin.with {
+                groupId = pom.groupId.text()
+                title = pom.name.text()
+                summary = pom.description.text()
+                documentationUrl = pom.url.text()
+                organization = pom.organization.name.text()
+                organizationUrl = pom.organization.url.text()
+                scmUrl = pom.scm.url.text()
+                issuesUrl = pom.issueManagement.url.text()
+            }
         }
 
         // Now do the same with the XML plugin descriptor to get the Grails
         // version range for the plugin.
         def xml = loadPluginXml()
 
-        addAuthors pom.developers
-        addLicenses pom.licenses
+        if(pom) {
+            addAuthors pom.developers
+            addLicenses pom.licenses
+        }
 
         plugin.grailsVersion = xml.@grailsVersion.text()
 
@@ -382,7 +390,7 @@ class PluginUpdater {
      * returns the slurped content, i.e. a GPath result.
      */
     protected loadPom() {
-        def pomUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}.pom")
+        pomUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}.pom")
         return pomUrl.newInputStream(connectTimeout: 10000, useCaches: false).withStream { inputStream ->
              new XmlSlurper().parse(inputStream)
         }
