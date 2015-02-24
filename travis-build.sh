@@ -19,7 +19,7 @@ deploy_to_cf() {
   GIT_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
   CF_DEPLOY_IN_COMMIT=1
   echo "$GIT_COMMIT_MSG" | grep '\[cf-deploy\]' || CF_DEPLOY_IN_COMMIT=0
-  if [[ $CF_SPACE != production || $CF_DEPLOY_IN_COMMIT -eq 1 ]]; then
+  if [[ $CF_SPACE != production || $CF_DEPLOY_IN_COMMIT -eq 1 || $TRAVIS_TAG == *_activate ]]; then
     # swap blue/green after successful deployment and undeploy other
     ./cf-swap-blue-green.sh $DEPLOY_ARGS
   else
