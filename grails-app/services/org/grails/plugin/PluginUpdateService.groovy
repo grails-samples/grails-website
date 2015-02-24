@@ -285,22 +285,27 @@ class PluginUpdater {
                 scmUrl = pom.scm.url.text()
                 issuesUrl = pom.issueManagement.url.text()
             }
-        }
-
-        // Now do the same with the XML plugin descriptor to get the Grails
-        // version range for the plugin.
-        def xml = loadPluginXml()
-
-        if(pom) {
+            
             addAuthors pom.developers
             addLicenses pom.licenses
         }
 
-        plugin.grailsVersion = xml.@grailsVersion.text()
+        // Now do the same with the XML plugin descriptor to get the Grails
+        // version range for the plugin.
+        def xml = null
+        try {
+            xml = loadPluginXml()
+        } catch (Exception e) {
+            log.error("Problem loading plugin xml", e)
+        }
 
-        // Fetch any custom repositories that may be needed by this plugin.
-        def customRepoUrls = xml.repositories.repository.@url*.text().findAll { !(it in DEFAULT_REPOSITORIES) }
-        addCustomRepositories customRepoUrls
+        if(xml) {
+            plugin.grailsVersion = xml.@grailsVersion.text()
+
+            // Fetch any custom repositories that may be needed by this plugin.
+            def customRepoUrls = xml.repositories.repository.@url*.text().findAll { !(it in DEFAULT_REPOSITORIES) }
+            addCustomRepositories customRepoUrls
+        }
 
         // Set the download URL for the plugin to the appropriate binary in the
         // repository, whether it be a Maven or Subversion one.
