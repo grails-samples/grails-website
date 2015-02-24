@@ -284,6 +284,17 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 
 // log4j configuration
 log4j = {
+    if(Environment.current == Environment.PRODUCTION) {
+        appenders {
+            rollingFile name:"errorLog", maxFileSize:"5MB", maxBackupIndex: 10, file:"${System.getProperty('user.home')}/logs/grails-website-error.log", 'append':true, threshold:org.apache.log4j.Level.WARN
+            rollingFile name:"stacktrace", maxFileSize:"5MB", maxBackupIndex: 10, file:"${System.getProperty('user.home')}/logs/grails-website-stacktrace.log", 'append':true, threshold:org.apache.log4j.Level.ALL
+            console name:'stdout', threshold:org.apache.log4j.Level.WARN
+        }
+        root {
+            warn "errorLog", "stdout"
+        }
+    }
+    
     error   'org.hibernate'
 
     warn    'org.codehaus.groovy.grails.web.servlet',
@@ -293,7 +304,6 @@ log4j = {
             'org.codehaus.groovy.grails.plugins', // plugins
             'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
             'org.springframework'
-
 }
 
 // databinding config
