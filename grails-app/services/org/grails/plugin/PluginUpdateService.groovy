@@ -383,8 +383,8 @@ class PluginUpdater {
      */
     protected loadPom() {
         def pomUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}.pom")
-        return pomUrl.withReader("UTF-8") { reader ->
-             new XmlSlurper().parse(reader)
+        return pomUrl.newInputStream(connectTimeout: 10000, useCaches: false).withStream { inputStream ->
+             new XmlSlurper().parse(inputStream)
         }
     }
 
@@ -394,8 +394,8 @@ class PluginUpdater {
      */
     protected loadPluginXml() {
         def descUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}-plugin.xml")
-        return descUrl.withReader("UTF-8") { reader ->
-            new XmlSlurper().parse(reader)
+        return descUrl.newInputStream(connectTimeout: 10000, useCaches: false).withStream { inputStream ->
+             new XmlSlurper().parse(inputStream)
         }
     }
 

@@ -138,7 +138,7 @@ class RepositoryController {
                     // need to calculate actual version from maven metadata
                     def parent = new URL("${repoUrl}/$plugin/$pluginVersion/maven-metadata.xml")
                     try {
-                        def metadata = parent.newReader(connectTimeout: 10000, useCaches: false).withReader { new XmlSlurper().parse(it) }
+                        def metadata = parent.newInputStream(connectTimeout: 10000, useCaches: false).withStream { new XmlSlurper().parse(it) }
                         def timestamp = metadata.versioning.snapshot.timestamp.text()
                         def buildNo = metadata.versioning.snapshot.buildNumber.text()
                         if(timestamp && buildNo) {

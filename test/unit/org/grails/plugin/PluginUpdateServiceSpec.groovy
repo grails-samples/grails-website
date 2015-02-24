@@ -6,6 +6,7 @@ import grails.test.mixin.*
 import grails.test.mixin.web.ControllerUnitTestMixin
 
 import org.codehaus.groovy.grails.commons.GrailsApplication
+import org.codehaus.groovy.runtime.ResourceGroovyMethods
 import org.grails.auth.*
 import org.grails.content.*
 import org.grails.meta.UserInfo
@@ -71,10 +72,10 @@ class PluginUpdateServiceSpec extends Specification {
 		service.pluginService = new PluginService(grailsApplication:app, wikiPageService: wikiPageService, searchableService: searchableService )
 		service.mailService = mailService
 		def event = new PluginUpdateEvent(this,"tomcat","1.0.0", "org.grails.plugins", false, new URI("https://repo.grails.org/grails/plugins/") )
-		URL.metaClass.withReader = { String encoding, Closure callable ->
+		URL.metaClass.newInputStream = { Map params ->
 			def f = delegate.toString().endsWith("pom") ? "tomcat.pom" : "tomcat-plugin.xml"
 
-			PluginUpdateServiceSpec.getResource(f).openConnection().getInputStream().withReader(encoding, callable)
+			ResourceGroovyMethods.newInputStream(PluginUpdateServiceSpec.getResource(f), params)
 		}
 		Plugin.metaClass.index = {->} // mocked
 	when:"The event is processed"
