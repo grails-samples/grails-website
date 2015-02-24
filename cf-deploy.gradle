@@ -43,7 +43,7 @@ cloudfoundry {
     services {
       "db-grails-org-${cfEnvLabel}" {
         label = 'cleardb'
-        plan = 'boost'
+        plan = productionEnv ? 'amp' : 'boost'
         bind = true
       }
       "sendgrid-grails-org-${cfEnvLabel}" {
