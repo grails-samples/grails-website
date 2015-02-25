@@ -20,17 +20,31 @@ class CacheService {
     transient grailsCacheAdminService
 
     def getContent(key) {  
-        return contentCache.get(key)?.get()
+        return contentCache.get(preprocessKey(key))?.get()
     }
 
     def putContent(key, value) {
         def old = getContent(key)
-        contentCache.put key, value
+        contentCache.put preprocessKey(key), preprocessStoredValue(value)
         return old
     }
 
+    protected String preprocessKey(Object value) {
+        if(value instanceof CharSequence) {
+            value = value.toString()
+        }
+        return value
+    }
+
+    protected String preprocessStoredValue(Object value) {
+        if(value instanceof CharSequence) {
+            value = value.toString()
+        }
+        return value
+    }
+
     def removeContent(key) {
-        contentCache.evict key
+        contentCache.evict preprocessKey(key)
     }
 
     def flushWikiCache() {
@@ -48,7 +62,7 @@ class CacheService {
     def putWikiText(key, value) {
         key = wikiKey(key)
         def old = getWikiText(key)
-        wikiCache.put key, value
+        wikiCache.put key, preprocessStoredValue(value)
         return old
     }
 
@@ -63,7 +77,7 @@ class CacheService {
     def putShortenedWikiText(key, value) {
         key = wikiShortKey(key)
         def old = getShortenedWikiText(key)
-        wikiCache.put key, value
+        wikiCache.put key, preprocessStoredValue(value)
         return old
     }
 
@@ -71,7 +85,7 @@ class CacheService {
 
     def putPluginList(content) {
         def old = pluginList
-        pluginCache.put PLUGIN_LIST_KEY, content
+        pluginCache.put PLUGIN_LIST_KEY, preprocessStoredValue(content)
         return old
     }
 
