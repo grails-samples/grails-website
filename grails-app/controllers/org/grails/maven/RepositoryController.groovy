@@ -153,7 +153,7 @@ class RepositoryController {
                     }
 
                 }
-                url = "${repoUrl}/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type"
+                url = "${repoUrl}/$plugin/$pluginVersion/$plugin-${snapshotVersion}$type".toString()
                 cacheService?.putContent(key, url)
             }
 
