@@ -148,7 +148,8 @@
                                 wordWrap: true,
                                 lineWrapping: true,
                                 gutter: true,
-                                fixedGutter: true
+                                fixedGutter: true,
+                                scrollbarStyle: "overlay"
                             });
                         })
 

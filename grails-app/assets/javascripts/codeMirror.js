@@ -6,3 +6,4 @@
 //= require libs/codemirror/mode/htmlmixed/htmlmixed.js
 //= require libs/codemirror/mode/javascript/javascript.js
 //= require libs/codemirror/mode/xml/xml.js
+//= require libs/codemirror/addon/scroll/simplescrollbars.js
