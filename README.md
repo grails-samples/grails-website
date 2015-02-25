@@ -110,3 +110,41 @@ Start artifactory if it's not already running:
 
 Publish some plugin (f.e. mail) that already exists in the repository (so that it's already approved):
 ```grails publish-plugin --repository=myRepo --portal=my --stacktrace```
+
+
+## Production deployments
+
+### Deploying to production
+
+Production deployments are automated with Travis CI. Travis will deploy the app to production when a tag starting with ```"prod_"``` gets pushed to Github.
+Blue-Green deployment model is used to do zero-downtime upgrades. Currently there isn't any downtime, but the sessions aren't replicated so they are lost.
+By default the app will get deployed to the inactive node and that won't get activated by default.
+When the tag starting with ```"prod_"``` also ends with ```"_activate"```, the app will get activated when the app has started up successfully.
+
+Here is an example of ```cf apps``` output for the current production environment.
+```
+Getting apps in org grails-org / space production as someuser@somedomain...
+OK
+
+name                            requested state   instances   memory   disk   urls
+plugins-grails-org-prod-blue    started           1/1         2G       1G     prod-blue.grails.org, plugins-grails-org-prod-blue.cfapps.io
+plugins-grails-org-prod-green   started           1/1         2G       1G     plugins-grails-org-prod.cfapps.io, prod.grails.org, prod-green.grails.org, plugins-grails-org-prod-green.cfapps.io, grails.org, www.grails.org, plugins.grails.org
+```
+
+"Activation" means in this case the process of switching the URL routes prod.grails.org, grails.org, www.grails.org and plugins.grails.org links to point to the recently updated app. A script ```cf-swap-blue-green.sh``` does this switching. Adding the parameter ```-Pprod``` will target the production environment.
+
+If you decide to activate the recently deployed app manually, you can do it with this command:
+```./cf-swap-blue-green.sh -Pprod```
+You should put your CloudFoundry username and password to the file ```cf-deploy.gradle.properties```
+```
+cfUsername=some@domain
+cfPassword=somepass
+```
+
+### Production configuration
+
+The file cf-deploy-war.tar.gz.gpg contains encrypted production and development environment configuration.
+The production config is in a file ```cf-deployment-production/WEB-INF/classes/site-config.groovy```.
+```travis-encrypt-files.sh``` and ```travis-decrypt-files.sh``` scripts are used to encrypt and decrypt these files.
+These scripts assume that the symmetric crypt key is in ```CF_FILES_CRYPT_KEY``` environment variable.
+The cipher used is symmetric key AES256 with gpg.
