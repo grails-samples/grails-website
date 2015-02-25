@@ -285,7 +285,7 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 
 // log4j configuration
 log4j = {
-    if(Environment.current == Environment.PRODUCTION) {
+    if(Environment.current == Environment.PRODUCTION || System.getProperty("use.prod.logging")) {
         appenders {
             rollingFile name:"errorLog", maxFileSize:"5MB", maxBackupIndex: 10, file:"${System.getProperty('user.home')}/logs/grails-website-error.log", 'append':true, threshold:org.apache.log4j.Level.WARN
             rollingFile name:"stacktrace", maxFileSize:"5MB", maxBackupIndex: 10, file:"${System.getProperty('user.home')}/logs/grails-website-stacktrace.log", 'append':true, threshold:org.apache.log4j.Level.ALL
