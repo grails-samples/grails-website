@@ -1,6 +1,7 @@
 package org.grails.maven
 
 import grails.plugin.cache.CacheEvict
+import grails.plugins.rest.client.RestBuilder
 import groovy.xml.MarkupBuilder
 
 import org.codehaus.groovy.grails.web.pages.FastStringWriter
@@ -20,6 +21,7 @@ class RepositoryController {
     def cacheService
     def grailsApplication
     def pluginDeployService
+    RestBuilder rest = new RestBuilder(connectTimeout: 10000, readTimeout: 10000)
 
     /**
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom"
@@ -138,7 +140,7 @@ class RepositoryController {
                     // need to calculate actual version from maven metadata
                     def parent = new URL("${repoUrl}/$plugin/$pluginVersion/maven-metadata.xml")
                     try {
-                        def metadata = parent.newInputStream(connectTimeout: 10000, useCaches: false).withStream { new XmlSlurper().parse(it) }
+                        def metadata = rest.get(parent.toString()).xml
                         def timestamp = metadata.versioning.snapshot.timestamp.text()
                         def buildNo = metadata.versioning.snapshot.buildNumber.text()
                         if(timestamp && buildNo) {

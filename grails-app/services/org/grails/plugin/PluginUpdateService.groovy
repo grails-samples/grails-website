@@ -1,5 +1,6 @@
 package org.grails.plugin
 
+import grails.plugins.rest.client.RestBuilder
 import groovy.util.slurpersupport.GPathResult
 
 import org.grails.auth.User
@@ -25,6 +26,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     def mailService
     def grailsApplication
     def pluginService
+    RestBuilder rest = new RestBuilder(connectTimeout: 10000, readTimeout: 10000)
 
     /**
      * <p>Triggered whenever something publishes a plugin update event to the Spring
@@ -41,6 +43,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         def pluginUpdater
         try {
             pluginUpdater = new PluginUpdater(event.version, event.group, event.repoUrl?.toString(), event.snapshot)
+            pluginUpdater.rest = rest
         }
         catch (MalformedURLException ex) {
             // If the repository URL is invalid, there's no point processing
@@ -183,6 +186,7 @@ class PluginUpdater {
     private String extension
     private GPathResult pom
     private URL pomUrl
+    RestBuilder rest
 
     PluginUpdater(String version, String groupId, String baseUrl, boolean isSnapshot) throws MalformedURLException {
         this.version = version
@@ -338,12 +342,12 @@ class PluginUpdater {
         // which type of repository we have.
         def mavenUrl = new URL(baseUrl, "${groupId.replace('.', '/')}/${plugin.name}/${version}/")
         filename = "${plugin.name}-${version}"
-        try {
-            log.debug "Trying Maven URL: ${mavenUrl}"
-            mavenUrl.text
+        log.debug "Trying Maven URL: ${mavenUrl}"
+        def rest = new RestBuilder(connectTimeout: 10000, readTimeout: 10000)
+        def result = rest.get(mavenUrl.toString())
+        if(result.status != 404) {
             baseDownloadUrl = mavenUrl
-        }
-        catch (FileNotFoundException ex) {
+        } else {
             // 404 on the Maven URL, so use a Subversion repository URL instead.
             baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/")
             filename = "grails-" + filename
@@ -396,9 +400,7 @@ class PluginUpdater {
      */
     protected loadPom() {
         pomUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}.pom")
-        return pomUrl.newInputStream(connectTimeout: 10000, useCaches: false).withStream { inputStream ->
-             new XmlSlurper().parse(inputStream)
-        }
+        return rest.get(pomUrl.toString()).xml
     }
 
     /**
@@ -407,9 +409,7 @@ class PluginUpdater {
      */
     protected loadPluginXml() {
         def descUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}-plugin.xml")
-        return descUrl.newInputStream(connectTimeout: 10000, useCaches: false).withStream { inputStream ->
-             new XmlSlurper().parse(inputStream)
-        }
+        return rest.get(descUrl.toString()).xml
     }
 
     private validateAndFixUrl(String url) throws MalformedURLException {

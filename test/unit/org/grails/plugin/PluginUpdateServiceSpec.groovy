@@ -1,16 +1,20 @@
+
 package org.grails.plugin
 
 import grails.plugin.mail.*
 import grails.plugin.searchable.*
+import grails.plugins.rest.client.RestBuilder
+import grails.plugins.rest.client.RestResponse
 import grails.test.mixin.*
 import grails.test.mixin.web.ControllerUnitTestMixin
 
 import org.codehaus.groovy.grails.commons.GrailsApplication
-import org.codehaus.groovy.runtime.ResourceGroovyMethods
 import org.grails.auth.*
 import org.grails.content.*
 import org.grails.meta.UserInfo
 import org.grails.wiki.*
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity
 
 import spock.lang.Specification
 
@@ -72,10 +76,13 @@ class PluginUpdateServiceSpec extends Specification {
 		service.pluginService = new PluginService(grailsApplication:app, wikiPageService: wikiPageService, searchableService: searchableService )
 		service.mailService = mailService
 		def event = new PluginUpdateEvent(this,"tomcat","1.0.0", "org.grails.plugins", false, new URI("https://repo.grails.org/grails/plugins/") )
-		URL.metaClass.newInputStream = { Map params ->
-			def f = delegate.toString().endsWith("pom") ? "tomcat.pom" : "tomcat-plugin.xml"
-
-			ResourceGroovyMethods.newInputStream(PluginUpdateServiceSpec.getResource(f), params)
+        service.rest = Mock(RestBuilder)
+        service.rest.get(_ as String) >> { String url ->
+			def f = url.endsWith("pom") ? "tomcat.pom" : "tomcat-plugin.xml"
+            def xml = PluginUpdateServiceSpec.getResource(f).withInputStream {
+                new XmlSlurper().parse(it)
+            }
+            new RestResponse(new ResponseEntity(xml, HttpStatus.OK))
 		}
 		Plugin.metaClass.index = {->} // mocked
 	when:"The event is processed"
