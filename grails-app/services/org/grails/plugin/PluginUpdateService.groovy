@@ -337,20 +337,22 @@ class PluginUpdater {
      * Maven-compatible one or a legacy Subversion one.
      */
     protected void evaluateDownloadInfo() {
+        baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/")
+        filename = "grails-" + filename
+
         // We may be looking at either a Maven or a Subversion repository,
         // both of which have different directory structures. Here we test
         // which type of repository we have.
-        def mavenUrl = new URL(baseUrl, "${groupId.replace('.', '/')}/${plugin.name}/${version}/")
-        filename = "${plugin.name}-${version}"
-        log.debug "Trying Maven URL: ${mavenUrl}"
-        def rest = new RestBuilder(connectTimeout: 10000, readTimeout: 10000)
-        def result = rest.get(mavenUrl.toString())
-        if(result.status != 404) {
-            baseDownloadUrl = mavenUrl
-        } else {
-            // 404 on the Maven URL, so use a Subversion repository URL instead.
-            baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/")
-            filename = "grails-" + filename
+        URL mavenUrl = new URL(baseUrl, "${groupId.replace('.', '/')}/${plugin.name}/${version}/")
+        // assume it's not a maven repository if the path starts with /plugins/
+        if(!mavenUrl.path.startsWith('/plugins/')) {
+            log.debug "Trying Maven URL: ${mavenUrl}"
+            def rest = new RestBuilder(connectTimeout: 10000, readTimeout: 10000)
+            def result = rest.get(mavenUrl.toString())
+            if(result.status != 404) {
+                filename = "${plugin.name}-${version}"
+                baseDownloadUrl = mavenUrl
+            }
         }
     }
 
