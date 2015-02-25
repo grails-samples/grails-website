@@ -12,8 +12,17 @@
     <style type="text/css">
         .wiki-form  .CodeMirror {
             border: 1px solid #eee;
-            width: 563px;
-            height: 100%;
+            width: auto;
+            height: auto;
+            max-height: 50em;
+        }
+        .wiki-form label {
+          font-size: 1.7em;
+          border-bottom: 2px solid #F6F6F6;
+          line-height: 30px;
+          padding: 5px 0;
+          margin: 10px 0;
+          display: block;
         }
     </style>
 </head>
@@ -91,41 +100,39 @@
                         method="post">
                     <g:hiddenField name="id" value="${plugin?.name}"/>
                     <fieldset>
-                        <h2>Summary</h2>
                         <div class="control-group ${hasErrors(bean: plugin.summary, field: 'body', 'error')}">
-                            <div class="col-sm-10" id="container-plugin-summary">
+                            <label class="control-label" for="plugin.summary">Summary</label>
+                            <div id="container-plugin-summary">
                                 <g:textField name="plugin.summary" value="${plugin.summary}" />
                             </div>
                         </div>
 
-                        <h2>Installation</h2>
                         <div class="control-group ${hasErrors(bean: plugin.installation, field: 'body', 'error')}">
-                            <div class="col-sm-10">
+                            <label class="control-label" for="plugin.installation.body">Installation</label>
+                            <div>
                                 <g:hiddenField class="form-control" name="plugin.installation.version" value="${plugin?.installation?.version}"/>
-                                <g:textArea cols="30" rows="20" name="plugin.installation.body"
+                                <g:textArea cols="30" rows="5" name="plugin.installation.body"
                                             value="${plugin?.installation.body}" class="codeEditor input-medium"/>
                             </div>
                         </div>
 
-                        <h2>Default dependency scope</h2>
                         <div class="control-group ${hasErrors(bean: plugin.defaultDependencyScope, field: 'body', 'error')}">
-                            <div class="col-sm-10">
+                            <label class="control-label" for="plugin.defaultDependencyScope">Default dependency scope</label>
+                            <div>
                                 <g:select class="form-control" name="plugin.defaultDependencyScope" from="${Plugin.DEFAULT_SCOPE_WHITE_LIST}" value="${plugin?.defaultDependencyScope}" />
                             </div>
                         </div>
 
-                        <h2>Description</h2>
                         <div class="control-group ${hasErrors(bean: plugin.description, field: 'body', 'error')}">
-                            <div class="col-sm-10">
+                            <label class="control-label" for="plugin.description.body">Description</label>
+                            <div>
                                 <g:hiddenField class="form-control" name="plugin.description.version" value="${plugin?.description?.version}"/>
-                                <g:textArea cols="30" rows="20" name="plugin.description.body"
+                                <g:textArea cols="30" rows="50" name="plugin.description.body"
                                             value="${plugin?.description.body}" class="codeEditor input-medium"/>
                             </div>
                         </div>
 
-
-                          <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
-
+                        <div class="form-group"><div class="col-sm-10">
                             <g:submitButton name="updatePlugin" class="btn btn-primary" value="Update"/>
                             <g:link class="btn" uri="/plugin/${plugin.name}">Cancel</g:link>
                         </div></div>
