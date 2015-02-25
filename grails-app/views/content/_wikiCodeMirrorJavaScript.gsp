@@ -6,7 +6,8 @@
             lineWrapping: true,
             gutter: true,
             fixedGutter: true,
-            autofocus: true
+            autofocus: true,
+            scrollbarStyle: "overlay"
         });
         $('.preview').click(function() {
             $.ajax({

@@ -9,22 +9,6 @@
     <asset:stylesheet src="plugin-edit"/>
     <asset:javascript src="plugin-edit"/>
     <g:render template="tagSetup" model="[allTags:allTags]" />
-    <style type="text/css">
-        .wiki-form  .CodeMirror {
-            border: 1px solid #eee;
-            width: auto;
-            height: auto;
-            max-height: 50em;
-        }
-        .wiki-form label {
-          font-size: 1.7em;
-          border-bottom: 2px solid #F6F6F6;
-          line-height: 30px;
-          padding: 5px 0;
-          margin: 10px 0;
-          display: block;
-        }
-    </style>
 </head>
 
 <body>
@@ -149,7 +133,8 @@
                                 lineWrapping: true,
                                 gutter: true,
                                 fixedGutter: true,
-                                scrollbarStyle: "overlay"
+                                scrollbarStyle: "overlay",
+                                viewportMargin: Infinity
                             });
                         })
 

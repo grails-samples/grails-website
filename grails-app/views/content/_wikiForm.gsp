@@ -5,12 +5,9 @@
     <g:hiddenField name="title" value="${wikiPage?.title}"/>
     <input type="hidden" name="version" value="${wikiPage?.version}"/>
     <fieldset>
-
         <div class="control-group ${hasErrors(bean: wikiPage, field: 'body', 'error')}">
-            <div class="col-sm-10">
-                <g:textArea class="form-control wiki input-fullsize" cols="30" rows="20" id="wikiPageBody" name="body"
-                            value="${wikiPage?.body}" />
-            </div>
+          <g:textArea class="form-control wiki input-fullsize" cols="30" rows="20" id="wikiPageBody" name="body"
+                      value="${wikiPage?.body}" />
         </div>
 
         <div class="form-group"><div class="col-sm-offset-2 col-sm-10">
@@ -23,5 +20,3 @@
     </fieldset>
 
 </g:form>
-
-

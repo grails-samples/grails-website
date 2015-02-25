@@ -39,7 +39,8 @@ $(function() {
             "'/'": function(cm) { cm.closeTag(cm, '/'); }
         },
         lineNumbers: true,
-        wordWrap: true
+        wordWrap: true,
+        scrollbarStyle: "overlay"
     });
 })
 </asset:script>

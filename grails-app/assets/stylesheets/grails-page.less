@@ -497,18 +497,6 @@ a.like {
     font-size: 12px;
     color: rgba(102, 102, 102, 0.79);
 }
-.wiki-form {
-    .CodeMirror {
-        border: 1px solid #eee;
-        width: 663px;
-    }
-    .CodeMirror-scroll {
-        height: auto;
-        overflow-y: hidden;
-        overflow-x: auto;
-        width: 100%;
-    }
-}
 
 form.search {
     padding: 5px;
@@ -625,4 +613,16 @@ form.search {
             }
         }
     }
+}
+
+#main {
+	.CodeMirror {
+			border: 1px solid #eee;
+			width: auto;
+			height: auto;
+	}
+
+	.CodeMirror-scroll {
+		max-height: 1000px;
+	}
 }

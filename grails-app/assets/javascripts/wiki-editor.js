@@ -7,7 +7,8 @@ $(document).ready(function() {
         lineWrapping: true,
         gutter: true,
         fixedGutter: true,
-        autofocus: true
+        autofocus: true,
+        scrollbarStyle: "overlay"
     });
 
     // store editor so it can be accessed later by image upload
