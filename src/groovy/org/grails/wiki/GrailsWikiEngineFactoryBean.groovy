@@ -8,7 +8,7 @@ import org.springframework.beans.factory.InitializingBean
 
 class GrailsWikiEngineFactoryBean implements FactoryBean, InitializingBean {
 
-    def context = new BaseInitialRenderContext();
+    BaseInitialRenderContext context = new BaseInitialRenderContext();
 
     CacheService cacheService
     String contextPath
@@ -22,6 +22,9 @@ class GrailsWikiEngineFactoryBean implements FactoryBean, InitializingBean {
     boolean isSingleton() { true }
 
     public void afterPropertiesSet() {
+        if(context.getParameters()==null) {
+            context.setParameters([:])
+        }
         context.set(GrailsWikiEngine.CONTEXT_PATH, contextPath)
         context.set(GrailsWikiEngine.CACHE, cacheService)
         engine = new GrailsWikiEngine(context)
