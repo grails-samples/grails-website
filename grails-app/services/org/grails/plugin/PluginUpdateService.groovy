@@ -94,7 +94,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         def plugin = Plugin.findByName(pluginName)
         if (!plugin) {
             log.debug "Creating new plugin instance for $pluginName $version"
-            plugin = new Plugin(name: pluginName, currentRelease: version, downloadUrl: "not provided")
+            plugin = new Plugin(name: pluginName, title: pluginName, currentRelease: version, downloadUrl: "not provided")
 
             pluginService.initNewPlugin(plugin, User.findByLogin("admin"))
 
