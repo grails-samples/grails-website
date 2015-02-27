@@ -11,6 +11,7 @@ import grails.test.mixin.web.ControllerUnitTestMixin
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.grails.auth.*
 import org.grails.content.*
+import org.grails.maven.PluginDeployService
 import org.grails.meta.UserInfo
 import org.grails.wiki.*
 import org.springframework.http.HttpStatus;
@@ -84,6 +85,10 @@ class PluginUpdateServiceSpec extends Specification {
             }
             new RestResponse(new ResponseEntity(xml, HttpStatus.OK))
 		}
+        service.pluginDeployService = Mock(PluginDeployService)
+        service.pluginDeployService.getRepositoryUrl(_) >> {
+            "http://localhost:1234/repo/plugins/org/grails/plugins"
+        }
 		Plugin.metaClass.index = {->} // mocked
 	when:"The event is processed"
 		service.onApplicationEvent(event)
