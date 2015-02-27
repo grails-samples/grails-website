@@ -26,7 +26,6 @@ class RepositoryController {
     /**
      * Publishes a plugin. The expected request format is a XML payload that is the plugin descriptor with multipart files for the zip and the POM named "file" and "pom"
      */
-    @CacheEvict("pluginMetaList")
     def publish(PublishPluginCommand cmd) {
         log.debug "Got publish request for method ${request.method}"
         boolean isBrowserRequest = params.format == 'html'
@@ -239,7 +238,7 @@ class RepositoryController {
         if(pr) {
             lastModified pr[0].releaseDate.toDate()
         }
-        
+
         response.setHeader('Cache-Control', 'public, max-age=120')
 
         render text: content, contentType: "text/xml"
