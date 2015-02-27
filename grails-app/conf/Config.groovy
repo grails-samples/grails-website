@@ -297,7 +297,8 @@ log4j = {
     }
     
     error   'org.hibernate', 
-            'org.springframework.web.client.RestTemplate'
+            'org.springframework.web.client.RestTemplate',
+            'org.radeox'
 
     warn    'org.codehaus.groovy.grails.web.servlet',
             'org.codehaus.groovy.grails.web.pages', //  GSP
