@@ -335,7 +335,7 @@ class PluginUpdater {
                     def email = xml.authorEmail.text()
                     def user = email ? UserInfo.findOrCreateWhere(email: email) : new UserInfo()
                     if (!user.name) {
-                        user.name = xml.authorEmail.text()
+                        user.name = xml.author.text()
                     }
                     user.save(failOnError: true)
                     plugin.addToAuthors(user)
