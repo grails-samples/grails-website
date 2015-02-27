@@ -9,6 +9,7 @@ plugin.xml
 site-config.groovy
 stacktrace.log
 target
+out
 /plugins
 /web-app/js/yui-cms
 /web-app/js/yui
