@@ -382,6 +382,12 @@ class PluginUpdater {
      * Maven-compatible one or a legacy Subversion one.
      */
     protected void evaluateDownloadInfo() {
+        // uncomment for testing updates locally with production data
+        // portal ping from command line:
+        // export GRAILS_ORG_AUTH=username:password
+        // http --json --auth $GRAILS_ORG_AUTH PUT http://localhost:8080/plugin/some-plugin name=some-plugin group=org.grails.plugins version=0.1 isSnapshot:=false url=http://grails.org/plugins
+        // mavenRepoUrl = "https://repo.grails.org/grails/plugins/org/grails/plugins"
+
         URL mainRepoMavenUrl = new URL("${mavenRepoUrl}/${plugin.name}/${version}/".toString())
         if(rest.get(mainRepoMavenUrl.toString()).status == 200) {
             filename = "${plugin.name}-${version}"
