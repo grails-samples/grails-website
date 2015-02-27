@@ -452,7 +452,7 @@ class PluginUpdater {
      */
     protected loadPom() {
         pomUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}.pom")
-        return rest.get(pomUrl.toString()).xml
+        return rest.get(pomUrl.toString()){ acceptType=GPathResult  }.xml
     }
 
     /**
@@ -461,7 +461,7 @@ class PluginUpdater {
      */
     protected loadPluginXml() {
         def descUrl = new URL(baseDownloadUrl, "${plugin.name}-${version}-plugin.xml")
-        return rest.get(descUrl.toString()).xml
+        return rest.get(descUrl.toString()){ acceptType=GPathResult  }.xml
     }
 
     private URL validateAndFixUrl(String url) throws MalformedURLException {

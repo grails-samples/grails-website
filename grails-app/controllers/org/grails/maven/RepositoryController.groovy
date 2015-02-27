@@ -2,6 +2,7 @@ package org.grails.maven
 
 import grails.plugin.cache.CacheEvict
 import grails.plugins.rest.client.RestBuilder
+import groovy.util.slurpersupport.GPathResult
 import groovy.xml.MarkupBuilder
 
 import org.codehaus.groovy.grails.web.pages.FastStringWriter
@@ -139,7 +140,7 @@ class RepositoryController {
                     // need to calculate actual version from maven metadata
                     def parent = new URL("${repoUrl}/$plugin/$pluginVersion/maven-metadata.xml")
                     try {
-                        def metadata = rest.get(parent.toString()).xml
+                        def metadata = rest.get(parent.toString()){ acceptType=GPathResult  }.xml
                         def timestamp = metadata.versioning.snapshot.timestamp.text()
                         def buildNo = metadata.versioning.snapshot.buildNumber.text()
                         if(timestamp && buildNo) {
