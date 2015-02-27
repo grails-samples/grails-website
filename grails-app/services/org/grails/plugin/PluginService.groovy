@@ -148,9 +148,6 @@ class PluginService {
         // Add the wiki pages for this new plugin.
         Plugin.WIKIS.each { wiki ->
             def body = ''
-            if (wiki == 'installation') {
-                body = "{code}compile ':${plugin.name}:${plugin.version}'{code}"
-            }
 
             // Saves don't cascade from the plugin to the wiki pages, so
             // we have to save them before saving the plugin.
