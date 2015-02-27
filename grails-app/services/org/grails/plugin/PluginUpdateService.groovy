@@ -26,6 +26,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
     def mailService
     def grailsApplication
     def pluginService
+    def pluginDeployService
     RestBuilder rest = new RestBuilder(connectTimeout: 10000, readTimeout: 10000)
 
     /**
@@ -43,6 +44,7 @@ class PluginUpdateService implements ApplicationListener<PluginUpdateEvent> {
         def pluginUpdater
         try {
             pluginUpdater = new PluginUpdater(event.version, event.group, event.repoUrl?.toString(), event.snapshot)
+            pluginUpdater.mavenRepoUrl = pluginDeployService.getRepositoryUrl(event.snapshot)
             pluginUpdater.rest = rest
         }
         catch (MalformedURLException ex) {
@@ -179,6 +181,7 @@ class PluginUpdater {
     private String version
     private boolean isSnapshot
     private URL baseUrl
+    private String mavenRepoUrl
 
     private boolean isNewVersion
     private URL baseDownloadUrl
@@ -328,7 +331,7 @@ class PluginUpdater {
                 if(xml.description.text() && !summary) {
                     summary = xml.description.text()
                 }
-                if(xml.documentation.text() && !documentationUrl) {
+                if(xml.documentation.text() && (!documentationUrl || documentationUrl.contains('://grails.org/plugin/'))) {
                     documentationUrl = xml.documentation.text()
                 }
                 if(!plugin.authors && xml.author.text()) {
@@ -379,7 +382,14 @@ class PluginUpdater {
      * Maven-compatible one or a legacy Subversion one.
      */
     protected void evaluateDownloadInfo() {
-        baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/")
+        URL mainRepoMavenUrl = new URL("${mavenRepoUrl}/${plugin.name}/${version}/".toString())
+        if(rest.get(mainRepoMavenUrl.toString()).status == 200) {
+            filename = "${plugin.name}-${version}"
+            baseDownloadUrl = mainRepoMavenUrl
+            return
+        }
+
+        baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/".toString())
         filename = "grails-" + filename
 
         // We may be looking at either a Maven or a Subversion repository,
@@ -389,9 +399,7 @@ class PluginUpdater {
         // assume it's not a maven repository if the path starts with /plugins/
         if(!mavenUrl.path.startsWith('/plugins/')) {
             log.debug "Trying Maven URL: ${mavenUrl}"
-            def rest = new RestBuilder(connectTimeout: 10000, readTimeout: 10000)
-            def result = rest.get(mavenUrl.toString())
-            if(result.status != 404) {
+            if(rest.get(mavenUrl.toString()).status != 404) {
                 filename = "${plugin.name}-${version}"
                 baseDownloadUrl = mavenUrl
             }
@@ -456,9 +464,9 @@ class PluginUpdater {
         return rest.get(descUrl.toString()).xml
     }
 
-    private validateAndFixUrl(String url) throws MalformedURLException {
+    private URL validateAndFixUrl(String url) throws MalformedURLException {
         // Check that the given repository URL is valid. May throw an exception!
-        def tmpUrl = url.toURL()
+        URL tmpUrl = url.toURL()
 
         // Rectify the URL if it doesn't have a trailing slash.
         if (!tmpUrl.path.endsWith('/')) {
