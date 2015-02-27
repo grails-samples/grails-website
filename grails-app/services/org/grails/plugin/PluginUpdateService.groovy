@@ -281,13 +281,27 @@ class PluginUpdater {
             // Update the Plugin instance with the information from the POM.
             plugin.with {
                 groupId = pom.groupId.text()
-                title = pom.name.text()
-                summary = pom.description.text()
-                documentationUrl = pom.url.text()
-                organization = pom.organization.name.text()
-                organizationUrl = pom.organization.url.text()
-                scmUrl = pom.scm.url.text()
-                issuesUrl = pom.issueManagement.url.text()
+                if(pom.name.text()) {
+                    title = pom.name.text()
+                }
+                if(pom.description.text() && !summary) {
+                    summary = pom.description.text()
+                }
+                if(pom.url.text()) {
+                    documentationUrl = pom.url.text()
+                }
+                if(pom.organization.name.text()) {
+                    organization = pom.organization.name.text()
+                }
+                if(pom.organization.url.text()) {
+                    organizationUrl = pom.organization.url.text()
+                }
+                if(pom.scm.url.text()) {
+                    scmUrl = pom.scm.url.text()
+                }
+                if(pom.issueManagement.url.text()) {
+                    issuesUrl = pom.issueManagement.url.text()
+                }
             }
             
             addAuthors pom.developers
@@ -304,7 +318,35 @@ class PluginUpdater {
         }
 
         if(xml) {
-            plugin.grailsVersion = xml.@grailsVersion.text()
+            plugin.with {
+                grailsVersion = xml.@grailsVersion.text()
+                // only fallback to plugin.xml when metadata is missing
+                if(xml.title.text() && !title) {
+                    title = xml.title.text()
+                }
+                if(!title) title=name
+                if(xml.description.text() && !summary) {
+                    summary = xml.description.text()
+                }
+                if(xml.documentation.text() && !documentationUrl) {
+                    documentationUrl = xml.documentation.text()
+                }
+                if(!plugin.authors && xml.author.text()) {
+                    def email = xml.authorEmail.text()
+                    def user = email ? UserInfo.findOrCreateWhere(email: email) : new UserInfo()
+                    if (!user.name) {
+                        user.name = xml.authorEmail.text()
+                    }
+                    user.save(failOnError: true)
+                    plugin.addToAuthors(user)
+                }
+                if(!author && xml.author.text()) {
+                    author = xml.author.text()
+                }
+                if(!authorEmail && xml.authorEmail.text()) {
+                    authorEmail = xml.authorEmail.text()
+                }
+            }
 
             // Fetch any custom repositories that may be needed by this plugin.
             def customRepoUrls = xml.repositories.repository.@url*.text().findAll { !(it in DEFAULT_REPOSITORIES) }
