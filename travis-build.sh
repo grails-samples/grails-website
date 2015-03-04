@@ -6,8 +6,8 @@
 #
 deploy_to_cf() {
   CF_SPACE=$1
-  if [ -d "cf-deployment-$CF_SPACE" ]; then
-    (cd "cf-deployment-$CF_SPACE" && zip -r ../target/grails-website.war * )
+  if [ -d "cf-deployment-$CF_SPACE/webapp" ]; then
+    (cd "cf-deployment-$CF_SPACE/webapp" && zip -r ../../target/grails-website.war * )
   fi
   if [[ $CF_SPACE == production ]]; then
     DEPLOY_ARGS="-Pprod"
