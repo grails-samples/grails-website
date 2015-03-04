@@ -35,7 +35,7 @@ cloudfoundry {
     organization = 'grails-org'
     space = productionEnv ? 'production' : 'development'
     file = file("target/grails-website.war")
-    buildpack = "https://github.com/grails-samples/java-buildpack.git#grails-website"
+    buildpack = "https://github.com/grails-samples/java-buildpack.git#grails-website-oom"
     env = [
         "JAVA_OPTS": "-Xverify:none -Dgrails.env=production -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US -Daccess.logging.enabled=false -Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000 -DServer.Service.Connector.proxyName=${connectorProxyName}"
     ]
