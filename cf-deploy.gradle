@@ -21,6 +21,12 @@ ext {
   cfDefaultDomain = 'cfapps.io'
   // used for setting Server.Service.Connector.proxyName system property
   connectorProxyName = productionEnv ? 'grails.org' : 'staging.grails.org'
+  def cfConfigFile = file("cf-deployment-${productionEnv ? 'production' : 'development'}/cf_config.groovy")
+  if(cfConfigFile.exists()) {
+      cfConfig = new ConfigSlurper().parse(cfConfigFile.toURI().toURL())
+  } else {
+      cfConfig = new ConfigObject()
+  }
 }
 
 cloudfoundry {
@@ -33,6 +39,9 @@ cloudfoundry {
     env = [
         "JAVA_OPTS": "-Xverify:none -Dgrails.env=production -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US -Daccess.logging.enabled=false -Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000 -DServer.Service.Connector.proxyName=${connectorProxyName}"
     ]
+    if(cfConfig.containsKey('env') && cfConfig.env instanceof Map) {
+        env.putAll(cfConfig.env)
+    }
     mergeEnv = true
     healthCheckTimeout = 180
     memory = productionEnv ? 2048 : 1500
