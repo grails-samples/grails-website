@@ -44,6 +44,7 @@ cloudfoundry {
     }
     mergeEnv = true
     healthCheckTimeout = 180
+    appStartupTimeout = 5
     memory = productionEnv ? 2048 : 1500
     diskQuota = 2048
     instances = 1
