@@ -37,7 +37,15 @@ cloudfoundry {
     file = file("target/grails-website.war")
     buildpack = "https://github.com/grails-samples/java-buildpack.git#grails-website-oom-nokill"
     env = [
-        "JAVA_OPTS": "-Xverify:none -Dgrails.env=production -Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US -Daccess.logging.enabled=false -Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000 -DServer.Service.Connector.proxyName=${connectorProxyName}"
+        "JAVA_OPTS": (
+                     "-Xverify:none -XX:+UseCompressedClassPointers -XX:+UseCompressedOops "+
+                     "-Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US "+
+                     "-Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000 "+
+                     "-Djava.net.preferIPv4Stack=true "+
+                     "-XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCDateStamps -verbose:gc -Xloggc:/home/vcap/logs/gc.log "+
+                     "-XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=10M "+
+                     "-Dgrails.env=production -DServer.Service.Connector.proxyName=${connectorProxyName} "
+                     )
     ]
     if(cfConfig.containsKey('env') && cfConfig.env instanceof Map) {
         env.putAll(cfConfig.env)
