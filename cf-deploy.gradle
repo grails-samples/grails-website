@@ -39,6 +39,7 @@ cloudfoundry {
     env = [
         "JAVA_OPTS": (
                      "-Xverify:none -XX:+UseCompressedClassPointers -XX:+UseCompressedOops "+
+                     "-XX:MaxMetaspaceSize=200M "+
                      "-Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US "+
                      "-Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000 "+
                      "-Djava.net.preferIPv4Stack=true "+
