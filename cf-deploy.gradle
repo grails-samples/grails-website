@@ -43,6 +43,7 @@ cloudfoundry {
                      "-XX:+UseCompressedOops "+
                      "-XX:InitialCodeCacheSize=64M -XX:CodeCacheExpansionSize=1M -XX:CodeCacheMinimumFreeSpace=1M -XX:ReservedCodeCacheSize=200M "+
                      "-XX:MinMetaspaceExpansion=1M -XX:MaxMetaspaceExpansion=8M "+
+                     "-XX:MaxDirectMemorySize=96M "+
                      "-Dfile.encoding=UTF-8 -Duser.language=en -Duser.country=US "+
                      "-Dsun.net.client.defaultConnectTimeout=10000 -Dsun.net.client.defaultReadTimeout=10000 "+
                      "-Djava.net.preferIPv4Stack=true "+
