@@ -1,5 +1,6 @@
 package org.grails.plugin
 
+import grails.util.BuildSettings
 import org.grails.meta.UserInfo
 import org.grails.taggable.Tag
 import org.grails.taggable.Taggable
@@ -27,8 +28,8 @@ class Plugin implements Taggable, Rateable {
             "grailsVersion" ]
 
     static final DEFAULT_GROUP = "org.grails.plugins"
-    static final DEFAULT_SCOPE = "compile"
-    static final DEFAULT_SCOPE_WHITE_LIST = ["compile", "provided", "test", "runtime", "system"]
+    static final DEFAULT_SCOPE = BuildSettings.COMPILE_SCOPE
+    static final DEFAULT_SCOPE_WHITE_LIST = [BuildSettings.COMPILE_SCOPE, BuildSettings.PROVIDED_SCOPE, BuildSettings.TEST_SCOPE, BuildSettings.RUNTIME_SCOPE, BuildSettings.BUILD_SCOPE]
     static final WIKIS = ['installation','description','faq','screenshots']
     static final VERSION_PATTERN = /^(\d+(?:\.\d+)*)([\.\-\w]*)?$/
 
