@@ -17,6 +17,7 @@
             <h3>Keep up to date</h3>
 
             <ul>
+                <li>Follow Jacob Aae Mikkelsen's weekly <a href="http://grydeske.net/news/" class="pageLink">"Grails Diary" blog</a></li>
                 <li>Follow Burt Beckwith's <a href="http://burtbeckwith.com/blog/?cat=32" class="pageLink">"This week in Grails" blog</a> (or <a href="http://feeds.feedburner.com/this-week-in-grails" class="pageLink">subscribe to the news feed</a>)</li>
                 <li>Follow <a href="/Twitter" class="pageLink">Grails on Twitter</a></li>
             </ul>
