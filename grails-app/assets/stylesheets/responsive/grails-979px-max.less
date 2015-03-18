@@ -41,14 +41,38 @@
         background: white url("@{imagesPath}/aside/point.gif") repeat-y 30% 0;
         .aside {
             width: 30%;
+            aside {
+                ul {
+                    padding: 0;
+                    li {
+                        font-size: 10px;
+                        a {
+                            line-height: 2.5em;
+                            background-position-y: -5px;
+                            &:hover {
+                                background-position-y: -5px;
+                            }
+                        }
+                        &.active {
+                            a {
+                                background-position-y: -5px;
+                            }
+                        }
+                    }
+                }
+                h3 {
+                    line-height: 1.5em;
+                }
+            }
         }
     }
+
     .content-aside .content-title {
         width: 70%;
     }
     .content-aside section#main {
-        width: 64%;
-        padding: 20px 3%;
+        width: 70%;
+        padding: 10px 3%;
     }
 
     #main.websites article {
@@ -106,5 +130,20 @@
     #header h1#logo {
         left: 10px;
     }
-}
 
+    #main.plugins, #main.plugin, #main.items {
+        section.plugin {
+            article {
+                header {
+                    padding-right: 20px;
+                }
+            }
+        }
+    	article.plugin, article.item {
+            header {
+                padding-right: 20px;
+            }
+        }
+    }
+
+}
