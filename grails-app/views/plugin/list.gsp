@@ -26,11 +26,14 @@
         <g:if test="${home}">
             <div class="alert alert-block">
                 <p>
+                    This portal is for Grails 2.x plugins. <a href="https://bintray.com/grails/plugins">Grails 3 plugins are currently listed in Bintray</a>.
+                </p>
+            </div>
+            <div class="alert alert-block">
+                <p>
                     Interested in your own plugin appearing here? Take a look at
-                    the <a href="/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>
+                    the <a href="/wiki/Creating+Plugins" target="_blank">Publishing Plugins Guide</a>
                     and when you're ready, <a href="/plugins/submitPlugin">please fill out this form</a>.
-                    <strong>NEW:</strong> Get involved by voicing your opinion on new plugins waiting to be approved in the
-                    <a href="/plugins/pending">Pending Plugin</a> portal.
                 </p>
             </div>
         </g:if>
