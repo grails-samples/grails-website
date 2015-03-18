@@ -26,7 +26,9 @@
         <g:if test="${home}">
             <div class="alert alert-block">
                 <p>
-                    This portal is for Grails 2.x plugins. <a href="https://bintray.com/grails/plugins">Grails 3 plugins are currently listed in Bintray</a>.
+                    This portal is for Grails 2.x plugins. <a href="https://bintray.com/grails/plugins">Grails 3 plugins are available in Bintray</a>.
+                    You can request to get your Grails 3 plugin listed by clicking the “Include My Package” button in Bintray on the <a href="https://bintray.com/grails/plugins">grails/plugins page</a> once you are logged in.
+                    Your plugin should be published to Bintray under your own account before doing the request.
                 </p>
             </div>
             <div class="alert alert-block">
