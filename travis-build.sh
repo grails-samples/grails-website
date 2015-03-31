@@ -20,8 +20,10 @@ deploy_to_cf() {
   CF_DEPLOY_IN_COMMIT=1
   echo "$GIT_COMMIT_MSG" | grep '\[cf-deploy\]' || CF_DEPLOY_IN_COMMIT=0
   if [[ $CF_SPACE != production || $CF_DEPLOY_IN_COMMIT -eq 1 || $TRAVIS_TAG == *_activate ]]; then
-    # swap blue/green after successful deployment and undeploy other
-    ./cf-swap-blue-green.sh $DEPLOY_ARGS
+      if [[ $CF_SPACE == production ]]; then
+        # swap blue/green after successful deployment and undeploy other
+        ./cf-swap-blue-green.sh $DEPLOY_ARGS
+      fi
   else
     set +x
     echo "Using blue-green deployment. Deployed to either one. NOT ACTIVATED BY DEFAULT to the default route!"

@@ -61,7 +61,7 @@ cloudfoundry {
     memory = productionEnv ? 2048 : 1500
     diskQuota = 2048
     instances = 1
-    variants = ['-blue', '-green']
+    variants = productionEnv ? ['-blue', '-green'] : []
     domain = 'grails.org'
     host = productionEnv ? 'prod' : 'staging'
     services {
@@ -154,3 +154,38 @@ tasks.create("cfUpdateAliases", AliasMappingsTask) {
   def plainAppNameRoute = "${project.cloudfoundry.application}.${project.ext.cfDefaultDomain}".toString()
   aliasRoutes = productionEnv ? ['www.grails.org', 'grails.org', 'plugins.grails.org', plainAppNameRoute] : ['www-dev.grails.org', 'dev.grails.org', plainAppNameRoute]
 }
+
+// Custom cfScale task that works with blue-green deployment
+@Mixin(org.cloudfoundry.gradle.tasks.DeployCloudFoundryHelper)
+class CustomScaleCloudFoundryTask extends org.cloudfoundry.gradle.tasks.AbstractMapCloudFoundryTask {
+    CustomScaleCloudFoundryTask() {
+        super()
+        description = 'Scales application instances up or down'
+    }
+
+    @TaskAction
+    void scale() {
+        withCloudFoundryClient {
+            validateVariantsForDeploy()
+            List<CloudApplication> apps = client.applications
+            List<String> mappedAppVariants = findMappedVariants(application, apps)
+            List<String> unmappedAppVariants = findUnmappedVariants(application, apps)
+            withApplication {
+                // reduce instances to default value for unmapped applications
+                unmappedAppVariants.each { appName ->
+                    project.cloudfoundry.application = appName
+                    log "Setting number of instances of application ${application} to ${instances}"
+                    client.updateApplicationInstances(application, instances)
+                }
+                // increase instances for mapped applications
+                mappedAppVariants.each { appName ->
+                    project.cloudfoundry.application = appName
+                    log "Setting number of instances of application ${application} to ${instances + 1}"
+                    client.updateApplicationInstances(application, instances + 1)
+                }
+            }
+        }
+    }
+}
+
+tasks.replace("cfScale", CustomScaleCloudFoundryTask)
