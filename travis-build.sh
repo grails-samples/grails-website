@@ -11,11 +11,13 @@ deploy_to_cf() {
   fi
   if [[ $CF_SPACE == production ]]; then
     DEPLOY_ARGS="-Pprod"
+    GRADLE_TASK="cfDeploy"
   else
     DEPLOY_ARGS=""
+    GRADLE_TASK="cfPush"
   fi
   gradle_cf_deploy="gradle -b cf-deploy.gradle $DEPLOY_ARGS"
-  $gradle_cf_deploy cfDeploy
+  $gradle_cf_deploy $GRADLE_TASK
   GIT_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
   CF_DEPLOY_IN_COMMIT=1
   echo "$GIT_COMMIT_MSG" | grep '\[cf-deploy\]' || CF_DEPLOY_IN_COMMIT=0
@@ -40,9 +42,11 @@ deploy_to_cf() {
 if [[ ( $TRAVIS_BRANCH == master || $TRAVIS_TAG == prod_* ) && $TRAVIS_REPO_SLUG == "grails-samples/grails-website"
     && $TRAVIS_PULL_REQUEST == 'false' ]]; then
   ./grailsw war --non-interactive
-  if [ -n "$CF_FILES_CRYPT_KEY" ]; then
+  set +x
+  if [[ -n $CF_FILES_CRYPT_KEY ]]; then
     ./travis-decrypt-files.sh
   fi
+  set -x
   # push to production if commit is tagged with tag starting with prod_
   if [[ $TRAVIS_TAG == prod_* ]]; then
     deploy_to_cf production

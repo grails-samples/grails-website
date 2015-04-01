@@ -6,4 +6,4 @@ env:
   global:
   - TERM=dumb
   - GRADLE_OPTS="-Xmx768m -Xms256m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled"
-  - secure: NbmlUtXZdc6c48RfvgWrdl0R9PG4mJBziYQ9vfwqIZI9vDfH7nZ+LSLlJgQpgBp/VTi7VPCulUqlZWz8OLJIQ5E9k+iRhgSI2eiBszQjytFl55yQLTcwK+Yy88gDk8tB2uRbAuAR1xMcfgMVREGpuebeqw7zz66Q149xPGl+cAY=
+  - secure: CFwWLeLqRIZr4IQXJppe/OYojYTtuddrtz6ZEzCkQwcL/oGPJPomK0Sg4auAS4MrYQN+W8idBWyDvje+HOtwC6ApKjpKqFwfDZbYAbUYnGsZ+ucR+pCjh47ymIgPCjj21jYA1j/azbVu18OsWvq8kw75yLGW9WspNeu4JbPwHh0=
