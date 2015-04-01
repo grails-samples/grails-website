@@ -106,7 +106,7 @@ grails.project.dependency.resolution = {
 
     dependencies {
         compile "org.grails:grails-gdoc-engine:1.0.1"
-        compile "org.springframework.social:spring-social-twitter:1.0.5.RELEASE",
+        compile "org.springframework.social:spring-social-twitter:1.1.0.RELEASE",
                 "org.springframework:spring-context-support:$springVersion",
                 "org.jadira.usertype:usertype.jodatime:1.9",
                 "org.jsoup:jsoup:1.7.3"
