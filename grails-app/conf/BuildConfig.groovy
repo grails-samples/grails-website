@@ -60,14 +60,14 @@ grails.project.dependency.resolution = {
         }
 
         runtime ":avatar:0.6.3",
-                ":rest-client-builder:2.0.3",
+                ":rest-client-builder:2.1.1",
                 ":cache:1.1.8",
                 ":cache-headers:1.1.7",
                 ":database-migration:1.4.0",
                 ":disqus:0.3",
                 ":feeds:1.6",
                 ":greenmail:1.3.4",
-                ":hibernate:3.6.10.18",
+                ":hibernate:3.6.10.19",
                 ":jquery:1.11.1",
                 ":jquery-ui:1.10.4",
                 ":mail:1.0.7",
@@ -85,14 +85,14 @@ grails.project.dependency.resolution = {
             excludes 'shiro-core'
         }
 
-        compile ":asset-pipeline:2.1.0"
+        compile ":asset-pipeline:2.1.5"
         compile ":less-asset-pipeline:2.0.8"
 
         String build_test_data_scope = (Environment.current == Environment.DEVELOPMENT) ? "compile" : "test"
         "$build_test_data_scope" ":build-test-data:2.2.3", ":fixtures:1.3"
 
         compile ":platform-core:1.0.0"
-        runtime ":cache-ehcache:1.0.0", { exclude "cache" }
+        runtime ":cache-ehcache:1.0.5", { exclude "cache" }
 
 
         test ":geb:0.10.0", {
@@ -100,7 +100,7 @@ grails.project.dependency.resolution = {
             exclude "spock-grails-support"
         }
 
-        build   ":tomcat:8.0.15"
+        build   ":tomcat:8.0.21"
         compile ":scaffolding:2.1.2"
     }
 
@@ -144,7 +144,7 @@ grails.project.dependency.resolution = {
 
         compile 'org.ajoberstar:grgit:0.4.0'
 
-        runtime 'mysql:mysql-connector-java:5.1.34'
+        runtime 'mysql:mysql-connector-java:5.1.35'
     }
 
 }
