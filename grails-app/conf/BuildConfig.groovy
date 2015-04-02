@@ -145,6 +145,9 @@ grails.project.dependency.resolution = {
         compile 'org.ajoberstar:grgit:0.4.0'
 
         runtime 'mysql:mysql-connector-java:5.1.35'
+
+        // https://github.com/ehcache/sizeof#ehcache-sizeofengine
+        // compile 'org.ehcache:sizeof:0.2.0'
     }
 
 }
