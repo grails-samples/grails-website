@@ -1,15 +1,18 @@
 import grails.util.Environment
-
 import org.apache.commons.codec.digest.DigestUtils
-import org.grails.*
 import org.grails.auth.Role
 import org.grails.auth.User
+
+import javax.imageio.ImageIO
 
 class BootStrap {
     def fixtureLoader
     def searchableService
 
     def init = { servletContext ->
+        // disable JAI caching which causes problems, http://stackoverflow.com/questions/18517463/jai-create-seems-to-leave-file-descriptors-open
+        // JAI is used in burning image plugin for image scaling
+        ImageIO.setUseCache(false)
         User.withNewTransaction { doInit() }
     }
 
