@@ -9,7 +9,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'org.cloudfoundry', name: 'cf-gradle-plugin', version: '1.1.1'
+        classpath group: 'org.cloudfoundry', name: 'cf-gradle-plugin', version: '1.1.2'
     }
 }
 
@@ -30,6 +30,7 @@ ext {
 }
 
 cloudfoundry {
+    stack = "cflinuxfs2"
     application = "plugins-grails-org-${cfEnvLabel}"
     target = 'https://api.run.pivotal.io'
     organization = 'grails-org'
