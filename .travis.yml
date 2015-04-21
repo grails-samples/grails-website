@@ -1,7 +1,7 @@
 sudo: false
 language: groovy
 jdk:
-- openjdk7
+- oraclejdk8 
 script: "./travis-build.sh"
 env:
   global:
