@@ -51,7 +51,12 @@ cloudfoundry {
                      "-XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCDateStamps -verbose:gc -Xloggc:/home/vcap/logs/gc.log "+
                      "-XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=10M "+
                      "-Dgrails.env=production -DServer.Service.Connector.proxyName=${connectorProxyName} "
-                     )
+                     ),
+        "MALLOC_ARENA_MAX": "2",
+        "M_MMAP_THRESHOLD": "131072",
+        "M_TRIM_THRESHOLD": "131072",
+        "M_TOP_PAD": "131072",
+        "M_MMAP_MAX": "65536"
     ]
     if(cfConfig.containsKey('env') && cfConfig.env instanceof Map) {
         env.putAll(cfConfig.env)
