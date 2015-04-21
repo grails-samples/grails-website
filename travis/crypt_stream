@@ -14,4 +14,4 @@ if [ "$2" = "-d" ]; then
 else
   GPG_OPTS="--cipher-algo AES256 --symmetric"
 fi
-gpg --batch --yes --passphrase "${ENCRYPT_PASSPHRASE}" $GPG_OPTS
+gpg --no-use-agent --batch --yes --passphrase "${ENCRYPT_PASSPHRASE}" $GPG_OPTS
