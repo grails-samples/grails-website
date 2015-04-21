@@ -53,10 +53,10 @@ cloudfoundry {
                      "-Dgrails.env=production -DServer.Service.Connector.proxyName=${connectorProxyName} "
                      ),
         "MALLOC_ARENA_MAX": "2",
-        "M_MMAP_THRESHOLD": "131072",
-        "M_TRIM_THRESHOLD": "131072",
-        "M_TOP_PAD": "131072",
-        "M_MMAP_MAX": "65536"
+        "MALLOC_MMAP_THRESHOLD_": "131072",
+        "MALLOC_TRIM_THRESHOLD_": "131072",
+        "MALLOC_TOP_PAD_": "131072",
+        "MALLOC_MMAP_MAX_": "65536"
     ]
     if(cfConfig.containsKey('env') && cfConfig.env instanceof Map) {
         env.putAll(cfConfig.env)
