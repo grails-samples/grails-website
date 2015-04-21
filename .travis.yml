@@ -7,4 +7,9 @@ env:
   global:
   - TERM=dumb
   - GRADLE_OPTS="-Xmx768m -Xms256m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled"
+  - MALLOC_ARENA_MAX=1
+  - MALLOC_MMAP_THRESHOLD_=131072
+  - MALLOC_TRIM_THRESHOLD_=131072
+  - MALLOC_TOP_PAD_=131072
+  - MALLOC_MMAP_MAX_=65536
   - secure: CFwWLeLqRIZr4IQXJppe/OYojYTtuddrtz6ZEzCkQwcL/oGPJPomK0Sg4auAS4MrYQN+W8idBWyDvje+HOtwC6ApKjpKqFwfDZbYAbUYnGsZ+ucR+pCjh47ymIgPCjj21jYA1j/azbVu18OsWvq8kw75yLGW9WspNeu4JbPwHh0=
