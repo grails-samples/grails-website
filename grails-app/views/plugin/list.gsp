@@ -55,7 +55,7 @@
                 </p>
             </g:elseif>
             <g:else>
-                <p>Nothing matched your query - <strong>${query}</strong></p>
+                <p>Nothing matched your query - <strong>${query?.encodeAsHTML()}</strong></p>
             </g:else>
         </g:if>
 
