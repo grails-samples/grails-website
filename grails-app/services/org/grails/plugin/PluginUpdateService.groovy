@@ -389,11 +389,18 @@ class PluginUpdater {
         // mavenRepoUrl = "https://repo.grails.org/grails/plugins/org/grails/plugins"
 
         URL mainRepoMavenUrl = new URL("${mavenRepoUrl}/${plugin.name}/${version}/".toString())
-        if(rest.get(mainRepoMavenUrl.toString()).status == 200) {
-            filename = "${plugin.name}-${version}"
-            baseDownloadUrl = mainRepoMavenUrl
-            return
+
+        try {
+            if(rest.get(mainRepoMavenUrl.toString()).status == 200) {
+                filename = "${plugin.name}-${version}"
+                baseDownloadUrl = mainRepoMavenUrl
+                return
+            }            
         }
+        catch(java.net.SocketTimeoutException e) {
+            // continue            
+        }
+        
 
         baseDownloadUrl = new URL(baseUrl, "grails-${plugin.name}/tags/RELEASE_${version?.replace('.', '_')}/".toString())
         filename = "grails-" + filename
@@ -405,10 +412,17 @@ class PluginUpdater {
         // assume it's not a maven repository if the path starts with /plugins/
         if(!mavenUrl.path.startsWith('/plugins/')) {
             log.debug "Trying Maven URL: ${mavenUrl}"
-            if(rest.get(mavenUrl.toString()).status != 404) {
+            try {
+                if(rest.get(mavenUrl.toString()).status != 404) {
+                    filename = "${plugin.name}-${version}"
+                    baseDownloadUrl = mavenUrl
+                }                
+            }
+            catch(java.net.SocketTimeoutException e) {
                 filename = "${plugin.name}-${version}"
                 baseDownloadUrl = mavenUrl
-            }
+
+            }            
         }
     }
 
