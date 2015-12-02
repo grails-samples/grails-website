@@ -223,7 +223,7 @@ class PluginUpdater {
         } catch (Exception e) {
             log.error("Error loading pom ${pomUrl}", e)
         }
-        filename = filename + "." + (pom ? pom.packaging.text() : 'zip')
+        filename = filename + "." + (pom ? pom.packaging.text() : 'jar')
 
         if (!isSnapshot) {
             // Only update the plugin portal page with the new info if this
