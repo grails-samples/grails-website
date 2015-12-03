@@ -139,7 +139,7 @@ class Plugin implements Taggable, Rateable {
     }
     
     String getDependencyDeclaration() {
-        return "${groupId}:${name}:${currentRelease}"
+        return "${inDefaultGroup ? '' : groupId}:${name}:${currentRelease}"
     }
     
     String getCustomRepositoriesDeclaration() {
