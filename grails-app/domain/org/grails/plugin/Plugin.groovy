@@ -100,7 +100,8 @@ class Plugin implements Taggable, Rateable {
             'ratingCount',
             'fisheye',
             'tags',
-            'dependencyDeclation',
+            'dependencyDeclaration',
+            'fullDependencyDeclaration',
             'customRepositoriesDeclaration',
             'inDefaultGroup' ]
 
@@ -141,6 +142,10 @@ class Plugin implements Taggable, Rateable {
     String getDependencyDeclaration() {
         return "${inDefaultGroup ? '' : groupId}:${name}:${currentRelease}"
     }
+
+    String getFullDependencyDeclaration() {
+        return "${inDefaultGroup ? 'org.grails.plugins' : groupId}:${name}:${currentRelease}"
+    }    
     
     String getCustomRepositoriesDeclaration() {
         if (!mavenRepositories.size()) return null

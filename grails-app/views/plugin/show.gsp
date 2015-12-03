@@ -72,7 +72,7 @@
             <div class="desc">
                 <div class="code">
                     <strong>Dependency:</strong>
-                    <pre>${plugin.defaultDependencyScope.encodeAsHTML()} "${plugin.dependencyDeclaration.encodeAsHTML() ?: 'org.grails.plugins'}"</pre>
+                    <pre>${plugin.defaultDependencyScope.encodeAsHTML()} "${plugin.fullDependencyDeclaration.encodeAsHTML()}"</pre>
                     <g:if test="${plugin.customRepositoriesDeclaration}">
                         <strong>Custom repositories:</strong>
                         <pre>${plugin.customRepositoriesDeclaration.encodeAsHTML()}</pre>

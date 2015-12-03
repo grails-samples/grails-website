@@ -98,7 +98,7 @@
                 <div class="desc">
                     <p><wiki:shorten key="${'plugin_' + plugin.id}" wikiText="${plugin.summary}" length="500"/> <g:link uri="/plugin/${plugin.name}">Read more</g:link></p>
                     <p class="code"><strong>Dependency :</strong><br/>
-                        <code>${plugin.defaultDependencyScope} "${plugin.dependencyDeclaration.encodeAsHTML()}"</code>
+                        <code>${plugin.defaultDependencyScope} "${plugin.fullDependencyDeclaration.encodeAsHTML()}"</code>
                     </p>
                 </div>
                 <tmpl:pluginButtons plugin="${plugin}" />
