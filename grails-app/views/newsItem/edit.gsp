@@ -9,10 +9,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/community/sideNav"/>
-
     <section id="main">
         <article>
             <h2><g:message code="news.submit.title" /></h2>
@@ -54,6 +50,6 @@
             <g:render template="/content/wikiCodeMirrorJavaScript"></g:render>
         </article>
     </section>
-</div>
+
 
 </body>

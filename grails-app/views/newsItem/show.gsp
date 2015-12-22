@@ -4,10 +4,6 @@
 </head>
 
 <body>
-
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/community/sideNav"/>
     <section id="main" class="items item-new">
          <article class="item">
              <g:if test="${request.user == newsItem.author}">
@@ -59,6 +55,5 @@
             </div>
         </article>
     </section>
-</div>
 
 </body>

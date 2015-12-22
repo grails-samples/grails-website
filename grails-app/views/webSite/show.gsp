@@ -13,10 +13,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/community/sideNav"/>
-
     <section id="main" class="website">
         <g:if test="${request.user == webSiteInstance.submittedBy}">
             <div class="alert alert-info">
@@ -52,6 +48,5 @@
             <disqus:comments bean="${webSiteInstance}" url="${createLink(uri:request.forwardURI, absolute:true)}"/>
         </div>
     </section>
-</div>
 
 </body>

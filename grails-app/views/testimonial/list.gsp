@@ -8,9 +8,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-    <g:render template="/community/sideNav"/>
-
     <div class="content-title">
         <h1>Testimonials</h1>
     </div>
@@ -46,8 +43,6 @@
             </div>
         </div>
     </section>
-
-</div>
 
 </body>
 </html>

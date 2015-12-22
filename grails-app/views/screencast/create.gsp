@@ -5,10 +5,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/learn/sideNav"/>
-
     <section id="main">
         <article>
 
@@ -67,6 +63,6 @@
 
         </article>
     </section>
-</div>
+
 
 </body>

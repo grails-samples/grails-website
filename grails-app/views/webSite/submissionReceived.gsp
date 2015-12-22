@@ -5,9 +5,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/community/sideNav"/>
 
     <div id="main" class="websites">
         <section>
@@ -16,6 +13,5 @@
             </article>
         </section>
     </div>
-</div>
 
 </body>

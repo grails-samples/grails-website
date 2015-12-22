@@ -13,11 +13,11 @@ class UrlMappings {
         "/wiki/Home"(controller: "content", action: "homePage")
         "/wiki/$id"(controller: "content", action: "index")
 
-        "/ggts"(controller: "product", action: "legacyggts")
-        "/products/$action"(controller: "product")
-        "/products/ggts/welcome"(controller: "product", action: "ggtsWelcome")
+        //"/ggts"(controller: "product", action: "legacyggts")
+        //"/products/$action"(controller: "product")
+        //"/products/ggts/welcome"(controller: "product", action: "ggtsWelcome")
 
-        "/start"(controller: "learn", action: "gettingStarted")
+        "/start"(redirect:[url:"http://grails.github.io/grails-doc/latest/guide/gettingStarted.html", permanent:true])
 
         def populateVersion = {
             pluginVersion = {
@@ -114,34 +114,13 @@ class UrlMappings {
                 id notEqual: "tag"
             }
         }
-//        "/plugins/tag/"(controller: "plugin", action: "list") // Fix for possible bad path
-//        "/plugins/filter/"(controller: "plugin", action: "list") // Fix for possible bad path
+
         "/plugins/pending"(controller: "plugin", action: "pendingPlugins")
         "/plugins/pending/$id"(controller: "plugin", action: "showPendingPlugin")
         "/plugins/search"(controller: "plugin", action: "search")
 
         // Legacy plugin links.
         "/Plugins"(controller: "plugin", action: "legacyHome")
-//        "/plugins"(controller: "plugin", action: "home")
-//        "/plugins/forum"(controller: "plugin", action: "forum")
-//        "/plugin/home"(controller: "plugin", action:"home")
-//        "/plugin/search"(controller: "plugin", action:"search")
-//        "/plugin/list"(controller: "plugin", action:"list")
-//        "/plugin/create"(controller: "plugin", action:"createPlugin")
-//        "/plugin/delete/$name"(controller: "plugin", action:"deletePlugin")
-
-//        "/plugin/saveTab/$id"(controller: "plugin", action: "saveTab")
-//        "/plugin/addTag/$id"(controller: "plugin", action:"addTag")
-//        "/plugin/removeTag/$id"(controller: "plugin", action:"removeTag")
-//        "/plugin/showTag"(controller: 'plugin', action:'showTag')
-//        "/plugin/postComment/$id"(controller: "plugin", action:"postComment")
-//        "/plugin/latest"(controller: "plugin", action: "latest")
-//        "/plugin/category/all"(controller: "plugin", action: "browseByName")
-//        "/plugin/category/$category"(controller: "plugin", action: "home")
-//        "/plugin/showComment/$id"(controller: "plugin", action: "showComment")
-//        "/plugins/category/$category"(controller: "plugin", action: "home")
-//        "/plugins/tag/$tagName"(controller: "plugin", action: "browseByTag")
-//        "/plugins/tags"(controller: "plugin", action: "browseTags")
 
         "/plugin/addTag"(controller:"plugin", action:"addTag")
         "/plugin/removeTag"(controller:"plugin", action:"removeTag")
@@ -188,16 +167,16 @@ class UrlMappings {
 
 
         /* ========================= LEARN ======================= */
-        "/learn"(controller:"learn", action:"gettingStarted")
-        "/learn/IDE_setup"(controller:"learn", action:"ideSetup")
-        "/learn/installation"(controller:"learn", action:"installation")
-        "/learn/quickStart"(controller:"learn", action:"quickStart")
+        "/learn"(redirect:[url:"http://grails.github.io/grails-doc/latest/guide/gettingStarted.html", permanent:true])
+        "/learn/IDE_setup"(redirect:[url:"http://grails.github.io/grails-doc/latest/guide/gettingStarted.html#ide", permanent:true])
+        "/learn/installation"(redirect:[url:"http://grails.github.io/grails-doc/latest/guide/gettingStarted.html#downloadingAndInstalling", permanent:true])
+        "/learn/quickStart"(redirect:[url:"http://grails.github.io/grails-doc/latest/guide/gettingStarted.html#creatingAnApplication", permanent:true])
 
         /* ========================= COMMUNITY ======================= */
-        "/community"(controller: "community", action: "index")
-        "/community/contribute"(controller: "community", action: "contribute")
-        "/community/mailingList"(controller: "community", action: "mailingList")
-        "/community/twitter"(controller: "community", action: "twitter")
+        "/community"(redirect:[url:"/community.html", permanent:true])
+        "/community/contribute"(redirect:[url:"/contribute.html", permanent:true])
+        "/community/mailingList"(redirect:[url:"/mailing-lists.html", permanent:true])
+        "/community/twitter"(redirect:[url:"/community.html", permanent:true])
         "/news"(controller:"newsItem", action:"index")
         "/news/add"(controller:"newsItem", action:"create")
         "/news/$id"(controller:"newsItem", action:"show")
@@ -220,21 +199,9 @@ class UrlMappings {
         "/testimonials/update"(controller: "testimonial", action: "update")
         "/testimonials/$id"(controller: "testimonial", action: "show")
 
-//        "/screencasts"(controller:"screencast", action:"list")
-//        "/screencasts/tags"(controller:"screencast", action:"browseTags")
-//        "/screencasts/tags/$tag"(controller:"screencast", action:"search")
-//        "/screencast/save"(controller:"screencast", action:"save")
-//        "/screencast/search"(controller:"screencast", action:"search")
-//        "/screencast/update"(controller:"screencast", action:"update")
-//        "/screencast/edit/$id"(controller:"screencast", action:"edit") {
-//            constraints { id matches: /\d+/ }
-//        }
+
         "/screencast/feed"(controller:"screencast", action:"feed")
         "/screencasts/feed"(controller:"screencast", action:"feed")
-//        "/screencast/add"(controller:"screencast", action:"create")
-//        "/screencast/show/$id"(controller:"screencast", action:"show") {
-//            constraints { id matches: /\d+/ }
-//        }
         "/comment/add"(controller:"commentable", action:"add")
 
         "/websites"(controller: "webSite", action: "list")
@@ -258,15 +225,8 @@ class UrlMappings {
         "/tutorial/search"(controller:"tutorial", action:"search")
         "/tutorial/$id"(controller: "tutorial", action: "show")
         "/tutorials/tag/$tag"(controller:"tutorial", action:"tagged")
-
-
         "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
-//        "/tutorials/$category"(controller: "tutorial", action: "list")
-//        "/tutorials/search"(controller:"tutorial", action:"search")
-//        "/tutorials/tags"(controller:"tutorial", action:"browseTags")
-//        "/tutorials/feed"(controller:"tutorial", action:"feed")
-//        "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
-//        "/tutorial/update/$id"(controller: "tutorial", action: "update")
+
 
         "/social/like"(controller: "likeDislike", action: "like")
         "/social/unlike"(controller: "likeDislike", action: "unlike")

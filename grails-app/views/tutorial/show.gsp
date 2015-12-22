@@ -5,10 +5,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/learn/sideNav"/>
-
     <section id="main" class="items">
 
         <g:if test="${request.user == tutorialInstance.submittedBy}">
@@ -58,6 +54,5 @@
             </div>
         </article>
     </section>
-</div>
 
 </body>

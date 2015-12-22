@@ -4,11 +4,6 @@
 </head>
 
 <body>
-
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/learn/sideNav"/>
-
     <section id="main" class="screencasts items">
 
         <g:if test="${request.user == screencastInstance.submittedBy}">
@@ -56,7 +51,7 @@
             </div>
         </article>
     </section>
-</div>
+
 
 </body>
 </html>

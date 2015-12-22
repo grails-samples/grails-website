@@ -5,8 +5,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-    <g:render template="/community/sideNav"/>
     <div class="content-title">
         <h1>Latest News</h1>
         <g:render template="/common/searchBar" model="[type:'website']" />
@@ -42,6 +40,6 @@
             </article>
         </g:each>
     </section>
-</div>
+
 
 </body>

@@ -9,10 +9,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/community/sideNav"/>
-
     <section id="main">
 
     <flash:message flash="${flash}" />
@@ -44,7 +40,7 @@
 
 
             </section>
-</div>
+
 
 </body>
 </html>

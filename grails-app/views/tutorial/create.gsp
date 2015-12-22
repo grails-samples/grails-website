@@ -5,10 +5,6 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/learn/sideNav"/>
-
     <section id="main">
 
             <h2><g:message code="tutorial.submit.title" /></h2>
@@ -65,6 +61,5 @@
             </g:form>
 
     </section>
-</div>
 
 </body>

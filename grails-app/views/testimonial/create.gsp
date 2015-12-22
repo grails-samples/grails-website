@@ -22,9 +22,6 @@
 </g:hasErrors>
 
 
-<div id="content" class="content-aside" role="main">
-    <g:render template="/community/sideNav"/>
-
     <section id="main">
         <article>
             <h2>Add a Testimonial</h2>
@@ -48,7 +45,7 @@
 
         </article>
     </section>
-</div>
+
 
 
 

@@ -5,8 +5,7 @@
 
 <body>
 
-<div id="content" class="content-aside" role="main">
-    <g:render template="/learn/sideNav"/>
+
     <div class="content-title">
         <h1>Tutorials <small>Share & learn</small></h1>
         <g:render template="/common/searchBar" model="[type:'tutorial']" />
@@ -31,6 +30,6 @@
             </g:if>
         </article>
     </section>
-</div>
+
 
 </body>

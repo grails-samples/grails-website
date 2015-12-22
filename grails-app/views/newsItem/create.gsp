@@ -8,10 +8,6 @@
 </head>
 <body>
 
-<div id="content" class="content-aside" role="main">
-
-    <g:render template="/community/sideNav"/>
-
     <section id="main">
         <article>
 
@@ -52,6 +48,5 @@
             <g:render template="/content/wikiCodeMirrorJavaScript"></g:render>
         </article>
     </section>
-</div>
 
 </body>
