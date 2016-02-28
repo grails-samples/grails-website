@@ -37,7 +37,7 @@ class WebSiteController {
     def save() {
         def website= params.id? WebSite.get(params.id) : new WebSite()
         if(website == null) website = new WebSite()
-        bindData(website, params)
+        bindData(website, params, [exclude: ['status', 'featured', 'popularity', 'submittedBy']])
 
         boolean isNew = !website.isAttached()
         if(isNew) {
