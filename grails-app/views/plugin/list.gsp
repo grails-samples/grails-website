@@ -26,7 +26,7 @@
         <g:if test="${home}">
             <div class="alert alert-block">
                 <p>
-                    This portal is for Grails 1.x and 2.x plugins. For Grails 3 plugins see the <a href="/plugins.html">new plugin portal</a>.
+                    This portal is for Grails 1.x and 2.x plugins. For Grails 3 plugins see the <a href="http://plugins.grails.org/">new plugin portal</a>.
                 </p>
             </div>
             <div class="alert alert-block">
