@@ -5,7 +5,7 @@
             <li <g:if test="${activeFilter == 'all'}">class="active"</g:if>>
                 <a href="/plugins?filter=all">
                     <g:img dir="img/icons" file="plugin.png" />
-                    All Plugins
+                    All Grails 1 & 2 Plugins
                 </a>
             </li>            
             <li <g:if test="${activeFilter == 'featured'}">class="active"</g:if>><a href="/plugins?filter=featured"><g:img dir="img/plugin" file="featured.png" /> Featured</a></li>
