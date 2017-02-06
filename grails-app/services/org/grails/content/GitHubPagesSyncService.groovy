@@ -1,6 +1,7 @@
 package org.grails.content
 
 import grails.plugins.rest.client.RestBuilder
+import grails.util.Environment
 
 import java.nio.file.Files
 import java.util.concurrent.atomic.AtomicBoolean
@@ -125,12 +126,19 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
             wait(updateLoopSleepMillis)
         }
     }
-    
-    @Override
+
+    private static File grailsStaticWebsiteFolder() {
+        if (Environment.current == Environment.DEVELOPMENT ||
+                Environment.current == Environment.TEST) {
+             return new File(System.getProperty("user.home"), ".grails-static-website")
+        }
+        new File(System.getProperty("user.home"), "/app/grails-static-website")
+    }
+
     public void onApplicationEvent(ApplicationContextEvent event) {
         if(event instanceof ContextRefreshedEvent && !loopRunning) {
-            if(rootDir==null) {
-                rootDir=new File(System.getProperty("user.home"), "app/assets")
+            if(rootDir == null) {
+                rootDir = grailsStaticWebsiteFolder()
             }
             requestCheckoutPages()
             Thread.startDaemon("GitHubPagesSyncService-Thread") {
