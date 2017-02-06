@@ -157,4 +157,4 @@ if(!System.getProperty('nofixtures')) {
 }
 
 // make sure ~/.grails-static-website directory exists since META-INF/context.xml references it
-new File(System.getProperty("user.home"), ".grails-static-website").mkdir()
+new File(System.getProperty("user.home"), "app/assets").mkdir()

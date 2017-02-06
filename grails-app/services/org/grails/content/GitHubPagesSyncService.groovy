@@ -130,7 +130,7 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
     public void onApplicationEvent(ApplicationContextEvent event) {
         if(event instanceof ContextRefreshedEvent && !loopRunning) {
             if(rootDir==null) {
-                rootDir=new File(System.getProperty("user.home"), ".grails-static-website")
+                rootDir=new File(System.getProperty("user.home"), "app/assets")
             }
             requestCheckoutPages()
             Thread.startDaemon("GitHubPagesSyncService-Thread") {
