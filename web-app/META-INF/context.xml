@@ -3,7 +3,7 @@
     <JarScanner scanClassPath="false" scanAllFiles="false" scanAllDirectories="false"/>
     <Resources allowLinking="true">
     	<PreResources className="org.apache.catalina.webresources.DirResourceSet"
-    		base="${user.home}/app/grails-static-website"
+    		base="${user.home}"
     		webAppMount="/"
     		internalPath="/" />
     </Resources>
