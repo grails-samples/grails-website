@@ -36,7 +36,7 @@ cloudfoundry {
     organization = 'grails-org'
     space = productionEnv ? 'production' : 'development'
     file = file("target/grails-website.war")
-    buildpack = "https://github.com/grails-samples/java-buildpack.git"
+    buildpack = "https://github.com/grails-samples/java-buildpack.git#grails-website-oom-nokill"
     env = [
         "JAVA_OPTS": (
                      "-Xverify:none "+
