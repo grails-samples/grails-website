@@ -1,5 +1,5 @@
-# make sure ~/.grails-static-website directory exists since META-INF/context.xml references it
-[ ! -d ~/.grails-static-website ] && mkdir ~/.grails-static-website
+# make sure ~/tmp directory exists since META-INF/context.xml references it
+[ ! -d ~/tmp ] && mkdir ~/tmp
 
 #export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_60
 export LC_ALL=en_US.UTF-8

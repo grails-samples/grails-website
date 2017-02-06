@@ -156,5 +156,5 @@ if(!System.getProperty('nofixtures')) {
   grails.project.fork.war.jvmArgs = [ '-Dinitial.admin.password=changeit', '-Dload.fixtures=1' ]
 }
 
-// make sure ~/.grails-static-website directory exists since META-INF/context.xml references it
-new File(System.getProperty("user.home"), "app/assets").mkdir()
+// make sure ~/tmp directory exists since META-INF/context.xml references it
+new File(System.getProperty("user.home"), "tmp").mkdir()

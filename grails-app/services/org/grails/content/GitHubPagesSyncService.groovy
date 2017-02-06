@@ -128,11 +128,7 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
     }
 
     private static File grailsStaticWebsiteFolder() {
-        if (Environment.current == Environment.DEVELOPMENT ||
-                Environment.current == Environment.TEST) {
-             return new File(System.getProperty("user.home"), ".grails-static-website")
-        }
-        return new File(System.getProperty("user.home"), "tmp")
+        new File(System.getProperty("user.home"), "tmp")
     }
 
     public void onApplicationEvent(ApplicationContextEvent event) {
