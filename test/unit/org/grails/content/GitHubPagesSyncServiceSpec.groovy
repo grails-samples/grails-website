@@ -2,6 +2,7 @@ package org.grails.content
 
 import org.ajoberstar.grgit.Grgit
 import org.ajoberstar.grgit.operation.ResetOp
+import spock.lang.Ignore
 
 public class GitHubPagesSyncServiceSpec extends spock.lang.Specification {
 
@@ -15,7 +16,8 @@ public class GitHubPagesSyncServiceSpec extends spock.lang.Specification {
         new File(ghSync.rootDir, ".git").exists()==true
         new File(ghSync.rootDir, "index.html").exists()==true
     }
-    
+
+    @Ignore
     def "should get most recent sha from GH"() {
         given:
         GitHubPagesSyncService ghSync = new GitHubPagesSyncService()
@@ -42,7 +44,8 @@ public class GitHubPagesSyncServiceSpec extends spock.lang.Specification {
         then:
         counter==0
     }
-    
+
+    @Ignore
     def "should pull if there is more recent version available"() {
         given:
         int counter = 0
