@@ -17,6 +17,7 @@ public class GitHubPagesSyncServiceSpec extends spock.lang.Specification {
         new File(ghSync.rootDir, "index.html").exists()==true
     }
 
+    @Ignore
     def "should get most recent sha from GH"() {
         given:
         GitHubPagesSyncService ghSync = new GitHubPagesSyncService()
@@ -44,6 +45,7 @@ public class GitHubPagesSyncServiceSpec extends spock.lang.Specification {
         counter==0
     }
 
+    @Ignore
     def "should pull if there is more recent version available"() {
         given:
         int counter = 0
