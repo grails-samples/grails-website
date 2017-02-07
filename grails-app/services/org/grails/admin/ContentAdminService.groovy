@@ -20,10 +20,7 @@ class ContentAdminService {
     void afterInsert(Tutorial t) {
         informAdmins(t)
     }
-    @Listener(namespace = 'gorm')
-    void afterInsert(WebSite t) {
-        informAdmins(t)
-    }
+
     @Listener(namespace = 'gorm')
     void afterInsert(Testimonial t) {
         informAdmins(t)

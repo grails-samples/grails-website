@@ -18,7 +18,7 @@
         <div class="col-sm-10">
             <label class="checkbox" for="autoApprove">
                 <g:checkBox name="autoApprove"/>
-                Check this box if you want the website to appear immediately on the websites page.
+                Check this box if you want the screencast to appear immediately on the screencasts page.
             </label>
         </div>
     </div>

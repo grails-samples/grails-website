@@ -160,7 +160,7 @@
             <div class="col-sm-10">
                 <label class="checkbox" for="featured">
                     <g:checkBox name="featured" value="${testimonialInstance?.featured}"/>
-                    Check this box if the website is featured on the Testimonials page.
+                    Check this box if the testimonial is featured on the Testimonials page.
                 </label>
             </div>
         </div>

@@ -204,17 +204,9 @@ class UrlMappings {
         "/screencasts/feed"(controller:"screencast", action:"feed")
         "/comment/add"(controller:"commentable", action:"add")
 
-        "/websites"(controller: "webSite", action: "list")
-        "/websites/$category"(controller: "webSite", action: "list")
-        "/websites/add"(controller: "webSite", action: "create")
-        "/websites/save"(controller: "webSite", action: "save")
-        "/websites/search"(controller:"webSite", action:"search")
-        "/websites/tags"(controller:"webSite", action:"browseTags")
-        "/websites/feed"(controller:"webSite", action:"feed")
-        "/website/search"(controller:"webSite", action:"search")
-        "/website/$id"(controller: "webSite", action: "show")
-        "/website/edit/$id"(controller: "webSite", action: "edit")
-        "/website/update/$id"(controller: "webSite", action: "update")
+        "/websites"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
+        "/websites/$category"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
+        "/website/$id"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
 
         "/dynamicImage/${imageId}-${size}(.${type})"(controller: "dbContainerImage", action: "index")
 

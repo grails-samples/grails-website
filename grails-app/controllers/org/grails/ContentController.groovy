@@ -11,7 +11,6 @@ import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
 import org.compass.core.engine.SearchEngineQueryParseException
 import org.compass.core.lucene.LuceneResource
-import org.grails.community.WebSite
 import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.WikiImage

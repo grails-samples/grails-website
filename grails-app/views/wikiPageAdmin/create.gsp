@@ -7,21 +7,6 @@
 
 <body>
 
-<h1 class="page-header">
-    Add Web Site
-    <span class="pull-right">
-        <g:link class="btn" action="list">Web Site List</g:link>
-    </span>
-</h1>
-
-<flash:message flash="${flash}" bean="${webSiteInstance}"/>
-
-<g:hasErrors bean="${webSiteInstance}">
-    <div class="alert alert-error">
-        <g:renderErrors bean="${webSiteInstance}" as="list"/>
-    </div>
-</g:hasErrors>
-
 <g:uploadForm action="save" class="form-horizontal">
     <fieldset>
 

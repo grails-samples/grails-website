@@ -24,7 +24,6 @@
 	                </li>
 	                <li id="community" class="header"><g:link controller="content" id="Community">Community</g:link>
 	                <ul>
-	                    <li><g:link controller="webSite" action="list">Sites using Grails</g:link></li>
 	                    <plugin:isAvailable name="jobs">
 	                        <li><g:link controller="job" action="list">Job Listings</g:link></li>
 	                    </plugin:isAvailable>

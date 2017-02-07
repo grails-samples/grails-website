@@ -63,20 +63,6 @@ environments {
 
 
 bi {
-    WebSite {
-        prefix = 'website-'
-        images {
-            large {
-                scale = [width: 300, height: 280, type: ScaleType.APPROXIMATE]
-            }
-        }
-        constraints {
-            nullable = true
-            maxSize = 2 * 1024 * 1024
-            contentType = ['image/gif', 'image/png', 'image/jpeg']
-        }
-    }
-
     WikiImage {
         prefix = 'wiki-'
         images {
