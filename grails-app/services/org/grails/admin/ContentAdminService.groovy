@@ -24,10 +24,6 @@ class ContentAdminService {
     void afterInsert(WebSite t) {
         informAdmins(t)
     }
-    @Listener(namespace = 'gorm')
-    void afterInsert(Testimonial t) {
-        informAdmins(t)
-    }
 
     private informAdmins(object) {
         if(!Environment.current.isDevelopmentMode()) {

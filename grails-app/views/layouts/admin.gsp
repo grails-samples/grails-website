@@ -38,14 +38,13 @@
                         <g:link controller="user" action="list">Users</g:link></li>
 
                     <li class="dropdown
-                        <g:if test="${['webSiteAdmin', 'tutorialAdmin', 'testimonialAdmin', 'wikiPage'].contains(controllerName)}"> active</g:if>
+                        <g:if test="${['webSiteAdmin', 'tutorialAdmin', 'wikiPage'].contains(controllerName)}"> active</g:if>
                     ">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Content <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><g:link controller="newsItemAdmin" action="list">News</g:link></li>
                             <li><g:link controller="wikiPageAdmin" action="list">Wiki Pages</g:link></li>
                             <li><g:link controller="webSiteAdmin" action="list">Web Sites</g:link></li>
-                            <li><g:link controller="testimonialAdmin" action="list">Testimonials</g:link></li>
                             <li><g:link controller="tutorialAdmin" action="list">Tutorials</g:link></li>
                             <li><g:link controller="screencastAdmin" action="list">Screencasts</g:link></li>
                             <li><g:link controller="videoHostAdmin" action="list">Video Hosts</g:link></li>

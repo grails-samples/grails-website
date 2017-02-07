@@ -112,8 +112,7 @@ class JSecurityAuthFilters {
             }
         }
 
-
-        // used by wiki pages and testimonials
+        // used by wiki pages
         wikiImageShow(controller: "content", action: "showImage") {
             before = {
                return true
@@ -192,18 +191,6 @@ class JSecurityAuthFilters {
                 accessControl {
                     role("Editor") || role("Administrator")
                 }
-            }
-        }
-
-        testimonialSubmitting(controller: "testimonial", action: "(create|save)") {
-            before = {
-                accessControl { true }
-            }
-        }
-
-        testimonialEditing(controller: "testimonial", action: "edit") {
-            before = {
-                accessControl()
             }
         }
 

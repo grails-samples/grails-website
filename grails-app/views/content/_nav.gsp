@@ -28,7 +28,6 @@
 	                    <plugin:isAvailable name="jobs">
 	                        <li><g:link controller="job" action="list">Job Listings</g:link></li>
 	                    </plugin:isAvailable>
-	                    <li><g:link controller="content" id="Testimonials">Testimonials</g:link></li>
 	                    <li><g:link controller="content" id="Contribute">Contribute</g:link></li>
 	                    <li><a href="http://jira.grails.org/browse/GRAILS">Issue Tracker</a></li>
 	                    <li><a href="http://github.com/grails/grails-core/">Source code</a></li>

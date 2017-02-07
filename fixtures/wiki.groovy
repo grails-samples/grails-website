@@ -27,36 +27,6 @@ h4. Other Languages
 * [Portuguese Version|Documentation Portuguese]
 '''
 
-def testimonialsPage = '''\
-In addition to the case studies on this page, SpringSource also has [several available|http://www.springsource.com/customers/case-studies] on its website. Just follow the link and search the page for "Groovy" or "Grails".
-
-
-h1. SpringSource Case Studies
-
-h1. Sky.com Accelerates Release Cycle Six Fold With Groovy and Grails
-
-Sky is the UK’s leading entertainment and communications  company, operating a multi-channel television service with 9.4+ million customers - a third of households in the UK and Ireland. Sky also operates multiple websites to deliver entertainment, news and other content to customers, and the company is the UK’s fastest growing broadband and fixed-telephony provider.
-
-Sky’s network of sites extend the company’s reach, attracting millions of unique users each month who contribute to over 1 billion monthly page impressions. The home page of sky.com links to content across a variety of sites and plays a vital role in helping Sky achieve its goal to increase traffic across all sites and gain new customers for its portfolio of services.
-
-* [Case Study|http://www.springsource.com/files/uploads/all/pdf_files/customer/Sky.com%20Case%20Study.pdf]
-
-
-“Now using Groovy and Grails, we release every week to production, compared with every six weeks previously.”
-
-*Jon Mullen, sky.com ScrumMaster*
-
-h1. Wired.com Simplifies and Accelerates Development with Grails
-
-Wired.com, the online arm of Wired Magazine, is a cutting edge guide covering how technology is changing the world. Not simply an online version of the print publication, however, Wired.com delivers a unique online experience to 12 million readers around the world.
-
-* [Case Study|http://www.springsource.com/files/uploads/all/pdf_files/customer/Wired.com+Case+study.pdf]
-
-"Our developers are much happier developing in Grails because they can accomplish tasks so much faster"
-
-*Paul Fisher, Tech Mgr Wired.com*
-'''
-
 def communityPage = '''\
 h1. Get Involved!
 
@@ -83,7 +53,6 @@ You can also [contribute|Contribute] back to the project, for example by raising
 
 h3. Other
 
-* Read [Testimonials] from Grails users who have experienced Grails first hand!
 * Come and chat to us on IRC at [irc.codehaus.org|http://irc.codehaus.org] where most Grails developers can be found in the #groovy room
 * Come and chat to other Grails users on IRC at [irc.freenode.org|http://www.freenode.net] in #grails
 * *Write* a [Blog post|Developer Blogs] about Grails, or even a [Tutorial|Tutorials]! Just talking about your experiences with Grails can either help others get involved or provide constructive feedback to the Grails team.
@@ -512,15 +481,7 @@ fixture {
                 number: 0,
                 current: documentation,
                 author: admin)
-        
-        testimonials(WikiPage, title: "Testimonials", body: testimonialsPage)
-        testimonialsVersion(Version,
-                title: "Testimonials",
-                body: testimonialsPage,
-                number: 0,
-                current: testimonials,
-                author: admin)
-        
+
         community(WikiPage, title: "Community", body: communityPage)
         communityVersion(Version,
                 title: "Community",
