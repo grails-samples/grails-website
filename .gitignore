@@ -26,3 +26,4 @@ cf-deploy.gradle.properties
 /cf-deployment-production
 /cf-deployment-development
 
+/.slcache
