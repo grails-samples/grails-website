@@ -10,8 +10,9 @@ class UrlMappings {
             '/greenmail'(controller: 'greenmail', action: 'list')
         }
 
-        "/wiki/Home"(controller: "content", action: "homePage")
-        "/wiki/$id"(controller: "content", action: "index")
+        "/wiki/Home"(redirect:[url:"https://grails.org", permanent:true])
+        "/wiki/$id"(redirect:[url:"https://grails.org", permanent:true])
+        "/wiki"(redirect:[url:"https://grails.org", permanent:true])
 
         //"/ggts"(controller: "product", action: "legacyggts")
         //"/products/$action"(controller: "product")
