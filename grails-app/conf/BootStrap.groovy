@@ -53,9 +53,7 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
             fixtureLoader.with {
                 load("users").load("plugins").load("tags", "ratings")
                 [
-                    'videohosts',
                     'wiki',
-                    'screencasts',
                 ].each {
                     load(it)
                 }
@@ -80,10 +78,9 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
         def admin = Role.findByName(Role.ADMINISTRATOR) ?: new Role(name: Role.ADMINISTRATOR).save(failOnError: true)
         safelyAddPermission admin, "*"
 
-        // Editor can edit pages, add screencasts, etc.
+        // Editor can edit pages, etc.
         def editor = Role.findByName(Role.EDITOR) ?: new Role(name: Role.EDITOR).save(failOnError: true)
         safelyAddPermission editor, "pluginTab:editWikiPage"
-        safelyAddPermission editor, "screencast:create,edit,save,update"
         safelyAddPermission editor, "likeDislike:like,dislike"
 
         // Observer: can't do anything that an anonymous user can't do.

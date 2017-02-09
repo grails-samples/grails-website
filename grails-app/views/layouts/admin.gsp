@@ -44,8 +44,6 @@
                         <ul class="dropdown-menu">
                             <li><g:link controller="newsItemAdmin" action="list">News</g:link></li>
                             <li><g:link controller="wikiPageAdmin" action="list">Wiki Pages</g:link></li>
-                            <li><g:link controller="screencastAdmin" action="list">Screencasts</g:link></li>
-                            <li><g:link controller="videoHostAdmin" action="list">Video Hosts</g:link></li>
                             <li><g:link controller="contentPendingApproval" action="list">Approval Queue</g:link></li>
                         </ul>
                     </li>

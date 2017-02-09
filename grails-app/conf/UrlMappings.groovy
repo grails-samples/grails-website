@@ -129,8 +129,8 @@ class UrlMappings {
 
         "/blog/delete/$id"(controller: 'blogEntry', action:'delete')
         "/blog"(controller:"blog", action:"list")
-        "/Grails+Screencasts"(controller: "content", action: "screencastLegacy")
-        "/wiki/Grails+Screencasts"(controller: "content", action: "screencastLegacy")
+        "/Grails+Screencasts"(redirect:[url: 'http://guides.grails.org', permanent:true])
+        "/wiki/Grails+Screencasts"(redirect:[url: 'http://guides.grails.org', permanent:true])
 
         "/rateable/rate/$id"(controller: "rateable", action:"rate")
         "/tag/autoCompleteNames"(controller:'tag', action:'autoCompleteNames')
@@ -183,20 +183,15 @@ class UrlMappings {
         "/news/edit/$id"(controller:"newsItem", action:"edit")
         "/blog/view/$author/$title"(controller: "newsItem", action: "legacyShow")
 
-        "/screencasts"(controller: "screencast", action: "list")
-        "/screencasts/add"(controller: "screencast", action: "create")
-        "/screencasts/save"(controller: "screencast", action: "save")
-        "/screencast/search"(controller: "screencast", action: "search")
-        "/screencast/tag/$tag"(controller:"screencast", action:"tagged")
-        "/screencast/$id"(controller: "screencast", action: "show")
-        "/screencast/edit/$id"(controller: "screencast", action: "edit")
+        "/screencasts"(redirect:[url: 'http://guides.grails.org', permanent:true])
+        "/screencast/search"(redirect:[url: 'http://guides.grails.org', permanent:true])
+        "/screencast/tag/$tag"(redirect:[url: 'http://guides.grails.org', permanent:true])
+        "/screencast/$id"(redirect:[url: 'http://guides.grails.org', permanent:true])
 
         "/Testimonials"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
         "/testimonials"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
         "/testimonials/$id"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
 
-        "/screencast/feed"(controller:"screencast", action:"feed")
-        "/screencasts/feed"(controller:"screencast", action:"feed")
         "/comment/add"(controller:"commentable", action:"add")
 
         "/websites"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])

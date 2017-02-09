@@ -145,7 +145,7 @@ h4. Other Languages
 def quickStartPage = '''\
 h1. Quick Start
 
-The following makes it simple to start a grails project. There is also a [series of screencasts|http://grails.org/screencast/search?tag=gswg] that will take you from the basics to a full working Grails application.
+The following makes it simple to start a grails project. 
 
 * [Quick Start|#Quick Start]
 ** [Create a Grails project|#Create a Grails project]

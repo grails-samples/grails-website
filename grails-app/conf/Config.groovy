@@ -119,7 +119,6 @@ searchable {
             root false
             name name: "tag"
         }
-        screencast = [only: ["title", "description"]]
     }
 }
 
@@ -252,7 +251,6 @@ twitter.accessSecret="test"
 
 rest.dateFormat = "yyyy-MM-dd"
 format.date = 'MMM d, yyyy'
-screencasts.page.layout="subpage"
 blog.page.layout="subpage"
 grails.blog.author.evaluator= {
     request.user

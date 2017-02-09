@@ -4,16 +4,10 @@ import grails.events.*
 import grails.util.Environment;
 
 import org.grails.auth.*
-import org.grails.learn.screencasts.Screencast
 class ContentAdminService {
     static transactional = false
     def mailService
     def grailsLinkGenerator
-
-    @Listener(namespace = 'gorm')
-    void afterInsert(Screencast s) {
-        informAdmins(s)
-    }
 
     private informAdmins(object) {
         if(!Environment.current.isDevelopmentMode()) {

@@ -4,8 +4,6 @@
     <%-- RSS feeds --%>
     <link rel="alternate" type="application/rss+xml" title="Wiki Updates RSS 2.0" href="/wiki/latest?format=rss"/>
     <link rel="alternate" type="application/atom+xml" title="Wiki Updates Atom 1.0" href="/wiki/latest?format=atom"/>
-    <link rel="alternate" type="application/rss+xml" title="Latest Screencasts RSS 2.0" href="/screencast/feed?format=rss"/>
-    <link rel="alternate" type="application/atom+xml" title="Latest Screencasts Atom 1.0" href="/screencast/feed?format=atom"/>
     <link rel="alternate" type="application/rss+xml" title="Latest Plugins RSS 2.0" href="/plugins/feed?format=rss"/>
     <link rel="alternate" type="application/atom+xml" title="Latest Plugins Atom 1.0" href="/plugins/feed?format=atom"/>
 

@@ -2,7 +2,6 @@ package org.grails.content
 
 import org.grails.common.*
 import org.grails.community.*
-import org.grails.learn.screencasts.Screencast
 import org.grails.news.NewsItem
 
 class ContentPendingApprovalController {
@@ -10,7 +9,6 @@ class ContentPendingApprovalController {
 
     def list() {
         def pendingItems = NewsItem.pending.list()
-        pendingItems.addAll(Screencast.pending.list())
         pendingItems = pendingItems.sort(false) { it.dateCreated }
         def pendingPlugins = org.grails.plugin.PluginPendingApproval.pending.list()
         [pendingItems: pendingItems, pendingPlugins:pendingPlugins]

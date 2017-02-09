@@ -9,10 +9,6 @@
 	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#requirements">Installation</g:link></li>
 	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#creatingAnApplication">Quick Start</g:link></li>
 	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#ide">IDE Setup</g:link></li>
-
-	                    <plugin:isAvailable name="screencasts">
-	                    	<li><g:link controller="screencast" action="list">Screencasts</g:link></li>
-                            </plugin:isAvailable>
 	                </ul>
 	                </li>
 	                <li id="reference" class="header"><a href="/doc/latest">Reference</a>

@@ -27,12 +27,6 @@
                 IDE Setup
             </a>
         </li>
-        <li class="last<g:if test="${controllerName == 'screencast'}"> active</g:if>">
-            <a href="/screencasts">
-                <g:img dir="img/icons" file="screencast.png" />
-                Screencasts
-            </a>
-        </li>
     </ul>
 <g:if test="${!onlyLink}">
 </aside>

@@ -573,10 +573,6 @@ class ContentController extends BaseWikiController {
         [newestPlugins: newestPlugins, latestNews: latestNews]
     }
 
-    def screencastLegacy() {
-        redirect controller: "screencast", action: "list", permanent: true
-    }
-
     protected groupResultsByType(searchResult) {
         def resultsAsList = searchResult.results
         def resultsAsMap = searchResultsGroupOrder.collectEntries { key, value -> [value, []] }

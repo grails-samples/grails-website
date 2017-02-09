@@ -62,7 +62,6 @@ class JSecurityAuthFilters {
 
         def requiresPermissions = [
                 pluginTab: ["editWikiPage"],
-                screencast: ["create", "edit", "save", "update"] as Set,
                 likeDislike: ["like", "dislike"] as Set
         ]
         withPermissions(controller: "*", action: "*") {
@@ -158,11 +157,7 @@ class JSecurityAuthFilters {
                 accessControl { permission "plugin:publish:${params.plugin}" }
             }
         }
-        screencasts(controller:"screencast", action:"(edit|create|save|update)") {
-            before = {
-                accessControl { true }
-            }
-        }
+
         blogPosting(controller:"blog", action:"(createEntry|editEntry)") {
             before = {
                 accessControl { true }
