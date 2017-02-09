@@ -55,7 +55,6 @@ grails -Dinitial.admin.password=changeit -Dload.fixtures=true prod run-app""")
                 [
                     'videohosts',
                     'wiki',
-                    'testimonials',
                     'screencasts',
                     'tutorials'
                 ].each {

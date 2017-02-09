@@ -191,14 +191,9 @@ class UrlMappings {
         "/screencast/$id"(controller: "screencast", action: "show")
         "/screencast/edit/$id"(controller: "screencast", action: "edit")
 
-        "/Testimonials"(controller: "testimonial", action: "legacyHome")
-        "/testimonials"(controller: "testimonial", action: "list")
-        "/testimonials/add"(controller: "testimonial", action: "create")
-        "/testimonials/save"(controller: "testimonial", action: "save")
-        "/testimonials/edit"(controller: "testimonial", action: "edit")
-        "/testimonials/update"(controller: "testimonial", action: "update")
-        "/testimonials/$id"(controller: "testimonial", action: "show")
-
+        "/Testimonials"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
+        "/testimonials"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
+        "/testimonials/$id"(redirect:[url:"https://grails.org/#they-use-groovy", permanent:true])
 
         "/screencast/feed"(controller:"screencast", action:"feed")
         "/screencasts/feed"(controller:"screencast", action:"feed")
