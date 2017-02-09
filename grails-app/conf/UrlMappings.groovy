@@ -127,8 +127,7 @@ class UrlMappings {
         "/wiki/wikiImage/$path**"(controller: "content", action: "showImage")
         "/wiki/content/postComment/$id"(controller: "content", action:"postComment")
 
-        "/blog/delete/$id"(controller: 'blogEntry', action:'delete')
-        "/blog"(controller:"blog", action:"list")
+        "/blog"(redirect: [url: 'http://grailsblog.objectcomputing.com', permanent: true])
         "/Grails+Screencasts"(redirect:[url: 'http://guides.grails.org', permanent:true])
         "/wiki/Grails+Screencasts"(redirect:[url: 'http://guides.grails.org', permanent:true])
 
