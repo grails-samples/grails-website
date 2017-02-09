@@ -11,6 +11,7 @@ class UrlMappings {
         }
 
         "/wiki/Home"(redirect:[url:"https://grails.org", permanent:true])
+        "/wiki/Roadmap"(redirect: [url: 'https://github.com/grails/grails-core/wiki/Roadmap', permanent: true])
         "/wiki/$id"(redirect:[url:"https://grails.org", permanent:true])
         "/wiki"(redirect:[url:"https://grails.org", permanent:true])
 
