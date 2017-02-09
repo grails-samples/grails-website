@@ -55,7 +55,7 @@ $(document).ready(function() {
                         <div class="name">
 
                             %{--
-                                The result may be either a WikiPage, Plugin, or Screencast object.  If it is a Plugin, we'll want to
+                                The result may be a WikiPage or a Plugin.  If it is a Plugin, we'll want to
                                 link it properly to the Plugin domain.  Otherwise it gets treated like a normal WikiPage
                             --}%
                             <g:if test="${result instanceof Plugin}">

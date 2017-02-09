@@ -9,10 +9,6 @@
 	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#requirements">Installation</g:link></li>
 	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#creatingAnApplication">Quick Start</g:link></li>
 	                    <li><g:link uri="/doc/latest/guide/gettingStarted.html#ide">IDE Setup</g:link></li>
-	                    <li><g:link uri="/tutorials">Tutorials</g:link></li>
-	                    <plugin:isAvailable name="screencasts">
-	                    	<li><g:link controller="screencast" action="list">Screencasts</g:link></li>
-                            </plugin:isAvailable>
 	                </ul>
 	                </li>
 	                <li id="reference" class="header"><a href="/doc/latest">Reference</a>
@@ -24,11 +20,9 @@
 	                </li>
 	                <li id="community" class="header"><g:link controller="content" id="Community">Community</g:link>
 	                <ul>
-	                    <li><g:link controller="webSite" action="list">Sites using Grails</g:link></li>
 	                    <plugin:isAvailable name="jobs">
 	                        <li><g:link controller="job" action="list">Job Listings</g:link></li>
 	                    </plugin:isAvailable>
-	                    <li><g:link controller="content" id="Testimonials">Testimonials</g:link></li>
 	                    <li><g:link controller="content" id="Contribute">Contribute</g:link></li>
 	                    <li><a href="http://jira.grails.org/browse/GRAILS">Issue Tracker</a></li>
 	                    <li><a href="http://github.com/grails/grails-core/">Source code</a></li>

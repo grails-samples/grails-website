@@ -4,30 +4,10 @@ import grails.events.*
 import grails.util.Environment;
 
 import org.grails.auth.*
-import org.grails.learn.screencasts.Screencast
-import org.grails.learn.tutorials.Tutorial
-import org.grails.community.*
 class ContentAdminService {
     static transactional = false
     def mailService
     def grailsLinkGenerator
-
-    @Listener(namespace = 'gorm')
-    void afterInsert(Screencast s) {
-        informAdmins(s)
-    }
-    @Listener(namespace = 'gorm')
-    void afterInsert(Tutorial t) {
-        informAdmins(t)
-    }
-    @Listener(namespace = 'gorm')
-    void afterInsert(WebSite t) {
-        informAdmins(t)
-    }
-    @Listener(namespace = 'gorm')
-    void afterInsert(Testimonial t) {
-        informAdmins(t)
-    }
 
     private informAdmins(object) {
         if(!Environment.current.isDevelopmentMode()) {

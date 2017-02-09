@@ -62,9 +62,6 @@ class JSecurityAuthFilters {
 
         def requiresPermissions = [
                 pluginTab: ["editWikiPage"],
-                tutorial: ["create", "edit", "save", "update"] as Set,
-                screencast: ["create", "edit", "save", "update"] as Set,
-                webSite: ["create", "edit", "save", "update"] as Set,
                 likeDislike: ["like", "dislike"] as Set
         ]
         withPermissions(controller: "*", action: "*") {
@@ -78,25 +75,11 @@ class JSecurityAuthFilters {
             }
         }
 
-        newsViewing(controller:'newsItem', action:"create") {
-            before = {
-                accessControl {
-                    role("Editor") || role("Administrator")                    
-                }
-            }
-        }
-        newsViewing(controller:'newsItem', action:"edit") {
-            before = {
-                accessControl {
-                    role("Administrator") || permission("news:edit:${params.id}")                  
-                }
-            }
-        }        
         // Ensure that all controllers and actions require an authenticated user,
         
         // Creating, modifying, or deleting a book requires the "Administrator"
         // role.
-        wikiEditing(controller: "(content|news)", action: "(editNews|createNews|markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|updatePlugin|createPlugin|addTag|removeTag)") {
+        wikiEditing(controller: "(content)", action: "(markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|updatePlugin|createPlugin|addTag|removeTag)") {
             before = {
                 accessControl {
                     role("Editor") || role("Administrator")
@@ -112,8 +95,7 @@ class JSecurityAuthFilters {
             }
         }
 
-
-        // used by wiki pages and testimonials
+        // used by wiki pages
         wikiImageShow(controller: "content", action: "showImage") {
             before = {
                return true
@@ -161,11 +143,7 @@ class JSecurityAuthFilters {
                 accessControl { permission "plugin:publish:${params.plugin}" }
             }
         }
-        screencasts(controller:"screencast", action:"(edit|create|save|update)") {
-            before = {
-                accessControl { true }
-            }
-        }
+
         blogPosting(controller:"blog", action:"(createEntry|editEntry)") {
             before = {
                 accessControl { true }
@@ -192,18 +170,6 @@ class JSecurityAuthFilters {
                 accessControl {
                     role("Editor") || role("Administrator")
                 }
-            }
-        }
-
-        testimonialSubmitting(controller: "testimonial", action: "(create|save)") {
-            before = {
-                accessControl { true }
-            }
-        }
-
-        testimonialEditing(controller: "testimonial", action: "edit") {
-            before = {
-                accessControl()
             }
         }
 

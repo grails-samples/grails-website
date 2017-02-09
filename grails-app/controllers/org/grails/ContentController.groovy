@@ -11,13 +11,10 @@ import org.codehaus.groovy.grails.web.metaclass.RedirectDynamicMethod
 import org.codehaus.groovy.grails.web.servlet.HttpHeaders;
 import org.compass.core.engine.SearchEngineQueryParseException
 import org.compass.core.lucene.LuceneResource
-import org.grails.community.WebSite
 import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
-import org.grails.learn.tutorials.Tutorial
-import org.grails.news.NewsItem
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController
 import org.grails.plugin.PluginTab
@@ -81,7 +78,6 @@ class ContentController extends BaseWikiController {
         (LuceneResource): "User Guide",
         (Plugin): "Plugins",
         (WikiPage): "Wiki Pages",
-        (NewsItem): "News",
         other: "Other" ]
 
     protected static hitHandler = { highlighter, index, sr ->
@@ -569,14 +565,7 @@ class ContentController extends BaseWikiController {
     def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
-        def latestNews = org.grails.news.NewsItem.allApproved.list(max:3)
-
-
-        [newestPlugins: newestPlugins, latestNews: latestNews]
-    }
-
-    def screencastLegacy() {
-        redirect controller: "screencast", action: "list", permanent: true
+        [newestPlugins: newestPlugins]
     }
 
     protected groupResultsByType(searchResult) {

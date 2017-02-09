@@ -18,7 +18,7 @@ class UserServiceSpec extends Specification {
         new User(
                 login: "andy",
                 permission: ["plugin:view", "plugin:update"],
-                roles: [new Role(name: "observer", permissions: ["wiki:view", "news:view"])],
+                roles: [new Role(name: "observer", permissions: ["wiki:view"])],
                 ).save(validate: false)
         def userService = new UserService()
 

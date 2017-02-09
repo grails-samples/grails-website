@@ -19,11 +19,6 @@
 		diskSpoolBufferSizeMB="0" maxElementsOnDisk="0" diskPersistent="false"
 		diskExpiryThreadIntervalSeconds="0" memoryStoreEvictionPolicy="LRU" />
 
-	<cache name="org.grails.community.WebSite" maxElementsInMemory="20" eternal="false"
-		timeToIdleSeconds="30" timeToLiveSeconds="120" overflowToDisk="false"
-		diskSpoolBufferSizeMB="0" maxElementsOnDisk="0" diskPersistent="false"
-		diskExpiryThreadIntervalSeconds="0" memoryStoreEvictionPolicy="LRU" />
-
 	<cache name="pl.burningice.plugins.image.ast.Image" maxElementsInMemory="40" eternal="false"
 		timeToIdleSeconds="30" timeToLiveSeconds="120" overflowToDisk="false"
 		diskSpoolBufferSizeMB="0" maxElementsOnDisk="0" diskPersistent="false"

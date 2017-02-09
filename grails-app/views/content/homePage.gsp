@@ -4,8 +4,6 @@
     <%-- RSS feeds --%>
     <link rel="alternate" type="application/rss+xml" title="Wiki Updates RSS 2.0" href="/wiki/latest?format=rss"/>
     <link rel="alternate" type="application/atom+xml" title="Wiki Updates Atom 1.0" href="/wiki/latest?format=atom"/>
-    <link rel="alternate" type="application/rss+xml" title="Latest Screencasts RSS 2.0" href="/screencast/feed?format=rss"/>
-    <link rel="alternate" type="application/atom+xml" title="Latest Screencasts Atom 1.0" href="/screencast/feed?format=atom"/>
     <link rel="alternate" type="application/rss+xml" title="Latest Plugins RSS 2.0" href="/plugins/feed?format=rss"/>
     <link rel="alternate" type="application/atom+xml" title="Latest Plugins Atom 1.0" href="/plugins/feed?format=atom"/>
 
@@ -117,21 +115,6 @@
                 <p>You can find other Grails releases and methods of installation on <g:link controller="download" action="index">the downloads page.</g:link></p>
             </div>
 
-            <h3 class="news-title">Latest News <small>(<g:link controller="newsItem">Read more</g:link>)</small></h3>
-            <g:each in="${latestNews}" var="newsItem">
-                <g:set var="cacheKey" value="${'news_' + newsItem.id}"/>
-                <article class="news">
-                    <h3><g:link controller="newsItem" action="show" id="${newsItem.id}">
-                        ${newsItem.title.encodeAsHTML()}</g:link></h3>
-                    <p class="date">Published on <time datetime="${joda.format(value:newsItem.dateCreated, pattern:'yyyy-MM-dd')}">
-                        <joda:format value="${newsItem.dateCreated}" pattern="dd MMM yyyy" />
-                    </time></p>
-                    <p>
-                        <wiki:shorten key="${cacheKey}" wikiText="${newsItem.body}" length="200"/>
-                        <g:link controller="newsItem" action="show" id="${newsItem.id}">Read more</g:link>
-                    </p>
-                </article>
-            </g:each>
         </div>
         <div class="right">
             <div class="twitter">
@@ -171,7 +154,7 @@
 
     <div class="col3">
         <h3>Community</h3>
-        <p>Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="/Mailing+lists">mailing lists</a> or <a href="http://stackoverflow.com/tags/grails">Stack Overflow</a> or catch-up on the <a href="/news">latest news</a>.</p>
+        <p>Get involved! Grails has a vibrant and buzzing community. You can grab the <a href="http://github.com/grails/grails-core">source code</a> from GitHub, report issues on the Grails <a href="http://jira.grails.org/browse/GRAILS">JIRA issue tracker</a>, participate at the <a href="/Mailing+lists">mailing lists</a> or <a href="http://stackoverflow.com/tags/grails">Stack Overflow</a>.</p>
         <p>This whole web site is written in Grails, the <a href="http://github.com/grails-samples/grails-website/tree/master">source code</a> for which is available from GitHub. Visit the Grails <a href="/community">community pages</a> for more ways to participate.</p>
     </div>
 </section>

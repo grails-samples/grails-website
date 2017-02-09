@@ -75,7 +75,7 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
         grgit.reset(commit: startPoint, mode: ResetOp.Mode.HARD)
     }
     
-    private Grgit openGitRepo() {
+    protected Grgit openGitRepo() {
         Grgit.open(rootDir)
     }
     
@@ -107,7 +107,7 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
                 header 'Authorization', "token $githubApiReadOnlyToken"
             }
         }
-        resp.json.object.sha
+        resp.json?.object?.sha
     }
     
     private synchronized void updateLoop() {

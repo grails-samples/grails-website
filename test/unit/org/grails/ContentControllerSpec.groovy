@@ -1,6 +1,5 @@
 package org.grails
 
-import org.grails.news.NewsItem
 import org.grails.ContentController
 import org.grails.cache.CacheService
 import net.sf.ehcache.Cache
