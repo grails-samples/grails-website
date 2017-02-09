@@ -24,11 +24,6 @@
 <div id="page">
     <g:layoutBody/>
 
-    <footer id="plugins-footer" role="contentinfo">
-        <div class="buildWithGrails">
-            Built with Grails <g:meta name="app.grails.version" />
-        </div>
-    </footer>
 </div>
 </g:set><g:set var="bodyendpart">
 <asset:deferredScripts/>
