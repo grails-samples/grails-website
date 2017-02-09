@@ -61,7 +61,7 @@
             <article class="plugin">
                 <header>
                     <h3>
-                        <g:link uri="/plugin/${plugin.name}">
+                        <g:link uri="/plugin/${plugin.name}?skipRedirect=true">
                             ${plugin?.title?.encodeAsHTML()}
                         </g:link>
                     </h3>
@@ -94,7 +94,7 @@
                 </header>
 
                 <div class="desc">
-                    <p><wiki:shorten key="${'plugin_' + plugin.id}" wikiText="${plugin.summary}" length="500"/> <g:link uri="/plugin/${plugin.name}">Read more</g:link></p>
+                    <p><wiki:shorten key="${'plugin_' + plugin.id}" wikiText="${plugin.summary}" length="500"/> <g:link uri="/plugin/${plugin.name}?skipRedirect=true">Read more</g:link></p>
                     <p class="code"><strong>Dependency :</strong><br/>
                         <code>${plugin.defaultDependencyScope} "${plugin.fullDependencyDeclaration.encodeAsHTML()}"</code>
                     </p>

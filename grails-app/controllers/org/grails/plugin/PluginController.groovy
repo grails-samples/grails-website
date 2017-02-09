@@ -89,6 +89,16 @@ class PluginController {
     }
 
     def show(String id) {
+
+        boolean skipRedirect = params.boolean('skipRedirect',false)
+        if ( !skipRedirect ) {
+            String grailsThreePluginUrl = PluginRedirect.findGrailsThreePluginUrlByPluginId(id)
+            if ( grailsThreePluginUrl ) {
+                redirect([url: grailsThreePluginUrl, permantent: true])
+                return
+            }
+        }
+
         def plugin = Plugin.findByName(id)
 
         // Redirect to the list page if the plugin doesn't exist
