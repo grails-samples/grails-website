@@ -5,8 +5,6 @@ import grails.util.Environment;
 
 import org.grails.auth.*
 import org.grails.learn.screencasts.Screencast
-import org.grails.learn.tutorials.Tutorial
-import org.grails.community.*
 class ContentAdminService {
     static transactional = false
     def mailService
@@ -15,10 +13,6 @@ class ContentAdminService {
     @Listener(namespace = 'gorm')
     void afterInsert(Screencast s) {
         informAdmins(s)
-    }
-    @Listener(namespace = 'gorm')
-    void afterInsert(Tutorial t) {
-        informAdmins(t)
     }
 
     private informAdmins(object) {

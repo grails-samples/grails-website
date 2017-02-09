@@ -8,7 +8,7 @@
 <body>
 
 <h1 class="page-header">
-    Add Tutorial
+    Add Screencast
     <span class="pull-right">
         <g:link class="btn" action="list">Screencast List</g:link>
     </span>

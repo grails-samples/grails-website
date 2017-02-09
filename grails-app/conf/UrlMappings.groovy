@@ -205,14 +205,11 @@ class UrlMappings {
 
         "/dynamicImage/${imageId}-${size}(.${type})"(controller: "dbContainerImage", action: "index")
 
-        "/Tutorials"(controller: "tutorial", action: "legacyHome")
-        "/tutorials"(controller: "tutorial", action: "list")
-        "/tutorials/add"(controller: "tutorial", action: "create")
-        "/tutorials/save"(controller: "tutorial", action: "save")
-        "/tutorial/search"(controller:"tutorial", action:"search")
-        "/tutorial/$id"(controller: "tutorial", action: "show")
-        "/tutorials/tag/$tag"(controller:"tutorial", action:"tagged")
-        "/tutorial/edit/$id"(controller: "tutorial", action: "edit")
+        '/Tutorials'(redirect:[url: 'http://guides.grails.org', permanent:true])
+        '/tutorials'(redirect:[url: 'http://guides.grails.org', permanent:true])
+        '/tutorial/search'(redirect:[url: 'http://guides.grails.org', permanent:true])
+        '/tutorial/$id'(redirect:[url: 'http://guides.grails.org', permanent:true])
+        '/tutorials/tag/$tag'(redirect:[url: 'http://guides.grails.org', permanent:true])
 
 
         "/social/like"(controller: "likeDislike", action: "like")

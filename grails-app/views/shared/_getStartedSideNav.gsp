@@ -27,12 +27,6 @@
                 IDE Setup
             </a>
         </li>
-        <li<g:if test="${controllerName == 'tutorial'}"> class="active"</g:if>>
-            <a href="/tutorials">
-                <g:img dir="img/icons" file="tutorials.png" />
-                Tutorials
-            </a>
-        </li>
         <li class="last<g:if test="${controllerName == 'screencast'}"> active</g:if>">
             <a href="/screencasts">
                 <g:img dir="img/icons" file="screencast.png" />

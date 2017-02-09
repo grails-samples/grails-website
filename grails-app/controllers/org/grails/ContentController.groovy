@@ -15,7 +15,6 @@ import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
-import org.grails.learn.tutorials.Tutorial
 import org.grails.news.NewsItem
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController

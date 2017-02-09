@@ -14,7 +14,6 @@ Below is a list of documentation currently available for Grails:
 # [User Guide|http://grails.org/doc/latest/] - The official user guide.
 # [User Guide PDF|http://grails.org/doc/latest/guide/single.pdf] - The official user guide as a PDF.
 # [API Javadocs|http://grails.org/doc/latest/api/] - The latest API Javadocs
-# [Tutorials] - Loads of info here including screencasts, podcasts, tutorials, articles and more!!
 # [Books] - Available books on Grails and Groovy
 # [Plugins] - A list of available plug-ins for Grails
 # [Tools] - A list of related tools such as scripts and widgets
@@ -55,7 +54,7 @@ h3. Other
 
 * Come and chat to us on IRC at [irc.codehaus.org|http://irc.codehaus.org] where most Grails developers can be found in the #groovy room
 * Come and chat to other Grails users on IRC at [irc.freenode.org|http://www.freenode.net] in #grails
-* *Write* a [Blog post|Developer Blogs] about Grails, or even a [Tutorial|Tutorials]! Just talking about your experiences with Grails can either help others get involved or provide constructive feedback to the Grails team.
+* *Write* a [Blog post|Developer Blogs] about Grails Just talking about your experiences with Grails can either help others get involved or provide constructive feedback to the Grails team.
 * Look at other [OpenSource Projects] based on Grails or *opensource* your own project
 * Follow what is happening with Grails now and in the future with the Grails [Issue Tracker|http://jira.codehaus.org/browse/GRAILS] and on the [Roadmap]. Or even better checkout the [latest commits|http://github.com/grails]!
 * *Contribute* your own [Custom Tags|Contribute a Tag] that could eventually be *included* in Grails core!
@@ -367,7 +366,6 @@ Make sure to specify the JDBC driver as a @runtime@ dependency and you will almo
 
 h2. And thenâ€¦
 
-* Check out the [Tutorials] available
 * Browse the [User Guide|http://grails.org/doc/latest/]
 * See [Checking Projects into SVN] on how to add your new grails application into source control.
 * [Import|IDE Integration] your grails application into an IDE
@@ -390,24 +388,6 @@ Grails development needs nothing more than a text editor, but of course there ar
 h2. More about IDEs
 
 * Formatting [Doc Comments for GSP tags] (for plugin developers)
-'''
-
-def tutorialsPage = '''\
-Below is a list of available tutorials/resources about Grails ordered by category. Please have a look at our [Quick Start] and the [Grails Screencasts] to quickly experience the power of the Grails Framework. Besides this, the [Developers' Blogs|Developer Blogs] and the [Grails Podcast] provide additional timely information about the Grails Framework.
-
-{note}
-*Please feel free to edit this page (using the Edit button at the top of the page) and link to further Grails resources! You can also use the* *[*Grails User List*|Mailing lists]* *to announce new resources!*
-{note}
-
-h2. Beginner Tutorial Sequence
-
-* *[Getting Started with Grails|http://www.infoq.com/minibooks/grails-getting-started]* - free PDF book
-
-* *Mastering Grails trail* @ [IBM developerWorks|http://www.ibm.com/developerworks]
-
-** *[Build your first Grails application|http://www.ibm.com/developerworks/java/library/j-grails01158]*\\\\Java programmers needn't abandon their favorite language and existing development infrastructure to adopt a modern Web development framework. In the first installment, Java expert Scott Davis introduces Grails and demonstrates how to build your first Grails  application.
-** *[GORM: Funny name, serious technology|http://www.ibm.com/developerworks/java/library/j-grails02128]*\\\\Any good Web framework needs a solid persistence strategy. In this second installment of his Mastering Grails series, Scott Davis introduces the Grails Object Relational Mapping (GORM) API. See how easy it is to create relationships between tables, enforce data validation rules, and change relational databases in your Grails applications.
-** *[Changing the view with Groovy Server Pages|http://www.ibm.com/developerworks/java/library/j-grails03118]*\\\\Groovy Server Pages (GSP) puts the "Web" in the Grails Web framework. In the third installment of his Mastering Grails  series, Scott Davis shows you the ins and outs of working with GSP. See how easy it is to use Grails TagLibs, mix together partial fragments of GSPs, and customize the default templates for the automatically generated (scaffolded) views.
 '''
 
 def defaultCreateWikiTemplatePage = '''\
@@ -512,14 +492,6 @@ fixture {
                 body: idePage,
                 number: 0,
                 current: ide,
-                author: admin)
-        
-        tutorials(WikiPage, title: "Tutorials", body: tutorialsPage)
-        tutorialsVersion(Version,
-                title: "Tutorials",
-                body: tutorialsPage,
-                number: 0,
-                current: tutorials,
                 author: admin)
 
         defaultCreateWikiTemplate(WikiPage, title: "Default Create Wiki Template", body: defaultCreateWikiTemplatePage)
