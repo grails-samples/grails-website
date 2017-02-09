@@ -2,16 +2,12 @@ package org.grails.content
 
 import org.grails.common.*
 import org.grails.community.*
-import org.grails.news.NewsItem
 
 class ContentPendingApprovalController {
     def searchableService
 
     def list() {
-        def pendingItems = NewsItem.pending.list()
-        pendingItems = pendingItems.sort(false) { it.dateCreated }
-        def pendingPlugins = org.grails.plugin.PluginPendingApproval.pending.list()
-        [pendingItems: pendingItems, pendingPlugins:pendingPlugins]
+        [pendingPlugins: org.grails.plugin.PluginPendingApproval.pending.list()]
     }
     
     def approve(Long id, String type) {

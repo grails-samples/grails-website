@@ -15,7 +15,6 @@ import org.grails.content.Content
 import org.grails.content.Version
 import org.grails.content.WikiImage
 import org.grails.content.notifications.ContentAlertStack
-import org.grails.news.NewsItem
 import org.grails.plugin.Plugin
 import org.grails.plugin.PluginController
 import org.grails.plugin.PluginTab
@@ -79,7 +78,6 @@ class ContentController extends BaseWikiController {
         (LuceneResource): "User Guide",
         (Plugin): "Plugins",
         (WikiPage): "Wiki Pages",
-        (NewsItem): "News",
         other: "Other" ]
 
     protected static hitHandler = { highlighter, index, sr ->
@@ -567,10 +565,7 @@ class ContentController extends BaseWikiController {
     def homePage() {
         // Homepage needs latest plugins
         def newestPlugins = pluginService.newestPlugins(4)
-        def latestNews = org.grails.news.NewsItem.allApproved.list(max:3)
-
-
-        [newestPlugins: newestPlugins, latestNews: latestNews]
+        [newestPlugins: newestPlugins]
     }
 
     protected groupResultsByType(searchResult) {

@@ -75,25 +75,11 @@ class JSecurityAuthFilters {
             }
         }
 
-        newsViewing(controller:'newsItem', action:"create") {
-            before = {
-                accessControl {
-                    role("Editor") || role("Administrator")                    
-                }
-            }
-        }
-        newsViewing(controller:'newsItem', action:"edit") {
-            before = {
-                accessControl {
-                    role("Administrator") || permission("news:edit:${params.id}")                  
-                }
-            }
-        }        
         // Ensure that all controllers and actions require an authenticated user,
         
         // Creating, modifying, or deleting a book requires the "Administrator"
         // role.
-        wikiEditing(controller: "(content|news)", action: "(editNews|createNews|markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|updatePlugin|createPlugin|addTag|removeTag)") {
+        wikiEditing(controller: "(content)", action: "(markupWikiPage|editWikiPage|createWikiPage|saveWikiPage|editPlugin|updatePlugin|createPlugin|addTag|removeTag)") {
             before = {
                 accessControl {
                     role("Editor") || role("Administrator")

@@ -46,7 +46,7 @@
                 </li>
             </ul>
         </li>
-        <li${controllerName in ['community', 'newsItem'] ? ' class="active"' : ''}>
+        <li${controllerName in ['community'] ? ' class="active"' : ''}>
             <g:link controller="community" action="index"><g:message code="layout.nav.community"/></g:link>
         </li>
         <li${controllerName == 'plugin' ? ' class="active"' : ''}>
