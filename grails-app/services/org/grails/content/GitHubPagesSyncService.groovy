@@ -107,7 +107,7 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
                 header 'Authorization', "token $githubApiReadOnlyToken"
             }
         }
-        resp.json.object.sha
+        resp.json?.object?.sha
     }
     
     private synchronized void updateLoop() {
