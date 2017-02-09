@@ -75,7 +75,7 @@ class GitHubPagesSyncService implements ApplicationListener<ApplicationContextEv
         grgit.reset(commit: startPoint, mode: ResetOp.Mode.HARD)
     }
     
-    private Grgit openGitRepo() {
+    protected Grgit openGitRepo() {
         Grgit.open(rootDir)
     }
     
