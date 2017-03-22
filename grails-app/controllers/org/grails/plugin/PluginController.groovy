@@ -99,22 +99,39 @@ class PluginController {
             }
         }
 
-        def plugin = Plugin.findByName(id)
-
+        Map m = showModelByPluginId(id)
         // Redirect to the list page if the plugin doesn't exist
-        if (!plugin) {
+        if (!m) {
             flash.message = "Plugin not found"
             redirect action: 'list'
             return
         }
+        m
+    }
 
+    private Map showModelByPluginId(String id) {
+        def plugin = Plugin.findByName(id)
+        if ( !plugin ) {
+            return null
+        }
+        showModelByPlugin(plugin)
+    }
+
+    private Map showModelByPlugin(Plugin plugin) {
         def tags = tagService.getPluginTagArray()
         def allTags = new DetachedCriteria(org.grails.taggable.Tag).property("name").list()
-        [ plugin: plugin, tags: tags, allTags: allTags ]
+        [plugin: plugin, tags: tags, allTags: allTags]
     }
 
     def editPlugin(String id) {
-        show(id)
+        Map m = showModelByPluginId(id)
+        // Redirect to the list page if the plugin doesn't exist
+        if (!m) {
+            flash.message = "Plugin not found"
+            redirect action: 'list'
+            return
+        }
+        render view: 'editPlugin', model: m
     }
 
     def updatePlugin(String id) {
@@ -138,7 +155,7 @@ class PluginController {
                     request.user,
                     params.long('plugin.description.version'))
                     if(pluginTabInstallation.hasErrors() || pluginTabDescription.hasErrors()) {
-                        render view:"editPlugin", model:show(id)
+                        render view:"editPlugin", model: showModelByPluginId(id)
                     }
                     else {
                         redirect uri:"/plugin/$id"
@@ -148,13 +165,13 @@ class PluginController {
                 }
                 catch( javax.persistence.OptimisticLockException e) {
                     flash.message = e.message
-                    render view:"editPlugin", model:show(id)
+                    render view:"editPlugin", model: showModelByPluginId(id)
                     return
                 }
 
             }
             else {
-                render view:"editPlugin", model:show(id)
+                render view:"editPlugin", model: showModelByPluginId(id)
             }
 
         }
