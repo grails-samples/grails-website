@@ -90,7 +90,7 @@ class PluginController {
 
     def show(String id) {
 
-        boolean skipRedirect = params.boolean('skipRedirect',false)
+        boolean skipRedirect = params.boolean('skipRedirect', false)
         if ( !skipRedirect ) {
             String grailsThreePluginUrl = PluginRedirect.findGrailsThreePluginUrlByPluginId(id)
             if ( grailsThreePluginUrl ) {
@@ -158,7 +158,7 @@ class PluginController {
                         render view:"editPlugin", model: showModelByPluginId(id)
                     }
                     else {
-                        redirect uri:"/plugin/$id"
+                        redirect uri:"/plugin/$id", params: [skipRedirect: true]
                     }
 
                     cacheService?.removeWikiText('pluginInfo_summary_' + plugin?.name)

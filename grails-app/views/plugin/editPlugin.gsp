@@ -118,7 +118,7 @@
 
                         <div class="form-group"><div class="col-sm-10">
                             <g:submitButton name="updatePlugin" class="btn btn-primary" value="Update"/>
-                            <g:link class="btn" uri="/plugin/${plugin.name}">Cancel</g:link>
+                            <g:link class="btn" uri="/plugin/${plugin.name}" params="[skipRedirect: true]">Cancel</g:link>
                         </div></div>
 
                     </fieldset>
