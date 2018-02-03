@@ -14,7 +14,8 @@ class UrlMappings {
         "/wiki/Roadmap"(redirect: [url: 'https://github.com/grails/grails-core/wiki/Roadmap', permanent: true])
         "/wiki/$id"(redirect:[url:"https://grails.org", permanent:true])
         "/wiki"(redirect:[url:"https://grails.org", permanent:true])
-        "/wiki/version/Grails%20Development%20Firms/50"(redirect:[url:"https://grails.org/support.html", permanent:true])
+        "/wiki/version/Grails%20Development%20Firms/*"(redirect:[url:"https://grails.org/support.html", permanent:true])
+        "/wiki/version/*/*"(redirect:[url:"https://grails.org", permanent:true])
 
         //"/ggts"(controller: "product", action: "legacyggts")
         //"/products/$action"(controller: "product")
