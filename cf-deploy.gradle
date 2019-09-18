@@ -30,7 +30,7 @@ ext {
 }
 
 cloudfoundry {
-    stack = "cflinuxfs2"
+    stack = "cflinuxfs3"
     application = "plugins-grails-org-${cfEnvLabel}"
     target = 'https://api.run.pivotal.io'
     organization = 'grails-org'
