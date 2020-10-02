@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/grails-samples/grails-website.svg)](https://travis-ci.org/grails-samples/grails-website)
 
-# Grails.org (including Wiki)
+# Grails.org (including Wiki) - An Amazing Project
 
 This is the Grails project for [Grails.org](http://www.grails.org). Please fork and submit pull requests for any changes made, and don't forget to use the appropriate version of Grails as specified in [application.properties](https://github.com/grails-samples/grails-website/blob/master/application.properties). Alternatively, you can use the Grails wrapper script in the root of the project, `grailsw`.
 
