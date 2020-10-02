@@ -62,7 +62,7 @@ More to come...
 
 ## Testing plugin publishing locally
 
-### Setting up local Test Environment
+### Setting up local test environment
 
 Add these release plugin settings to ~/.grails/settings.groovy
 ```
