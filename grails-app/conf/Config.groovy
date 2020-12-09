@@ -3,7 +3,7 @@ import pl.burningice.plugins.image.engines.scale.ScaleType
 
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
-grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appName}-config.groovy" ]
+//grails.config.locations = [ "file:./${appName}-config.groovy", "classpath:${appName}-config.groovy" ]
 
 // local file for storing API keys at dev time
 def localUserConfig = new File(System.getProperty("user.home"), ".grails-website-config.groovy")

@@ -21,7 +21,7 @@ class BootStrap {
 
         def admin = User.findByLogin("admin")
         if (!admin) {
-            def password = Environment.current != Environment.PRODUCTION ? "changeit" : System.getProperty("initial.admin.password")
+            def password = Environment.current != Environment.PRODUCTION ? "changeit" : System.getenv("ADMIN_PASSWORD")
             if (!password) {
                 throw new Exception("""
 During the first run you must specify a password to use for the admin account. For example:
